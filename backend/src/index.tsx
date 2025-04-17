@@ -1,5 +1,9 @@
 import { serve } from "bun";
 import index from "frontend/index.html";
+import { defineDB } from "rlib";
+import * as models from "shared/models";
+
+const db = defineDB(models);
 
 const server = serve({
   routes: {

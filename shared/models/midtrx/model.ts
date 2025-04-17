@@ -1,0 +1,20 @@
+import type { ModelDefinition } from 'rlib';
+
+export default {
+  table: "midtrx",
+  columns: {
+    id: {
+      type: "text",
+    },
+    tz: {
+      type: "datetime",
+    },
+    type: {
+      type: "text",
+    },
+    payload: {
+      type: "json",
+    }
+  },
+  relations: {},
+} as const satisfies ModelDefinition<"midtrx">;

@@ -2,6 +2,15 @@
   "name": "esensi",
   "version": "0.0.1",
   "scripts": {
-    "dev": "cd backend && bun run dev"
-  }
+    "dev": "cd backend && bun run dev",
+    "db": "bun run --silent node_modules/rlib/src/db/cli.ts"
+  },
+  "dependencies": {
+    "rlib": "https://github.com/rizrmd/rlib.git"
+  },
+  "workspaces": [
+    "frontend",
+    "backend",
+    "shared"
+  ]
 }
