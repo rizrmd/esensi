@@ -12,6 +12,9 @@ export default {
     slug: {
       type: "text",
     },
+    alias: {
+      type: "text",
+    },
     strike_price: {
       type: "number",
     },
@@ -50,6 +53,18 @@ export default {
     },
     published_date: {
       type: "datetime",
+    },
+    is_physical: {
+      type: "boolean",
+    },
+    ai_suggested_content: {
+      type: "json",
+    },
+    preorder_min_qty: {
+      type: "number",
+    },
+    content_type: {
+      type: "text",
     }
   },
   relations: {
@@ -74,6 +89,14 @@ export default {
       from: "id",
       to: {
         model: "customer_reader",
+        column: "id_product",
+      },
+    },
+    preorders: {
+      type: "has_many",
+      from: "id",
+      to: {
+        model: "preorder",
         column: "id_product",
       },
     },

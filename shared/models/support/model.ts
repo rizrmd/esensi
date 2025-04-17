@@ -1,7 +1,7 @@
 import type { ModelDefinition } from 'rlib';
 
 export default {
-  table: "author",
+  table: "support",
   columns: {
     id: {
       type: "text",
@@ -22,29 +22,13 @@ export default {
         column: "id",
       },
     },
-    products: {
-      type: "has_many",
-      from: "id",
-      to: {
-        model: "product",
-        column: "id_author",
-      },
-    },
-    publisher_authors: {
-      type: "has_many",
-      from: "id",
-      to: {
-        model: "publisher_author",
-        column: "author_id",
-      },
-    },
     user_infos: {
       type: "has_many",
       from: "id",
       to: {
         model: "user_info",
-        column: "id_author",
+        column: "id_support",
       },
     }
   },
-} as const satisfies ModelDefinition<"author">;
+} as const satisfies ModelDefinition<"support">;

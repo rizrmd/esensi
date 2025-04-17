@@ -1,27 +1,15 @@
 import type { ModelDefinition } from 'rlib';
 
 export default {
-  table: "customer",
+  table: "publisher",
   columns: {
     id: {
       type: "text",
-    },
-    whatsapp: {
-      type: "text",
-    },
-    deleted_at: {
-      type: "datetime",
-    },
-    otp: {
-      type: "number",
     },
     id_user: {
       type: "text",
     },
     name: {
-      type: "text",
-    },
-    email: {
       type: "text",
     }
   },
@@ -34,36 +22,36 @@ export default {
         column: "id",
       },
     },
-    customer_readers: {
+    promo_codes: {
       type: "has_many",
       from: "id",
       to: {
-        model: "customer_reader",
-        column: "id_customer",
+        model: "promo_code",
+        column: "id_publisher",
       },
     },
-    customer_tracks: {
+    publisher_authors: {
       type: "has_many",
       from: "id",
       to: {
-        model: "customer_track",
-        column: "id_customer",
+        model: "publisher_author",
+        column: "publisher_id",
       },
     },
-    saless: {
+    ai_credits: {
       type: "has_many",
       from: "id",
       to: {
-        model: "t_sales",
-        column: "id_customer",
+        model: "t_ai_credit",
+        column: "id_publisher",
       },
     },
-    sales_downloads: {
+    transactions: {
       type: "has_many",
       from: "id",
       to: {
-        model: "t_sales_download",
-        column: "id_customer",
+        model: "transaction",
+        column: "id_publisher",
       },
     },
     user_infos: {
@@ -71,8 +59,16 @@ export default {
       from: "id",
       to: {
         model: "user_info",
-        column: "id_customer",
+        column: "id_publisher",
+      },
+    },
+    withdrawals: {
+      type: "has_many",
+      from: "id",
+      to: {
+        model: "withdrawal",
+        column: "id_publisher",
       },
     }
   },
-} as const satisfies ModelDefinition<"customer">;
+} as const satisfies ModelDefinition<"publisher">;

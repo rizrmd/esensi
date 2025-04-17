@@ -1,38 +1,35 @@
 import type { ModelDefinition } from 'rlib';
 
 export default {
-  table: "customer_track",
+  table: "transaction",
   columns: {
     id: {
       type: "text",
     },
-    ts: {
+    id_publisher: {
+      type: "text",
+    },
+    type: {
+      type: "text",
+    },
+    amount: {
+      type: "number",
+    },
+    created_at: {
       type: "datetime",
-    },
-    id_customer: {
-      type: "text",
-    },
-    path: {
-      type: "text",
-    },
-    referrer: {
-      type: "text",
     },
     info: {
       type: "json",
-    },
-    ip: {
-      type: "text",
     }
   },
   relations: {
-    customer: {
+    publisher: {
       type: "belongs_to",
-      from: "id_customer",
+      from: "id_publisher",
       to: {
-        model: "customer",
+        model: "publisher",
         column: "id",
       },
     }
   },
-} as const satisfies ModelDefinition<"customer_track">;
+} as const satisfies ModelDefinition<"transaction">;
