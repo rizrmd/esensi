@@ -1,6 +1,7 @@
 import { betterAuth } from "better-auth";
 import { Pool } from "pg";
 import { username, twoFactor } from "better-auth/plugins";
+import nodemailer from "nodemailer";
 
 export const auth = betterAuth({
   database: new Pool({
@@ -14,7 +15,52 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
-  plugins: [username(), twoFactor()],
+  plugins: [
+    username(),
+    twoFactor({
+      otpOptions: {
+        async sendOTP({ user, otp }, request) {
+          // Send OTP to the user's email
+          const sendEmail = async (
+            email: string,
+            subject: string,
+            text: string
+          ) => {
+            // console.log(`Sending email to ${email} with subject "${subject}" and text "${text}"`);
+            // Implement your email sending logic here.You can use any email sending library or service.
+            // For example, using nodemailer or any other email service
+            const transporter = nodemailer.createTransport({
+              service: "Gmail",
+              auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+              },
+            });
+            const mailOptions = {
+              from: process.env.EMAIL_USER,
+              to: user.email,
+              subject: "Your OTP Code",
+              text: `Your OTP code is: ${otp}`,
+            };
+            await transporter.sendMail(mailOptions);
+          };
+
+          const { email, name } = user;
+          if (!email) throw new Error("Email not found");
+          if (!name) throw new Error("Name not found");
+          if (!otp) throw new Error("OTP not found");
+          if (!request) throw new Error("Request not found");
+          if (!request.headers) throw new Error("Request headers not found");
+          const host = request.headers.get("host");
+          if (!host) throw new Error("Host not found");
+          const url = `https://${host}/auth/verify-otp?otp=${otp}`;
+          const subject = "Your OTP Code";
+          const text = `Hello ${name},\n\nYour OTP code is: ${otp}\n\nClick here to verify: ${url}`;
+          await sendEmail(email, subject, text);
+        },
+      },
+    }),
+  ],
   session: {
     modelName: "session",
     fields: {

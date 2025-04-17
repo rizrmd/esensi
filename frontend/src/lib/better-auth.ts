@@ -167,6 +167,19 @@ export default {
       });
       return { data, error };
     },
+    getTotpUri: async ({
+      password,
+      fetchOptions,
+    }: {
+      password: string;
+      fetchOptions: FetchOptions;
+    }) => {
+      const { data, error } = await authClient.twoFactor.getTotpUri({
+        password,
+        fetchOptions,
+      });
+      return { data, error };
+    },
     verifyTotp: async ({
       code,
       trustDevice = false,
@@ -177,6 +190,35 @@ export default {
       fetchOptions?: FetchOptions;
     }) => {
       const { data, error } = await authClient.twoFactor.verifyTotp({
+        code,
+        trustDevice,
+        fetchOptions,
+      });
+      return { data, error };
+    },
+    sendOtp: async ({
+      trustDevice,
+      fetchOptions,
+    }: {
+      trustDevice?: boolean;
+      fetchOptions?: FetchOptions;
+    }) => {
+      const { data, error } = await authClient.twoFactor.sendOtp({
+        trustDevice,
+        fetchOptions,
+      });
+      return { data, error };
+    },
+    verifyOtp: async ({
+      code,
+      trustDevice,
+      fetchOptions,
+    }: {
+      code: string;
+      trustDevice?: boolean;
+      fetchOptions?: FetchOptions;
+    }) => {
+      const { data, error } = await authClient.twoFactor.verifyOtp({
         code,
         trustDevice,
         fetchOptions,
