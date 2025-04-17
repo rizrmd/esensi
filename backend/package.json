@@ -14,7 +14,6 @@
     "@types/pg": "^8.11.13",
     "bcryptjs": "^3.0.2",
     "better-auth": "^1.2.7",
-    "bun-plugin-tailwind": "^0.0.15",
     "nodemailer": "^6.10.1"
   }
 }

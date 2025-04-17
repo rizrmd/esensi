@@ -257,7 +257,7 @@
 
     "react-style-singleton": ["react-style-singleton@2.2.3", "", { "dependencies": { "get-nonce": "^1.0.0", "tslib": "^2.0.0" }, "peerDependencies": { "@types/react": "*", "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc" }, "optionalPeers": ["@types/react"] }, "sha512-b6jSvxvVnyptAiLjbkWLE/lOnR4lfTtDAl+eUC7RZy+QQWc6wRzIV2CE6xBuMmDxc2qIihtDCZD5NPOFl7fRBQ=="],
 
-    "rlib": ["rlib@github:rizrmd/rlib#628d951", { "dependencies": { "@types/pg": "^8.11.13", "pg": "^8.14.1", "postgrejs": "^2.22.4" }, "peerDependencies": { "typescript": "^5" } }, "rizrmd-rlib-628d951"],
+    "rlib": ["rlib@github:rizrmd/rlib#589a5a8", { "dependencies": { "@types/pg": "^8.11.13", "pg": "^8.14.1", "postgrejs": "^2.22.4" }, "peerDependencies": { "typescript": "^5" } }, "rizrmd-rlib-589a5a8"],
 
     "rou3": ["rou3@0.5.1", "", {}, "sha512-OXMmJ3zRk2xeXFGfA3K+EOPHC5u7RDFG7lIOx0X1pdnhUkI8MdVrbV+sNsD80ElpUZ+MRHdyxPnFthq9VHs8uQ=="],
 

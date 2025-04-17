@@ -15,6 +15,9 @@ if (!process.env.DATABASE_URL) {
 const db = await defineDB(models, process.env.DATABASE_URL!);
 const isDEV = process.argv.includes("--dev");
 
+const test = await db.user.findMany({limit:1})
+console.log("test", test);
+
 if (isDEV) {
   watchAPI({
     input_dir: "backend:src/api",
