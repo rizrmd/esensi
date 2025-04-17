@@ -1,7 +1,16 @@
-import { createAuthClient as authClient } from "better-auth/client";
+import { createAuthClient } from "better-auth/client";
+import { twoFactorClient } from "better-auth/client/plugins";
 
-const { signUp, signIn, signOut } = authClient({
+type FetchOptions = {
+  onRequest?: (ctx: any) => void;
+  onSuccess?: (ctx: any) => void;
+  onError?: (ctx: any) => void;
+  onRetry?: (ctx: any) => void;
+};
+
+const authClient = createAuthClient({
   baseURL: "http://localhost:3000",
+  plugins: [twoFactorClient()],
 });
 
 export default {
@@ -9,58 +18,170 @@ export default {
     username,
     password,
     name,
-    callbackURL = "http://localhost:3000/dashboard",
+    callbackURL = "/dashboard",
+    image,
+    fetchOptions,
   }: {
     username: string;
     password: string;
     name?: string;
     callbackURL?: string;
+    image?: string;
+    fetchOptions?: FetchOptions;
   }) => {
-    const { data, error } = await signUp.email({
+    const { data, error } = await authClient.signUp.email({
       email: username,
       password,
       name,
       callbackURL,
+      image,
+      fetchOptions,
     });
     return { data, error };
   },
   signIn: async ({
     username,
     password,
-    callbackURL = "http://localhost:3000/dashboard",
+    callbackURL = "/dashboard",
     rememberMe,
+    fetchOptions,
   }: {
     username: string;
     password: string;
     callbackURL?: string;
     rememberMe?: boolean;
+    fetchOptions?: FetchOptions;
   }) => {
-    const { data, error } = await signIn.email(
+    const { data, error } = await authClient.signIn.email(
       {
         email: username,
         password,
         callbackURL,
         rememberMe,
       },
-      {
-        // onRequest: (ctx) => {
-        //   //show loading
-        //   console.log('Request', ctx);
-        // },
-        // onSuccess: (ctx) => {
-        //   //redirect to the dashboard or sign in page
-        //   console.log('Success', ctx);
-        // },
-        // onError: (ctx) => {
-        //   // display the error message
-        //   console.error('Error', ctx);
-        // },
-      }
+      fetchOptions
     );
     return { data, error };
   },
-  signOut: async () => {
-    const { data, error } = await signOut();
+  social: async ({
+    provider = "google",
+    callbackURL = "/dashboard",
+    errorCallbackURL = "/error",
+    newUserCallbackURL = "/welcome",
+    disableRedirect = false,
+    idToken,
+    loginHint,
+    requestSignUp,
+    scopes,
+    fetchOptions,
+  }: {
+    provider:
+      | "github"
+      | "apple"
+      | "discord"
+      | "facebook"
+      | "google"
+      | "microsoft"
+      | "spotify"
+      | "twitch"
+      | "twitter"
+      | "dropbox"
+      | "linkedin"
+      | "gitlab"
+      | "tiktok"
+      | "reddit"
+      | "roblox"
+      | "vk"
+      | "kick"
+      | "zoom";
+    callbackURL?: string;
+    errorCallbackURL?: string;
+    newUserCallbackURL?: string;
+    disableRedirect?: boolean;
+    idToken?: {
+      token: string;
+      refreshToken?: string | undefined;
+      accessToken?: string | undefined;
+      expiresAt?: number | undefined;
+      nonce?: string | undefined;
+    };
+    loginHint?: string;
+    requestSignUp?: boolean;
+    scopes?: string[];
+    fetchOptions?: FetchOptions;
+  }) => {
+    const { data, error } = await authClient.signIn.social({
+      provider,
+      callbackURL,
+      errorCallbackURL,
+      newUserCallbackURL,
+      disableRedirect,
+      idToken,
+      loginHint,
+      requestSignUp,
+      scopes,
+      fetchOptions,
+    });
     return { data, error };
-  }
+  },
+  signOut: async ({ fetchOptions }: { fetchOptions: FetchOptions }) => {
+    const { data, error } = await authClient.signOut({
+      fetchOptions,
+    });
+    return { data, error };
+  },
+  useSession: () => {
+    return authClient.useSession;
+  },
+  getSession: async () => {
+    const { data: session, error } = await authClient.getSession();
+    return { session, error };
+  },
+  twoFactor: {
+    enable: async ({
+      password,
+      issuer,
+      fetchOptions,
+    }: {
+      password: string;
+      issuer?: string;
+      fetchOptions?: FetchOptions;
+    }) => {
+      const { data, error } = await authClient.twoFactor.enable({
+        password,
+        issuer,
+        fetchOptions,
+      });
+      return { data, error };
+    },
+    disable: async ({
+      password,
+      fetchOptions,
+    }: {
+      password: string;
+      fetchOptions?: FetchOptions;
+    }) => {
+      const { data, error } = await authClient.twoFactor.disable({
+        password,
+        fetchOptions,
+      });
+      return { data, error };
+    },
+    verifyTotp: async ({
+      code,
+      trustDevice = false,
+      fetchOptions,
+    }: {
+      code: string;
+      trustDevice?: boolean;
+      fetchOptions?: FetchOptions;
+    }) => {
+      const { data, error } = await authClient.twoFactor.verifyTotp({
+        code,
+        trustDevice,
+        fetchOptions,
+      });
+      return { data, error };
+    },
+  },
 };
