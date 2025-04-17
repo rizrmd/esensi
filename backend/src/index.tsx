@@ -1,19 +1,9 @@
 import { serve } from "bun";
 import index from "frontend/index.html";
-import { c, defineDB, dir, watchAPI } from "rlib";
+import { c, init, watchAPI } from "rlib";
 import * as models from "shared/models";
-import { join } from "path";
 
-dir.root = join(process.cwd());
-
-if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL is not set. Please set it in your environment variables."
-  );
-}
-
-const db = await defineDB(models, process.env.DATABASE_URL!);
-const isDEV = process.argv.includes("--dev");
+const { isDEV } = await init({ root: process.cwd(), models });
 
 const test = await db.user.findMany({limit:1})
 console.log("test", test);
@@ -32,6 +22,9 @@ const server = serve({
 
     "/api/hello": {
       async GET(req) {
+        const res= await db.bundle.findMany({ limit: 1 })
+        console.log(res);
+
         return Response.json({
           message: "Hello, world!",
           method: "GET",
