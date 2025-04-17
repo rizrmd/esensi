@@ -2,7 +2,7 @@
   "name": "esensi",
   "version": "0.0.1",
   "scripts": {
-    "dev": "cd backend && bun run dev",
+    "dev": "bun run --silent ./backend/src/index.tsx --dev",
     "db": "bun run --silent node_modules/rlib/src/db/cli.ts"
   },
   "dependencies": {
