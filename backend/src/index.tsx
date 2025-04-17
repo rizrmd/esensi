@@ -3,8 +3,7 @@ import index from "frontend/index.html";
 import { defineDB } from "rlib";
 import * as models from "shared/models";
 
-const db = defineDB(models);
-
+const db = await defineDB(models, process.env.DATABASE_URL!);
 const server = serve({
   routes: {
     // Serve index.html for all unmatched routes.
