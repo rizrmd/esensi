@@ -12,7 +12,10 @@ export default {
     role: {
       type: "text",
     },
-    provider_id: {
+    id_account: {
+      type: "text",
+    },
+    id_provider: {
       type: "text",
     },
     access_token: {

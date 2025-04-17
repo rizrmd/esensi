@@ -85,8 +85,8 @@ export const auth = betterAuth({
     modelName: "user",
     fields: {
       userId: "user_info_id",
-      accountId: "username",
-      providerId: "provider_id",
+      accountId: "id_account",
+      providerId: "id_provider",
       accessToken: "access_token",
       refreshToken: "refresh_token",
       accessTokenExpiresAt: "access_token_expires_at",
@@ -173,8 +173,8 @@ export const utils = {
         updatedAt: string;
       }) => ({
         user_info_id: userId,
-        username: accountId,
-        provider_id: providerId,
+        id_account: accountId,
+        id_provider: providerId,
         access_token: accessToken,
         refresh_token: refreshToken,
         access_token_expires_at: accessTokenExpiresAt,
@@ -187,14 +187,20 @@ export const utils = {
         emailVerified,
         createdAt,
         updatedAt,
+        displayUsername,
+        twoFactorEnabled,
       }: {
         emailVerified: string;
         createdAt: string;
         updatedAt: string;
+        displayUsername: string;
+        twoFactorEnabled: string;
       }) => ({
         email_verified: emailVerified,
         created_at: createdAt,
         updated_at: updatedAt,
+        display_username: displayUsername,
+        two_factor_enabled: twoFactorEnabled,
       }),
     },
   },
@@ -239,6 +245,8 @@ export const utils = {
         email_verified: response?.user.emailVerified,
         created_at: response?.user.createdAt,
         updated_at: response?.user.updatedAt,
+        display_username: response?.user.displayUsername,
+        two_factor_enabled: response?.user.twoFactorEnabled,
       },
     };
   },
