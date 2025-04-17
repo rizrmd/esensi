@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "bun run --silent ./backend/src/index.tsx --dev",
-    "db": "bun run --silent node_modules/rlib/src/db/cli.ts"
+    "db": "bun run --silent node_modules/rlib/src/db/cli.ts",
+    "ui": "cd frontend && bunx --bun shadcn@latest"
   },
   "dependencies": {
     "bun-plugin-tailwind": "^0.0.15",

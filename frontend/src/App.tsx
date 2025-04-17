@@ -1,6 +1,7 @@
 import "./index.css";
 import { APITester } from "./APITester";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button"
 
 import logo from "./logo.svg";
 import reactLogo from "./react.svg";
@@ -21,6 +22,7 @@ export function App() {
         />
       </div>
 
+      <Button variant="outline">Button</Button>
       <Card className="bg-card/50 backdrop-blur-sm border-muted">
         <CardContent className="pt-6">
           <h1 className="text-5xl font-bold my-4 leading-tight">Bun + React</h1>
