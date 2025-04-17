@@ -1,0 +1,7 @@
+{
+  "name": "esensi",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "cd backend && bun run dev"
+  }
+}

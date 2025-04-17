@@ -1,0 +1,21 @@
+{
+  "name": "backend",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "scripts": {
+    "dev": "bun run ./src/index.tsx"
+  },
+  "dependencies": {
+    "@types/pg": "^8.11.13",
+    "bcryptjs": "^3.0.2",
+    "better-auth": "^1.2.7",
+    "bun-plugin-tailwind": "^0.0.15"
+  }
+}
