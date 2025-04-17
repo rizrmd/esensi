@@ -21,12 +21,10 @@ export const auth = betterAuth({
       otpOptions: {
         async sendOTP({ user, otp }, request) {
           // Send OTP to the user's email
-          const sendEmail = async (
-            email: string,
-            subject: string,
-            text: string
-          ) => {
-            // console.log(`Sending email to ${email} with subject "${subject}" and text "${text}"`);
+          const sendEmail = async (subject: string, text: string) => {
+            // console.log(
+            //   `Sending email to ${user.email} with subject "${subject}" and text "${text}"`
+            // );
             // Implement your email sending logic here.You can use any email sending library or service.
             // For example, using nodemailer or any other email service
             const transporter = nodemailer.createTransport({
@@ -39,15 +37,12 @@ export const auth = betterAuth({
             const mailOptions = {
               from: process.env.EMAIL_USER,
               to: user.email,
-              subject: "Your OTP Code",
-              text: `Your OTP code is: ${otp}`,
+              subject,
+              text,
             };
             await transporter.sendMail(mailOptions);
           };
 
-          const { email, name } = user;
-          if (!email) throw new Error("Email not found");
-          if (!name) throw new Error("Name not found");
           if (!otp) throw new Error("OTP not found");
           if (!request) throw new Error("Request not found");
           if (!request.headers) throw new Error("Request headers not found");
@@ -55,8 +50,8 @@ export const auth = betterAuth({
           if (!host) throw new Error("Host not found");
           const url = `https://${host}/auth/verify-otp?otp=${otp}`;
           const subject = "Your OTP Code";
-          const text = `Hello ${name},\n\nYour OTP code is: ${otp}\n\nClick here to verify: ${url}`;
-          await sendEmail(email, subject, text);
+          const text = `Hello ${user.name},\n\nYour OTP code is: ${otp}\n\nClick here to verify: ${url}`;
+          await sendEmail(subject, text);
         },
       },
     }),
@@ -105,7 +100,7 @@ export const auth = betterAuth({
   },
 });
 
-export default {
+export const utils = {
   mapping: {
     table: (name: string) => {
       if (name === "user") return "user_info";
@@ -223,6 +218,22 @@ export default {
     const response = await auth.api.getSession({
       headers,
     });
-    return response;
+    return {
+      session: {
+        ...response?.session,
+        user_id: response?.session.userId,
+        expires_at: response?.session.expiresAt,
+        ip_address: response?.session.ipAddress,
+        user_agent: response?.session.userAgent,
+        created_at: response?.session.createdAt,
+        updated_at: response?.session.updatedAt,
+      },
+      user_info: {
+        ...response?.user,
+        email_verified: response?.user.emailVerified,
+        created_at: response?.user.createdAt,
+        updated_at: response?.user.updatedAt,
+      },
+    };
   },
 };
