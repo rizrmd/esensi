@@ -14,6 +14,12 @@ export const auth = betterAuth({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
+    facebook: {
+      clientId: process.env.FACEBOOK_CLIENT_ID as string,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
+      scopes: ["email", "public_profile", "user_friends"], // Overwrites permissions
+      fields: ["id", "name", "email", "picture", "user_friends"], // Extending list of fields
+    },
   },
   plugins: [
     username(),
