@@ -17,10 +17,8 @@ export default defineAPI({
         //   id_user: { eq: "9a610f97-7613-4b90-9362-4bf29185efcf" },
         // },
       },
-      debug: true,
     });
 
-    console.log(result.sql)
     return result;
   },
 });
