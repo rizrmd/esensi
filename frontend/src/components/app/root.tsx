@@ -12,12 +12,20 @@ function AppRoot() {
     return <AppLoading />;
   }
 
-  if (currentPath.startsWith("/auth")) {
+  // Check if the path is auth related (either starts with /auth or /auth.esensi)
+  const isAuthPath =
+    currentPath.startsWith("/auth") || currentPath.startsWith("/auth.esensi");
+
+  // For localhost:7500, detect by port and assume it's an auth domain
+  const isAuthDomain =
+    window.location.hostname === "localhost" && window.location.port === "7500";
+
+  if (isAuthPath || isAuthDomain) {
     return (
       <>
         {Page ? (
           <ParamsContext.Provider value={params}>
-            {<Page />}
+            <AppLayout>{Page ? <Page /> : <div>Page not found</div>}</AppLayout>
           </ParamsContext.Provider>
         ) : (
           <div>Page not found</div>

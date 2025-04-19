@@ -1,6 +1,7 @@
 import { pageModules } from "@/lib/gen/routes";
 import {
   basePath,
+  getDomainKeyByPort,
   matchRoute,
   ParamsContext,
   parsePattern,
@@ -8,6 +9,9 @@ import {
 } from "@/lib/router";
 import { useContext, useEffect, type FC, type ReactNode } from "react";
 import { useLocal } from "../hooks/use-local";
+import raw_config from "../../../../config.json";
+
+const config = raw_config as any;
 
 const router = {
   currentPath: window.location.pathname,
@@ -19,6 +23,7 @@ export function useRoot() {
   const local = useLocal({
     Page: null as React.ComponentType | null,
     routePath: "",
+    isLoading: true,
   });
   useEffect(() => {
     const handlePathChange = () => {
@@ -55,7 +60,30 @@ export function useRoot() {
       let pageLoader = pageModules[path];
       let matchedParams = {};
 
-      // If no exact match, try parameterized routes
+      // If no exact match, check if we're on localhost with a specific port
+      if (!pageLoader) {
+        const isLocalhost = window.location.hostname === 'localhost' || 
+                            window.location.hostname === '127.0.0.1';
+        
+        if (isLocalhost) {
+          const port = window.location.port;
+          const domainKey = getDomainKeyByPort(port);
+          
+          if (domainKey) {
+            // Try to match with domain-specific route
+            const domainPath = `/${domainKey}${path}`;
+            const domainPageLoader = pageModules[domainPath];
+            
+            if (domainPageLoader) {
+              // We found a match for domain-specific path
+              pageLoader = domainPageLoader;
+              matchedParams = {};
+            }
+          }
+        }
+      }
+
+      // If still no match, try parameterized routes
       if (!pageLoader) {
         for (const [pattern, loader] of Object.entries(pageModules)) {
           const routePattern = parsePattern(pattern);
@@ -74,12 +102,14 @@ export function useRoot() {
           local.routePath = path;
           local.Page = module.default;
           router.params = matchedParams;
+          local.isLoading = false;
           local.render();
         } catch (err) {
           console.error("Failed to load page:", err);
           local.Page = null;
-          local.routePath;
+          local.routePath = "";
           router.params = {};
+          local.isLoading = false;
           local.render();
         }
       } else {
@@ -89,11 +119,13 @@ export function useRoot() {
           local.routePath = path;
           local.Page = module.default;
           router.params = {};
+          local.isLoading = false;
           local.render();
         } catch {
           local.Page = null;
           local.routePath = "";
           router.params = {};
+          local.isLoading = false;
           local.render();
         }
       }
@@ -106,7 +138,7 @@ export function useRoot() {
     Page: local.Page ? local.Page : null,
     currentPath: router.currentPath,
     params: router.params,
-    // isLoading: auth.status === "loading",
+    isLoading: local.isLoading,
   };
 }
 
