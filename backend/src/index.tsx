@@ -1,10 +1,16 @@
 import type { Server } from "bun";
 import index from "frontend/entry/index.html";
 import { padEnd } from "lodash";
-import { c, dir, init, watchAPI, watchPage } from "rlib/server";
+import {
+  c,
+  staticFileHandler,
+  dir,
+  init,
+  watchAPI,
+  watchPage,
+} from "rlib/server";
 import * as models from "shared/models";
 import { backendApi } from "./gen/api";
-import { createStaticFileHandler } from "./lib/static-server";
 
 const { isDev, isRestarted, config, routes } = await init({
   root: process.cwd(),
@@ -41,7 +47,7 @@ if (isDev) {
 
   for (const [name, site] of Object.entries(config.sites)) {
     // Create static file handler
-    const staticFileHandler = createStaticFileHandler({
+    const handleStatic = staticFileHandler({
       publicDir: "frontend:public",
       cache: isDev ? false : true, // Disable cache in development
       maxAge: isDev ? 0 : 86400, // 1 day cache in production
@@ -51,7 +57,7 @@ if (isDev) {
       port: site.port,
       routes: routes[name],
       fetch: async (req) => {
-        const staticResponse = await staticFileHandler(req);
+        const staticResponse = await handleStatic(req);
         if (staticResponse) {
           return staticResponse;
         }
