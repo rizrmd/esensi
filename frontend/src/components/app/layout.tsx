@@ -4,11 +4,12 @@ import { AppSidebar } from "./sidebar";
 import { AppHeader } from "./header";
 
 export const AppLayout: FC<{ children: ReactNode }> = ({ children }) => {
+  const loggedIn = false;
   return (
     <SidebarProvider>
-      {false && <AppSidebar />}
+      {loggedIn && <AppSidebar />}
       <main className="flex-1 flex flex-col">
-        <AppHeader />
+        {loggedIn && <AppHeader />}
         {children}
       </main>
     </SidebarProvider>
