@@ -1,4 +1,4 @@
-import type { ModelDefinition } from 'rlib';
+import type { ModelDefinition } from "rlib/server";
 
 export default {
   table: "user",
@@ -12,7 +12,7 @@ export default {
     role: {
       type: "text",
     },
-    id_account: {
+    username: {
       type: "text",
     },
     id_provider: {

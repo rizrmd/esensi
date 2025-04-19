@@ -1,4 +1,4 @@
-import type { ModelDefinition } from 'rlib';
+import type { ModelDefinition } from "rlib/server";
 
 export default {
   table: "banner",

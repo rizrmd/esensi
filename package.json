@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "bun run --silent --hot --no-clear-screen ./backend/src/index.tsx --dev",
-    "db": "bun run --silent node_modules/rlib/src/db/cli.ts",
+    "db": "bun run --silent node_modules/rlib/server/db/cli.ts",
     "ui": "cd frontend && bunx --bun shadcn@latest",
     "link-rlib": "rm -rf node_modules/rlib && ln -s /Users/riz/Developer/rlib node_modules/rlib"
   },

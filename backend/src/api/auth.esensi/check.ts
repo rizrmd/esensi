@@ -4,8 +4,23 @@ export default defineAPI({
   name: "check",
   url: "/check/:name",
   async handler() {
-    const req = this.req!;
-    const res = "oke deh" + req.params.name;
-    return res;
+    const result = await db.user.findFirst({
+      select: {
+        id: true,
+        managements: {
+          id: true,
+        },
+      },
+      where: {
+        id: "9a610f97-7613-4b90-9362-4bf29185efcf",
+        // managements: {
+        //   id_user: { eq: "9a610f97-7613-4b90-9362-4bf29185efcf" },
+        // },
+      },
+      debug: true,
+    });
+
+    console.log(result.sql)
+    return result;
   },
 });
