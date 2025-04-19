@@ -1,3 +1,3 @@
 export default () => {
-  return <>asdsa</>;
+  return <>ini index nya global</>;
 };

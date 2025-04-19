@@ -55,7 +55,43 @@ export function useRoot() {
         ) || "/";
 
       await logRouteChange(path);
+      
+      // Check if we're on localhost and requesting the root path
+      const isLocalhost = window.location.hostname === 'localhost' || 
+                          window.location.hostname === '127.0.0.1';
+      const isRootPath = path === '/';
+      
+      // For root path on localhost, use the domain key from the port to redirect
+      if (isLocalhost && isRootPath) {
+        const port = window.location.port;
+        const domainKey = getDomainKeyByPort(port);
+        
+        // If we found a domain key for this port and it's not the default domain
+        if (domainKey && domainKey !== 'default') {
+          // Construct the path to the domain's index page
+          const domainIndexPath = `/${domainKey}`;
+          
+          // Check if this domain has an index page module
+          const domainPageLoader = pageModules[domainIndexPath];
+          
+          if (domainPageLoader) {
+            try {
+              // Load the domain-specific index module
+              const module = await domainPageLoader();
+              local.routePath = domainIndexPath;
+              local.Page = module.default;
+              router.params = {};
+              local.isLoading = false;
+              local.render();
+              return;
+            } catch (err) {
+              console.error(`Failed to load ${domainKey} index page:`, err);
+            }
+          }
+        }
+      }
 
+      // Continue with normal routing logic if domain-specific handling didn't succeed
       // Try exact match first
       let pageLoader = pageModules[path];
       let matchedParams = {};
