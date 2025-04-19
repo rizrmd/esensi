@@ -10,6 +10,8 @@
     "verbatimModuleSyntax": true,
     "noEmit": true,
 
+    "strictNullChecks": true,
+
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],

@@ -7,6 +7,8 @@ type FetchOptions = {
   onError?: (ctx: any) => void;
   onRetry?: (ctx: any) => void;
 };
+ 
+export type Session = typeof authClient.$Infer.Session
 
 const authClient = createAuthClient({
   baseURL: `${location.protocol}//${location.host}`,
@@ -14,6 +16,9 @@ const authClient = createAuthClient({
 });
 
 export const betterAuth = {
+  homeUrl: (session: Session) => {
+    return "/dashboard"
+  },
   signUp: async ({
     username,
     password,
@@ -24,7 +29,7 @@ export const betterAuth = {
   }: {
     username: string;
     password: string;
-    name?: string;
+    name: string;
     callbackURL?: string;
     image?: string;
     fetchOptions?: FetchOptions;
@@ -204,6 +209,7 @@ export const betterAuth = {
       fetchOptions?: FetchOptions;
     }) => {
       const { data, error } = await authClient.twoFactor.sendOtp({
+        //@ts-ignore
         trustDevice,
         fetchOptions,
       });

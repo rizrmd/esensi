@@ -8,6 +8,7 @@
 import { Root } from "@/components/app/root";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import "./globals.css";
 
 const elem = document.getElementById("root")!;
 const app = (

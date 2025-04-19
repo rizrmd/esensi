@@ -2,12 +2,11 @@ import { pageModules } from "@/lib/gen/routes";
 import {
   basePath,
   matchRoute,
-  navigate,
   ParamsContext,
   parsePattern,
   type Params,
 } from "@/lib/router";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, type FC, type ReactNode } from "react";
 import { useLocal } from "../hooks/use-local";
 
 const router = {
@@ -22,12 +21,6 @@ export function useRoot() {
     routePath: "",
   });
   useEffect(() => {
-    // auth.init().then((res) => {
-    //   if (res.navigateTo) {
-    //     navigate(res.navigateTo);
-    //   }
-    // });
-
     const handlePathChange = () => {
       router.currentPath = window.location.pathname;
       router.currentFullPath = window.location.pathname + window.location.hash;
@@ -127,3 +120,7 @@ export function useParams<T extends Record<string, string>>() {
     hash: {} as Record<string, string>,
   };
 }
+
+export const AuthRoute: FC<{ children: ReactNode }> = ({ children }) => {
+  return children;
+};
