@@ -11,11 +11,6 @@ export default () => {
         <div className="text-center">
           <h1 className="text-2xl font-semibold">Login</h1>
         </div>
-        {/* {error && (
-          <div className="bg-red-50 text-red-500 p-3 rounded-md text-sm">
-            {error}
-          </div>
-        )} */}
         <EForm
           data={{ username: "", password: "", loading: false }}
           onSubmit={async ({ write, read }) => {
