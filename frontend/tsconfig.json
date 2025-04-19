@@ -12,7 +12,9 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "backend/*": ["../backend/src/*"],
+      "shared/*": ["../shared/*"],
     }
   },
   "include": ["**/*.ts", "**/*.tsx"]

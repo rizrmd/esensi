@@ -2,14 +2,14 @@ import type { Server } from "bun";
 import { padEnd } from "lodash";
 import { c, init, watchAPI } from "rlib/server";
 import * as models from "shared/models";
-import { api } from "./gen/api";
+import { backendApi } from "./gen/api";
 import index from "frontend/index.html";
 
 const { isDev, isRestarted, config, routes } = await init({
   root: process.cwd(),
   models,
-  api,
-  index
+  backendApi,
+  index,
 });
 
 if (isDev) {
@@ -19,7 +19,7 @@ if (isDev) {
       out_file: "backend:src/gen/api.ts",
     });
   }
-} 
+}
 
 if (isDev) {
   const servers = {} as Record<string, Server>;
