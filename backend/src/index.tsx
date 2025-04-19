@@ -1,4 +1,4 @@
-import type { Server } from "bun";
+import type { Server, ServerWebSocket } from "bun";
 import index from "frontend/entry/index.html";
 import { padEnd } from "lodash";
 import {
@@ -33,8 +33,6 @@ if (isDev) {
 
 if (isDev) {
   const servers = {} as Record<string, Server>;
-  const publicFiles = dir.path("frontend:public");
-
   const assetServer = Bun.serve({
     static: {
       "/*": index,
@@ -44,19 +42,52 @@ if (isDev) {
     },
     port: 45622,
   });
+  const handleStatic = staticFileHandler({
+    publicDir: "frontend:public",
+    cache: isDev ? false : true, // Disable cache in development
+    maxAge: isDev ? 0 : 86400, // 1 day cache in production
+  });
 
   for (const [name, site] of Object.entries(config.sites)) {
     // Create static file handler
-    const handleStatic = staticFileHandler({
-      publicDir: "frontend:public",
-      cache: isDev ? false : true, // Disable cache in development
-      maxAge: isDev ? 0 : 86400, // 1 day cache in production
-    });
 
+    const hmr = new WeakMap<ServerWebSocket<unknown>, WebSocket>();
     servers[name] = Bun.serve({
       port: site.port,
       routes: routes[name],
+      websocket: {
+        message: (ws, msg) => {
+          if (ws.data === "hmr") {
+            const sw = hmr.get(ws);
+            if (sw) {
+              sw.send(msg);
+            }
+          }
+        },
+        open: (ws) => {
+          console.log(ws.data);
+          if (ws.data === "hmr") {
+            const sw = new WebSocket("ws://localhost:45622/_bun/hmr");
+            sw.onmessage = (e) => {
+              ws.send(e.data as any);
+            };
+            sw.onclose = () => {
+              hmr.delete(ws);
+            };
+            hmr.set(ws, sw as any);
+          }
+        },
+        close: (ws) => {
+          if (ws.data === "hmr") {
+            hmr.delete(ws);
+          }
+        },
+      },
       fetch: async (req) => {
+        if (req.url.endsWith("/_bun/hmr")) {
+          servers[name]!.upgrade(req, { data: "hmr" });
+          return;
+        }
         const staticResponse = await handleStatic(req);
         if (staticResponse) {
           return staticResponse;
