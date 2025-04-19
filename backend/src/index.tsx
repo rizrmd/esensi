@@ -1,6 +1,6 @@
 import type { Server } from "bun";
 import { padEnd } from "lodash";
-import { c, init, watchAPI } from "rlib/server";
+import { c, init, watchAPI, watchPage } from "rlib/server";
 import * as models from "shared/models";
 import { backendApi } from "./gen/api";
 import index from "frontend/index.html";
@@ -17,6 +17,10 @@ if (isDev) {
     watchAPI({
       input_dir: "backend:src/api",
       out_file: "backend:src/gen/api.ts",
+    });
+    watchPage({
+      input_dir: "frontend:src/pages",
+      out_file: "frontend:src/lib/gen/routes.ts",
     });
   }
 }
