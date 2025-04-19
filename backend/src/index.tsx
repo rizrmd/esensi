@@ -1,9 +1,9 @@
 import type { Server } from "bun";
+import index from "frontend/entry/index.html";
 import { padEnd } from "lodash";
 import { c, init, watchAPI, watchPage } from "rlib/server";
 import * as models from "shared/models";
 import { backendApi } from "./gen/api";
-import index from "frontend/index.html";
 
 const { isDev, isRestarted, config, routes } = await init({
   root: process.cwd(),

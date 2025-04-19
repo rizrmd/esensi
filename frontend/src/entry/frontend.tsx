@@ -5,14 +5,14 @@
  * It is included in `src/index.html`.
  */
 
-import { createRoot } from "react-dom/client";
+import { Root } from "@/components/app/root";
 import { StrictMode } from "react";
-import { App } from "./App";
+import { createRoot } from "react-dom/client";
 
 const elem = document.getElementById("root")!;
 const app = (
   <StrictMode>
-    <App />
+    <Root />
   </StrictMode>
 );
 
