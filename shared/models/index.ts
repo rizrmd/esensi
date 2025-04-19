@@ -1,6 +1,6 @@
 /**
  * Auto-generated model exports
- * Generated on 2025-04-19T13:29:05.742Z
+ * Generated on 2025-04-19T17:23:58.432Z
  */
 
 export { default as affiliate } from './affiliate/model';

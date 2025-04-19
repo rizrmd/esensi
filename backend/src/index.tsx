@@ -65,9 +65,10 @@ if (isDev) {
           }
         },
         open: (ws) => {
-          console.log(ws.data);
           if (ws.data === "hmr") {
-            const sw = new WebSocket("ws://localhost:45622/_bun/hmr");
+            const sw = new WebSocket(
+              `ws://localhost:${assetServer.port}/_bun/hmr`
+            );
             sw.onmessage = (e) => {
               ws.send(e.data as any);
             };
