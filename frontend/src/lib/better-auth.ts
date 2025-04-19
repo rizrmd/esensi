@@ -9,11 +9,11 @@ type FetchOptions = {
 };
 
 const authClient = createAuthClient({
-  baseURL: "http://localhost:3000",
+  baseURL: `${location.protocol}//${location.host}`,
   plugins: [twoFactorClient()],
 });
 
-export default {
+export const betterAuth = {
   signUp: async ({
     username,
     password,

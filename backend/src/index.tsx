@@ -1,56 +1,45 @@
-import { serve } from "bun";
-import index from "frontend/index.html";
-import { c, init, watchAPI } from "rlib";
+import type { Server } from "bun";
+import { padEnd } from "lodash";
+import { c, init, watchAPI } from "rlib/server";
 import * as models from "shared/models";
+import { api } from "./gen/api";
+import index from "frontend/index.html";
 
-const { isDEV } = await init({ root: process.cwd(), models });
-
-const test = await db.user.findMany({limit:1})
-console.log("test", test);
-
-if (isDEV) {
-  watchAPI({
-    input_dir: "backend:src/api",
-    out_file: "backend:src/gen/api.ts",
-  });
-}
-
-const server = serve({
-  routes: {
-    // Serve index.html for all unmatched routes.
-    "/*": index,
-
-    "/api/hello": {
-      async GET(req) {
-        const res= await db.bundle.findMany({ limit: 1 })
-        console.log(res);
-
-        return Response.json({
-          message: "Hello, world!",
-          method: "GET",
-        });
-      },
-      async PUT(req) {
-        return Response.json({
-          message: "Hello, world!",
-          method: "PUT",
-        });
-      },
-    },
-
-    "/api/hello/:name": async (req) => {
-      const name = req.params.name;
-      return Response.json({
-        message: `Hello, ${name}!`,
-      });
-    },
-  },
-
-  development: process.env.NODE_ENV !== "production",
+const { isDev, isRestarted, config, routes } = await init({
+  root: process.cwd(),
+  models,
+  api,
+  index
 });
 
-console.log(
-  `🚀 Running ${
-    isDEV ? `${c.green}DEV${c.reset}` : `${c.blue}PROD${c.reset}`
-  } at ${server.url}`
-);
+if (isDev) {
+  if (!isRestarted) {
+    watchAPI({
+      input_dir: "backend:src/api",
+      out_file: "backend:src/gen/api.ts",
+    });
+  }
+} 
+
+if (isDev) {
+  const servers = {} as Record<string, Server>;
+  for (const [name, site] of Object.entries(config.sites)) {
+    servers[name] = Bun.serve({
+      port: site.port,
+      routes: routes[name],
+      fetch(req) {
+        return new Response("Not Found", { status: 404 });
+      },
+    });
+  }
+  if (!isRestarted) {
+    console.log(`${c.green}DEV${c.reset} Servers started:`);
+    for (const [name, site] of Object.entries(config.sites)) {
+      console.log(
+        `- ${padEnd(name + " ", 20, "─")} ${c.magenta}http://localhost:${
+          site.port
+        }${c.reset}`
+      );
+    }
+  }
+}

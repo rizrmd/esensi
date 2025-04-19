@@ -1,11 +1,10 @@
-import { defineAPI } from "rlib";
+import { defineAPI } from "rlib/server";
 
 export default defineAPI({
-  url: "/api/auth/check",
-  handler: async () => {
-
-    console.log("oke deh");
-    return {};
+  url: "/check/:name",
+  async handler() {
+    const req = this.req!;
+    const res = "oke deh" + req.params.name;
+    return res;
   },
 });
- 

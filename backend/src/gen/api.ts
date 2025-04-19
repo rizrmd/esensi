@@ -5,8 +5,8 @@ import { default as auth_esensi_logout } from "../api/auth.esensi/logout";
 
 export const api = {
   "auth.esensi": {
-    "/auth/login": auth_esensi_login,
-    "/api/auth/check": auth_esensi_check,
-    "/api/hello/world": auth_esensi_logout
+    "/api/auth/login": auth_esensi_login,
+    "/check/:name": auth_esensi_check,
+    "/api/auth/logout": auth_esensi_logout
   }
 };

@@ -1,0 +1,7 @@
+{
+  "sites": {
+    "auth.esensi": { "port": 7500, "domains": ["auth.esensi.online"] },
+    "publish.esensi": { "port": 8100, "domains": ["publish.esensi.online"] },
+    "internal.esensi": { "port": 8500, "domains": ["internal.esensi.online"] }
+  }
+}

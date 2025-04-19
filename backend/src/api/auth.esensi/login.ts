@@ -1,7 +1,7 @@
-import { defineAPI } from "rlib";
+import { defineAPI } from "rlib/server";
 
 export default defineAPI({
-  url: "/auth/login",
+  url: "/api/auth/login",
   handler: async (username:string) => {
     console.log("asda");
     

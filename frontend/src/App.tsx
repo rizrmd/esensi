@@ -1,5 +1,4 @@
 import "./index.css";
-import { APITester } from "./APITester";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button"
 
@@ -33,7 +32,6 @@ export function App() {
             </code>{" "}
             and save to test HMR
           </p>
-          <APITester />
         </CardContent>
       </Card>
     </div>
