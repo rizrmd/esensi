@@ -73,7 +73,7 @@ export const Alert = {
     });
   },
   info: (
-    message: string,
+    message: any,
     option?: { checkbox: string }
   ): Promise<boolean | void> => {
     return new Promise((resolve) => {
@@ -110,7 +110,11 @@ export function GlobalAlert() {
             {snap.mode === "confirm" ? "Konfirmasi" : "Informasi"}
           </AlertDialogTitle>
           <AlertDialogDescription className="whitespace-pre-wrap">
-            {snap.message}
+            {typeof snap.message === "object" ? (
+              <pre className="whitespace-pre-wrap wrap-anywhere">{JSON.stringify(snap.message, null, 2)}</pre>
+            ) : (
+              snap.message
+            )}
             {snap.checkbox && (
               <span className="flex items-center space-x-2 absolute bottom-[35px]">
                 <Checkbox
@@ -144,7 +148,9 @@ export function GlobalAlert() {
               </AlertDialogAction>
             </>
           ) : (
-            <AlertDialogAction onClick={snap.onConfirm} autoFocus>OK</AlertDialogAction>
+            <AlertDialogAction onClick={snap.onConfirm} autoFocus>
+              OK
+            </AlertDialogAction>
           )}
         </AlertDialogFooter>
       </AlertDialogContent>

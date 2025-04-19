@@ -1,6 +1,8 @@
 import { EForm } from "@/components/ext/eform/EForm";
 import { SideForm } from "@/components/ext/side-form";
 import { Button } from "@/components/ui/button";
+import { Alert } from "@/components/ui/global-alert";
+import { betterAuth } from "@/lib/better-auth";
 
 export default () => {
   return (
@@ -16,9 +18,18 @@ export default () => {
         )} */}
         <EForm
           data={{ username: "", password: "", loading: false }}
-          onSubmit={({ write, read }) => {
+          onSubmit={async ({ write, read }) => {
             if (!read.loading) {
               write.loading = true;
+
+              //todo: do actual login here
+              const res = await betterAuth.signIn({
+                username: read.username,
+                password: read.password,
+              });
+
+              Alert.info(res)
+              write.loading = false;
             }
           }}
           className="space-y-4"
