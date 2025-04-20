@@ -1,18 +1,18 @@
-import type { Server, ServerWebSocket } from "bun";
+import type { Server } from "bun";
 import index from "frontend/entry/index.html";
 import { padEnd } from "lodash";
+import type { SiteEntry } from "rlib/client";
 import {
   c,
-  staticFileHandler,
   dir,
   init,
+  spaHandler,
+  staticFileHandler,
   watchAPI,
   watchPage,
-  spaHandler,
 } from "rlib/server";
 import * as models from "shared/models";
 import { backendApi } from "./gen/api";
-import type { SiteConfig, SiteEntry } from "rlib/client";
 import { auth } from "./lib/better-auth";
 
 const { isDev, isRestarted, config, routes } = await init({
@@ -21,19 +21,7 @@ const { isDev, isRestarted, config, routes } = await init({
   backendApi,
 });
 
-
 if (isDev) {
-  if (!isRestarted) {
-    watchAPI({
-      input_dir: "backend:src/api",
-      out_file: "backend:src/gen/api.ts",
-    });
-    watchPage({
-      input_dir: "frontend:src/pages",
-      out_file: "frontend:src/lib/gen/routes.ts",
-    });
-  }
-
   const servers = {} as Record<string, Server>;
   const spa = spaHandler({ index, port: 45622 }); //Single Page App Handler
   const handleStatic = staticFileHandler({
@@ -58,9 +46,9 @@ if (isDev) {
         },
       },
       fetch: async (req) => {
-        const url = new URL(req.url)
+        const url = new URL(req.url);
 
-        if (url.pathname.startsWith('/api/auth')) {
+        if (url.pathname.startsWith("/api/auth")) {
           return auth.handler(req);
         }
 
@@ -77,6 +65,7 @@ if (isDev) {
       },
     });
   }
+
   if (!isRestarted) {
     console.log(`${c.green}DEV${c.reset} Servers started:`);
     for (const [name, site] of Object.entries(config.sites)) {
@@ -86,6 +75,15 @@ if (isDev) {
         }${c.reset}`
       );
     }
+
+    watchAPI({
+      input_dir: "backend:src/api",
+      out_file: "backend:src/gen/api.ts",
+    });
+    watchPage({
+      input_dir: "frontend:src/pages",
+      out_file: "frontend:src/lib/gen/routes.ts",
+    });
   }
 } else {
   // Production mode
@@ -137,7 +135,7 @@ if (isDev) {
       const url = new URL(req.url);
       const host = req.headers.get("host") || "";
 
-      if (url.pathname.startsWith('/api/auth')) {
+      if (url.pathname.startsWith("/api/auth")) {
         return auth.handler(req);
       }
 

@@ -89,7 +89,6 @@ export function useRoot() {
 
       const hostname = window.location.hostname;
       const isLocalhost = hostname === "localhost" || hostname === "127.0.0.1";
-      const isRootPath = path === "/";
       let domainKey: null | string = null;
 
       // Determine the domain key based on environment
@@ -102,63 +101,16 @@ export function useRoot() {
         domainKey = getDomainKeyByHostname(hostname);
       }
 
-      // If we're at the root path and we've identified a domain key,
-      // try to load the domain-specific index page
-      if (isRootPath && domainKey) {
-        // Construct the path to the domain's index page
-        const domainIndexPath = `/${domainKey}`;
-
-        // Check if this domain has an index page module
-        const domainPageLoader = pageModules[domainIndexPath];
-
-        if (domainPageLoader) {
-          try {
-            // Load the domain-specific index module
-            const module = await domainPageLoader();
-            local.routePath = domainIndexPath;
-            local.Page = module.default;
-            router.params = {};
-            local.isLoading = false;
-            local.render();
-            return;
-          } catch (err) {
-            console.error(`Failed to load ${domainKey} index page:`, err);
-          }
-        }
-      }
-
-      // If we're not at root path but have a domain key, try to append it to the route
-      if (!isRootPath && domainKey && !path.includes(domainKey)) {
-        // Construct a path with domain key included
-        const domainPath = `/${domainKey}${path}`;
-        const domainPageLoader = pageModules[domainPath];
-
-        if (domainPageLoader) {
-          try {
-            // Load the domain-specific page
-            const module = await domainPageLoader();
-            local.routePath = domainPath;
-            local.Page = module.default;
-            router.params = {};
-            local.isLoading = false;
-            local.render();
-            return;
-          } catch (err) {
-            console.error(`Failed to load ${domainKey} page at ${path}:`, err);
-          }
-        }
-      }
-
-      // Continue with normal routing logic if domain-specific handling didn't succeed
-      // Try exact match first
-      let pageLoader = pageModules[path];
+      let pageLoader =
+        pageModules[
+          domainKey ? `/${domainKey}${path === "/" ? "" : path}` : path
+        ];
       let matchedParams = {};
 
       // If no exact match, check if we're on localhost with a specific port
       if (!pageLoader && domainKey) {
         // Try to match with domain-specific route
-        const domainPath = `/${domainKey}${path}`;
-        const domainPageLoader = pageModules[domainPath];
+        const domainPageLoader = pageModules[path];
 
         if (domainPageLoader) {
           // We found a match for domain-specific path

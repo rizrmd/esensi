@@ -7,17 +7,17 @@ type FetchOptions = {
   onError?: (ctx: any) => void;
   onRetry?: (ctx: any) => void;
 };
- 
-export type Session = typeof authClient.$Infer.Session
+
+export type Session = typeof authClient.$Infer.Session;
 
 const authClient = createAuthClient({
-  baseURL: process.env.BETTER_AUTH_URL,
+  baseURL: `${location.protocol}//${location.host}`,
   plugins: [twoFactorClient()],
 });
 
 export const betterAuth = {
   homeUrl: (session: Session) => {
-    return "/dashboard"
+    return "/dashboard";
   },
   signUp: async ({
     username,
