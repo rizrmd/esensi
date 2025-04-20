@@ -11,7 +11,7 @@ type FetchOptions = {
 export type Session = typeof authClient.$Infer.Session
 
 const authClient = createAuthClient({
-  baseURL: `${location.protocol}//${location.host}`,
+  baseURL: process.env.BETTER_AUTH_URL,
   plugins: [twoFactorClient()],
 });
 

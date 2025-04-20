@@ -1,14 +1,47 @@
-import { betterAuth } from "better-auth";
+import { betterAuth, type BetterAuthOptions } from "better-auth";
 import { Pool } from "pg";
-import { username, twoFactor } from "better-auth/plugins";
+import { username, twoFactor, openAPI } from "better-auth/plugins";
 import nodemailer from "nodemailer";
+
+const sendEmail = async (to: string, subject: string, text: string) => {
+  const transporter = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to,
+    subject,
+    text,
+  };
+  await transporter.sendMail(mailOptions);
+};
 
 export const auth = betterAuth({
   database: new Pool({
     connectionString: process.env.DATABASE_URL,
-    // ssl: { rejectUnauthorized: true },
   }),
-  emailAndPassword: { enabled: true, autoSignIn: false },
+  emailAndPassword: {
+    enabled: true,
+    autoSignIn: false,
+    requireEmailVerification: true,
+
+  },
+  emailVerification: {
+    sendOnSignUp: true,
+    autoSignInAfterVerification: true,
+    sendVerificationEmail: async ({ user, token }) => {
+      const veritifacationUrl = `${process.env.BETTER_AUTH_URL}/api/auth/verify-email?token=${token}&callbackURL=${process.env.EMAIL_VERIFICATION_CALLBACK_URL}`;
+      await sendEmail(
+        user.email,
+        "Email Verification",
+        `Click here to verify your email: ${veritifacationUrl}`
+      );
+    },
+  },
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -22,33 +55,11 @@ export const auth = betterAuth({
     },
   },
   plugins: [
+    openAPI(), // /api/auth/refernce
     username(),
     twoFactor({
       otpOptions: {
         async sendOTP({ user, otp }, request) {
-          // Send OTP to the user's email
-          const sendEmail = async (subject: string, text: string) => {
-            // console.log(
-            //   `Sending email to ${user.email} with subject "${subject}" and text "${text}"`
-            // );
-            // Implement your email sending logic here.You can use any email sending library or service.
-            // For example, using nodemailer or any other email service
-            const transporter = nodemailer.createTransport({
-              service: "Gmail",
-              auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-              },
-            });
-            const mailOptions = {
-              from: process.env.EMAIL_USER,
-              to: user.email,
-              subject,
-              text,
-            };
-            await transporter.sendMail(mailOptions);
-          };
-
           if (!otp) throw new Error("OTP not found");
           if (!request) throw new Error("Request not found");
           if (!request.headers) throw new Error("Request headers not found");
@@ -57,7 +68,7 @@ export const auth = betterAuth({
           const url = `https://${host}/auth/verify-otp?otp=${otp}`;
           const subject = "Your OTP Code";
           const text = `Hello ${user.name},\n\nYour OTP code is: ${otp}\n\nClick here to verify: ${url}`;
-          await sendEmail(subject, text);
+          await sendEmail(user.email, subject, text);
         },
       },
     }),
@@ -85,7 +96,7 @@ export const auth = betterAuth({
     modelName: "user",
     fields: {
       userId: "user_info_id",
-      accountId: "id_account",
+      accountId: "username",
       providerId: "id_provider",
       accessToken: "access_token",
       refreshToken: "refresh_token",
@@ -104,6 +115,31 @@ export const auth = betterAuth({
       updatedAt: "updated_at",
     },
   },
+  // emailVerification: {
+  //   sendVerificationEmail: async ({ user, url, token }) => {
+  //     // Send verification email to user
+  //     const sendEmail = async (subject: string, text: string) => {
+  //       // Implement your email sending logic here.
+  //       const transporter = nodemailer.createTransport({
+  //         service: "Gmail",
+  //         auth: {
+  //           user: process.env.EMAIL_USER,
+  //           pass: process.env.EMAIL_PASS,
+  //         },
+  //       });
+  //       const mailOptions = {
+  //         from: process.env.EMAIL_USER,
+  //         to: user.email,
+  //         subject,
+  //         text,
+  //       };
+  //       await transporter.sendMail(mailOptions);
+  //     };
+  //   },
+  //   sendOnSignUp: true,
+  //   autoSignInAfterVerification: true,
+  //   expiresIn: 3600, // 1 hour
+  // },
 });
 
 export const utils = {
@@ -173,7 +209,7 @@ export const utils = {
         updatedAt: string;
       }) => ({
         user_info_id: userId,
-        id_account: accountId,
+        username: accountId,
         id_provider: providerId,
         access_token: accessToken,
         refresh_token: refreshToken,

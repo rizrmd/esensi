@@ -13,12 +13,14 @@ import {
 import * as models from "shared/models";
 import { backendApi } from "./gen/api";
 import type { SiteConfig, SiteEntry } from "rlib/client";
+import { auth } from "./lib/better-auth";
 
 const { isDev, isRestarted, config, routes } = await init({
   root: process.cwd(),
   models,
   backendApi,
 });
+
 
 if (isDev) {
   if (!isRestarted) {
@@ -56,7 +58,13 @@ if (isDev) {
         },
       },
       fetch: async (req) => {
-        if (req.url.endsWith("/_bun/hmr")) {
+        const url = new URL(req.url)
+
+        if (url.pathname.startsWith('/api/auth')) {
+          return auth.handler(req);
+        }
+
+        if (url.pathname.startsWith("/_bun/hmr")) {
           servers[name]!.upgrade(req, { data: "hmr" });
           return;
         }
@@ -128,6 +136,10 @@ if (isDev) {
     fetch: async (req): Promise<Response> => {
       const url = new URL(req.url);
       const host = req.headers.get("host") || "";
+
+      if (url.pathname.startsWith('/api/auth')) {
+        return auth.handler(req);
+      }
 
       // Determine which site config to use based on the domain
       let siteName: string | null = null;
