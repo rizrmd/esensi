@@ -7,14 +7,16 @@ export default defineAPI({
     const result = await db.user_info.findFirst({
       select: {
         id: true,
+        
+        created_at: true,
+        users: {
+          id: true,
+        },
       },
       where: {},
       // debug: true,
     });
 
-    db.user.create({
-      data: { affiliates: [{}] },
-    });
     // console.log(result.sql);
 
     return result;

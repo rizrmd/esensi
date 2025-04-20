@@ -12,6 +12,7 @@ import {
 } from "rlib/server";
 import * as models from "shared/models";
 import { backendApi } from "./gen/api";
+import type { SiteConfig, SiteEntry } from "rlib/client";
 
 const { isDev, isRestarted, config, routes } = await init({
   root: process.cwd(),
@@ -41,7 +42,7 @@ if (isDev) {
 
   for (const [name, site] of Object.entries(config.sites)) {
     servers[name] = Bun.serve({
-      port: site.port,
+      port: site.devPort,
       routes: routes[name],
       websocket: {
         message: (ws, msg) => {
@@ -73,7 +74,7 @@ if (isDev) {
     for (const [name, site] of Object.entries(config.sites)) {
       console.log(
         `- ${padEnd(name + " ", 20, "─")} ${c.magenta}http://localhost:${
-          site.port
+          site.devPort
         }${c.reset}`
       );
     }
@@ -130,7 +131,7 @@ if (isDev) {
 
       // Determine which site config to use based on the domain
       let siteName: string | null = null;
-      let siteConfig: { port: number; domains?: string[] } | null = null;
+      let siteConfig: SiteEntry | null = null;
 
       for (const [name, site] of Object.entries(config.sites)) {
         if (
@@ -147,7 +148,7 @@ if (isDev) {
       // If no matching domain found and we have a default site, use that
       if (!siteName && defaultSiteName && config.sites[defaultSiteName]) {
         siteName = defaultSiteName;
-        siteConfig = config.sites[defaultSiteName];
+        siteConfig = config.sites[defaultSiteName] as any;
       }
 
       // If we still don't have a site, return 404
