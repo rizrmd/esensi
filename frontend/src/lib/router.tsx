@@ -110,8 +110,9 @@ export function matchRoute(
         } 
         // For production domains, match by domain name
         else if (domainConfig.domains) {
+          // Check if current host matches one of the domains for this pattern
           const matchesDomain = domainConfig.domains.some(domain => 
-            currentHost === domain || currentHost.startsWith(`${patternFirstSegment}.`)
+            currentHost === domain
           );
           
           // If we're not on a matching domain, don't match

@@ -111,6 +111,7 @@ if (isDev) {
     publicDir: "frontend:dist",
     cache: true,
     maxAge: 86400, // 1 day cache
+    spaIndexFile: "index.html",
   });
 
   // Choose default port - either defined in an environment variable or use 3000

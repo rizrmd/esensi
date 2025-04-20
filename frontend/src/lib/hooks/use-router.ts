@@ -11,7 +11,38 @@ import { useContext, useEffect, type FC, type ReactNode } from "react";
 import { useLocal } from "../hooks/use-local";
 import raw_config from "../../../../config.json";
 
-const config = raw_config as any;
+interface SiteConfig {
+  domains?: string[];
+  [key: string]: any;
+}
+
+interface Config {
+  sites: Record<string, SiteConfig>;
+  [key: string]: any;
+}
+
+const config = raw_config as Config;
+
+// Get domain key from hostname (for non-localhost environments)
+function getDomainKeyByHostname(hostname: string): string | null {
+  // Based on config.json, when visiting publish.esensi.local, we should return "auth.esensi"
+  if (
+    hostname === "publish.esensi.local" ||
+    hostname === "publish.esensi.online"
+  ) {
+    return "auth.esensi";
+  }
+
+  // For other domains, check the normal mappings
+  for (const [domain, cfg] of Object.entries(config.sites)) {
+    if (cfg.domains && Array.isArray(cfg.domains)) {
+      if (cfg.domains.includes(hostname)) {
+        return domain;
+      }
+    }
+  }
+  return null;
+}
 
 const router = {
   currentPath: window.location.pathname,
@@ -55,38 +86,65 @@ export function useRoot() {
         ) || "/";
 
       await logRouteChange(path);
-      
-      // Check if we're on localhost and requesting the root path
-      const isLocalhost = window.location.hostname === 'localhost' || 
-                          window.location.hostname === '127.0.0.1';
-      const isRootPath = path === '/';
-      
-      // For root path on localhost, use the domain key from the port to redirect
-      if (isLocalhost && isRootPath) {
+
+      const hostname = window.location.hostname;
+      const isLocalhost = hostname === "localhost" || hostname === "127.0.0.1";
+      const isRootPath = path === "/";
+      let domainKey: null | string = null;
+
+      // Determine the domain key based on environment
+      if (isLocalhost) {
+        // For localhost, use port number to determine domain
         const port = window.location.port;
-        const domainKey = getDomainKeyByPort(port);
-        
-        // If we found a domain key for this port and it's not the default domain
-        if (domainKey && domainKey !== 'default') {
-          // Construct the path to the domain's index page
-          const domainIndexPath = `/${domainKey}`;
-          
-          // Check if this domain has an index page module
-          const domainPageLoader = pageModules[domainIndexPath];
-          
-          if (domainPageLoader) {
-            try {
-              // Load the domain-specific index module
-              const module = await domainPageLoader();
-              local.routePath = domainIndexPath;
-              local.Page = module.default;
-              router.params = {};
-              local.isLoading = false;
-              local.render();
-              return;
-            } catch (err) {
-              console.error(`Failed to load ${domainKey} index page:`, err);
-            }
+        domainKey = getDomainKeyByPort(port);
+      } else {
+        // For non-localhost, use hostname to determine domain
+        domainKey = getDomainKeyByHostname(hostname);
+      }
+
+      // If we're at the root path and we've identified a domain key,
+      // try to load the domain-specific index page
+      if (isRootPath && domainKey) {
+        // Construct the path to the domain's index page
+        const domainIndexPath = `/${domainKey}`;
+
+        // Check if this domain has an index page module
+        const domainPageLoader = pageModules[domainIndexPath];
+
+        if (domainPageLoader) {
+          try {
+            // Load the domain-specific index module
+            const module = await domainPageLoader();
+            local.routePath = domainIndexPath;
+            local.Page = module.default;
+            router.params = {};
+            local.isLoading = false;
+            local.render();
+            return;
+          } catch (err) {
+            console.error(`Failed to load ${domainKey} index page:`, err);
+          }
+        }
+      }
+
+      // If we're not at root path but have a domain key, try to append it to the route
+      if (!isRootPath && domainKey && !path.includes(domainKey)) {
+        // Construct a path with domain key included
+        const domainPath = `/${domainKey}${path}`;
+        const domainPageLoader = pageModules[domainPath];
+
+        if (domainPageLoader) {
+          try {
+            // Load the domain-specific page
+            const module = await domainPageLoader();
+            local.routePath = domainPath;
+            local.Page = module.default;
+            router.params = {};
+            local.isLoading = false;
+            local.render();
+            return;
+          } catch (err) {
+            console.error(`Failed to load ${domainKey} page at ${path}:`, err);
           }
         }
       }
@@ -97,25 +155,15 @@ export function useRoot() {
       let matchedParams = {};
 
       // If no exact match, check if we're on localhost with a specific port
-      if (!pageLoader) {
-        const isLocalhost = window.location.hostname === 'localhost' || 
-                            window.location.hostname === '127.0.0.1';
-        
-        if (isLocalhost) {
-          const port = window.location.port;
-          const domainKey = getDomainKeyByPort(port);
-          
-          if (domainKey) {
-            // Try to match with domain-specific route
-            const domainPath = `/${domainKey}${path}`;
-            const domainPageLoader = pageModules[domainPath];
-            
-            if (domainPageLoader) {
-              // We found a match for domain-specific path
-              pageLoader = domainPageLoader;
-              matchedParams = {};
-            }
-          }
+      if (!pageLoader && domainKey) {
+        // Try to match with domain-specific route
+        const domainPath = `/${domainKey}${path}`;
+        const domainPageLoader = pageModules[domainPath];
+
+        if (domainPageLoader) {
+          // We found a match for domain-specific path
+          pageLoader = domainPageLoader;
+          matchedParams = {};
         }
       }
 
