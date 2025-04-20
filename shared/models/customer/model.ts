@@ -66,11 +66,11 @@ export default {
         column: "id_customer",
       },
     },
-    user_infos: {
+    user_roles: {
       type: "has_many",
       from: "id",
       to: {
-        model: "user_info",
+        model: "user_role",
         column: "id_customer",
       },
     }

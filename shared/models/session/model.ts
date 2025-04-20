@@ -29,11 +29,11 @@ export default {
     }
   },
   relations: {
-    user_info: {
+    user_role: {
       type: "belongs_to",
       from: "user_info_id",
       to: {
-        model: "user_info",
+        model: "user_role",
         column: "id",
       },
     }

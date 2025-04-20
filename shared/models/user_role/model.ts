@@ -1,7 +1,7 @@
 import type { ModelDefinition } from "rlib/server";
 
 export default {
-  table: "user_info",
+  table: "user_role",
   columns: {
     id: {
       type: "text",
@@ -133,8 +133,8 @@ export default {
       from: "id",
       to: {
         model: "user",
-        column: "id_user_info",
+        column: "id_user_role",
       },
     }
   },
-} as const satisfies ModelDefinition<"user_info">;
+} as const satisfies ModelDefinition<"user_role">;

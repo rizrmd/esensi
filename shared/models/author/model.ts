@@ -38,11 +38,11 @@ export default {
         column: "author_id",
       },
     },
-    user_infos: {
+    user_roles: {
       type: "has_many",
       from: "id",
       to: {
-        model: "user_info",
+        model: "user_role",
         column: "id_author",
       },
     }

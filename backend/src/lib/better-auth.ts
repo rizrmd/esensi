@@ -95,7 +95,7 @@ export const auth = betterAuth({
   account: {
     modelName: "user",
     fields: {
-      userId: "user_info_id",
+      userId: "user_role_id",
       accountId: "username",
       providerId: "id_provider",
       accessToken: "access_token",
@@ -108,7 +108,7 @@ export const auth = betterAuth({
     },
   },
   user: {
-    modelName: "user_info",
+    modelName: "user_role",
     fields: {
       emailVerified: "email_verified",
       createdAt: "created_at",
@@ -145,7 +145,7 @@ export const auth = betterAuth({
 export const utils = {
   mapping: {
     table: (name: string) => {
-      if (name === "user") return "user_info";
+      if (name === "user") return "user_role";
       else if (name === "account") return "user";
       else return name;
     },
@@ -208,7 +208,7 @@ export const utils = {
         createdAt: string;
         updatedAt: string;
       }) => ({
-        user_info_id: userId,
+        user_role_id: userId,
         username: accountId,
         id_provider: providerId,
         access_token: accessToken,
@@ -276,7 +276,7 @@ export const utils = {
         created_at: response?.session.createdAt,
         updated_at: response?.session.updatedAt,
       },
-      user_info: {
+      user_role: {
         ...response?.user,
         email_verified: response?.user.emailVerified,
         created_at: response?.user.createdAt,

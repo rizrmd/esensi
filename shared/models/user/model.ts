@@ -42,16 +42,16 @@ export default {
     updated_at: {
       type: "datetime",
     },
-    id_user_info: {
+    id_user_role: {
       type: "text",
     }
   },
   relations: {
-    user_info: {
+    user_role: {
       type: "belongs_to",
-      from: "id_user_info",
+      from: "id_user_role",
       to: {
-        model: "user_info",
+        model: "user_role",
         column: "id",
       },
     },

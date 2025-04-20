@@ -34,6 +34,6 @@ export { default as t_sales_line } from './t_sales_line/model';
 export { default as transaction } from './transaction/model';
 export { default as two_factor } from './two_factor/model';
 export { default as user } from './user/model';
-export { default as user_info } from './user_info/model';
+export { default as user_role } from './user_role/model';
 export { default as verification } from './verification/model';
 export { default as withdrawal } from './withdrawal/model';
