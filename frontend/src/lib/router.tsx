@@ -20,7 +20,7 @@ export function buildPath(to: string): string {
 // Get domain key by port number when on localhost
 export function getDomainKeyByPort(port: string): string | null {
   for (const [domain, cfg] of Object.entries(config.sites)) {
-    if (cfg.port?.toString() === port) {
+    if (cfg.devPort?.toString() === port) {
       return domain;
     }
   }
@@ -101,7 +101,7 @@ export function matchRoute(
           // Extract port from current host (localhost:PORT format)
           const currentPort = currentHost.split(':')[1];
           // Check if port matches the config
-          const expectedPort = domainConfig.port?.toString();
+          const expectedPort = domainConfig.devPort?.toString();
           
           // If port doesn't match and we have a specific expected port, don't match
           if (expectedPort && currentPort !== expectedPort) {

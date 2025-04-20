@@ -1,7 +1,16 @@
 {
   "sites": {
-    "auth.esensi": { "port": 7500, "domains": ["auth.esensi.online"] },
-    "publish.esensi": { "port": 8100, "domains": ["publish.esensi.online"] },
-    "internal.esensi": { "port": 8500, "domains": ["internal.esensi.online"] }
+    "auth.esensi": {
+      "devPort": 7500,
+      "domains": ["auth.esensi.online", "auth.esensi.local"]
+    },
+    "publish.esensi": {
+      "devPort": 8100,
+      "domains": ["publish.esensi.online", "publish.esensi.local"]
+    },
+    "internal.esensi": {
+      "devPort": 8500,
+      "domains": ["internal.esensi.online", "internal.esensi.local"]
+    }
   }
 }
