@@ -73,7 +73,7 @@ export const betterAuth = {
     return { data, error };
   },
   social: async ({
-    provider = "google",
+    provider,
     callbackURL = "/dashboard",
     errorCallbackURL = "/error",
     newUserCallbackURL = "/welcome",

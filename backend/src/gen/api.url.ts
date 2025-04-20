@@ -2,13 +2,13 @@
 import type { ApiUrls } from "rlib/server";
 
 export const endpoints = {
-  "auth.esensi": {
+  "internal.esensi": {
     "check": "/api/check"
   },
   "publish.esensi": {
     "check": "/api/check"
   },
-  "internal.esensi": {
+  "auth.esensi": {
     "check": "/api/check"
   }
 } as const satisfies ApiUrls;

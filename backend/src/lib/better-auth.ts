@@ -1,4 +1,9 @@
-import { betterAuth, type BetterAuthOptions } from "better-auth";
+import {
+  APIError,
+  betterAuth,
+  type Account,
+  type BetterAuthOptions,
+} from "better-auth";
 import { Pool } from "pg";
 import { username, twoFactor, openAPI } from "better-auth/plugins";
 import nodemailer from "nodemailer";
@@ -24,11 +29,18 @@ export const auth = betterAuth({
   database: new Pool({
     connectionString: process.env.DATABASE_URL,
   }),
+  secret: process.env.BETTER_AUTH_SECRET,
   emailAndPassword: {
     enabled: true,
     autoSignIn: false,
     requireEmailVerification: true,
-
+    sendResetPassword: async ({ user, url }) => {
+      await sendEmail(
+        user.email,
+        "Reset Password",
+        `Click here to reset your password: ${url}`
+      );
+    },
   },
   emailVerification: {
     sendOnSignUp: true,
@@ -41,6 +53,7 @@ export const auth = betterAuth({
         `Click here to verify your email: ${veritifacationUrl}`
       );
     },
+    expiresIn: 3600, // 1 hour
   },
   socialProviders: {
     google: {
@@ -54,6 +67,11 @@ export const auth = betterAuth({
     //   fields: ["id", "name", "email", "picture", "user_friends"], // Extending list of fields
     // },
   },
+  trustedOrigins: [
+    "http://localhost:7500",
+    "http://localhost:8100",
+    "http://localhost:8500",
+  ],
   plugins: [
     openAPI(), // /api/auth/refernce
     username(),
@@ -93,6 +111,9 @@ export const auth = betterAuth({
     },
   },
   account: {
+    accountLinking: {
+      trustedProviders: ["email-password", "google", "facebook"],
+    },
     modelName: "user",
     fields: {
       userId: "user_role_id",
@@ -115,31 +136,48 @@ export const auth = betterAuth({
       updatedAt: "updated_at",
     },
   },
-  // emailVerification: {
-  //   sendVerificationEmail: async ({ user, url, token }) => {
-  //     // Send verification email to user
-  //     const sendEmail = async (subject: string, text: string) => {
-  //       // Implement your email sending logic here.
-  //       const transporter = nodemailer.createTransport({
-  //         service: "Gmail",
-  //         auth: {
-  //           user: process.env.EMAIL_USER,
-  //           pass: process.env.EMAIL_PASS,
-  //         },
-  //       });
-  //       const mailOptions = {
-  //         from: process.env.EMAIL_USER,
-  //         to: user.email,
-  //         subject,
-  //         text,
-  //       };
-  //       await transporter.sendMail(mailOptions);
-  //     };
-  //   },
-  //   sendOnSignUp: true,
-  //   autoSignInAfterVerification: true,
-  //   expiresIn: 3600, // 1 hour
-  // },
+  databaseHooks: {
+    session: {
+      create: {
+        async before(session, context) {},
+        async after(session, context) {},
+      },
+      update: {
+        async before(session, context) {},
+        async after(session, context) {},
+      },
+    },
+    verification: {
+      create: {
+        async before(session, context) {},
+        async after(session, context) {},
+      },
+      update: {
+        async before(session, context) {},
+        async after(session, context) {},
+      },
+    },
+    user: {
+      create: {
+        async before(session, context) {},
+        async after(session, context) {},
+      },
+      update: {
+        async before(session, context) {},
+        async after(session, context) {},
+      },
+    },
+    account: {
+      create: {
+        async before(data, context) {},
+        async after(session, context) {},
+      },
+      update: {
+        async before(session, context) {},
+        async after(session, context) {},
+      },
+    },
+  },
 });
 
 export const utils = {
