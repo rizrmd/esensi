@@ -3,6 +3,8 @@ import index from "frontend/entry/index.html";
 import { padEnd } from "lodash";
 import type { SiteEntry } from "rlib/client";
 import {
+  buildAPI,
+  buildPages,
   c,
   dir,
   init,
@@ -20,8 +22,21 @@ const { isDev, isRestarted, config, routes } = await init({
   models,
   backendApi,
 });
+const apiConfig = {
+  input_dir: "backend:src/api",
+  out_file: "backend:src/gen/api.ts",
+};
+const pageConfig = {
+  input_dir: "frontend:src/pages",
+  out_file: "frontend:src/lib/gen/routes.ts",
+};
 
 if (isDev) {
+  if (!isRestarted) {
+    await buildAPI(apiConfig);
+    await buildPages(pageConfig);
+  }
+
   const servers = {} as Record<string, Server>;
   const spa = spaHandler({ index, port: 45622 }); //Single Page App Handler
   const handleStatic = staticFileHandler({
@@ -76,14 +91,8 @@ if (isDev) {
       );
     }
 
-    watchAPI({
-      input_dir: "backend:src/api",
-      out_file: "backend:src/gen/api.ts",
-    });
-    watchPage({
-      input_dir: "frontend:src/pages",
-      out_file: "frontend:src/lib/gen/routes.ts",
-    });
+    watchAPI(apiConfig);
+    watchPage(pageConfig);
   }
 } else {
   // Production mode

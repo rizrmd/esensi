@@ -23,7 +23,7 @@ export default () => {
                 password: read.password,
               });
 
-              await Alert.info(res)
+              await Alert.info(res);
               write.loading = false;
             }
           }}
