@@ -14,14 +14,14 @@ import {
   watchPage,
 } from "rlib/server";
 import * as models from "shared/models";
-import { backendApi } from "./gen/api";
 import { auth } from "./lib/better-auth";
 
-const { isDev, isRestarted, config, routes } = await init({
-  root: process.cwd(),
-  models,
-  backendApi,
-});
+let isDev = process.argv.includes("--dev");
+let isLiveReload = false;
+if ((global as any).db) {
+  isLiveReload = true;
+}
+
 const apiConfig = {
   input_dir: "backend:src/api",
   out_file: "backend:src/gen/api.ts",
@@ -32,7 +32,20 @@ const pageConfig = {
 };
 
 if (isDev) {
-  if (!isRestarted) {
+  if (!isLiveReload) {
+    await buildAPI(apiConfig);
+    await buildPages(pageConfig);
+  }
+}
+const { backendApi } = await import("./gen/api");
+const { config, routes } = await init({
+  root: process.cwd(),
+  models,
+  backendApi,
+});
+
+if (isDev) {
+  if (!isLiveReload) {
     await buildAPI(apiConfig);
     await buildPages(pageConfig);
   }
@@ -81,7 +94,7 @@ if (isDev) {
     });
   }
 
-  if (!isRestarted) {
+  if (!isLiveReload) {
     console.log(`${c.green}DEV${c.reset} Servers started:`);
     for (const [name, site] of Object.entries(config.sites)) {
       console.log(
