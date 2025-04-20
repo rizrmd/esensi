@@ -8,6 +8,7 @@ import {
   init,
   watchAPI,
   watchPage,
+  spaHandler,
 } from "rlib/server";
 import * as models from "shared/models";
 import { backendApi } from "./gen/api";
@@ -33,15 +34,7 @@ if (isDev) {
 
 if (isDev) {
   const servers = {} as Record<string, Server>;
-  const assetServer = Bun.serve({
-    static: {
-      "/*": index,
-    },
-    fetch() {
-      return new Response(null, { status: 404 });
-    },
-    port: 45622,
-  });
+  const spa = spaHandler({ index, port: 45622 }); //Single Page App Handler
   const handleStatic = staticFileHandler({
     publicDir: "frontend:public",
     cache: isDev ? false : true, // Disable cache in development
@@ -49,39 +42,18 @@ if (isDev) {
   });
 
   for (const [name, site] of Object.entries(config.sites)) {
-    // Create static file handler
-
-    const hmr = new WeakMap<ServerWebSocket<unknown>, WebSocket>();
     servers[name] = Bun.serve({
       port: site.port,
       routes: routes[name],
       websocket: {
         message: (ws, msg) => {
-          if (ws.data === "hmr") {
-            const sw = hmr.get(ws);
-            if (sw) {
-              sw.send(msg);
-            }
-          }
+          if (spa.ws.message(ws, msg)) return;
         },
         open: (ws) => {
-          if (ws.data === "hmr") {
-            const sw = new WebSocket(
-              `ws://localhost:${assetServer.port}/_bun/hmr`
-            );
-            sw.onmessage = (e) => {
-              ws.send(e.data as any);
-            };
-            sw.onclose = () => {
-              hmr.delete(ws);
-            };
-            hmr.set(ws, sw as any);
-          }
+          if (spa.ws.open(ws)) return;
         },
         close: (ws) => {
-          if (ws.data === "hmr") {
-            hmr.delete(ws);
-          }
+          if (spa.ws.close(ws)) return;
         },
       },
       fetch: async (req) => {
@@ -94,12 +66,7 @@ if (isDev) {
           return staticResponse;
         }
 
-        return fetch(
-          new URL(
-            req.url.slice(servers[name]!.url.href.length),
-            assetServer.url
-          )
-        );
+        return spa.serve(req, servers[name]!);
       },
     });
   }
