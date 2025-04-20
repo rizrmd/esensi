@@ -13,10 +13,12 @@ export const EField = function <
     label,
     className,
     input,
+    disabled
   }: {
     name: K;
     label?: string;
     className?: string;
+    disabled?: boolean;
     input?: React.ComponentProps<"input">;
   }
 ) {
@@ -36,6 +38,8 @@ export const EField = function <
         id={name}
         spellCheck={false}
         value={(read as any)[name]}
+        disabled={disabled}
+        className={cn(disabled && "bg-muted")}
         onChange={(e) => {
           write[name] = e.currentTarget.value;
         }}

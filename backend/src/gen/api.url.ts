@@ -9,7 +9,6 @@ export const endpoints = {
     "check": "/api/check"
   },
   "internal.esensi": {
-    "coba": "/api/coba",
     "check": "/api/check"
   }
 } as const satisfies ApiUrls;

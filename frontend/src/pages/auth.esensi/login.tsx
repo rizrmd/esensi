@@ -3,6 +3,7 @@ import { SideForm } from "@/components/ext/side-form";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/global-alert";
 import { betterAuth } from "@/lib/better-auth";
+import { navigate } from "@/lib/router";
 
 export default () => {
   return (
@@ -17,11 +18,18 @@ export default () => {
             if (!read.loading) {
               write.loading = true;
 
-              //todo: do actual login here
               const res = await betterAuth.signIn({
                 username: read.username,
                 password: read.password,
               });
+
+              if (!res.error) {
+                const user = res.data?.user;
+                if (user) {
+                  navigate(betterAuth.homeUrl(user));
+                  return;
+                }
+              }
 
               await Alert.info(res);
               write.loading = false;
@@ -32,8 +40,12 @@ export default () => {
           {({ Field, read }) => {
             return (
               <>
-                <Field name="username" />
-                <Field name="password" input={{ type: "password" }} />
+                <Field name="username" disabled={read.loading} />
+                <Field
+                  name="password"
+                  disabled={read.loading}
+                  input={{ type: "password" }}
+                />
 
                 <Button
                   type="submit"

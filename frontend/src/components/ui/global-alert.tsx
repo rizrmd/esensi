@@ -111,7 +111,9 @@ export function GlobalAlert() {
           </AlertDialogTitle>
           <AlertDialogDescription className="whitespace-pre-wrap">
             {typeof snap.message === "object" ? (
-              <pre className="whitespace-pre-wrap wrap-anywhere">{JSON.stringify(snap.message, null, 2)}</pre>
+              <span className="whitespace-pre-wrap wrap-anywhere font-mono">
+                {JSON.stringify(snap.message, null, 2)}
+              </span>
             ) : (
               snap.message
             )}

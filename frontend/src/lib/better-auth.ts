@@ -9,6 +9,10 @@ type FetchOptions = {
 };
 
 export type Session = typeof authClient.$Infer.Session;
+export type User = Omit<
+  (typeof authClient.$Infer.Session)["user"],
+  "twoFactorEnabled"
+>;
 
 const authClient = createAuthClient({
   baseURL: `${location.protocol}//${location.host}`,
@@ -16,7 +20,7 @@ const authClient = createAuthClient({
 });
 
 export const betterAuth = {
-  homeUrl: (session: Session) => {
+  homeUrl: (user: User) => {
     return "/dashboard";
   },
   signUp: async ({
