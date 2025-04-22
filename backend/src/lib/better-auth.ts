@@ -1,31 +1,38 @@
 import {
   APIError,
   betterAuth,
+  generateId,
   type Account,
   type BetterAuthOptions,
 } from "better-auth";
 import { Pool } from "pg";
 import { username, twoFactor, openAPI } from "better-auth/plugins";
 import nodemailer from "nodemailer";
+import { randomUUIDv7 } from "bun";
 
 const sendEmail = async (to: string, subject: string, text: string) => {
-  const transporter = nodemailer.createTransport({
-    service: "Gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to,
-    subject,
-    text,
-  };
-  await transporter.sendMail(mailOptions);
+  // const transporter = nodemailer.createTransport({
+  //   service: "Gmail",
+  //   auth: {
+  //     user: process.env.EMAIL_USER,
+  //     pass: process.env.EMAIL_PASS,
+  //   },
+  // });
+  // const mailOptions = {
+  //   from: process.env.EMAIL_USER,
+  //   to,
+  //   subject,
+  //   text,
+  // };
+  // await transporter.sendMail(mailOptions);
 };
 
 export const auth = betterAuth({
+  advanced: {
+    database: {
+      generateId: () => randomUUIDv7(),
+    },
+  },
   database: new Pool({
     connectionString: process.env.DATABASE_URL,
   }),
@@ -116,7 +123,7 @@ export const auth = betterAuth({
     },
     modelName: "user",
     fields: {
-      userId: "user_role_id",
+      userId: "id_user_role",
       accountId: "username",
       providerId: "id_provider",
       accessToken: "access_token",
@@ -136,48 +143,16 @@ export const auth = betterAuth({
       updatedAt: "updated_at",
     },
   },
-  databaseHooks: {
-    session: {
-      create: {
-        async before(session, context) {},
-        async after(session, context) {},
-      },
-      update: {
-        async before(session, context) {},
-        async after(session, context) {},
-      },
-    },
-    verification: {
-      create: {
-        async before(session, context) {},
-        async after(session, context) {},
-      },
-      update: {
-        async before(session, context) {},
-        async after(session, context) {},
-      },
-    },
-    user: {
-      create: {
-        async before(session, context) {},
-        async after(session, context) {},
-      },
-      update: {
-        async before(session, context) {},
-        async after(session, context) {},
-      },
-    },
-    account: {
-      create: {
-        async before(data, context) {},
-        async after(session, context) {},
-      },
-      update: {
-        async before(session, context) {},
-        async after(session, context) {},
-      },
-    },
-  },
+  // databaseHooks: {
+  //   user: {
+  //     create: {
+  //       async before(data, context) {
+  //         data.id = randomUUIDv7();
+  //         return { data };
+  //       },
+  //     },
+  //   },
+  // },
 });
 
 export const utils = {
