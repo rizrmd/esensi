@@ -17,11 +17,15 @@ export default () => {
           onSubmit={async ({ write, read }) => {
             if (!read.loading) {
               if (!read.name || !read.email || !read.password) {
-                Alert.info("Please fill in all required fields");
+                Alert.info("Isi semua kolom yang wajib");
                 return;
               }
               if (read.password !== read.password2) {
-                Alert.info("Confirm password does not match");
+                Alert.info("Konfirmasi password tidak sesuai");
+                return;
+              }
+              if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(read.email)) {
+                Alert.info("Email tidak valid");
                 return;
               }
               write.loading = true;

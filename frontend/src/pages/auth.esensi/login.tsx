@@ -17,7 +17,7 @@ export default () => {
           onSubmit={async ({ write, read }) => {
             if (!read.loading) {
               if (!read.username || !read.password) {
-                Alert.info("Please fill in all fields");
+                Alert.info("Isi semua kolom");
                 return;
               }
               write.loading = true;
