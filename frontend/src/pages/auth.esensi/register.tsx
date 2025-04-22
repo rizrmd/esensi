@@ -10,20 +10,25 @@ export default () => {
     <SideForm sideImage={"/img/side-bg.jpg"}>
       <div className="space-y-6">
         <div className="text-center">
-          <h1 className="text-2xl font-semibold">Login</h1>
+          <h1 className="text-2xl font-semibold">Register</h1>
         </div>
         <EForm
-          data={{ username: "", password: "", loading: false }}
+          data={{ name: "", email: "", username: "", password: "", password2: "", loading: false }}
           onSubmit={async ({ write, read }) => {
             if (!read.loading) {
-              if (!read.username || !read.password) {
-                Alert.info("Please fill in all fields");
+              if (!read.name || !read.email || !read.password) {
+                Alert.info("Please fill in all required fields");
+                return;
+              }
+              if (read.password !== read.password2) {
+                Alert.info("Confirm password does not match");
                 return;
               }
               write.loading = true;
 
-              const res = await betterAuth.signIn({
-                username: read.username,
+              const res = await betterAuth.signUp({
+                name: read.name,
+                username: read.email,
                 password: read.password,
               });
 
@@ -44,11 +49,19 @@ export default () => {
           {({ Field, read }) => {
             return (
               <>
-                <Field name="username" disabled={read.loading} label="Email or username" />
+                <Field name="name" disabled={read.loading} label="Full Name" />
+                <Field name="email" disabled={read.loading} />
+                <Field name="username" disabled={read.loading} optional />
                 <Field
                   name="password"
                   disabled={read.loading}
                   input={{ type: "password" }}
+                />
+                <Field
+                  name="password2"
+                  disabled={read.loading}
+                  input={{ type: "password" }}
+                  label="Confirm Password"
                 />
 
                 <Button
@@ -56,7 +69,7 @@ export default () => {
                   className="w-full"
                   disabled={read.loading}
                 >
-                  {read.loading ? "Logging in..." : "Login"}
+                  {read.loading ? "Registering..." : "Register"}
                 </Button>
               </>
             );

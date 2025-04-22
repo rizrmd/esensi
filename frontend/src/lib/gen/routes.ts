@@ -2,6 +2,7 @@
 export const pageModules: Record<string, () => Promise<any>> = {
   "/": () => import("@/pages"),
   "/publish.esensi": () => import("@/pages/publish.esensi"),
+  "/auth.esensi/register": () => import("@/pages/auth.esensi/register"),
   "/auth.esensi": () => import("@/pages/auth.esensi"),
   "/auth.esensi/login": () => import("@/pages/auth.esensi/login"),
 };

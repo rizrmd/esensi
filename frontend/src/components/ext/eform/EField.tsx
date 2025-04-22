@@ -13,12 +13,14 @@ export const EField = function <
     label,
     className,
     input,
-    disabled
+    disabled,
+    optional,
   }: {
     name: K;
     label?: string;
     className?: string;
     disabled?: boolean;
+    optional?: boolean;
     input?: React.ComponentProps<"input">;
   }
 ) {
@@ -33,6 +35,9 @@ export const EField = function <
         onClick={() => {}}
       >
         {label || name}
+        {optional && (
+          <span className="text-gray-500 lowercase"> (optional)</span>
+        )}
       </Label>
       <Input
         id={name}
