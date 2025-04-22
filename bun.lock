@@ -314,7 +314,7 @@
 
     "regenerator-runtime": ["regenerator-runtime@0.14.1", "", {}, "sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw=="],
 
-    "rlib": ["rlib@github:rizrmd/rlib#1304b1b", { "dependencies": { "lodash": "^4.17.21", "pg": "^8.14.1", "postgrejs": "^2.22.4" }, "peerDependencies": { "typescript": "^5" } }, "rizrmd-rlib-1304b1b"],
+    "rlib": ["rlib@github:rizrmd/rlib#6e44a54", { "dependencies": { "lodash": "^4.17.21", "pg": "^8.14.1", "postgrejs": "^2.22.4" }, "peerDependencies": { "typescript": "^5" } }, "rizrmd-rlib-6e44a54"],
 
     "rou3": ["rou3@0.5.1", "", {}, "sha512-OXMmJ3zRk2xeXFGfA3K+EOPHC5u7RDFG7lIOx0X1pdnhUkI8MdVrbV+sNsD80ElpUZ+MRHdyxPnFthq9VHs8uQ=="],
 

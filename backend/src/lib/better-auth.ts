@@ -124,7 +124,7 @@ export const auth = betterAuth({
     modelName: "user",
     fields: {
       userId: "id_user_role",
-      accountId: "username",
+      accountId: "id_user",
       providerId: "id_provider",
       accessToken: "access_token",
       refreshToken: "refresh_token",
@@ -222,7 +222,7 @@ export const utils = {
         updatedAt: string;
       }) => ({
         user_role_id: userId,
-        username: accountId,
+        id_user: accountId,
         id_provider: providerId,
         access_token: accessToken,
         refresh_token: refreshToken,
