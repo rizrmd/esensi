@@ -24,7 +24,6 @@ const sendEmail = async ({
   const transporter = nodemailer.createTransport(
     postmarkTransport({
       auth: { apiKey: process.env.POSTMARK_API_KEY as string },
-      postmarkOptions: {},
     })
   );
   const mail =
