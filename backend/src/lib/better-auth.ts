@@ -1,30 +1,52 @@
-import {
-  APIError,
-  betterAuth,
-  generateId,
-  type Account,
-  type BetterAuthOptions,
-} from "better-auth";
+import { betterAuth } from "better-auth";
+import postmarkTransport from "nodemailer-postmark-transport";
 import { Pool } from "pg";
 import { username, twoFactor, openAPI } from "better-auth/plugins";
 import nodemailer from "nodemailer";
 import { randomUUIDv7 } from "bun";
+import { getBrowserInfo } from "./utils";
 
-const sendEmail = async (to: string, subject: string, text: string) => {
-  // const transporter = nodemailer.createTransport({
-  //   service: "Gmail",
-  //   auth: {
-  //     user: process.env.EMAIL_USER,
-  //     pass: process.env.EMAIL_PASS,
-  //   },
-  // });
-  // const mailOptions = {
-  //   from: process.env.EMAIL_USER,
-  //   to,
-  //   subject,
-  //   text,
-  // };
-  // await transporter.sendMail(mailOptions);
+const sendEmail = async ({
+  to,
+  subject,
+  text,
+  html,
+  templateAlias,
+  templateModel,
+}: {
+  to: string;
+  subject?: string;
+  text?: string;
+  html?: string;
+  templateAlias?: string;
+  templateModel?: object;
+}) => {
+  const transporter = nodemailer.createTransport(
+    postmarkTransport({
+      auth: { apiKey: process.env.POSTMARK_API_KEY as string },
+      postmarkOptions: {},
+    })
+  );
+  const mail =
+    templateAlias && templateModel
+      ? {
+          from: process.env.POSTMARK_FROM as string,
+          to,
+          templateAlias,
+          templateModel,
+        }
+      : {
+          from: process.env.POSTMARK_FROM as string,
+          to,
+          subject,
+          text,
+          html,
+        };
+  try {
+    await transporter.sendMail(mail);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const auth = betterAuth({
@@ -42,23 +64,50 @@ export const auth = betterAuth({
     autoSignIn: false,
     requireEmailVerification: true,
     sendResetPassword: async ({ user, url }) => {
-      await sendEmail(
-        user.email,
-        "Reset Password",
-        `Click here to reset your password: ${url}`
-      );
+      await sendEmail({
+        to: user.email,
+        templateAlias: "password-reset",
+        templateModel: {
+          product_url: process.env.PRODUCT_URL as string,
+          product_name: process.env.PRODUCT_NAME as string,
+          name: user.name,
+          action_url: url,
+          operating_system: "operating_system_Value",
+          browser_name: getBrowserInfo(),
+          support_url: process.env.SUPPORT_URL as string,
+          company_name: process.env.COMPANY_NAME as string,
+          company_address: process.env.COMPANY_ADDRESS as string,
+        },
+        // subject: "Password Reset",
+        // text: `Click here to reset your password: ${url}`,
+      });
     },
   },
   emailVerification: {
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, token }) => {
-      const veritifacationUrl = `${process.env.BETTER_AUTH_URL}/api/auth/verify-email?token=${token}&callbackURL=${process.env.EMAIL_VERIFICATION_CALLBACK_URL}`;
-      await sendEmail(
-        user.email,
-        "Email Verification",
-        `Click here to verify your email: ${veritifacationUrl}`
-      );
+      const action_url = `${process.env.BETTER_AUTH_URL}/api/auth/verify-email?token=${token}&callbackURL=${process.env.EMAIL_VERIFICATION_CALLBACK_URL}`;
+      await sendEmail({
+        to: user.email,
+        templateAlias: "welcome",
+        templateModel: {
+          product_url: process.env.PRODUCT_URL as string,
+          product_name: process.env.PRODUCT_NAME as string,
+          action_url,
+          login_url: (process.env.LOGIN_URL as string) + "/login",
+          username: user.email,
+          support_email: process.env.SUPPORT_EMAIL as string,
+          live_chat_url: process.env.LIVE_CHAT_URL as string,
+          sender_name: process.env.POSTMARK_FROM as string,
+          help_url: process.env.HELP_URL as string,
+          company_name: process.env.COMPANY_NAME as string,
+          company_address: process.env.COMPANY_ADDRESS as string,
+          name: user.name,
+        },
+        // subject: "Email Verification",
+        // text: `Click here to verify your email: ${action_url}`
+      });
     },
     expiresIn: 3600, // 1 hour
   },
@@ -90,10 +139,26 @@ export const auth = betterAuth({
           if (!request.headers) throw new Error("Request headers not found");
           const host = request.headers.get("host");
           if (!host) throw new Error("Host not found");
-          const url = `https://${host}/auth/verify-otp?otp=${otp}`;
-          const subject = "Your OTP Code";
-          const text = `Hello ${user.name},\n\nYour OTP code is: ${otp}\n\nClick here to verify: ${url}`;
-          await sendEmail(user.email, subject, text);
+          const action_url = `https://${host}/auth/verify-otp?otp=${otp}`;
+          await sendEmail({
+            to: user.email,
+            templateAlias: "otp-code-request",
+            templateModel: {
+              product_url: process.env.PRODUCT_URL as string,
+              product_name: process.env.PRODUCT_NAME as string,
+              name: user.name,
+              otp_code: otp,
+              support_email: process.env.SUPPORT_EMAIL as string,
+              live_chat_url: process.env.LIVE_CHAT_URL as string,
+              sender_name: process.env.POSTMARK_FROM as string,
+              help_url: process.env.HELP_URL as string,
+              action_url,
+              company_name: process.env.COMPANY_NAME as string,
+              company_address: process.env.COMPANY_ADDRESS as string,
+            },
+            // subject: "OTP Code Request",
+            // text: `Hello ${user.name},\n\nYour OTP code is: ${otp}\n\nClick here to verify: ${action_url}`
+          });
         },
       },
     }),
@@ -143,16 +208,6 @@ export const auth = betterAuth({
       updatedAt: "updated_at",
     },
   },
-  // databaseHooks: {
-  //   user: {
-  //     create: {
-  //       async before(data, context) {
-  //         data.id = randomUUIDv7();
-  //         return { data };
-  //       },
-  //     },
-  //   },
-  // },
 });
 
 export const utils = {

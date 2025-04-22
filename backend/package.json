@@ -16,6 +16,7 @@
     "bcryptjs": "^3.0.2",
     "better-auth": "^1.2.7",
     "lodash": "^4.17.21",
-    "nodemailer": "^6.10.1"
+    "nodemailer": "^6.10.1",
+    "nodemailer-postmark-transport": "^6.0.1"
   }
 }
