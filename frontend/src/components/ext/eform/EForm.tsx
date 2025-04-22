@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, type ReactNode } from "react";
-import { proxy, ref, useSnapshot } from "valtio";
+import { proxy, ref, snapshot, useSnapshot } from "valtio";
 import { EField } from "./EField";
 import type { DeepReadonly, EFormChildren, ExtFieldType } from "./types";
 
@@ -25,7 +25,7 @@ export const EForm = <
   useEffect(() => {
     write.Field = ref(EField.bind(write));
     write.submit = ref(() => {
-      opt.onSubmit?.({ read: read.data as any, write: write.data });
+      opt.onSubmit?.({ read: snapshot(write.data) as any, write: write.data });
     });
   }, [opt.data]);
 

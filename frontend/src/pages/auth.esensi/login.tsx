@@ -35,7 +35,7 @@ export default () => {
                 }
               }
 
-              await Alert.info(res);
+              await Alert.info(read);
               write.loading = false;
             }
           }}
