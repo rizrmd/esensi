@@ -1,5 +1,6 @@
 import { initDev, initEnv, initProd, type onFetch } from "rlib/server";
 import { auth } from "./lib/better-auth";
+import { testEmail } from "./lib/utils";
 
 const { isDev } = initEnv();
 
@@ -17,6 +18,7 @@ const onFetch: onFetch = async ({ url, req }) => {
 
 if (isDev) {
   const index = (await import("frontend/entry/index.html")).default;
+  // console.log('xxxx', testEmail());
   initDev({
     index,
     loadApi,

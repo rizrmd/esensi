@@ -1,5 +1,4 @@
 import { betterAuth } from "better-auth";
-import postmarkTransport from "nodemailer-postmark-transport";
 import { Pool } from "pg";
 import { username, twoFactor, openAPI } from "better-auth/plugins";
 import nodemailer from "nodemailer";
@@ -21,21 +20,24 @@ const sendEmail = async ({
   templateAlias?: string;
   templateModel?: object;
 }) => {
-  const transporter = nodemailer.createTransport(
-    postmarkTransport({
-      auth: { apiKey: process.env.POSTMARK_API_KEY as string },
-    })
-  );
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_SERVER as string,
+    port: 2525,
+    auth: {
+      user: process.env.SMTP_USER as string,
+      pass: process.env.SMTP_PASS as string,
+    },
+  });
   const mail =
     templateAlias && templateModel
       ? {
-          from: process.env.POSTMARK_FROM as string,
+          from: process.env.SMTP_FROM as string,
           to,
           templateAlias,
           templateModel,
         }
       : {
-          from: process.env.POSTMARK_FROM as string,
+          from: process.env.SMTP_FROM as string,
           to,
           subject,
           text,
@@ -73,12 +75,12 @@ export const auth = betterAuth({
           action_url: url,
           operating_system: "operating_system_Value",
           browser_name: getBrowserInfo(),
-          support_url: process.env.SUPPORT_URL as string,
           company_name: process.env.COMPANY_NAME as string,
           company_address: process.env.COMPANY_ADDRESS as string,
         },
         // subject: "Password Reset",
         // text: `Click here to reset your password: ${url}`,
+        // html: `<div>Click here to reset your password: ${url}</div>`,
       });
     },
   },
@@ -86,26 +88,22 @@ export const auth = betterAuth({
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, token }) => {
-      const action_url = `${process.env.BETTER_AUTH_URL}/api/auth/verify-email?token=${token}&callbackURL=${process.env.EMAIL_VERIFICATION_CALLBACK_URL}`;
+      const action_url = `${process.env.BETTER_AUTH_URL}/api/auth/verify-email?token=${token}&callbackURL=${process.env.SMTP_VERIFICATION_CALLBACK_URL}`;
       await sendEmail({
         to: user.email,
-        templateAlias: "welcome",
+        templateAlias: "email-verification",
         templateModel: {
           product_url: process.env.PRODUCT_URL as string,
           product_name: process.env.PRODUCT_NAME as string,
           action_url,
           login_url: (process.env.LOGIN_URL as string) + "/login",
           username: user.email,
-          support_email: process.env.SUPPORT_EMAIL as string,
-          live_chat_url: process.env.LIVE_CHAT_URL as string,
-          sender_name: process.env.POSTMARK_FROM as string,
-          help_url: process.env.HELP_URL as string,
           company_name: process.env.COMPANY_NAME as string,
-          company_address: process.env.COMPANY_ADDRESS as string,
           name: user.name,
         },
         // subject: "Email Verification",
-        // text: `Click here to verify your email: ${action_url}`
+        // text: `Click here to verify your email: ${action_url}`,
+        // html: `<div>Click here to verify your email: ${action_url}</div>`,
       });
     },
     expiresIn: 3600, // 1 hour
@@ -147,16 +145,13 @@ export const auth = betterAuth({
               product_name: process.env.PRODUCT_NAME as string,
               name: user.name,
               otp_code: otp,
-              support_email: process.env.SUPPORT_EMAIL as string,
-              live_chat_url: process.env.LIVE_CHAT_URL as string,
-              sender_name: process.env.POSTMARK_FROM as string,
-              help_url: process.env.HELP_URL as string,
               action_url,
               company_name: process.env.COMPANY_NAME as string,
               company_address: process.env.COMPANY_ADDRESS as string,
             },
             // subject: "OTP Code Request",
-            // text: `Hello ${user.name},\n\nYour OTP code is: ${otp}\n\nClick here to verify: ${action_url}`
+            // text: `Hello ${user.name},\n\nYour OTP code is: ${otp}\n\nClick here to verify: ${action_url}`,
+            // html: `<div>Hello ${user.name},\n\nYour OTP code is: ${otp}\n\nClick here to verify: ${action_url}</div>`,
           });
         },
       },
@@ -165,7 +160,7 @@ export const auth = betterAuth({
   session: {
     modelName: "session",
     fields: {
-      userId: "user_id",
+      userId: "id_user_info",
       expiresAt: "expires_at",
       ipAddress: "ip_address",
       userAgent: "user_agent",
@@ -232,7 +227,7 @@ export const utils = {
         createdAt: string;
         updatedAt: string;
       }) => ({
-        user_id: userId,
+        id_user_info: userId,
         expires_at: expiresAt,
         ip_address: ipAddress,
         user_agent: userAgent,
@@ -336,7 +331,7 @@ export const utils = {
     return {
       session: {
         ...response?.session,
-        user_id: response?.session.userId,
+        id_user_info: response?.session.userId,
         expires_at: response?.session.expiresAt,
         ip_address: response?.session.ipAddress,
         user_agent: response?.session.userAgent,
