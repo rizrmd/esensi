@@ -1,6 +1,5 @@
 import { initDev, initEnv, initProd, type onFetch } from "rlib/server";
 import { auth } from "./lib/better-auth";
-import { testEmail } from "./lib/utils";
 
 const { isDev } = initEnv();
 

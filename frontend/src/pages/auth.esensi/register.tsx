@@ -6,6 +6,8 @@ import { betterAuth } from "@/lib/better-auth";
 import { navigate } from "@/lib/router";
 
 export default () => {
+  const params = new URLSearchParams(location.search);
+  const callbackURL = params.get("callbackURL") as (string | undefined);
   return (
     <SideForm sideImage={"/img/side-bg.jpg"}>
       <div className="space-y-6">
@@ -13,7 +15,13 @@ export default () => {
           <h1 className="text-2xl font-semibold">Register</h1>
         </div>
         <EForm
-          data={{ name: "", email: "", username: "", password: "", password2: "", loading: false }}
+          data={{
+            name: "",
+            email: "",
+            password: "",
+            password2: "",
+            loading: false,
+          }}
           onSubmit={async ({ write, read }) => {
             if (!read.loading) {
               if (!read.name || !read.email || !read.password) {
@@ -34,12 +42,13 @@ export default () => {
                 name: read.name,
                 username: read.email,
                 password: read.password,
+                callbackURL
               });
 
               if (!res.error) {
-                const user = res.data?.user;
-                if (user) {
-                  navigate(betterAuth.homeUrl(user));
+                Alert.info("Pendaftaran berhasil, silahkan cek email anda");
+                if (callbackURL) {
+                  window.location.replace(callbackURL);
                   return;
                 }
               }
@@ -55,7 +64,6 @@ export default () => {
               <>
                 <Field name="name" disabled={read.loading} label="Full Name" />
                 <Field name="email" disabled={read.loading} />
-                <Field name="username" disabled={read.loading} optional />
                 <Field
                   name="password"
                   disabled={read.loading}

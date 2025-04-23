@@ -6,6 +6,8 @@ import { betterAuth } from "@/lib/better-auth";
 import { navigate } from "@/lib/router";
 
 export default () => {
+  const params = new URLSearchParams(location.search);
+  const callbackURL = params.get("callbackURL") as (string | undefined);
   return (
     <SideForm sideImage={"/img/side-bg.jpg"}>
       <div className="space-y-6">
@@ -28,9 +30,8 @@ export default () => {
               });
 
               if (!res.error) {
-                const user = res.data?.user;
-                if (user) {
-                  navigate(betterAuth.homeUrl(user));
+                if (callbackURL) {
+                  window.location.replace(callbackURL);
                   return;
                 }
               }

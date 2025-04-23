@@ -3,7 +3,6 @@ import { Pool } from "pg";
 import { username, twoFactor, openAPI } from "better-auth/plugins";
 import nodemailer from "nodemailer";
 import { randomUUIDv7 } from "bun";
-import { getBrowserInfo } from "./utils";
 
 const sendEmail = async ({
   to,
@@ -67,43 +66,42 @@ export const auth = betterAuth({
     sendResetPassword: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
-        templateAlias: "password-reset",
-        templateModel: {
-          product_url: process.env.PRODUCT_URL as string,
-          product_name: process.env.PRODUCT_NAME as string,
-          name: user.name,
-          action_url: url,
-          operating_system: "operating_system_Value",
-          browser_name: getBrowserInfo(),
-          company_name: process.env.COMPANY_NAME as string,
-          company_address: process.env.COMPANY_ADDRESS as string,
-        },
-        // subject: "Password Reset",
-        // text: `Click here to reset your password: ${url}`,
-        // html: `<div>Click here to reset your password: ${url}</div>`,
+        // templateAlias: "password-reset",
+        // templateModel: {
+        //   product_url: process.env.PRODUCT_URL as string,
+        //   product_name: process.env.PRODUCT_NAME as string,
+        //   name: user.name,
+        //   action_url: url,
+        //   operating_system: "operating_system_Value",
+        //   browser_name: getBrowserInfo(),
+        //   company_name: process.env.COMPANY_NAME as string,
+        //   company_address: process.env.COMPANY_ADDRESS as string,
+        // },
+        subject: "Password Reset",
+        text: `Click here to reset your password: ${url}`,
+        html: `<div>Click here to reset your password: <a href="${url}">Reset</a></div>`,
       });
     },
   },
   emailVerification: {
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
-    sendVerificationEmail: async ({ user, token }) => {
-      const action_url = `${process.env.BETTER_AUTH_URL}/api/auth/verify-email?token=${token}&callbackURL=${process.env.SMTP_VERIFICATION_CALLBACK_URL}`;
+    sendVerificationEmail: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
-        templateAlias: "email-verification",
-        templateModel: {
-          product_url: process.env.PRODUCT_URL as string,
-          product_name: process.env.PRODUCT_NAME as string,
-          action_url,
-          login_url: (process.env.LOGIN_URL as string) + "/login",
-          username: user.email,
-          company_name: process.env.COMPANY_NAME as string,
-          name: user.name,
-        },
-        // subject: "Email Verification",
-        // text: `Click here to verify your email: ${action_url}`,
-        // html: `<div>Click here to verify your email: ${action_url}</div>`,
+        // templateAlias: "email-verification",
+        // templateModel: {
+        //   product_url: process.env.PRODUCT_URL as string,
+        //   product_name: process.env.PRODUCT_NAME as string,
+        //   action_url: url,
+        //   login_url: (process.env.LOGIN_URL as string) + "/login",
+        //   username: user.email,
+        //   company_name: process.env.COMPANY_NAME as string,
+        //   name: user.name,
+        // },
+        subject: "Email Verification",
+        text: `Click here to verify your email: ${url}`,
+        html: `<div>Click here to verify your email: <a href="${url}">Verify</a></div>`,
       });
     },
     expiresIn: 3600, // 1 hour
@@ -139,19 +137,19 @@ export const auth = betterAuth({
           const action_url = `https://${host}/auth/verify-otp?otp=${otp}`;
           await sendEmail({
             to: user.email,
-            templateAlias: "otp-code-request",
-            templateModel: {
-              product_url: process.env.PRODUCT_URL as string,
-              product_name: process.env.PRODUCT_NAME as string,
-              name: user.name,
-              otp_code: otp,
-              action_url,
-              company_name: process.env.COMPANY_NAME as string,
-              company_address: process.env.COMPANY_ADDRESS as string,
-            },
-            // subject: "OTP Code Request",
-            // text: `Hello ${user.name},\n\nYour OTP code is: ${otp}\n\nClick here to verify: ${action_url}`,
-            // html: `<div>Hello ${user.name},\n\nYour OTP code is: ${otp}\n\nClick here to verify: ${action_url}</div>`,
+            // templateAlias: "otp-code-request",
+            // templateModel: {
+            //   product_url: process.env.PRODUCT_URL as string,
+            //   product_name: process.env.PRODUCT_NAME as string,
+            //   name: user.name,
+            //   otp_code: otp,
+            //   action_url,
+            //   company_name: process.env.COMPANY_NAME as string,
+            //   company_address: process.env.COMPANY_ADDRESS as string,
+            // },
+            subject: "OTP Code Request",
+            text: `Hello ${user.name},\n\nYour OTP code is: ${otp}\n\nClick here to verify: ${action_url}`,
+            html: `<div>Hello ${user.name},\n\nYour OTP code is: ${otp}\n\nClick here to verify: <a href="${action_url}">Verify</a></div>`,
           });
         },
       },
