@@ -27,6 +27,7 @@ export default () => {
               const res = await betterAuth.signIn({
                 username: read.username,
                 password: read.password,
+                callbackURL,
               });
 
               if (!res.error) {
