@@ -156,9 +156,9 @@ export const auth = betterAuth({
     }),
   ],
   session: {
-    modelName: "session",
+    modelName: "auth_session",
     fields: {
-      userId: "id_user_role",
+      userId: "id_user",
       expiresAt: "expires_at",
       ipAddress: "ip_address",
       userAgent: "user_agent",
@@ -167,7 +167,7 @@ export const auth = betterAuth({
     },
   },
   verification: {
-    modelName: "verification",
+    modelName: "auth_verification",
     fields: {
       expiresAt: "expires_at",
       createdAt: "created_at",
@@ -178,10 +178,10 @@ export const auth = betterAuth({
     accountLinking: {
       trustedProviders: ["email-password", "google", "facebook"],
     },
-    modelName: "user",
+    modelName: "auth_account",
     fields: {
+      accountId: "id_account",
       userId: "id_user",
-      accountId: "id_user_role",
       providerId: "id_provider",
       accessToken: "access_token",
       refreshToken: "refresh_token",
@@ -193,7 +193,7 @@ export const auth = betterAuth({
     },
   },
   user: {
-    modelName: "user_role",
+    modelName: "auth_user",
     fields: {
       emailVerified: "email_verified",
       createdAt: "created_at",

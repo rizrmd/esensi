@@ -11,13 +11,16 @@ const loadApi = async () => {
 };
 const onFetch: onFetch = async ({ url, req }) => {
   if (url.pathname.startsWith("/api/auth")) {
-    return await auth.handler(req);
+    try {
+      return await auth.handler(req);
+    } catch (e) {
+      throw e;
+    }
   }
 };
 
 if (isDev) {
   const index = (await import("frontend/entry/index.html")).default;
-  // console.log('xxxx', testEmail());
   initDev({
     index,
     loadApi,
