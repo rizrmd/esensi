@@ -1,3 +1,3 @@
 export default () => {
-  return <>ini index nya global</>;
+  return <>ini indexnya om</>;
 };
