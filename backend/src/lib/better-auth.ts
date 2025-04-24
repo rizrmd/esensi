@@ -158,7 +158,7 @@ export const auth = betterAuth({
   session: {
     modelName: "session",
     fields: {
-      userId: "id_user_info",
+      userId: "id_user_role",
       expiresAt: "expires_at",
       ipAddress: "ip_address",
       userAgent: "user_agent",
@@ -225,7 +225,7 @@ export const utils = {
         createdAt: string;
         updatedAt: string;
       }) => ({
-        id_user_info: userId,
+        id_user_role: userId,
         expires_at: expiresAt,
         ip_address: ipAddress,
         user_agent: userAgent,
@@ -329,7 +329,7 @@ export const utils = {
     return {
       session: {
         ...response?.session,
-        id_user_info: response?.session.userId,
+        id_user_role: response?.session.userId,
         expires_at: response?.session.expiresAt,
         ip_address: response?.session.ipAddress,
         user_agent: response?.session.userAgent,

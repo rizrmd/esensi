@@ -11,7 +11,7 @@ export default defineAPI({
         created_at: true,
         id_token: true,
         scope: true,
-        user_info: {
+        user_role: {
           display_username: true,
         },
         customers: {

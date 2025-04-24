@@ -125,7 +125,7 @@ export default {
       from: "id",
       to: {
         model: "two_factor",
-        column: "id_user_info",
+        column: "id_user_role",
       },
     },
     users: {
