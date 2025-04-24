@@ -11,11 +11,7 @@ import { createRoot } from "react-dom/client";
 import "./globals.css";
 
 const elem = document.getElementById("root")!;
-const app = (
-  <StrictMode>
-    <Root />
-  </StrictMode>
-);
+const app = <Root />;
 
 if (import.meta.hot) {
   // With hot module reloading, `import.meta.hot.data` is persisted.

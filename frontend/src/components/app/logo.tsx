@@ -13,8 +13,8 @@ export const AppLogo: FC<{ text?: boolean; small?: boolean }> = ({
         </div>
 
         {text !== false && (
-          <div className="text-[#58b5e0]">
-            <span className="text-[#016bb3]">Esensi</span> Online
+          <div className="text-primary text-md">
+            <span className="">Esensi</span> Online
           </div>
         )}
       </a>
@@ -26,8 +26,8 @@ export const AppLogo: FC<{ text?: boolean; small?: boolean }> = ({
         <img src="/img/logo.webp" />
       </div>
       {text !== false && (
-        <div className="text-[#58b5e0]">
-          <span className="text-[#016bb3]">Esensi</span> Online
+        <div className="text-primary text-md">
+          <span className="">Esensi</span> Online
         </div>
       )}
     </a>

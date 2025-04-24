@@ -10,6 +10,7 @@ import {
 import { useContext, useEffect, type FC, type ReactNode } from "react";
 import { useLocal } from "../hooks/use-local";
 import raw_config from "../../../../config.json";
+import { betterAuth } from "../better-auth";
 
 interface SiteConfig {
   domains?: string[];
@@ -188,10 +189,3 @@ export function useParams<T extends Record<string, string>>() {
     hash: {} as Record<string, string>,
   };
 }
-
-export const AuthRoute: FC<{
-  children: ReactNode;
-  role?: "publisher" | "author" | "finance" | "customer";
-}> = ({ children }) => {
-  return children;
-};

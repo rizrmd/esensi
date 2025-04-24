@@ -49,6 +49,7 @@ const sendEmail = async ({
   }
 };
 
+console.log(process.env.DATABASE_URL);
 export const auth = betterAuth({
   advanced: {
     database: {
