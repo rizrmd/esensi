@@ -1,8 +1,30 @@
-import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
-import { Link, navigate } from "@/lib/router";
+import { base_url } from "@/lib/gen/base_url";
+import { navigate } from "@/lib/router";
 
 export default () => {
+  const content = (
+    <>
+      <p className="text-center">
+        Belum punya akun? Silakan{" "}
+        <a
+          href={`${base_url.auth_esensi}/register?callbackURL=${base_url.publish_esensi}/onboarding`}
+          className="underline"
+        >
+          register
+        </a>
+      </p>
+      <p className="text-center">
+        Sudah punya akun? Silakan{" "}
+        <a
+          href="${base_url.auth_esensi}/login?callbackURL=${base_url.publishƒ_esensi}/dashboard"
+          className="underline"
+        >
+          login
+        </a>
+      </p>
+    </>
+  );
   return (
     <>
       <h1 className="text-center text-2xl font-semibold mt-4 mb-8">
@@ -16,32 +38,12 @@ export default () => {
             if (user.id_publisher || user.id_author) {
               navigate("/dashboard");
             }
+          } else {
           }
         }}
-        fallback={() => (
-          <>
-            <p className="text-center">
-              Belum punya akun? Silakan{" "}
-              <a
-                href="http://localhost:7500/register?callbackURL=http://localhost:8100/onboarding"
-                className="underline"
-              >
-                register
-              </a>
-            </p>
-            <p className="text-center">
-              Sudah punya akun? Silakan{" "}
-              <a
-                href="http://localhost:7500/login?callbackURL=http://localhost:8100/dashboard"
-                className="underline"
-              >
-                login
-              </a>
-            </p>
-          </>
-        )}
+        fallback={() => content}
       >
-        <AppLoading />
+        {content}
       </Protected>
     </>
   );

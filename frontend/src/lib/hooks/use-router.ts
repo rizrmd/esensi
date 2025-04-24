@@ -7,10 +7,9 @@ import {
   parsePattern,
   type Params,
 } from "@/lib/router";
-import { useContext, useEffect, type FC, type ReactNode } from "react";
-import { useLocal } from "../hooks/use-local";
+import { useContext, useEffect } from "react";
 import raw_config from "../../../../config.json";
-import { betterAuth } from "../better-auth";
+import { useLocal } from "../hooks/use-local";
 
 interface SiteConfig {
   domains?: string[];
@@ -26,14 +25,6 @@ const config = raw_config as Config;
 
 // Get domain key from hostname (for non-localhost environments)
 function getDomainKeyByHostname(hostname: string): string | null {
-  // Based on config.json, when visiting publish.esensi.local, we should return "auth.esensi"
-  if (
-    hostname === "publish.esensi.local" ||
-    hostname === "publish.esensi.online"
-  ) {
-    return "auth.esensi";
-  }
-
   // For other domains, check the normal mappings
   for (const [domain, cfg] of Object.entries(config.sites)) {
     if (cfg.domains && Array.isArray(cfg.domains)) {

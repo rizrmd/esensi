@@ -22,27 +22,29 @@ export const Protected: FC<{
       try {
         const res = await betterAuth.getSession();
 
-        const roles = Array.isArray(role) ? role : [role];
+        if (res.session) {
+          const roles = Array.isArray(role) ? role : [role];
 
-        const u = res.session!.user;
+          const u = res.session.user;
 
-        local.missing_role = [];
-        for (const r of roles) {
-          if ((u as any)[`id_${r}`]) {
-          } else {
-            if (r) local.missing_role.push(r);
-          }
-        }
-
-        if (local.missing_role.length < roles.length) {
           local.missing_role = [];
-        }
+          for (const r of roles) {
+            if ((u as any)[`id_${r}`]) {
+            } else {
+              if (r) local.missing_role.push(r);
+            }
+          }
 
-        if (!res.error) {
-          local.user = res.session!.user;
-          local.render();
-        } else {
-          Alert.info(res.error);
+          if (local.missing_role.length < roles.length) {
+            local.missing_role = [];
+          }
+
+          if (!res.error) {
+            local.user = res.session!.user;
+            local.render();
+          } else {
+            Alert.info(res.error);
+          }
         }
 
         if (onLoad) {
