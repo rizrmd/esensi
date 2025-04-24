@@ -1,6 +1,10 @@
 {
   "backend": { "orm": "rlib", "prodPort": 3000 },
   "sites": {
+    "main.esensi": {
+      "devPort": 7000,
+      "domains": ["esensi.online", "esensi.local"]
+    },
     "auth.esensi": {
       "devPort": 7500,
       "domains": ["auth.esensi.online", "auth.esensi.local"]

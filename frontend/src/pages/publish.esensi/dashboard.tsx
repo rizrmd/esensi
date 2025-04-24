@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { AuthRoute } from "@/lib/hooks/use-router";
 import { navigate } from "@/lib/router";
 import { useState } from "react";
 
@@ -11,7 +12,7 @@ export default () => {
     navigate("/");
   };
   return (
-    <>
+    <AuthRoute role="publisher">
       <h1 className="text-center text-2xl font-semibold mt-4 mb-8">
         Dashboard Publish Esensi Online
       </h1>
@@ -22,6 +23,6 @@ export default () => {
       <div className="text-center mt-6">
         <Button onClick={logout}>Logout</Button>
       </div>
-    </>
+    </AuthRoute>
   );
 };

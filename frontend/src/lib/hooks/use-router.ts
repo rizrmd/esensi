@@ -189,6 +189,9 @@ export function useParams<T extends Record<string, string>>() {
   };
 }
 
-export const AuthRoute: FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthRoute: FC<{
+  children: ReactNode;
+  role?: "publisher" | "author" | "finance" | "customer";
+}> = ({ children }) => {
   return children;
 };
