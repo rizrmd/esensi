@@ -9,7 +9,6 @@
     "**/node_modules": true,
     "**/.gitignore": true,
     "**/bun.lock": true,
-    "**/gen": true,
     "bunfig.toml": true
   },
   "files.associations": {
