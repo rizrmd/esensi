@@ -180,8 +180,8 @@ export const auth = betterAuth({
     },
     modelName: "user",
     fields: {
-      userId: "id_user_role",
-      accountId: "id_user",
+      userId: "id_user",
+      accountId: "id_user_role",
       providerId: "id_provider",
       accessToken: "access_token",
       refreshToken: "refresh_token",
