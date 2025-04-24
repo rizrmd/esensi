@@ -268,7 +268,7 @@ export const utils = {
         createdAt: string;
         updatedAt: string;
       }) => ({
-        user_role_id: userId,
+        id_user_role: userId,
         id_user: accountId,
         id_provider: providerId,
         access_token: accessToken,
