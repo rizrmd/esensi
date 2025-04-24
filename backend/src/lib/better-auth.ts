@@ -203,6 +203,103 @@ export const auth = betterAuth({
 });
 
 export const utils = {
+  mapping: {
+    table: (name: string) => {
+      if (name === "user") return "user_role";
+      else if (name === "account") return "user";
+      else return name;
+    },
+    column: {
+      session: ({
+        userId,
+        expiresAt,
+        ipAddress,
+        userAgent,
+        createdAt,
+        updatedAt,
+      }: {
+        userId: string;
+        expiresAt: string;
+        ipAddress: string;
+        userAgent: string;
+        createdAt: string;
+        updatedAt: string;
+      }) => ({
+        id_user_role: userId,
+        expires_at: expiresAt,
+        ip_address: ipAddress,
+        user_agent: userAgent,
+        created_at: createdAt,
+        updated_at: updatedAt,
+      }),
+      verification: ({
+        expiresAt,
+        createdAt,
+        updatedAt,
+      }: {
+        expiresAt: string;
+        createdAt: string;
+        updatedAt: string;
+      }) => ({
+        expires_at: expiresAt,
+        created_at: createdAt,
+        updated_at: updatedAt,
+      }),
+      account: ({
+        userId,
+        accountId,
+        providerId,
+        accessToken,
+        refreshToken,
+        accessTokenExpiresAt,
+        refreshTokenExpiresAt,
+        idToken,
+        createdAt,
+        updatedAt,
+      }: {
+        userId: string;
+        accountId: string;
+        providerId: string;
+        accessToken: string;
+        refreshToken: string;
+        accessTokenExpiresAt: string;
+        refreshTokenExpiresAt: string;
+        idToken: string;
+        createdAt: string;
+        updatedAt: string;
+      }) => ({
+        id_user_role: userId,
+        id_user: accountId,
+        id_provider: providerId,
+        access_token: accessToken,
+        refresh_token: refreshToken,
+        access_token_expires_at: accessTokenExpiresAt,
+        refresh_token_expires_at: refreshTokenExpiresAt,
+        id_token: idToken,
+        created_at: createdAt,
+        updated_at: updatedAt,
+      }),
+      user: ({
+        emailVerified,
+        createdAt,
+        updatedAt,
+        displayUsername,
+        twoFactorEnabled,
+      }: {
+        emailVerified: string;
+        createdAt: string;
+        updatedAt: string;
+        displayUsername: string;
+        twoFactorEnabled: string;
+      }) => ({
+        email_verified: emailVerified,
+        created_at: createdAt,
+        updated_at: updatedAt,
+        display_username: displayUsername,
+        two_factor_enabled: twoFactorEnabled,
+      }),
+    },
+  },
   signInEmail: async ({
     email,
     password,
