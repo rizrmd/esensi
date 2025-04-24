@@ -10,8 +10,9 @@ export type Role = "publisher" | "author" | "sales_and_marketing" | "customer";
 export const Protected: FC<{
   children: ReactNode | ((opt: { user: User | null }) => ReactNode);
   role?: Role | Role[];
+  onLoad?: (opt: { user: null | User }) => void;
   fallback?: (opt: { role: string[] }) => ReactNode;
-}> = ({ children, role, fallback }) => {
+}> = ({ children, role, fallback, onLoad }) => {
   const local = useLocal(
     {
       loading: true,
@@ -34,12 +35,21 @@ export const Protected: FC<{
           }
         }
 
+        if (local.missing_role.length < roles.length) {
+          local.missing_role = [];
+        }
+
         if (!res.error) {
           local.user = res.session!.user;
           local.render();
         } else {
           Alert.info(res.error);
         }
+
+        if (onLoad) {
+          onLoad({ user: local.user });
+        }
+
         local.loading = false;
         local.render();
       } catch (e) {

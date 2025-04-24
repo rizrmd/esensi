@@ -12,7 +12,16 @@ export type Session = typeof authClient.$Infer.Session;
 export type User = Omit<
   (typeof authClient.$Infer.Session)["user"],
   "twoFactorEnabled"
->;
+> &
+  Partial<{
+    id_customer?: string;
+    id_author?: string;
+    id_affiliate?: string;
+    id_management?: string;
+    id_publisher?: string;
+    id_sales_and_marketing?: string;
+    id_support?: string;
+  }>;
 
 const authClient = createAuthClient({
   baseURL: `${location.protocol}//${location.host}`,
