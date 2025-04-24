@@ -1,10 +1,9 @@
-import { useLocal } from "@/lib/hooks/use-local";
-import type { FC, ReactNode } from "react";
-import { AppLoading } from "./loading";
 import { betterAuth, type User } from "@/lib/better-auth";
-import { Alert } from "../ui/global-alert";
+import { useLocal } from "@/lib/hooks/use-local";
 import { Link } from "@/lib/router";
-import { ShieldCheckIcon } from "lucide-react";
+import type { FC, ReactNode } from "react";
+import { Alert } from "../ui/global-alert";
+import { AppLoading } from "./loading";
 
 export type Role = "publisher" | "author" | "sales_and_marketing" | "customer";
 export const Protected: FC<{
