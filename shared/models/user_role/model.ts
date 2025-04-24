@@ -117,7 +117,7 @@ export default {
       from: "id",
       to: {
         model: "session",
-        column: "user_info_id",
+        column: "id_user_info",
       },
     },
     two_factors: {

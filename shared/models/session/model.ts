@@ -24,14 +24,14 @@ export default {
     user_agent: {
       type: "text",
     },
-    user_info_id: {
+    id_user_info: {
       type: "text",
     }
   },
   relations: {
     user_role: {
       type: "belongs_to",
-      from: "user_info_id",
+      from: "id_user_info",
       to: {
         model: "user_role",
         column: "id",

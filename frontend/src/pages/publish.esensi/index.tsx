@@ -15,6 +15,15 @@ export default () => {
           register
         </a>
       </p>
+      <p className="text-center">
+        Sudah punya akun? Silakan{" "}
+        <a
+          href="http://localhost:7500/login?callbackURL=http://localhost:8100/dashboard"
+          className="underline"
+        >
+          login
+        </a>
+      </p>
     </>
   );
 };

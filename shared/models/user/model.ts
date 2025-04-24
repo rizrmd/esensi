@@ -12,7 +12,7 @@ export default {
     role: {
       type: "text",
     },
-    username: {
+    id_user: {
       type: "text",
     },
     id_provider: {
