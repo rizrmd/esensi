@@ -49,7 +49,6 @@ const sendEmail = async ({
   }
 };
 
-console.log(process.env.DATABASE_URL);
 export const auth = betterAuth({
   advanced: {
     database: {
@@ -199,6 +198,15 @@ export const auth = betterAuth({
       emailVerified: "email_verified",
       createdAt: "created_at",
       updatedAt: "updated_at",
+    },
+    additionalFields: {
+      id_customer: { type: "string", required: false },
+      id_author: { type: "string", required: false },
+      id_affiliate: { type: "string", required: false },
+      id_management: { type: "string", required: false },
+      id_publisher: { type: "string", required: false },
+      id_sales_and_marketing: { type: "string", required: false },
+      id_support: { type: "string", required: false },
     },
   },
 });

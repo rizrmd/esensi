@@ -13,7 +13,9 @@ export default () => {
   };
 
   return (
-    <Protected role={["publisher", "author"]}>
+    <Protected
+      role={["publisher", "author"]}
+    >
       {({ user }) => (
         <>
           <h1 className="text-center text-2xl font-semibold mt-4 mb-8">
