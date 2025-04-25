@@ -208,6 +208,60 @@ export const auth = betterAuth({
       id_sales_and_marketing: { type: "string", required: false },
       id_support: { type: "string", required: false },
     },
+    changeEmail: {
+      enabled: true,
+      async sendChangeEmailVerification(data, request) {
+        await sendEmail({
+          to: data.user.email,
+          // templateAlias: "email-change-verification",
+          // templateModel: {
+          //   product_url: process.env.PRODUCT_URL as string,
+          //   product_name: process.env.PRODUCT_NAME as string,
+          //   name: data.user.name,
+          //   action_url: data.url,
+          //   company_name: process.env.COMPANY_NAME as string,
+          //   company_address: process.env.COMPANY_ADDRESS as string,
+          // },
+          subject: "Email Change Verification",
+          text: `There is a request to change your enmail to ${data.newEmail}. Click here to verify your email change: ${data.url}`,
+          html: `<div>There is a request to change your enmail to ${data.newEmail}. Click here to verify your email change: <a href="${data.url}">Verify</a></div>`,
+        });
+      },
+    },
+    deleteUser: {
+      async beforeDelete(user, request) {
+      await sendEmail({
+        to: user.email,
+        // templateAlias: "account-deletion-request",
+        // templateModel: {
+        //   product_url: process.env.PRODUCT_URL as string,
+        //   product_name: process.env.PRODUCT_NAME as string,
+        //   name: user.name,
+        //   company_name: process.env.COMPANY_NAME as string,
+        //   company_address: process.env.COMPANY_ADDRESS as string,
+        // },
+        subject: "Account Deletion Request",
+        text: `There is a request to delete your account. If you did not make this request, please contact support.`,
+        html: `<div>There is a request to delete your account. If you did not make this request, please contact support.</div>`,
+      });
+      },
+      async afterDelete(user, request) {
+        await sendEmail({
+          to: user.email,
+          // templateAlias: "account-deletion",
+          // templateModel: {
+          //   product_url: process.env.PRODUCT_URL as string,
+          //   product_name: process.env.PRODUCT_NAME as string,
+          //   name: user.name,
+          //   company_name: process.env.COMPANY_NAME as string,
+          //   company_address: process.env.COMPANY_ADDRESS as string,
+          // },
+          subject: "Account Deletion",
+          text: `Your account has been deleted.`,
+          html: `<div>Your account has been deleted.</div>`,
+        });
+      },
+    }
   },
 });
 
