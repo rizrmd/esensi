@@ -1,15 +1,13 @@
 import { HeroiconsSolidSpeakerphone } from "@/components/icons/HeroiconsSolidSpeakerphone";
 import { SimpleLineIconsPencil } from "@/components/icons/SimpleLineIconsPencil";
 import { Button } from "@/components/ui/button";
+import { betterAuth } from "@/lib/better-auth";
 import { navigate } from "@/lib/router";
 import { useState } from "react";
 
 export default () => {
-  let [isAuthenticated, setIsAuthenticated] = useState(true);
-  if (!isAuthenticated) navigate("/");
-  const logout = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsAuthenticated(false);
+  const logout = () => {
+    betterAuth.signOut();
     navigate("/");
   };
   let [role, setRole] = useState<null | "author" | "publisher">(null);

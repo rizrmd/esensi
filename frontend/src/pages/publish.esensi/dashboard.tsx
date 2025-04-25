@@ -1,14 +1,14 @@
 import { Protected } from "@/components/app/protected";
 import { Button } from "@/components/ui/button";
+import { betterAuth } from "@/lib/better-auth";
 import { navigate } from "@/lib/router";
 import React, { useState } from "react";
 
 export default () => {
   let [isAuthenticated, setIsAuthenticated] = useState(true);
   if (!isAuthenticated) navigate("/");
-  const logout = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsAuthenticated(false);
+  const logout = () => {
+    betterAuth.signOut();
     navigate("/");
   };
 

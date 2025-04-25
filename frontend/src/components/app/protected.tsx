@@ -35,7 +35,7 @@ export const Protected: FC<{
             }
           }
 
-          if (local.missing_role.length < roles.length) {
+          if (roles.length > 0 && local.missing_role.length < roles.length) {
             local.missing_role = [];
           }
 
@@ -61,7 +61,7 @@ export const Protected: FC<{
 
   if (local.loading) return <AppLoading />;
 
-  if (local.missing_role.length > 0) {
+  if (local.missing_role.length > 0 || !local.user) {
     if (fallback) return fallback({ role: local.missing_role });
     return (
       <div className="flex flex-col items-center justify-center w-full min-h-[400px] py-12 space-y-4 md:space-y-8">
@@ -81,7 +81,6 @@ export const Protected: FC<{
         <Link
           href="/"
           className="inline-flex items-center justify-center rounded-md border border-gray-200 bg-white px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 dark:border-gray-800  dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
-          prefetch={false}
         >
           Kembali ke halaman awal
         </Link>
