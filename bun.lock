@@ -327,7 +327,7 @@
 
     "regenerator-runtime": ["regenerator-runtime@0.14.1", "", {}, "sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw=="],
 
-    "rlib": ["rlib@github:rizrmd/rlib#4907eca", { "dependencies": { "lodash": "^4.17.21", "oracledb": "^6.8.0", "pg": "^8.14.1", "postgrejs": "^2.22.4" }, "peerDependencies": { "typescript": "^5" } }, "rizrmd-rlib-4907eca"],
+    "rlib": ["rlib@github:rizrmd/rlib#8b3c21c", { "dependencies": { "lodash": "^4.17.21", "oracledb": "^6.8.0", "pg": "^8.14.1", "postgrejs": "^2.22.4" }, "peerDependencies": { "typescript": "^5" } }, "rizrmd-rlib-8b3c21c"],
 
     "rou3": ["rou3@0.5.1", "", {}, "sha512-OXMmJ3zRk2xeXFGfA3K+EOPHC5u7RDFG7lIOx0X1pdnhUkI8MdVrbV+sNsD80ElpUZ+MRHdyxPnFthq9VHs8uQ=="],
 

@@ -5,7 +5,7 @@ import type { FC, ReactNode } from "react";
 import { Alert } from "../ui/global-alert";
 import { AppLoading } from "./loading";
 
-export type Role = "publisher" | "author" | "sales_and_marketing" | "customer";
+export type Role = "publisher" | "author" | "sales_and_marketing" | "customer" | "affiliate" | "management" | "support";
 export const Protected: FC<{
   children: ReactNode | ((opt: { user: User | null }) => ReactNode);
   role?: Role | Role[];

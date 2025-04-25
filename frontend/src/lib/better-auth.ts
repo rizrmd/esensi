@@ -142,8 +142,15 @@ export const betterAuth = {
     });
     return { data, error };
   },
-  signOut: async ({ fetchOptions }: { fetchOptions: FetchOptions }) => {
+  signOut: async ({
+    query,
+    fetchOptions,
+  }: {
+    query?: Record<string, any> | undefined;
+    fetchOptions?: FetchOptions | undefined;
+  } = {}) => {
     const { data, error } = await authClient.signOut({
+      query,
       fetchOptions,
     });
     return { data, error };
