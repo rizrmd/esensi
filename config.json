@@ -4,7 +4,7 @@
     "main.esensi": {
       "devPort": 7000,
       "domains": ["esensi.online", "esensi.local"],
-      "default": true
+      "isDefault": true
     },
     "auth.esensi": {
       "devPort": 7500,
