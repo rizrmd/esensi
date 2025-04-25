@@ -3,7 +3,8 @@
   "sites": {
     "main.esensi": {
       "devPort": 7000,
-      "domains": ["esensi.online", "esensi.local"]
+      "domains": ["esensi.online", "esensi.local"],
+      "default": true
     },
     "auth.esensi": {
       "devPort": 7500,
