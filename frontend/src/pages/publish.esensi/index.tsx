@@ -1,5 +1,5 @@
 import { Protected } from "@/components/app/protected";
-import { base_url } from "@/lib/gen/base_url";
+import { baseUrl } from "@/lib/gen/base-url";
 import { navigate } from "@/lib/router";
 
 export default () => {
@@ -8,7 +8,7 @@ export default () => {
       <p className="text-center">
         Belum punya akun? Silakan{" "}
         <a
-          href={`${base_url.auth_esensi}/register?callbackURL=${base_url.publish_esensi}/onboarding`}
+          href={`${baseUrl.auth_esensi}/register?callbackURL=${baseUrl.publish_esensi}/onboarding`}
           className="underline"
         >
           register
