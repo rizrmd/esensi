@@ -1,7 +1,7 @@
 import type { ModelDefinition } from "rlib/server";
 
 export default {
-  table: "user_role",
+  table: "auth_user",
   columns: {
     id: {
       type: "text",
@@ -112,29 +112,29 @@ export default {
         column: "id",
       },
     },
-    sessions: {
+    auth_accounts: {
       type: "has_many",
       from: "id",
       to: {
-        model: "session",
-        column: "id_user_role",
+        model: "auth_account",
+        column: "id_user",
       },
     },
-    two_factors: {
+    auth_sessions: {
       type: "has_many",
       from: "id",
       to: {
-        model: "two_factor",
-        column: "id_user_role",
+        model: "auth_session",
+        column: "id_user",
       },
     },
-    users: {
+    auth_two_factors: {
       type: "has_many",
       from: "id",
       to: {
-        model: "user",
-        column: "id_user_role",
+        model: "auth_two_factor",
+        column: "id_user",
       },
     }
   },
-} as const satisfies ModelDefinition<"user_role">;
+} as const satisfies ModelDefinition<"auth_user">;

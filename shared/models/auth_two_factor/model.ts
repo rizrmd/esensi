@@ -1,7 +1,7 @@
 import type { ModelDefinition } from "rlib/server";
 
 export default {
-  table: "two_factor",
+  table: "auth_two_factor",
   columns: {
     id: {
       type: "text",
@@ -12,18 +12,18 @@ export default {
     backup_codes: {
       type: "text",
     },
-    id_user_role: {
+    id_user: {
       type: "text",
     }
   },
   relations: {
-    user_role: {
+    auth_user: {
       type: "belongs_to",
-      from: "id_user_role",
+      from: "id_user",
       to: {
-        model: "user_role",
+        model: "auth_user",
         column: "id",
       },
     }
   },
-} as const satisfies ModelDefinition<"two_factor">;
+} as const satisfies ModelDefinition<"auth_two_factor">;

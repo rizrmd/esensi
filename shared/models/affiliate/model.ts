@@ -14,19 +14,19 @@ export default {
     }
   },
   relations: {
-    user: {
+    auth_account: {
       type: "belongs_to",
       from: "id_user",
       to: {
-        model: "user",
+        model: "auth_account",
         column: "id",
       },
     },
-    user_roles: {
+    auth_users: {
       type: "has_many",
       from: "id",
       to: {
-        model: "user_role",
+        model: "auth_user",
         column: "id_affiliate",
       },
     }

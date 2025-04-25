@@ -1,7 +1,7 @@
 import type { ModelDefinition } from "rlib/server";
 
 export default {
-  table: "verification",
+  table: "auth_verification",
   columns: {
     id: {
       type: "text",
@@ -23,4 +23,4 @@ export default {
     }
   },
   relations: {},
-} as const satisfies ModelDefinition<"verification">;
+} as const satisfies ModelDefinition<"auth_verification">;

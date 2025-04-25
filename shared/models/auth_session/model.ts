@@ -1,7 +1,7 @@
 import type { ModelDefinition } from "rlib/server";
 
 export default {
-  table: "session",
+  table: "auth_session",
   columns: {
     id: {
       type: "text",
@@ -24,18 +24,18 @@ export default {
     user_agent: {
       type: "text",
     },
-    id_user_role: {
+    id_user: {
       type: "text",
     }
   },
   relations: {
-    user_role: {
+    auth_user: {
       type: "belongs_to",
-      from: "id_user_role",
+      from: "id_user",
       to: {
-        model: "user_role",
+        model: "auth_user",
         column: "id",
       },
     }
   },
-} as const satisfies ModelDefinition<"session">;
+} as const satisfies ModelDefinition<"auth_session">;

@@ -1,7 +1,7 @@
 import type { ModelDefinition } from "rlib/server";
 
 export default {
-  table: "user",
+  table: "auth_account",
   columns: {
     id: {
       type: "text",
@@ -10,9 +10,6 @@ export default {
       type: "text",
     },
     role: {
-      type: "text",
-    },
-    id_user: {
       type: "text",
     },
     id_provider: {
@@ -42,16 +39,19 @@ export default {
     updated_at: {
       type: "datetime",
     },
-    id_user_role: {
+    id_user: {
+      type: "text",
+    },
+    id_account: {
       type: "text",
     }
   },
   relations: {
-    user_role: {
+    auth_user: {
       type: "belongs_to",
-      from: "id_user_role",
+      from: "id_user",
       to: {
-        model: "user_role",
+        model: "auth_user",
         column: "id",
       },
     },
@@ -68,7 +68,7 @@ export default {
       from: "id",
       to: {
         model: "author",
-        column: "id_user",
+        column: "id_account",
       },
     },
     customers: {
@@ -112,4 +112,4 @@ export default {
       },
     }
   },
-} as const satisfies ModelDefinition<"user">;
+} as const satisfies ModelDefinition<"auth_account">;

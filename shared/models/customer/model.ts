@@ -26,12 +26,20 @@ export default {
     }
   },
   relations: {
-    user: {
+    auth_account: {
       type: "belongs_to",
       from: "id_user",
       to: {
-        model: "user",
+        model: "auth_account",
         column: "id",
+      },
+    },
+    auth_users: {
+      type: "has_many",
+      from: "id",
+      to: {
+        model: "auth_user",
+        column: "id_customer",
       },
     },
     customer_readers: {
@@ -63,14 +71,6 @@ export default {
       from: "id",
       to: {
         model: "t_sales_download",
-        column: "id_customer",
-      },
-    },
-    user_roles: {
-      type: "has_many",
-      from: "id",
-      to: {
-        model: "user_role",
         column: "id_customer",
       },
     }

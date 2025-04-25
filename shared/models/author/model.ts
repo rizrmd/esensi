@@ -9,17 +9,25 @@ export default {
     name: {
       type: "text",
     },
-    id_user: {
+    id_account: {
       type: "text",
     }
   },
   relations: {
-    user: {
+    auth_account: {
       type: "belongs_to",
-      from: "id_user",
+      from: "id_account",
       to: {
-        model: "user",
+        model: "auth_account",
         column: "id",
+      },
+    },
+    auth_users: {
+      type: "has_many",
+      from: "id",
+      to: {
+        model: "auth_user",
+        column: "id_author",
       },
     },
     products: {
@@ -36,14 +44,6 @@ export default {
       to: {
         model: "publisher_author",
         column: "author_id",
-      },
-    },
-    user_roles: {
-      type: "has_many",
-      from: "id",
-      to: {
-        model: "user_role",
-        column: "id_author",
       },
     }
   },

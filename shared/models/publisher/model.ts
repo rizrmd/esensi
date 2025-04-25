@@ -14,12 +14,20 @@ export default {
     }
   },
   relations: {
-    user: {
+    auth_account: {
       type: "belongs_to",
       from: "id_user",
       to: {
-        model: "user",
+        model: "auth_account",
         column: "id",
+      },
+    },
+    auth_users: {
+      type: "has_many",
+      from: "id",
+      to: {
+        model: "auth_user",
+        column: "id_publisher",
       },
     },
     promo_codes: {
@@ -51,14 +59,6 @@ export default {
       from: "id",
       to: {
         model: "transaction",
-        column: "id_publisher",
-      },
-    },
-    user_roles: {
-      type: "has_many",
-      from: "id",
-      to: {
-        model: "user_role",
         column: "id_publisher",
       },
     },
