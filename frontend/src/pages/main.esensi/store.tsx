@@ -254,7 +254,7 @@ function CategoryBooks({category = "", title = "", subtitle = "", max = 10, link
   const the_content = <>isi kontennya buku buku banyak di dalam kategori ini. isi kontennya buku buku banyak di dalam kategori ini. isi kontennya buku buku banyak di dalam kategori ini. isi kontennya buku buku banyak di dalam kategori ini. isi kontennya buku buku banyak di dalam kategori ini. isi kontennya buku buku banyak di dalam kategori ini. </>
 
   return (
-    <div className="flex flex-1 flex-col w-full justify-stretch items-start gap-2">
+    <div className="flex flex-1 flex-col w-full justify-stretch items-start gap-3 ">
       {heading}
       <div className="flex flex-1 flex-row flex-nowrap text-nowrap w-full h-auto justify-start items-start overflow-x-scroll">
         {the_content}
