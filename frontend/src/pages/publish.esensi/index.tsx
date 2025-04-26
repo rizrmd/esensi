@@ -1,36 +1,40 @@
 import { Protected } from "@/components/app/protected";
-import { baseUrl } from "@/lib/gen/base-url";
 import { navigate } from "@/lib/router";
+import { Button } from "@/components/ui/button";
+import { baseUrl } from "@/lib/utils";
 
 export default () => {
+  const u = baseUrl();
   const content = (
     <>
-      <p className="text-center">
-        Belum punya akun? Silakan{" "}
-        <a
-          href={`${baseUrl.auth_esensi}/register?callbackURL=${baseUrl.publish_esensi}/onboarding`}
-          className="underline"
-        >
-          register
-        </a>
-      </p>
-      <p className="text-center">
-        Sudah punya akun? Silakan{" "}
-        <a
-          href="${base_url.auth_esensi}/login?callbackURL=${base_url.publishƒ_esensi}/dashboard"
-          className="underline"
-        >
-          login
-        </a>
-      </p>
+      <div className="container">
+        <div className="flex flex-col items-center rounded-lg bg-accent p-8 text-center md:rounded-xl lg:p-16">
+          <h3 className="mb-3 max-w-3xl text-2xl font-semibold md:mb-4 md:text-4xl lg:mb-6">
+            Publish Esensi Online
+          </h3>
+          <p className="mb-8 max-w-3xl text-muted-foreground lg:text-lg">
+            Layanan Publikasi Buku Dari Penulis Secara Online
+          </p>
+          <div className="flex w-full flex-col justify-center gap-2 sm:flex-row">
+            <Button variant="outline" className="w-full sm:w-auto" asChild>
+              <a
+                href={`${u.auth}/register?callbackURL=${u.publish}/onboarding`}
+              >
+                Login
+              </a>
+            </Button>
+            <Button className="w-full sm:w-auto" asChild>
+              <a href={`${u.auth}/login?callbackURL=${u.publish}/dashboard`}>
+                Register
+              </a>
+            </Button>
+          </div>
+        </div>
+      </div>
     </>
   );
   return (
     <>
-      <h1 className="text-center text-2xl font-semibold mt-4 mb-8">
-        Publish Esensi Online
-      </h1>
-
       <Protected
         role={["publisher", "author"]}
         onLoad={({ user }) => {
