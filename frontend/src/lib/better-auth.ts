@@ -45,7 +45,7 @@ export const betterAuth = {
     name: string;
     callbackURL?: string;
     image?: string;
-    fetchOptions?: FetchOptions;
+    fetchOptions?: FetchOptions | undefined;
   }) => {
     const { data, error } = await authClient.signUp.email({
       email: username,
@@ -68,7 +68,7 @@ export const betterAuth = {
     password: string;
     callbackURL?: string;
     rememberMe?: boolean;
-    fetchOptions?: FetchOptions;
+    fetchOptions?: FetchOptions | undefined;
   }) => {
     const { data, error } = await authClient.signIn.email(
       {
@@ -126,7 +126,7 @@ export const betterAuth = {
     loginHint?: string;
     requestSignUp?: boolean;
     scopes?: string[];
-    fetchOptions?: FetchOptions;
+    fetchOptions?: FetchOptions | undefined;
   }) => {
     const { data, error } = await authClient.signIn.social({
       provider,
@@ -170,7 +170,7 @@ export const betterAuth = {
     }: {
       password: string;
       issuer?: string;
-      fetchOptions?: FetchOptions;
+      fetchOptions?: FetchOptions | undefined;
     }) => {
       const { data, error } = await authClient.twoFactor.enable({
         password,
@@ -184,7 +184,7 @@ export const betterAuth = {
       fetchOptions,
     }: {
       password: string;
-      fetchOptions?: FetchOptions;
+      fetchOptions?: FetchOptions | undefined;
     }) => {
       const { data, error } = await authClient.twoFactor.disable({
         password,
@@ -197,7 +197,7 @@ export const betterAuth = {
       fetchOptions,
     }: {
       password: string;
-      fetchOptions: FetchOptions;
+      fetchOptions: FetchOptions | undefined;
     }) => {
       const { data, error } = await authClient.twoFactor.getTotpUri({
         password,
@@ -212,7 +212,7 @@ export const betterAuth = {
     }: {
       code: string;
       trustDevice?: boolean;
-      fetchOptions?: FetchOptions;
+      fetchOptions?: FetchOptions | undefined;
     }) => {
       const { data, error } = await authClient.twoFactor.verifyTotp({
         code,
@@ -226,7 +226,7 @@ export const betterAuth = {
       fetchOptions,
     }: {
       trustDevice?: boolean;
-      fetchOptions?: FetchOptions;
+      fetchOptions?: FetchOptions | undefined;
     }) => {
       const { data, error } = await authClient.twoFactor.sendOtp({
         //@ts-ignore
@@ -242,7 +242,7 @@ export const betterAuth = {
     }: {
       code: string;
       trustDevice?: boolean;
-      fetchOptions?: FetchOptions;
+      fetchOptions?: FetchOptions | undefined;
     }) => {
       const { data, error } = await authClient.twoFactor.verifyOtp({
         code,
@@ -250,6 +250,129 @@ export const betterAuth = {
         fetchOptions,
       });
       return { data, error };
+    },
+    sendVerificationEmail: async ({
+      email,
+      callbackURL,
+      fetchOptions,
+    }: {
+      email: string;
+      callbackURL: string;
+      fetchOptions?: FetchOptions | undefined;
+    }) => {
+      await authClient.sendVerificationEmail({
+        email,
+        callbackURL,
+        fetchOptions,
+      });
+    },
+    verifyEmail: async ({
+      query,
+      fetchOptions,
+    }: {
+      query: { token: string; callbackURL?: string | undefined };
+      fetchOptions?: FetchOptions | undefined;
+    }) => {
+      await authClient.verifyEmail({
+        query,
+        fetchOptions,
+      });
+    },
+    forgetPassword: async ({
+      email,
+      redirectTo,
+      fetchOptions,
+    }: {
+      email: string;
+      redirectTo?: string | undefined;
+      fetchOptions?: FetchOptions | undefined;
+    }) => {
+      await authClient.forgetPassword({
+        email,
+        redirectTo,
+        fetchOptions,
+      });
+    },
+    resetPassword: async ({
+      newPassword,
+      token,
+      fetchOptions,
+    }: {
+      newPassword: string;
+      token: string;
+      fetchOptions?: FetchOptions | undefined;
+    }) => {
+      await authClient.resetPassword({
+        newPassword,
+        token,
+        fetchOptions,
+      });
+    },
+    changeEmail: async ({
+      newEmail,
+      callbackURL,
+      fetchOptions,
+    }: {
+      newEmail: string;
+      callbackURL?: string;
+      fetchOptions?: FetchOptions | undefined;
+    }) => {
+      await authClient.changeEmail({
+        newEmail,
+        callbackURL,
+        fetchOptions,
+      });
+    },
+    changePassword: async ({
+      currentPassword,
+      newPassword,
+      revokeOtherSessions,
+      fetchOptions,
+    }: {
+      currentPassword: string;
+      newPassword: string;
+      revokeOtherSessions?: boolean | undefined;
+      fetchOptions?: FetchOptions | undefined;
+    }) => {
+      await authClient.changePassword({
+        currentPassword,
+        newPassword,
+        revokeOtherSessions,
+        fetchOptions,
+      });
+    },
+    updateUser: async ({
+      name,
+      image,
+      fetchOptions,
+    }: {
+      name: string;
+      image?: string;
+      fetchOptions?: FetchOptions | undefined;
+    }) => {
+      await authClient.updateUser({
+        name,
+        image,
+        fetchOptions,
+      });
+    },
+    deleteUser: async ({
+      password,
+      token,
+      callbackURL,
+      fetchOptions,
+    }: {
+      password: string;
+      token: string;
+      callbackURL?: string;
+      fetchOptions?: FetchOptions | undefined;
+    }) => {
+      await authClient.deleteUser({
+        password,
+        token,
+        callbackURL,
+        fetchOptions,
+      });
     },
   },
 };
