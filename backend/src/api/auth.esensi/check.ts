@@ -5,7 +5,7 @@ export default defineAPI({
   url: "/api/check",
   async handler() {
     const req = this.req!;
-    const res = await db.user.findFirst({
+    const res = await db.auth_account.findFirst({
       select: {
         id: true,
         created_at: true,

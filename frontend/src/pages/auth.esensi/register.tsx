@@ -3,7 +3,6 @@ import { SideForm } from "@/components/ext/side-form";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/global-alert";
 import { betterAuth } from "@/lib/better-auth";
-import { navigate } from "@/lib/router";
 
 export default () => {
   const params = new URLSearchParams(location.search);

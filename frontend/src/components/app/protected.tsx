@@ -1,6 +1,6 @@
 import { betterAuth, type User } from "@/lib/better-auth";
 import { useLocal } from "@/lib/hooks/use-local";
-import { Link } from "@/lib/router";
+import { Link, navigate } from "@/lib/router";
 import type { FC, ReactNode } from "react";
 import { Alert } from "../ui/global-alert";
 import { AppLoading } from "./loading";
@@ -11,7 +11,8 @@ export const Protected: FC<{
   role?: Role | Role[];
   onLoad?: (opt: { user: null | User }) => void;
   fallback?: (opt: { role: string[] }) => ReactNode;
-}> = ({ children, role, fallback, onLoad }) => {
+  redirecURLtIfNotLoggedIn?: string | null;
+}> = ({ children, role, fallback, onLoad, redirecURLtIfNotLoggedIn }) => {
   const local = useLocal(
     {
       loading: true,
@@ -61,7 +62,10 @@ export const Protected: FC<{
 
   if (local.loading) return <AppLoading />;
 
-  if (local.missing_role.length > 0 || !local.user) {
+  if (!!redirecURLtIfNotLoggedIn && !local.user) {
+    navigate(redirecURLtIfNotLoggedIn);
+  }
+  if (local.missing_role.length > 0) {
     if (fallback) return fallback({ role: local.missing_role });
     return (
       <div className="flex flex-col items-center justify-center w-full min-h-[400px] py-12 space-y-4 md:space-y-8">

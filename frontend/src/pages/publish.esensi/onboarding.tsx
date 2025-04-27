@@ -2,7 +2,8 @@ import { Protected } from "@/components/app/protected";
 import { Button } from "@/components/ui/button";
 import { betterAuth } from "@/lib/better-auth";
 import { navigate } from "@/lib/router";
-import { useState } from "react";
+import { useLocal } from "@/lib/hooks/use-local";
+import { AppLogo } from "@/components/app/logo";
 
 const feature = [
   {
@@ -22,21 +23,42 @@ const feature = [
 ];
 
 export default () => {
-  const logout = () => {
-    betterAuth.signOut();
-    navigate("/");
-  };
-  let [role, setRole] = useState<null | "author" | "publisher">(null);
+  const logout = () => betterAuth.signOut().finally(() => navigate("/"));
+  let local = useLocal({
+    role: null as null | "author" | "publisher",
+  });
+  // todo: check apakah user ini sudah pernah onboarding? cek di tabel auth_user apakah dia sudah ada role-nya.
+  const isOnboarding = true;
+  if (isOnboarding) {
+    navigate("/dashboard");
+  }
+  const content = (
+    <div className="grid min-h-svh">
+      <div className="flex flex-col gap-4 p-6 md:p-10">
+        <div className="flex justify-center gap-2 md:justify-start">
+          <AppLogo />
+        </div>
+        <div className="">
+          <div className="flex flex-col items-center rounded-lg bg-accent p-8 text-center md:rounded-xl lg:p-16">
+            <h3 className="mb-3 max-w-3xl text-2xl font-semibold md:mb-4 md:text-4xl lg:mb-6">
+              Publish Esensi Online
+            </h3>
+            xxx
+          </div>
+        </div>
+      </div>
+    </div>
+  );
   return (
     <>
-      <Protected role={["publisher", "author"]}>
+      <Protected role={["publisher", "author"]} redirecURLtIfNotLoggedIn={"/"}>
         {({ user }) => (
           <>
             <h1 className="text-center text-2xl font-semibold mt-4 mb-8">
               Onboarding Publish Esensi Online {user?.name}
             </h1>
             <div className="py-5">
-              {!role && (
+              {!local.role && (
                 <div className="container">
                   <div className="flex w-full flex-col items-center">
                     <div className="flex flex-col items-center space-y-4 text-center sm:space-y-6 md:max-w-3xl md:text-center">
@@ -56,7 +78,7 @@ export default () => {
                         className="flex flex-col justify-between rounded-lg bg-accent p-6 md:min-h-[200px] md:p-8 cursor-pointer"
                         key={idx}
                         onClick={() =>
-                          setRole(feature.role as "author" | "publisher")
+                          (local.role = feature.role as "author" | "publisher")
                         }
                       >
                         <span className="mb-6 flex size-11 items-center justify-center rounded-full bg-background">
@@ -75,7 +97,7 @@ export default () => {
                   </div>
                 </div>
               )}
-              {role === "author" && (
+              {local.role === "author" && (
                 <>
                   <h1 className="text-center text-2xl font-semibold mt-4 mb-8">
                     Mendaftar sebagai Penulis
@@ -85,7 +107,7 @@ export default () => {
                   </p>
                 </>
               )}
-              {role === "publisher" && (
+              {local.role === "publisher" && (
                 <>
                   <h1 className="text-center text-2xl font-semibold mt-4 mb-8">
                     Mendaftar sebagai Penerbit
