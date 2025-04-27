@@ -252,206 +252,206 @@ export const betterAuth = {
       });
       return { data, error };
     },
-    sendVerificationEmail: async ({
+  },
+  sendVerificationEmail: async ({
+    email,
+    callbackURL,
+    fetchOptions,
+  }: {
+    email: string;
+    callbackURL?: string | undefined;
+    fetchOptions?: FetchOptions | undefined;
+  }) => {
+    await authClient.sendVerificationEmail({
       email,
       callbackURL,
       fetchOptions,
-    }: {
-      email: string;
-      callbackURL?: string | undefined;
-      fetchOptions?: FetchOptions | undefined;
-    }) => {
-      await authClient.sendVerificationEmail({
-        email,
-        callbackURL,
-        fetchOptions,
-      });
-    },
-    verifyEmail: async ({
+    });
+  },
+  verifyEmail: async ({
+    query,
+    fetchOptions,
+  }: {
+    query: { token: string; callbackURL?: string | undefined };
+    fetchOptions?: FetchOptions | undefined;
+  }) => {
+    await authClient.verifyEmail({
       query,
       fetchOptions,
-    }: {
-      query: { token: string; callbackURL?: string | undefined };
-      fetchOptions?: FetchOptions | undefined;
-    }) => {
-      await authClient.verifyEmail({
-        query,
-        fetchOptions,
-      });
-    },
-    forgetPassword: async ({
+    });
+  },
+  forgetPassword: async ({
+    email,
+    redirectTo,
+    fetchOptions,
+  }: {
+    email: string;
+    redirectTo?: string | undefined;
+    fetchOptions?: FetchOptions | undefined;
+  }) => {
+    await authClient.forgetPassword({
       email,
       redirectTo,
       fetchOptions,
-    }: {
-      email: string;
-      redirectTo?: string | undefined;
-      fetchOptions?: FetchOptions | undefined;
-    }) => {
-      await authClient.forgetPassword({
-        email,
-        redirectTo,
-        fetchOptions,
-      });
-    },
-    resetPassword: async ({
+    });
+  },
+  resetPassword: async ({
+    newPassword,
+    token,
+    fetchOptions,
+  }: {
+    newPassword: string;
+    token?: string | undefined;
+    fetchOptions?: FetchOptions | undefined;
+  }) => {
+    await authClient.resetPassword({
       newPassword,
       token,
       fetchOptions,
-    }: {
-      newPassword: string;
-      token?: string | undefined;
-      fetchOptions?: FetchOptions | undefined;
-    }) => {
-      await authClient.resetPassword({
-        newPassword,
-        token,
-        fetchOptions,
-      });
-    },
-    changeEmail: async ({
+    });
+  },
+  changeEmail: async ({
+    newEmail,
+    callbackURL,
+    fetchOptions,
+  }: {
+    newEmail: string;
+    callbackURL?: string | undefined;
+    fetchOptions?: FetchOptions | undefined;
+  }) => {
+    await authClient.changeEmail({
       newEmail,
       callbackURL,
       fetchOptions,
-    }: {
-      newEmail: string;
-      callbackURL?: string | undefined;
-      fetchOptions?: FetchOptions | undefined;
-    }) => {
-      await authClient.changeEmail({
-        newEmail,
-        callbackURL,
-        fetchOptions,
-      });
-    },
-    changePassword: async ({
+    });
+  },
+  changePassword: async ({
+    newPassword,
+    currentPassword,
+    revokeOtherSessions,
+    fetchOptions,
+  }: {
+    newPassword: string;
+    currentPassword: string;
+    revokeOtherSessions?: boolean | undefined;
+    fetchOptions?: FetchOptions | undefined;
+  }) => {
+    await authClient.changePassword({
       newPassword,
       currentPassword,
       revokeOtherSessions,
       fetchOptions,
-    }: {
-      newPassword: string;
-      currentPassword: string;
-      revokeOtherSessions?: boolean | undefined;
-      fetchOptions?: FetchOptions | undefined;
-    }) => {
-      await authClient.changePassword({
-        newPassword,
-        currentPassword,
-        revokeOtherSessions,
-        fetchOptions,
-      });
-    },
-    updateUser: async ({
+    });
+  },
+  updateUser: async ({
+    name,
+    image,
+    fetchOptions,
+  }: {
+    name?: string | undefined;
+    image?: string | null | undefined;
+    fetchOptions?: FetchOptions | undefined;
+  }) => {
+    await authClient.updateUser({
       name,
       image,
       fetchOptions,
-    }: {
-      name?: string | undefined;
-      image?: string | null | undefined;
-      fetchOptions?: FetchOptions | undefined;
-    }) => {
-      await authClient.updateUser({
-        name,
-        image,
-        fetchOptions,
-      });
-    },
-    deleteUser: async ({
+    });
+  },
+  deleteUser: async ({
+    password,
+    token,
+    callbackURL,
+    fetchOptions,
+  }: {
+    password?: string | undefined;
+    token?: string | undefined;
+    callbackURL?: string | undefined;
+    fetchOptions?: FetchOptions | undefined;
+  }) => {
+    await authClient.deleteUser({
       password,
       token,
       callbackURL,
       fetchOptions,
-    }: {
-      password?: string | undefined;
-      token?: string | undefined;
-      callbackURL?: string | undefined;
-      fetchOptions?: FetchOptions | undefined;
-    }) => {
-      await authClient.deleteUser({
-        password,
-        token,
-        callbackURL,
-        fetchOptions,
-      });
-    },
-    listSessions: async ({
+    });
+  },
+  listSessions: async ({
+    query,
+    fetchOptions,
+  }: {
+    query?: Record<string, any> | undefined;
+    fetchOptions?: FetchOptions | undefined;
+  }) => {
+    await authClient.listSessions({
       query,
       fetchOptions,
-    }: {
-      query?: Record<string, any> | undefined;
-      fetchOptions?: FetchOptions | undefined;
-    }) => {
-      await authClient.listSessions({
-        query,
-        fetchOptions,
-      });
-    },
-    revokeSession: async ({
+    });
+  },
+  revokeSession: async ({
+    token,
+    fetchOptions,
+  }: {
+    token: string;
+    fetchOptions?: FetchOptions | undefined;
+  }) => {
+    await authClient.revokeSession({
       token,
       fetchOptions,
-    }: {
-      token: string;
-      fetchOptions?: FetchOptions | undefined;
-    }) => {
-      await authClient.revokeSession({
-        token,
-        fetchOptions,
-      });
-    },
-    revokeSessions: async ({
+    });
+  },
+  revokeSessions: async ({
+    query,
+    fetchOptions,
+  }: {
+    query?: Record<string, any> | undefined;
+    fetchOptions?: FetchOptions | undefined;
+  }) => {
+    await authClient.revokeSessions({
       query,
       fetchOptions,
-    }: {
-      query?: Record<string, any> | undefined;
-      fetchOptions?: FetchOptions | undefined;
-    }) => {
-      await authClient.revokeSessions({
-        query,
-        fetchOptions,
-      });
-    },
-    revokeOtherSessions: async ({
+    });
+  },
+  revokeOtherSessions: async ({
+    query,
+    fetchOptions,
+  }: {
+    query?: Record<string, any> | undefined;
+    fetchOptions?: FetchOptions | undefined;
+  }) => {
+    await authClient.revokeSessions({
       query,
       fetchOptions,
-    }: {
-      query?: Record<string, any> | undefined;
-      fetchOptions?: FetchOptions | undefined;
-    }) => {
-      await authClient.revokeSessions({
-        query,
-        fetchOptions,
-      });
-    },
-    linkSocial: async ({
+    });
+  },
+  linkSocial: async ({
+    provider,
+    scopes,
+    fetchOptions,
+  }: {
+    provider: Provider;
+    scopes?: string[] | undefined;
+    fetchOptions?: FetchOptions | undefined;
+  }) => {
+    await authClient.linkSocial({
       provider,
       scopes,
       fetchOptions,
-    }: {
-      provider: Provider;
-      scopes?: string[] | undefined;
-      fetchOptions?: FetchOptions | undefined;
-    }) => {
-      await authClient.linkSocial({
-        provider,
-        scopes,
-        fetchOptions,
-      });
-    },
-    unlinkAccount: async ({
+    });
+  },
+  unlinkAccount: async ({
+    providerId,
+    accountId,
+    fetchOptions,
+  }: {
+    providerId: string;
+    accountId?: string | undefined;
+    fetchOptions?: FetchOptions | undefined;
+  }) => {
+    await authClient.unlinkAccount({
       providerId,
       accountId,
       fetchOptions,
-    }: {
-      providerId: string;
-      accountId?: string | undefined;
-      fetchOptions?: FetchOptions | undefined;
-    }) => {
-      await authClient.unlinkAccount({
-        providerId,
-        accountId,
-        fetchOptions,
-      });
-    },
+    });
   },
 };
