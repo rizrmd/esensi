@@ -8,6 +8,26 @@ type FetchOptions = {
   onRetry?: (ctx: any) => void;
 };
 
+type Provider =
+  | "apple"
+  | "discord"
+  | "facebook"
+  | "github"
+  | "google"
+  | "microsoft"
+  | "spotify"
+  | "twitch"
+  | "twitter"
+  | "dropbox"
+  | "linkedin"
+  | "gitlab"
+  | "tiktok"
+  | "reddit"
+  | "roblox"
+  | "vk"
+  | "kick"
+  | "zoom";
+
 export type Session = typeof authClient.$Infer.Session;
 export type User = Omit<
   (typeof authClient.$Infer.Session)["user"],
@@ -93,25 +113,7 @@ export const betterAuth = {
     scopes,
     fetchOptions,
   }: {
-    provider:
-      | "github"
-      | "apple"
-      | "discord"
-      | "facebook"
-      | "google"
-      | "microsoft"
-      | "spotify"
-      | "twitch"
-      | "twitter"
-      | "dropbox"
-      | "linkedin"
-      | "gitlab"
-      | "tiktok"
-      | "reddit"
-      | "roblox"
-      | "vk"
-      | "kick"
-      | "zoom";
+    provider: Provider;
     callbackURL?: string;
     errorCallbackURL?: string;
     newUserCallbackURL?: string;
@@ -169,7 +171,7 @@ export const betterAuth = {
       fetchOptions,
     }: {
       password: string;
-      issuer?: string;
+      issuer?: string | undefined;
       fetchOptions?: FetchOptions | undefined;
     }) => {
       const { data, error } = await authClient.twoFactor.enable({
@@ -211,7 +213,7 @@ export const betterAuth = {
       fetchOptions,
     }: {
       code: string;
-      trustDevice?: boolean;
+      trustDevice?: boolean | undefined;
       fetchOptions?: FetchOptions | undefined;
     }) => {
       const { data, error } = await authClient.twoFactor.verifyTotp({
@@ -222,26 +224,25 @@ export const betterAuth = {
       return { data, error };
     },
     sendOtp: async ({
-      trustDevice,
+      query,
       fetchOptions,
     }: {
-      trustDevice?: boolean;
+      query?: Record<string, any> | undefined;
       fetchOptions?: FetchOptions | undefined;
     }) => {
       const { data, error } = await authClient.twoFactor.sendOtp({
-        //@ts-ignore
-        trustDevice,
+        query,
         fetchOptions,
       });
       return { data, error };
     },
     verifyOtp: async ({
       code,
-      trustDevice,
+      trustDevice = false,
       fetchOptions,
     }: {
       code: string;
-      trustDevice?: boolean;
+      trustDevice?: boolean | undefined;
       fetchOptions?: FetchOptions | undefined;
     }) => {
       const { data, error } = await authClient.twoFactor.verifyOtp({
@@ -257,7 +258,7 @@ export const betterAuth = {
       fetchOptions,
     }: {
       email: string;
-      callbackURL: string;
+      callbackURL?: string | undefined;
       fetchOptions?: FetchOptions | undefined;
     }) => {
       await authClient.sendVerificationEmail({
@@ -299,7 +300,7 @@ export const betterAuth = {
       fetchOptions,
     }: {
       newPassword: string;
-      token: string;
+      token?: string | undefined;
       fetchOptions?: FetchOptions | undefined;
     }) => {
       await authClient.resetPassword({
@@ -314,7 +315,7 @@ export const betterAuth = {
       fetchOptions,
     }: {
       newEmail: string;
-      callbackURL?: string;
+      callbackURL?: string | undefined;
       fetchOptions?: FetchOptions | undefined;
     }) => {
       await authClient.changeEmail({
@@ -324,19 +325,19 @@ export const betterAuth = {
       });
     },
     changePassword: async ({
-      currentPassword,
       newPassword,
+      currentPassword,
       revokeOtherSessions,
       fetchOptions,
     }: {
-      currentPassword: string;
       newPassword: string;
+      currentPassword: string;
       revokeOtherSessions?: boolean | undefined;
       fetchOptions?: FetchOptions | undefined;
     }) => {
       await authClient.changePassword({
-        currentPassword,
         newPassword,
+        currentPassword,
         revokeOtherSessions,
         fetchOptions,
       });
@@ -346,8 +347,8 @@ export const betterAuth = {
       image,
       fetchOptions,
     }: {
-      name: string;
-      image?: string;
+      name?: string | undefined;
+      image?: string | null | undefined;
       fetchOptions?: FetchOptions | undefined;
     }) => {
       await authClient.updateUser({
@@ -362,15 +363,93 @@ export const betterAuth = {
       callbackURL,
       fetchOptions,
     }: {
-      password: string;
-      token: string;
-      callbackURL?: string;
+      password?: string | undefined;
+      token?: string | undefined;
+      callbackURL?: string | undefined;
       fetchOptions?: FetchOptions | undefined;
     }) => {
       await authClient.deleteUser({
         password,
         token,
         callbackURL,
+        fetchOptions,
+      });
+    },
+    listSessions: async ({
+      query,
+      fetchOptions,
+    }: {
+      query?: Record<string, any> | undefined;
+      fetchOptions?: FetchOptions | undefined;
+    }) => {
+      await authClient.listSessions({
+        query,
+        fetchOptions,
+      });
+    },
+    revokeSession: async ({
+      token,
+      fetchOptions,
+    }: {
+      token: string;
+      fetchOptions?: FetchOptions | undefined;
+    }) => {
+      await authClient.revokeSession({
+        token,
+        fetchOptions,
+      });
+    },
+    revokeSessions: async ({
+      query,
+      fetchOptions,
+    }: {
+      query?: Record<string, any> | undefined;
+      fetchOptions?: FetchOptions | undefined;
+    }) => {
+      await authClient.revokeSessions({
+        query,
+        fetchOptions,
+      });
+    },
+    revokeOtherSessions: async ({
+      query,
+      fetchOptions,
+    }: {
+      query?: Record<string, any> | undefined;
+      fetchOptions?: FetchOptions | undefined;
+    }) => {
+      await authClient.revokeSessions({
+        query,
+        fetchOptions,
+      });
+    },
+    linkSocial: async ({
+      provider,
+      scopes,
+      fetchOptions,
+    }: {
+      provider: Provider;
+      scopes?: string[] | undefined;
+      fetchOptions?: FetchOptions | undefined;
+    }) => {
+      await authClient.linkSocial({
+        provider,
+        scopes,
+        fetchOptions,
+      });
+    },
+    unlinkAccount: async ({
+      providerId,
+      accountId,
+      fetchOptions,
+    }: {
+      providerId: string;
+      accountId?: string | undefined;
+      fetchOptions?: FetchOptions | undefined;
+    }) => {
+      await authClient.unlinkAccount({
+        providerId,
+        accountId,
         fetchOptions,
       });
     },
