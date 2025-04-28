@@ -9,11 +9,6 @@ export default () => {
   const logout = () => betterAuth.signOut().finally(() => navigate("/"));
   const content = (
     <div className="grid min-h-svh">
-      {baseUrl.auth_esensi}
-      {baseUrl.default}
-      {baseUrl.internal_esensi}
-      {baseUrl.main_esensi}
-      {baseUrl.publish_esensi}
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
           <AppLogo />
