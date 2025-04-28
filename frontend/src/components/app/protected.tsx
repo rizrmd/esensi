@@ -5,10 +5,17 @@ import type { FC, ReactNode } from "react";
 import { Alert } from "../ui/global-alert";
 import { AppLoading } from "./loading";
 
-export type Role = "publisher" | "author" | "sales_and_marketing" | "customer";
+export type Role =
+  | "publisher"
+  | "author"
+  | "sales_and_marketing"
+  | "customer"
+  | "support"
+  | "affiliate"
+  | "management";
 export const Protected: FC<{
   children: ReactNode | ((opt: { user: User | null }) => ReactNode);
-  role?: Role | Role[];
+  role?: Role | Role[] | "any";
   onLoad?: (opt: { user: null | User }) => void;
   fallback?: (opt: { role: string[] }) => ReactNode;
   redirecURLtIfNotLoggedIn?: string | null;
@@ -24,20 +31,20 @@ export const Protected: FC<{
         const res = await betterAuth.getSession();
 
         if (res.session) {
-          const roles = Array.isArray(role) ? role : [role];
-
-          const u = res.session.user;
-
-          local.missing_role = [];
-          for (const r of roles) {
-            if ((u as any)[`id_${r}`]) {
-            } else {
-              if (r) local.missing_role.push(r);
-            }
-          }
-
-          if (roles.length > 0 && local.missing_role.length < roles.length) {
+          if (role !== "any") {
+            const roles = Array.isArray(role) ? role : [role];
+            const u = res.session.user;
             local.missing_role = [];
+            for (const r of roles) {
+              if ((u as any)[`id_${r}`]) {
+              } else {
+                if (r) local.missing_role.push(r);
+              }
+            }
+
+            if (roles.length > 0 && local.missing_role.length < roles.length) {
+              local.missing_role = [];
+            }
           }
 
           if (!res.error) {

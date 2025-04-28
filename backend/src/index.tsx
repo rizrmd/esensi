@@ -4,10 +4,10 @@ import { auth } from "./lib/better-auth";
 const { isDev } = initEnv();
 
 const loadModels = async () => {
-  return await import("shared/models");
+  return (await import("shared/models"));
 };
 const loadApi = async () => {
-  return await import("./gen/api");
+  return (await import("./gen/api")).backendApi;
 };
 const onFetch: onFetch = async ({ url, req }) => {
   if (url.pathname.startsWith("/api/auth")) {
