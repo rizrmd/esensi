@@ -40,12 +40,16 @@ export default () => {
               }
               if (res.error) {
                 Alert.info(res.error.message);
-                navigate(
-                  "/email-verification?callbackURL=" +
-                    callbackURL +
-                    "&username=" +
-                    read.username
-                );
+                if (!callbackURL) window.location.replace(u.main_esensi);
+                else {
+                  const url = new URL(callbackURL!);
+                  navigate(
+                    "/email-verification?callbackURL=" +
+                      url.host +
+                      "&username=" +
+                      read.username
+                  );
+                }
               }
 
               write.loading = false;
