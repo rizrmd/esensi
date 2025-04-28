@@ -1,12 +1,16 @@
+import { baseUrl } from "@/lib/gen/base-url";
 import { EForm } from "@/components/ext/eform/EForm";
 import { SideForm } from "@/components/ext/side-form";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/global-alert";
 import { betterAuth } from "@/lib/better-auth";
+import { navigate } from "@/lib/router";
 
 export default () => {
+  const u = baseUrl;
   const params = new URLSearchParams(location.search);
   const callbackURL = params.get("callbackURL") as (string | undefined);
+  if (!callbackURL) navigate("/");
   return (
     <SideForm sideImage={"/img/side-bg.jpg"}>
       <div className="space-y-6">
@@ -35,8 +39,11 @@ export default () => {
                   return;
                 }
               }
+              if (res.error) {
+                Alert.info(res.error.message);
+                navigate("/email-verification?callbackURL=" + callbackURL + "&username=" + read.username);
+              }
 
-              await Alert.info(read);
               write.loading = false;
             }
           }}

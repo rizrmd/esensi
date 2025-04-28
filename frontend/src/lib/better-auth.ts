@@ -262,7 +262,7 @@ export const betterAuth = {
     callbackURL?: string | undefined;
     fetchOptions?: FetchOptions | undefined;
   }) => {
-    await authClient.sendVerificationEmail({
+    return await authClient.sendVerificationEmail({
       email,
       callbackURL,
       fetchOptions,
@@ -275,7 +275,7 @@ export const betterAuth = {
     query: { token: string; callbackURL?: string | undefined };
     fetchOptions?: FetchOptions | undefined;
   }) => {
-    await authClient.verifyEmail({
+    return await authClient.verifyEmail({
       query,
       fetchOptions,
     });
@@ -289,7 +289,7 @@ export const betterAuth = {
     redirectTo?: string | undefined;
     fetchOptions?: FetchOptions | undefined;
   }) => {
-    await authClient.forgetPassword({
+    return await authClient.forgetPassword({
       email,
       redirectTo,
       fetchOptions,
@@ -304,7 +304,7 @@ export const betterAuth = {
     token?: string | undefined;
     fetchOptions?: FetchOptions | undefined;
   }) => {
-    await authClient.resetPassword({
+    return await authClient.resetPassword({
       newPassword,
       token,
       fetchOptions,
@@ -319,7 +319,7 @@ export const betterAuth = {
     callbackURL?: string | undefined;
     fetchOptions?: FetchOptions | undefined;
   }) => {
-    await authClient.changeEmail({
+    return await authClient.changeEmail({
       newEmail,
       callbackURL,
       fetchOptions,
@@ -336,7 +336,7 @@ export const betterAuth = {
     revokeOtherSessions?: boolean | undefined;
     fetchOptions?: FetchOptions | undefined;
   }) => {
-    await authClient.changePassword({
+    return await authClient.changePassword({
       newPassword,
       currentPassword,
       revokeOtherSessions,
@@ -352,7 +352,7 @@ export const betterAuth = {
     image?: string | null | undefined;
     fetchOptions?: FetchOptions | undefined;
   }) => {
-    await authClient.updateUser({
+    return await authClient.updateUser({
       name,
       image,
       fetchOptions,
@@ -369,7 +369,7 @@ export const betterAuth = {
     callbackURL?: string | undefined;
     fetchOptions?: FetchOptions | undefined;
   }) => {
-    await authClient.deleteUser({
+    return await authClient.deleteUser({
       password,
       token,
       callbackURL,
@@ -383,7 +383,7 @@ export const betterAuth = {
     query?: Record<string, any> | undefined;
     fetchOptions?: FetchOptions | undefined;
   }) => {
-    await authClient.listSessions({
+    return await authClient.listSessions({
       query,
       fetchOptions,
     });
@@ -395,7 +395,7 @@ export const betterAuth = {
     token: string;
     fetchOptions?: FetchOptions | undefined;
   }) => {
-    await authClient.revokeSession({
+    return await authClient.revokeSession({
       token,
       fetchOptions,
     });
@@ -407,7 +407,7 @@ export const betterAuth = {
     query?: Record<string, any> | undefined;
     fetchOptions?: FetchOptions | undefined;
   }) => {
-    await authClient.revokeSessions({
+    return await authClient.revokeSessions({
       query,
       fetchOptions,
     });
@@ -419,7 +419,7 @@ export const betterAuth = {
     query?: Record<string, any> | undefined;
     fetchOptions?: FetchOptions | undefined;
   }) => {
-    await authClient.revokeSessions({
+    return await authClient.revokeSessions({
       query,
       fetchOptions,
     });
@@ -433,7 +433,7 @@ export const betterAuth = {
     scopes?: string[] | undefined;
     fetchOptions?: FetchOptions | undefined;
   }) => {
-    await authClient.linkSocial({
+    return await authClient.linkSocial({
       provider,
       scopes,
       fetchOptions,
@@ -448,7 +448,7 @@ export const betterAuth = {
     accountId?: string | undefined;
     fetchOptions?: FetchOptions | undefined;
   }) => {
-    await authClient.unlinkAccount({
+    return await authClient.unlinkAccount({
       providerId,
       accountId,
       fetchOptions,
