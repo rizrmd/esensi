@@ -3,11 +3,17 @@ import { Button } from "@/components/ui/button";
 import { betterAuth } from "@/lib/better-auth";
 import { navigate } from "@/lib/router";
 import { AppLogo } from "@/components/app/logo";
+import { baseUrl } from "@/lib/gen/base-url";
 
 export default () => {
   const logout = () => betterAuth.signOut().finally(() => navigate("/"));
   const content = (
     <div className="grid min-h-svh">
+      {baseUrl.auth_esensi}
+      {baseUrl.default}
+      {baseUrl.internal_esensi}
+      {baseUrl.main_esensi}
+      {baseUrl.publish_esensi}
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
           <AppLogo />
@@ -29,11 +35,7 @@ export default () => {
   );
   return (
     <Protected role={["publisher", "author"]} redirecURLtIfNotLoggedIn={"/"}>
-      {({ user }) => (
-        <>
-          {content}
-        </>
-      )}
+      {({ user }) => <>{content}</>}
     </Protected>
   );
 };
