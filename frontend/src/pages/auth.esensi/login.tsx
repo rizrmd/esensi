@@ -9,7 +9,7 @@ import { navigate } from "@/lib/router";
 export default () => {
   const u = baseUrl;
   const params = new URLSearchParams(location.search);
-  const callbackURL = params.get("callbackURL") as (string | undefined);
+  const callbackURL = params.get("callbackURL") as string | undefined;
   if (!callbackURL) navigate("/");
   return (
     <SideForm sideImage={"/img/side-bg.jpg"}>
@@ -34,14 +34,18 @@ export default () => {
               });
 
               if (!res.error) {
-                if (callbackURL) {
-                  window.location.replace(callbackURL);
-                  return;
-                }
+                if (!callbackURL) window.location.replace(u.main_esensi);
+                else window.location.replace(callbackURL!);
+                return;
               }
               if (res.error) {
                 Alert.info(res.error.message);
-                navigate("/email-verification?callbackURL=" + callbackURL + "&username=" + read.username);
+                navigate(
+                  "/email-verification?callbackURL=" +
+                    callbackURL +
+                    "&username=" +
+                    read.username
+                );
               }
 
               write.loading = false;
@@ -52,7 +56,11 @@ export default () => {
           {({ Field, read }) => {
             return (
               <>
-                <Field name="username" disabled={read.loading} label="Email or username" />
+                <Field
+                  name="username"
+                  disabled={read.loading}
+                  label="Email or username"
+                />
                 <Field
                   name="password"
                   disabled={read.loading}

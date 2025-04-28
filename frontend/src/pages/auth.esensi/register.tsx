@@ -50,10 +50,9 @@ export default () => {
 
               if (!res.error) {
                 Alert.info("Pendaftaran berhasil, silahkan cek email anda");
-                if (callbackURL) {
-                  window.location.replace(callbackURL);
-                  return;
-                }
+                if (!callbackURL) window.location.replace(u.main_esensi);
+                else window.location.replace(callbackURL!);
+                return;
               }
 
               await Alert.info(res);
