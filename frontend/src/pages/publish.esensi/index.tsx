@@ -1,11 +1,11 @@
 import { Protected } from "@/components/app/protected";
 import { navigate } from "@/lib/router";
 import { Button } from "@/components/ui/button";
-import { baseUrl } from "@/lib/utils";
+import { baseUrl } from "@/lib/gen/base-url";
 import { AppLogo } from "@/components/app/logo";
 
 export default () => {
-  const u = baseUrl();
+  const u = baseUrl;
   const content = (
     <div className="grid min-h-svh">
       <div className="flex flex-col gap-4 p-6 md:p-10">
@@ -22,13 +22,15 @@ export default () => {
           </p>
           <div className="flex w-full flex-col justify-center gap-2 sm:flex-row">
             <Button className="w-full sm:w-auto" asChild>
-              <a href={`${u.auth}/login?callbackURL=${u.publish}/dashboard`}>
+              <a
+                href={`${u.auth_esensi}/login?callbackURL=${u.publish_esensi}/dashboard`}
+              >
                 Login
               </a>
             </Button>
             <Button variant="outline" className="w-full sm:w-auto" asChild>
               <a
-                href={`${u.auth}/register?callbackURL=${u.publish}/onboarding`}
+                href={`${u.auth_esensi}/register?callbackURL=${u.publish_esensi}/onboarding`}
               >
                 Register
               </a>
