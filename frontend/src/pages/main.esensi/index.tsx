@@ -1,4 +1,4 @@
-import { baseUrl } from "@/lib/gen/base-url";
+//import { baseUrl } from "@/lib/gen/base-url";
 import { basePath } from "@/lib/router";
 
 export default () => {
