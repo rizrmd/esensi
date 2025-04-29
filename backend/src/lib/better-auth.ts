@@ -4,6 +4,9 @@ import { username, twoFactor, openAPI } from "better-auth/plugins";
 import nodemailer from "nodemailer";
 import { randomUUIDv7 } from "bun";
 
+const aStyle = `display: inline-block; padding: 10px 20px; background-color: #222831; color: white; text-decoration: none; border-radius: 5px; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; text-align: center; text-decoration: none;
+`;
+
 const sendEmail = async ({
   to,
   subject,
