@@ -89,19 +89,79 @@ export const auth = betterAuth({
     sendVerificationEmail: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
-        // templateAlias: "email-verification",
-        // templateModel: {
-        //   product_url: process.env.PRODUCT_URL as string,
-        //   product_name: process.env.PRODUCT_NAME as string,
-        //   action_url: url,
-        //   login_url: (process.env.LOGIN_URL as string) + "/login",
-        //   username: user.email,
-        //   company_name: process.env.COMPANY_NAME as string,
-        //   name: user.name,
-        // },
-        subject: "Email Verification",
-        text: `Click here to verify your email: ${url}`,
-        html: `<div>Click here to verify your email: <a href="${url}">Verify</a></div>`,
+        subject: "Verifikasi Email Esensi Online",
+        text: `
+Esensi Online
+Verifikasi Email
+Hai, ${user.email}.
+Terima kasih sudah mendaftarkan diri pada Esensi Online.
+Silakan klik link berikut untuk memverifikasi akun email Anda. Link ini akan kedaluwarsa setelah 24 jam.
+${url}
+`,
+        html: `
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+  </head>
+  <body style="background-color:#ffffff;margin:0 auto;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif">
+    <div style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0">
+      Verifikasi Email Esensi Online
+    </div>
+    <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:37.5em;margin:0 auto;padding:0px 20px">
+      <tbody>
+        <tr style="width:100%">
+          <td>
+            <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="margin-top:32px">
+              <tbody>
+                <tr>
+                  <td>
+                    <img alt="Esensi Online" height="50" src="https://esensi.online/logo.webp" style="display:block;outline:none;border:none;text-decoration:none" width="50" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h1 style="color:#1d1c1d;font-size:36px;font-weight:700;margin:30px 0;padding:0;line-height:42px">
+              Verifikasi Email Esensi Online
+            </h1>
+            <p style="font-size:20px;line-height:28px;margin:16px 0;margin-bottom:30px">
+              Silakan klik link berikut untuk memverifikasi email Anda
+            </p>
+            
+             <div style="text-align:center; margin:30px"><a href="${url}" style="${aStyle}" target="_blank">Verifikasi Email</a></div>
+            <p style="font-size:14px;line-height:24px;margin:16px 0;color:#000">
+              Jika Anda tidak meminta email ini, Anda bisa mengabaikannya.
+            </p>
+            <hr class="border-t border-gray-300" style="width:100%;border:none;border-top:1px solid #eaeaea" />
+            <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+              <tbody>
+                <tr>
+                  <td>
+                    <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                      <tbody style="width:100%">
+                        <tr style="width:100%">
+                          <td data-id="__react-email-column" style="width:50px">
+                            <img alt="Esensi Online" height="40" src="https://esensi.online/logo.webp" style="display:block;outline:none;border:none;text-decoration:none" width="40" />
+                          </td>
+                          <td data-id="__react-email-column">
+                            <p class="m-0" style="font-size:14px;line-height:24px;margin:16px 0">
+                              Esensi Online<br />PT. Meraih Ilmu Semesta
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>`,
       });
     },
     expiresIn: 3600, // 1 hour
@@ -230,20 +290,20 @@ export const auth = betterAuth({
     },
     deleteUser: {
       async beforeDelete(user, request) {
-      await sendEmail({
-        to: user.email,
-        // templateAlias: "account-deletion-request",
-        // templateModel: {
-        //   product_url: process.env.PRODUCT_URL as string,
-        //   product_name: process.env.PRODUCT_NAME as string,
-        //   name: user.name,
-        //   company_name: process.env.COMPANY_NAME as string,
-        //   company_address: process.env.COMPANY_ADDRESS as string,
-        // },
-        subject: "Account Deletion Request",
-        text: `There is a request to delete your account. If you did not make this request, please contact support.`,
-        html: `<div>There is a request to delete your account. If you did not make this request, please contact support.</div>`,
-      });
+        await sendEmail({
+          to: user.email,
+          // templateAlias: "account-deletion-request",
+          // templateModel: {
+          //   product_url: process.env.PRODUCT_URL as string,
+          //   product_name: process.env.PRODUCT_NAME as string,
+          //   name: user.name,
+          //   company_name: process.env.COMPANY_NAME as string,
+          //   company_address: process.env.COMPANY_ADDRESS as string,
+          // },
+          subject: "Account Deletion Request",
+          text: `There is a request to delete your account. If you did not make this request, please contact support.`,
+          html: `<div>There is a request to delete your account. If you did not make this request, please contact support.</div>`,
+        });
       },
       async afterDelete(user, request) {
         await sendEmail({
@@ -261,7 +321,7 @@ export const auth = betterAuth({
           html: `<div>Your account has been deleted.</div>`,
         });
       },
-    }
+    },
   },
 });
 

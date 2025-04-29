@@ -42,10 +42,9 @@ export default () => {
                 Alert.info(res.error.message);
                 if (!callbackURL) window.location.replace(u.main_esensi);
                 else {
-                  const url = new URL(callbackURL!);
                   navigate(
                     "/email-verification?callbackURL=" +
-                      url.host +
+                      callbackURL +
                       "&username=" +
                       read.username
                   );
