@@ -80,9 +80,77 @@ export const auth = betterAuth({
         //   company_name: process.env.COMPANY_NAME as string,
         //   company_address: process.env.COMPANY_ADDRESS as string,
         // },
-        subject: "Password Reset",
-        text: `Click here to reset your password: ${url}`,
-        html: `<div>Click here to reset your password: <a href="${url}">Reset</a></div>`,
+        subject: "Reset Password Esensi Online",
+        text: `
+Esensi Online
+Reset Password
+Silakan klik link berikut untuk mengatur ulang password Anda
+${url}
+`,
+        html: `
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+  </head>
+  <body style="background-color:#ffffff;margin:0 auto;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif">
+    <div style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0">
+      Reset Password Esensi Online
+    </div>
+    <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:37.5em;margin:0 auto;padding:0px 20px">
+      <tbody>
+        <tr style="width:100%">
+          <td>
+            <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="margin-top:32px">
+              <tbody>
+                <tr>
+                  <td>
+                    <img alt="Esensi Online" height="50" src="https://esensi.online/logo.webp" style="display:block;outline:none;border:none;text-decoration:none" width="50" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h1 style="color:#1d1c1d;font-size:36px;font-weight:700;margin:30px 0;padding:0;line-height:42px">
+              Reset Password Esensi Online
+            </h1>
+            <p style="font-size:20px;line-height:28px;margin:16px 0;margin-bottom:30px">
+              Silakan klik link berikut untuk mengatur ulang password Anda
+            </p>
+            
+            <div style="text-align:center; margin:30px"><a href="${url}" style="${aStyle}" target="_blank">Reset Password</a></div>
+            <p style="font-size:14px;line-height:24px;margin:16px 0;color:#000">
+              Jika Anda tidak meminta email ini, Anda bisa mengabaikannya.
+            </p>
+            <hr class="border-t border-gray-300" style="width:100%;border:none;border-top:1px solid #eaeaea" />
+            <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+              <tbody>
+                <tr>
+                  <td>
+                    <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                      <tbody style="width:100%">
+                        <tr style="width:100%">
+                          <td data-id="__react-email-column" style="width:50px">
+                            <img alt="Esensi Online" height="40" src="https://esensi.online/logo.webp" style="display:block;outline:none;border:none;text-decoration:none" width="40" />
+                          </td>
+                          <td data-id="__react-email-column">
+                            <p class="m-0" style="font-size:14px;line-height:24px;margin:16px 0">
+                              Esensi Online<br />PT. Meraih Ilmu Semesta
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>`,
       });
     },
   },
@@ -210,9 +278,83 @@ ${url}
             //   company_name: process.env.COMPANY_NAME as string,
             //   company_address: process.env.COMPANY_ADDRESS as string,
             // },
-            subject: "OTP Code Request",
-            text: `Hello ${user.name},\n\nYour OTP code is: ${otp}\n\nClick here to verify: ${action_url}`,
-            html: `<div>Hello ${user.name},\n\nYour OTP code is: ${otp}\n\nClick here to verify: <a href="${action_url}">Verify</a></div>`,
+            subject: "Kode OTP Esensi Online",
+            text: `
+Esensi Online
+Kode OTP
+Kode OTP Anda: ${otp}
+Silakan masukkan kode OTP untuk verifikasi
+${action_url}
+`,
+            html: `
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+  </head>
+  <body style="background-color:#ffffff;margin:0 auto;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif">
+    <div style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0">
+      Kode OTP Esensi Online
+    </div>
+    <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:37.5em;margin:0 auto;padding:0px 20px">
+      <tbody>
+        <tr style="width:100%">
+          <td>
+            <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="margin-top:32px">
+              <tbody>
+                <tr>
+                  <td>
+                    <img alt="Esensi Online" height="50" src="https://esensi.online/logo.webp" style="display:block;outline:none;border:none;text-decoration:none" width="50" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h1 style="color:#1d1c1d;font-size:36px;font-weight:700;margin:30px 0;padding:0;line-height:42px">
+              Kode OTP Esensi Online
+            </h1>
+            <p style="font-size:20px;line-height:28px;margin:16px 0;margin-bottom:30px">
+              Silakan gunakan kode OTP berikut untuk verifikasi
+            </p>
+            
+            <div style="text-align:center; margin:30px; font-size:32px; font-weight:bold; letter-spacing:5px; padding:15px; border:2px dashed #ccc; background-color:#f7f7f7;">
+              ${otp}
+            </div>
+            
+            <div style="text-align:center; margin:30px"><a href="${action_url}" style="${aStyle}" target="_blank">Verifikasi OTP</a></div>
+            
+            <p style="font-size:14px;line-height:24px;margin:16px 0;color:#000">
+              Jika Anda tidak meminta kode OTP ini, Anda bisa mengabaikannya.
+            </p>
+            <hr class="border-t border-gray-300" style="width:100%;border:none;border-top:1px solid #eaeaea" />
+            <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+              <tbody>
+                <tr>
+                  <td>
+                    <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                      <tbody style="width:100%">
+                        <tr style="width:100%">
+                          <td data-id="__react-email-column" style="width:50px">
+                            <img alt="Esensi Online" height="40" src="https://esensi.online/logo.webp" style="display:block;outline:none;border:none;text-decoration:none" width="40" />
+                          </td>
+                          <td data-id="__react-email-column">
+                            <p class="m-0" style="font-size:14px;line-height:24px;margin:16px 0">
+                              Esensi Online<br />PT. Meraih Ilmu Semesta
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>`,
           });
         },
       },
@@ -285,9 +427,81 @@ ${url}
           //   company_name: process.env.COMPANY_NAME as string,
           //   company_address: process.env.COMPANY_ADDRESS as string,
           // },
-          subject: "Email Change Verification",
-          text: `There is a request to change your enmail to ${data.newEmail}. Click here to verify your email change: ${data.url}`,
-          html: `<div>There is a request to change your enmail to ${data.newEmail}. Click here to verify your email change: <a href="${data.url}">Verify</a></div>`,
+          subject: "Verifikasi Perubahan Email Esensi Online",
+          text: `
+Esensi Online
+Verifikasi Perubahan Email
+Ada permintaan perubahan email Anda menjadi ${data.newEmail}.
+Silakan klik link berikut untuk memverifikasi perubahan email Anda
+${data.url}
+`,
+          html: `
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+  </head>
+  <body style="background-color:#ffffff;margin:0 auto;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif">
+    <div style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0">
+      Verifikasi Perubahan Email Esensi Online
+    </div>
+    <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:37.5em;margin:0 auto;padding:0px 20px">
+      <tbody>
+        <tr style="width:100%">
+          <td>
+            <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="margin-top:32px">
+              <tbody>
+                <tr>
+                  <td>
+                    <img alt="Esensi Online" height="50" src="https://esensi.online/logo.webp" style="display:block;outline:none;border:none;text-decoration:none" width="50" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h1 style="color:#1d1c1d;font-size:36px;font-weight:700;margin:30px 0;padding:0;line-height:42px">
+              Verifikasi Perubahan Email
+            </h1>
+            <p style="font-size:20px;line-height:28px;margin:16px 0;margin-bottom:30px">
+              Ada permintaan perubahan email Anda menjadi <strong style="color:#222831">${data.newEmail}</strong>
+            </p>
+            <p style="font-size:16px;line-height:24px;margin:16px 0;margin-bottom:30px">
+              Silakan klik tombol di bawah untuk memverifikasi perubahan email Anda
+            </p>
+            
+            <div style="text-align:center; margin:30px"><a href="${data.url}" style="${aStyle}" target="_blank">Verifikasi Perubahan Email</a></div>
+            <p style="font-size:14px;line-height:24px;margin:16px 0;color:#000">
+              Jika Anda tidak meminta perubahan email ini, Anda bisa mengabaikannya atau menghubungi tim dukungan kami.
+            </p>
+            <hr class="border-t border-gray-300" style="width:100%;border:none;border-top:1px solid #eaeaea" />
+            <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+              <tbody>
+                <tr>
+                  <td>
+                    <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                      <tbody style="width:100%">
+                        <tr style="width:100%">
+                          <td data-id="__react-email-column" style="width:50px">
+                            <img alt="Esensi Online" height="40" src="https://esensi.online/logo.webp" style="display:block;outline:none;border:none;text-decoration:none" width="40" />
+                          </td>
+                          <td data-id="__react-email-column">
+                            <p class="m-0" style="font-size:14px;line-height:24px;margin:16px 0">
+                              Esensi Online<br />PT. Meraih Ilmu Semesta
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>`,
         });
       },
     },
@@ -303,9 +517,79 @@ ${url}
           //   company_name: process.env.COMPANY_NAME as string,
           //   company_address: process.env.COMPANY_ADDRESS as string,
           // },
-          subject: "Account Deletion Request",
-          text: `There is a request to delete your account. If you did not make this request, please contact support.`,
-          html: `<div>There is a request to delete your account. If you did not make this request, please contact support.</div>`,
+          subject: "Permintaan Hapus Akun Esensi Online",
+          text: `
+Esensi Online
+Permintaan Hapus Akun
+Ada permintaan untuk menghapus akun Anda.
+Jika Anda tidak melakukan permintaan ini, silakan segera hubungi tim dukungan kami.
+`,
+          html: `
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+  </head>
+  <body style="background-color:#ffffff;margin:0 auto;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif">
+    <div style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0">
+      Permintaan Hapus Akun Esensi Online
+    </div>
+    <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:37.5em;margin:0 auto;padding:0px 20px">
+      <tbody>
+        <tr style="width:100%">
+          <td>
+            <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="margin-top:32px">
+              <tbody>
+                <tr>
+                  <td>
+                    <img alt="Esensi Online" height="50" src="https://esensi.online/logo.webp" style="display:block;outline:none;border:none;text-decoration:none" width="50" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h1 style="color:#1d1c1d;font-size:36px;font-weight:700;margin:30px 0;padding:0;line-height:42px">
+              Permintaan Hapus Akun
+            </h1>
+            <p style="font-size:20px;line-height:28px;margin:16px 0;margin-bottom:30px">
+              Ada permintaan untuk menghapus akun Anda di Esensi Online
+            </p>
+            
+            <div style="padding:20px; background-color:#fff8e6; border-left:4px solid #f0b90b; margin:30px 0;">
+              <p style="font-size:16px;line-height:24px;margin:0;color:#111;">
+                <strong>Perhatian:</strong> Jika Anda tidak melakukan permintaan ini, silakan segera hubungi tim dukungan kami.
+              </p>
+            </div>
+            
+            <hr class="border-t border-gray-300" style="width:100%;border:none;border-top:1px solid #eaeaea" />
+            <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+              <tbody>
+                <tr>
+                  <td>
+                    <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                      <tbody style="width:100%">
+                        <tr style="width:100%">
+                          <td data-id="__react-email-column" style="width:50px">
+                            <img alt="Esensi Online" height="40" src="https://esensi.online/logo.webp" style="display:block;outline:none;border:none;text-decoration:none" width="40" />
+                          </td>
+                          <td data-id="__react-email-column">
+                            <p class="m-0" style="font-size:14px;line-height:24px;margin:16px 0">
+                              Esensi Online<br />PT. Meraih Ilmu Semesta
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>`,
         });
       },
       async afterDelete(user, request) {
