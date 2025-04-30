@@ -45,13 +45,32 @@ export default () => {
   };
   return (
     <SideForm sideImage={"/img/side-bg.jpg"}>
-      <div className="space-y-6 text-center">
-        <h1 className="text-2xl font-semibold">Verifikasi Email</h1>
-        {!local.authUser?.is_verified && (
-          <p>Email anda sudah terverifikasi. Silakan login.</p>
-        )}
-        <Button onClick={sendVerificationEmail}>Kirim Email Verifikasi</Button>
-        <div className="text-center"></div>
+      <div className="space-y-6">
+        <div className="text-center">
+          <h1 className="text-2xl font-semibold">Verifikasi Email</h1>
+          <p className="text-muted-foreground mt-2">
+            {local.authUser?.is_verified 
+              ? "Email anda sudah terverifikasi. Silakan login."
+              : "Silakan verifikasi email anda untuk melanjutkan."}
+          </p>
+        </div>
+        
+        <div className="space-y-4">
+          <div className="p-4 border rounded-md bg-muted/50">
+            <p className="text-sm">Email: <strong>{username}</strong></p>
+          </div>
+          
+          <Button 
+            onClick={sendVerificationEmail} 
+            className="w-full"
+          >
+            Kirim Email Verifikasi
+          </Button>
+          
+          <div className="text-center text-sm text-muted-foreground">
+            <a href={`${u.auth_esensi}/login`} className="underline">Kembali ke halaman login</a>
+          </div>
+        </div>
       </div>
     </SideForm>
   );
