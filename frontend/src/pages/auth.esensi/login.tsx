@@ -104,6 +104,19 @@ export default () => {
     }
   }, [otp, activeTab, code, isLoading]);
 
+  const handleGoogleSignIn = async () => {
+    try {
+      const { error } = await betterAuth.social({ provider: "google", callbackURL });
+      if (error) {
+        toast.error("Google Sign-In failed", { description: error.message });
+      }
+      // Redirect or further actions are handled by better-auth
+    } catch (err: any) {
+      console.error("Google Sign-In failed:", err);
+      toast.error("An unexpected error occurred during Google Sign-In.");
+    }
+  };
+
   return (
     <SideForm sideImage={"/img/side-bg.jpg"}>
       <div className="space-y-6">
@@ -213,6 +226,25 @@ export default () => {
                 );
               }}
             </EForm>
+            <div className="relative my-4">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  Or continue with
+                </span>
+              </div>
+            </div>
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={handleGoogleSignIn}
+              type="button" // Ensure it doesn't submit the EForm
+            >
+              {/* Add Google Icon here if available */}
+              Sign in with Google
+            </Button>
           </TabsContent>
 
           <TabsContent value="reset-password" className="space-y-4 mt-4">
