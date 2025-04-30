@@ -1,28 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { betterAuth, type Session } from "@/lib/better-auth"; // Use type-only import for Session
+import { betterAuth, type Session } from "@/lib/better-auth"; 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { toast } from "sonner";
-// import QRCode from 'react-qr-code'; // Placeholder for QR code generation
-// Removed Jotai import
+import { SideForm } from "@/components/ext/side-form";
+// Optional: import QRCode if you decide to implement it
+// import QRCode from 'react-qr-code';
 
 export default function TwoFactorSetupPage() {
   const [password, setPassword] = useState("");
   const [is2faEnabled, setIs2faEnabled] = useState(false);
   const [qrCodeUri, setQrCodeUri] = useState<string | null>(null);
-  const [backupCodes, setBackupCodes] = useState<string[]>([]); // Renamed state
+  const [backupCodes, setBackupCodes] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [session, setSession] = useState<Session | null>(null); // Use imported Session type
-  const [sessionLoading, setSessionLoading] = useState(true); // Add state for loading
+  const [session, setSession] = useState<Session | null>(null);
+  const [sessionLoading, setSessionLoading] = useState(true);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -30,11 +23,9 @@ export default function TwoFactorSetupPage() {
       const { session: fetchedSession, error } = await betterAuth.getSession();
       if (error) {
         console.error("Error fetching session:", error);
-        // Handle error appropriately, maybe redirect to login
         setSession(null);
       } else {
         setSession(fetchedSession);
-        // Update 2FA status based on fetched session
         if (fetchedSession?.user?.twoFactorEnabled) {
           setIs2faEnabled(true);
         } else {
@@ -47,9 +38,8 @@ export default function TwoFactorSetupPage() {
     };
 
     fetchSession();
-  }, []); // Fetch session on component mount
+  }, []);
 
-  // This useEffect now only reacts to changes in the fetched session state
   useEffect(() => {
     if (session && session.user && session.user.twoFactorEnabled) {
       setIs2faEnabled(true);
@@ -58,13 +48,13 @@ export default function TwoFactorSetupPage() {
       setQrCodeUri(null);
       setBackupCodes([]);
     }
-  }, [session]); // Depend only on session
+  }, [session]);
 
   const handleEnable2FA = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setQrCodeUri(null);
-    setBackupCodes([]); // Use renamed state setter
+    setBackupCodes([]);
 
     const { data, error } = await betterAuth.twoFactor.enable({ password });
 
@@ -76,11 +66,9 @@ export default function TwoFactorSetupPage() {
         "2FA enabled successfully! Scan the QR code and save your backup codes."
       );
       setIs2faEnabled(true);
-      setQrCodeUri(data.totpURI); // Correct property name
-      setBackupCodes(data.backupCodes); // Correct property name and state setter
-      setPassword(""); // Clear password field
-      // TODO: Display QR Code using the 'totpURI' (e.g., with react-qr-code)
-      // TODO: Prompt user to verify TOTP before finalizing setup (Good practice)
+      setQrCodeUri(data.totpURI);
+      setBackupCodes(data.backupCodes);
+      setPassword("");
     }
     setIsLoading(false);
   };
@@ -96,139 +84,154 @@ export default function TwoFactorSetupPage() {
       toast.success("2FA disabled successfully.");
       setIs2faEnabled(false);
       setQrCodeUri(null);
-      setBackupCodes([]); // Use renamed state setter
-      setPassword(""); // Clear password field
+      setBackupCodes([]);
+      setPassword("");
     }
     setIsLoading(false);
   };
 
   if (sessionLoading) {
-    return <div>Loading session...</div>; // Or a proper loading component
+    return (
+      <SideForm sideImage={"/img/side-bg.jpg"}>
+        <div className="flex items-center justify-center h-full">
+          <div className="text-center">
+            <p className="mb-2">Loading session...</p>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+          </div>
+        </div>
+      </SideForm>
+    );
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <Card className="max-w-md mx-auto">
-        <CardHeader>
-          <CardTitle>Two-Factor Authentication (2FA)</CardTitle>
-          <CardDescription>
+    <SideForm sideImage={"/img/side-bg.jpg"}>
+      <div className="space-y-6">
+        <div className="flex items-center justify-start mb-6">
+          <div className="flex h-9 w-9 items-center justify-center">
+            <img src="/img/logo.webp" alt="Esensi Online" className="h-8 w-8" />
+          </div>
+          <span className="ml-2 font-medium">Esensi Online</span>
+        </div>
+        
+        <div className="text-center">
+          <h1 className="text-2xl font-semibold">Autentikasi Dua Faktor</h1>
+          <p className="text-muted-foreground mt-2">
             {is2faEnabled
-              ? "Manage your two-factor authentication settings."
-              : "Add an extra layer of security to your account."}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
+              ? "Kelola pengaturan autentikasi dua faktor Anda"
+              : "Tambahkan lapisan keamanan ekstra untuk akun Anda"}
+          </p>
+        </div>
+        
+        <div className="space-y-4">
           {is2faEnabled ? (
-            <div>
-              <p className="text-green-600 font-semibold mb-4">
-                2FA is currently enabled.
-              </p>
+            <div className="space-y-4">
+              <div className="p-3 bg-green-50 border border-green-200 rounded-md">
+                <p className="text-green-700 font-medium text-sm">
+                  Autentikasi dua faktor saat ini aktif.
+                </p>
+              </div>
+              
               <div className="space-y-2">
                 <Label htmlFor="password-disable">
-                  Enter Password to Disable
+                  Masukkan Password untuk Menonaktifkan
                 </Label>
                 <Input
                   id="password-disable"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Your current password"
+                  placeholder="Password Anda saat ini"
                   required
                   disabled={isLoading}
                 />
               </div>
-              {/* Display existing backup codes if 2FA is enabled */}
-              {/* Note: Better Auth might not provide existing codes after initial setup for security */}
-              {/* {backupCodes.length > 0 && (
-                 <div>
-                   <h3 className="font-semibold mt-4 mb-2">Backup Codes</h3>
-                   <p className="text-sm text-muted-foreground mb-2">These codes were provided during setup. Keep them safe.</p>
-                   <ul className="list-disc list-inside bg-gray-100 p-3 rounded">
-                     {backupCodes.map((code, index) => (
-                       <li key={index} className="font-mono">{code}</li>
-                     ))}
-                   </ul>
-                 </div>
-              )} */}
+              
+              <Button
+                variant="destructive"
+                onClick={handleDisable2FA}
+                disabled={isLoading || !password}
+                className="w-full"
+              >
+                {isLoading ? "Menonaktifkan..." : "Nonaktifkan 2FA"}
+              </Button>
             </div>
           ) : (
             <form onSubmit={handleEnable2FA} className="space-y-4">
-              <p className="text-orange-600 font-semibold mb-4">
-                2FA is currently disabled.
-              </p>
+              <div className="p-3 bg-amber-50 border border-amber-200 rounded-md">
+                <p className="text-amber-700 font-medium text-sm">
+                  Autentikasi dua faktor saat ini tidak aktif.
+                </p>
+              </div>
+              
               <div className="space-y-2">
                 <Label htmlFor="password-enable">
-                  Enter Password to Enable
+                  Masukkan Password untuk Mengaktifkan
                 </Label>
                 <Input
                   id="password-enable"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Your current password"
+                  placeholder="Password Anda saat ini"
                   required
                   disabled={isLoading}
                 />
               </div>
+              
               {qrCodeUri && (
-                <div className="mt-4 text-center">
-                  <h3 className="font-semibold mb-2">Scan QR Code</h3>
-                  <p className="text-sm text-muted-foreground mb-2">
-                    Scan this QR code with your authenticator app (e.g., Google
-                    Authenticator, Authy).
-                  </p>
-                  {/* Placeholder for QR Code Component */}
-                  <div className="p-4 bg-white inline-block">
-                    {/* <QRCode value={qrCodeUri} size={128} /> */}
-                    <p className="text-xs break-all mt-2">URI: {qrCodeUri}</p>
-                    <p className="text-red-500 text-sm mt-2">
-                      (QR Code component needs to be installed and implemented)
+                <div className="space-y-4">
+                  <div className="p-4 border rounded-md">
+                    <h3 className="font-medium text-center mb-2">Pindai Kode QR</h3>
+                    <p className="text-sm text-muted-foreground mb-4 text-center">
+                      Pindai kode QR ini dengan aplikasi autentikator Anda (mis., Google Authenticator atau Authy)
+                    </p>
+                    
+                    {/* QR Code placeholder - replace with actual component when available */}
+                    <div className="h-40 w-40 mx-auto bg-gray-100 flex items-center justify-center border">
+                      {/* <QRCode value={qrCodeUri} size={160} /> */}
+                      <p className="text-xs text-center px-2">QR Code Component Needed</p>
+                    </div>
+                    
+                    <p className="text-xs break-all mt-2 text-center text-muted-foreground">
+                      URI: {qrCodeUri}
                     </p>
                   </div>
-
-                  <h3 className="font-semibold mt-4 mb-2">Backup Codes</h3>
-                  <p className="text-sm text-muted-foreground mb-2">
-                    Save these codes securely. They can be used to access your
-                    account if you lose your 2FA device.
-                  </p>
-                  <ul className="list-disc list-inside bg-gray-100 p-3 rounded text-left">
-                    {backupCodes.map(
-                      (
-                        code,
-                        index // Use renamed state
-                      ) => (
-                        <li key={index} className="font-mono">
-                          {code}
-                        </li>
-                      )
-                    )}
-                  </ul>
-                  {/* TODO: Add verification step */}
-                  {/* <p className="mt-4">After scanning, enter the code from your app below to verify:</p> */}
-                  {/* Input and Verify Button */}
+                  
+                  <div className="p-4 border rounded-md">
+                    <h3 className="font-medium text-center mb-2">Kode Cadangan</h3>
+                    <p className="text-sm text-muted-foreground mb-2 text-center">
+                      Simpan kode ini di tempat yang aman. Kode ini dapat digunakan jika Anda kehilangan perangkat 2FA.
+                    </p>
+                    <div className="bg-gray-50 p-3 rounded-md">
+                      <div className="grid grid-cols-2 gap-2">
+                        {backupCodes.map((code, index) => (
+                          <div key={index} className="font-mono text-sm p-1 bg-white border rounded">
+                            {code}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
+              
               <Button
                 type="submit"
+                className="w-full"
                 disabled={isLoading || !password || !!qrCodeUri}
               >
-                {isLoading ? "Processing..." : "Enable 2FA"}
+                {isLoading ? "Memproses..." : "Aktifkan 2FA"}
               </Button>
             </form>
           )}
-        </CardContent>
-        {is2faEnabled && (
-          <CardFooter>
-            <Button
-              variant="destructive"
-              onClick={handleDisable2FA}
-              disabled={isLoading || !password}
-            >
-              {isLoading ? "Disabling..." : "Disable 2FA"}
-            </Button>
-          </CardFooter>
-        )}
-      </Card>
-    </div>
+          
+          <div className="text-center text-sm">
+            <a href="/auth.esensi/login" className="text-muted-foreground hover:underline">
+              Kembali ke halaman login
+            </a>
+          </div>
+        </div>
+      </div>
+    </SideForm>
   );
 }
