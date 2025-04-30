@@ -12,11 +12,11 @@ export default () => {
   const params = new URLSearchParams(location.search);
   const token = params.get("token") as string | undefined;
   const callbackURL = params.get("callbackURL") as string | undefined;
-  
+
   const local = useLocal({
     mode: token ? "reset" : "request",
   });
-  
+
   return (
     <SideForm sideImage={"/img/side-bg.jpg"}>
       <div className="space-y-6">
@@ -26,7 +26,7 @@ export default () => {
           </div>
           <span className="ml-2 font-medium">Esensi Online</span>
         </div>
-        
+
         {local.mode === "request" ? (
           <>
             <div className="text-center">
@@ -43,24 +43,27 @@ export default () => {
                     Alert.info("Masukkan email Anda");
                     return;
                   }
-                  
+
                   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(read.email)) {
                     Alert.info("Format email tidak valid");
                     return;
                   }
-                  
+
                   write.loading = true;
 
                   try {
                     const res = await betterAuth.forgetPassword({
                       email: read.email,
-                      redirectTo: window.location.origin + "/auth.esensi/password-reset",
+                      redirectTo:
+                        window.location.origin + "/auth.esensi/password-reset",
                     });
 
                     if (res.error) {
                       Alert.info(res.error.message);
                     } else {
-                      Alert.info("Link reset password telah dikirim ke email Anda");
+                      Alert.info(
+                        "Link reset password telah dikirim ke email Anda"
+                      );
                     }
                   } catch (error) {
                     Alert.info("Terjadi kesalahan, silakan coba lagi");
@@ -75,11 +78,7 @@ export default () => {
               {({ Field, read }) => {
                 return (
                   <>
-                    <Field
-                      name="email"
-                      disabled={read.loading}
-                      label="Email"
-                    />
+                    <Field name="email" disabled={read.loading} label="Email" />
                     <Button
                       type="submit"
                       className="w-full"
@@ -87,9 +86,12 @@ export default () => {
                     >
                       {read.loading ? "Mengirim..." : "Kirim Link Reset"}
                     </Button>
-                    
+
                     <div className="text-center text-sm">
-                      <a href="/auth.esensi/login" className="text-muted-foreground hover:underline">
+                      <a
+                        href="/auth.esensi/login"
+                        className="text-muted-foreground hover:underline"
+                      >
                         Kembali ke halaman login
                       </a>
                     </div>
@@ -114,23 +116,23 @@ export default () => {
                     Alert.info("Isi semua kolom");
                     return;
                   }
-                  
+
                   if (read.password !== read.confirmPassword) {
                     Alert.info("Password dan konfirmasi password tidak sama");
                     return;
                   }
-                  
+
                   if (read.password.length < 8) {
                     Alert.info("Password minimal 8 karakter");
                     return;
                   }
-                  
+
                   write.loading = true;
 
                   try {
                     const res = await betterAuth.resetPassword({
                       newPassword: read.password,
-                      token: token!
+                      token: token!,
                     });
 
                     if (res.error) {
@@ -138,8 +140,12 @@ export default () => {
                     } else {
                       Alert.info("Password berhasil diubah");
                       setTimeout(() => {
-                        if (!callbackURL) window.location.replace(u.main_esensi);
-                        else navigate("/auth.esensi/login?callbackURL=" + callbackURL);
+                        if (!callbackURL)
+                          window.location.replace(u.main_esensi);
+                        else
+                          navigate(
+                            "/auth.esensi/login?callbackURL=" + callbackURL
+                          );
                       }, 2000);
                     }
                   } catch (error) {
