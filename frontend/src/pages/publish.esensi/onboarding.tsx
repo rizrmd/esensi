@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { betterAuth } from "@/lib/better-auth";
 import { navigate } from "@/lib/router";
 import { useLocal } from "@/lib/hooks/use-local";
-import { AppLogo } from "@/components/app/logo";
+import { SideForm } from "@/components/ext/side-form";
 
 const feature = [
   {
@@ -24,103 +24,103 @@ const feature = [
 
 export default () => {
   const logout = () => betterAuth.signOut().finally(() => navigate("/"));
-  let local = useLocal({
-    role: null as null | "author" | "publisher",
-  }, async () => {
-  });
-  const content = (
-    <div className="grid min-h-svh">
-      <div className="flex flex-col gap-4 p-6 md:p-10">
-        <div className="flex justify-center gap-2 md:justify-start">
-          <AppLogo />
-        </div>
-        <div className="">
-          <div className="flex flex-col items-center rounded-lg bg-accent p-8 text-center md:rounded-xl lg:p-16">
-            <h3 className="mb-3 max-w-3xl text-2xl font-semibold md:mb-4 md:text-4xl lg:mb-6">
-              Publish Esensi Online
-            </h3>
-            xxx
-          </div>
-        </div>
-      </div>
-    </div>
+  let local = useLocal(
+    {
+      role: null as null | "author" | "publisher",
+    },
+    async () => {}
   );
-  return (
-    <>
-      <Protected role={["publisher", "author"]} redirecURLtIfNotLoggedIn={"/"}>
-        {({ user }) => (
-          <>
-            <h1 className="text-center text-2xl font-semibold mt-4 mb-8">
-              Onboarding Publish Esensi Online {user?.name}
-            </h1>
-            <div className="py-5">
-              {!local.role && (
-                <div className="container">
-                  <div className="flex w-full flex-col items-center">
-                    <div className="flex flex-col items-center space-y-4 text-center sm:space-y-6 md:max-w-3xl md:text-center">
-                      {/* <p className="text-sm text-muted-foreground">ONBOARDING</p> */}
-                      <h2 className="text-3xl font-medium md:text-5xl">
-                        Mendaftar sebagai apa?
-                      </h2>
 
-                      <p className="text-muted-foreground md:max-w-2xl">
-                        Silakan pilih peran yang sesuai dengan anda.
-                      </p>
-                    </div>
+  return (
+    <Protected role={["publisher", "author"]} redirecURLtIfNotLoggedIn={"/"}>
+      {({ user }) => (
+        <SideForm sideImage={"/img/side-bg.jpg"}>
+          <div className="space-y-6">
+            <div>
+              <h1 className="text-2xl font-semibold mb-4 text-center">
+                Mendaftar sebagai apa?
+              </h1>
+
+              {!local.role && (
+                <div>
+                  <div className="flex flex-col items-center mb-6">
+                    <p className="text-muted-foreground text-sm text-center">
+                      Silakan pilih peran yang sesuai dengan anda.
+                    </p>
                   </div>
-                  <div className="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-2">
+
+                  <div className="space-y-4 mt-6">
                     {feature.map((feature, idx) => (
                       <div
-                        className="flex flex-col justify-between rounded-lg bg-accent p-6 md:min-h-[200px] md:p-8 cursor-pointer"
+                        className="flex flex-col rounded-lg border bg-card p-4 shadow-sm transition-all hover:bg-accent cursor-pointer"
                         key={idx}
-                        onClick={() =>
-                          (local.role = feature.role as "author" | "publisher")
-                        }
+                        onClick={() => {
+                          local.role = feature.role as "author" | "publisher";
+                          local.render();
+                        }}
                       >
-                        <span className="mb-6 flex size-11 items-center justify-center rounded-full bg-background">
-                          {feature.icon}
-                        </span>
-                        <div>
-                          <h3 className="text-lg font-medium md:text-2xl">
-                            {feature.title}
-                          </h3>
-                          <p className="mt-2 text-muted-foreground">
-                            {feature.description}
-                          </p>
+                        <div className="flex items-center">
+                          <span className="flex size-10 items-center justify-center rounded-full bg-background mr-3">
+                            {feature.icon}
+                          </span>
+                          <div>
+                            <h3 className="font-medium">{feature.title}</h3>
+                            <p className="text-sm text-muted-foreground mt-1">
+                              {feature.description}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
+
               {local.role === "author" && (
-                <>
-                  <h1 className="text-center text-2xl font-semibold mt-4 mb-8">
+                <div className="space-y-4">
+                  <h2 className="text-xl font-semibold text-center">
                     Mendaftar sebagai Penulis
-                  </h1>
-                  <p className="text-center">
+                  </h2>
+                  <p className="text-center text-sm text-muted-foreground">
                     Silahkan isi form pendaftaran penulis di bawah ini.
                   </p>
-                </>
+
+                  {/* Form fields for author will go here */}
+                </div>
               )}
+
               {local.role === "publisher" && (
-                <>
-                  <h1 className="text-center text-2xl font-semibold mt-4 mb-8">
+                <div className="space-y-4">
+                  <h2 className="text-xl font-semibold text-center">
                     Mendaftar sebagai Penerbit
-                  </h1>
-                  <p className="text-center">
+                  </h2>
+                  <p className="text-center text-sm text-muted-foreground">
                     Silahkan isi form pendaftaran penerbit di bawah ini.
                   </p>
-                </>
+
+                  {/* Form fields for publisher will go here */}
+                </div>
               )}
 
               <div className="text-center mt-8">
-                <Button onClick={logout}>Logout</Button>
+                {local.role && (
+                  <Button
+                    variant="outline"
+                    className="mr-2"
+                    onClick={() => {
+                      local.role = null;
+                      local.render();
+                    }}
+                  >
+                    Kembali
+                  </Button>
+                )}
+                <Button onClick={logout}>Keluar</Button>
               </div>
             </div>
-          </>
-        )}
-      </Protected>
-    </>
+          </div>
+        </SideForm>
+      )}
+    </Protected>
   );
 };
