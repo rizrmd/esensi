@@ -2,7 +2,6 @@ import { Protected } from "@/components/app/protected";
 import { navigate } from "@/lib/router";
 import { Button } from "@/components/ui/button";
 import { baseUrl } from "@/lib/gen/base-url";
-import { AppLogo } from "@/components/app/logo";
 import { SideForm } from "@/components/ext/side-form";
 
 export default () => {
@@ -13,18 +12,23 @@ export default () => {
         <div className="text-center">
           <h1 className="text-2xl font-semibold">Publish Esensi Online</h1>
           <p className="text-muted-foreground mt-2">
-            Layanan Publikasi Buku Digital Dari Penulis dan Penerbit Secara Online
+            Layanan Publikasi Buku Digital Dari Penulis dan Penerbit Secara
+            Online
           </p>
         </div>
         <div className="space-y-4">
           <div className="space-y-2">
             <Button className="w-full" asChild>
-              <a href={`${u.auth_esensi}/login?callbackURL=${u.publish_esensi}/dashboard`}>
+              <a
+                href={`${u.auth_esensi}/login?callbackURL=${u.publish_esensi}/dashboard`}
+              >
                 Login
               </a>
             </Button>
             <Button variant="outline" className="w-full" asChild>
-              <a href={`${u.auth_esensi}/register?callbackURL=${u.publish_esensi}/onboarding`}>
+              <a
+                href={`${u.auth_esensi}/register?callbackURL=${u.publish_esensi}/onboarding`}
+              >
                 Register
               </a>
             </Button>
@@ -33,15 +37,13 @@ export default () => {
       </div>
     </SideForm>
   );
-  
+
   return (
     <>
       <Protected
         role={["publisher", "author"]}
         onLoad={({ user }) => {
-          if (user) {
-            if (user.id_publisher || user.id_author) navigate("/dashboard");
-          }
+          if (user) navigate("/dashboard");
         }}
         fallback={() => content}
       >

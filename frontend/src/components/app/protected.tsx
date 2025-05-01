@@ -84,16 +84,6 @@ export const Protected: FC<{
   if (!!redirecURLtIfNotLoggedIn && !local.user) {
     navigate(redirecURLtIfNotLoggedIn);
   }
-  if (local.user && !local.user.emailVerified) {
-    Alert.info("Akun anda belum terverifikasi. Silakan verifikasi akun anda.");
-    window.location.replace(
-      baseUrl.auth_esensi +
-        "/email-verification?callbackURL=" +
-        callbackURL +
-        "&username=" +
-        local.user.email
-    );
-  }
   if (local.missing_role.length > 0) {
     if (!!redirecURLforMissingRole) {
       navigate(redirecURLforMissingRole + "?callbackURL=" + callbackURL);
