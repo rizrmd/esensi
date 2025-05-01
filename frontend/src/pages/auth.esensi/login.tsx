@@ -134,14 +134,14 @@ export default () => {
           className="w-full"
         >
           <TabsList className="flex w-full flex-row gap-2 p-1">
-            <TabsTrigger value="login" className="flex-1 py-2">Login</TabsTrigger>
+            <TabsTrigger value="login" className="flex-1 py-2">Masuk</TabsTrigger>
             <TabsTrigger value="reset-password" className="flex-1 py-2">Reset Password</TabsTrigger>
             <TabsTrigger value="verify-otp" className="flex-1 py-2">Verifikasi OTP</TabsTrigger>
           </TabsList>
 
           <TabsContent value="login" className="space-y-4 mt-4">
             <div className="text-center">
-              <h1 className="text-2xl font-semibold">Login</h1>
+              <h1 className="text-2xl font-semibold">Masuk</h1>
             </div>
             <EForm
               data={{ username: username || "", password: "", loading: false }}
@@ -196,11 +196,12 @@ export default () => {
                     <Field
                       name="username"
                       disabled={read.loading}
-                      label="Email or username"
+                      label="Email atau username"
                     />
                     <Field
                       name="password"
                       disabled={read.loading}
+                      label="Password"
                       input={{ type: "password" }}
                     />
 
@@ -220,7 +221,7 @@ export default () => {
                       className="w-full"
                       disabled={read.loading}
                     >
-                      {read.loading ? "Logging in..." : "Login"}
+                      {read.loading ? "Sedang Masuk..." : "Masuk"}
                     </Button>
                   </>
                 );
@@ -232,7 +233,7 @@ export default () => {
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-background px-2 text-muted-foreground">
-                  Or continue with
+                  Atau lanjutkan dengan
                 </span>
               </div>
             </div>
@@ -240,7 +241,7 @@ export default () => {
               variant="outline"
               className="w-full flex items-center justify-center gap-2"
               onClick={handleGoogleSignIn}
-              type="button" // Ensure it doesn't submit the EForm
+              type="button"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -265,7 +266,7 @@ export default () => {
                   d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
                 />
               </svg>
-              Sign in with Google
+              Masuk dengan Google
             </Button>
           </TabsContent>
 
