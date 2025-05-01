@@ -43,9 +43,8 @@
       # Runs when a workspace is first created
       onCreate = {
         # Example: install JS dependencies from NPM
-        setup-gh = "curl -sS https://webi.sh/gh | sh";
-        setup-bun = "curl -fsSL https://bun.sh/install | bash";
-        bun-install = "bun install";
+        setup-gh = "curl -sS https://webi.sh/gh | sh && source ~/.config/envman/PATH.env";
+        setup-bun = "curl -fsSL https://bun.sh/install | bash && bun install";
       };
       # Runs when the workspace is (re)started
       onStart = {
