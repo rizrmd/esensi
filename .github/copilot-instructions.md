@@ -13,7 +13,7 @@ Use bahasa indonesia for all of the UI text that is shown to user, but use engli
 
 In server we already setup prisma client in global db variable, just use it.
 
-To deal with database CRUD operations such as fetching, inserting, updating, and deleting data, we are using API in folder @/backend/src/api. Under the hood, we are using prisma for this matter. For example, in @/backend/src/api/auth.esensi/user.ts, we are fetching a data from table auth_user filtered by his/her username. This is the example:
+To deal with database CRUD operations such as fetching, inserting, updating, and deleting data, we are using API in folder backend/src/api. Under the hood, we are using prisma for this. For example, in backend/src/api/auth.esensi/user.ts, we are fetching a data from table auth_user filtered by his/her username. This is the example:
 
 ```
 import { defineAPI } from "rlib/server";
