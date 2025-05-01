@@ -30,10 +30,10 @@ export const Protected: FC<{
       try {
         const res = await betterAuth.getSession();
 
-        if (res.session) {
+        if (res.data) {
           if (role !== "any") {
             const roles = Array.isArray(role) ? role : [role];
-            const u = res.session.user;
+            const u = res.data.user;
             local.missing_role = [];
             for (const r of roles) {
               if ((u as any)[`id_${r}`]) {
@@ -48,7 +48,7 @@ export const Protected: FC<{
           }
 
           if (!res.error) {
-            local.user = res.session!.user;
+            local.user = res.data!.user;
             local.render();
           } else {
             Alert.info(res.error);

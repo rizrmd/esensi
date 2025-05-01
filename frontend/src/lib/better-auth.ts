@@ -161,8 +161,8 @@ export const betterAuth = {
     return authClient.useSession;
   },
   getSession: async () => {
-    const { data: session, error } = await authClient.getSession();
-    return { session, error };
+    const { data, error } = await authClient.getSession();
+    return { data, error };
   },
   twoFactor: {
     enable: async ({
