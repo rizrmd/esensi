@@ -26,12 +26,8 @@ export default () => {
   const logout = () => betterAuth.signOut().finally(() => navigate("/"));
   let local = useLocal({
     role: null as null | "author" | "publisher",
+  }, async () => {
   });
-  // todo: check apakah user ini sudah pernah onboarding? cek di tabel auth_user apakah dia sudah ada role-nya.
-  const isOnboarding = true;
-  if (isOnboarding) {
-    navigate("/dashboard");
-  }
   const content = (
     <div className="grid min-h-svh">
       <div className="flex flex-col gap-4 p-6 md:p-10">

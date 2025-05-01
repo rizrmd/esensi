@@ -31,7 +31,7 @@ export default () => {
     <Protected
       role={["publisher", "author"]}
       redirecURLtIfNotLoggedIn={"/"}
-      redirecURLforMissingRole={"/onboarding"}
+      onboarding={true}
     >
       {({ user }) => <>{content}</>}
     </Protected>
