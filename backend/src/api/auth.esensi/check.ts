@@ -13,11 +13,15 @@ export default defineAPI({
         created_at: true,
         id_token: true,
         scope: true,
-        user_role: {
-          display_username: true,
+        auth_user: {
+          select: {
+            display_username: true,
+          }
         },
-        customers: {
-          id: true,
+        customer: {
+          select: {
+            id: true,
+          }
         },
       },
     });

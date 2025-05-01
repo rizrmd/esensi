@@ -10,3 +10,5 @@ const local = useLocal({data: []}, async () => {
 ```
 
 Use bahasa indonesia for all of the UI text that is shown to user, but use english for code.
+
+In server we already setup prisma client in global db variable, just use it.
