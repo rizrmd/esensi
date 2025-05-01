@@ -6,8 +6,8 @@
 
   # Use https://search.nixos.org/packages to find packages
   packages = [
-    pkgs.bun
     pkgs.openssl
+    pkgs.gh
     # pkgs.python311
     # pkgs.python311Packages.pip
     # pkgs.nodejs_20
@@ -44,6 +44,7 @@
       # Runs when a workspace is first created
       onCreate = {
         # Example: install JS dependencies from NPM
+        setup-bun = "curl -fsSL https://bun.sh/install | bash";
         bun-install = "bun install";
       };
       # Runs when the workspace is (re)started
