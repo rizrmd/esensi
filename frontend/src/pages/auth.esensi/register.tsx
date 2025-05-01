@@ -5,17 +5,25 @@ import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/global-alert";
 import { betterAuth } from "@/lib/better-auth";
 import { navigate } from "@/lib/router";
+import { useLocal } from "@/lib/hooks/use-local";
 
 export default () => {
+  const local = useLocal({
+    callbackURL: undefined as string | undefined
+  }, async () => {
+    const params = new URLSearchParams(location.search);
+    local.callbackURL = params.get("callbackURL") as string | undefined;
+    if (!local.callbackURL) navigate("/");
+    local.render();
+  });
+
   const u = baseUrl;
-  const params = new URLSearchParams(location.search);
-  const callbackURL = params.get("callbackURL") as string | undefined;
-  if (!callbackURL) navigate("/");
+  
   return (
     <SideForm sideImage={"/img/side-bg.jpg"}>
       <div className="space-y-6">
         <div className="text-center">
-          <h1 className="text-2xl font-semibold">Register</h1>
+          <h1 className="text-2xl font-semibold">Daftar</h1>
         </div>
         <EForm
           data={{
@@ -32,7 +40,7 @@ export default () => {
                 return;
               }
               if (read.password !== read.password2) {
-                Alert.info("Konfirmasi password tidak sesuai");
+                Alert.info("Konfirmasi kata sandi tidak sesuai");
                 return;
               }
               if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(read.email)) {
@@ -45,17 +53,33 @@ export default () => {
                 name: read.name,
                 username: read.email,
                 password: read.password,
-                callbackURL,
+                callbackURL: local.callbackURL,
               });
 
               if (!res.error) {
                 Alert.info("Pendaftaran berhasil, silahkan cek email anda");
-                if (!callbackURL) window.location.replace(u.main_esensi);
-                else window.location.replace(callbackURL!);
+                if (!local.callbackURL) window.location.replace(u.main_esensi);
+                else window.location.replace(local.callbackURL!);
                 return;
               }
 
-              await Alert.info(res);
+              // Handle specific error messages in Bahasa Indonesia
+              if (res.error) {
+                if (res.error.message) {
+                  // Map common error messages to user-friendly Bahasa Indonesia messages
+                  if (res.error.message.includes("email already exists") || 
+                      res.error.message.includes("already in use")) {
+                    Alert.info("Email ini sudah terdaftar. Silakan gunakan email lain atau coba masuk.");
+                  } else if (res.error.message.includes("password")) {
+                    Alert.info("Kata sandi tidak memenuhi persyaratan keamanan. Gunakan minimal 8 karakter dengan kombinasi huruf dan angka.");
+                  } else {
+                    Alert.info("Terjadi kesalahan saat mendaftar: " + res.error.message);
+                  }
+                } else {
+                  Alert.info("Terjadi kesalahan saat mendaftar. Silakan coba lagi.");
+                }
+              }
+              
               write.loading = false;
             }
           }}
@@ -64,18 +88,19 @@ export default () => {
           {({ Field, read }) => {
             return (
               <>
-                <Field name="name" disabled={read.loading} label="Full Name" />
-                <Field name="email" disabled={read.loading} />
+                <Field name="name" disabled={read.loading} label="Nama Lengkap" />
+                <Field name="email" disabled={read.loading} label="Email" />
                 <Field
                   name="password"
                   disabled={read.loading}
                   input={{ type: "password" }}
+                  label="Kata Sandi"
                 />
                 <Field
                   name="password2"
                   disabled={read.loading}
                   input={{ type: "password" }}
-                  label="Confirm Password"
+                  label="Konfirmasi Kata Sandi"
                 />
 
                 <Button
@@ -83,7 +108,7 @@ export default () => {
                   className="w-full"
                   disabled={read.loading}
                 >
-                  {read.loading ? "Registering..." : "Register"}
+                  {read.loading ? "Mendaftar..." : "Daftar"}
                 </Button>
               </>
             );

@@ -4,6 +4,63 @@ import { username, twoFactor, openAPI } from "better-auth/plugins";
 import nodemailer from "nodemailer";
 import { randomUUIDv7 } from "bun";
 
+// Helper function to translate error messages to Bahasa Indonesia
+const translateErrorMessage = (errorMessage: string): string => {
+  const errorTranslations: Record<string, string> = {
+    // Authentication errors
+    "Invalid email or password": "Email atau kata sandi tidak valid",
+    "Invalid password": "Kata sandi tidak valid",
+    "Invalid credentials": "Kredensial tidak valid",
+    "Email already exists": "Email sudah terdaftar",
+    "Email not found": "Email tidak ditemukan",
+    "Email not verified":
+      "Email belum diverifikasi. Silakan verifikasi email Anda terlebih dahulu",
+    "Password is required": "Kata sandi wajib diisi",
+    "Password must be at least 8 characters":
+      "Kata sandi harus minimal 8 karakter",
+    "Password is too weak":
+      "Kata sandi terlalu lemah. Gunakan kombinasi huruf besar, huruf kecil, angka, dan simbol",
+    "Email is required": "Email wajib diisi",
+    "Invalid email format": "Format email tidak valid",
+    "User not found": "Pengguna tidak ditemukan",
+    "Token expired": "Token sudah kedaluwarsa. Silakan meminta token baru",
+    "Invalid token": "Token tidak valid",
+    "Account already linked": "Akun sudah terhubung",
+
+    // Two-factor authentication errors
+    "Two-factor authentication required": "Verifikasi dua langkah diperlukan",
+    "Invalid OTP": "Kode OTP tidak valid",
+    "OTP expired": "Kode OTP sudah kedaluwarsa. Silakan meminta kode baru",
+
+    // Session errors
+    "Session expired": "Sesi Anda telah berakhir. Silakan masuk kembali",
+    "Invalid session": "Sesi tidak valid",
+
+    // Permission errors
+    Unauthorized: "Tidak memiliki izin",
+    Forbidden: "Akses ditolak",
+
+    // General errors
+    "Something went wrong": "Terjadi kesalahan. Silakan coba lagi nanti",
+    "Rate limit exceeded": "Terlalu banyak percobaan. Silakan coba lagi nanti",
+  };
+
+  // Check for partial matches if exact match is not found
+  if (errorTranslations[errorMessage]) {
+    return errorTranslations[errorMessage];
+  }
+
+  // Check for specific parts of error messages
+  for (const [key, value] of Object.entries(errorTranslations)) {
+    if (errorMessage.toLowerCase().includes(key.toLowerCase())) {
+      return value;
+    }
+  }
+
+  // Return original message if no translation found
+  return errorMessage;
+};
+
 const aStyle = `display: inline-block; padding: 10px 20px; background-color: #222831; color: white; text-decoration: none; border-radius: 5px; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; text-align: center; text-decoration: none;
 `;
 
@@ -56,6 +113,15 @@ export const auth = betterAuth({
   advanced: {
     database: {
       generateId: () => randomUUIDv7(),
+    },
+    hooks: {
+      onError: (error: any) => {
+        // Translate error message if available
+        if (error.message) {
+          error.message = translateErrorMessage(error.message);
+        }
+        return error;
+      },
     },
   },
   database: new Pool({
