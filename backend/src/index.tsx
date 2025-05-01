@@ -10,7 +10,7 @@ import { auth } from "./lib/better-auth";
 const { isDev } = initEnv();
 
 const loadModels = async () => {
-  return (await import("shared/models")).PrismaClient;
+  return new (await import("shared/models")).PrismaClient();
 };
 const loadApi = async () => {
   return (await import("./gen/api")).backendApi;

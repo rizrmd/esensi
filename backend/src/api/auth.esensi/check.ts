@@ -5,9 +5,6 @@ export default defineAPI({
   url: "/api/check",
   async handler(arg: { id: string }) {
     const res = await db.auth_account.findFirst({
-      where: {
-        id: arg.id,
-      },
       select: {
         id: true,
         created_at: true,
@@ -16,14 +13,15 @@ export default defineAPI({
         auth_user: {
           select: {
             display_username: true,
-          }
+          },
         },
         customer: {
           select: {
             id: true,
-          }
+          },
         },
       },
+      take: 1,
     });
     return res;
   },
