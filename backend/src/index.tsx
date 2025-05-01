@@ -1,3 +1,18 @@
+import { $ } from "bun";
+import config from "../.././config.json";
+import { join } from "path";
+
+if (config?.db?.orm === "prisma") {
+  if (
+    !(await Bun.file(
+      join(process.cwd(), "shared", "models", "index.js")
+    ).exists())
+  ) {
+    console.log("Generating prisma typings...");
+    await $`bun prisma generate`.cwd(join(process.cwd(), "shared")).quiet();
+  }
+}
+
 import {
   initDev,
   initEnv,
