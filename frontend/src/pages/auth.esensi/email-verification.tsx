@@ -6,29 +6,25 @@ import { Alert } from "@/components/ui/global-alert";
 import { betterAuth } from "@/lib/better-auth";
 import { useLocal } from "@/lib/hooks/use-local";
 import { api } from "@/lib/gen/auth.esensi";
+import { getRedirectURL } from "@/lib/utils";
 
 export default () => {
-  const u = baseUrl;
   const params = new URLSearchParams(location.search);
   const username = params.get("username") as string | undefined;
   if (!username) navigate("/");
   const callbackURL = params.get("callbackURL") as string | undefined;
+  const redirectURL = getRedirectURL(params.get("callbackURL"));
   const local = useLocal(
     {
       authUser: null as any,
     },
     async () => {
       const res = await api.auth_user({ username: username! });
-      if (res.error) {
-        Alert.info(res.error.message);
-      } else {
+      if (!res || res.email_verified) window.location.replace(redirectURL);
+      else if (res.error) Alert.info(res.error.message);
+      else {
         local.authUser = res;
         local.render();
-      }
-      if (!res) navigate("/");
-      if (res.email_verified) {
-        if (!callbackURL) window.location.replace(u.main_esensi);
-        else window.location.replace(callbackURL!);
       }
     }
   );
@@ -67,7 +63,7 @@ export default () => {
           </Button>
 
           <div className="text-center text-sm text-muted-foreground">
-            <a href={`${u.auth_esensi}/login`} className="underline">
+            <a href={`${baseUrl.auth_esensi}/login`} className="underline">
               Kembali ke halaman login
             </a>
           </div>

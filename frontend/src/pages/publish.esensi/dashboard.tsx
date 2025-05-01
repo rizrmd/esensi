@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { betterAuth } from "@/lib/better-auth";
 import { navigate } from "@/lib/router";
 import { AppLogo } from "@/components/app/logo";
-import { baseUrl } from "@/lib/gen/base-url";
 
 export default () => {
   const logout = () => betterAuth.signOut().finally(() => navigate("/"));
@@ -29,7 +28,11 @@ export default () => {
     </div>
   );
   return (
-    <Protected role={["publisher", "author"]} redirecURLtIfNotLoggedIn={"/"}>
+    <Protected
+      role={["publisher", "author"]}
+      redirecURLtIfNotLoggedIn={"/"}
+      redirecURLforMissingRole={"/onboarding"}
+    >
       {({ user }) => <>{content}</>}
     </Protected>
   );

@@ -40,10 +40,7 @@ export default () => {
         role={["publisher", "author"]}
         onLoad={({ user }) => {
           if (user) {
-            if (user.id_publisher || user.id_author) {
-              navigate("/dashboard");
-            }
-          } else {
+            if (user.id_publisher || user.id_author) navigate("/dashboard");
           }
         }}
         fallback={() => content}

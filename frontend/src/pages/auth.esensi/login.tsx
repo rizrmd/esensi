@@ -32,7 +32,7 @@ export default () => {
   useEffect(() => {
     if (token) {
       navigate(
-        `/auth.esensi/password-reset?token=${token}&callbackURL=${
+        `/password-reset?token=${token}&callbackURL=${
           callbackURL || ""
         }`
       );
@@ -126,7 +126,7 @@ export default () => {
 
                   // Redirect to verify-otp page (could be implemented as a separate page)
                   navigate(
-                    `/auth.esensi/verify-otp?callbackURL=${
+                    `/verify-otp?callbackURL=${
                       callbackURL || ""
                     }&username=${read.username}`
                   );
@@ -134,7 +134,7 @@ export default () => {
                 } else if (res.error.code === "email-not-verified") {
                   Alert.info(res.error.message);
                   navigate(
-                    "/auth.esensi/email-verification?callbackURL=" +
+                    "/email-verification?callbackURL=" +
                       callbackURL +
                       "&username=" +
                       read.username
@@ -177,7 +177,7 @@ export default () => {
                     className="p-0 text-sm h-auto"
                     onClick={() =>
                       navigate(
-                        "/auth.esensi/password-reset" +
+                        "/password-reset" +
                           (callbackURL ? `?callbackURL=${callbackURL}` : "")
                       )
                     }
@@ -249,7 +249,7 @@ export default () => {
               className="p-0 h-auto"
               onClick={() =>
                 navigate(
-                  "/auth.esensi/register" +
+                  "/register" +
                     (callbackURL ? `?callbackURL=${callbackURL}` : "")
                 )
               }

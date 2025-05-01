@@ -105,7 +105,7 @@ export const betterAuth = {
     provider,
     callbackURL = "/dashboard",
     errorCallbackURL = "/error",
-    newUserCallbackURL = "/welcome",
+    newUserCallbackURL = "/onboarding",
     disableRedirect = false,
     idToken,
     loginHint,
