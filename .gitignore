@@ -38,5 +38,5 @@ frontend/src/lib/gen
 frontend/src/lib/gen/*
 backend/src/gen
 backend/src/gen/*
-shared/model/index.js
-shared/model/edge.js
+shared/models/index.js
+shared/models/edge.js
