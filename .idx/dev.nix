@@ -19,7 +19,7 @@
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
       "prettier-vscode"
-      "ai-commit-vscode"
+      "gemcommit"
       # "vscodevim.vim"
     ];
 
