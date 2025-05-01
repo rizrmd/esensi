@@ -16,5 +16,33 @@
   },
   "IDX.aI.enableInlineCompletion": true,
   "IDX.aI.enableCodebaseIndexing": true,
-  "typescript.tsdk": "node_modules/typescript/lib"
+
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"typescript.updateImportsOnFileMove.enabled": "always",
+"editor.gotoLocation.multipleDeclarations": "goto",
+"editor.gotoLocation.multipleDefinitions": "goto",
+"editor.gotoLocation.multipleImplementations": "goto",
+"editor.gotoLocation.multipleReferences": "goto",
+"editor.gotoLocation.multipleTypeDefinitions": "goto",
+"references.preferredLocation": "view",
+"explorer.confirmDragAndDrop": false,
+"javascript.updateImportsOnFileMove.enabled": "never",
+"[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"extensions.ignoreRecommendations": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "aiCommit.openRouterApiKey": "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",
+  "git.confirmSync": false,
+  "git.ignoreRebaseWarning": true,
+  "aiCommit.model": "meta-llama/llama-4-maverick:free",
+  "aiCommit.prompt": "Given these staged changes: \"{changes}\" Generate a commit message that follows these rules:. Start with a type (feat/fix/docs. Keep it under 50 characters. Use imperative mood, do not quote, just output the commit message. "
 }
