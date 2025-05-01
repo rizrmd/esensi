@@ -1,10 +1,16 @@
-import { initDev, initEnv, initProd, type onFetch } from "rlib/server";
+import {
+  initDev,
+  initEnv,
+  initProd,
+  type onFetch,
+  type SiteConfig,
+} from "rlib/server";
 import { auth } from "./lib/better-auth";
 
 const { isDev } = initEnv();
 
 const loadModels = async () => {
-  return ((await import("shared/models")).PrismaClient);
+  return (await import("shared/models")).PrismaClient;
 };
 const loadApi = async () => {
   return (await import("./gen/api")).backendApi;
@@ -28,9 +34,11 @@ if (isDev) {
     onFetch,
   });
 } else {
+  const config = (await import("../../config.json")) as SiteConfig;
   initProd({
     loadApi,
     loadModels,
     onFetch,
+    config,
   });
 }
