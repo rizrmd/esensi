@@ -38,4 +38,14 @@
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "inlineChat.mode": "preview",
+  "aiCommit.openRouterApiKey": "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",
+  "aiCommit.model": "qwen/qwen3-0.6b-04-28:free",
+  "aiCommit.prompt": "Generate a commit message: Start with a type (feat/fix/docs. Keep it under 50 characters. Use imperative mood. Do not quote. Do not output anything that is not a commit message. These are the changes:  {changes}",
+  "git.enableSmartCommit": true,
+  "extensions.ignoreRecommendations": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "git.confirmSync": false,
+  "git.ignoreRebaseWarning": true,
+  "git.autofetch": true
 }
