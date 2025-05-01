@@ -39,7 +39,7 @@ export const ParamsContext = createContext<Params>({});
 // Check if the first part of a path is a domain identifier from config
 export function isDomainSegment(segment: string): boolean {
   if (!segment || !segment.includes('.')) return false;
-  
+
   // Check if this segment matches any site key in config
   return Object.keys(config.sites).some(site => site === segment);
 }
@@ -53,7 +53,7 @@ export function parsePattern(pattern: string): RoutePattern {
       // Treat domain segment literally, escape any special regex characters
       return part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
-    
+
     // Find all parameter patterns like [id] in the part
     const matches = part.match(/\[([^\]]+)\]/g);
     if (matches) {
@@ -82,39 +82,49 @@ export function matchRoute(
 ): Params | null {
   const pathParts = path.split('/');
   const patternParts = routePattern.pattern.split('/');
-  
+
   // Check if first non-empty segment is a domain segment
   if (pathParts.length > 1 && patternParts.length > 1) {
     const pathFirstSegment = pathParts[1];
     const patternFirstSegment = patternParts[1];
-    
+
+
     // If pattern has a domain segment (contains a dot)
     if (patternFirstSegment.includes('.') && isDomainSegment(patternFirstSegment)) {
       const currentHost = location.host;
       const isLocalhost = currentHost.includes('localhost') || currentHost.includes('127.0.0.1');
-      
+      const isFirebaseStudio = currentHost.endsWith('.cloudworkstations.dev')
+
       // Check if current host matches a domain for this pattern's first segment
       const domainConfig = config.sites[patternFirstSegment as keyof typeof config.sites];
       if (domainConfig) {
         // For localhost, match by port
-        if (isLocalhost) {
+        if (isFirebaseStudio) {
+          const currentPort = currentHost.split('-').shift();
+          const expectedPort = domainConfig.devPort?.toString();
+          console.log(expectedPort, currentPort, currentHost)
+          if (expectedPort && currentPort !== expectedPort) {
+            return null;
+          }
+        }
+        else if (isLocalhost) {
           // Extract port from current host (localhost:PORT format)
           const currentPort = currentHost.split(':')[1];
           // Check if port matches the config
           const expectedPort = domainConfig.devPort?.toString();
-          
+
           // If port doesn't match and we have a specific expected port, don't match
           if (expectedPort && currentPort !== expectedPort) {
             return null;
           }
-        } 
+        }
         // For production domains, match by domain name
         else if (domainConfig.domains) {
           // Check if current host matches one of the domains for this pattern
-          const matchesDomain = domainConfig.domains.some(domain => 
+          const matchesDomain = domainConfig.domains.some(domain =>
             currentHost === domain
           );
-          
+
           // If we're not on a matching domain, don't match
           if (!matchesDomain) {
             return null;

@@ -80,11 +80,15 @@ export function useRoot() {
       await logRouteChange(path);
 
       const hostname = window.location.hostname;
+      const isFirebaseStudio = hostname.endsWith('.cloudworkstations.dev')
       const isLocalhost = hostname === "localhost" || hostname === "127.0.0.1";
       let domainKey: null | string = null;
 
       // Determine the domain key based on environment
-      if (isLocalhost) {
+      if (isFirebaseStudio) {
+        const port = hostname.split("-").shift() as string;
+        domainKey = getDomainKeyByPort(port);
+      } else if (isLocalhost) {
         // For localhost, use port number to determine domain
         const port = window.location.port;
         domainKey = getDomainKeyByPort(port);
@@ -95,7 +99,7 @@ export function useRoot() {
 
       let pageLoader =
         pageModules[
-          domainKey ? `/${domainKey}${path === "/" ? "" : path}` : path
+        domainKey ? `/${domainKey}${path === "/" ? "" : path}` : path
         ];
       let matchedParams = {};
 

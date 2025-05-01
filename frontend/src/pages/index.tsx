@@ -1,3 +1,3 @@
 export default () => {
-  return <>ini indexnya om</>;
+  return <>halo</>;
 };
