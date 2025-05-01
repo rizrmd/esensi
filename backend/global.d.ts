@@ -1,6 +1,9 @@
 import type * as models from "shared/models";
 import type { defineDB, ModelOperations } from "rlib/server";
+import type { PrismaClient } from "shared/models";
+
+
 
 declare global {
-  const db = await defineDB(models);
+  const db = new PrismaClient();
 }

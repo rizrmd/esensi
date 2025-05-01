@@ -1,0 +1,428 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../models"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model affiliate {
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String
+  id_user      String?       @db.Uuid
+  auth_account auth_account? @relation(fields: [id_user], references: [id])
+  auth_user    auth_user[]
+}
+
+model auth_account {
+  id                       String                @id(map: "m_user_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  password                 String?
+  role                     String                @default("admin") @db.VarChar(10)
+  id_provider              String?               @db.VarChar
+  access_token             String?
+  refresh_token            String?
+  id_token                 String?
+  access_token_expires_at  DateTime?
+  refresh_token_expires_at DateTime?
+  scope                    String?
+  created_at               DateTime              @default(now())
+  updated_at               DateTime?
+  id_user                  String?               @db.Uuid
+  id_account               String?               @db.VarChar
+  affiliate                affiliate[]
+  auth_user                auth_user?            @relation(fields: [id_user], references: [id], onDelete: Cascade, map: "user_fk_id_user_info")
+  author                   author[]
+  customer                 customer[]
+  management               management[]
+  publisher                publisher[]
+  sales_and_marketing      sales_and_marketing[]
+  support                  support[]
+}
+
+model auth_session {
+  id         String    @id(map: "session_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  expires_at DateTime
+  token      String    @unique(map: "session_token_key")
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+  ip_address String?
+  user_agent String?
+  id_user    String    @db.Uuid
+  auth_user  auth_user @relation(fields: [id_user], references: [id], onDelete: Cascade, map: "session_user_info_id_fkey")
+}
+
+model auth_two_factor {
+  id           String    @id(map: "two_factor_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  secret       String?
+  backup_codes String?
+  id_user      String    @db.Uuid
+  auth_user    auth_user @relation(fields: [id_user], references: [id], onDelete: Cascade, map: "two_factor_user_info_id_fkey")
+}
+
+model auth_user {
+  id                     String               @id(map: "user_info_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                   String               @db.VarChar
+  email                  String               @unique(map: "user_info_email_key") @db.VarChar
+  email_verified         Boolean              @default(false)
+  image                  String?
+  created_at             DateTime             @default(now())
+  updated_at             DateTime?
+  username               String?
+  display_username       String?
+  two_factor_enabled     Boolean?
+  id_customer            String?              @db.Uuid
+  id_author              String?              @db.Uuid
+  id_affiliate           String?              @db.Uuid
+  id_management          String?              @db.Uuid
+  id_publisher           String?              @db.Uuid
+  id_sales_and_marketing String?              @db.Uuid
+  id_support             String?              @db.Uuid
+  auth_account           auth_account[]
+  auth_session           auth_session[]
+  auth_two_factor        auth_two_factor[]
+  affiliate              affiliate?           @relation(fields: [id_affiliate], references: [id], onDelete: Cascade, map: "user_info_id_affiliate_fkey")
+  author                 author?              @relation(fields: [id_author], references: [id], onDelete: Cascade, map: "user_info_id_author_fkey")
+  customer               customer?            @relation(fields: [id_customer], references: [id], onDelete: Cascade, map: "user_info_id_customer_fkey")
+  management             management?          @relation(fields: [id_management], references: [id], onDelete: Cascade, map: "user_info_id_management_fkey")
+  publisher              publisher?           @relation(fields: [id_publisher], references: [id], onDelete: Cascade, map: "user_info_id_publisher_fkey")
+  sales_and_marketing    sales_and_marketing? @relation(fields: [id_sales_and_marketing], references: [id], onDelete: Cascade, map: "user_info_id_sales_and_marketing_fkey")
+  support                support?             @relation(fields: [id_support], references: [id], onDelete: Cascade, map: "user_info_id_support_fkey")
+}
+
+model auth_verification {
+  id         String    @id(map: "verification_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  identifier String
+  value      String
+  expires_at DateTime
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+}
+
+model author {
+  id               String             @id(map: "author_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name             String
+  id_account       String?            @db.Uuid
+  auth_user        auth_user[]
+  auth_account     auth_account?      @relation(fields: [id_account], references: [id], map: "author_id_user_fkey")
+  product          product[]
+  publisher_author publisher_author[]
+}
+
+model banner {
+  id          String    @id(map: "banner_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String
+  banner_file String    @default("[]")
+  status      String?   @default("ON") @db.VarChar
+  deleted_at  DateTime?
+  link        String?
+}
+
+model bundle {
+  id              String            @id(map: "bundle_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name            String
+  slug            String
+  strike_price    Decimal?          @db.Decimal(18, 2)
+  real_price      Decimal           @db.Decimal(18, 2)
+  currency        String            @default("Rp.") @db.VarChar(3)
+  desc            String            @default("")
+  info            Json              @default("{}")
+  deleted_at      DateTime?
+  status          String            @default("draft") @db.VarChar(10)
+  img_file        String            @default("[]")
+  cover           String            @default("")
+  sku             String            @default("")
+  bundle_category bundle_category[]
+  bundle_product  bundle_product[]
+  t_sales_line    t_sales_line[]
+}
+
+model bundle_category {
+  id          String   @id(map: "bundle_category_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_category String   @db.Uuid
+  id_bundle   String   @db.Uuid
+  bundle      bundle   @relation(fields: [id_bundle], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  category    category @relation(fields: [id_category], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model bundle_product {
+  id_bundle  String  @db.Uuid
+  id_product String  @db.Uuid
+  id         String  @id(map: "bundle_product_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  qty        Int?    @default(1) @db.SmallInt
+  bundle     bundle  @relation(fields: [id_bundle], references: [id], onDelete: Cascade)
+  product    product @relation(fields: [id_product], references: [id], onDelete: Cascade)
+}
+
+model category {
+  id               String             @id(map: "category_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name             String
+  id_parent        String?            @db.Uuid
+  deleted_at       DateTime?
+  slug             String?
+  img              String?
+  bundle_category  bundle_category[]
+  category         category?          @relation("categoryTocategory", fields: [id_parent], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  other_category   category[]         @relation("categoryTocategory")
+  product_category product_category[]
+}
+
+model customer {
+  id               String             @id(map: "customer_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  whatsapp         String
+  deleted_at       DateTime?
+  otp              Int?               @db.SmallInt
+  id_user          String?            @db.Uuid
+  name             String
+  email            String
+  auth_user        auth_user[]
+  auth_account     auth_account?      @relation(fields: [id_user], references: [id])
+  customer_reader  customer_reader[]
+  customer_track   customer_track[]
+  t_sales          t_sales[]
+  t_sales_download t_sales_download[]
+}
+
+model customer_reader {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_customer String   @db.Uuid
+  id_product  String   @db.Uuid
+  last_page   Int
+  percent     Int      @db.SmallInt
+  customer    customer @relation(fields: [id_customer], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "customer_reader_fk_id_customer")
+  product     product  @relation(fields: [id_product], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "customer_reader_fk_id_product")
+}
+
+model customer_track {
+  id          String   @id(map: "customer_track_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  ts          DateTime @default(now())
+  id_customer String   @db.Uuid
+  path        String
+  referrer    String
+  info        Json
+  ip          String   @db.VarChar(40)
+  customer    customer @relation(fields: [id_customer], references: [id], onDelete: Cascade, map: "customer_track_fk_id_customer")
+
+  @@index([id_customer], map: "fki_customer_track_fk_id_customer")
+}
+
+model landing {
+  id            String          @id(map: "landing_page_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  slug          String
+  views         Int
+  deleted_at    DateTime?
+  status        String          @default("published")
+  title         String          @default("")
+  landing_items landing_items[]
+}
+
+model landing_items {
+  id         String  @id(map: "landing_items_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  desc       String  @default("")
+  img_file   String
+  tag        String  @default("h1")
+  link_to    String
+  landing_id String  @db.Uuid
+  idx        Int     @default(1) @db.SmallInt
+  color      String  @default("#ffffff")
+  landing    landing @relation(fields: [landing_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model management {
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String
+  id_user      String?       @db.Uuid
+  auth_user    auth_user[]
+  auth_account auth_account? @relation(fields: [id_user], references: [id])
+}
+
+model midtrx {
+  id      String   @id(map: "midtrx_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tz      DateTime @default(now()) @db.Timestamptz(6)
+  type    String
+  payload Json
+}
+
+model preorder {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_product  String   @db.Uuid
+  min_qty     Int
+  current_qty Int      @default(0)
+  status      String   @default("open") @db.VarChar(10)
+  deadline    DateTime
+  product     product  @relation(fields: [id_product], references: [id])
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model product {
+  id                   String             @id(map: "product_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                 String
+  slug                 String
+  alias                String             @default("")
+  strike_price         Decimal?           @db.Decimal(18, 2)
+  real_price           Decimal            @db.Decimal(18, 2)
+  desc                 String             @default("")
+  info                 Json               @default("{}")
+  status               String             @default("draft") @db.VarChar(10)
+  currency             String             @default("Rp.") @db.VarChar(3)
+  deleted_at           DateTime?
+  img_file             String             @default("")
+  cover                String             @default("")
+  product_file         String             @default("[]")
+  sku                  String             @default("")
+  id_author            String?            @db.Uuid
+  published_date       DateTime           @default(now())
+  is_physical          Boolean            @default(false)
+  ai_suggested_content Json?              @default("{}")
+  preorder_min_qty     Int?
+  content_type         String?            @db.VarChar(20)
+  bundle_product       bundle_product[]
+  customer_reader      customer_reader[]
+  preorder             preorder[]
+  author               author?            @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  product_category     product_category[]
+  t_sales_download     t_sales_download[]
+  t_sales_line         t_sales_line[]
+}
+
+model product_category {
+  id_product  String   @db.Uuid
+  id_category String   @db.Uuid
+  id          String   @id(map: "product_category_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  category    category @relation(fields: [id_category], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  product     product  @relation(fields: [id_product], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model promo_code {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code           String    @unique
+  discount_type  String    @db.VarChar(10)
+  discount_value Decimal   @db.Decimal(18, 2)
+  valid_from     DateTime
+  valid_to       DateTime
+  usage_limit    Int
+  used_count     Int       @default(0)
+  status         String    @default("active") @db.VarChar(10)
+  id_publisher   String    @db.Uuid
+  publisher      publisher @relation(fields: [id_publisher], references: [id])
+}
+
+model publisher {
+  id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_user          String?            @db.Uuid
+  name             String
+  auth_user        auth_user[]
+  promo_code       promo_code[]
+  auth_account     auth_account?      @relation(fields: [id_user], references: [id])
+  publisher_author publisher_author[]
+  t_ai_credit      t_ai_credit[]
+  transaction      transaction[]
+  withdrawal       withdrawal[]
+}
+
+model publisher_author {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  publisher_id String    @db.Uuid
+  author_id    String    @db.Uuid
+  author       author    @relation(fields: [author_id], references: [id], onDelete: Cascade)
+  publisher    publisher @relation(fields: [publisher_id], references: [id], onDelete: Cascade)
+
+  @@unique([publisher_id, author_id])
+}
+
+model sales_and_marketing {
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String
+  id_user      String?       @db.Uuid
+  auth_user    auth_user[]
+  auth_account auth_account? @relation(fields: [id_user], references: [id])
+}
+
+model support {
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String
+  id_user      String?       @db.Uuid
+  auth_user    auth_user[]
+  auth_account auth_account? @relation(fields: [id_user], references: [id])
+}
+
+model t_ai_credit {
+  id                String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_publisher      String              @db.Uuid
+  balance           Int                 @default(0)
+  last_topup_at     DateTime?
+  publisher         publisher           @relation(fields: [id_publisher], references: [id])
+  t_ai_credit_topup t_ai_credit_topup[]
+}
+
+model t_ai_credit_topup {
+  id             String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_t_ai_credit String      @db.Uuid
+  amount         Int
+  created_at     DateTime    @default(now())
+  status         String      @default("pending") @db.VarChar(10)
+  t_ai_credit    t_ai_credit @relation(fields: [id_t_ai_credit], references: [id])
+}
+
+model t_sales {
+  id                String         @id(map: "sales_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_customer       String         @db.Uuid
+  status            String         @default("cart") @db.VarChar(10)
+  total             Decimal        @db.Decimal(18, 2)
+  currency          String         @default("Rp.") @db.VarChar(3)
+  info              Json
+  created_at        DateTime       @default(now())
+  updated_at        DateTime?
+  deleted_at        DateTime?
+  midtrans_order_id String         @default("")
+  midtrans_success  Json?
+  midtrans_pending  Json?
+  midtrans_error    Json?
+  customer          customer       @relation(fields: [id_customer], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  t_sales_line      t_sales_line[]
+}
+
+model t_sales_download {
+  id            String    @id(map: "t_sales_product_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_product    String    @db.Uuid
+  id_customer   String    @db.Uuid
+  downloaded_at DateTime?
+  ip_address    String?
+  download_key  String    @default("")
+  customer      customer  @relation(fields: [id_customer], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  product       product   @relation(fields: [id_product], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model t_sales_line {
+  id          String   @id(map: "sales_line_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_sales    String   @db.Uuid
+  unit_price  Decimal  @db.Decimal(18, 2)
+  qty         Int
+  total_price Decimal  @db.Decimal(18, 2)
+  id_product  String?  @db.Uuid
+  id_bundle   String?  @db.Uuid
+  bundle      bundle?  @relation(fields: [id_bundle], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  product     product? @relation(fields: [id_product], references: [id], onDelete: Cascade)
+  t_sales     t_sales  @relation(fields: [id_sales], references: [id], onDelete: Cascade)
+}
+
+model transaction {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_publisher String    @db.Uuid
+  type         String    @db.VarChar(20)
+  amount       Decimal   @db.Decimal(18, 2)
+  created_at   DateTime  @default(now())
+  info         Json      @default("{}")
+  publisher    publisher @relation(fields: [id_publisher], references: [id])
+}
+
+model withdrawal {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_publisher String    @db.Uuid
+  amount       Decimal   @db.Decimal(18, 2)
+  status       String    @default("pending") @db.VarChar(10)
+  requested_at DateTime  @default(now())
+  processed_at DateTime?
+  publisher    publisher @relation(fields: [id_publisher], references: [id])
+}

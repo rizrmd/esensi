@@ -1,5 +1,8 @@
 {
-  "backend": { "orm": "rlib", "prodPort": 3000 },
+  "db": {
+    "orm": "prisma"
+  },
+  "backend": { "prodPort": 3000 },
   "sites": {
     "main.esensi": {
       "devPort": 7000,
