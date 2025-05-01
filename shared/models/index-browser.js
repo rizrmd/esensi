@@ -123,7 +123,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.AffiliateScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  id_user: 'id_user'
+  id_account: 'id_account'
 };
 
 exports.Prisma.Auth_accountScalarFieldEnum = {
@@ -248,7 +248,7 @@ exports.Prisma.CustomerScalarFieldEnum = {
   whatsapp: 'whatsapp',
   deleted_at: 'deleted_at',
   otp: 'otp',
-  id_user: 'id_user',
+  id_account: 'id_account',
   name: 'name',
   email: 'email'
 };
@@ -294,7 +294,7 @@ exports.Prisma.Landing_itemsScalarFieldEnum = {
 exports.Prisma.ManagementScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  id_user: 'id_user'
+  id_account: 'id_account'
 };
 
 exports.Prisma.MidtrxScalarFieldEnum = {
@@ -358,7 +358,7 @@ exports.Prisma.Promo_codeScalarFieldEnum = {
 
 exports.Prisma.PublisherScalarFieldEnum = {
   id: 'id',
-  id_user: 'id_user',
+  id_account: 'id_account',
   name: 'name'
 };
 
@@ -371,13 +371,13 @@ exports.Prisma.Publisher_authorScalarFieldEnum = {
 exports.Prisma.Sales_and_marketingScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  id_user: 'id_user'
+  id_account: 'id_account'
 };
 
 exports.Prisma.SupportScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  id_user: 'id_user'
+  id_account: 'id_account'
 };
 
 exports.Prisma.T_ai_creditScalarFieldEnum = {

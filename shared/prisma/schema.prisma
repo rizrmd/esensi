@@ -11,8 +11,8 @@ datasource db {
 model affiliate {
   id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name         String
-  id_user      String?       @db.Uuid
-  auth_account auth_account? @relation(fields: [id_user], references: [id])
+  id_account   String?       @db.Uuid
+  auth_account auth_account? @relation(fields: [id_account], references: [id], map: "affiliate_id_user_fkey")
   auth_user    auth_user[]
 }
 
@@ -173,11 +173,11 @@ model customer {
   whatsapp         String
   deleted_at       DateTime?
   otp              Int?               @db.SmallInt
-  id_user          String?            @db.Uuid
+  id_account       String?            @db.Uuid
   name             String
   email            String
   auth_user        auth_user[]
-  auth_account     auth_account?      @relation(fields: [id_user], references: [id])
+  auth_account     auth_account?      @relation(fields: [id_account], references: [id], map: "customer_id_user_fkey")
   customer_reader  customer_reader[]
   customer_track   customer_track[]
   t_sales          t_sales[]
@@ -232,9 +232,9 @@ model landing_items {
 model management {
   id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name         String
-  id_user      String?       @db.Uuid
+  id_account   String?       @db.Uuid
   auth_user    auth_user[]
-  auth_account auth_account? @relation(fields: [id_user], references: [id])
+  auth_account auth_account? @relation(fields: [id_account], references: [id], map: "management_id_user_fkey")
 }
 
 model midtrx {
@@ -310,11 +310,11 @@ model promo_code {
 
 model publisher {
   id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_user          String?            @db.Uuid
+  id_account       String?            @db.Uuid
   name             String
   auth_user        auth_user[]
   promo_code       promo_code[]
-  auth_account     auth_account?      @relation(fields: [id_user], references: [id])
+  auth_account     auth_account?      @relation(fields: [id_account], references: [id], map: "publisher_id_user_fkey")
   publisher_author publisher_author[]
   t_ai_credit      t_ai_credit[]
   transaction      transaction[]
@@ -334,17 +334,17 @@ model publisher_author {
 model sales_and_marketing {
   id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name         String
-  id_user      String?       @db.Uuid
+  id_account   String?       @db.Uuid
   auth_user    auth_user[]
-  auth_account auth_account? @relation(fields: [id_user], references: [id])
+  auth_account auth_account? @relation(fields: [id_account], references: [id], map: "sales_and_marketing_id_user_fkey")
 }
 
 model support {
   id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name         String
-  id_user      String?       @db.Uuid
+  id_account   String?       @db.Uuid
   auth_user    auth_user[]
-  auth_account auth_account? @relation(fields: [id_user], references: [id])
+  auth_account auth_account? @relation(fields: [id_account], references: [id], map: "support_id_user_fkey")
 }
 
 model t_ai_credit {

@@ -4601,19 +4601,19 @@ export namespace Prisma {
   export type AffiliateMinAggregateOutputType = {
     id: string | null
     name: string | null
-    id_user: string | null
+    id_account: string | null
   }
 
   export type AffiliateMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    id_user: string | null
+    id_account: string | null
   }
 
   export type AffiliateCountAggregateOutputType = {
     id: number
     name: number
-    id_user: number
+    id_account: number
     _all: number
   }
 
@@ -4621,19 +4621,19 @@ export namespace Prisma {
   export type AffiliateMinAggregateInputType = {
     id?: true
     name?: true
-    id_user?: true
+    id_account?: true
   }
 
   export type AffiliateMaxAggregateInputType = {
     id?: true
     name?: true
-    id_user?: true
+    id_account?: true
   }
 
   export type AffiliateCountAggregateInputType = {
     id?: true
     name?: true
-    id_user?: true
+    id_account?: true
     _all?: true
   }
 
@@ -4712,7 +4712,7 @@ export namespace Prisma {
   export type AffiliateGroupByOutputType = {
     id: string
     name: string
-    id_user: string | null
+    id_account: string | null
     _count: AffiliateCountAggregateOutputType | null
     _min: AffiliateMinAggregateOutputType | null
     _max: AffiliateMaxAggregateOutputType | null
@@ -4735,7 +4735,7 @@ export namespace Prisma {
   export type affiliateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
     auth_account?: boolean | affiliate$auth_accountArgs<ExtArgs>
     auth_user?: boolean | affiliate$auth_userArgs<ExtArgs>
     _count?: boolean | AffiliateCountOutputTypeDefaultArgs<ExtArgs>
@@ -4744,24 +4744,24 @@ export namespace Prisma {
   export type affiliateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
     auth_account?: boolean | affiliate$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["affiliate"]>
 
   export type affiliateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
     auth_account?: boolean | affiliate$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["affiliate"]>
 
   export type affiliateSelectScalar = {
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
   }
 
-  export type affiliateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_user", ExtArgs["result"]["affiliate"]>
+  export type affiliateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_account", ExtArgs["result"]["affiliate"]>
   export type affiliateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_account?: boolean | affiliate$auth_accountArgs<ExtArgs>
     auth_user?: boolean | affiliate$auth_userArgs<ExtArgs>
@@ -4783,7 +4783,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      id_user: string | null
+      id_account: string | null
     }, ExtArgs["result"]["affiliate"]>
     composites: {}
   }
@@ -5211,7 +5211,7 @@ export namespace Prisma {
   interface affiliateFieldRefs {
     readonly id: FieldRef<"affiliate", 'String'>
     readonly name: FieldRef<"affiliate", 'String'>
-    readonly id_user: FieldRef<"affiliate", 'String'>
+    readonly id_account: FieldRef<"affiliate", 'String'>
   }
     
 
@@ -18429,7 +18429,7 @@ export namespace Prisma {
     whatsapp: string | null
     deleted_at: Date | null
     otp: number | null
-    id_user: string | null
+    id_account: string | null
     name: string | null
     email: string | null
   }
@@ -18439,7 +18439,7 @@ export namespace Prisma {
     whatsapp: string | null
     deleted_at: Date | null
     otp: number | null
-    id_user: string | null
+    id_account: string | null
     name: string | null
     email: string | null
   }
@@ -18449,7 +18449,7 @@ export namespace Prisma {
     whatsapp: number
     deleted_at: number
     otp: number
-    id_user: number
+    id_account: number
     name: number
     email: number
     _all: number
@@ -18469,7 +18469,7 @@ export namespace Prisma {
     whatsapp?: true
     deleted_at?: true
     otp?: true
-    id_user?: true
+    id_account?: true
     name?: true
     email?: true
   }
@@ -18479,7 +18479,7 @@ export namespace Prisma {
     whatsapp?: true
     deleted_at?: true
     otp?: true
-    id_user?: true
+    id_account?: true
     name?: true
     email?: true
   }
@@ -18489,7 +18489,7 @@ export namespace Prisma {
     whatsapp?: true
     deleted_at?: true
     otp?: true
-    id_user?: true
+    id_account?: true
     name?: true
     email?: true
     _all?: true
@@ -18586,7 +18586,7 @@ export namespace Prisma {
     whatsapp: string
     deleted_at: Date | null
     otp: number | null
-    id_user: string | null
+    id_account: string | null
     name: string
     email: string
     _count: CustomerCountAggregateOutputType | null
@@ -18615,7 +18615,7 @@ export namespace Prisma {
     whatsapp?: boolean
     deleted_at?: boolean
     otp?: boolean
-    id_user?: boolean
+    id_account?: boolean
     name?: boolean
     email?: boolean
     auth_user?: boolean | customer$auth_userArgs<ExtArgs>
@@ -18632,7 +18632,7 @@ export namespace Prisma {
     whatsapp?: boolean
     deleted_at?: boolean
     otp?: boolean
-    id_user?: boolean
+    id_account?: boolean
     name?: boolean
     email?: boolean
     auth_account?: boolean | customer$auth_accountArgs<ExtArgs>
@@ -18643,7 +18643,7 @@ export namespace Prisma {
     whatsapp?: boolean
     deleted_at?: boolean
     otp?: boolean
-    id_user?: boolean
+    id_account?: boolean
     name?: boolean
     email?: boolean
     auth_account?: boolean | customer$auth_accountArgs<ExtArgs>
@@ -18654,12 +18654,12 @@ export namespace Prisma {
     whatsapp?: boolean
     deleted_at?: boolean
     otp?: boolean
-    id_user?: boolean
+    id_account?: boolean
     name?: boolean
     email?: boolean
   }
 
-  export type customerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "whatsapp" | "deleted_at" | "otp" | "id_user" | "name" | "email", ExtArgs["result"]["customer"]>
+  export type customerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "whatsapp" | "deleted_at" | "otp" | "id_account" | "name" | "email", ExtArgs["result"]["customer"]>
   export type customerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_user?: boolean | customer$auth_userArgs<ExtArgs>
     auth_account?: boolean | customer$auth_accountArgs<ExtArgs>
@@ -18691,7 +18691,7 @@ export namespace Prisma {
       whatsapp: string
       deleted_at: Date | null
       otp: number | null
-      id_user: string | null
+      id_account: string | null
       name: string
       email: string
     }, ExtArgs["result"]["customer"]>
@@ -19127,7 +19127,7 @@ export namespace Prisma {
     readonly whatsapp: FieldRef<"customer", 'String'>
     readonly deleted_at: FieldRef<"customer", 'DateTime'>
     readonly otp: FieldRef<"customer", 'Int'>
-    readonly id_user: FieldRef<"customer", 'String'>
+    readonly id_account: FieldRef<"customer", 'String'>
     readonly name: FieldRef<"customer", 'String'>
     readonly email: FieldRef<"customer", 'String'>
   }
@@ -24128,19 +24128,19 @@ export namespace Prisma {
   export type ManagementMinAggregateOutputType = {
     id: string | null
     name: string | null
-    id_user: string | null
+    id_account: string | null
   }
 
   export type ManagementMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    id_user: string | null
+    id_account: string | null
   }
 
   export type ManagementCountAggregateOutputType = {
     id: number
     name: number
-    id_user: number
+    id_account: number
     _all: number
   }
 
@@ -24148,19 +24148,19 @@ export namespace Prisma {
   export type ManagementMinAggregateInputType = {
     id?: true
     name?: true
-    id_user?: true
+    id_account?: true
   }
 
   export type ManagementMaxAggregateInputType = {
     id?: true
     name?: true
-    id_user?: true
+    id_account?: true
   }
 
   export type ManagementCountAggregateInputType = {
     id?: true
     name?: true
-    id_user?: true
+    id_account?: true
     _all?: true
   }
 
@@ -24239,7 +24239,7 @@ export namespace Prisma {
   export type ManagementGroupByOutputType = {
     id: string
     name: string
-    id_user: string | null
+    id_account: string | null
     _count: ManagementCountAggregateOutputType | null
     _min: ManagementMinAggregateOutputType | null
     _max: ManagementMaxAggregateOutputType | null
@@ -24262,7 +24262,7 @@ export namespace Prisma {
   export type managementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
     auth_user?: boolean | management$auth_userArgs<ExtArgs>
     auth_account?: boolean | management$auth_accountArgs<ExtArgs>
     _count?: boolean | ManagementCountOutputTypeDefaultArgs<ExtArgs>
@@ -24271,24 +24271,24 @@ export namespace Prisma {
   export type managementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
     auth_account?: boolean | management$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["management"]>
 
   export type managementSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
     auth_account?: boolean | management$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["management"]>
 
   export type managementSelectScalar = {
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
   }
 
-  export type managementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_user", ExtArgs["result"]["management"]>
+  export type managementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_account", ExtArgs["result"]["management"]>
   export type managementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_user?: boolean | management$auth_userArgs<ExtArgs>
     auth_account?: boolean | management$auth_accountArgs<ExtArgs>
@@ -24310,7 +24310,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      id_user: string | null
+      id_account: string | null
     }, ExtArgs["result"]["management"]>
     composites: {}
   }
@@ -24738,7 +24738,7 @@ export namespace Prisma {
   interface managementFieldRefs {
     readonly id: FieldRef<"management", 'String'>
     readonly name: FieldRef<"management", 'String'>
-    readonly id_user: FieldRef<"management", 'String'>
+    readonly id_account: FieldRef<"management", 'String'>
   }
     
 
@@ -30989,19 +30989,19 @@ export namespace Prisma {
 
   export type PublisherMinAggregateOutputType = {
     id: string | null
-    id_user: string | null
+    id_account: string | null
     name: string | null
   }
 
   export type PublisherMaxAggregateOutputType = {
     id: string | null
-    id_user: string | null
+    id_account: string | null
     name: string | null
   }
 
   export type PublisherCountAggregateOutputType = {
     id: number
-    id_user: number
+    id_account: number
     name: number
     _all: number
   }
@@ -31009,19 +31009,19 @@ export namespace Prisma {
 
   export type PublisherMinAggregateInputType = {
     id?: true
-    id_user?: true
+    id_account?: true
     name?: true
   }
 
   export type PublisherMaxAggregateInputType = {
     id?: true
-    id_user?: true
+    id_account?: true
     name?: true
   }
 
   export type PublisherCountAggregateInputType = {
     id?: true
-    id_user?: true
+    id_account?: true
     name?: true
     _all?: true
   }
@@ -31100,7 +31100,7 @@ export namespace Prisma {
 
   export type PublisherGroupByOutputType = {
     id: string
-    id_user: string | null
+    id_account: string | null
     name: string
     _count: PublisherCountAggregateOutputType | null
     _min: PublisherMinAggregateOutputType | null
@@ -31123,7 +31123,7 @@ export namespace Prisma {
 
   export type publisherSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    id_user?: boolean
+    id_account?: boolean
     name?: boolean
     auth_user?: boolean | publisher$auth_userArgs<ExtArgs>
     promo_code?: boolean | publisher$promo_codeArgs<ExtArgs>
@@ -31137,25 +31137,25 @@ export namespace Prisma {
 
   export type publisherSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    id_user?: boolean
+    id_account?: boolean
     name?: boolean
     auth_account?: boolean | publisher$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["publisher"]>
 
   export type publisherSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    id_user?: boolean
+    id_account?: boolean
     name?: boolean
     auth_account?: boolean | publisher$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["publisher"]>
 
   export type publisherSelectScalar = {
     id?: boolean
-    id_user?: boolean
+    id_account?: boolean
     name?: boolean
   }
 
-  export type publisherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_user" | "name", ExtArgs["result"]["publisher"]>
+  export type publisherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_account" | "name", ExtArgs["result"]["publisher"]>
   export type publisherInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_user?: boolean | publisher$auth_userArgs<ExtArgs>
     promo_code?: boolean | publisher$promo_codeArgs<ExtArgs>
@@ -31186,7 +31186,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      id_user: string | null
+      id_account: string | null
       name: string
     }, ExtArgs["result"]["publisher"]>
     composites: {}
@@ -31619,7 +31619,7 @@ export namespace Prisma {
    */
   interface publisherFieldRefs {
     readonly id: FieldRef<"publisher", 'String'>
-    readonly id_user: FieldRef<"publisher", 'String'>
+    readonly id_account: FieldRef<"publisher", 'String'>
     readonly name: FieldRef<"publisher", 'String'>
   }
     
@@ -33251,19 +33251,19 @@ export namespace Prisma {
   export type Sales_and_marketingMinAggregateOutputType = {
     id: string | null
     name: string | null
-    id_user: string | null
+    id_account: string | null
   }
 
   export type Sales_and_marketingMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    id_user: string | null
+    id_account: string | null
   }
 
   export type Sales_and_marketingCountAggregateOutputType = {
     id: number
     name: number
-    id_user: number
+    id_account: number
     _all: number
   }
 
@@ -33271,19 +33271,19 @@ export namespace Prisma {
   export type Sales_and_marketingMinAggregateInputType = {
     id?: true
     name?: true
-    id_user?: true
+    id_account?: true
   }
 
   export type Sales_and_marketingMaxAggregateInputType = {
     id?: true
     name?: true
-    id_user?: true
+    id_account?: true
   }
 
   export type Sales_and_marketingCountAggregateInputType = {
     id?: true
     name?: true
-    id_user?: true
+    id_account?: true
     _all?: true
   }
 
@@ -33362,7 +33362,7 @@ export namespace Prisma {
   export type Sales_and_marketingGroupByOutputType = {
     id: string
     name: string
-    id_user: string | null
+    id_account: string | null
     _count: Sales_and_marketingCountAggregateOutputType | null
     _min: Sales_and_marketingMinAggregateOutputType | null
     _max: Sales_and_marketingMaxAggregateOutputType | null
@@ -33385,7 +33385,7 @@ export namespace Prisma {
   export type sales_and_marketingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
     auth_user?: boolean | sales_and_marketing$auth_userArgs<ExtArgs>
     auth_account?: boolean | sales_and_marketing$auth_accountArgs<ExtArgs>
     _count?: boolean | Sales_and_marketingCountOutputTypeDefaultArgs<ExtArgs>
@@ -33394,24 +33394,24 @@ export namespace Prisma {
   export type sales_and_marketingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
     auth_account?: boolean | sales_and_marketing$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["sales_and_marketing"]>
 
   export type sales_and_marketingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
     auth_account?: boolean | sales_and_marketing$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["sales_and_marketing"]>
 
   export type sales_and_marketingSelectScalar = {
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
   }
 
-  export type sales_and_marketingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_user", ExtArgs["result"]["sales_and_marketing"]>
+  export type sales_and_marketingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_account", ExtArgs["result"]["sales_and_marketing"]>
   export type sales_and_marketingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_user?: boolean | sales_and_marketing$auth_userArgs<ExtArgs>
     auth_account?: boolean | sales_and_marketing$auth_accountArgs<ExtArgs>
@@ -33433,7 +33433,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      id_user: string | null
+      id_account: string | null
     }, ExtArgs["result"]["sales_and_marketing"]>
     composites: {}
   }
@@ -33861,7 +33861,7 @@ export namespace Prisma {
   interface sales_and_marketingFieldRefs {
     readonly id: FieldRef<"sales_and_marketing", 'String'>
     readonly name: FieldRef<"sales_and_marketing", 'String'>
-    readonly id_user: FieldRef<"sales_and_marketing", 'String'>
+    readonly id_account: FieldRef<"sales_and_marketing", 'String'>
   }
     
 
@@ -34332,19 +34332,19 @@ export namespace Prisma {
   export type SupportMinAggregateOutputType = {
     id: string | null
     name: string | null
-    id_user: string | null
+    id_account: string | null
   }
 
   export type SupportMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    id_user: string | null
+    id_account: string | null
   }
 
   export type SupportCountAggregateOutputType = {
     id: number
     name: number
-    id_user: number
+    id_account: number
     _all: number
   }
 
@@ -34352,19 +34352,19 @@ export namespace Prisma {
   export type SupportMinAggregateInputType = {
     id?: true
     name?: true
-    id_user?: true
+    id_account?: true
   }
 
   export type SupportMaxAggregateInputType = {
     id?: true
     name?: true
-    id_user?: true
+    id_account?: true
   }
 
   export type SupportCountAggregateInputType = {
     id?: true
     name?: true
-    id_user?: true
+    id_account?: true
     _all?: true
   }
 
@@ -34443,7 +34443,7 @@ export namespace Prisma {
   export type SupportGroupByOutputType = {
     id: string
     name: string
-    id_user: string | null
+    id_account: string | null
     _count: SupportCountAggregateOutputType | null
     _min: SupportMinAggregateOutputType | null
     _max: SupportMaxAggregateOutputType | null
@@ -34466,7 +34466,7 @@ export namespace Prisma {
   export type supportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
     auth_user?: boolean | support$auth_userArgs<ExtArgs>
     auth_account?: boolean | support$auth_accountArgs<ExtArgs>
     _count?: boolean | SupportCountOutputTypeDefaultArgs<ExtArgs>
@@ -34475,24 +34475,24 @@ export namespace Prisma {
   export type supportSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
     auth_account?: boolean | support$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["support"]>
 
   export type supportSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
     auth_account?: boolean | support$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["support"]>
 
   export type supportSelectScalar = {
     id?: boolean
     name?: boolean
-    id_user?: boolean
+    id_account?: boolean
   }
 
-  export type supportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_user", ExtArgs["result"]["support"]>
+  export type supportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_account", ExtArgs["result"]["support"]>
   export type supportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_user?: boolean | support$auth_userArgs<ExtArgs>
     auth_account?: boolean | support$auth_accountArgs<ExtArgs>
@@ -34514,7 +34514,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      id_user: string | null
+      id_account: string | null
     }, ExtArgs["result"]["support"]>
     composites: {}
   }
@@ -34942,7 +34942,7 @@ export namespace Prisma {
   interface supportFieldRefs {
     readonly id: FieldRef<"support", 'String'>
     readonly name: FieldRef<"support", 'String'>
-    readonly id_user: FieldRef<"support", 'String'>
+    readonly id_account: FieldRef<"support", 'String'>
   }
     
 
@@ -43293,7 +43293,7 @@ export namespace Prisma {
   export const AffiliateScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    id_user: 'id_user'
+    id_account: 'id_account'
   };
 
   export type AffiliateScalarFieldEnum = (typeof AffiliateScalarFieldEnum)[keyof typeof AffiliateScalarFieldEnum]
@@ -43454,7 +43454,7 @@ export namespace Prisma {
     whatsapp: 'whatsapp',
     deleted_at: 'deleted_at',
     otp: 'otp',
-    id_user: 'id_user',
+    id_account: 'id_account',
     name: 'name',
     email: 'email'
   };
@@ -43515,7 +43515,7 @@ export namespace Prisma {
   export const ManagementScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    id_user: 'id_user'
+    id_account: 'id_account'
   };
 
   export type ManagementScalarFieldEnum = (typeof ManagementScalarFieldEnum)[keyof typeof ManagementScalarFieldEnum]
@@ -43597,7 +43597,7 @@ export namespace Prisma {
 
   export const PublisherScalarFieldEnum: {
     id: 'id',
-    id_user: 'id_user',
+    id_account: 'id_account',
     name: 'name'
   };
 
@@ -43616,7 +43616,7 @@ export namespace Prisma {
   export const Sales_and_marketingScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    id_user: 'id_user'
+    id_account: 'id_account'
   };
 
   export type Sales_and_marketingScalarFieldEnum = (typeof Sales_and_marketingScalarFieldEnum)[keyof typeof Sales_and_marketingScalarFieldEnum]
@@ -43625,7 +43625,7 @@ export namespace Prisma {
   export const SupportScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    id_user: 'id_user'
+    id_account: 'id_account'
   };
 
   export type SupportScalarFieldEnum = (typeof SupportScalarFieldEnum)[keyof typeof SupportScalarFieldEnum]
@@ -43873,7 +43873,7 @@ export namespace Prisma {
     NOT?: affiliateWhereInput | affiliateWhereInput[]
     id?: UuidFilter<"affiliate"> | string
     name?: StringFilter<"affiliate"> | string
-    id_user?: UuidNullableFilter<"affiliate"> | string | null
+    id_account?: UuidNullableFilter<"affiliate"> | string | null
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
     auth_user?: Auth_userListRelationFilter
   }
@@ -43881,7 +43881,7 @@ export namespace Prisma {
   export type affiliateOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrderInput | SortOrder
+    id_account?: SortOrderInput | SortOrder
     auth_account?: auth_accountOrderByWithRelationInput
     auth_user?: auth_userOrderByRelationAggregateInput
   }
@@ -43892,7 +43892,7 @@ export namespace Prisma {
     OR?: affiliateWhereInput[]
     NOT?: affiliateWhereInput | affiliateWhereInput[]
     name?: StringFilter<"affiliate"> | string
-    id_user?: UuidNullableFilter<"affiliate"> | string | null
+    id_account?: UuidNullableFilter<"affiliate"> | string | null
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
     auth_user?: Auth_userListRelationFilter
   }, "id">
@@ -43900,7 +43900,7 @@ export namespace Prisma {
   export type affiliateOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrderInput | SortOrder
+    id_account?: SortOrderInput | SortOrder
     _count?: affiliateCountOrderByAggregateInput
     _max?: affiliateMaxOrderByAggregateInput
     _min?: affiliateMinOrderByAggregateInput
@@ -43912,7 +43912,7 @@ export namespace Prisma {
     NOT?: affiliateScalarWhereWithAggregatesInput | affiliateScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"affiliate"> | string
     name?: StringWithAggregatesFilter<"affiliate"> | string
-    id_user?: UuidNullableWithAggregatesFilter<"affiliate"> | string | null
+    id_account?: UuidNullableWithAggregatesFilter<"affiliate"> | string | null
   }
 
   export type auth_accountWhereInput = {
@@ -44749,7 +44749,7 @@ export namespace Prisma {
     whatsapp?: StringFilter<"customer"> | string
     deleted_at?: DateTimeNullableFilter<"customer"> | Date | string | null
     otp?: IntNullableFilter<"customer"> | number | null
-    id_user?: UuidNullableFilter<"customer"> | string | null
+    id_account?: UuidNullableFilter<"customer"> | string | null
     name?: StringFilter<"customer"> | string
     email?: StringFilter<"customer"> | string
     auth_user?: Auth_userListRelationFilter
@@ -44765,7 +44765,7 @@ export namespace Prisma {
     whatsapp?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
     otp?: SortOrderInput | SortOrder
-    id_user?: SortOrderInput | SortOrder
+    id_account?: SortOrderInput | SortOrder
     name?: SortOrder
     email?: SortOrder
     auth_user?: auth_userOrderByRelationAggregateInput
@@ -44784,7 +44784,7 @@ export namespace Prisma {
     whatsapp?: StringFilter<"customer"> | string
     deleted_at?: DateTimeNullableFilter<"customer"> | Date | string | null
     otp?: IntNullableFilter<"customer"> | number | null
-    id_user?: UuidNullableFilter<"customer"> | string | null
+    id_account?: UuidNullableFilter<"customer"> | string | null
     name?: StringFilter<"customer"> | string
     email?: StringFilter<"customer"> | string
     auth_user?: Auth_userListRelationFilter
@@ -44800,7 +44800,7 @@ export namespace Prisma {
     whatsapp?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
     otp?: SortOrderInput | SortOrder
-    id_user?: SortOrderInput | SortOrder
+    id_account?: SortOrderInput | SortOrder
     name?: SortOrder
     email?: SortOrder
     _count?: customerCountOrderByAggregateInput
@@ -44818,7 +44818,7 @@ export namespace Prisma {
     whatsapp?: StringWithAggregatesFilter<"customer"> | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"customer"> | Date | string | null
     otp?: IntNullableWithAggregatesFilter<"customer"> | number | null
-    id_user?: UuidNullableWithAggregatesFilter<"customer"> | string | null
+    id_account?: UuidNullableWithAggregatesFilter<"customer"> | string | null
     name?: StringWithAggregatesFilter<"customer"> | string
     email?: StringWithAggregatesFilter<"customer"> | string
   }
@@ -45088,7 +45088,7 @@ export namespace Prisma {
     NOT?: managementWhereInput | managementWhereInput[]
     id?: UuidFilter<"management"> | string
     name?: StringFilter<"management"> | string
-    id_user?: UuidNullableFilter<"management"> | string | null
+    id_account?: UuidNullableFilter<"management"> | string | null
     auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
   }
@@ -45096,7 +45096,7 @@ export namespace Prisma {
   export type managementOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrderInput | SortOrder
+    id_account?: SortOrderInput | SortOrder
     auth_user?: auth_userOrderByRelationAggregateInput
     auth_account?: auth_accountOrderByWithRelationInput
   }
@@ -45107,7 +45107,7 @@ export namespace Prisma {
     OR?: managementWhereInput[]
     NOT?: managementWhereInput | managementWhereInput[]
     name?: StringFilter<"management"> | string
-    id_user?: UuidNullableFilter<"management"> | string | null
+    id_account?: UuidNullableFilter<"management"> | string | null
     auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
   }, "id">
@@ -45115,7 +45115,7 @@ export namespace Prisma {
   export type managementOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrderInput | SortOrder
+    id_account?: SortOrderInput | SortOrder
     _count?: managementCountOrderByAggregateInput
     _max?: managementMaxOrderByAggregateInput
     _min?: managementMinOrderByAggregateInput
@@ -45127,7 +45127,7 @@ export namespace Prisma {
     NOT?: managementScalarWhereWithAggregatesInput | managementScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"management"> | string
     name?: StringWithAggregatesFilter<"management"> | string
-    id_user?: UuidNullableWithAggregatesFilter<"management"> | string | null
+    id_account?: UuidNullableWithAggregatesFilter<"management"> | string | null
   }
 
   export type midtrxWhereInput = {
@@ -45529,7 +45529,7 @@ export namespace Prisma {
     OR?: publisherWhereInput[]
     NOT?: publisherWhereInput | publisherWhereInput[]
     id?: UuidFilter<"publisher"> | string
-    id_user?: UuidNullableFilter<"publisher"> | string | null
+    id_account?: UuidNullableFilter<"publisher"> | string | null
     name?: StringFilter<"publisher"> | string
     auth_user?: Auth_userListRelationFilter
     promo_code?: Promo_codeListRelationFilter
@@ -45542,7 +45542,7 @@ export namespace Prisma {
 
   export type publisherOrderByWithRelationInput = {
     id?: SortOrder
-    id_user?: SortOrderInput | SortOrder
+    id_account?: SortOrderInput | SortOrder
     name?: SortOrder
     auth_user?: auth_userOrderByRelationAggregateInput
     promo_code?: promo_codeOrderByRelationAggregateInput
@@ -45558,7 +45558,7 @@ export namespace Prisma {
     AND?: publisherWhereInput | publisherWhereInput[]
     OR?: publisherWhereInput[]
     NOT?: publisherWhereInput | publisherWhereInput[]
-    id_user?: UuidNullableFilter<"publisher"> | string | null
+    id_account?: UuidNullableFilter<"publisher"> | string | null
     name?: StringFilter<"publisher"> | string
     auth_user?: Auth_userListRelationFilter
     promo_code?: Promo_codeListRelationFilter
@@ -45571,7 +45571,7 @@ export namespace Prisma {
 
   export type publisherOrderByWithAggregationInput = {
     id?: SortOrder
-    id_user?: SortOrderInput | SortOrder
+    id_account?: SortOrderInput | SortOrder
     name?: SortOrder
     _count?: publisherCountOrderByAggregateInput
     _max?: publisherMaxOrderByAggregateInput
@@ -45583,7 +45583,7 @@ export namespace Prisma {
     OR?: publisherScalarWhereWithAggregatesInput[]
     NOT?: publisherScalarWhereWithAggregatesInput | publisherScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"publisher"> | string
-    id_user?: UuidNullableWithAggregatesFilter<"publisher"> | string | null
+    id_account?: UuidNullableWithAggregatesFilter<"publisher"> | string | null
     name?: StringWithAggregatesFilter<"publisher"> | string
   }
 
@@ -45642,7 +45642,7 @@ export namespace Prisma {
     NOT?: sales_and_marketingWhereInput | sales_and_marketingWhereInput[]
     id?: UuidFilter<"sales_and_marketing"> | string
     name?: StringFilter<"sales_and_marketing"> | string
-    id_user?: UuidNullableFilter<"sales_and_marketing"> | string | null
+    id_account?: UuidNullableFilter<"sales_and_marketing"> | string | null
     auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
   }
@@ -45650,7 +45650,7 @@ export namespace Prisma {
   export type sales_and_marketingOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrderInput | SortOrder
+    id_account?: SortOrderInput | SortOrder
     auth_user?: auth_userOrderByRelationAggregateInput
     auth_account?: auth_accountOrderByWithRelationInput
   }
@@ -45661,7 +45661,7 @@ export namespace Prisma {
     OR?: sales_and_marketingWhereInput[]
     NOT?: sales_and_marketingWhereInput | sales_and_marketingWhereInput[]
     name?: StringFilter<"sales_and_marketing"> | string
-    id_user?: UuidNullableFilter<"sales_and_marketing"> | string | null
+    id_account?: UuidNullableFilter<"sales_and_marketing"> | string | null
     auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
   }, "id">
@@ -45669,7 +45669,7 @@ export namespace Prisma {
   export type sales_and_marketingOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrderInput | SortOrder
+    id_account?: SortOrderInput | SortOrder
     _count?: sales_and_marketingCountOrderByAggregateInput
     _max?: sales_and_marketingMaxOrderByAggregateInput
     _min?: sales_and_marketingMinOrderByAggregateInput
@@ -45681,7 +45681,7 @@ export namespace Prisma {
     NOT?: sales_and_marketingScalarWhereWithAggregatesInput | sales_and_marketingScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"sales_and_marketing"> | string
     name?: StringWithAggregatesFilter<"sales_and_marketing"> | string
-    id_user?: UuidNullableWithAggregatesFilter<"sales_and_marketing"> | string | null
+    id_account?: UuidNullableWithAggregatesFilter<"sales_and_marketing"> | string | null
   }
 
   export type supportWhereInput = {
@@ -45690,7 +45690,7 @@ export namespace Prisma {
     NOT?: supportWhereInput | supportWhereInput[]
     id?: UuidFilter<"support"> | string
     name?: StringFilter<"support"> | string
-    id_user?: UuidNullableFilter<"support"> | string | null
+    id_account?: UuidNullableFilter<"support"> | string | null
     auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
   }
@@ -45698,7 +45698,7 @@ export namespace Prisma {
   export type supportOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrderInput | SortOrder
+    id_account?: SortOrderInput | SortOrder
     auth_user?: auth_userOrderByRelationAggregateInput
     auth_account?: auth_accountOrderByWithRelationInput
   }
@@ -45709,7 +45709,7 @@ export namespace Prisma {
     OR?: supportWhereInput[]
     NOT?: supportWhereInput | supportWhereInput[]
     name?: StringFilter<"support"> | string
-    id_user?: UuidNullableFilter<"support"> | string | null
+    id_account?: UuidNullableFilter<"support"> | string | null
     auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
   }, "id">
@@ -45717,7 +45717,7 @@ export namespace Prisma {
   export type supportOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrderInput | SortOrder
+    id_account?: SortOrderInput | SortOrder
     _count?: supportCountOrderByAggregateInput
     _max?: supportMaxOrderByAggregateInput
     _min?: supportMinOrderByAggregateInput
@@ -45729,7 +45729,7 @@ export namespace Prisma {
     NOT?: supportScalarWhereWithAggregatesInput | supportScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"support"> | string
     name?: StringWithAggregatesFilter<"support"> | string
-    id_user?: UuidNullableWithAggregatesFilter<"support"> | string | null
+    id_account?: UuidNullableWithAggregatesFilter<"support"> | string | null
   }
 
   export type t_ai_creditWhereInput = {
@@ -46214,7 +46214,7 @@ export namespace Prisma {
   export type affiliateUncheckedCreateInput = {
     id?: string
     name: string
-    id_user?: string | null
+    id_account?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutAffiliateInput
   }
 
@@ -46228,14 +46228,14 @@ export namespace Prisma {
   export type affiliateUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutAffiliateNestedInput
   }
 
   export type affiliateCreateManyInput = {
     id?: string
     name: string
-    id_user?: string | null
+    id_account?: string | null
   }
 
   export type affiliateUpdateManyMutationInput = {
@@ -46246,7 +46246,7 @@ export namespace Prisma {
   export type affiliateUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type auth_accountCreateInput = {
@@ -47148,7 +47148,7 @@ export namespace Prisma {
     whatsapp: string
     deleted_at?: Date | string | null
     otp?: number | null
-    id_user?: string | null
+    id_account?: string | null
     name: string
     email: string
     auth_user?: auth_userUncheckedCreateNestedManyWithoutCustomerInput
@@ -47178,7 +47178,7 @@ export namespace Prisma {
     whatsapp?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     otp?: NullableIntFieldUpdateOperationsInput | number | null
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUncheckedUpdateManyWithoutCustomerNestedInput
@@ -47193,7 +47193,7 @@ export namespace Prisma {
     whatsapp: string
     deleted_at?: Date | string | null
     otp?: number | null
-    id_user?: string | null
+    id_account?: string | null
     name: string
     email: string
   }
@@ -47212,7 +47212,7 @@ export namespace Prisma {
     whatsapp?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     otp?: NullableIntFieldUpdateOperationsInput | number | null
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
   }
@@ -47493,7 +47493,7 @@ export namespace Prisma {
   export type managementUncheckedCreateInput = {
     id?: string
     name: string
-    id_user?: string | null
+    id_account?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutManagementInput
   }
 
@@ -47507,14 +47507,14 @@ export namespace Prisma {
   export type managementUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutManagementNestedInput
   }
 
   export type managementCreateManyInput = {
     id?: string
     name: string
-    id_user?: string | null
+    id_account?: string | null
   }
 
   export type managementUpdateManyMutationInput = {
@@ -47525,7 +47525,7 @@ export namespace Prisma {
   export type managementUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type midtrxCreateInput = {
@@ -47974,7 +47974,7 @@ export namespace Prisma {
 
   export type publisherUncheckedCreateInput = {
     id?: string
-    id_user?: string | null
+    id_account?: string | null
     name: string
     auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
@@ -47998,7 +47998,7 @@ export namespace Prisma {
 
   export type publisherUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
@@ -48010,7 +48010,7 @@ export namespace Prisma {
 
   export type publisherCreateManyInput = {
     id?: string
-    id_user?: string | null
+    id_account?: string | null
     name: string
   }
 
@@ -48021,7 +48021,7 @@ export namespace Prisma {
 
   export type publisherUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
   }
 
@@ -48075,7 +48075,7 @@ export namespace Prisma {
   export type sales_and_marketingUncheckedCreateInput = {
     id?: string
     name: string
-    id_user?: string | null
+    id_account?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutSales_and_marketingInput
   }
 
@@ -48089,14 +48089,14 @@ export namespace Prisma {
   export type sales_and_marketingUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutSales_and_marketingNestedInput
   }
 
   export type sales_and_marketingCreateManyInput = {
     id?: string
     name: string
-    id_user?: string | null
+    id_account?: string | null
   }
 
   export type sales_and_marketingUpdateManyMutationInput = {
@@ -48107,7 +48107,7 @@ export namespace Prisma {
   export type sales_and_marketingUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type supportCreateInput = {
@@ -48120,7 +48120,7 @@ export namespace Prisma {
   export type supportUncheckedCreateInput = {
     id?: string
     name: string
-    id_user?: string | null
+    id_account?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutSupportInput
   }
 
@@ -48134,14 +48134,14 @@ export namespace Prisma {
   export type supportUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutSupportNestedInput
   }
 
   export type supportCreateManyInput = {
     id?: string
     name: string
-    id_user?: string | null
+    id_account?: string | null
   }
 
   export type supportUpdateManyMutationInput = {
@@ -48152,7 +48152,7 @@ export namespace Prisma {
   export type supportUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type t_ai_creditCreateInput = {
@@ -48691,19 +48691,19 @@ export namespace Prisma {
   export type affiliateCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
   }
 
   export type affiliateMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
   }
 
   export type affiliateMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
   }
 
   export type UuidWithAggregatesFilter<$PrismaModel = never> = {
@@ -49640,7 +49640,7 @@ export namespace Prisma {
     whatsapp?: SortOrder
     deleted_at?: SortOrder
     otp?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
     name?: SortOrder
     email?: SortOrder
   }
@@ -49654,7 +49654,7 @@ export namespace Prisma {
     whatsapp?: SortOrder
     deleted_at?: SortOrder
     otp?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
     name?: SortOrder
     email?: SortOrder
   }
@@ -49664,7 +49664,7 @@ export namespace Prisma {
     whatsapp?: SortOrder
     deleted_at?: SortOrder
     otp?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
     name?: SortOrder
     email?: SortOrder
   }
@@ -49861,19 +49861,19 @@ export namespace Prisma {
   export type managementCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
   }
 
   export type managementMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
   }
 
   export type managementMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
   }
 
   export type midtrxCountOrderByAggregateInput = {
@@ -50187,19 +50187,19 @@ export namespace Prisma {
 
   export type publisherCountOrderByAggregateInput = {
     id?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
     name?: SortOrder
   }
 
   export type publisherMaxOrderByAggregateInput = {
     id?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
     name?: SortOrder
   }
 
   export type publisherMinOrderByAggregateInput = {
     id?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
     name?: SortOrder
   }
 
@@ -50234,37 +50234,37 @@ export namespace Prisma {
   export type sales_and_marketingCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
   }
 
   export type sales_and_marketingMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
   }
 
   export type sales_and_marketingMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
   }
 
   export type supportCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
   }
 
   export type supportMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
   }
 
   export type supportMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    id_user?: SortOrder
+    id_account?: SortOrder
   }
 
   export type T_ai_credit_topupListRelationFilter = {
@@ -53865,7 +53865,7 @@ export namespace Prisma {
     NOT?: affiliateScalarWhereInput | affiliateScalarWhereInput[]
     id?: UuidFilter<"affiliate"> | string
     name?: StringFilter<"affiliate"> | string
-    id_user?: UuidNullableFilter<"affiliate"> | string | null
+    id_account?: UuidNullableFilter<"affiliate"> | string | null
   }
 
   export type auth_userUpsertWithoutAuth_accountInput = {
@@ -53972,7 +53972,7 @@ export namespace Prisma {
     whatsapp?: StringFilter<"customer"> | string
     deleted_at?: DateTimeNullableFilter<"customer"> | Date | string | null
     otp?: IntNullableFilter<"customer"> | number | null
-    id_user?: UuidNullableFilter<"customer"> | string | null
+    id_account?: UuidNullableFilter<"customer"> | string | null
     name?: StringFilter<"customer"> | string
     email?: StringFilter<"customer"> | string
   }
@@ -53999,7 +53999,7 @@ export namespace Prisma {
     NOT?: managementScalarWhereInput | managementScalarWhereInput[]
     id?: UuidFilter<"management"> | string
     name?: StringFilter<"management"> | string
-    id_user?: UuidNullableFilter<"management"> | string | null
+    id_account?: UuidNullableFilter<"management"> | string | null
   }
 
   export type publisherUpsertWithWhereUniqueWithoutAuth_accountInput = {
@@ -54023,7 +54023,7 @@ export namespace Prisma {
     OR?: publisherScalarWhereInput[]
     NOT?: publisherScalarWhereInput | publisherScalarWhereInput[]
     id?: UuidFilter<"publisher"> | string
-    id_user?: UuidNullableFilter<"publisher"> | string | null
+    id_account?: UuidNullableFilter<"publisher"> | string | null
     name?: StringFilter<"publisher"> | string
   }
 
@@ -54049,7 +54049,7 @@ export namespace Prisma {
     NOT?: sales_and_marketingScalarWhereInput | sales_and_marketingScalarWhereInput[]
     id?: UuidFilter<"sales_and_marketing"> | string
     name?: StringFilter<"sales_and_marketing"> | string
-    id_user?: UuidNullableFilter<"sales_and_marketing"> | string | null
+    id_account?: UuidNullableFilter<"sales_and_marketing"> | string | null
   }
 
   export type supportUpsertWithWhereUniqueWithoutAuth_accountInput = {
@@ -54074,7 +54074,7 @@ export namespace Prisma {
     NOT?: supportScalarWhereInput | supportScalarWhereInput[]
     id?: UuidFilter<"support"> | string
     name?: StringFilter<"support"> | string
-    id_user?: UuidNullableFilter<"support"> | string | null
+    id_account?: UuidNullableFilter<"support"> | string | null
   }
 
   export type auth_userCreateWithoutAuth_sessionInput = {
@@ -54402,7 +54402,7 @@ export namespace Prisma {
   export type affiliateUncheckedCreateWithoutAuth_userInput = {
     id?: string
     name: string
-    id_user?: string | null
+    id_account?: string | null
   }
 
   export type affiliateCreateOrConnectWithoutAuth_userInput = {
@@ -54450,7 +54450,7 @@ export namespace Prisma {
     whatsapp: string
     deleted_at?: Date | string | null
     otp?: number | null
-    id_user?: string | null
+    id_account?: string | null
     name: string
     email: string
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutCustomerInput
@@ -54473,7 +54473,7 @@ export namespace Prisma {
   export type managementUncheckedCreateWithoutAuth_userInput = {
     id?: string
     name: string
-    id_user?: string | null
+    id_account?: string | null
   }
 
   export type managementCreateOrConnectWithoutAuth_userInput = {
@@ -54494,7 +54494,7 @@ export namespace Prisma {
 
   export type publisherUncheckedCreateWithoutAuth_userInput = {
     id?: string
-    id_user?: string | null
+    id_account?: string | null
     name: string
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
@@ -54517,7 +54517,7 @@ export namespace Prisma {
   export type sales_and_marketingUncheckedCreateWithoutAuth_userInput = {
     id?: string
     name: string
-    id_user?: string | null
+    id_account?: string | null
   }
 
   export type sales_and_marketingCreateOrConnectWithoutAuth_userInput = {
@@ -54534,7 +54534,7 @@ export namespace Prisma {
   export type supportUncheckedCreateWithoutAuth_userInput = {
     id?: string
     name: string
-    id_user?: string | null
+    id_account?: string | null
   }
 
   export type supportCreateOrConnectWithoutAuth_userInput = {
@@ -54654,7 +54654,7 @@ export namespace Prisma {
   export type affiliateUncheckedUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type authorUpsertWithoutAuth_userInput = {
@@ -54714,7 +54714,7 @@ export namespace Prisma {
     whatsapp?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     otp?: NullableIntFieldUpdateOperationsInput | number | null
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     customer_reader?: customer_readerUncheckedUpdateManyWithoutCustomerNestedInput
@@ -54743,7 +54743,7 @@ export namespace Prisma {
   export type managementUncheckedUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type publisherUpsertWithoutAuth_userInput = {
@@ -54770,7 +54770,7 @@ export namespace Prisma {
 
   export type publisherUncheckedUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
@@ -54799,7 +54799,7 @@ export namespace Prisma {
   export type sales_and_marketingUncheckedUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type supportUpsertWithoutAuth_userInput = {
@@ -54822,7 +54822,7 @@ export namespace Prisma {
   export type supportUncheckedUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type auth_userCreateWithoutAuthorInput = {
@@ -56314,7 +56314,7 @@ export namespace Prisma {
     whatsapp: string
     deleted_at?: Date | string | null
     otp?: number | null
-    id_user?: string | null
+    id_account?: string | null
     name: string
     email: string
     auth_user?: auth_userUncheckedCreateNestedManyWithoutCustomerInput
@@ -56421,7 +56421,7 @@ export namespace Prisma {
     whatsapp?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     otp?: NullableIntFieldUpdateOperationsInput | number | null
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUncheckedUpdateManyWithoutCustomerNestedInput
@@ -56518,7 +56518,7 @@ export namespace Prisma {
     whatsapp: string
     deleted_at?: Date | string | null
     otp?: number | null
-    id_user?: string | null
+    id_account?: string | null
     name: string
     email: string
     auth_user?: auth_userUncheckedCreateNestedManyWithoutCustomerInput
@@ -56562,7 +56562,7 @@ export namespace Prisma {
     whatsapp?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     otp?: NullableIntFieldUpdateOperationsInput | number | null
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUncheckedUpdateManyWithoutCustomerNestedInput
@@ -57500,7 +57500,7 @@ export namespace Prisma {
 
   export type publisherUncheckedCreateWithoutPromo_codeInput = {
     id?: string
-    id_user?: string | null
+    id_account?: string | null
     name: string
     auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
@@ -57538,7 +57538,7 @@ export namespace Prisma {
 
   export type publisherUncheckedUpdateWithoutPromo_codeInput = {
     id?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
@@ -58019,7 +58019,7 @@ export namespace Prisma {
 
   export type publisherUncheckedCreateWithoutPublisher_authorInput = {
     id?: string
-    id_user?: string | null
+    id_account?: string | null
     name: string
     auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
@@ -58084,7 +58084,7 @@ export namespace Prisma {
 
   export type publisherUncheckedUpdateWithoutPublisher_authorInput = {
     id?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
@@ -58462,7 +58462,7 @@ export namespace Prisma {
 
   export type publisherUncheckedCreateWithoutT_ai_creditInput = {
     id?: string
-    id_user?: string | null
+    id_account?: string | null
     name: string
     auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
@@ -58524,7 +58524,7 @@ export namespace Prisma {
 
   export type publisherUncheckedUpdateWithoutT_ai_creditInput = {
     id?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
@@ -58623,7 +58623,7 @@ export namespace Prisma {
     whatsapp: string
     deleted_at?: Date | string | null
     otp?: number | null
-    id_user?: string | null
+    id_account?: string | null
     name: string
     email: string
     auth_user?: auth_userUncheckedCreateNestedManyWithoutCustomerInput
@@ -58695,7 +58695,7 @@ export namespace Prisma {
     whatsapp?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     otp?: NullableIntFieldUpdateOperationsInput | number | null
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUncheckedUpdateManyWithoutCustomerNestedInput
@@ -58739,7 +58739,7 @@ export namespace Prisma {
     whatsapp: string
     deleted_at?: Date | string | null
     otp?: number | null
-    id_user?: string | null
+    id_account?: string | null
     name: string
     email: string
     auth_user?: auth_userUncheckedCreateNestedManyWithoutCustomerInput
@@ -58846,7 +58846,7 @@ export namespace Prisma {
     whatsapp?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     otp?: NullableIntFieldUpdateOperationsInput | number | null
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUncheckedUpdateManyWithoutCustomerNestedInput
@@ -59237,7 +59237,7 @@ export namespace Prisma {
 
   export type publisherUncheckedCreateWithoutTransactionInput = {
     id?: string
-    id_user?: string | null
+    id_account?: string | null
     name: string
     auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
@@ -59275,7 +59275,7 @@ export namespace Prisma {
 
   export type publisherUncheckedUpdateWithoutTransactionInput = {
     id?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
@@ -59297,7 +59297,7 @@ export namespace Prisma {
 
   export type publisherUncheckedCreateWithoutWithdrawalInput = {
     id?: string
-    id_user?: string | null
+    id_account?: string | null
     name: string
     auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
@@ -59335,7 +59335,7 @@ export namespace Prisma {
 
   export type publisherUncheckedUpdateWithoutWithdrawalInput = {
     id?: StringFieldUpdateOperationsInput | string
-    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
