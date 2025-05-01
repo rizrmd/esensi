@@ -40,7 +40,7 @@
   },
   "inlineChat.mode": "preview",
   "aiCommit.openRouterApiKey": "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",
-  "aiCommit.model": "meta-llama/llama-4-scout:free",
+  "aiCommit.model": "qwen/qwen3-32b:free",
   "aiCommit.prompt": "Generate a commit message: Start with a type (feat/fix/docs. Keep it under 50 characters. Use imperative mood. Do not quote. Do not output anything that is not a commit message. These are the changes:  {changes}",
   "git.enableSmartCommit": true,
   "extensions.ignoreRecommendations": true,
