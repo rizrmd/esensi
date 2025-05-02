@@ -80,13 +80,17 @@ export function useRoot() {
       await logRouteChange(path);
 
       const hostname = window.location.hostname;
-      const isFirebaseStudio = hostname.endsWith('.cloudworkstations.dev')
+      const isFirebaseStudio = hostname.endsWith('.github.dev')
       const isLocalhost = hostname === "localhost" || hostname === "127.0.0.1";
       let domainKey: null | string = null;
 
       // Determine the domain key based on environment
       if (isFirebaseStudio) {
-        const port = hostname.split("-").shift() as string;
+        const parts = hostname.split("-");
+        const lastPart = parts[parts.length - 1]!.split(
+          "."
+        );
+        const port = lastPart[0];
         domainKey = getDomainKeyByPort(port);
       } else if (isLocalhost) {
         // For localhost, use port number to determine domain

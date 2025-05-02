@@ -93,7 +93,7 @@ export function matchRoute(
     if (patternFirstSegment.includes('.') && isDomainSegment(patternFirstSegment)) {
       const currentHost = location.host;
       const isLocalhost = currentHost.includes('localhost') || currentHost.includes('127.0.0.1');
-      const isFirebaseStudio = currentHost.endsWith('.cloudworkstations.dev')
+      const isFirebaseStudio = currentHost.endsWith('.github.dev')
 
       // Check if current host matches a domain for this pattern's first segment
       const domainConfig = config.sites[patternFirstSegment as keyof typeof config.sites];

@@ -114,18 +114,18 @@ const sendEmail = async ({
   const mail =
     templateAlias && templateModel
       ? {
-          from: process.env.SMTP_FROM as string,
-          to,
-          templateAlias,
-          templateModel,
-        }
+        from: process.env.SMTP_FROM as string,
+        to,
+        templateAlias,
+        templateModel,
+      }
       : {
-          from: process.env.SMTP_FROM as string,
-          to,
-          subject,
-          text,
-          html,
-        };
+        from: process.env.SMTP_FROM as string,
+        to,
+        subject,
+        text,
+        html,
+      };
   try {
     await transporter.sendMail(mail);
   } catch (err) {
@@ -221,11 +221,17 @@ ${url}
       trusted.push(`http://localhost:${site.devPort}`);
     }
     if (url.hostname === "127.0.0.1" && !!forwardedHost) {
-      if (forwardedHost.endsWith(".cloudworkstations.dev")) {
+      if (forwardedHost.endsWith(".github.dev")) {
         const parts = forwardedHost.split("-");
 
         for (const site of Object.values(config.sites)) {
-          parts[0] = site.devPort + "";
+          const lastPart = parts[parts.length - 1]!.split(
+            "."
+          );
+
+          lastPart[0] = site.devPort! + '';
+          parts[parts.length - 1] = lastPart.join('.');
+
           trusted.push(`https://${parts.join("-")}`);
         }
       }
