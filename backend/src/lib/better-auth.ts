@@ -1,10 +1,11 @@
-import { betterAuth } from "better-auth";
-import { Pool } from "pg";
-import { username, twoFactor, openAPI } from "better-auth/plugins";
-import nodemailer from "nodemailer";
+import { APIError, betterAuth } from "better-auth";
+import { openAPI, twoFactor, username } from "better-auth/plugins";
 import { randomUUIDv7 } from "bun";
-import { dir } from "rlib/server";
-import { resetPassword } from "better-auth/api";
+import nodemailer from "nodemailer";
+import { Pool } from "pg";
+import { dir, type SiteConfig } from "rlib/server";
+import raw_config from "../../../config.json";
+const config = raw_config as SiteConfig;
 
 const templates = {
   emailVerification: await Bun.file(
@@ -46,6 +47,7 @@ const translateErrorMessage = (errorMessage: string): string => {
     "Email is required": "Email wajib diisi",
     "Invalid email format": "Format email tidak valid",
     "User not found": "Pengguna tidak ditemukan",
+    "User already exists": "Pengguna ini sudah pernah terdaftar",
     "Token expired": "Token sudah kedaluwarsa. Silakan meminta token baru",
     "Invalid token": "Token tidak valid",
     "Account already linked": "Akun sudah terhubung",
@@ -132,18 +134,24 @@ const sendEmail = async ({
 };
 
 export const auth = betterAuth({
+  hooks: {
+    async after(ctx) {
+      const error = (ctx as any).context?.returned as APIError;
+
+      if (error) {
+        error.message = translateErrorMessage(error.message);
+        error.body = {
+          ...error.body,
+          message: error.message
+        }
+      }
+
+      return ctx;
+    },
+  },
   advanced: {
     database: {
       generateId: () => randomUUIDv7(),
-    },
-    hooks: {
-      onError: (error: any) => {
-        // Translate error message if available
-        if (error.message) {
-          error.message = translateErrorMessage(error.message);
-        }
-        return error;
-      },
     },
   },
   database: new Pool({
@@ -204,13 +212,28 @@ ${url}
     //   fields: ["id", "name", "email", "picture", "user_friends"], // Extending list of fields
     // },
   },
-  trustedOrigins: [
-    "http://localhost:7500",
-    "http://localhost:8100",
-    "http://localhost:8500",
-  ],
+  trustedOrigins(req) {
+    const url = new URL(req.url);
+    const forwardedHost = req.headers.get("x-forwarded-host");
+    const trusted = [] as string[];
+
+    for (const site of Object.values(config.sites)) {
+      trusted.push(`http://localhost:${site.devPort}`);
+    }
+    if (url.hostname === "127.0.0.1" && !!forwardedHost) {
+      if (forwardedHost.endsWith(".cloudworkstations.dev")) {
+        const parts = forwardedHost.split("-");
+
+        for (const site of Object.values(config.sites)) {
+          parts[0] = site.devPort + "";
+          trusted.push(`https://${parts.join("-")}`);
+        }
+      }
+    }
+    return trusted;
+  },
   plugins: [
-    openAPI(), // /api/auth/refernce
+    openAPI(), // /api/auth/reference
     username(),
     twoFactor({
       otpOptions: {

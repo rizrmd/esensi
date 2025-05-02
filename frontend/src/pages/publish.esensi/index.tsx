@@ -20,16 +20,11 @@ export default () => {
           <div className="space-y-2">
             <Button className="w-full" asChild>
               <a
-                href={`${u.auth_esensi}/login?callbackURL=${u.publish_esensi}/dashboard`}
+                href={`${u.auth_esensi}/login?callbackURL=${encodeURIComponent(
+                  u.publish_esensi + "/dashboard"
+                )}`}
               >
-                Login
-              </a>
-            </Button>
-            <Button variant="outline" className="w-full" asChild>
-              <a
-                href={`${u.auth_esensi}/register?callbackURL=${u.publish_esensi}/onboarding`}
-              >
-                Register
+                Login ke Esensi
               </a>
             </Button>
           </div>

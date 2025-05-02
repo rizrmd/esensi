@@ -102,7 +102,6 @@ export function matchRoute(
         if (isFirebaseStudio) {
           const currentPort = currentHost.split('-').shift();
           const expectedPort = domainConfig.devPort?.toString();
-          console.log(expectedPort, currentPort, currentHost)
           if (expectedPort && currentPort !== expectedPort) {
             return null;
           }

@@ -144,7 +144,7 @@ export default () => {
                           window.location.replace(u.main_esensi);
                         else
                           navigate(
-                            "/login?callbackURL=" + callbackURL
+                            "/login?callbackURL=" + encodeURIComponent(callbackURL)
                           );
                       }, 2000);
                     }

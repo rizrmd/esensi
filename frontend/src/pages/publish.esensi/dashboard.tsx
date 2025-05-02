@@ -28,11 +28,7 @@ export default () => {
     </div>
   );
   return (
-    <Protected
-      role={["publisher", "author"]}
-      redirecURLtIfNotLoggedIn={"/"}
-      onboarding={true}
-    >
+    <Protected role={["publisher", "author"]} fallbackUrl={"/"}>
       {({ user }) => <>{content}</>}
     </Protected>
   );

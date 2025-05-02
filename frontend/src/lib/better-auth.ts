@@ -1,3 +1,4 @@
+import { current } from "@/components/app/protected";
 import { createAuthClient } from "better-auth/client";
 import { twoFactorClient } from "better-auth/client/plugins";
 
@@ -144,18 +145,13 @@ export const betterAuth = {
     });
     return { data, error };
   },
-  signOut: async ({
-    query,
-    fetchOptions,
-  }: {
-    query?: Record<string, any> | undefined;
-    fetchOptions?: FetchOptions | undefined;
-  } = {}) => {
-    const { data, error } = await authClient.signOut({
-      query,
-      fetchOptions,
+  signOut: () => {
+    return new Promise<void>((resolve) => {
+      if (current.iframe) {
+        current.iframe!.contentWindow!.postMessage("signout", "*");
+        current.signoutCallback = resolve;
+      }
     });
-    return { data, error };
   },
   useSession: () => {
     return authClient.useSession;

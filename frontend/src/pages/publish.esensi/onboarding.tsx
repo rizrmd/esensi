@@ -83,7 +83,7 @@ export default () => {
   };
 
   return (
-    <Protected role={["publisher", "author"]} redirecURLtIfNotLoggedIn={"/"}>
+    <Protected role={["publisher", "author"]} fallbackUrl={"/"}>
       {({ user }) => (
         <SideForm sideImage={"/img/side-bg.jpg"}>
           <div className="space-y-6">
