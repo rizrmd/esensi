@@ -77,7 +77,7 @@ const translateErrorMessage = (errorMessage: string): string => {
 
   // Check for specific parts of error messages
   for (const [key, value] of Object.entries(errorTranslations)) {
-    if (errorMessage.toLowerCase().includes(key.toLowerCase())) {
+    if (errorMessage?.toLowerCase().includes(key.toLowerCase())) {
       return value;
     }
   }

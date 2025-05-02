@@ -23,10 +23,12 @@ export type Role =
   | "affiliate"
   | "management";
 export const Protected: FC<{
-  children: ReactNode | ((opt: { user: User | null }) => ReactNode);
+  children:
+    | ReactNode
+    | ((opt: { user: User | null; missing_role: string[] }) => ReactNode);
   role?: Role | Role[] | "any";
   onLoad?: (opt: { user: null | User }) => void;
-  fallback?: (opt: { role: string[] }) => ReactNode;
+  fallback?: (opt: { missing_role: string[] }) => ReactNode;
   fallbackUrl?: string | null;
 }> = ({ children, role, fallback, onLoad, fallbackUrl }) => {
   const params = new URLSearchParams(location.search);
@@ -110,7 +112,16 @@ export const Protected: FC<{
     navigate(fallbackUrl);
   }
   if (local.missing_role.length > 0) {
-    if (fallback) return fallback({ role: local.missing_role });
+    if (fallbackUrl) {
+      navigate(fallbackUrl);
+      return;
+    }
+    if (fallback) {
+      const result = fallback({ missing_role: local.missing_role });
+      if (result) {
+        return result;
+      }
+    }
     return (
       <div className="flex flex-col items-center justify-center w-full min-h-[400px] py-12 space-y-4 md:space-y-8">
         <div className="flex flex-col items-center justify-center space-y-4">
@@ -119,10 +130,16 @@ export const Protected: FC<{
             <br /> Anda tidak memiliki akses.
           </h1>
           <div className="inline-flex items-center justify-center rounded-lg bg-gray-100 p-4 dark:bg-gray-800">
-            <img src="/img/forbidden.svg" className={css`max-height:300px;`} />
+            <img
+              src="/img/forbidden.svg"
+              className={css`
+                max-height: 300px;
+              `}
+            />
           </div>
           <div>
-            Anda tidak memiliki hak akses<br/> untuk halaman ini
+            Anda tidak memiliki hak akses
+            <br /> untuk halaman ini
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -149,7 +166,7 @@ export const Protected: FC<{
   return (
     <>
       {typeof children === "function"
-        ? children({ user: current.user })
+        ? children({ user: current.user, missing_role: local.missing_role })
         : children}
     </>
   );
