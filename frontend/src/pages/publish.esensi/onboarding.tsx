@@ -67,7 +67,7 @@ export default () => {
 
         // Redirect to dashboard after a short delay
         setTimeout(() => {
-          navigate("/publish.esensi/dashboard");
+          navigate("/dashboard");
         }, 2000);
       } else {
         // Show error message
