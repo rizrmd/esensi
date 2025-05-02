@@ -87,30 +87,19 @@ export default () => {
       {({ user }) => (
         <SideForm sideImage={"/img/side-bg.jpg"}>
           <div className="space-y-6">
-            <div className="flex items-center justify-start mb-6">
-              <div className="flex h-9 w-9 items-center justify-center">
-                <img
-                  src="/img/logo.webp"
-                  alt="Esensi Online"
-                  className="h-8 w-8"
-                />
-              </div>
-              <span className="ml-2 font-medium">Esensi Online</span>
-            </div>
-
             <div>
               <h1 className="text-2xl font-semibold mb-4 text-center">
-                Onboarding Publish Esensi Online
+                Onboarding
               </h1>
 
               {!local.role && !local.registrationSuccess && (
                 <div>
                   <div className="flex flex-col items-center mb-6">
                     <h2 className="text-xl font-medium mb-2">
-                      Mendaftar sebagai apa?
+                      Mau mendaftar sebagai apa?
                     </h2>
                     <p className="text-muted-foreground text-sm text-center">
-                      Silakan pilih peran yang sesuai dengan anda.
+                      Silakan pilih peran yang anda inginkan.
                     </p>
                   </div>
 
