@@ -50,8 +50,8 @@ export function parsePattern(pattern: string): RoutePattern {
   const regexParts = patternParts.map((part, index) => {
     // If this is the first non-empty part and contains a dot, it might be a domain
     if (index === 1 && part.includes('.') && isDomainSegment(part)) {
-      // Treat domain segment literally, escape any special regex characters
-      return part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      // Treat domain segment as optional when matching
+      return `(${part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})?`;
     }
 
     // Find all parameter patterns like [id] in the part
@@ -69,9 +69,11 @@ export function parsePattern(pattern: string): RoutePattern {
     return part;
   });
 
+  // Create regex pattern that makes domain segment optional
+  const regexPattern = regexParts.join("/").replace(/\/+/g, "/");
   return {
     pattern,
-    regex: new RegExp(`^${regexParts.join("/")}$`),
+    regex: new RegExp(`^${regexPattern}$`),
     paramNames,
   };
 }
@@ -80,66 +82,36 @@ export function matchRoute(
   path: string,
   routePattern: RoutePattern
 ): Params | null {
-  const pathParts = path.split('/');
-  const patternParts = routePattern.pattern.split('/');
-
-  // Check if first non-empty segment is a domain segment
-  if (pathParts.length > 1 && patternParts.length > 1) {
-    const pathFirstSegment = pathParts[1];
-    const patternFirstSegment = patternParts[1];
-
-
-    // If pattern has a domain segment (contains a dot)
-    if (patternFirstSegment.includes('.') && isDomainSegment(patternFirstSegment)) {
-      const currentHost = location.host;
-      const isLocalhost = currentHost.includes('localhost') || currentHost.includes('127.0.0.1');
-      const isFirebaseStudio = currentHost.endsWith('.github.dev')
-
-      // Check if current host matches a domain for this pattern's first segment
-      const domainConfig = config.sites[patternFirstSegment as keyof typeof config.sites];
-      if (domainConfig) {
-        // For localhost, match by port
-        if (isFirebaseStudio) {
-          const currentPort = currentHost.split('-').shift();
-          const expectedPort = domainConfig.devPort?.toString();
-          if (expectedPort && currentPort !== expectedPort) {
-            return null;
+  // Clean up the path first
+  const cleanPath = path.replace(/\/+/g, "/").replace(/\/$/, "");
+  
+  // If path doesn't start with domain but pattern has domain, try adding it
+  if (!cleanPath.includes(".esensi") && routePattern.pattern.includes(".esensi")) {
+    const domainSegment = routePattern.pattern.split("/")[1];
+    if (domainSegment && isDomainSegment(domainSegment)) {
+      // Try matching with domain added
+      const pathWithDomain = `/${domainSegment}${cleanPath}`;
+      const match = pathWithDomain.match(routePattern.regex);
+      if (match) {
+        const params: Params = {};
+        routePattern.paramNames.forEach((name, index) => {
+          const matched = match[index + (routePattern.pattern.includes(".esensi") ? 2 : 1)];
+          if (matched) {
+            params[name] = matched;
           }
-        }
-        else if (isLocalhost) {
-          // Extract port from current host (localhost:PORT format)
-          const currentPort = currentHost.split(':')[1];
-          // Check if port matches the config
-          const expectedPort = domainConfig.devPort?.toString();
-
-          // If port doesn't match and we have a specific expected port, don't match
-          if (expectedPort && currentPort !== expectedPort) {
-            return null;
-          }
-        }
-        // For production domains, match by domain name
-        else if (domainConfig.domains) {
-          // Check if current host matches one of the domains for this pattern
-          const matchesDomain = domainConfig.domains.some(domain =>
-            currentHost === domain
-          );
-
-          // If we're not on a matching domain, don't match
-          if (!matchesDomain) {
-            return null;
-          }
-        }
+        });
+        return params;
       }
     }
   }
 
-  // Handle hash fragments in the path
-  const match = (path.split("#").shift() || "").match(routePattern.regex);
+  // Regular matching
+  const match = cleanPath.match(routePattern.regex);
   if (!match) return null;
 
   const params: Params = {};
   routePattern.paramNames.forEach((name, index) => {
-    const matched = match[index + 1];
+    const matched = match[index + (routePattern.pattern.includes(".esensi") ? 2 : 1)];
     if (matched) {
       params[name] = matched;
     }
