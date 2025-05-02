@@ -34,7 +34,6 @@ export default defineAPI({
 });
 
 ```
-
 Do not use fetch on frontend, use api instead like this instead:
 
 ```

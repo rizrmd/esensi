@@ -40,7 +40,27 @@ const router = {
   currentPath: window.location.pathname,
   currentFullPath: window.location.pathname + window.location.hash,
   params: {} as Params,
+  hash: {} as Record<string, string>,
 };
+
+function parseHash(hash: string): Record<string, string> {
+  if (!hash || hash === '#') return {};
+  
+  // Remove the leading '#' character
+  const hashContent = hash.substring(1);
+  const params: Record<string, string> = {};
+  
+  // Split by & to get key-value pairs
+  const pairs = hashContent.split('&');
+  for (const pair of pairs) {
+    const [key, value] = pair.split('=');
+    if (key) {
+      params[key] = value || '';
+    }
+  }
+  
+  return params;
+}
 
 export function useRoot() {
   const local = useLocal({
@@ -52,10 +72,13 @@ export function useRoot() {
     const handlePathChange = () => {
       router.currentPath = window.location.pathname;
       router.currentFullPath = window.location.pathname + window.location.hash;
+      router.hash = parseHash(window.location.hash);
       setTimeout(local.render);
     };
 
     window.addEventListener("popstate", handlePathChange);
+    // Also handle initial hash
+    router.hash = parseHash(window.location.hash);
     return () => window.removeEventListener("popstate", handlePathChange);
   }, []);
 
@@ -185,6 +208,6 @@ export function useRouter() {
 export function useParams<T extends Record<string, string>>() {
   return {
     params: useContext(ParamsContext) as T,
-    hash: {} as Record<string, string>,
+    hash: router.hash,
   };
 }
