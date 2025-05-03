@@ -1,0 +1,41 @@
+import type { FC, ReactNode } from "react";
+import { PageHeader } from "../esensi/page-header";
+import { PageFooter } from "../esensi/page-footer";
+import { SidebarProvider } from "../ui/sidebar";
+import { AppSidebar } from "./sidebar";
+
+type MainEsensiLayoutProps = {
+  children: ReactNode;
+  title?: string;
+  showBack?: boolean;
+  showLogo?: boolean;
+  showSearch?: boolean;
+};
+
+export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
+  children,
+  title = "Esensi Online",
+  showBack = true,
+  showLogo = true,
+  showSearch = true,
+}) => {
+  return (
+    <div className="flex flex-1 flex-col gap-0 w-screen h-screen fixed p-0 m-0 overflow-hidden text-[color:#020817]">
+      <SidebarProvider>
+        <AppSidebar />
+        <div className="flex-1 flex flex-col min-h-0">
+          <PageHeader 
+            title={title}
+            back={showBack}
+            logo={showLogo}
+            search={showSearch}
+          />
+          <div className="flex-1 min-h-0 overflow-y-auto">
+            {children}
+          </div>
+          <PageFooter />
+        </div>
+      </SidebarProvider>
+    </div>
+  );
+};
