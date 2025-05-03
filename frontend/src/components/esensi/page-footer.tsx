@@ -54,7 +54,7 @@ export const PageFooter = () => {
     );
   });
   return (
-    <div className="flex flex-row justify-around items-center w-full pt-2 pb-2 h-[60px] border-t-2 border-t-[color:#D3d3d3]">
+    <div className="flex md:hidden flex-row justify-around items-center w-full pt-2 pb-2 h-[60px] border-t-2 border-t-[color:#D3d3d3]">
       {menuButtons}
     </div>
   );

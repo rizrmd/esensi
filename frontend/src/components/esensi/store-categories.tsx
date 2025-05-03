@@ -19,7 +19,7 @@ export const StoreCategories: FC<{
   });
 
   return (
-    <div className="flex w-full overflow-x-auto border-b-[1px] border-b-[color:#D3d3d3]">
+    <div className="flex md:hidden w-full overflow-x-auto border-b-[1px] border-b-[color:#D3d3d3]">
       <div className="flex flex-nowrap flex-row items-center gap-6 px-6 max-w-max h-15 text-nowrap">
         {loading ? "Loading..." : category_list}
       </div>

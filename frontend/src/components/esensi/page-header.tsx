@@ -106,7 +106,7 @@ export const PageHeader = ({
   );
 
   return (
-    <div className="w-full h-auto border-b-2 border-b-[color:#D3d3d3]">
+    <div className="md:hidden w-full h-auto border-b-2 border-b-[color:#D3d3d3]">
       <div className="w-full h-12 flex flex-1 flex-nowrap gap-0 items-stretch">
         {isSearching ? mode_searching : mode_normal}
       </div>
