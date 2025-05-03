@@ -1,17 +1,10 @@
-import { PageHeader } from "@/components/esensi/page-header";
-import { PageFooter } from "@/components/esensi/page-footer";
-import {
-  StoreCategories,
-  type StoreCategoryItem,
-} from "@/components/esensi/store-categories";
-import {
-  StoreBooksCard,
-  type StoreBooksCardItem,
-} from "@/components/esensi/store-books-card";
+import { StoreCategories, type StoreCategoryItem } from "@/components/esensi/store-categories";
+import { StoreBooksCard, type StoreBooksCardItem } from "@/components/esensi/store-books-card";
 import { FeaturedBooks } from "@/components/esensi/featured-books";
 import { BooksByCategory } from "@/components/esensi/books-by-category";
 import { useLocal } from "@/lib/hooks/use-local";
 import { api } from "@/lib/gen/main.esensi";
+import { MainEsensiLayout } from "@/components/app/main-esensi-layout";
 
 export default () => {
   const local = useLocal(
@@ -30,7 +23,6 @@ export default () => {
         };
       });
       local.cats_loading = false;
-
       local.allbooks_list = res.allbooks;
       local.allbooks_loading = false;
       local.render();
@@ -38,38 +30,24 @@ export default () => {
   );
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 relative">
-      <div className="flex-1 min-h-0 overflow-y-auto">
-        <div className="w-full flex flex-col justify-center gap-10">
-          <StoreCategories
-            loading={local.cats_loading}
-            list={local.cats_list}
+    <MainEsensiLayout title="Toko Buku">
+      <div className="w-full flex flex-col justify-center gap-10">
+        <StoreCategories loading={local.cats_loading} list={local.cats_list} />
+        <div className="w-full flex flex-col justify-center gap-10 md:gap-20 lg:px-16 lg:pb-8">
+          <StoreBooksCard loading={local.allbooks_loading} list={local.allbooks_list} />
+          <BooksByCategory
+            category="parenting"
+            title="Parenting"
+            subtitle="Buku tentang parenting"
           />
-          <div className="w-full flex flex-col justify-center gap-10 md:gap-20 lg:px-16 lg:pb-8">
-            <StoreBooksCard
-              loading={local.allbooks_loading}
-              list={local.allbooks_list}
-            />
-            <BooksByCategory
-              category="parenting"
-              title="Parenting"
-              subtitle="Buku tentang parenting"
-            />
-            <FeaturedBooks />
-            <BooksByCategory
-              category="parenting"
-              title="Parenting"
-              subtitle="Buku tentang parenting"
-            />
-            <BooksByCategory
-              category="parenting"
-              title="Parenting"
-              subtitle="Buku tentang parenting"
-            />
-          </div>
+          <FeaturedBooks />
+          <BooksByCategory
+            category="parenting"
+            title="Parenting"
+            subtitle="Buku tentang parenting"
+          />
         </div>
       </div>
-      <PageFooter />
-    </div>
+    </MainEsensiLayout>
   );
 };
