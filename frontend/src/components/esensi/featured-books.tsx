@@ -173,7 +173,7 @@ export const FeaturedBooks = () => {
           }
 
           const price_and_bundles = (
-            <div className="flex justify-stretch items-stretch w-full lg:max-w-2/3 max-h-[75px] md:max-h-[60px] gap-3 text-nowrap">
+            <div className="flex justify-stretch items-stretch w-full lg:max-w-full max-h-[75px] md:max-h-[60px] gap-3 text-nowrap">
               <div className="flex flex-col justify-center items-start w-auto min-w-36 gap-2 md:gap-0 px-2 py-1.5 border-[1px] border-[color:#4d5094] rounded-lg">
                 {strikePriceDiv}
                 <div className="flex w-full justify-center text-[color:#d0011b] text-xl font-bold">

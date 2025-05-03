@@ -30,7 +30,7 @@ export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
             logo={showLogo}
             search={showSearch}
           />
-          <div className="flex-1 min-h-0 overflow-y-auto">
+          <div className="flex-1 min-h-0 overflow-y-auto lg:py-10">
             {children}
           </div>
           <PageFooter />

@@ -9,18 +9,22 @@ export default defineAPI({
     
     // Get all books
     const allbooks = await db.product.findMany({
+      select: {
+        name: true,
+        real_price: true,
+        strike_price: true,
+        currency: true,
+        cover: true,
+        slug: true,
+      },
       where: {
         deleted_at: null,
-        status: "active"
+        status: "published",
       },
-      include: {
-        author: true,
-        product_category: {
-          include: {
-            category: true
-          }
-        }
-      }
+      take: 12,
+      orderBy: {
+        published_date: "desc",
+      },
     });
 
     // Get all categories
@@ -29,7 +33,6 @@ export default defineAPI({
         deleted_at: null
       }
     });
-
     return {
       allbooks,
       categories

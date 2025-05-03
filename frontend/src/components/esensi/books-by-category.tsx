@@ -35,23 +35,25 @@ export const BooksByCategory = ({
     );
 
   const link_button = showLink ? (
-    <Button asChild variant="ghost" className="h-full w-auto aspect-square">
-      <Link
-        href={`/category/${theCategory}`}
-        className="flex h-full w-auto aspect-square justify-center items-center"
-      >
-        <ChevronRight size={48} strokeWidth={1.5} />
-      </Link>
+    <Button variant="ghost" className="h-full w-auto aspect-square flex h-full w-auto aspect-square justify-center items-center">
+      <ChevronRight size={48} strokeWidth={1.5} />
     </Button>
-  ) : (
-    ""
-  );
-  const heading = (
-    <div className="flex flex-1 flex-row justify-between w-full h-12">
+  ) : ("");
+  const heading = showLink ? (
+    <Link
+      href={`/category/${theCategory}`}
+      className="flex flex-1 flex-row justify-between w-full h-12"
+    >
       <div className="flex flex-1 flex-col w-full h-full items-start justify-between">
         {the_title} {the_subtitle}
       </div>
       {link_button}
+    </Link>
+  ) : (
+    <div className="flex flex-1 flex-row justify-between w-full h-12">
+      <div className="flex flex-1 flex-col w-full h-full items-start justify-between">
+        {the_title} {the_subtitle}
+      </div>
     </div>
   );
 
@@ -172,13 +174,13 @@ export const BooksByCategory = ({
   const the_content =
     book_data.length > 0
       ? book_data.map((book, idx) => {
-          return (
-            <BookCardAlt
-              data={book}
-              key={`home_categories_books_${theCategory}_${idx}`}
-            />
-          );
-        })
+        return (
+          <BookCardAlt
+            data={book}
+            key={`home_categories_books_${theCategory}_${idx}`}
+          />
+        );
+      })
       : book_empty;
 
   return (

@@ -24,13 +24,7 @@ export default () => {
       });
       local.cats_loading = false;
 
-      local.allbooks_list = res.allbooks.map(book => ({
-        id: book.id,
-        title: book.name,
-        price: book.real_price,
-        image: book.cover,
-        author: book.author.name,
-      }));
+      local.allbooks_list = res.allbooks;
       local.allbooks_loading = false;
       local.render();
     }

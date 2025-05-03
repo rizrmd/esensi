@@ -35,11 +35,11 @@ export const BookCard = ({ data }) => {
         {discount}
         <img
           src={`https://esensi.online/${data.cover.replace("_file/", "_img/")}?w=200`}
-          alt={data.name.replace("'", "").replace('"', "")}
+          alt={data!.name.replace("'", "").replace('"', "")}
           className="aspect-3/4 object-cover object-center rounded-[4px]"
         />
       </div>
-      <h3 className="flex flex-1 text-[12px] text-center">{data.name}</h3>
+      <h3 className="flex flex-1 text-[12px] text-center">{data!.name}</h3>
       <div className="flex flex-row justify-between items-center w-full gap-3 text-nowrap">
         {strikePrice}
         <div className="w-auto text-[color:#d0011b] font-bold">
