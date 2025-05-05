@@ -1,4 +1,4 @@
-// Types for the dashboard components
+// Type definitions for dashboard components
 
 export interface Product {
   id: string;
@@ -6,15 +6,13 @@ export interface Product {
   cover?: string;
   status: string;
   real_price: number;
-  author?: {
-    name: string;
-  };
+  author: { name: string };
 }
 
 export interface Author {
   id: string;
   name: string;
-  auth_user?: Array<{ email: string }>;
+  auth_user?: { email: string }[];
   productCount?: number;
 }
 
@@ -32,24 +30,35 @@ export interface Withdrawal {
   requested_at: string;
 }
 
-export interface TransactionsData {
+export interface TransactionData {
   balance: number;
   transactions: Transaction[];
   withdrawals: Withdrawal[];
+}
+
+export interface PublisherData {
+  id: string;
+  name: string;
+  description?: string;
+  logo?: string;
+  website?: string;
+  created_at: string;
 }
 
 export interface AuthorData {
   id: string;
   name: string;
   email: string;
+  bio?: string;
+  avatar?: string;
 }
 
 export interface DashboardData {
-  publisherData: any;
+  publisherData: PublisherData | null;
   authorData: AuthorData | null;
   products: Product[];
   authors: Author[];
-  transactions: TransactionsData | null;
+  transactions: TransactionData | null;
 }
 
 // Helper functions
