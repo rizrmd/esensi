@@ -1,8 +1,8 @@
-import { defineAPI } from "rlib/server";
+import { defineAPI, html } from "rlib/server";
 
 export default defineAPI({
   name: "store",
-  url: "/store/:slug",
+  url: "/store",
   async handler() {
     const req = this.req!;
     console.log("route: " + "/api/store");
@@ -34,13 +34,13 @@ export default defineAPI({
       },
     });
 
-    return (
+    return html(
       <>
         <head>
           <title>{}</title>
         </head>
         <body>
-          <>ansi</>
+          <>an si</>
         </body>
       </>
     );
