@@ -40,3 +40,6 @@ Do not use fetch on frontend, use api instead like this instead:
 import { api } from "@/lib/gen/auth.esensi";
 const res = await api.auth_user({ username: username! });
 ```
+
+If you import a type, not a variable, then it must be imported using a type-only import when 'verbatimModuleSyntax' is enabled. For example `import type { User } from "better-auth/types";`
+
