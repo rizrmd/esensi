@@ -2,11 +2,11 @@ import { defineAPI } from "rlib/server";
 
 export default defineAPI({
   name: "store",
-  url: "/api/store",
+  url: "/store/:slug",
   async handler() {
     const req = this.req!;
     console.log("route: " + "/api/store");
-    
+
     // Get all books
     const allbooks = await db.product.findMany({
       select: {
@@ -30,12 +30,19 @@ export default defineAPI({
     // Get all categories
     const categories = await db.category.findMany({
       where: {
-        deleted_at: null
-      }
+        deleted_at: null,
+      },
     });
-    return {
-      allbooks,
-      categories
-    };
+
+    return (
+      <>
+        <head>
+          <title>{}</title>
+        </head>
+        <body>
+          <>ansi</>
+        </body>
+      </>
+    );
   },
 });
