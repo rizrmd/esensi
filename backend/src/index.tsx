@@ -39,9 +39,9 @@ const onFetch: onFetch = async ({ url, req }) => {
     }
   }
 };
+const index = (await import("frontend/entry/index.html")).default;
 
 if (isDev) {
-  const index = (await import("frontend/entry/index.html")).default;
   initDev({
     index,
     loadApi,
@@ -51,6 +51,7 @@ if (isDev) {
 } else {
   const config = (await import("../../config.json")) as SiteConfig;
   initProd({
+    index,
     loadApi,
     loadModels,
     onFetch,
