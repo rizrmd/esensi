@@ -13,7 +13,7 @@ export const FinanceTab = ({ data }: FinanceTabProps) => {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Keuangan</h1>
-      
+
       {/* Balance Card */}
       <Card>
         <CardHeader>
@@ -21,14 +21,16 @@ export const FinanceTab = ({ data }: FinanceTabProps) => {
         </CardHeader>
         <CardContent>
           <div className="text-4xl font-bold mb-4">
-            {data.transactions ? formatCurrency(data.transactions.balance) : "Rp 0"}
+            {data.transactions
+              ? formatCurrency(data.transactions.balance)
+              : "Rp 0"}
           </div>
-          <Button onClick={() => navigate('/publish/withdrawal')}>
+          <Button onClick={() => navigate("/publish/withdrawal")}>
             Ajukan Penarikan
           </Button>
         </CardContent>
       </Card>
-      
+
       {/* Recent Transactions */}
       <div>
         <h2 className="text-xl font-semibold mb-4">Transaksi Terbaru</h2>
@@ -43,13 +45,20 @@ export const FinanceTab = ({ data }: FinanceTabProps) => {
                       {formatDate(transaction.created_at)}
                     </div>
                   </div>
-                  <div className={`font-medium ${transaction.amount >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  <div
+                    className={`font-medium ${
+                      transaction.amount >= 0
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
                     {formatCurrency(transaction.amount)}
                   </div>
                 </div>
               ))}
-              
-              {(!data.transactions?.transactions || data.transactions.transactions.length === 0) && (
+
+              {(!data.transactions?.transactions ||
+                data.transactions.transactions.length === 0) && (
                 <div className="p-4 text-center text-muted-foreground">
                   Belum ada transaksi
                 </div>
@@ -58,7 +67,7 @@ export const FinanceTab = ({ data }: FinanceTabProps) => {
           </CardContent>
         </Card>
       </div>
-      
+
       {/* Recent Withdrawals */}
       <div>
         <h2 className="text-xl font-semibold mb-4">Penarikan Terbaru</h2>
@@ -70,14 +79,24 @@ export const FinanceTab = ({ data }: FinanceTabProps) => {
                   <div>
                     <div className="font-medium">
                       Penarikan{" "}
-                      <Badge variant={
-                        withdrawal.status === "completed" ? "default" :
-                        withdrawal.status === "pending" ? "outline" : 
-                        withdrawal.status === "rejected" ? "destructive" : "secondary"
-                      }>
-                        {withdrawal.status === "completed" ? "Selesai" :
-                        withdrawal.status === "pending" ? "Menunggu" :
-                        withdrawal.status === "rejected" ? "Ditolak" : withdrawal.status}
+                      <Badge
+                        variant={
+                          withdrawal.status === "completed"
+                            ? "default"
+                            : withdrawal.status === "pending"
+                            ? "outline"
+                            : withdrawal.status === "rejected"
+                            ? "destructive"
+                            : "secondary"
+                        }
+                      >
+                        {withdrawal.status === "completed"
+                          ? "Selesai"
+                          : withdrawal.status === "pending"
+                          ? "Menunggu"
+                          : withdrawal.status === "rejected"
+                          ? "Ditolak"
+                          : withdrawal.status}
                       </Badge>
                     </div>
                     <div className="text-sm text-muted-foreground">
@@ -89,8 +108,9 @@ export const FinanceTab = ({ data }: FinanceTabProps) => {
                   </div>
                 </div>
               ))}
-              
-              {(!data.transactions?.withdrawals || data.transactions.withdrawals.length === 0) && (
+
+              {(!data.transactions?.withdrawals ||
+                data.transactions.withdrawals.length === 0) && (
                 <div className="p-4 text-center text-muted-foreground">
                   Belum ada penarikan
                 </div>

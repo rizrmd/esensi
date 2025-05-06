@@ -139,7 +139,7 @@ export default () => {
         
         // Redirect to dashboard after successful save
         setTimeout(() => {
-          navigate("/publish.esensi/dashboard");
+          navigate("/dashboard");
         }, 2000);
       } else {
         local.error = result.message || "Gagal menyimpan buku";
@@ -184,7 +184,7 @@ export default () => {
                   <span className="font-medium">Terbitkan Buku</span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <Button variant="ghost" onClick={() => navigate("/publish.esensi/dashboard")}>
+                  <Button variant="ghost" onClick={() => navigate("/dashboard")}>
                     Kembali ke Dashboard
                   </Button>
                   <Button variant="outline" onClick={logout}>Keluar</Button>

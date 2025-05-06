@@ -23,7 +23,7 @@ export const OverviewTab = ({ data, isPublisher }: OverviewTabProps) => {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-tight">Ikhtisar</h1>
         <div className="flex items-center gap-2">
-          <Button onClick={() => navigate("/publish.esensi/create-book")}>
+          <Button onClick={() => navigate("/create-book")}>
             Terbitkan Buku Baru
           </Button>
         </div>
@@ -113,7 +113,7 @@ export const OverviewTab = ({ data, isPublisher }: OverviewTabProps) => {
         ) : (
           <div className="bg-muted/40 rounded-lg p-8 text-center">
             <p className="text-muted-foreground mb-4">Belum ada produk yang diterbitkan</p>
-            <Button onClick={() => navigate("/publish.esensi/create-book")}>
+            <Button onClick={() => navigate("/create-book")}>
               Terbitkan Buku Baru
             </Button>
           </div>

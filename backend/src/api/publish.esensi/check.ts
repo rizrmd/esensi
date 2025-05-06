@@ -6,6 +6,6 @@ export default defineAPI({
   async handler() {
     const req = this.req!;
     console.log("route: " + "/api/check");
-    return {mantap: 'jiwa'};
+    return { mantap: "jiwa" };
   },
 });

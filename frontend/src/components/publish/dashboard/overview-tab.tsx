@@ -1,5 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { navigate } from "@/lib/router";
 import { formatCurrency } from "./types";
@@ -15,7 +22,7 @@ export const OverviewTab = ({ data, isPublisher }: OverviewTabProps) => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Ikhtisar</h1>
-        <Button onClick={() => navigate('/publish/new-product')}>
+        <Button onClick={() => navigate("/publish/new-product")}>
           + Produk Baru
         </Button>
       </div>
@@ -24,9 +31,7 @@ export const OverviewTab = ({ data, isPublisher }: OverviewTabProps) => {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">
-              Total Produk
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">Total Produk</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
@@ -34,7 +39,7 @@ export const OverviewTab = ({ data, isPublisher }: OverviewTabProps) => {
             </div>
           </CardContent>
         </Card>
-        
+
         {isPublisher && (
           <>
             <Card>
@@ -49,7 +54,7 @@ export const OverviewTab = ({ data, isPublisher }: OverviewTabProps) => {
                 </div>
               </CardContent>
             </Card>
-            
+
             <Card>
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium">
@@ -58,7 +63,9 @@ export const OverviewTab = ({ data, isPublisher }: OverviewTabProps) => {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {data.transactions ? formatCurrency(data.transactions.balance) : "Rp 0"}
+                  {data.transactions
+                    ? formatCurrency(data.transactions.balance)
+                    : "Rp 0"}
                 </div>
               </CardContent>
             </Card>
@@ -70,13 +77,12 @@ export const OverviewTab = ({ data, isPublisher }: OverviewTabProps) => {
       <div>
         <h2 className="mb-4 text-xl font-semibold">Produk Terbaru</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {(data.products?.length > 0 ? 
-            data.products.slice(0, 6) : 
-            []
-          ).map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-          
+          {(data.products?.length > 0 ? data.products.slice(0, 6) : []).map(
+            (product) => (
+              <ProductCard key={product.id} product={product} />
+            )
+          )}
+
           {data.products?.length === 0 && (
             <Card className="col-span-full p-6 text-center">
               <p className="text-muted-foreground">
@@ -100,27 +106,36 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       <div className="aspect-[4/3] relative">
         {product.cover && (
           <img
-            src={`https://esensi.online/${product.cover.replace("_file/", "_img/")}?w=300`}
+            src={`https://esensi.online/${product.cover.replace(
+              "_file/",
+              "_img/"
+            )}?w=300`}
             alt={product.name}
             className="object-cover w-full h-full"
           />
         )}
       </div>
       <CardHeader className="p-4">
-        <CardTitle className="line-clamp-1 text-md">
-          {product.name}
-        </CardTitle>
+        <CardTitle className="line-clamp-1 text-md">{product.name}</CardTitle>
         <CardDescription className="line-clamp-1">
           {product.author?.name || ""}
         </CardDescription>
       </CardHeader>
       <CardFooter className="p-4 pt-0 flex justify-between">
-        <Badge variant={
-          product.status === "published" ? "default" :
-          product.status === "draft" ? "outline" : "secondary"
-        }>
-          {product.status === "published" ? "Terbit" :
-           product.status === "draft" ? "Draft" : product.status}
+        <Badge
+          variant={
+            product.status === "published"
+              ? "default"
+              : product.status === "draft"
+              ? "outline"
+              : "secondary"
+          }
+        >
+          {product.status === "published"
+            ? "Terbit"
+            : product.status === "draft"
+            ? "Draft"
+            : product.status}
         </Badge>
         <span className="font-medium">
           {formatCurrency(product.real_price)}

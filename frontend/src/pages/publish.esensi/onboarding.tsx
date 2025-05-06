@@ -70,7 +70,7 @@ export default () => {
       
       if (hasAuthorRole || hasPublisherRole) {
         // User already has a role, redirect to dashboard
-        navigate("/publish.esensi/dashboard");
+        navigate("/dashboard");
         return;
       }
       
@@ -121,7 +121,7 @@ export default () => {
           
           // Redirect to dashboard after successful onboarding
           setTimeout(() => {
-            navigate("/publish.esensi/dashboard");
+            navigate("/dashboard");
           }, 2000);
         } else {
           local.error = result.message || "Gagal membuat profil penerbit";
@@ -149,7 +149,7 @@ export default () => {
           
           // Redirect to dashboard after successful onboarding
           setTimeout(() => {
-            navigate("/publish.esensi/dashboard");
+            navigate("/dashboard");
           }, 2000);
         } else {
           local.error = result.message || "Gagal membuat profil penulis";

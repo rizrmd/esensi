@@ -131,7 +131,7 @@ export default () => {
           missing_role.includes("publisher") ||
           missing_role.includes("author")
         ) {
-          navigate("/publish.esensi/onboarding");
+          navigate("/onboarding");
           return <AppLoading />;
         }
       }}
