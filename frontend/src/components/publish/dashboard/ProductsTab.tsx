@@ -175,10 +175,10 @@ export const ProductsTab = ({ data }: ProductsTabProps) => {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => navigate(`/publish.esensi/edit-book/${product.id}`)}>
+                        <DropdownMenuItem onClick={() => navigate(`/edit-book/${product.id}`)}>
                           Edit
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => navigate(`/publish.esensi/preview-book/${product.id}`)}>
+                        <DropdownMenuItem onClick={() => navigate(`/preview-book/${product.id}`)}>
                           Pratinjau
                         </DropdownMenuItem>
                         <DropdownMenuItem>

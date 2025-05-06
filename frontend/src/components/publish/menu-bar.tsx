@@ -5,14 +5,26 @@ import { navigate } from "@/lib/router";
 import { useRoot } from "@/lib/hooks/use-router";
 
 const menu = [
-  { label: "Beranda", href: "/publish.esensi/dashboard" },
-  { label: "Buat Buku", href: "/publish.esensi/create-book" },
-  { label: "Onboarding", href: "/publish.esensi/onboarding" },
+  { label: "Beranda", href: "/dashboard" },
+  { label: "Buat Buku", href: "/create-book" },
+  { label: "Keluar", action: "signout" },
 ];
 
 export const PublishMenuBar = () => {
   const { currentPath } = useRoot();
   const local = useLocal({}, async () => {});
+
+  const handleMenuClick = (item: typeof menu[number]) => {
+    if (item.action === "signout") {
+      // TODO: implement sign out logic, e.g. clear session and redirect
+      // For now, just redirect to login page
+      navigate("/auth/login");
+      return;
+    }
+    if (item.href) {
+      navigate(item.href);
+    }
+  };
 
   return (
     <nav className="sticky top-0 z-30 w-full border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
@@ -24,10 +36,10 @@ export const PublishMenuBar = () => {
         <div className="flex gap-2">
           {menu.map((item) => (
             <Button
-              key={item.href}
+              key={item.href || item.action}
               variant={currentPath === item.href ? "default" : "ghost"}
               className="font-medium"
-              onClick={() => navigate(item.href)}
+              onClick={() => handleMenuClick(item)}
             >
               {item.label}
             </Button>

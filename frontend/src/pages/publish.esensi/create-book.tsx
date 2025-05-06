@@ -6,7 +6,6 @@ import { navigate } from "@/lib/router";
 import { betterAuth } from "@/lib/better-auth";
 import { useLocal } from "@/lib/hooks/use-local";
 import { api } from "@/lib/gen/publish.esensi";
-import { PublishMenuBar } from "@/components/publish/menu-bar";
 
 import {
   Card,
@@ -159,7 +158,6 @@ export default () => {
         const isPublisher = !!user?.id_publisher;
         return (
           <div className="flex min-h-svh flex-col bg-muted/50">
-            <PublishMenuBar />
             {/* Header */}
             <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-20 shadow-sm">
               <div className="flex h-16 items-center justify-between px-4 md:px-8 lg:px-16">
