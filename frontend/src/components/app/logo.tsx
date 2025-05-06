@@ -1,10 +1,11 @@
 import { GalleryVerticalEnd } from "lucide-react";
 import type { FC } from "react";
 
-export const AppLogo: FC<{ text?: boolean; small?: boolean }> = ({
-  text,
-  small,
-}) => {
+export const AppLogo: FC<{
+  text?: boolean;
+  small?: boolean;
+  className?: string;
+}> = ({ text, small }) => {
   if (small) {
     return (
       <a href="#" className="flex items-center gap-[6px] font-medium text-xs">
