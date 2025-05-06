@@ -157,123 +157,125 @@ export default () => {
     >
       {({ user }) => {
         const isPublisher = !!user?.id_publisher;
-        
         return (
-          <div className="flex min-h-svh flex-col">
+          <div className="flex min-h-svh flex-col bg-muted/50">
             <PublishMenuBar />
             {/* Header */}
-            <header className="border-b">
-              <div className="flex h-16 items-center justify-between px-4 md:px-6">
-                <div className="flex items-center">
+            <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-20 shadow-sm">
+              <div className="flex h-16 items-center justify-between px-4 md:px-8 lg:px-16">
+                <div className="flex items-center gap-2">
                   <AppLogo />
-                  <span className="mx-2">/</span>
-                  <span className="font-medium">Terbitkan Buku</span>
+                  <span className="mx-2 text-muted-foreground">/</span>
+                  <span className="font-semibold text-lg">Terbitkan Buku</span>
                 </div>
-                <div className="flex items-center gap-4">
-                  <Button variant="ghost" onClick={() => navigate("/dashboard")}>
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" onClick={() => navigate("/dashboard")}
+                    className="font-medium">
                     Kembali ke Dashboard
                   </Button>
-                  <Button variant="outline" onClick={logout}>Keluar</Button>
+                  <Button variant="outline" onClick={logout} className="font-medium">Keluar</Button>
                 </div>
               </div>
             </header>
 
             {/* Main Content */}
-            <div className="flex-1 container py-6 md:py-10">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Terbitkan Buku Baru</CardTitle>
-                  <CardDescription>
+            <main className="flex-1 flex justify-center items-start py-8 md:py-14">
+              <Card className="w-full max-w-4xl shadow-lg border-0">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-2xl font-bold mb-1">Terbitkan Buku Baru</CardTitle>
+                  <CardDescription className="text-base text-muted-foreground">
                     Lengkapi informasi dan unggah file buku untuk menerbitkannya di platform kami.
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-0">
                   <Tabs value={local.activeTab} onValueChange={(value) => {
                     local.activeTab = value;
                     local.render();
                   }} className="w-full">
-                    <TabsList className="grid grid-cols-3 mb-8">
-                      <TabsTrigger value="info">Informasi Buku</TabsTrigger>
-                      <TabsTrigger value="content">Konten Buku</TabsTrigger>
-                      <TabsTrigger value="preview">Tinjau & Terbitkan</TabsTrigger>
+                    <TabsList className="flex justify-center mb-8 bg-muted rounded-lg overflow-hidden gap-0">
+                      <TabsTrigger value="info" className="text-base py-3 flex-1">Informasi Buku</TabsTrigger>
+                      <TabsTrigger value="content" className="text-base py-3 flex-1">Konten Buku</TabsTrigger>
+                      <TabsTrigger value="preview" className="text-base py-3 flex-1">Tinjau & Terbitkan</TabsTrigger>
                     </TabsList>
-                    <TabsContent value="info">
-                      <BookForm 
-                        onSubmit={handleInfoSubmit}
-                        initialData={local.bookData}
-                      />
+                    <TabsContent value="info" className="animate-fade-in">
+                      <div className="max-w-2xl mx-auto">
+                        <BookForm 
+                          onSubmit={handleInfoSubmit}
+                          initialData={local.bookData}
+                        />
+                      </div>
                     </TabsContent>
-                    <TabsContent value="content">
-                      <BookContent 
-                        onSubmit={handleContentSubmit}
-                        initialData={local.bookData}
-                        onBack={() => {
-                          local.activeTab = "info";
-                          local.render();
-                        }}
-                      />
+                    <TabsContent value="content" className="animate-fade-in">
+                      <div className="max-w-2xl mx-auto">
+                        <BookContent 
+                          onSubmit={handleContentSubmit}
+                          initialData={local.bookData}
+                          onBack={() => {
+                            local.activeTab = "info";
+                            local.render();
+                          }}
+                        />
+                      </div>
                     </TabsContent>
-                    <TabsContent value="preview">
-                      <BookPreview 
-                        bookData={local.bookData}
-                        onBack={() => {
-                          local.activeTab = "content";
-                          local.render();
-                        }}
-                      />
-                      
-                      <div className="mt-8">
-                        {local.error && (
-                          <div className="bg-red-50 text-red-700 p-3 rounded-md mb-4">
-                            {local.error}
-                          </div>
-                        )}
-                        
-                        {local.success && (
-                          <div className="bg-green-50 text-green-700 p-3 rounded-md mb-4">
-                            {local.success}
-                          </div>
-                        )}
-                        
-                        <div className="flex justify-between">
-                          <Button 
-                            variant="outline"
-                            onClick={() => {
-                              local.activeTab = "content";
-                              local.render();
-                            }}
-                          >
-                            Kembali
-                          </Button>
-                          
-                          <div className="flex gap-2">
+                    <TabsContent value="preview" className="animate-fade-in">
+                      <div className="max-w-2xl mx-auto">
+                        <BookPreview 
+                          bookData={local.bookData}
+                          onBack={() => {
+                            local.activeTab = "content";
+                            local.render();
+                          }}
+                        />
+                        <div className="mt-8">
+                          {local.error && (
+                            <div className="bg-red-50 text-red-700 p-3 rounded-md mb-4 border border-red-200">
+                              {local.error}
+                            </div>
+                          )}
+                          {local.success && (
+                            <div className="bg-green-50 text-green-700 p-3 rounded-md mb-4 border border-green-200">
+                              {local.success}
+                            </div>
+                          )}
+                          <div className="flex flex-col md:flex-row justify-between gap-4">
                             <Button 
-                              variant="outline" 
+                              variant="outline"
                               onClick={() => {
-                                // Save as draft logic
+                                local.activeTab = "content";
+                                local.render();
                               }}
                             >
-                              Simpan Draft
+                              Kembali
                             </Button>
-                            <Button 
-                              onClick={handlePublish}
-                              disabled={local.saving}
-                            >
-                              {local.saving ? "Memproses..." : "Terbitkan"}
-                            </Button>
+                            <div className="flex gap-2">
+                              <Button 
+                                variant="outline" 
+                                onClick={() => {
+                                  // Save as draft logic
+                                }}
+                              >
+                                Simpan Draft
+                              </Button>
+                              <Button 
+                                onClick={handlePublish}
+                                disabled={local.saving}
+                              >
+                                {local.saving ? "Memproses..." : "Terbitkan"}
+                              </Button>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </TabsContent>
                   </Tabs>
                 </CardContent>
-                <CardFooter className="border-t bg-muted/50 flex justify-between">
+                <CardFooter className="border-t bg-muted/70 flex flex-col md:flex-row justify-between items-center gap-2 px-6 py-3">
                   <div className="text-sm text-muted-foreground">
                     * Pastikan semua informasi sudah lengkap sebelum menerbitkan buku
                   </div>
                 </CardFooter>
               </Card>
-            </div>
+            </main>
           </div>
         );
       }}
