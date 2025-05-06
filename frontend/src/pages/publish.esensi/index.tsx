@@ -4,8 +4,14 @@ import { Button } from "@/components/ui/button";
 import { baseUrl } from "@/lib/gen/base-url";
 import { SideForm } from "@/components/ext/side-form";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
+import { useLocal } from "@/lib/hooks/use-local";
+import { api } from "@/lib/gen/auth.esensi";
 
 export default () => {
+  useLocal({}, () => {
+    api.check({ id: "asd" });
+  });
+
   const u = baseUrl;
   const content = (
     <SideForm sideImage={"/img/side-bg.jpg"}>
