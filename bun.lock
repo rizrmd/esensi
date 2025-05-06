@@ -474,7 +474,7 @@
 
     "rimraf": ["rimraf@6.0.1", "", { "dependencies": { "glob": "^11.0.0", "package-json-from-dist": "^1.0.0" }, "bin": { "rimraf": "dist/esm/bin.mjs" } }, "sha512-9dkvaxAsk/xNXSJzMgFqqMCuFgt2+KsOFek3TMLfo8NCPfWpBmqwyNn5Y+NX56QUYfCtsyhF3ayiboEoUmJk/A=="],
 
-    "rlib": ["rlib@github:rizrmd/rlib#bee7930", { "dependencies": { "lodash": "^4.17.21", "oracledb": "^6.8.0", "pg": "^8.14.1", "postgrejs": "^2.22.4", "react": "^19.1.0", "react-dom": "^19.1.0", "rimraf": "^6.0.1" }, "peerDependencies": { "typescript": "^5" } }, "rizrmd-rlib-bee7930"],
+    "rlib": ["rlib@github:rizrmd/rlib#d83c22b", { "dependencies": { "lodash": "^4.17.21", "oracledb": "^6.8.0", "pg": "^8.14.1", "postgrejs": "^2.22.4", "react": "^19.1.0", "react-dom": "^19.1.0", "rimraf": "^6.0.1" }, "peerDependencies": { "typescript": "^5" } }, "rizrmd-rlib-d83c22b"],
 
     "rou3": ["rou3@0.5.1", "", {}, "sha512-OXMmJ3zRk2xeXFGfA3K+EOPHC5u7RDFG7lIOx0X1pdnhUkI8MdVrbV+sNsD80ElpUZ+MRHdyxPnFthq9VHs8uQ=="],
 

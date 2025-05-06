@@ -6,6 +6,7 @@ import { navigate } from "@/lib/router";
 import { betterAuth } from "@/lib/better-auth";
 import { useLocal } from "@/lib/hooks/use-local";
 import { api } from "@/lib/gen/publish.esensi";
+import { PublishMenuBar } from "@/components/publish/menu-bar";
 
 import {
   Card,
@@ -26,7 +27,7 @@ import {
 import { BookForm } from "@/components/publish/book/BookForm";
 import { BookContent } from "@/components/publish/book/BookContent";
 import { BookPreview } from "@/components/publish/book/BookPreview";
-import { FormEvent } from "react";
+import type { FormEvent } from "react";
 
 export default () => {
   const logout = () => betterAuth.signOut().finally(() => navigate("/"));
@@ -38,7 +39,7 @@ export default () => {
     bookData: {
       title: "",
       description: "",
-      categories: [],
+      categories: [] as { label: string; value: string }[],
       coverImage: null as File | null,
       coverImagePreview: "",
       price: "",
@@ -104,34 +105,18 @@ export default () => {
       const session = await betterAuth.getSession();
       if (!session.data?.user) throw new Error("Sesi tidak valid");
       
-      const formData = new FormData();
-      
-      // Add basic book data
-      formData.append("title", local.bookData.title);
-      formData.append("description", local.bookData.description);
-      formData.append("price", local.bookData.price.replace(/[^\d]/g, ""));
-      
-      // Add categories
-      local.bookData.categories.forEach((category, index) => {
-        formData.append(`categories[${index}]`, category.value);
-      });
-      
-      // Add files
-      if (local.bookData.coverImage) {
-        formData.append("cover", local.bookData.coverImage);
-      }
-      
-      if (local.bookData.contentFile) {
-        formData.append("content", local.bookData.contentFile);
-      }
-      
-      formData.append("useAI", local.bookData.isUsingAI ? "true" : "false");
-      
       // Call API to save book
       const result = await api.products({
         user: session.data.user,
-        action: "create",
-        formData
+        action: "add",
+        data: {
+          title: local.bookData.title,
+          description: local.bookData.description,
+          price: local.bookData.price.replace(/[^\d]/g, ""),
+          categories: local.bookData.categories.map((c) => c.value),
+          // coverImage dan contentFile bisa ditambah jika backend mendukung
+          useAI: local.bookData.isUsingAI,
+        },
       });
       
       if (result.success) {
@@ -175,6 +160,7 @@ export default () => {
         
         return (
           <div className="flex min-h-svh flex-col">
+            <PublishMenuBar />
             {/* Header */}
             <header className="border-b">
               <div className="flex h-16 items-center justify-between px-4 md:px-6">

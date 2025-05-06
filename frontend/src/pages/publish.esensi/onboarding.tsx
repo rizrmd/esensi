@@ -4,7 +4,7 @@ import { AppLoading } from "@/components/app/loading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// Remove the problematic import and use HTML textarea directly
+import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { navigate } from "@/lib/router";
 import { betterAuth } from "@/lib/better-auth";
 import { useLocal } from "@/lib/hooks/use-local";
@@ -205,20 +205,7 @@ export default () => {
     <Protected>
       {({ user }) => (
         <div className="flex min-h-svh flex-col">
-          {/* Header */}
-          <header className="border-b">
-            <div className="flex h-16 items-center justify-between px-4 md:px-6">
-              <div className="flex items-center">
-                <AppLogo />
-                <span className="mx-2">/</span>
-                <span className="font-medium">Onboarding</span>
-              </div>
-              <div className="flex items-center gap-4">
-                <Button variant="outline" onClick={logout}>Keluar</Button>
-              </div>
-            </div>
-          </header>
-
+          <PublishMenuBar />
           {/* Main Content */}
           <div className="flex-1 container py-6 md:py-10">
             <div className="max-w-3xl mx-auto">

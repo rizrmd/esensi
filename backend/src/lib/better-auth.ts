@@ -114,18 +114,18 @@ const sendEmail = async ({
   const mail =
     templateAlias && templateModel
       ? {
-        from: process.env.SMTP_FROM as string,
-        to,
-        templateAlias,
-        templateModel,
-      }
+          from: process.env.SMTP_FROM as string,
+          to,
+          templateAlias,
+          templateModel,
+        }
       : {
-        from: process.env.SMTP_FROM as string,
-        to,
-        subject,
-        text,
-        html,
-      };
+          from: process.env.SMTP_FROM as string,
+          to,
+          subject,
+          text,
+          html,
+        };
   try {
     await transporter.sendMail(mail);
   } catch (err) {
@@ -140,10 +140,11 @@ export const auth = betterAuth({
 
       if (error) {
         error.message = translateErrorMessage(error.message);
-        error.body = {
-          ...error.body,
-          message: error.message
-        }
+        // error.body is a readonly property, it can't be set
+        // error.body = {
+        //   ...error.body,
+        //   message: error.message
+        // }
       }
 
       return ctx;
@@ -225,12 +226,10 @@ ${url}
         const parts = forwardedHost.split("-");
 
         for (const site of Object.values(config.sites)) {
-          const lastPart = parts[parts.length - 1]!.split(
-            "."
-          );
+          const lastPart = parts[parts.length - 1]!.split(".");
 
-          lastPart[0] = site.devPort! + '';
-          parts[parts.length - 1] = lastPart.join('.');
+          lastPart[0] = site.devPort! + "";
+          parts[parts.length - 1] = lastPart.join(".");
 
           trusted.push(`https://${parts.join("-")}`);
         }

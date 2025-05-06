@@ -41,5 +41,15 @@ import { api } from "@/lib/gen/auth.esensi";
 const res = await api.auth_user({ username: username! });
 ```
 
-If you import a type, not a variable, then it must be imported using a type-only import when 'verbatimModuleSyntax' is enabled. For example `import type { User } from "better-auth/types";`
+If you import a type, not a variable, then it must be imported using a type-only import when 'verbatimModuleSyntax' is enabled. For example:
+
+This is wrong
+```
+import { User } from "better-auth/types";
+```
+
+This is correct
+```
+import type { User } from "better-auth/types";
+```
 

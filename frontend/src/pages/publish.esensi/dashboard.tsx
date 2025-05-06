@@ -12,6 +12,7 @@ import {
   AuthorsTab,
   FinanceTab,
 } from "@/components/publish/dashboard";
+import { PublishMenuBar } from "@/components/publish/menu-bar";
 import type { DashboardData } from "@/components/publish/dashboard";
 import type { User } from "better-auth/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -48,6 +49,7 @@ export default () => {
         // Fetch products
         const productsRes = await api.products({
           user: userInfo,
+          action: "list",
           page: 1,
           limit: 10,
         });
@@ -147,28 +149,7 @@ export default () => {
 
         return (
           <div className="flex min-h-svh flex-col bg-gray-50">
-            {/* Header */}
-            <header className="border-b bg-white shadow-sm sticky top-0 z-10">
-              <div className="flex h-16 items-center justify-between px-6 max-w-7xl mx-auto">
-                <div className="flex items-center space-x-2">
-                  <AppLogo className="h-8 w-auto" />
-                  <div className="h-6 border-r border-gray-300 mx-2" />
-                  <h1 className="font-semibold text-lg text-gray-800">
-                    Dashboard {isPublisher ? "Penerbit" : "Penulis"}
-                  </h1>
-                </div>
-                <div className="flex items-center gap-4">
-                  <Button
-                    variant="outline"
-                    onClick={logout}
-                    className="font-medium"
-                  >
-                    Keluar
-                  </Button>
-                </div>
-              </div>
-            </header>
-
+            <PublishMenuBar />
             {/* Main Content */}
             <main className="flex-1">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">

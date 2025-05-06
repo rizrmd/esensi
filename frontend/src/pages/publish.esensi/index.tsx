@@ -3,6 +3,7 @@ import { navigate } from "@/lib/router";
 import { Button } from "@/components/ui/button";
 import { baseUrl } from "@/lib/gen/base-url";
 import { SideForm } from "@/components/ext/side-form";
+import { PublishMenuBar } from "@/components/publish/menu-bar";
 
 export default () => {
   const u = baseUrl;
@@ -35,6 +36,7 @@ export default () => {
 
   return (
     <>
+      <PublishMenuBar />
       <Protected
         role={["publisher", "author"]}
         onLoad={({ user }) => {
