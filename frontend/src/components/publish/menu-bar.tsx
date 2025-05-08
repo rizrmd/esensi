@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { useRoot } from "@/lib/hooks/use-router";
+import { betterAuth } from "@/lib/better-auth";
 
 const menu = [
   { label: "Beranda", href: "/dashboard" },
@@ -15,15 +16,8 @@ export const PublishMenuBar = () => {
   const local = useLocal({}, async () => {});
 
   const handleMenuClick = (item: typeof menu[number]) => {
-    if (item.action === "signout") {
-      // TODO: implement sign out logic, e.g. clear session and redirect
-      // For now, just redirect to login page
-      navigate("/auth/login");
-      return;
-    }
-    if (item.href) {
-      navigate(item.href);
-    }
+    if (item.action === "signout") betterAuth.signOut().finally(() => navigate("/"));
+    else if (item.href) navigate(item.href);
   };
 
   return (

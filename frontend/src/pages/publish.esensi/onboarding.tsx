@@ -1,5 +1,4 @@
 import { Protected } from "@/components/app/protected";
-import { AppLogo } from "@/components/app/logo";
 import { AppLoading } from "@/components/app/loading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

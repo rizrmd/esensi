@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 import { Pool } from "pg";
 import { dir, type SiteConfig } from "rlib/server";
 import raw_config from "../../../config.json";
-import { translateErrorMessage } from "./utils";
+import { translateErrorMessage } from 'shared/utils/translate';
 const config = raw_config as SiteConfig;
 
 const templates = {
