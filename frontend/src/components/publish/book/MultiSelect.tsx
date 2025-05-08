@@ -13,7 +13,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useLocal } from "@/lib/hooks/use-local";
 
@@ -35,23 +34,23 @@ export function MultiSelect({
   selected,
   onChange,
   className,
-  placeholder = "Pilih opsi..."
+  placeholder = "Pilih opsi...",
 }: MultiSelectProps) {
-  const local = useLocal({
-    open: false,
-    inputValue: "",
-  }, async () => {
-    // No initialization needed
-  });
+  const local = useLocal(
+    {
+      open: false,
+      inputValue: "",
+    },
+    async () => {
+      // No initialization needed
+    }
+  );
 
   const handleSelect = (option: Option) => {
     const isSelected = selected.some((item) => item.value === option.value);
-    
     if (isSelected) {
-      // Remove from selection
       onChange(selected.filter((item) => item.value !== option.value));
     } else {
-      // Add to selection
       onChange([...selected, option]);
     }
   };
@@ -61,22 +60,26 @@ export function MultiSelect({
   };
 
   return (
-    <Popover open={local.open} onOpenChange={(open) => {
-      local.open = open;
-      local.render();
-    }}>
+    <Popover
+      open={local.open}
+      onOpenChange={(open) => {
+        local.open = open;
+        local.render();
+      }}
+    >
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
+        <div
           role="combobox"
           aria-expanded={local.open}
+          tabIndex={0}
           className={cn(
-            "w-full justify-between font-normal",
-            selected.length > 0 ? "h-auto" : "",
+            "flex items-center justify-between w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            "font-normal",
+            selected.length > 0 ? "h-auto" : "h-10",
             className
           )}
         >
-          <div className="flex flex-wrap gap-1 w-full">
+          <div className="flex flex-grow flex-wrap gap-1">
             {selected.length > 0 ? (
               selected.map((item) => (
                 <Badge
@@ -111,13 +114,16 @@ export function MultiSelect({
               <span className="text-muted-foreground">{placeholder}</span>
             )}
           </div>
-          <span className="opacity-50 ml-2">▼</span>
-        </Button>
+          <span className="ml-2 shrink-0 opacity-50">▼</span>
+        </div>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0" align="start">
+      <PopoverContent
+        className="w-[--radix-popover-trigger-width] p-0"
+        align="start"
+      >
         <Command className="w-full">
-          <CommandInput 
-            placeholder={placeholder} 
+          <CommandInput
+            placeholder={placeholder}
             value={local.inputValue}
             onValueChange={(value) => {
               local.inputValue = value;
@@ -127,26 +133,32 @@ export function MultiSelect({
           <CommandEmpty>Tidak ada opsi yang sesuai.</CommandEmpty>
           <CommandGroup className="max-h-64 overflow-auto">
             {options
-              .filter(option => 
-                option.label.toLowerCase().includes(local.inputValue.toLowerCase())
+              .filter((option) =>
+                option.label
+                  .toLowerCase()
+                  .includes(local.inputValue.toLowerCase())
               )
               .map((option) => {
-                const isSelected = selected.some((item) => item.value === option.value);
-                
+                const isSelected = selected.some(
+                  (item) => item.value === option.value
+                );
+
                 return (
                   <CommandItem
                     key={option.value}
-                    onSelect={() => handleSelect(option)}
+                    onSelect={() => {
+                      handleSelect(option);
+                    }}
                     className={cn(
                       "flex items-center gap-2",
                       isSelected ? "font-medium bg-muted" : ""
                     )}
                   >
-                    <div 
+                    <div
                       className={cn(
                         "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                        isSelected 
-                          ? "bg-primary text-primary-foreground" 
+                        isSelected
+                          ? "bg-primary text-primary-foreground"
                           : "opacity-50"
                       )}
                     >
@@ -168,7 +180,7 @@ export function MultiSelect({
                     </div>
                     {option.label}
                   </CommandItem>
-                )
+                );
               })}
           </CommandGroup>
         </Command>

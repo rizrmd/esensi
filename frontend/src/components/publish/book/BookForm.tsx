@@ -30,12 +30,12 @@ export const BookForm = ({ onSubmit, initialData }: BookFormProps) => {
   // Update local state if initialData changes
   useEffect(() => {
     if (initialData) {
-      local.title = initialData.title || local.title;
-      local.description = initialData.description || local.description;
-      local.categories = initialData.categories || local.categories;
-      local.coverImage = initialData.coverImage || local.coverImage;
-      local.coverImagePreview = initialData.coverImagePreview || local.coverImagePreview;
-      local.price = initialData.price || local.price;
+      local.title = initialData.title ?? local.title;
+      local.description = initialData.description ?? local.description;
+      local.categories = initialData.categories ?? local.categories;
+      local.coverImage = initialData.coverImage ?? local.coverImage;
+      local.coverImagePreview = initialData.coverImagePreview ?? local.coverImagePreview;
+      local.price = initialData.price ?? local.price;
       local.render();
     }
   }, [initialData]);
@@ -175,6 +175,7 @@ export const BookForm = ({ onSubmit, initialData }: BookFormProps) => {
             <MultiSelect
               options={categoryOptions}
               selected={local.categories}
+              
               onChange={selected => {
                 local.categories = selected;
                 local.error = "";
