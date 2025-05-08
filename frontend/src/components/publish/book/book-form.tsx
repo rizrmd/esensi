@@ -2,43 +2,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useLocal } from "@/lib/hooks/use-local";
+import { bookProcessState, bookProcessWrite } from "@/lib/states/book-state"; // Import Valtio state
 import type { FormEvent } from "react";
 import { useEffect } from "react";
+import { useSnapshot } from "valtio"; // Import useSnapshot
 
 // Import these from a proper component library or create custom ones
-import { MultiSelect } from "./MultiSelect";
+import { MultiSelect } from "./MultiSelect"; // Assuming MultiSelect is in the same directory
 
 interface BookFormProps {
-  onSubmit: (data: any) => void;
-  initialData?: any;
+  onSubmit: () => void; // No data needed as it's in Valtio
 }
 
-export const BookForm = ({ onSubmit, initialData }: BookFormProps) => {
-  const local = useLocal({
-    title: initialData?.title || "",
-    description: initialData?.description || "",
-    categories: initialData?.categories || [],
-    coverImage: initialData?.coverImage || null,
-    coverImagePreview: initialData?.coverImagePreview || "",
-    price: initialData?.price || "",
-    error: "",
-  }, async () => {
-    // No initialization needed
-  });
+export const BookForm = ({ onSubmit }: BookFormProps) => {
+  const read = useSnapshot(bookProcessWrite); // Use Valtio snapshot for reading
 
-  // Update local state if initialData changes
+  // useEffect to clear formError when component mounts or relevant fields change
   useEffect(() => {
-    if (initialData) {
-      local.title = initialData.title ?? local.title;
-      local.description = initialData.description ?? local.description;
-      local.categories = initialData.categories ?? local.categories;
-      local.coverImage = initialData.coverImage ?? local.coverImage;
-      local.coverImagePreview = initialData.coverImagePreview ?? local.coverImagePreview;
-      local.price = initialData.price ?? local.price;
-      local.render();
-    }
-  }, [initialData]);
+    bookProcessState.clearFormError();
+  }, [read.title, read.description, read.categories, read.price, read.coverImagePreview]);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -51,72 +33,54 @@ export const BookForm = ({ onSubmit, initialData }: BookFormProps) => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    
+    bookProcessState.clearFormError(); // Clear previous errors
+
     // Validate form
-    if (!local.title.trim()) {
-      local.error = "Judul buku harus diisi";
-      local.render();
+    if (!read.title.trim()) {
+      bookProcessState.setFormError("Judul buku harus diisi");
       return;
     }
-    
-    if (!local.description.trim()) {
-      local.error = "Deskripsi buku harus diisi";
-      local.render();
+    if (!read.description.trim()) {
+      bookProcessState.setFormError("Deskripsi buku harus diisi");
       return;
     }
-    
-    if (local.categories.length === 0) {
-      local.error = "Pilih minimal satu kategori";
-      local.render();
+    if (read.categories.length === 0) {
+      bookProcessState.setFormError("Pilih minimal satu kategori");
       return;
     }
-    
-    if (!local.price) {
-      local.error = "Harga buku harus diisi";
-      local.render();
+    if (!read.price) {
+      bookProcessState.setFormError("Harga buku harus diisi");
       return;
     }
-    
-    // Pass data to parent component
-    onSubmit({
-      title: local.title,
-      description: local.description,
-      categories: local.categories,
-      coverImage: local.coverImage,
-      coverImagePreview: local.coverImagePreview,
-      price: local.price
-    });
+    // Cover image is optional at this stage, can be validated at final publish
+
+    onSubmit(); // Call onSubmit to proceed (e.g., change tab)
   };
 
   const handleCoverUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    
-    // Validate file type
+
+    bookProcessState.clearFormError();
+
     if (!file.type.startsWith("image/")) {
-      local.error = "File harus berupa gambar (JPG, PNG, etc.)";
-      local.render();
+      bookProcessState.setFormError("File harus berupa gambar (JPG, PNG, etc.)");
       return;
     }
-    
-    // Validate file size (max 2MB)
-    if (file.size > 2 * 1024 * 1024) {
-      local.error = "Ukuran gambar tidak boleh melebihi 2MB";
-      local.render();
+    if (file.size > 2 * 1024 * 1024) { // Max 2MB
+      bookProcessState.setFormError("Ukuran gambar tidak boleh melebihi 2MB");
       return;
     }
-    
-    // Create a preview URL
+
     const reader = new FileReader();
     reader.onload = () => {
-      local.coverImagePreview = reader.result as string;
-      local.coverImage = file;
-      local.render();
+      bookProcessWrite.coverImagePreview = reader.result as string;
+      bookProcessWrite.coverImage = file;
     };
     reader.readAsDataURL(file);
   };
 
-  // Available categories
+  // Available categories - consider moving to a shared config or fetching if dynamic
   const categoryOptions = [
     { label: "Fiksi", value: "fiction" },
     { label: "Non-Fiksi", value: "non-fiction" },
@@ -132,9 +96,9 @@ export const BookForm = ({ onSubmit, initialData }: BookFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {local.error && (
-        <div className="bg-red-50 text-red-700 p-3 rounded-md">
-          {local.error}
+      {read.formError && (
+        <div className="bg-red-50 text-red-700 p-3 rounded-md border border-red-200">
+          {read.formError}
         </div>
       )}
       
@@ -144,11 +108,10 @@ export const BookForm = ({ onSubmit, initialData }: BookFormProps) => {
             <Label htmlFor="title">Judul Buku</Label>
             <Input
               id="title"
-              value={local.title}
+              value={read.title}
               onChange={e => {
-                local.title = e.target.value;
-                local.error = "";
-                local.render();
+                bookProcessWrite.title = e.target.value;
+                if (read.formError && e.target.value.trim()) bookProcessState.clearFormError();
               }}
               placeholder="Masukkan judul buku"
               className="mt-1"
@@ -159,11 +122,10 @@ export const BookForm = ({ onSubmit, initialData }: BookFormProps) => {
             <Label htmlFor="description">Deskripsi</Label>
             <Textarea
               id="description"
-              value={local.description}
+              value={read.description}
               onChange={e => {
-                local.description = e.target.value;
-                local.error = "";
-                local.render();
+                bookProcessWrite.description = e.target.value;
+                if (read.formError && e.target.value.trim()) bookProcessState.clearFormError();
               }}
               placeholder="Masukkan deskripsi singkat tentang buku"
               className="mt-1 min-h-[120px]"
@@ -174,12 +136,10 @@ export const BookForm = ({ onSubmit, initialData }: BookFormProps) => {
             <Label htmlFor="categories">Kategori</Label>
             <MultiSelect
               options={categoryOptions}
-              selected={local.categories}
-              
+              selected={read.categories as any}
               onChange={selected => {
-                local.categories = selected;
-                local.error = "";
-                local.render();
+                bookProcessWrite.categories = selected;
+                if (read.formError && selected.length > 0) bookProcessState.clearFormError();
               }}
               className="mt-1"
               placeholder="Pilih kategori"
@@ -190,17 +150,15 @@ export const BookForm = ({ onSubmit, initialData }: BookFormProps) => {
             <Label htmlFor="price">Harga</Label>
             <Input
               id="price"
-              value={local.price}
+              value={read.price} // Display formatted price
               onChange={e => {
-                // Only allow numbers and format as currency
                 const value = e.target.value.replace(/[^\d]/g, "");
                 if (value) {
-                  local.price = formatCurrency(parseInt(value));
+                  bookProcessWrite.price = formatCurrency(parseInt(value));
                 } else {
-                  local.price = "";
+                  bookProcessWrite.price = "";
                 }
-                local.error = "";
-                local.render();
+                if (read.formError && value) bookProcessState.clearFormError();
               }}
               placeholder="Rp 0"
               className="mt-1"
@@ -209,13 +167,13 @@ export const BookForm = ({ onSubmit, initialData }: BookFormProps) => {
         </div>
         
         <div>
-          <Label htmlFor="cover">Cover Buku</Label>
+          <Label htmlFor="cover">Cover Buku (Opsional)</Label>
           <div className="mt-1 border rounded-lg overflow-hidden bg-muted/50 aspect-[3/4] flex items-center justify-center relative">
-            {local.coverImagePreview ? (
+            {read.coverImagePreview ? (
               <>
                 <img 
-                  src={local.coverImagePreview} 
-                  alt="Cover Preview" 
+                  src={read.coverImagePreview} 
+                  alt="Pratinjau Cover" 
                   className="w-full h-full object-cover"
                 />
                 <Button
@@ -224,9 +182,9 @@ export const BookForm = ({ onSubmit, initialData }: BookFormProps) => {
                   size="sm"
                   className="absolute top-2 right-2"
                   onClick={() => {
-                    local.coverImage = null;
-                    local.coverImagePreview = "";
-                    local.render();
+                    bookProcessWrite.coverImage = null;
+                    bookProcessWrite.coverImagePreview = "";
+                    // No need to clear formError here unless a specific error was related to the image
                   }}
                 >
                   Hapus
@@ -237,7 +195,7 @@ export const BookForm = ({ onSubmit, initialData }: BookFormProps) => {
                 <div className="text-3xl mb-2">📚</div>
                 <p className="text-muted-foreground text-sm mb-4">Unggah cover buku</p>
                 <Label htmlFor="coverUpload" className="cursor-pointer">
-                  <span className="bg-primary text-primary-foreground px-3 py-2 rounded-md text-sm">
+                  <span className="bg-primary text-primary-foreground px-3 py-2 rounded-md text-sm hover:bg-primary/90">
                     Pilih Gambar
                   </span>
                   <Input
@@ -259,7 +217,7 @@ export const BookForm = ({ onSubmit, initialData }: BookFormProps) => {
       
       <div className="flex justify-end">
         <Button type="submit">
-          Lanjutkan
+          Lanjutkan ke Konten Buku
         </Button>
       </div>
     </form>

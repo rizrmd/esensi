@@ -4,8 +4,10 @@ import { AppLoading } from "@/components/app/loading";
 import { Button } from "@/components/ui/button";
 import { navigate } from "@/lib/router";
 import { betterAuth } from "@/lib/better-auth";
-import { useLocal } from "@/lib/hooks/use-local";
 import { api } from "@/lib/gen/publish.esensi";
+import { useEffect, type FormEvent } from "react";
+import { useSnapshot } from "valtio";
+import { bookProcessState, bookProcessWrite } from "@/lib/states/book-state";
 
 import {
   Card,
@@ -23,121 +25,125 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 
-import { BookForm } from "@/components/publish/book/BookForm";
-import { BookContent } from "@/components/publish/book/BookContent";
-import { BookPreview } from "@/components/publish/book/BookPreview";
-import type { FormEvent } from "react";
+import { BookForm } from "@/components/publish/book/book-form"; // Updated path
+import { BookContent } from "@/components/publish/book/book-content"; // Updated path
+import { BookPreview } from "@/components/publish/book/book-preview"; // Updated path
 
 export default () => {
+  const read = useSnapshot(bookProcessWrite);
   const logout = () => betterAuth.signOut().finally(() => navigate("/"));
 
-  const local = useLocal({
-    activeTab: "info",
-    loading: true,
-    saving: false,
-    bookData: {
-      title: "",
-      description: "",
-      categories: [] as { label: string; value: string }[],
-      coverImage: null as File | null,
-      coverImagePreview: "",
-      price: "",
-      contentFile: null as File | null,
-      contentFileName: "",
-      isUsingAI: false
-    },
-    error: "",
-    success: "",
-  }, async () => {
-    // Initialize
-    try {
-      const session = await betterAuth.getSession();
-      if (!session.data?.user) {
-        navigate("/");
-        return;
-      }
-      
-      local.loading = false;
-      local.render();
-    } catch (error) {
-      console.error("Error loading create book page:", error);
-      local.loading = false;
-      local.render();
-    }
-  });
+  useEffect(() => {
+    bookProcessState.reset(); // Reset to initial state for a new book
+    bookProcessWrite.pageLoading = true;
 
-  const handleInfoSubmit = (formData: any) => {
-    // Update book data with form info
-    local.bookData = {
-      ...local.bookData,
-      ...formData
+    const initializePage = async () => {
+      try {
+        const session = await betterAuth.getSession();
+        if (!session.data?.user) {
+          navigate("/");
+          return;
+        }
+        bookProcessWrite.pageLoading = false;
+      } catch (error) {
+        console.error("Error loading create book page:", error);
+        bookProcessState.setPageError("Gagal memuat data halaman.");
+        bookProcessWrite.pageLoading = false;
+      }
     };
-    
-    // Move to next tab
-    local.activeTab = "content";
-    local.render();
+
+    initializePage();
+
+    return () => {
+      bookProcessState.reset(); // Clean up state on component unmount
+    };
+  }, []);
+
+  const handleInfoSubmit = () => {
+    bookProcessWrite.activeTab = "content";
   };
 
-  const handleContentSubmit = (contentData: any) => {
-    // Update book data with content info
-    local.bookData = {
-      ...local.bookData,
-      ...contentData
-    };
-    
-    // Move to preview tab
-    local.activeTab = "preview";
-    local.render();
+  const handleContentSubmit = () => {
+    bookProcessWrite.activeTab = "preview";
   };
 
   const handlePublish = async (e: FormEvent) => {
     e.preventDefault();
-    
-    if (local.saving) return;
-    
-    local.saving = true;
-    local.error = "";
-    local.success = "";
-    local.render();
-    
+
+    if (read.pageSaving) return;
+
+    bookProcessWrite.pageSaving = true;
+    bookProcessState.clearPageError();
+    bookProcessState.clearPageSuccessMessage();
+
     try {
       const session = await betterAuth.getSession();
-      if (!session.data?.user) throw new Error("Sesi tidak valid");
-      
-      // Call API to save book
+      if (!session.data?.user) {
+        bookProcessState.setPageError("Sesi tidak valid atau telah berakhir. Silakan masuk kembali.");
+        bookProcessWrite.pageSaving = false;
+        return;
+      }
+
+      if (!read.title.trim()) {
+        bookProcessState.setPageError("Judul buku harus diisi sebelum menerbitkan.");
+        bookProcessWrite.activeTab = "info";
+        bookProcessWrite.pageSaving = false;
+        return;
+      }
+      if (!read.description.trim()) {
+        bookProcessState.setPageError("Deskripsi buku harus diisi sebelum menerbitkan.");
+        bookProcessWrite.activeTab = "info";
+        bookProcessWrite.pageSaving = false;
+        return;
+      }
+      if (read.categories.length === 0) {
+        bookProcessState.setPageError("Minimal satu kategori harus dipilih.");
+        bookProcessWrite.activeTab = "info";
+        bookProcessWrite.pageSaving = false;
+        return;
+      }
+      if (!read.price) {
+        bookProcessState.setPageError("Harga buku harus diisi.");
+        bookProcessWrite.activeTab = "info";
+        bookProcessWrite.pageSaving = false;
+        return;
+      }
+      if (!read.contentFile) {
+        bookProcessState.setPageError("File konten buku harus diunggah.");
+        bookProcessWrite.activeTab = "content";
+        bookProcessWrite.pageSaving = false;
+        return;
+      }
+
       const result = await api.products({
         user: session.data.user,
         action: "add",
         data: {
-          title: local.bookData.title,
-          description: local.bookData.description,
-          price: local.bookData.price.replace(/[^\d]/g, ""),
-          categories: local.bookData.categories.map((c) => c.value),
-          // coverImage dan contentFile bisa ditambah jika backend mendukung
-          useAI: local.bookData.isUsingAI,
+          title: read.title,
+          description: read.description,
+          price: read.price.replace(/[^\d]/g, ""),
+          categories: read.categories.map((c) => c.value),
+          useAI: read.isUsingAI,
         },
       });
-      
+
       if (result.success) {
-        local.success = "Buku berhasil disimpan";
-        
-        // Redirect to dashboard after successful save
+        bookProcessState.setPageSuccessMessage("Buku berhasil disimpan dan akan segera diterbitkan!");
         setTimeout(() => {
           navigate("/dashboard");
-        }, 2000);
+        }, 2500);
       } else {
-        local.error = result.message || "Gagal menyimpan buku";
+        bookProcessState.setPageError(result.message || "Gagal menyimpan buku. Silakan coba lagi.");
       }
     } catch (error) {
       console.error("Error publishing book:", error);
-      local.error = "Terjadi kesalahan saat menyimpan buku";
+      bookProcessState.setPageError("Terjadi kesalahan saat mencoba menerbitkan buku.");
     } finally {
-      local.saving = false;
-      local.render();
+      bookProcessWrite.pageSaving = false;
     }
   };
 
-  if (local.loading) {
+  if (read.pageLoading) {
     return <AppLoading />;
   }
 
@@ -152,13 +158,13 @@ export default () => {
           navigate("/onboarding");
           return <AppLoading />;
         }
+        navigate("/");
+        return <AppLoading />;
       }}
     >
       {({ user }) => {
-        const isPublisher = !!user?.id_publisher;
         return (
           <div className="flex min-h-svh flex-col bg-muted/50">
-            {/* Header */}
             <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-20 shadow-sm">
               <div className="flex h-16 items-center justify-between px-4 md:px-8 lg:px-16">
                 <div className="flex items-center gap-2">
@@ -169,37 +175,38 @@ export default () => {
                 <div className="flex items-center gap-2">
                   <Button variant="ghost" onClick={() => navigate("/dashboard")}
                     className="font-medium">
-                    Kembali ke Dashboard
+                    Kembali ke Dasbor
                   </Button>
                   <Button variant="outline" onClick={logout} className="font-medium">Keluar</Button>
                 </div>
               </div>
             </header>
 
-            {/* Main Content */}
             <main className="flex-1 flex justify-center items-start py-8 md:py-14">
               <Card className="w-full max-w-4xl shadow-lg border-0">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-2xl font-bold mb-1">Terbitkan Buku Baru</CardTitle>
                   <CardDescription className="text-base text-muted-foreground">
-                    Lengkapi informasi dan unggah file buku untuk menerbitkannya di platform kami.
+                    Lengkapi informasi dan unggah berkas buku untuk menerbitkannya di platform kami.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <Tabs value={local.activeTab} onValueChange={(value) => {
-                    local.activeTab = value;
-                    local.render();
-                  }} className="w-full">
+                  <Tabs 
+                    value={read.activeTab} 
+                    onValueChange={(value) => {
+                      bookProcessWrite.activeTab = value;
+                    }} 
+                    className="w-full"
+                  >
                     <TabsList className="flex justify-center mb-8 bg-muted rounded-lg overflow-hidden gap-0">
-                      <TabsTrigger value="info" className="text-base py-3 flex-1">Informasi Buku</TabsTrigger>
-                      <TabsTrigger value="content" className="text-base py-3 flex-1">Konten Buku</TabsTrigger>
-                      <TabsTrigger value="preview" className="text-base py-3 flex-1">Tinjau & Terbitkan</TabsTrigger>
+                      <TabsTrigger value="info" className="text-base py-3 flex-1 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Informasi Buku</TabsTrigger>
+                      <TabsTrigger value="content" className="text-base py-3 flex-1 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Konten Buku</TabsTrigger>
+                      <TabsTrigger value="preview" className="text-base py-3 flex-1 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Tinjau & Terbitkan</TabsTrigger>
                     </TabsList>
                     <TabsContent value="info" className="animate-fade-in">
                       <div className="max-w-2xl mx-auto">
                         <BookForm 
                           onSubmit={handleInfoSubmit}
-                          initialData={local.bookData}
                         />
                       </div>
                     </TabsContent>
@@ -207,41 +214,43 @@ export default () => {
                       <div className="max-w-2xl mx-auto">
                         <BookContent 
                           onSubmit={handleContentSubmit}
-                          initialData={local.bookData}
                           onBack={() => {
-                            local.activeTab = "info";
-                            local.render();
+                            bookProcessWrite.activeTab = "info";
                           }}
                         />
                       </div>
                     </TabsContent>
                     <TabsContent value="preview" className="animate-fade-in">
                       <div className="max-w-2xl mx-auto">
+                        {/* BookPreview receives the current state snapshot via useSnapshot directly */}
                         <BookPreview 
-                          bookData={local.bookData}
                           onBack={() => {
-                            local.activeTab = "content";
-                            local.render();
+                            bookProcessWrite.activeTab = "content";
                           }}
                         />
                         <div className="mt-8">
-                          {local.error && (
+                          {read.pageError && (
                             <div className="bg-red-50 text-red-700 p-3 rounded-md mb-4 border border-red-200">
-                              {local.error}
+                              {read.pageError}
                             </div>
                           )}
-                          {local.success && (
+                          {read.pageSuccessMessage && (
                             <div className="bg-green-50 text-green-700 p-3 rounded-md mb-4 border border-green-200">
-                              {local.success}
+                              {read.pageSuccessMessage}
                             </div>
                           )}
+                          {read.formError && !read.pageError && (
+                             <div className="bg-yellow-50 text-yellow-700 p-3 rounded-md mb-4 border border-yellow-200">
+                               {read.formError}
+                             </div>
+                           )}
                           <div className="flex flex-col md:flex-row justify-between gap-4">
                             <Button 
                               variant="outline"
                               onClick={() => {
-                                local.activeTab = "content";
-                                local.render();
+                                bookProcessWrite.activeTab = "content";
                               }}
+                              disabled={read.pageSaving}
                             >
                               Kembali
                             </Button>
@@ -249,16 +258,18 @@ export default () => {
                               <Button 
                                 variant="outline" 
                                 onClick={() => {
-                                  // Save as draft logic
+                                  console.log("Simpan Draft action triggered with data:", read);
+                                  bookProcessState.setPageSuccessMessage("Konsep berhasil disimpan (fitur belum sepenuhnya terimplementasi).");
                                 }}
+                                disabled={read.pageSaving}
                               >
-                                Simpan Draft
+                                Simpan Konsep
                               </Button>
                               <Button 
                                 onClick={handlePublish}
-                                disabled={local.saving}
+                                disabled={read.pageSaving || !!read.pageSuccessMessage}
                               >
-                                {local.saving ? "Memproses..." : "Terbitkan"}
+                                {read.pageSaving ? "Memproses..." : (read.pageSuccessMessage ? "Berhasil Diterbitkan" : "Terbitkan Sekarang")}
                               </Button>
                             </div>
                           </div>
@@ -269,7 +280,7 @@ export default () => {
                 </CardContent>
                 <CardFooter className="border-t bg-muted/70 flex flex-col md:flex-row justify-between items-center gap-2 px-6 py-3">
                   <div className="text-sm text-muted-foreground">
-                    * Pastikan semua informasi sudah lengkap sebelum menerbitkan buku
+                    * Pastikan semua informasi sudah lengkap dan benar sebelum menerbitkan buku.
                   </div>
                 </CardFooter>
               </Card>
