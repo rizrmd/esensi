@@ -43,7 +43,6 @@ export const BookPreview = ({ onBack }: BookPreviewProps) => {
   // Safely determine file size text
   let fileSizeText = "";
   const cf = read.contentFile;
-  console.log("File contentFile:", cf);
   if (cf instanceof File) { // Check if it's a File instance
     try {
       const size = cf.size; // Attempt to access size

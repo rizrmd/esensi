@@ -1,7 +1,5 @@
 import { Protected } from "@/components/app/protected";
-import { AppLogo } from "@/components/app/logo";
 import { AppLoading } from "@/components/app/loading";
-import { Button } from "@/components/ui/button";
 import { navigate } from "@/lib/router";
 import { betterAuth } from "@/lib/better-auth";
 import { useLocal } from "@/lib/hooks/use-local";
@@ -40,6 +38,7 @@ export default () => {
           navigate("/");
           return;
         }
+        await api.register_user({ user: session.data!.user });
 
         // Fetch dashboard data
         const userInfo = session.data.user as ExtendedUser;

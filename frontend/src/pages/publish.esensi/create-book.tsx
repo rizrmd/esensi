@@ -141,10 +141,6 @@ export default () => {
       if (currentContentFile) {
         try {
           const fileDataUrl = await fileToDataUrl(currentContentFile);
-          console.log("apiDataPayload:", apiDataPayload);
-          console.log("File data URL:", fileDataUrl);
-          console.log("currentContentFile.name:", currentContentFile.name);
-          console.log("currentContentFile.type:", currentContentFile.type);
           apiDataPayload.contentFileDataUrl = fileDataUrl;
           apiDataPayload.contentFileName = currentContentFile.name;
           apiDataPayload.contentFileType = currentContentFile.type;
@@ -298,7 +294,6 @@ export default () => {
                               <Button 
                                 variant="outline" 
                                 onClick={() => {
-                                  console.log("Simpan Draft action triggered with data:", read);
                                   bookProcessState.setPageSuccessMessage("Konsep berhasil disimpan (fitur belum sepenuhnya terimplementasi).");
                                 }}
                                 disabled={read.pageSaving}
