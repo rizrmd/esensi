@@ -83,6 +83,7 @@ export default () => {
       const { error } = await betterAuth.social({
         provider: "google",
         callbackURL,
+        newUserCallbackURL: callbackURL,
       });
       if (error) {
         toast.error("Gagal masuk dengan Google", {
