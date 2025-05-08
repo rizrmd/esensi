@@ -6,6 +6,7 @@ import { Alert } from "@/components/ui/global-alert";
 import { betterAuth } from "@/lib/better-auth";
 import { navigate } from "@/lib/router";
 import { useLocal } from "@/lib/hooks/use-local";
+import { translateErrorMessage } from "@/lib/utils";
 
 export default () => {
   const local = useLocal({
@@ -55,6 +56,7 @@ export default () => {
                 password: read.password,
                 callbackURL: local.callbackURL,
               });
+              console.log('res');
 
               if (!res.error) {
                 Alert.info("Pendaftaran berhasil, silahkan cek email anda");
@@ -73,7 +75,7 @@ export default () => {
                   } else if (res.error.message.includes("password")) {
                     Alert.info("Kata sandi tidak memenuhi persyaratan keamanan. Gunakan minimal 8 karakter dengan kombinasi huruf dan angka.");
                   } else {
-                    Alert.info("Terjadi kesalahan saat mendaftar: " + res.error.message);
+                    Alert.info("Terjadi kesalahan saat mendaftar: " + translateErrorMessage(res.error.message));
                   }
                 } else {
                   Alert.info("Terjadi kesalahan saat mendaftar. Silakan coba lagi.");

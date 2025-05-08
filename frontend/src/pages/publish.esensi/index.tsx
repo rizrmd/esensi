@@ -42,7 +42,6 @@ export default () => {
 
   return (
     <>
-      <PublishMenuBar />
       <Protected
         role={["publisher", "author"]}
         onLoad={({ user }) => {
