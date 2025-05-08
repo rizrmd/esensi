@@ -29,6 +29,25 @@ import { BookForm } from "@/components/publish/book/book-form"; // Updated path
 import { BookContent } from "@/components/publish/book/book-content"; // Updated path
 import { BookPreview } from "@/components/publish/book/book-preview"; // Updated path
 
+// Helper function to convert File to base64 data URL
+const fileToDataUrl = (file: File | Blob): Promise<string> =>
+  new Promise((resolve, reject) => {
+    if (!file || !(file instanceof Blob)) {
+      reject(new TypeError("Argument is not a Blob or File object."));
+      return;
+    }
+    
+    try {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.error("Error in fileToDataUrl:", error);
+      reject(error);
+    }
+  });
+
 export default () => {
   const read = useSnapshot(bookProcessWrite);
   const logout = () => betterAuth.signOut().finally(() => navigate("/"));
@@ -108,7 +127,34 @@ export default () => {
         bookProcessWrite.pageSaving = false;
         return;
       }
-      if (!read.contentFile) {
+
+      const apiDataPayload: any = {
+        title: read.title,
+        description: read.description,
+        price: read.price.replace(/[^\d]/g, ""), // Ensure only digits for price
+        categories: read.categories.map((c) => c.value),
+        useAI: read.isUsingAI,
+      };
+
+      const currentContentFile = bookProcessWrite.contentFile; // Use the mutable state for the File object
+
+      if (currentContentFile) {
+        try {
+          const fileDataUrl = await fileToDataUrl(currentContentFile);
+          console.log("apiDataPayload:", apiDataPayload);
+          console.log("File data URL:", fileDataUrl);
+          console.log("currentContentFile.name:", currentContentFile.name);
+          console.log("currentContentFile.type:", currentContentFile.type);
+          apiDataPayload.contentFileDataUrl = fileDataUrl;
+          apiDataPayload.contentFileName = currentContentFile.name;
+          apiDataPayload.contentFileType = currentContentFile.type;
+        } catch (error) {
+          console.error("Error converting file to base64:", error);
+          bookProcessState.setPageError("Gagal memproses file buku untuk diunggah.");
+          bookProcessWrite.pageSaving = false;
+          return;
+        }
+      } else {
         bookProcessState.setPageError("File konten buku harus diunggah.");
         bookProcessWrite.activeTab = "content";
         bookProcessWrite.pageSaving = false;
@@ -118,13 +164,7 @@ export default () => {
       const result = await api.products({
         user: session.data.user,
         action: "add",
-        data: {
-          title: read.title,
-          description: read.description,
-          price: read.price.replace(/[^\d]/g, ""),
-          categories: read.categories.map((c) => c.value),
-          useAI: read.isUsingAI,
-        },
+        data: apiDataPayload, // Send payload with base64 data
       });
 
       if (result.success) {

@@ -72,10 +72,16 @@ export const BookForm = ({ onSubmit }: BookFormProps) => {
       return;
     }
 
+    // Clone the File object to ensure it's properly stored
+    const fileClone = new File([file], file.name, {
+      type: file.type,
+      lastModified: file.lastModified,
+    });
+
     const reader = new FileReader();
     reader.onload = () => {
       bookProcessWrite.coverImagePreview = reader.result as string;
-      bookProcessWrite.coverImage = file;
+      bookProcessWrite.coverImage = fileClone;
     };
     reader.readAsDataURL(file);
   };

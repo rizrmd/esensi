@@ -40,6 +40,22 @@ export const BookPreview = ({ onBack }: BookPreviewProps) => {
     </div>
   );
 
+  // Safely determine file size text
+  let fileSizeText = "";
+  const cf = read.contentFile;
+  console.log("File contentFile:", cf);
+  if (cf instanceof File) { // Check if it's a File instance
+    try {
+      const size = cf.size; // Attempt to access size
+      if (typeof size === 'number' && size > 0) {
+        fileSizeText = `(${Math.round(size / 1024)} KB)`;
+      }
+    } catch (error) {
+      console.warn("Could not read file size for preview:", error);
+      // fileSizeText remains "" if size access fails
+    }
+  }
+
   return (
     <div className="space-y-6">
       <Card className="overflow-hidden shadow-md">
@@ -58,8 +74,8 @@ export const BookPreview = ({ onBack }: BookPreviewProps) => {
               icon={FileText} 
               label="File Konten Buku" 
               value={read.contentFileName || "Belum diunggah"} 
-              valueClass={read.contentFile ? 'text-green-600' : 'text-amber-600'}
-              helpText={read.contentFile ? `(${Math.round(read.contentFile.size / 1024)} KB)` : ""}
+              valueClass={read.contentFile instanceof File ? 'text-green-600' : 'text-amber-600'}
+              helpText={fileSizeText}
             />
             <DetailItem 
               icon={read.isUsingAI ? CheckCircle : XCircle} 

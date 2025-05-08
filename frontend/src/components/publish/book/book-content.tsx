@@ -31,7 +31,14 @@ export const BookContent = ({ onSubmit, onBack }: BookContentProps) => {
         bookProcessState.setFormError("Ukuran file tidak boleh melebihi 50MB.");
         return;
       }
-      bookProcessWrite.contentFile = file;
+      
+      // Clone the File object to ensure it's properly stored
+      const fileClone = new File([file], file.name, {
+        type: file.type,
+        lastModified: file.lastModified,
+      });
+      
+      bookProcessWrite.contentFile = fileClone;
       bookProcessWrite.contentFileName = file.name;
       bookProcessState.clearFormError();
     }
@@ -55,7 +62,7 @@ export const BookContent = ({ onSubmit, onBack }: BookContentProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-8" encType="multipart/form-data">
       {read.formError && (
         <div className="bg-red-50 text-red-700 p-3 rounded-md border border-red-200">
           {read.formError}
