@@ -8,10 +8,20 @@ export default defineAPI({
 
     const req = this.req!;
 
-    const data = {
+    //const uid = this?.session?.user.id;
+    const uid = ``;
+
+    let data = {
       title: `Koleksi Ebook Milikmu`,
-      content: {},
+      content: {} as Record<
+        string,
+        { id: string; percent: number; last_page: number }
+      >
     };
+
+    if (uid) {
+
+    }
 
     const seo_data = {
       slug: `/library`,

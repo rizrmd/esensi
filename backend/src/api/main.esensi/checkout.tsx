@@ -8,6 +8,8 @@ export default defineAPI({
     
     const req = this.req!;
 
+    const cart = {};
+
     const data = {
       title: `Lanjutkan pembayaran`,
       content: {},

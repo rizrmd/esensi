@@ -8,17 +8,21 @@ export default defineAPI({
 
     const req = this.req!;
 
+    //const uid = this?.session?.user.id;
     const uid = ``;
+    let user = null;
 
-    const user = await db.customer.findFirst({
-      where: {
-        id: uid,
-      },
-    });
+    if( uid ){
+        user = await db.customer.findFirst({
+        where: {
+          id: uid,
+        },
+      });
+    }
 
     const data = {
       title: `Informasi Profil`,
-      content: {},
+      user: user,
     };
 
     const seo_data = {
@@ -30,6 +34,7 @@ export default defineAPI({
       paragraph: `Kelola profil Anda, ubah informasi akun dengan mudah di halaman ini.`,
       is_product: false,
     };
+    
 
     return {
       jsx: (<><SeoTemplate data={seo_data} /></>),

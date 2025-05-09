@@ -7,21 +7,29 @@ export default defineAPI({
   async handler() {
 
     const req = this.req!;
-    const uid = ""; // Replace with user id
 
-    const trx = await db.t_sales.findFirst({
-      where: {
-        id_customer: uid,
-        id: req.params.id,
-      },
-      include: {
-        t_sales_line: true,
-      },
-    });
+    //const uid = this?.session?.user.id;
+    const uid = ``;
 
-    const data = {
-      title: `Detail Pembelian`,
-      trx: trx,
+    let data = {
+      title: `Login Untuk Lihat Detail Pembelian`,
+      userid: null,
+      trx: null as any,
+    }
+
+    if (uid) {
+      const trx = await db.t_sales.findFirst({
+        where: {
+          id_customer: uid,
+          id: req.params.id,
+        },
+        include: {
+          t_sales_line: true,
+        },
+      });
+
+      data.userid = uid;
+      data.trx = trx;
     }
 
     const seo_data = {

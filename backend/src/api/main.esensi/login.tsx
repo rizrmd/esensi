@@ -8,9 +8,17 @@ export default defineAPI({
 
         const req = this.req!;
 
+        //const uid = this?.session?.user.id;
+        const uid = ``;
+        let user = null;
+
+        if (uid) {
+            user = uid;
+        }
+
         const data = {
             title: `Login ke Esensi`,
-            content: {},
+            userid: user,
         };
 
         const seo_data = {
@@ -26,6 +34,6 @@ export default defineAPI({
         return {
             jsx: (<><SeoTemplate data={seo_data} /></>),
             data: data,
-          };
+        };
     },
 });

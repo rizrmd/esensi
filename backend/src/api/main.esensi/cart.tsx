@@ -7,6 +7,9 @@ export default defineAPI({
   async handler() {
     const req = this.req!;
 
+    //const uid = this?.session?.user.id;
+    const uid = ``;
+
     const data = {
       title: `Keranjang Belanja`,
       content: {},
