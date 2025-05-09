@@ -28,6 +28,7 @@ import {
 import { BookForm } from "@/components/publish/book/book-form"; // Updated path
 import { BookContent } from "@/components/publish/book/book-content"; // Updated path
 import { BookPreview } from "@/components/publish/book/book-preview"; // Updated path
+import { PublishMenuBar } from "@/components/publish/menu-bar";
 
 // Helper function to convert File to base64 data URL
 const fileToDataUrl = (file: File | Blob): Promise<string> =>
@@ -201,23 +202,7 @@ export default () => {
       {({ user }) => {
         return (
           <div className="flex min-h-svh flex-col bg-muted/50">
-            <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-20 shadow-sm">
-              <div className="flex h-16 items-center justify-between px-4 md:px-8 lg:px-16">
-                <div className="flex items-center gap-2">
-                  <AppLogo />
-                  <span className="mx-2 text-muted-foreground">/</span>
-                  <span className="font-semibold text-lg">Terbitkan Buku</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" onClick={() => navigate("/dashboard")}
-                    className="font-medium">
-                    Kembali ke Dasbor
-                  </Button>
-                  <Button variant="outline" onClick={logout} className="font-medium">Keluar</Button>
-                </div>
-              </div>
-            </header>
-
+            <PublishMenuBar title="Tambah Buku" />
             <main className="flex-1 flex justify-center items-start py-8 md:py-14">
               <Card className="w-full max-w-4xl shadow-lg border-0">
                 <CardHeader className="pb-2">

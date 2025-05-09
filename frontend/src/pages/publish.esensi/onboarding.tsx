@@ -204,7 +204,7 @@ export default () => {
     <Protected>
       {({ user }) => (
         <div className="flex min-h-svh flex-col">
-          <PublishMenuBar />
+          <PublishMenuBar title="Onboarding" />
           {/* Main Content */}
           <div className="flex-1 container py-6 md:py-10">
             <div className="max-w-3xl mx-auto">

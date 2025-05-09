@@ -11,12 +11,13 @@ const menu = [
   { label: "Keluar", action: "signout" },
 ];
 
-export const PublishMenuBar = () => {
+export const PublishMenuBar = ({ title }: { title: string }) => {
   const { currentPath } = useRoot();
   const local = useLocal({}, async () => {});
 
-  const handleMenuClick = (item: typeof menu[number]) => {
-    if (item.action === "signout") betterAuth.signOut().finally(() => navigate("/"));
+  const handleMenuClick = (item: (typeof menu)[number]) => {
+    if (item.action === "signout")
+      betterAuth.signOut().finally(() => navigate("/"));
     else if (item.href) navigate(item.href);
   };
 
@@ -25,19 +26,27 @@ export const PublishMenuBar = () => {
       <div className="flex h-14 items-center justify-between px-4 md:px-8">
         <div className="flex items-center gap-4">
           <AppLogo className="h-8 w-auto" />
-          <span className="font-bold text-lg text-gray-700">Esensi Publish</span>
+          <span className="font-bold text-lg text-gray-700 text-center">
+            {title}
+          </span>
         </div>
         <div className="flex gap-2">
-          {menu.map((item) => (
-            <Button
-              key={item.href || item.action}
-              variant={currentPath === item.href ? "default" : "ghost"}
-              className="font-medium"
-              onClick={() => handleMenuClick(item)}
-            >
-              {item.label}
-            </Button>
-          ))}
+          {menu
+            .filter(
+              (item) =>
+                currentPath !== "/onboarding" ||
+                (currentPath === "/onboarding" && item.action === "signout")
+            )
+            .map((item) => (
+              <Button
+                key={item.href || item.action}
+                variant={currentPath === item.href ? "default" : "ghost"}
+                className="font-medium"
+                onClick={() => handleMenuClick(item)}
+              >
+                {item.label}
+              </Button>
+            ))}
         </div>
       </div>
     </nav>
