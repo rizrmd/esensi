@@ -21,12 +21,13 @@ export default () => {
       local.render();
     }
   );
-
+  const params = new URLSearchParams(location.search);
+  const callbackURL = params.get("callbackURL") as string | undefined;
   const u = baseUrl;
 
   return (
     <SideForm sideImage={"/img/side-bg.jpg"}>
-      <div className="space-y-6">
+      <div className="space-y-1">
         <div className="text-center">
           <h1 className="text-2xl font-semibold">Daftar</h1>
         </div>
@@ -107,7 +108,7 @@ export default () => {
               write.loading = false;
             }
           }}
-          className="space-y-4"
+          className="space-y-4 pt-3"
         >
           {({ Field, read }) => {
             return (
@@ -142,6 +143,21 @@ export default () => {
             );
           }}
         </EForm>
+        <div className="text-center text-sm">
+          <p className="text-muted-foreground">
+            <Button
+              variant="link"
+              className="p-0 h-auto"
+              onClick={() =>
+                navigate(
+                  "/login" + (callbackURL ? `?callbackURL=${callbackURL}` : "")
+                )
+              }
+            >
+              Kembali
+            </Button>
+          </p>
+        </div>
       </div>
     </SideForm>
   );
