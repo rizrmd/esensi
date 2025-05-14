@@ -35,7 +35,6 @@ export default () => {
   );
   const params = new URLSearchParams(location.search);
   const callbackURL = params.get("callbackURL") as string | undefined;
-  const u = baseUrl;
 
   function translateErrorMessage(message: string) {
     throw new Error("Function not implemented.");
@@ -104,7 +103,8 @@ export default () => {
                 }
 
                 Alert.info("Pendaftaran berhasil, silahkan cek email anda");
-                if (!local.callbackURL) window.location.replace(u.main_esensi);
+                if (!local.callbackURL)
+                  window.location.replace(baseUrl.main_esensi);
                 else window.location.replace(local.callbackURL!);
                 return;
               }

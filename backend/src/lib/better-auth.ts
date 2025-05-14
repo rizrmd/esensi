@@ -4,8 +4,9 @@ import { randomUUIDv7 } from "bun";
 import nodemailer from "nodemailer";
 import { Pool } from "pg";
 import { dir, type SiteConfig } from "rlib/server";
+import { translateErrorMessage } from "shared/utils/translate";
 import raw_config from "../../../config.json";
-import { translateErrorMessage } from 'shared/utils/translate';
+
 const config = raw_config as SiteConfig;
 
 const templates = {
@@ -312,48 +313,59 @@ Jika Anda tidak melakukan permintaan ini, silakan segera hubungi tim dukungan ka
 
 export const utils = {
   mapping: {
-    table: (name: string) => {
-      if (name === "user") return "user_role";
-      else if (name === "account") return "user";
-      else return name;
-    },
     column: {
       session: ({
+        id,
         userId,
         expiresAt,
         ipAddress,
         userAgent,
         createdAt,
         updatedAt,
+        token,
       }: {
+        id: string;
         userId: string;
-        expiresAt: string;
-        ipAddress: string;
-        userAgent: string;
-        createdAt: string;
-        updatedAt: string;
+        expiresAt: Date;
+        ipAddress?: string | null;
+        userAgent?: string | null ;
+        createdAt: Date;
+        updatedAt: Date;
+        token: string;
       }) => ({
-        id_user_role: userId,
+        id,
+        id_user: userId,
         expires_at: expiresAt,
         ip_address: ipAddress,
         user_agent: userAgent,
         created_at: createdAt,
         updated_at: updatedAt,
+        token,
       }),
       verification: ({
+        id,
+        identifier,
+        value,
         expiresAt,
         createdAt,
         updatedAt,
       }: {
+        id: string;
+        identifier: string;
+        value: string;
         expiresAt: string;
         createdAt: string;
-        updatedAt: string;
+        updatedAt?: Date | null;
       }) => ({
+        id,
+        identifier,
+        value,
         expires_at: expiresAt,
         created_at: createdAt,
         updated_at: updatedAt,
       }),
       account: ({
+        id,
         userId,
         accountId,
         providerId,
@@ -364,7 +376,11 @@ export const utils = {
         idToken,
         createdAt,
         updatedAt,
+        role,
+        password,
+        scope,
       }: {
+        id: string;
         userId: string;
         accountId: string;
         providerId: string;
@@ -375,9 +391,12 @@ export const utils = {
         idToken: string;
         createdAt: string;
         updatedAt: string;
+        role: string;
+        password?: string | null;
+        scope?: string | null;
       }) => ({
-        id_user_role: userId,
-        id_user: accountId,
+        id_user: userId,
+        id_account: accountId,
         id_provider: providerId,
         access_token: accessToken,
         refresh_token: refreshToken,
@@ -386,25 +405,58 @@ export const utils = {
         id_token: idToken,
         created_at: createdAt,
         updated_at: updatedAt,
+        role,
+        password,
+        scope,
       }),
       user: ({
+        id,
+        name,
+        email,
         emailVerified,
         createdAt,
         updatedAt,
-        displayUsername,
+        image,
         twoFactorEnabled,
+        id_customer,
+        id_author,
+        id_affiliate,
+        id_management,
+        id_publisher,
+        id_sales_and_marketing,
+        id_support,
       }: {
-        emailVerified: string;
-        createdAt: string;
-        updatedAt: string;
-        displayUsername: string;
-        twoFactorEnabled: string;
+        id: string;
+        name: string;
+        email: string;
+        emailVerified: boolean;
+        createdAt: Date;
+        updatedAt: Date;
+        image?: string | null;
+        twoFactorEnabled?: boolean | null;
+        id_customer?: string | null;
+        id_author?: string | null;
+        id_affiliate?: string | null;
+        id_management?: string | null;
+        id_publisher?: string | null;
+        id_sales_and_marketing?: string | null;
+        id_support?: string | null;
       }) => ({
+        id,
+        name,
+        email,
         email_verified: emailVerified,
         created_at: createdAt,
         updated_at: updatedAt,
-        display_username: displayUsername,
+        image,
         two_factor_enabled: twoFactorEnabled,
+        id_customer,
+        id_author,
+        id_affiliate,
+        id_management,
+        id_publisher,
+        id_sales_and_marketing,
+        id_support,
       }),
     },
   },
@@ -434,24 +486,6 @@ export const utils = {
     const response = await auth.api.getSession({
       headers,
     });
-    return {
-      session: {
-        ...response?.session,
-        id_user_role: response?.session.userId,
-        expires_at: response?.session.expiresAt,
-        ip_address: response?.session.ipAddress,
-        user_agent: response?.session.userAgent,
-        created_at: response?.session.createdAt,
-        updated_at: response?.session.updatedAt,
-      },
-      user_role: {
-        ...response?.user,
-        email_verified: response?.user.emailVerified,
-        created_at: response?.user.createdAt,
-        updated_at: response?.user.updatedAt,
-        display_username: response?.user.displayUsername,
-        two_factor_enabled: response?.user.twoFactorEnabled,
-      },
-    };
+    return response;
   },
 };
