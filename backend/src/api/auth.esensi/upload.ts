@@ -18,9 +18,10 @@ export default defineAPI({
     Readable.fromWeb(req.body).pipe(busboy);
 
     const date = new Date();
+    const dateDir = `${date.getFullYear()}-${date.getMonth() + 0}-${date.getDay()}`;
     const dirname = [
       "upload",
-      `${date.getFullYear()}-${date.getMonth() + 0}-${date.getDay()}`,
+      dateDir,
     ];
     dir.ensure(join(process.cwd(), ...dirname));
 
@@ -40,6 +41,6 @@ export default defineAPI({
     const file = Bun.file(join(process.cwd(), ...dirname, fileName));
 
     await file.write(upload.file);
-    return { name: "/" + ["files", fileName].join("/") };
+    return { name: "/" + ["files", dateDir, fileName].join("/") };
   },
 });
