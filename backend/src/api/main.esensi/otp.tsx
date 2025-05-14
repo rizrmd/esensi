@@ -10,6 +10,7 @@ export default defineAPI({
 
         const data = {
             title: `Verifikasi Akun Anda`,
+            phone: ``,
             content: {},
         };
 

@@ -29,7 +29,8 @@ export default defineAPI({
             (x) => x.id_product
           )
         },
-        status: "published", deleted_at: null
+        status: "published",
+        deleted_at: null
       },
       select: {
         id: true,

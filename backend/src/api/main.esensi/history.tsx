@@ -7,16 +7,16 @@ export default defineAPI({
 
   async handler() {
     const req = this.req!;
-    const page = req.params?.page ? parseInt(req.params.page) : 1;
+    const page = req.params?.page ? parseInt( req.params.page ) : 1;
     const books_per_page = 20;
-    const skip_books = req.params?.page ? ((page - 1) * books_per_page) : 0;
+    const skip_books = req.params?.page ? ( (page - 1) * books_per_page ) : 0;
 
     //const uid = this?.session?.user.id;
     const uid = ``;
 
 
     const statuses = ["pending", "paid", "canceled", "fraud", "expired", "refunded"];
-    const trxs_where = req.params?.status && statuses.includes(req.params.status) ? {
+    const trxs_where = req.params?.status && statuses.includes( req.params.status ) ? {
       id_customer: uid,
       status: req.params.status,
     } : {

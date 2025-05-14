@@ -15,7 +15,11 @@ export default defineAPI({
       title: `Koleksi Ebook Milikmu`,
       content: {} as Record<
         string,
-        { id: string; percent: number; last_page: number }
+        {
+          id: string;
+          percent: number;
+          last_page: number
+        }
       >
     };
 

@@ -65,8 +65,12 @@ export default defineAPI({
     });
 
     const products = [
-      ...products_search.map((e) => ({ ...e, type: "product" })),
-      ...bundles_search.map((e) => ({ ...e, type: "bundle" })),
+      ...products_search.map((e) => ({
+        ...e, type: "product"
+      })),
+      ...bundles_search.map((e) => ({
+        ...e, type: "bundle"
+      })),
     ];
 
     const count_products = await db.product.count({
