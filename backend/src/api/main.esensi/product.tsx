@@ -8,6 +8,9 @@ export default defineAPI({
   async handler() {
     const req = this.req!;
     console.log("slug:", req.params.slug);
+
+    // if slug == "_" redirect to /browse
+
     const product = await db.product.findFirst(
       {
         where: {

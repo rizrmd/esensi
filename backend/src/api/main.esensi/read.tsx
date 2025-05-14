@@ -6,7 +6,6 @@ export default defineAPI({
   url: "/read/:slug",
   async handler() {
     const req = this.req!;
-    console.log("slug:", req.params.slug);
 
     const book_title = "";
 

@@ -52,7 +52,12 @@ export default defineAPI({
     const saveToStore = () => {
       localStorage.setItem(
         "esensi-cart",
-        JSON.stringify(data.items?.map((e) => ({ id: e.id, type: e.type }))),
+        JSON.stringify(
+          data.items?.map((e) => ({
+            id: e.id,
+            type: e.type
+          }))
+        ),
       );
     };
 
