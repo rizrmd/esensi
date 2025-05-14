@@ -77,7 +77,7 @@ export const SeoTemplate = (arg: { data: any }) => {
                     <h4>{data?.h4 ? data.h4 : data.headings ? data.headings : data.meta_title}</h4>
                     <h5>{data?.h5 ? data.h5 : data.headings ? data.headings : data.meta_title}</h5>
                     <h6>{data?.h6 ? data.h6 : data.headings ? data.headings : data.meta_title}</h6>
-                    <p>{the_paragraph}</p>
+                    <p dangerouslySetInnerHTML={{__html: the_paragraph}} />
                 </body>
             </html>
         </Fragment>

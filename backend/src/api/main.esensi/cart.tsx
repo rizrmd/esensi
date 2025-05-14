@@ -35,9 +35,7 @@ export default defineAPI({
       }[];
     };
 
-    //const uid = this?.session?.user.id;
-    const uid = ``;
-
+    const uid = this?.user?.id;
 
     let data = {
       title: `Keranjang Belanja`,
@@ -66,7 +64,6 @@ export default defineAPI({
       data.currency = cart.currency;
       data.total = cart.total;
     };
-
 
     let item = {} as CartItem;
 

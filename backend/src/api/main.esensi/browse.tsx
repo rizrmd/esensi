@@ -8,7 +8,7 @@ export default defineAPI({
     const req = this.req!;
     const page = req.params?.page ? parseInt(req.params.page) : 1;
     const books_per_page = 20;
-    const skip_books = page > 1 ? ((page - 1) * books_per_page) : 0;
+    const skip_books = page > 1 ? (page - 1) * books_per_page : 0;
 
     const products = await db.product.findMany({
       select: {
@@ -31,20 +31,20 @@ export default defineAPI({
     });
 
     const total_pages = Math.ceil(
-      await db.product.count({
+      (await db.product.count({
         where: {
           status: "published",
           deleted_at: null,
         },
-      }) / books_per_page);
+      })) / books_per_page
+    );
 
     const data = {
       title: `Lihat Semua Ebook`,
       products: products,
       page: page,
       pages: total_pages,
-    }
-
+    };
 
     const seo_data = {
       slug: `/browse${page > 1 ? `/${page}` : ``}`,
@@ -58,7 +58,11 @@ export default defineAPI({
     };
 
     return {
-      jsx: (<><SeoTemplate data={seo_data} /></>),
+      jsx: (
+        <>
+          <SeoTemplate data={seo_data} />
+        </>
+      ),
       data: data,
     };
   },
