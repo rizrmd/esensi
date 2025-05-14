@@ -41,3 +41,4 @@ backend/src/gen/*
 shared/models/index.js
 shared/models/edge.js
 shared/models/libquery_engine-*
+upload

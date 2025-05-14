@@ -1,29 +1,45 @@
-import { baseUrl } from "@/lib/gen/base-url";
 import { EForm } from "@/components/ext/eform/EForm";
 import { SideForm } from "@/components/ext/side-form";
 import { Button } from "@/components/ui/button";
+import {
+  FileUpload,
+  FileUploadDropzone,
+  FileUploadItem,
+  FileUploadItemDelete,
+  FileUploadItemPreview,
+  FileUploadList,
+  FileUploadTrigger,
+} from "@/components/ui/file-upload";
 import { Alert } from "@/components/ui/global-alert";
 import { betterAuth } from "@/lib/better-auth";
-import { navigate } from "@/lib/router";
-import { useLocal } from "@/lib/hooks/use-local";
-import { translateErrorMessage } from "shared/utils/translate";
+import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
+import { useLocal } from "@/lib/hooks/use-local";
+import { navigate } from "@/lib/router";
+import { Upload, X } from "lucide-react";
 
 export default () => {
   const local = useLocal(
     {
       callbackURL: undefined as string | undefined,
+      files: [] as File[],
     },
     async () => {
       const params = new URLSearchParams(location.search);
       local.callbackURL = params.get("callbackURL") as string | undefined;
-      if (!local.callbackURL) navigate("/");
+      if (!local.callbackURL) {
+        navigate("/");
+      }
       local.render();
     }
   );
   const params = new URLSearchParams(location.search);
   const callbackURL = params.get("callbackURL") as string | undefined;
   const u = baseUrl;
+
+  function translateErrorMessage(message: string) {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <SideForm sideImage={"/img/side-bg.jpg"}>
@@ -37,6 +53,7 @@ export default () => {
             email: "",
             password: "",
             password2: "",
+            image: "",
             loading: false,
           }}
           onSubmit={async ({ write, read }) => {
@@ -55,10 +72,25 @@ export default () => {
               }
               write.loading = true;
 
+              if (local.files.length > 0) {
+                const file = local.files[0];
+                const formData = new FormData();
+                formData.append("file", file);
+                const res = await fetch(`${baseUrl.auth_esensi}/api/upload`, {
+                  method: "POST",
+                  body: formData,
+                });
+                const uploaded = (await res.json()) as { name: string };
+                if (uploaded.name) {
+                  write.image = uploaded.name;
+                }
+              }
+
               const res = await betterAuth.signUp({
                 name: read.name,
                 username: read.email,
                 password: read.password,
+                image: write.image,
                 callbackURL: local.callbackURL,
               });
 
@@ -110,7 +142,7 @@ export default () => {
           }}
           className="space-y-4 pt-3"
         >
-          {({ Field, read }) => {
+          {({ Field, read, write }) => {
             return (
               <>
                 <Field
@@ -131,6 +163,63 @@ export default () => {
                   input={{ type: "password" }}
                   label="Konfirmasi Kata Sandi"
                 />
+
+                <FileUpload
+                  maxFiles={1}
+                  maxSize={1 * 1024 * 1024}
+                  className="w-full max-w-md"
+                  value={local.files}
+                  onValueChange={(files) => {
+                    local.files = files;
+                    local.render();
+                  }}
+                  accept="image/*"
+                >
+                  <span className="font-medium text-sm">Foto Profil</span>
+                  {local.files.length === 0 && (
+                    <FileUploadDropzone>
+                      <div className="flex flex-col items-center gap-1 text-center">
+                        <div className="flex items-center justify-center rounded-full border p-2.5">
+                          <Upload className="size-6 text-muted-foreground" />
+                        </div>
+                        <p className="font-medium text-sm">
+                          Seret & taruh file di sini
+                        </p>
+                        <p className="text-muted-foreground text-xs">
+                          Atau klik untuk mencari (ukuran maks 1MB)
+                        </p>
+                      </div>
+                      <FileUploadTrigger asChild>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="mt-2 w-fit"
+                        >
+                          Cari file
+                        </Button>
+                      </FileUploadTrigger>
+                    </FileUploadDropzone>
+                  )}
+                  <FileUploadList>
+                    {local.files.map((file, index) => (
+                      <FileUploadItem key={index} value={file}>
+                        <FileUploadItemPreview
+                          style={{ width: 100, height: 100, borderRadius: 100 }}
+                        />
+                        {/* <FileUploadItemMetadata /> */}
+                        <FileUploadItemDelete asChild>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="size-7"
+                          >
+                            <X />
+                          </Button>
+                        </FileUploadItemDelete>
+                      </FileUploadItem>
+                    ))}
+                  </FileUploadList>
+                </FileUpload>
 
                 <Button
                   type="submit"
