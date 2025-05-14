@@ -1,13 +1,12 @@
-import { defineAPI, html } from "rlib/server";
+import { SeoTemplate } from "backend/components/SeoTemplate";
+import { defineAPI } from "rlib/server";
 
 export default defineAPI({
   name: "store",
   url: "/store",
   async handler() {
-    const req = this.req!;
-    console.log("route: " + "/api/store");
 
-    // Get all books
+    const req = this.req!;
     const allbooks = await db.product.findMany({
       select: {
         name: true,
@@ -30,19 +29,29 @@ export default defineAPI({
     // Get all categories
     const categories = await db.category.findMany({
       where: {
-        deleted_at: null,
-      },
+        deleted_at: null
+      }
     });
 
-    return html(
-      <>
-        <head>
-          <title>{}</title>
-        </head>
-        <body>
-          <>an si</>
-        </body>
-      </>
-    );
+    const data = {
+      title: `Esensi Online`,
+      content: {},
+    };
+
+    const seo_data = {
+      slug: `/store`,
+      meta_title: `Belanja Ebook Online | Temukan Ribuan Judul Ebook | Esensi Online`,
+      meta_description: `Jelajahi koleksi eBook terbaik Indonesia. Temukan bacaan favorit Anda dan beli eBook berkualitas dengan harga terjangkau hanya di toko kami.`,
+      image: ``,
+      headings: `Belanja Ebook Online | Temukan Ribuan Judul Ebook | Esensi Online`,
+      paragraph: `Jelajahi koleksi eBook terbaik Indonesia. Temukan bacaan favorit Anda dan beli eBook berkualitas dengan harga terjangkau hanya di toko kami.`,
+      keywords: `toko buku,ebook`,
+      is_product: false,
+    };
+
+    return {
+      jsx: (<><SeoTemplate data={seo_data} /></>),
+      data: data,
+    };
   },
 });
