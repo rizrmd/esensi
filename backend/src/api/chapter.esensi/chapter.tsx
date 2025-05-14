@@ -1,0 +1,76 @@
+import { SeoTemplate } from "backend/components/SeoTemplate";
+import { kebabCase } from "lodash";
+import { defineAPI } from "rlib/server";
+
+export default defineAPI({
+  name: "chapter",
+  url: "/chapter/:slug/:number",
+  async handler() {
+    const req = this.req!;
+    console.log("slug:", req.params.slug);
+
+    // if slug == "_" redirect to /browse
+
+    const product = await db.product.findFirst(
+      {
+        where: {
+          slug: req.params.slug,
+          status: "published",
+          is_chapter: true,
+          deleted_at: null,
+        },
+        include: {
+          product_category: {
+            select: {
+              category: {
+                select: { name: true, slug: true },
+              },
+            },
+            where: {
+              category: {
+                deleted_at: null,
+              },
+            },
+          },
+        },
+      },
+    );
+
+    let cats = "";
+    product?.product_category.map((cat) => {
+      cats = cats + ", " + cat.category.name;
+    });
+
+    const categories = product?.product_category.map((cat) => {
+      return {
+        name: cat.category.name,
+        slug: cat.category.slug,
+      };
+    });
+
+    const data = {
+      title: `Detail Ebook`,
+      product: product,
+      categories: categories,
+    }
+
+
+    const seo_data = {
+      slug: `/chapter/${req.params.slug}/${req.params.number}`,
+      meta_title: `${product?.name} oleh ${product?.info} | Unduh Ebook Sekarang`,
+      meta_description: `eBook ${product?.name} dengan tema ${cats}. Dapatkan sinopsis, preview, dan link unduh legal dengan aman, murah, dan terpercaya hanya di sini!`,
+      image: `${product?.cover}`,
+      headings: `${product?.name}`,
+      paragraph: `${product?.desc}`,
+      keywords: `${cats}`,
+      is_product: true,
+      price: product?.real_price,
+      currencry: product?.currency,
+    };
+
+    return {
+      jsx: (<><SeoTemplate data={seo_data} /></>),
+      data: data,
+    };
+  },
+});

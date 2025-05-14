@@ -9,6 +9,11 @@
       "domains": ["esensi.online", "esensi.local"],
       "isDefault": true
     },
+    "chapter.esensi": {
+      "devPort": 7200,
+      "domains": ["chapter.esensi.online", "chapter.esensi.local"],
+      "isDefault": true
+    },
     "auth.esensi": {
       "devPort": 7500,
       "domains": ["auth.esensi.online", "auth.esensi.local"]

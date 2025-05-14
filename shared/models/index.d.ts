@@ -183,6 +183,11 @@ export type transaction = $Result.DefaultSelection<Prisma.$transactionPayload>
  * 
  */
 export type withdrawal = $Result.DefaultSelection<Prisma.$withdrawalPayload>
+/**
+ * Model chapter
+ * 
+ */
+export type chapter = $Result.DefaultSelection<Prisma.$chapterPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -648,6 +653,16 @@ export class PrismaClient<
     * ```
     */
   get withdrawal(): Prisma.withdrawalDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.chapter`: Exposes CRUD operations for the **chapter** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Chapters
+    * const chapters = await prisma.chapter.findMany()
+    * ```
+    */
+  get chapter(): Prisma.chapterDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1121,7 +1136,8 @@ export namespace Prisma {
     t_sales_download: 't_sales_download',
     t_sales_line: 't_sales_line',
     transaction: 'transaction',
-    withdrawal: 'withdrawal'
+    withdrawal: 'withdrawal',
+    chapter: 'chapter'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1140,7 +1156,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "affiliate" | "auth_account" | "auth_session" | "auth_two_factor" | "auth_user" | "auth_verification" | "author" | "banner" | "bundle" | "bundle_category" | "bundle_product" | "category" | "customer" | "customer_reader" | "customer_track" | "landing" | "landing_items" | "management" | "midtrx" | "preorder" | "product" | "product_category" | "promo_code" | "publisher" | "publisher_author" | "sales_and_marketing" | "support" | "t_ai_credit" | "t_ai_credit_topup" | "t_sales" | "t_sales_download" | "t_sales_line" | "transaction" | "withdrawal"
+      modelProps: "affiliate" | "auth_account" | "auth_session" | "auth_two_factor" | "auth_user" | "auth_verification" | "author" | "banner" | "bundle" | "bundle_category" | "bundle_product" | "category" | "customer" | "customer_reader" | "customer_track" | "landing" | "landing_items" | "management" | "midtrx" | "preorder" | "product" | "product_category" | "promo_code" | "publisher" | "publisher_author" | "sales_and_marketing" | "support" | "t_ai_credit" | "t_ai_credit_topup" | "t_sales" | "t_sales_download" | "t_sales_line" | "transaction" | "withdrawal" | "chapter"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3660,6 +3676,80 @@ export namespace Prisma {
           }
         }
       }
+      chapter: {
+        payload: Prisma.$chapterPayload<ExtArgs>
+        fields: Prisma.chapterFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.chapterFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chapterPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.chapterFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chapterPayload>
+          }
+          findFirst: {
+            args: Prisma.chapterFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chapterPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.chapterFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chapterPayload>
+          }
+          findMany: {
+            args: Prisma.chapterFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chapterPayload>[]
+          }
+          create: {
+            args: Prisma.chapterCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chapterPayload>
+          }
+          createMany: {
+            args: Prisma.chapterCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.chapterCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chapterPayload>[]
+          }
+          delete: {
+            args: Prisma.chapterDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chapterPayload>
+          }
+          update: {
+            args: Prisma.chapterUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chapterPayload>
+          }
+          deleteMany: {
+            args: Prisma.chapterDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.chapterUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.chapterUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chapterPayload>[]
+          }
+          upsert: {
+            args: Prisma.chapterUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chapterPayload>
+          }
+          aggregate: {
+            args: Prisma.ChapterAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChapter>
+          }
+          groupBy: {
+            args: Prisma.chapterGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ChapterGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.chapterCountArgs<ExtArgs>
+            result: $Utils.Optional<ChapterCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3778,6 +3868,7 @@ export namespace Prisma {
     t_sales_line?: t_sales_lineOmit
     transaction?: transactionOmit
     withdrawal?: withdrawalOmit
+    chapter?: chapterOmit
   }
 
   /* Types for Logging */
@@ -4314,6 +4405,7 @@ export namespace Prisma {
 
   export type ProductCountOutputType = {
     bundle_product: number
+    chapter: number
     customer_reader: number
     preorder: number
     product_category: number
@@ -4323,6 +4415,7 @@ export namespace Prisma {
 
   export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bundle_product?: boolean | ProductCountOutputTypeCountBundle_productArgs
+    chapter?: boolean | ProductCountOutputTypeCountChapterArgs
     customer_reader?: boolean | ProductCountOutputTypeCountCustomer_readerArgs
     preorder?: boolean | ProductCountOutputTypeCountPreorderArgs
     product_category?: boolean | ProductCountOutputTypeCountProduct_categoryArgs
@@ -4346,6 +4439,13 @@ export namespace Prisma {
    */
   export type ProductCountOutputTypeCountBundle_productArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: bundle_productWhereInput
+  }
+
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountChapterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: chapterWhereInput
   }
 
   /**
@@ -27327,6 +27427,7 @@ export namespace Prisma {
     is_physical: boolean | null
     preorder_min_qty: number | null
     content_type: string | null
+    is_chapter: boolean | null
   }
 
   export type ProductMaxAggregateOutputType = {
@@ -27349,6 +27450,7 @@ export namespace Prisma {
     is_physical: boolean | null
     preorder_min_qty: number | null
     content_type: string | null
+    is_chapter: boolean | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -27373,6 +27475,7 @@ export namespace Prisma {
     ai_suggested_content: number
     preorder_min_qty: number
     content_type: number
+    is_chapter: number
     _all: number
   }
 
@@ -27409,6 +27512,7 @@ export namespace Prisma {
     is_physical?: true
     preorder_min_qty?: true
     content_type?: true
+    is_chapter?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -27431,6 +27535,7 @@ export namespace Prisma {
     is_physical?: true
     preorder_min_qty?: true
     content_type?: true
+    is_chapter?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -27455,6 +27560,7 @@ export namespace Prisma {
     ai_suggested_content?: true
     preorder_min_qty?: true
     content_type?: true
+    is_chapter?: true
     _all?: true
   }
 
@@ -27566,6 +27672,7 @@ export namespace Prisma {
     ai_suggested_content: JsonValue | null
     preorder_min_qty: number | null
     content_type: string | null
+    is_chapter: boolean
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -27609,7 +27716,9 @@ export namespace Prisma {
     ai_suggested_content?: boolean
     preorder_min_qty?: boolean
     content_type?: boolean
+    is_chapter?: boolean
     bundle_product?: boolean | product$bundle_productArgs<ExtArgs>
+    chapter?: boolean | product$chapterArgs<ExtArgs>
     customer_reader?: boolean | product$customer_readerArgs<ExtArgs>
     preorder?: boolean | product$preorderArgs<ExtArgs>
     author?: boolean | product$authorArgs<ExtArgs>
@@ -27641,6 +27750,7 @@ export namespace Prisma {
     ai_suggested_content?: boolean
     preorder_min_qty?: boolean
     content_type?: boolean
+    is_chapter?: boolean
     author?: boolean | product$authorArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
@@ -27666,6 +27776,7 @@ export namespace Prisma {
     ai_suggested_content?: boolean
     preorder_min_qty?: boolean
     content_type?: boolean
+    is_chapter?: boolean
     author?: boolean | product$authorArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
@@ -27691,11 +27802,13 @@ export namespace Prisma {
     ai_suggested_content?: boolean
     preorder_min_qty?: boolean
     content_type?: boolean
+    is_chapter?: boolean
   }
 
-  export type productOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "alias" | "strike_price" | "real_price" | "desc" | "info" | "status" | "currency" | "deleted_at" | "img_file" | "cover" | "product_file" | "sku" | "id_author" | "published_date" | "is_physical" | "ai_suggested_content" | "preorder_min_qty" | "content_type", ExtArgs["result"]["product"]>
+  export type productOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "alias" | "strike_price" | "real_price" | "desc" | "info" | "status" | "currency" | "deleted_at" | "img_file" | "cover" | "product_file" | "sku" | "id_author" | "published_date" | "is_physical" | "ai_suggested_content" | "preorder_min_qty" | "content_type" | "is_chapter", ExtArgs["result"]["product"]>
   export type productInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bundle_product?: boolean | product$bundle_productArgs<ExtArgs>
+    chapter?: boolean | product$chapterArgs<ExtArgs>
     customer_reader?: boolean | product$customer_readerArgs<ExtArgs>
     preorder?: boolean | product$preorderArgs<ExtArgs>
     author?: boolean | product$authorArgs<ExtArgs>
@@ -27715,6 +27828,7 @@ export namespace Prisma {
     name: "product"
     objects: {
       bundle_product: Prisma.$bundle_productPayload<ExtArgs>[]
+      chapter: Prisma.$chapterPayload<ExtArgs>[]
       customer_reader: Prisma.$customer_readerPayload<ExtArgs>[]
       preorder: Prisma.$preorderPayload<ExtArgs>[]
       author: Prisma.$authorPayload<ExtArgs> | null
@@ -27744,6 +27858,7 @@ export namespace Prisma {
       ai_suggested_content: Prisma.JsonValue | null
       preorder_min_qty: number | null
       content_type: string | null
+      is_chapter: boolean
     }, ExtArgs["result"]["product"]>
     composites: {}
   }
@@ -28139,6 +28254,7 @@ export namespace Prisma {
   export interface Prisma__productClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     bundle_product<T extends product$bundle_productArgs<ExtArgs> = {}>(args?: Subset<T, product$bundle_productArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$bundle_productPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    chapter<T extends product$chapterArgs<ExtArgs> = {}>(args?: Subset<T, product$chapterArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chapterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     customer_reader<T extends product$customer_readerArgs<ExtArgs> = {}>(args?: Subset<T, product$customer_readerArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$customer_readerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     preorder<T extends product$preorderArgs<ExtArgs> = {}>(args?: Subset<T, product$preorderArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$preorderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     author<T extends product$authorArgs<ExtArgs> = {}>(args?: Subset<T, product$authorArgs<ExtArgs>>): Prisma__authorClient<$Result.GetResult<Prisma.$authorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -28195,6 +28311,7 @@ export namespace Prisma {
     readonly ai_suggested_content: FieldRef<"product", 'Json'>
     readonly preorder_min_qty: FieldRef<"product", 'Int'>
     readonly content_type: FieldRef<"product", 'String'>
+    readonly is_chapter: FieldRef<"product", 'Boolean'>
   }
     
 
@@ -28612,6 +28729,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Bundle_productScalarFieldEnum | Bundle_productScalarFieldEnum[]
+  }
+
+  /**
+   * product.chapter
+   */
+  export type product$chapterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chapter
+     */
+    select?: chapterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chapter
+     */
+    omit?: chapterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chapterInclude<ExtArgs> | null
+    where?: chapterWhereInput
+    orderBy?: chapterOrderByWithRelationInput | chapterOrderByWithRelationInput[]
+    cursor?: chapterWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChapterScalarFieldEnum | ChapterScalarFieldEnum[]
   }
 
   /**
@@ -43277,6 +43418,1085 @@ export namespace Prisma {
 
 
   /**
+   * Model chapter
+   */
+
+  export type AggregateChapter = {
+    _count: ChapterCountAggregateOutputType | null
+    _avg: ChapterAvgAggregateOutputType | null
+    _sum: ChapterSumAggregateOutputType | null
+    _min: ChapterMinAggregateOutputType | null
+    _max: ChapterMaxAggregateOutputType | null
+  }
+
+  export type ChapterAvgAggregateOutputType = {
+    number: number | null
+  }
+
+  export type ChapterSumAggregateOutputType = {
+    number: number | null
+  }
+
+  export type ChapterMinAggregateOutputType = {
+    id: string | null
+    id_product: string | null
+    number: number | null
+    name: string | null
+  }
+
+  export type ChapterMaxAggregateOutputType = {
+    id: string | null
+    id_product: string | null
+    number: number | null
+    name: string | null
+  }
+
+  export type ChapterCountAggregateOutputType = {
+    id: number
+    id_product: number
+    number: number
+    name: number
+    _all: number
+  }
+
+
+  export type ChapterAvgAggregateInputType = {
+    number?: true
+  }
+
+  export type ChapterSumAggregateInputType = {
+    number?: true
+  }
+
+  export type ChapterMinAggregateInputType = {
+    id?: true
+    id_product?: true
+    number?: true
+    name?: true
+  }
+
+  export type ChapterMaxAggregateInputType = {
+    id?: true
+    id_product?: true
+    number?: true
+    name?: true
+  }
+
+  export type ChapterCountAggregateInputType = {
+    id?: true
+    id_product?: true
+    number?: true
+    name?: true
+    _all?: true
+  }
+
+  export type ChapterAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which chapter to aggregate.
+     */
+    where?: chapterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of chapters to fetch.
+     */
+    orderBy?: chapterOrderByWithRelationInput | chapterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: chapterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` chapters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` chapters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned chapters
+    **/
+    _count?: true | ChapterCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ChapterAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ChapterSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ChapterMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ChapterMaxAggregateInputType
+  }
+
+  export type GetChapterAggregateType<T extends ChapterAggregateArgs> = {
+        [P in keyof T & keyof AggregateChapter]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChapter[P]>
+      : GetScalarType<T[P], AggregateChapter[P]>
+  }
+
+
+
+
+  export type chapterGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: chapterWhereInput
+    orderBy?: chapterOrderByWithAggregationInput | chapterOrderByWithAggregationInput[]
+    by: ChapterScalarFieldEnum[] | ChapterScalarFieldEnum
+    having?: chapterScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ChapterCountAggregateInputType | true
+    _avg?: ChapterAvgAggregateInputType
+    _sum?: ChapterSumAggregateInputType
+    _min?: ChapterMinAggregateInputType
+    _max?: ChapterMaxAggregateInputType
+  }
+
+  export type ChapterGroupByOutputType = {
+    id: string
+    id_product: string
+    number: number
+    name: string
+    _count: ChapterCountAggregateOutputType | null
+    _avg: ChapterAvgAggregateOutputType | null
+    _sum: ChapterSumAggregateOutputType | null
+    _min: ChapterMinAggregateOutputType | null
+    _max: ChapterMaxAggregateOutputType | null
+  }
+
+  type GetChapterGroupByPayload<T extends chapterGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ChapterGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ChapterGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ChapterGroupByOutputType[P]>
+            : GetScalarType<T[P], ChapterGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type chapterSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_product?: boolean
+    number?: boolean
+    name?: boolean
+    product?: boolean | productDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chapter"]>
+
+  export type chapterSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_product?: boolean
+    number?: boolean
+    name?: boolean
+    product?: boolean | productDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chapter"]>
+
+  export type chapterSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_product?: boolean
+    number?: boolean
+    name?: boolean
+    product?: boolean | productDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chapter"]>
+
+  export type chapterSelectScalar = {
+    id?: boolean
+    id_product?: boolean
+    number?: boolean
+    name?: boolean
+  }
+
+  export type chapterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_product" | "number" | "name", ExtArgs["result"]["chapter"]>
+  export type chapterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | productDefaultArgs<ExtArgs>
+  }
+  export type chapterIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | productDefaultArgs<ExtArgs>
+  }
+  export type chapterIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | productDefaultArgs<ExtArgs>
+  }
+
+  export type $chapterPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "chapter"
+    objects: {
+      product: Prisma.$productPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      id_product: string
+      number: number
+      name: string
+    }, ExtArgs["result"]["chapter"]>
+    composites: {}
+  }
+
+  type chapterGetPayload<S extends boolean | null | undefined | chapterDefaultArgs> = $Result.GetResult<Prisma.$chapterPayload, S>
+
+  type chapterCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<chapterFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ChapterCountAggregateInputType | true
+    }
+
+  export interface chapterDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['chapter'], meta: { name: 'chapter' } }
+    /**
+     * Find zero or one Chapter that matches the filter.
+     * @param {chapterFindUniqueArgs} args - Arguments to find a Chapter
+     * @example
+     * // Get one Chapter
+     * const chapter = await prisma.chapter.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends chapterFindUniqueArgs>(args: SelectSubset<T, chapterFindUniqueArgs<ExtArgs>>): Prisma__chapterClient<$Result.GetResult<Prisma.$chapterPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Chapter that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {chapterFindUniqueOrThrowArgs} args - Arguments to find a Chapter
+     * @example
+     * // Get one Chapter
+     * const chapter = await prisma.chapter.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends chapterFindUniqueOrThrowArgs>(args: SelectSubset<T, chapterFindUniqueOrThrowArgs<ExtArgs>>): Prisma__chapterClient<$Result.GetResult<Prisma.$chapterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Chapter that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {chapterFindFirstArgs} args - Arguments to find a Chapter
+     * @example
+     * // Get one Chapter
+     * const chapter = await prisma.chapter.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends chapterFindFirstArgs>(args?: SelectSubset<T, chapterFindFirstArgs<ExtArgs>>): Prisma__chapterClient<$Result.GetResult<Prisma.$chapterPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Chapter that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {chapterFindFirstOrThrowArgs} args - Arguments to find a Chapter
+     * @example
+     * // Get one Chapter
+     * const chapter = await prisma.chapter.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends chapterFindFirstOrThrowArgs>(args?: SelectSubset<T, chapterFindFirstOrThrowArgs<ExtArgs>>): Prisma__chapterClient<$Result.GetResult<Prisma.$chapterPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Chapters that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {chapterFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Chapters
+     * const chapters = await prisma.chapter.findMany()
+     * 
+     * // Get first 10 Chapters
+     * const chapters = await prisma.chapter.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const chapterWithIdOnly = await prisma.chapter.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends chapterFindManyArgs>(args?: SelectSubset<T, chapterFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chapterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Chapter.
+     * @param {chapterCreateArgs} args - Arguments to create a Chapter.
+     * @example
+     * // Create one Chapter
+     * const Chapter = await prisma.chapter.create({
+     *   data: {
+     *     // ... data to create a Chapter
+     *   }
+     * })
+     * 
+     */
+    create<T extends chapterCreateArgs>(args: SelectSubset<T, chapterCreateArgs<ExtArgs>>): Prisma__chapterClient<$Result.GetResult<Prisma.$chapterPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Chapters.
+     * @param {chapterCreateManyArgs} args - Arguments to create many Chapters.
+     * @example
+     * // Create many Chapters
+     * const chapter = await prisma.chapter.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends chapterCreateManyArgs>(args?: SelectSubset<T, chapterCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Chapters and returns the data saved in the database.
+     * @param {chapterCreateManyAndReturnArgs} args - Arguments to create many Chapters.
+     * @example
+     * // Create many Chapters
+     * const chapter = await prisma.chapter.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Chapters and only return the `id`
+     * const chapterWithIdOnly = await prisma.chapter.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends chapterCreateManyAndReturnArgs>(args?: SelectSubset<T, chapterCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chapterPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Chapter.
+     * @param {chapterDeleteArgs} args - Arguments to delete one Chapter.
+     * @example
+     * // Delete one Chapter
+     * const Chapter = await prisma.chapter.delete({
+     *   where: {
+     *     // ... filter to delete one Chapter
+     *   }
+     * })
+     * 
+     */
+    delete<T extends chapterDeleteArgs>(args: SelectSubset<T, chapterDeleteArgs<ExtArgs>>): Prisma__chapterClient<$Result.GetResult<Prisma.$chapterPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Chapter.
+     * @param {chapterUpdateArgs} args - Arguments to update one Chapter.
+     * @example
+     * // Update one Chapter
+     * const chapter = await prisma.chapter.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends chapterUpdateArgs>(args: SelectSubset<T, chapterUpdateArgs<ExtArgs>>): Prisma__chapterClient<$Result.GetResult<Prisma.$chapterPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Chapters.
+     * @param {chapterDeleteManyArgs} args - Arguments to filter Chapters to delete.
+     * @example
+     * // Delete a few Chapters
+     * const { count } = await prisma.chapter.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends chapterDeleteManyArgs>(args?: SelectSubset<T, chapterDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Chapters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {chapterUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Chapters
+     * const chapter = await prisma.chapter.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends chapterUpdateManyArgs>(args: SelectSubset<T, chapterUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Chapters and returns the data updated in the database.
+     * @param {chapterUpdateManyAndReturnArgs} args - Arguments to update many Chapters.
+     * @example
+     * // Update many Chapters
+     * const chapter = await prisma.chapter.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Chapters and only return the `id`
+     * const chapterWithIdOnly = await prisma.chapter.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends chapterUpdateManyAndReturnArgs>(args: SelectSubset<T, chapterUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chapterPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Chapter.
+     * @param {chapterUpsertArgs} args - Arguments to update or create a Chapter.
+     * @example
+     * // Update or create a Chapter
+     * const chapter = await prisma.chapter.upsert({
+     *   create: {
+     *     // ... data to create a Chapter
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Chapter we want to update
+     *   }
+     * })
+     */
+    upsert<T extends chapterUpsertArgs>(args: SelectSubset<T, chapterUpsertArgs<ExtArgs>>): Prisma__chapterClient<$Result.GetResult<Prisma.$chapterPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Chapters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {chapterCountArgs} args - Arguments to filter Chapters to count.
+     * @example
+     * // Count the number of Chapters
+     * const count = await prisma.chapter.count({
+     *   where: {
+     *     // ... the filter for the Chapters we want to count
+     *   }
+     * })
+    **/
+    count<T extends chapterCountArgs>(
+      args?: Subset<T, chapterCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ChapterCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Chapter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChapterAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ChapterAggregateArgs>(args: Subset<T, ChapterAggregateArgs>): Prisma.PrismaPromise<GetChapterAggregateType<T>>
+
+    /**
+     * Group by Chapter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {chapterGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends chapterGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: chapterGroupByArgs['orderBy'] }
+        : { orderBy?: chapterGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, chapterGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChapterGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the chapter model
+   */
+  readonly fields: chapterFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for chapter.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__chapterClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    product<T extends productDefaultArgs<ExtArgs> = {}>(args?: Subset<T, productDefaultArgs<ExtArgs>>): Prisma__productClient<$Result.GetResult<Prisma.$productPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the chapter model
+   */
+  interface chapterFieldRefs {
+    readonly id: FieldRef<"chapter", 'String'>
+    readonly id_product: FieldRef<"chapter", 'String'>
+    readonly number: FieldRef<"chapter", 'Int'>
+    readonly name: FieldRef<"chapter", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * chapter findUnique
+   */
+  export type chapterFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chapter
+     */
+    select?: chapterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chapter
+     */
+    omit?: chapterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chapterInclude<ExtArgs> | null
+    /**
+     * Filter, which chapter to fetch.
+     */
+    where: chapterWhereUniqueInput
+  }
+
+  /**
+   * chapter findUniqueOrThrow
+   */
+  export type chapterFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chapter
+     */
+    select?: chapterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chapter
+     */
+    omit?: chapterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chapterInclude<ExtArgs> | null
+    /**
+     * Filter, which chapter to fetch.
+     */
+    where: chapterWhereUniqueInput
+  }
+
+  /**
+   * chapter findFirst
+   */
+  export type chapterFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chapter
+     */
+    select?: chapterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chapter
+     */
+    omit?: chapterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chapterInclude<ExtArgs> | null
+    /**
+     * Filter, which chapter to fetch.
+     */
+    where?: chapterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of chapters to fetch.
+     */
+    orderBy?: chapterOrderByWithRelationInput | chapterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for chapters.
+     */
+    cursor?: chapterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` chapters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` chapters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of chapters.
+     */
+    distinct?: ChapterScalarFieldEnum | ChapterScalarFieldEnum[]
+  }
+
+  /**
+   * chapter findFirstOrThrow
+   */
+  export type chapterFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chapter
+     */
+    select?: chapterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chapter
+     */
+    omit?: chapterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chapterInclude<ExtArgs> | null
+    /**
+     * Filter, which chapter to fetch.
+     */
+    where?: chapterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of chapters to fetch.
+     */
+    orderBy?: chapterOrderByWithRelationInput | chapterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for chapters.
+     */
+    cursor?: chapterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` chapters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` chapters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of chapters.
+     */
+    distinct?: ChapterScalarFieldEnum | ChapterScalarFieldEnum[]
+  }
+
+  /**
+   * chapter findMany
+   */
+  export type chapterFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chapter
+     */
+    select?: chapterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chapter
+     */
+    omit?: chapterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chapterInclude<ExtArgs> | null
+    /**
+     * Filter, which chapters to fetch.
+     */
+    where?: chapterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of chapters to fetch.
+     */
+    orderBy?: chapterOrderByWithRelationInput | chapterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing chapters.
+     */
+    cursor?: chapterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` chapters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` chapters.
+     */
+    skip?: number
+    distinct?: ChapterScalarFieldEnum | ChapterScalarFieldEnum[]
+  }
+
+  /**
+   * chapter create
+   */
+  export type chapterCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chapter
+     */
+    select?: chapterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chapter
+     */
+    omit?: chapterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chapterInclude<ExtArgs> | null
+    /**
+     * The data needed to create a chapter.
+     */
+    data: XOR<chapterCreateInput, chapterUncheckedCreateInput>
+  }
+
+  /**
+   * chapter createMany
+   */
+  export type chapterCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many chapters.
+     */
+    data: chapterCreateManyInput | chapterCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * chapter createManyAndReturn
+   */
+  export type chapterCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chapter
+     */
+    select?: chapterSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the chapter
+     */
+    omit?: chapterOmit<ExtArgs> | null
+    /**
+     * The data used to create many chapters.
+     */
+    data: chapterCreateManyInput | chapterCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chapterIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * chapter update
+   */
+  export type chapterUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chapter
+     */
+    select?: chapterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chapter
+     */
+    omit?: chapterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chapterInclude<ExtArgs> | null
+    /**
+     * The data needed to update a chapter.
+     */
+    data: XOR<chapterUpdateInput, chapterUncheckedUpdateInput>
+    /**
+     * Choose, which chapter to update.
+     */
+    where: chapterWhereUniqueInput
+  }
+
+  /**
+   * chapter updateMany
+   */
+  export type chapterUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update chapters.
+     */
+    data: XOR<chapterUpdateManyMutationInput, chapterUncheckedUpdateManyInput>
+    /**
+     * Filter which chapters to update
+     */
+    where?: chapterWhereInput
+    /**
+     * Limit how many chapters to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * chapter updateManyAndReturn
+   */
+  export type chapterUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chapter
+     */
+    select?: chapterSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the chapter
+     */
+    omit?: chapterOmit<ExtArgs> | null
+    /**
+     * The data used to update chapters.
+     */
+    data: XOR<chapterUpdateManyMutationInput, chapterUncheckedUpdateManyInput>
+    /**
+     * Filter which chapters to update
+     */
+    where?: chapterWhereInput
+    /**
+     * Limit how many chapters to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chapterIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * chapter upsert
+   */
+  export type chapterUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chapter
+     */
+    select?: chapterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chapter
+     */
+    omit?: chapterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chapterInclude<ExtArgs> | null
+    /**
+     * The filter to search for the chapter to update in case it exists.
+     */
+    where: chapterWhereUniqueInput
+    /**
+     * In case the chapter found by the `where` argument doesn't exist, create a new chapter with this data.
+     */
+    create: XOR<chapterCreateInput, chapterUncheckedCreateInput>
+    /**
+     * In case the chapter was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<chapterUpdateInput, chapterUncheckedUpdateInput>
+  }
+
+  /**
+   * chapter delete
+   */
+  export type chapterDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chapter
+     */
+    select?: chapterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chapter
+     */
+    omit?: chapterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chapterInclude<ExtArgs> | null
+    /**
+     * Filter which chapter to delete.
+     */
+    where: chapterWhereUniqueInput
+  }
+
+  /**
+   * chapter deleteMany
+   */
+  export type chapterDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which chapters to delete
+     */
+    where?: chapterWhereInput
+    /**
+     * Limit how many chapters to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * chapter without action
+   */
+  export type chapterDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chapter
+     */
+    select?: chapterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chapter
+     */
+    omit?: chapterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chapterInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -43564,7 +44784,8 @@ export namespace Prisma {
     is_physical: 'is_physical',
     ai_suggested_content: 'ai_suggested_content',
     preorder_min_qty: 'preorder_min_qty',
-    content_type: 'content_type'
+    content_type: 'content_type',
+    is_chapter: 'is_chapter'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -43718,6 +44939,16 @@ export namespace Prisma {
   };
 
   export type WithdrawalScalarFieldEnum = (typeof WithdrawalScalarFieldEnum)[keyof typeof WithdrawalScalarFieldEnum]
+
+
+  export const ChapterScalarFieldEnum: {
+    id: 'id',
+    id_product: 'id_product',
+    number: 'number',
+    name: 'name'
+  };
+
+  export type ChapterScalarFieldEnum = (typeof ChapterScalarFieldEnum)[keyof typeof ChapterScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -45264,7 +46495,9 @@ export namespace Prisma {
     ai_suggested_content?: JsonNullableFilter<"product">
     preorder_min_qty?: IntNullableFilter<"product"> | number | null
     content_type?: StringNullableFilter<"product"> | string | null
+    is_chapter?: BoolFilter<"product"> | boolean
     bundle_product?: Bundle_productListRelationFilter
+    chapter?: ChapterListRelationFilter
     customer_reader?: Customer_readerListRelationFilter
     preorder?: PreorderListRelationFilter
     author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
@@ -45295,7 +46528,9 @@ export namespace Prisma {
     ai_suggested_content?: SortOrderInput | SortOrder
     preorder_min_qty?: SortOrderInput | SortOrder
     content_type?: SortOrderInput | SortOrder
+    is_chapter?: SortOrder
     bundle_product?: bundle_productOrderByRelationAggregateInput
+    chapter?: chapterOrderByRelationAggregateInput
     customer_reader?: customer_readerOrderByRelationAggregateInput
     preorder?: preorderOrderByRelationAggregateInput
     author?: authorOrderByWithRelationInput
@@ -45329,7 +46564,9 @@ export namespace Prisma {
     ai_suggested_content?: JsonNullableFilter<"product">
     preorder_min_qty?: IntNullableFilter<"product"> | number | null
     content_type?: StringNullableFilter<"product"> | string | null
+    is_chapter?: BoolFilter<"product"> | boolean
     bundle_product?: Bundle_productListRelationFilter
+    chapter?: ChapterListRelationFilter
     customer_reader?: Customer_readerListRelationFilter
     preorder?: PreorderListRelationFilter
     author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
@@ -45360,6 +46597,7 @@ export namespace Prisma {
     ai_suggested_content?: SortOrderInput | SortOrder
     preorder_min_qty?: SortOrderInput | SortOrder
     content_type?: SortOrderInput | SortOrder
+    is_chapter?: SortOrder
     _count?: productCountOrderByAggregateInput
     _avg?: productAvgOrderByAggregateInput
     _max?: productMaxOrderByAggregateInput
@@ -45392,6 +46630,7 @@ export namespace Prisma {
     ai_suggested_content?: JsonNullableWithAggregatesFilter<"product">
     preorder_min_qty?: IntNullableWithAggregatesFilter<"product"> | number | null
     content_type?: StringNullableWithAggregatesFilter<"product"> | string | null
+    is_chapter?: BoolWithAggregatesFilter<"product"> | boolean
   }
 
   export type product_categoryWhereInput = {
@@ -46202,6 +47441,58 @@ export namespace Prisma {
     status?: StringWithAggregatesFilter<"withdrawal"> | string
     requested_at?: DateTimeWithAggregatesFilter<"withdrawal"> | Date | string
     processed_at?: DateTimeNullableWithAggregatesFilter<"withdrawal"> | Date | string | null
+  }
+
+  export type chapterWhereInput = {
+    AND?: chapterWhereInput | chapterWhereInput[]
+    OR?: chapterWhereInput[]
+    NOT?: chapterWhereInput | chapterWhereInput[]
+    id?: UuidFilter<"chapter"> | string
+    id_product?: UuidFilter<"chapter"> | string
+    number?: IntFilter<"chapter"> | number
+    name?: StringFilter<"chapter"> | string
+    product?: XOR<ProductScalarRelationFilter, productWhereInput>
+  }
+
+  export type chapterOrderByWithRelationInput = {
+    id?: SortOrder
+    id_product?: SortOrder
+    number?: SortOrder
+    name?: SortOrder
+    product?: productOrderByWithRelationInput
+  }
+
+  export type chapterWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: chapterWhereInput | chapterWhereInput[]
+    OR?: chapterWhereInput[]
+    NOT?: chapterWhereInput | chapterWhereInput[]
+    id_product?: UuidFilter<"chapter"> | string
+    number?: IntFilter<"chapter"> | number
+    name?: StringFilter<"chapter"> | string
+    product?: XOR<ProductScalarRelationFilter, productWhereInput>
+  }, "id">
+
+  export type chapterOrderByWithAggregationInput = {
+    id?: SortOrder
+    id_product?: SortOrder
+    number?: SortOrder
+    name?: SortOrder
+    _count?: chapterCountOrderByAggregateInput
+    _avg?: chapterAvgOrderByAggregateInput
+    _max?: chapterMaxOrderByAggregateInput
+    _min?: chapterMinOrderByAggregateInput
+    _sum?: chapterSumOrderByAggregateInput
+  }
+
+  export type chapterScalarWhereWithAggregatesInput = {
+    AND?: chapterScalarWhereWithAggregatesInput | chapterScalarWhereWithAggregatesInput[]
+    OR?: chapterScalarWhereWithAggregatesInput[]
+    NOT?: chapterScalarWhereWithAggregatesInput | chapterScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"chapter"> | string
+    id_product?: UuidWithAggregatesFilter<"chapter"> | string
+    number?: IntWithAggregatesFilter<"chapter"> | number
+    name?: StringWithAggregatesFilter<"chapter"> | string
   }
 
   export type affiliateCreateInput = {
@@ -47660,7 +48951,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
     bundle_product?: bundle_productCreateNestedManyWithoutProductInput
+    chapter?: chapterCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerCreateNestedManyWithoutProductInput
     preorder?: preorderCreateNestedManyWithoutProductInput
     author?: authorCreateNestedOneWithoutProductInput
@@ -47691,7 +48984,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
     bundle_product?: bundle_productUncheckedCreateNestedManyWithoutProductInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
     preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
     product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
@@ -47720,7 +49015,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
     bundle_product?: bundle_productUpdateManyWithoutProductNestedInput
+    chapter?: chapterUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUpdateManyWithoutProductNestedInput
     preorder?: preorderUpdateManyWithoutProductNestedInput
     author?: authorUpdateOneWithoutProductNestedInput
@@ -47751,7 +49048,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
     bundle_product?: bundle_productUncheckedUpdateManyWithoutProductNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
     preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
@@ -47781,6 +49080,7 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
   }
 
   export type productUpdateManyMutationInput = {
@@ -47804,6 +49104,7 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type productUncheckedUpdateManyInput = {
@@ -47828,6 +49129,7 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type product_categoryCreateInput = {
@@ -48627,6 +49929,54 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     requested_at?: DateTimeFieldUpdateOperationsInput | Date | string
     processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type chapterCreateInput = {
+    id?: string
+    number: number
+    name: string
+    product: productCreateNestedOneWithoutChapterInput
+  }
+
+  export type chapterUncheckedCreateInput = {
+    id?: string
+    id_product: string
+    number: number
+    name: string
+  }
+
+  export type chapterUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    product?: productUpdateOneRequiredWithoutChapterNestedInput
+  }
+
+  export type chapterUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_product?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type chapterCreateManyInput = {
+    id?: string
+    id_product: string
+    number: number
+    name: string
+  }
+
+  export type chapterUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type chapterUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_product?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -49955,10 +51305,20 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type ChapterListRelationFilter = {
+    every?: chapterWhereInput
+    some?: chapterWhereInput
+    none?: chapterWhereInput
+  }
+
   export type PreorderListRelationFilter = {
     every?: preorderWhereInput
     some?: preorderWhereInput
     none?: preorderWhereInput
+  }
+
+  export type chapterOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type preorderOrderByRelationAggregateInput = {
@@ -49987,6 +51347,7 @@ export namespace Prisma {
     ai_suggested_content?: SortOrder
     preorder_min_qty?: SortOrder
     content_type?: SortOrder
+    is_chapter?: SortOrder
   }
 
   export type productAvgOrderByAggregateInput = {
@@ -50015,6 +51376,7 @@ export namespace Prisma {
     is_physical?: SortOrder
     preorder_min_qty?: SortOrder
     content_type?: SortOrder
+    is_chapter?: SortOrder
   }
 
   export type productMinOrderByAggregateInput = {
@@ -50037,6 +51399,7 @@ export namespace Prisma {
     is_physical?: SortOrder
     preorder_min_qty?: SortOrder
     content_type?: SortOrder
+    is_chapter?: SortOrder
   }
 
   export type productSumOrderByAggregateInput = {
@@ -50541,6 +51904,35 @@ export namespace Prisma {
 
   export type withdrawalSumOrderByAggregateInput = {
     amount?: SortOrder
+  }
+
+  export type chapterCountOrderByAggregateInput = {
+    id?: SortOrder
+    id_product?: SortOrder
+    number?: SortOrder
+    name?: SortOrder
+  }
+
+  export type chapterAvgOrderByAggregateInput = {
+    number?: SortOrder
+  }
+
+  export type chapterMaxOrderByAggregateInput = {
+    id?: SortOrder
+    id_product?: SortOrder
+    number?: SortOrder
+    name?: SortOrder
+  }
+
+  export type chapterMinOrderByAggregateInput = {
+    id?: SortOrder
+    id_product?: SortOrder
+    number?: SortOrder
+    name?: SortOrder
+  }
+
+  export type chapterSumOrderByAggregateInput = {
+    number?: SortOrder
   }
 
   export type auth_accountCreateNestedOneWithoutAffiliateInput = {
@@ -52102,6 +53494,13 @@ export namespace Prisma {
     connect?: bundle_productWhereUniqueInput | bundle_productWhereUniqueInput[]
   }
 
+  export type chapterCreateNestedManyWithoutProductInput = {
+    create?: XOR<chapterCreateWithoutProductInput, chapterUncheckedCreateWithoutProductInput> | chapterCreateWithoutProductInput[] | chapterUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: chapterCreateOrConnectWithoutProductInput | chapterCreateOrConnectWithoutProductInput[]
+    createMany?: chapterCreateManyProductInputEnvelope
+    connect?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+  }
+
   export type customer_readerCreateNestedManyWithoutProductInput = {
     create?: XOR<customer_readerCreateWithoutProductInput, customer_readerUncheckedCreateWithoutProductInput> | customer_readerCreateWithoutProductInput[] | customer_readerUncheckedCreateWithoutProductInput[]
     connectOrCreate?: customer_readerCreateOrConnectWithoutProductInput | customer_readerCreateOrConnectWithoutProductInput[]
@@ -52148,6 +53547,13 @@ export namespace Prisma {
     connectOrCreate?: bundle_productCreateOrConnectWithoutProductInput | bundle_productCreateOrConnectWithoutProductInput[]
     createMany?: bundle_productCreateManyProductInputEnvelope
     connect?: bundle_productWhereUniqueInput | bundle_productWhereUniqueInput[]
+  }
+
+  export type chapterUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<chapterCreateWithoutProductInput, chapterUncheckedCreateWithoutProductInput> | chapterCreateWithoutProductInput[] | chapterUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: chapterCreateOrConnectWithoutProductInput | chapterCreateOrConnectWithoutProductInput[]
+    createMany?: chapterCreateManyProductInputEnvelope
+    connect?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
   }
 
   export type customer_readerUncheckedCreateNestedManyWithoutProductInput = {
@@ -52197,6 +53603,20 @@ export namespace Prisma {
     update?: bundle_productUpdateWithWhereUniqueWithoutProductInput | bundle_productUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: bundle_productUpdateManyWithWhereWithoutProductInput | bundle_productUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: bundle_productScalarWhereInput | bundle_productScalarWhereInput[]
+  }
+
+  export type chapterUpdateManyWithoutProductNestedInput = {
+    create?: XOR<chapterCreateWithoutProductInput, chapterUncheckedCreateWithoutProductInput> | chapterCreateWithoutProductInput[] | chapterUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: chapterCreateOrConnectWithoutProductInput | chapterCreateOrConnectWithoutProductInput[]
+    upsert?: chapterUpsertWithWhereUniqueWithoutProductInput | chapterUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: chapterCreateManyProductInputEnvelope
+    set?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    disconnect?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    delete?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    connect?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    update?: chapterUpdateWithWhereUniqueWithoutProductInput | chapterUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: chapterUpdateManyWithWhereWithoutProductInput | chapterUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: chapterScalarWhereInput | chapterScalarWhereInput[]
   }
 
   export type customer_readerUpdateManyWithoutProductNestedInput = {
@@ -52291,6 +53711,20 @@ export namespace Prisma {
     update?: bundle_productUpdateWithWhereUniqueWithoutProductInput | bundle_productUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: bundle_productUpdateManyWithWhereWithoutProductInput | bundle_productUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: bundle_productScalarWhereInput | bundle_productScalarWhereInput[]
+  }
+
+  export type chapterUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<chapterCreateWithoutProductInput, chapterUncheckedCreateWithoutProductInput> | chapterCreateWithoutProductInput[] | chapterUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: chapterCreateOrConnectWithoutProductInput | chapterCreateOrConnectWithoutProductInput[]
+    upsert?: chapterUpsertWithWhereUniqueWithoutProductInput | chapterUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: chapterCreateManyProductInputEnvelope
+    set?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    disconnect?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    delete?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    connect?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    update?: chapterUpdateWithWhereUniqueWithoutProductInput | chapterUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: chapterUpdateManyWithWhereWithoutProductInput | chapterUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: chapterScalarWhereInput | chapterScalarWhereInput[]
   }
 
   export type customer_readerUncheckedUpdateManyWithoutProductNestedInput = {
@@ -53043,6 +54477,20 @@ export namespace Prisma {
     upsert?: publisherUpsertWithoutWithdrawalInput
     connect?: publisherWhereUniqueInput
     update?: XOR<XOR<publisherUpdateToOneWithWhereWithoutWithdrawalInput, publisherUpdateWithoutWithdrawalInput>, publisherUncheckedUpdateWithoutWithdrawalInput>
+  }
+
+  export type productCreateNestedOneWithoutChapterInput = {
+    create?: XOR<productCreateWithoutChapterInput, productUncheckedCreateWithoutChapterInput>
+    connectOrCreate?: productCreateOrConnectWithoutChapterInput
+    connect?: productWhereUniqueInput
+  }
+
+  export type productUpdateOneRequiredWithoutChapterNestedInput = {
+    create?: XOR<productCreateWithoutChapterInput, productUncheckedCreateWithoutChapterInput>
+    connectOrCreate?: productCreateOrConnectWithoutChapterInput
+    upsert?: productUpsertWithoutChapterInput
+    connect?: productWhereUniqueInput
+    update?: XOR<XOR<productUpdateToOneWithWhereWithoutChapterInput, productUpdateWithoutChapterInput>, productUncheckedUpdateWithoutChapterInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -54951,7 +56399,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
     bundle_product?: bundle_productCreateNestedManyWithoutProductInput
+    chapter?: chapterCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerCreateNestedManyWithoutProductInput
     preorder?: preorderCreateNestedManyWithoutProductInput
     product_category?: product_categoryCreateNestedManyWithoutProductInput
@@ -54980,7 +56430,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
     bundle_product?: bundle_productUncheckedCreateNestedManyWithoutProductInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
     preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
     product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
@@ -55132,6 +56584,7 @@ export namespace Prisma {
     ai_suggested_content?: JsonNullableFilter<"product">
     preorder_min_qty?: IntNullableFilter<"product"> | number | null
     content_type?: StringNullableFilter<"product"> | string | null
+    is_chapter?: BoolFilter<"product"> | boolean
   }
 
   export type publisher_authorUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -55519,6 +56972,8 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
+    chapter?: chapterCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerCreateNestedManyWithoutProductInput
     preorder?: preorderCreateNestedManyWithoutProductInput
     author?: authorCreateNestedOneWithoutProductInput
@@ -55549,6 +57004,8 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
+    chapter?: chapterUncheckedCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
     preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
     product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
@@ -55640,6 +57097,8 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    chapter?: chapterUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUpdateManyWithoutProductNestedInput
     preorder?: preorderUpdateManyWithoutProductNestedInput
     author?: authorUpdateOneWithoutProductNestedInput
@@ -55670,6 +57129,8 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    chapter?: chapterUncheckedUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
     preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
@@ -56349,7 +57810,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
     bundle_product?: bundle_productCreateNestedManyWithoutProductInput
+    chapter?: chapterCreateNestedManyWithoutProductInput
     preorder?: preorderCreateNestedManyWithoutProductInput
     author?: authorCreateNestedOneWithoutProductInput
     product_category?: product_categoryCreateNestedManyWithoutProductInput
@@ -56379,7 +57842,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
     bundle_product?: bundle_productUncheckedCreateNestedManyWithoutProductInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutProductInput
     preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
     product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutProductInput
@@ -56462,7 +57927,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
     bundle_product?: bundle_productUpdateManyWithoutProductNestedInput
+    chapter?: chapterUpdateManyWithoutProductNestedInput
     preorder?: preorderUpdateManyWithoutProductNestedInput
     author?: authorUpdateOneWithoutProductNestedInput
     product_category?: product_categoryUpdateManyWithoutProductNestedInput
@@ -56492,7 +57959,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
     bundle_product?: bundle_productUncheckedUpdateManyWithoutProductNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutProductNestedInput
     preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutProductNestedInput
@@ -56882,7 +58351,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
     bundle_product?: bundle_productCreateNestedManyWithoutProductInput
+    chapter?: chapterCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerCreateNestedManyWithoutProductInput
     author?: authorCreateNestedOneWithoutProductInput
     product_category?: product_categoryCreateNestedManyWithoutProductInput
@@ -56912,7 +58383,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
     bundle_product?: bundle_productUncheckedCreateNestedManyWithoutProductInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
     product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutProductInput
@@ -56956,7 +58429,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
     bundle_product?: bundle_productUpdateManyWithoutProductNestedInput
+    chapter?: chapterUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUpdateManyWithoutProductNestedInput
     author?: authorUpdateOneWithoutProductNestedInput
     product_category?: product_categoryUpdateManyWithoutProductNestedInput
@@ -56986,7 +58461,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
     bundle_product?: bundle_productUncheckedUpdateManyWithoutProductNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutProductNestedInput
@@ -57012,6 +58489,28 @@ export namespace Prisma {
 
   export type bundle_productCreateManyProductInputEnvelope = {
     data: bundle_productCreateManyProductInput | bundle_productCreateManyProductInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type chapterCreateWithoutProductInput = {
+    id?: string
+    number: number
+    name: string
+  }
+
+  export type chapterUncheckedCreateWithoutProductInput = {
+    id?: string
+    number: number
+    name: string
+  }
+
+  export type chapterCreateOrConnectWithoutProductInput = {
+    where: chapterWhereUniqueInput
+    create: XOR<chapterCreateWithoutProductInput, chapterUncheckedCreateWithoutProductInput>
+  }
+
+  export type chapterCreateManyProductInputEnvelope = {
+    data: chapterCreateManyProductInput | chapterCreateManyProductInput[]
     skipDuplicates?: boolean
   }
 
@@ -57174,6 +58673,32 @@ export namespace Prisma {
   export type bundle_productUpdateManyWithWhereWithoutProductInput = {
     where: bundle_productScalarWhereInput
     data: XOR<bundle_productUpdateManyMutationInput, bundle_productUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type chapterUpsertWithWhereUniqueWithoutProductInput = {
+    where: chapterWhereUniqueInput
+    update: XOR<chapterUpdateWithoutProductInput, chapterUncheckedUpdateWithoutProductInput>
+    create: XOR<chapterCreateWithoutProductInput, chapterUncheckedCreateWithoutProductInput>
+  }
+
+  export type chapterUpdateWithWhereUniqueWithoutProductInput = {
+    where: chapterWhereUniqueInput
+    data: XOR<chapterUpdateWithoutProductInput, chapterUncheckedUpdateWithoutProductInput>
+  }
+
+  export type chapterUpdateManyWithWhereWithoutProductInput = {
+    where: chapterScalarWhereInput
+    data: XOR<chapterUpdateManyMutationInput, chapterUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type chapterScalarWhereInput = {
+    AND?: chapterScalarWhereInput | chapterScalarWhereInput[]
+    OR?: chapterScalarWhereInput[]
+    NOT?: chapterScalarWhereInput | chapterScalarWhereInput[]
+    id?: UuidFilter<"chapter"> | string
+    id_product?: UuidFilter<"chapter"> | string
+    number?: IntFilter<"chapter"> | number
+    name?: StringFilter<"chapter"> | string
   }
 
   export type customer_readerUpsertWithWhereUniqueWithoutProductInput = {
@@ -57343,7 +58868,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
     bundle_product?: bundle_productCreateNestedManyWithoutProductInput
+    chapter?: chapterCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerCreateNestedManyWithoutProductInput
     preorder?: preorderCreateNestedManyWithoutProductInput
     author?: authorCreateNestedOneWithoutProductInput
@@ -57373,7 +58900,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
     bundle_product?: bundle_productUncheckedCreateNestedManyWithoutProductInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
     preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutProductInput
@@ -57450,7 +58979,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
     bundle_product?: bundle_productUpdateManyWithoutProductNestedInput
+    chapter?: chapterUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUpdateManyWithoutProductNestedInput
     preorder?: preorderUpdateManyWithoutProductNestedInput
     author?: authorUpdateOneWithoutProductNestedInput
@@ -57480,7 +59011,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
     bundle_product?: bundle_productUncheckedUpdateManyWithoutProductNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
     preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutProductNestedInput
@@ -58774,7 +60307,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
     bundle_product?: bundle_productCreateNestedManyWithoutProductInput
+    chapter?: chapterCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerCreateNestedManyWithoutProductInput
     preorder?: preorderCreateNestedManyWithoutProductInput
     author?: authorCreateNestedOneWithoutProductInput
@@ -58804,7 +60339,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
     bundle_product?: bundle_productUncheckedCreateNestedManyWithoutProductInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
     preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
     product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
@@ -58887,7 +60424,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
     bundle_product?: bundle_productUpdateManyWithoutProductNestedInput
+    chapter?: chapterUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUpdateManyWithoutProductNestedInput
     preorder?: preorderUpdateManyWithoutProductNestedInput
     author?: authorUpdateOneWithoutProductNestedInput
@@ -58917,7 +60456,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
     bundle_product?: bundle_productUncheckedUpdateManyWithoutProductNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
     preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
@@ -58986,7 +60527,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
     bundle_product?: bundle_productCreateNestedManyWithoutProductInput
+    chapter?: chapterCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerCreateNestedManyWithoutProductInput
     preorder?: preorderCreateNestedManyWithoutProductInput
     author?: authorCreateNestedOneWithoutProductInput
@@ -59016,7 +60559,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
     bundle_product?: bundle_productUncheckedCreateNestedManyWithoutProductInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
     preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
     product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
@@ -59144,7 +60689,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
     bundle_product?: bundle_productUpdateManyWithoutProductNestedInput
+    chapter?: chapterUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUpdateManyWithoutProductNestedInput
     preorder?: preorderUpdateManyWithoutProductNestedInput
     author?: authorUpdateOneWithoutProductNestedInput
@@ -59174,7 +60721,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
     bundle_product?: bundle_productUncheckedUpdateManyWithoutProductNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
     preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
@@ -59342,6 +60891,146 @@ export namespace Prisma {
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUncheckedUpdateManyWithoutPublisherNestedInput
     transaction?: transactionUncheckedUpdateManyWithoutPublisherNestedInput
+  }
+
+  export type productCreateWithoutChapterInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    strike_price?: Decimal | DecimalJsLike | number | string | null
+    real_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+    is_chapter?: boolean
+    bundle_product?: bundle_productCreateNestedManyWithoutProductInput
+    customer_reader?: customer_readerCreateNestedManyWithoutProductInput
+    preorder?: preorderCreateNestedManyWithoutProductInput
+    author?: authorCreateNestedOneWithoutProductInput
+    product_category?: product_categoryCreateNestedManyWithoutProductInput
+    t_sales_download?: t_sales_downloadCreateNestedManyWithoutProductInput
+    t_sales_line?: t_sales_lineCreateNestedManyWithoutProductInput
+  }
+
+  export type productUncheckedCreateWithoutChapterInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    strike_price?: Decimal | DecimalJsLike | number | string | null
+    real_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    id_author?: string | null
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+    is_chapter?: boolean
+    bundle_product?: bundle_productUncheckedCreateNestedManyWithoutProductInput
+    customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
+    preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
+    product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
+    t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutProductInput
+    t_sales_line?: t_sales_lineUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type productCreateOrConnectWithoutChapterInput = {
+    where: productWhereUniqueInput
+    create: XOR<productCreateWithoutChapterInput, productUncheckedCreateWithoutChapterInput>
+  }
+
+  export type productUpsertWithoutChapterInput = {
+    update: XOR<productUpdateWithoutChapterInput, productUncheckedUpdateWithoutChapterInput>
+    create: XOR<productCreateWithoutChapterInput, productUncheckedCreateWithoutChapterInput>
+    where?: productWhereInput
+  }
+
+  export type productUpdateToOneWithWhereWithoutChapterInput = {
+    where?: productWhereInput
+    data: XOR<productUpdateWithoutChapterInput, productUncheckedUpdateWithoutChapterInput>
+  }
+
+  export type productUpdateWithoutChapterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    bundle_product?: bundle_productUpdateManyWithoutProductNestedInput
+    customer_reader?: customer_readerUpdateManyWithoutProductNestedInput
+    preorder?: preorderUpdateManyWithoutProductNestedInput
+    author?: authorUpdateOneWithoutProductNestedInput
+    product_category?: product_categoryUpdateManyWithoutProductNestedInput
+    t_sales_download?: t_sales_downloadUpdateManyWithoutProductNestedInput
+    t_sales_line?: t_sales_lineUpdateManyWithoutProductNestedInput
+  }
+
+  export type productUncheckedUpdateWithoutChapterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    id_author?: NullableStringFieldUpdateOperationsInput | string | null
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    bundle_product?: bundle_productUncheckedUpdateManyWithoutProductNestedInput
+    customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
+    preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
+    product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
+    t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutProductNestedInput
+    t_sales_line?: t_sales_lineUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type auth_userCreateManyAffiliateInput = {
@@ -59800,6 +61489,7 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    is_chapter?: boolean
   }
 
   export type publisher_authorCreateManyAuthorInput = {
@@ -59891,7 +61581,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
     bundle_product?: bundle_productUpdateManyWithoutProductNestedInput
+    chapter?: chapterUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUpdateManyWithoutProductNestedInput
     preorder?: preorderUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUpdateManyWithoutProductNestedInput
@@ -59920,7 +61612,9 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
     bundle_product?: bundle_productUncheckedUpdateManyWithoutProductNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
     preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
@@ -59949,6 +61643,7 @@ export namespace Prisma {
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type publisher_authorUpdateWithoutAuthorInput = {
@@ -60492,6 +62187,12 @@ export namespace Prisma {
     qty?: number | null
   }
 
+  export type chapterCreateManyProductInput = {
+    id?: string
+    number: number
+    name: string
+  }
+
   export type customer_readerCreateManyProductInput = {
     id?: string
     id_customer: string
@@ -60545,6 +62246,24 @@ export namespace Prisma {
     id_bundle?: StringFieldUpdateOperationsInput | string
     id?: StringFieldUpdateOperationsInput | string
     qty?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type chapterUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type chapterUncheckedUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type chapterUncheckedUpdateManyWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type customer_readerUpdateWithoutProductInput = {

@@ -277,7 +277,9 @@ model product {
   ai_suggested_content Json?              @default("{}")
   preorder_min_qty     Int?
   content_type         String?            @db.VarChar(20)
+  is_chapter           Boolean            @default(false)
   bundle_product       bundle_product[]
+  chapter              chapter[]
   customer_reader      customer_reader[]
   preorder             preorder[]
   author               author?            @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -425,4 +427,12 @@ model withdrawal {
   requested_at DateTime  @default(now())
   processed_at DateTime?
   publisher    publisher @relation(fields: [id_publisher], references: [id])
+}
+
+model chapter {
+  id         String  @id(map: "chapter_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_product String  @db.Uuid
+  number     Int
+  name       String
+  product    product @relation(fields: [id_product], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
