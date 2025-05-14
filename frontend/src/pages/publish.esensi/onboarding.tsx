@@ -1,252 +1,475 @@
 import { Protected } from "@/components/app/protected";
+import { AppLoading } from "@/components/app/loading";
 import { Button } from "@/components/ui/button";
-import { betterAuth } from "@/lib/better-auth";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { navigate } from "@/lib/router";
+import { betterAuth } from "@/lib/better-auth";
 import { useLocal } from "@/lib/hooks/use-local";
-import { SideForm } from "@/components/ext/side-form";
-import { toast } from "sonner";
-import { Alert } from "@/components/ui/global-alert";
-import { api as publishEsensiApi } from "@/lib/gen/publish.esensi";
+import { api } from "@/lib/gen/publish.esensi";
+import type { FormEvent } from "react";
 
-const feature = [
-  {
-    title: "Penulis",
-    description:
-      "Seorang penulis bisa langsung menerbitkan buku atas nama diri sendiri.",
-    icon: <img src="/img/author.svg" />,
-    role: "author",
-  },
-  {
-    title: "Penerbit",
-    description:
-      "Seorang penerbit bisa menerbitkan buku untuk penerbit-penerbit yang bekerjasama.",
-    icon: <img src="/img/publisher.svg" />,
-    role: "publisher",
-  },
-];
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
 
 export default () => {
   const logout = () => betterAuth.signOut().finally(() => navigate("/"));
-  let local = useLocal(
-    {
-      role: null as null | "author" | "publisher",
-      isRegistering: false,
-      registrationSuccess: false,
-      message: "",
-      user: null as any,
-    },
-    async () => {
-      // Get user session on component initialization
-      const { data } = await betterAuth.getSession();
-      if (data && data.user) {
-        local.user = data.user;
-        local.render();
+
+  const local = useLocal({
+    loading: true,
+    submitting: false,
+    role: "publisher", // Default to publisher
+    formData: {
+      publisher: {
+        name: "",
+        description: "",
+        website: "",
+        address: "",
+        logo: null as File | null,
+        logoPreview: "",
+      },
+      author: {
+        name: "",
+        bio: "",
+        socmed: "",
+        avatar: null as File | null,
+        avatarPreview: "",
       }
-    }
-  );
-
-  const registerRole = async () => {
-    if (!local.role || !local.user) return;
-
+    },
+    error: "",
+    success: "",
+  }, async () => {
+    // Initialize
     try {
-      local.isRegistering = true;
+      const session = await betterAuth.getSession();
+      if (!session.data?.user) {
+        navigate("/");
+        return;
+      }
+      
+      // Check if user already has a role
+      const user = session.data.user;
+      // Look for id_author and id_publisher properties using safer property access
+      const hasAuthorRole = user && 'id_author' in user && user.id_author;
+      const hasPublisherRole = user && 'id_publisher' in user && user.id_publisher;
+      
+      if (hasAuthorRole || hasPublisherRole) {
+        // User already has a role, redirect to dashboard
+        navigate("/dashboard");
+        return;
+      }
+      
+      local.loading = false;
       local.render();
+    } catch (error) {
+      console.error("Error loading onboarding page:", error);
+      local.loading = false;
+      local.render();
+    }
+  });
 
-      // Call the API to register the user role
-      const res = await publishEsensiApi.onboarding({
-        role: local.role,
-        user: local.user,
-      });
-
-      if (res.success) {
-        local.registrationSuccess = true;
-        local.message = res.message;
-
-        // Show success toast
-        toast.success(res.message);
-
-        // Redirect to dashboard after a short delay
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 2000);
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    
+    if (local.submitting) return;
+    
+    local.submitting = true;
+    local.error = "";
+    local.success = "";
+    local.render();
+    
+    try {
+      const session = await betterAuth.getSession();
+      if (!session.data?.user) throw new Error("Sesi tidak valid");
+      
+      if (local.role === "publisher") {
+        const publisherData = local.formData.publisher;
+        
+        if (!publisherData.name) {
+          local.error = "Nama penerbit harus diisi";
+          local.submitting = false;
+          local.render();
+          return;
+        }
+        
+        // First save the basic profile information
+        const result = await api.onboarding({
+          role: "publisher",
+          user: session.data.user
+        });
+        
+        if (result.success) {
+          // If we need to handle file uploads, we'd need to create another API endpoint
+          // for handling file uploads specifically
+          
+          local.success = "Profil penerbit berhasil dibuat";
+          
+          // Redirect to dashboard after successful onboarding
+          setTimeout(() => {
+            navigate("/dashboard");
+          }, 2000);
+        } else {
+          local.error = result.message || "Gagal membuat profil penerbit";
+        }
       } else {
-        // Show error message
-        Alert.info(res.message || "Terjadi kesalahan saat mendaftarkan peran");
+        const authorData = local.formData.author;
+        
+        if (!authorData.name) {
+          local.error = "Nama penulis harus diisi";
+          local.submitting = false;
+          local.render();
+          return;
+        }
+        
+        // Call API to save author profile
+        const result = await api.onboarding({
+          role: "author",
+          user: session.data.user
+        });
+        
+        if (result.success) {
+          // If we need to handle file uploads, we'd need to create another API endpoint
+          
+          local.success = "Profil penulis berhasil dibuat";
+          
+          // Redirect to dashboard after successful onboarding
+          setTimeout(() => {
+            navigate("/dashboard");
+          }, 2000);
+        } else {
+          local.error = result.message || "Gagal membuat profil penulis";
+        }
       }
     } catch (error) {
-      console.error("Error registering role:", error);
-      Alert.info("Terjadi kesalahan saat mendaftarkan peran");
+      console.error("Error in onboarding:", error);
+      local.error = "Terjadi kesalahan saat menyimpan profil";
     } finally {
-      local.isRegistering = false;
+      local.submitting = false;
       local.render();
     }
   };
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, type: 'logo' | 'avatar') => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    // Validate file type
+    if (!file.type.startsWith("image/")) {
+      local.error = "File harus berupa gambar (JPG, PNG, etc.)";
+      local.render();
+      return;
+    }
+    
+    // Validate file size (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+      local.error = "Ukuran gambar tidak boleh melebihi 2MB";
+      local.render();
+      return;
+    }
+    
+    // Create a preview URL
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (type === 'logo') {
+        local.formData.publisher.logo = file;
+        local.formData.publisher.logoPreview = reader.result as string;
+      } else {
+        local.formData.author.avatar = file;
+        local.formData.author.avatarPreview = reader.result as string;
+      }
+      local.render();
+    };
+    reader.readAsDataURL(file);
+  };
+
+  if (local.loading) {
+    return <AppLoading />;
+  }
+
   return (
-    <Protected role={["publisher", "author"]} fallbackUrl={"/"}>
+    <Protected>
       {({ user }) => (
-        <SideForm sideImage={"/img/side-bg.jpg"}>
-          <div className="space-y-6">
-            <div>
-              <h1 className="text-2xl font-semibold mb-4 text-center">
-                Onboarding
-              </h1>
-
-              {!local.role && !local.registrationSuccess && (
-                <div>
-                  <div className="flex flex-col items-center mb-6">
-                    <h2 className="text-xl font-medium mb-2">
-                      Mau mendaftar sebagai apa?
-                    </h2>
-                    <p className="text-muted-foreground text-sm text-center">
-                      Silakan pilih peran yang anda inginkan.
-                    </p>
-                  </div>
-
-                  <div className="space-y-4 mt-6">
-                    {feature.map((feature, idx) => (
-                      <div
-                        className="flex flex-col rounded-lg border bg-card p-4 shadow-sm transition-all hover:bg-accent cursor-pointer"
-                        key={idx}
-                        onClick={() => {
-                          local.role = feature.role as "author" | "publisher";
-                          local.render();
-                        }}
-                      >
-                        <div className="flex items-center">
-                          <span className="flex size-10 items-center justify-center rounded-full bg-background mr-3">
-                            {feature.icon}
-                          </span>
+        <div className="flex min-h-svh flex-col">
+          <PublishMenuBar title="Onboarding" />
+          {/* Main Content */}
+          <div className="flex-1 container py-6 md:py-10">
+            <div className="max-w-3xl mx-auto">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Selamat Datang di Platform Penerbitan</CardTitle>
+                  <CardDescription>
+                    Lengkapi profil Anda untuk mulai menerbitkan dan mengelola buku.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Tabs value={local.role} onValueChange={(value) => {
+                    local.role = value;
+                    local.render();
+                  }} className="w-full">
+                    <TabsList className="grid grid-cols-2 mb-8">
+                      <TabsTrigger value="publisher">Saya Penerbit</TabsTrigger>
+                      <TabsTrigger value="author">Saya Penulis</TabsTrigger>
+                    </TabsList>
+                    
+                    {local.error && (
+                      <div className="bg-red-50 text-red-700 p-3 rounded-md mb-6">
+                        {local.error}
+                      </div>
+                    )}
+                    
+                    {local.success && (
+                      <div className="bg-green-50 text-green-700 p-3 rounded-md mb-6">
+                        {local.success}
+                      </div>
+                    )}
+                    
+                    <TabsContent value="publisher">
+                      <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="grid md:grid-cols-[1fr_auto] gap-6">
+                          <div className="space-y-4">
+                            <div>
+                              <Label htmlFor="publisher-name">Nama Penerbit</Label>
+                              <Input
+                                id="publisher-name"
+                                value={local.formData.publisher.name}
+                                onChange={e => {
+                                  local.formData.publisher.name = e.target.value;
+                                  local.render();
+                                }}
+                                placeholder="Masukkan nama penerbit"
+                                className="mt-1"
+                                required
+                              />
+                            </div>
+                            
+                            <div>
+                              <Label htmlFor="publisher-desc">Deskripsi</Label>
+                              <textarea
+                                id="publisher-desc"
+                                value={local.formData.publisher.description}
+                                onChange={e => {
+                                  local.formData.publisher.description = e.target.value;
+                                  local.render();
+                                }}
+                                placeholder="Sekilas tentang penerbit Anda"
+                                className="mt-1 flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                              />
+                            </div>
+                            
+                            <div>
+                              <Label htmlFor="publisher-website">Website</Label>
+                              <Input
+                                id="publisher-website"
+                                value={local.formData.publisher.website}
+                                onChange={e => {
+                                  local.formData.publisher.website = e.target.value;
+                                  local.render();
+                                }}
+                                placeholder="https://website-penerbit.com"
+                                className="mt-1"
+                              />
+                            </div>
+                            
+                            <div>
+                              <Label htmlFor="publisher-address">Alamat</Label>
+                              <textarea
+                                id="publisher-address"
+                                value={local.formData.publisher.address}
+                                onChange={e => {
+                                  local.formData.publisher.address = e.target.value;
+                                  local.render();
+                                }}
+                                placeholder="Alamat lengkap kantor penerbit"
+                                className="mt-1 flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                              />
+                            </div>
+                          </div>
+                          
                           <div>
-                            <h3 className="font-medium">{feature.title}</h3>
-                            <p className="text-sm text-muted-foreground mt-1">
-                              {feature.description}
-                            </p>
+                            <Label htmlFor="publisher-logo">Logo Penerbit</Label>
+                            <div className="mt-1 border rounded-lg overflow-hidden bg-muted/50 w-40 h-40 flex items-center justify-center relative">
+                              {local.formData.publisher.logoPreview ? (
+                                <>
+                                  <img 
+                                    src={local.formData.publisher.logoPreview} 
+                                    alt="Logo Preview" 
+                                    className="w-full h-full object-contain"
+                                  />
+                                  <Button
+                                    type="button"
+                                    variant="destructive"
+                                    size="sm"
+                                    className="absolute top-2 right-2"
+                                    onClick={() => {
+                                      local.formData.publisher.logo = null;
+                                      local.formData.publisher.logoPreview = "";
+                                      local.render();
+                                    }}
+                                  >
+                                    Hapus
+                                  </Button>
+                                </>
+                              ) : (
+                                <div className="text-center p-4">
+                                  <div className="text-3xl mb-2">🏢</div>
+                                  <p className="text-muted-foreground text-sm mb-4">Unggah logo</p>
+                                  <Label htmlFor="logoUpload" className="cursor-pointer">
+                                    <span className="bg-primary text-primary-foreground px-3 py-2 rounded-md text-sm">
+                                      Pilih Gambar
+                                    </span>
+                                    <Input
+                                      id="logoUpload"
+                                      type="file"
+                                      accept="image/*"
+                                      className="hidden"
+                                      onChange={e => handleImageUpload(e, 'logo')}
+                                    />
+                                  </Label>
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                        
+                        <Button 
+                          type="submit" 
+                          className="w-full"
+                          disabled={local.submitting}
+                        >
+                          {local.submitting ? "Memproses..." : "Daftar Sebagai Penerbit"}
+                        </Button>
+                      </form>
+                    </TabsContent>
+                    
+                    <TabsContent value="author">
+                      <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="grid md:grid-cols-[1fr_auto] gap-6">
+                          <div className="space-y-4">
+                            <div>
+                              <Label htmlFor="author-name">Nama Penulis</Label>
+                              <Input
+                                id="author-name"
+                                value={local.formData.author.name}
+                                onChange={e => {
+                                  local.formData.author.name = e.target.value;
+                                  local.render();
+                                }}
+                                placeholder="Masukkan nama penulis"
+                                className="mt-1"
+                                required
+                              />
+                            </div>
+                            
+                            <div>
+                              <Label htmlFor="author-bio">Biografi</Label>
+                              <textarea
+                                id="author-bio"
+                                value={local.formData.author.bio}
+                                onChange={e => {
+                                  local.formData.author.bio = e.target.value;
+                                  local.render();
+                                }}
+                                placeholder="Ceritakan tentang diri Anda sebagai penulis"
+                                rows={4}
+                                className="mt-1 flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                              />
+                            </div>
+                            
+                            <div>
+                              <Label htmlFor="author-socmed">Media Sosial</Label>
+                              <Input
+                                id="author-socmed"
+                                value={local.formData.author.socmed}
+                                onChange={e => {
+                                  local.formData.author.socmed = e.target.value;
+                                  local.render();
+                                }}
+                                placeholder="Instagram, Twitter, atau website pribadi"
+                                className="mt-1"
+                              />
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <Label htmlFor="author-avatar">Foto Profil</Label>
+                            <div className="mt-1 border rounded-lg overflow-hidden bg-muted/50 w-40 h-40 flex items-center justify-center relative">
+                              {local.formData.author.avatarPreview ? (
+                                <>
+                                  <img 
+                                    src={local.formData.author.avatarPreview} 
+                                    alt="Avatar Preview" 
+                                    className="w-full h-full object-cover"
+                                  />
+                                  <Button
+                                    type="button"
+                                    variant="destructive"
+                                    size="sm"
+                                    className="absolute top-2 right-2"
+                                    onClick={() => {
+                                      local.formData.author.avatar = null;
+                                      local.formData.author.avatarPreview = "";
+                                      local.render();
+                                    }}
+                                  >
+                                    Hapus
+                                  </Button>
+                                </>
+                              ) : (
+                                <div className="text-center p-4">
+                                  <div className="text-3xl mb-2">👤</div>
+                                  <p className="text-muted-foreground text-sm mb-4">Unggah foto</p>
+                                  <Label htmlFor="avatarUpload" className="cursor-pointer">
+                                    <span className="bg-primary text-primary-foreground px-3 py-2 rounded-md text-sm">
+                                      Pilih Gambar
+                                    </span>
+                                    <Input
+                                      id="avatarUpload"
+                                      type="file"
+                                      accept="image/*"
+                                      className="hidden"
+                                      onChange={e => handleImageUpload(e, 'avatar')}
+                                    />
+                                  </Label>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <Button 
+                          type="submit" 
+                          className="w-full"
+                          disabled={local.submitting}
+                        >
+                          {local.submitting ? "Memproses..." : "Daftar Sebagai Penulis"}
+                        </Button>
+                      </form>
+                    </TabsContent>
+                  </Tabs>
+                </CardContent>
+                <CardFooter className="border-t bg-muted/50 flex justify-between">
+                  <div className="text-sm text-muted-foreground">
+                    * Anda bisa mengubah informasi ini nanti di halaman profil
                   </div>
-                </div>
-              )}
-
-              {local.role === "author" && !local.registrationSuccess && (
-                <div className="space-y-4">
-                  <h2 className="text-xl font-semibold text-center">
-                    Mendaftar sebagai Penulis
-                  </h2>
-                  <p className="text-center text-sm text-muted-foreground">
-                    Anda akan terdaftar sebagai penulis dengan nama "
-                    {local.user?.name}".
-                  </p>
-                  <p className="text-center text-sm">
-                    Silakan konfirmasi untuk melanjutkan.
-                  </p>
-
-                  <div className="flex justify-center mt-4">
-                    <Button
-                      variant="outline"
-                      className="mr-2"
-                      onClick={() => {
-                        local.role = null;
-                        local.render();
-                      }}
-                      disabled={local.isRegistering}
-                    >
-                      Kembali
-                    </Button>
-                    <Button
-                      onClick={registerRole}
-                      disabled={local.isRegistering}
-                    >
-                      {local.isRegistering ? "Mendaftarkan..." : "Konfirmasi"}
-                    </Button>
-                  </div>
-                </div>
-              )}
-
-              {local.role === "publisher" && !local.registrationSuccess && (
-                <div className="space-y-4">
-                  <h2 className="text-xl font-semibold text-center">
-                    Mendaftar sebagai Penerbit
-                  </h2>
-                  <p className="text-center text-sm text-muted-foreground">
-                    Anda akan terdaftar sebagai penerbit dengan nama "
-                    {local.user?.name}".
-                  </p>
-                  <p className="text-center text-sm">
-                    Silakan konfirmasi untuk melanjutkan.
-                  </p>
-
-                  <div className="flex justify-center mt-4">
-                    <Button
-                      variant="outline"
-                      className="mr-2"
-                      onClick={() => {
-                        local.role = null;
-                        local.render();
-                      }}
-                      disabled={local.isRegistering}
-                    >
-                      Kembali
-                    </Button>
-                    <Button
-                      onClick={registerRole}
-                      disabled={local.isRegistering}
-                    >
-                      {local.isRegistering ? "Mendaftarkan..." : "Konfirmasi"}
-                    </Button>
-                  </div>
-                </div>
-              )}
-
-              {local.registrationSuccess && (
-                <div className="space-y-4 py-4">
-                  <div className="text-center flex flex-col items-center">
-                    <div className="mb-4 size-16 flex items-center justify-center rounded-full bg-green-100">
-                      <svg
-                        width="32"
-                        height="32"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M20 6L9 17L4 12"
-                          stroke="green"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </div>
-                    <h2 className="text-xl font-semibold">
-                      Pendaftaran Berhasil!
-                    </h2>
-                    <p className="text-muted-foreground mt-2">
-                      {local.message}
-                    </p>
-                    <p className="text-muted-foreground mt-1">
-                      Anda akan dialihkan ke dashboard...
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {!local.registrationSuccess && (
-                <div className="text-center mt-8">
-                  <Button
-                    variant="outline"
-                    onClick={logout}
-                    disabled={local.isRegistering}
-                  >
-                    Keluar
-                  </Button>
-                </div>
-              )}
+                </CardFooter>
+              </Card>
             </div>
           </div>
-        </SideForm>
+        </div>
       )}
     </Protected>
   );

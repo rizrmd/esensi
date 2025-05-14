@@ -1,1 +1,0 @@
-/home/user/esensi/.github/copilot-instructions.md

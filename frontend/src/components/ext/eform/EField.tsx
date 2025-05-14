@@ -46,7 +46,7 @@ export const EField = function <
         disabled={disabled}
         className={cn(disabled && "bg-muted")}
         onChange={(e) => {
-          write[name] = e.currentTarget.value;
+          if (e.target.type !== "file") write[name] = e.currentTarget.value;
         }}
         {...input}
       />

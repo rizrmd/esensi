@@ -1,6 +1,7 @@
 import { current } from "@/components/app/protected";
 import { createAuthClient } from "better-auth/client";
 import { twoFactorClient } from "better-auth/client/plugins";
+import { baseUrl } from "@/lib/gen/base-url";
 
 type FetchOptions = {
   onRequest?: (ctx: any) => void;
@@ -104,9 +105,9 @@ export const betterAuth = {
   },
   social: async ({
     provider,
-    callbackURL = "/dashboard",
+    callbackURL = baseUrl.main_esensi,
     errorCallbackURL = "/error",
-    newUserCallbackURL = "/onboarding",
+    newUserCallbackURL = baseUrl.main_esensi,
     disableRedirect = false,
     idToken,
     loginHint,

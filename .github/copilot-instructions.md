@@ -1,4 +1,4 @@
-We use bun latest version. in frontend we use shadcn and tailwind with our own router library. do not use useState, use this instead: 
+All file should be in kebab-case. We use bun latest version. in frontend we use shadcn and tailwind with our own router library. do not use useState, use this instead:
 
 ```
 import { useLocal } from "@/lib/hooks/use-local";
@@ -8,6 +8,37 @@ const local = useLocal({data: []}, async () => {
     local.render();
 })
 ```
+
+useLocal can only be used in one component, when you need to share state between component, you should use valtio instead of useLocal. to use valtio, first create a valtio state file like this:
+
+```
+import { proxy } from "valtio";
+export const state = {
+  write: proxy({
+    data: "hello"
+  }),
+  reset() {
+    this.write.data = "hello";
+  }
+}
+```
+
+and after that, you can import it to your component:
+
+```
+import { state } from './your-state'
+import { useSnapshot } from "valtio";
+
+export default () => {
+  const read = useSnapshot(state.write);
+
+  return <input type="text" value={read.data} onChange={(e) => {
+    write.data = e.currentTarget.value;
+  }}>
+}
+```
+
+always use two word for valtio state e.g bookWrite, bookRead.
 
 Use bahasa indonesia for all of the UI text that is shown to user, but use english for code.
 
@@ -39,4 +70,16 @@ Do not use fetch on frontend, use api instead like this instead:
 ```
 import { api } from "@/lib/gen/auth.esensi";
 const res = await api.auth_user({ username: username! });
+```
+
+If you import a type, not a variable, then it must be imported using a type-only import when 'verbatimModuleSyntax' is enabled. For example:
+
+This is wrong
+```
+import { User } from "better-auth/types";
+```
+
+This is correct
+```
+import type { User } from "better-auth/types";
 ```

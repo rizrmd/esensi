@@ -12,6 +12,7 @@ export const EForm = <
   children: (opt: EFormChildren<T, K>) => ReactNode;
   onSubmit?: (opt: { read: DeepReadonly<T>; write: T }) => void;
   className?: string;
+  props?: React.ComponentProps<"form">;
 }) => {
   const write = useRef(
     proxy({
@@ -36,6 +37,7 @@ export const EForm = <
         e.preventDefault();
         read.submit();
       }}
+      {...opt.props}
     >
       {opt.children({
         Field: read.Field,

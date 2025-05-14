@@ -7,33 +7,33 @@ export default defineAPI({
   async handler(arg: { user: User }) {
     try {
       const publisher = await db.publisher.findFirst({
-        where: { 
+        where: {
           auth_user: {
             some: {
-              id: arg.user.id
-            }
-          }
+              id: arg.user.id,
+            },
+          },
         },
         include: {
           auth_user: true,
           auth_account: true,
           publisher_author: {
             include: {
-              author: true
-            }
+              author: true,
+            },
           },
           transaction: {
             orderBy: {
-              created_at: 'desc'
+              created_at: "desc",
             },
-            take: 10
+            take: 10,
           },
           promo_code: {
             orderBy: {
-              valid_to: 'desc'
-            }
-          }
-        }
+              valid_to: "desc",
+            },
+          },
+        },
       });
 
       return { success: true, publisher };

@@ -5,6 +5,7 @@ import nodemailer from "nodemailer";
 import { Pool } from "pg";
 import { dir, type SiteConfig } from "rlib/server";
 import raw_config from "../../../config.json";
+import { translateErrorMessage } from 'shared/utils/translate';
 const config = raw_config as SiteConfig;
 
 const templates = {
@@ -26,64 +27,6 @@ const templates = {
   afterAccountDeletion: await Bun.file(
     dir.path("backend/src/lib/template/after-account-deletion.html")
   ).text(),
-};
-
-// Helper function to translate error messages to Bahasa Indonesia
-const translateErrorMessage = (errorMessage: string): string => {
-  const errorTranslations: Record<string, string> = {
-    // Authentication errors
-    "Invalid email or password": "Email atau kata sandi tidak valid",
-    "Invalid password": "Kata sandi tidak valid",
-    "Invalid credentials": "Kredensial tidak valid",
-    "Email already exists": "Email sudah terdaftar",
-    "Email not found": "Email tidak ditemukan",
-    "Email not verified":
-      "Email belum diverifikasi. Silakan verifikasi email Anda terlebih dahulu",
-    "Password is required": "Kata sandi wajib diisi",
-    "Password must be at least 8 characters":
-      "Kata sandi harus minimal 8 karakter",
-    "Password is too weak":
-      "Kata sandi terlalu lemah. Gunakan kombinasi huruf besar, huruf kecil, angka, dan simbol",
-    "Email is required": "Email wajib diisi",
-    "Invalid email format": "Format email tidak valid",
-    "User not found": "Pengguna tidak ditemukan",
-    "User already exists": "Pengguna ini sudah pernah terdaftar",
-    "Token expired": "Token sudah kedaluwarsa. Silakan meminta token baru",
-    "Invalid token": "Token tidak valid",
-    "Account already linked": "Akun sudah terhubung",
-
-    // Two-factor authentication errors
-    "Two-factor authentication required": "Verifikasi dua langkah diperlukan",
-    "Invalid OTP": "Kode OTP tidak valid",
-    "OTP expired": "Kode OTP sudah kedaluwarsa. Silakan meminta kode baru",
-
-    // Session errors
-    "Session expired": "Sesi Anda telah berakhir. Silakan masuk kembali",
-    "Invalid session": "Sesi tidak valid",
-
-    // Permission errors
-    Unauthorized: "Tidak memiliki izin",
-    Forbidden: "Akses ditolak",
-
-    // General errors
-    "Something went wrong": "Terjadi kesalahan. Silakan coba lagi nanti",
-    "Rate limit exceeded": "Terlalu banyak percobaan. Silakan coba lagi nanti",
-  };
-
-  // Check for partial matches if exact match is not found
-  if (errorTranslations[errorMessage]) {
-    return errorTranslations[errorMessage];
-  }
-
-  // Check for specific parts of error messages
-  for (const [key, value] of Object.entries(errorTranslations)) {
-    if (errorMessage?.toLowerCase().includes(key.toLowerCase())) {
-      return value;
-    }
-  }
-
-  // Return original message if no translation found
-  return errorMessage;
 };
 
 const aStyle = `display: inline-block; padding: 10px 20px; background-color: #222831; color: white; text-decoration: none; border-radius: 5px; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; text-align: center; text-decoration: none;`;
@@ -114,18 +57,18 @@ const sendEmail = async ({
   const mail =
     templateAlias && templateModel
       ? {
-        from: process.env.SMTP_FROM as string,
-        to,
-        templateAlias,
-        templateModel,
-      }
+          from: process.env.SMTP_FROM as string,
+          to,
+          templateAlias,
+          templateModel,
+        }
       : {
-        from: process.env.SMTP_FROM as string,
-        to,
-        subject,
-        text,
-        html,
-      };
+          from: process.env.SMTP_FROM as string,
+          to,
+          subject,
+          text,
+          html,
+        };
   try {
     await transporter.sendMail(mail);
   } catch (err) {
@@ -140,10 +83,11 @@ export const auth = betterAuth({
 
       if (error) {
         error.message = translateErrorMessage(error.message);
-        error.body = {
-          ...error.body,
-          message: error.message
-        }
+        // error.body is a readonly property, it can't be set
+        // error.body = {
+        //   ...error.body,
+        //   message: error.message
+        // }
       }
 
       return ctx;
@@ -225,12 +169,10 @@ ${url}
         const parts = forwardedHost.split("-");
 
         for (const site of Object.values(config.sites)) {
-          const lastPart = parts[parts.length - 1]!.split(
-            "."
-          );
+          const lastPart = parts[parts.length - 1]!.split(".");
 
-          lastPart[0] = site.devPort! + '';
-          parts[parts.length - 1] = lastPart.join('.');
+          lastPart[0] = site.devPort! + "";
+          parts[parts.length - 1] = lastPart.join(".");
 
           trusted.push(`https://${parts.join("-")}`);
         }

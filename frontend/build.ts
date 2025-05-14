@@ -148,6 +148,8 @@ const result = await build({
   minify: true,
   target: "browser",
   sourcemap: "linked",
+  splitting: true,
+  publicPath: '/',
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),
   },
