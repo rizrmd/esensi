@@ -1,10 +1,10 @@
+import type { User } from "backend/lib/better-auth";
 import { defineAPI } from "rlib/server";
-import type { User } from "better-auth/types";
 
 export default defineAPI({
   name: "publisher_profile",
   url: "/api/publisher/profile",
-  async handler(arg: { user: User }) {
+  async handler(arg: { user: Partial<User> }) {
     try {
       const publisher = await db.publisher.findFirst({
         where: {

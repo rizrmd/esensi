@@ -1,11 +1,11 @@
+import type { User } from "backend/lib/better-auth";
 import { defineAPI } from "rlib/server";
-import type { User } from "better-auth/types";
 
 export default defineAPI({
   name: "transactions",
   url: "/api/transactions",
   async handler(arg: {
-    user: User;
+    user: Partial<User>;
     page?: number;
     limit?: number;
     type?: string;

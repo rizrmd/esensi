@@ -1,13 +1,14 @@
 import { AppLogo } from "@/components/app/logo";
 import { Button } from "@/components/ui/button";
-import { useLocal } from "@/lib/hooks/use-local";
-import { navigate } from "@/lib/router";
-import { useRoot } from "@/lib/hooks/use-router";
 import { betterAuth } from "@/lib/better-auth";
+import { useLocal } from "@/lib/hooks/use-local";
+import { useRoot } from "@/lib/hooks/use-router";
+import { navigate } from "@/lib/router";
 
 const menu = [
   { label: "Beranda", href: "/dashboard" },
-  { label: "Buat Buku", href: "/create-book" },
+  { label: "Daftar Buku Yang Belum Disetujui", href: "/manage-book" },
+  { label: "Daftar Produk Yang Telah Disetujui", href: "/manage-product" },
   { label: "Keluar", action: "signout" },
 ];
 

@@ -1,10 +1,10 @@
+import type { User } from "backend/lib/better-auth";
 import { defineAPI } from "rlib/server";
-import type { User } from "better-auth/types";
 
 export default defineAPI({
   name: "onboarding",
   url: "/api/onboarding",
-  async handler(arg: { role: "author" | "publisher"; user: User }) {
+  async handler(arg: { role: "author" | "publisher"; user: Partial<User> }) {
     const { role, user } = arg;
     try {
       const account = await db.auth_account.findFirst({
@@ -18,7 +18,7 @@ export default defineAPI({
       if (role === "author") {
         // Create new author entry
         const newAuthor = await db.author.create({
-          data: { name: user.name, id_account: account.id },
+          data: { name: user.name!, id_account: account.id },
         });
 
         // Update auth_user with id_author
@@ -35,7 +35,7 @@ export default defineAPI({
       } else if (role === "publisher") {
         // Create new publisher entry
         const newPublisher = await db.publisher.create({
-          data: { name: user.name, id_account: account.id },
+          data: { name: user.name!, id_account: account.id },
         });
 
         // Update auth_user with id_publisher

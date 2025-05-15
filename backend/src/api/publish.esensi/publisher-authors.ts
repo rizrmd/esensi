@@ -1,11 +1,11 @@
+import type { User } from "backend/lib/better-auth";
 import { defineAPI } from "rlib/server";
-import type { User } from "better-auth/types";
 
 export default defineAPI({
   name: "publisher_authors",
   url: "/api/publisher/authors",
   async handler(arg: {
-    user: User;
+    user: Partial<User>;
     action: "list" | "add" | "remove";
     author_id?: string;
   }) {

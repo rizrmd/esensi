@@ -1,7 +1,8 @@
 import { current } from "@/components/app/protected";
+import { baseUrl } from "@/lib/gen/base-url";
 import { createAuthClient } from "better-auth/client";
 import { twoFactorClient } from "better-auth/client/plugins";
-import { baseUrl } from "@/lib/gen/base-url";
+import type { User as AuthUser } from "better-auth/types";
 
 type FetchOptions = {
   onRequest?: (ctx: any) => void;
@@ -30,19 +31,15 @@ type Provider =
   | "kick"
   | "zoom";
 
-export type Session = typeof authClient.$Infer.Session;
-export type User = Omit<
-  (typeof authClient.$Infer.Session)["user"],
-  "twoFactorEnabled"
-> &
+export type User = AuthUser &
   Partial<{
-    id_customer?: string;
-    id_author?: string;
-    id_affiliate?: string;
-    id_management?: string;
-    id_publisher?: string;
-    id_sales_and_marketing?: string;
-    id_support?: string;
+    idCustomer?: string | null;
+    idAuthor?: string | null;
+    idAffiliate?: string | null;
+    idManagement?: string | null;
+    idPublisher?: string | null;
+    idSalesAndMarketing?: string | null;
+    idSupport?: string | null;
   }>;
 
 const authClient = createAuthClient({
@@ -159,6 +156,18 @@ export const betterAuth = {
   },
   getSession: async () => {
     const { data, error } = await authClient.getSession();
+    if (data?.user) {
+      if (data.user["idCustomer"] === "null") data.user["idCustomer"] = null;
+      if (data.user["idAffiliate"] === "null") data.user["idAffiliate"] = null;
+      if (data.user["idAuthor"] === "null") data.user["idAuthor"] = null;
+      if (data.user["idCustomer"] === "null") data.user["idCustomer"] = null;
+      if (data.user["idManagement"] === "null")
+        data.user["idManagement"] = null;
+      if (data.user["idPublisher"] === "null") data.user["idPublisher"] = null;
+      if (data.user["idSalesAndMarketing"] === "null")
+        data.user["idSalesAndMarketing"] = null;
+      if (data.user["idSupport"] === "null") data.user["idSupport"] = null;
+    }
     return { data, error };
   },
   twoFactor: {

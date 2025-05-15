@@ -1,16 +1,17 @@
-import { betterAuth, type Session, type User } from "@/lib/better-auth";
+import { betterAuth, type User } from "@/lib/better-auth";
 import { baseUrl } from "@/lib/gen/base-url";
 import { useLocal } from "@/lib/hooks/use-local";
 import { Link, navigate } from "@/lib/router";
+import { snakeToCamel } from "@/lib/utils";
+import { css } from "goober";
 import type { FC, ReactNode } from "react";
+import { Button } from "../ui/button";
 import { Alert } from "../ui/global-alert";
 import { AppLoading } from "./loading";
-import { Button } from "../ui/button";
-import { css } from "goober";
 
 export const current = {
   user: null as User | null,
-  session: null as Session | null,
+  // session: null as Session | null,
   iframe: null as HTMLIFrameElement | null,
   signoutCallback: undefined as undefined | (() => void),
 };
@@ -57,7 +58,6 @@ export const Protected: FC<{
 
       window.addEventListener("message", (e) => {
         if (e.data?.action == "signout") {
-          // location.href = '/';
           if (current.signoutCallback) {
             current.signoutCallback();
           }
@@ -65,15 +65,29 @@ export const Protected: FC<{
         }
         if (e.data?.action == "session") {
           current.user = e.data.user;
-          current.session = e.data.session;
+          if (current.user) {
+            if (current.user["idAffiliate"] === "null")
+              current.user["idAffiliate"] = null;
+            if (current.user["idAuthor"] === "null")
+              current.user["idAuthor"] = null;
+            if (current.user["idCustomer"] === "null")
+              current.user["idCustomer"] = null;
+            if (current.user["idManagement"] === "null")
+              current.user["idManagement"] = null;
+            if (current.user["idPublisher"] === "null")
+              current.user["idPublisher"] = null;
+            if (current.user["idSalesAndMarketing"] === "null")
+              current.user["idSalesAndMarketing"] = null;
+            if (current.user["idSupport"] === "null")
+              current.user["idSupport"] = null;
+          }
 
           if (current.user) {
             if (role !== "any") {
               const roles = Array.isArray(role) ? role : [role];
-              const u = current.user;
               local.missing_role = [];
               for (const r of roles) {
-                if ((u as any)[`id_${r}`]) {
+                if ((current.user as any)[snakeToCamel(`id_${r}`)]) {
                 } else {
                   if (r) local.missing_role.push(r);
                 }

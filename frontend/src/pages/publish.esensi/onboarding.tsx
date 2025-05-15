@@ -1,15 +1,7 @@
-import { Protected } from "@/components/app/protected";
 import { AppLoading } from "@/components/app/loading";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Protected } from "@/components/app/protected";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
-import { navigate } from "@/lib/router";
-import { betterAuth } from "@/lib/better-auth";
-import { useLocal } from "@/lib/hooks/use-local";
-import { api } from "@/lib/gen/publish.esensi";
-import type { FormEvent } from "react";
-
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -18,106 +10,116 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { betterAuth, type User } from "@/lib/better-auth";
+import { api } from "@/lib/gen/publish.esensi";
+import { useLocal } from "@/lib/hooks/use-local";
+import { navigate } from "@/lib/router";
+import type { FormEvent } from "react";
+import type { auth_user } from "shared/models";
 
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
+export const current = {
+  user: null as User | null,
+};
 
 export default () => {
   const logout = () => betterAuth.signOut().finally(() => navigate("/"));
 
-  const local = useLocal({
-    loading: true,
-    submitting: false,
-    role: "publisher", // Default to publisher
-    formData: {
-      publisher: {
-        name: "",
-        description: "",
-        website: "",
-        address: "",
-        logo: null as File | null,
-        logoPreview: "",
+  const local = useLocal(
+    {
+      loading: true,
+      submitting: false,
+      user: null as Partial<auth_user> | null,
+      role: "author", // Default to author
+      formData: {
+        publisher: {
+          name: "",
+          description: "",
+          website: "",
+          address: "",
+          logo: null as File | null,
+          logoPreview: "",
+        },
+        author: {
+          name: "",
+          bio: "",
+          socmed: "",
+          avatar: null as File | null,
+          avatarPreview: "",
+        },
       },
-      author: {
-        name: "",
-        bio: "",
-        socmed: "",
-        avatar: null as File | null,
-        avatarPreview: "",
-      }
+      error: "",
+      success: "",
     },
-    error: "",
-    success: "",
-  }, async () => {
-    // Initialize
-    try {
-      const session = await betterAuth.getSession();
-      if (!session.data?.user) {
-        navigate("/");
-        return;
+    async () => {
+      // Initialize
+      try {
+        const session = await betterAuth.getSession();
+        if (!session.data?.user) {
+          navigate("/");
+          return;
+        }
+        local.user = session.data.user;
+        current.user = session.data.user;
+
+        // Check if user already has a role
+        const user = session.data.user;
+        // Look for id_author and id_publisher properties using safer property access
+        const hasAuthorRole = user && "id_author" in user && user.id_author;
+        const hasPublisherRole =
+          user && "id_publisher" in user && user.id_publisher;
+
+        if (hasAuthorRole || hasPublisherRole) {
+          // User already has a role, redirect to dashboard
+          navigate("/dashboard");
+          return;
+        }
+
+        local.loading = false;
+        local.render();
+      } catch (error) {
+        console.error("Error loading onboarding page:", error);
+        local.loading = false;
+        local.render();
       }
-      
-      // Check if user already has a role
-      const user = session.data.user;
-      // Look for id_author and id_publisher properties using safer property access
-      const hasAuthorRole = user && 'id_author' in user && user.id_author;
-      const hasPublisherRole = user && 'id_publisher' in user && user.id_publisher;
-      
-      if (hasAuthorRole || hasPublisherRole) {
-        // User already has a role, redirect to dashboard
-        navigate("/dashboard");
-        return;
-      }
-      
-      local.loading = false;
-      local.render();
-    } catch (error) {
-      console.error("Error loading onboarding page:", error);
-      local.loading = false;
-      local.render();
     }
-  });
+  );
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    
+
     if (local.submitting) return;
-    
+
     local.submitting = true;
     local.error = "";
     local.success = "";
     local.render();
-    
+
     try {
-      const session = await betterAuth.getSession();
-      if (!session.data?.user) throw new Error("Sesi tidak valid");
-      
       if (local.role === "publisher") {
         const publisherData = local.formData.publisher;
-        
+
         if (!publisherData.name) {
           local.error = "Nama penerbit harus diisi";
           local.submitting = false;
           local.render();
           return;
         }
-        
+
         // First save the basic profile information
         const result = await api.onboarding({
           role: "publisher",
-          user: session.data.user
+          user: current.user!,
         });
-        
+
         if (result.success) {
           // If we need to handle file uploads, we'd need to create another API endpoint
           // for handling file uploads specifically
-          
+
           local.success = "Profil penerbit berhasil dibuat";
-          
+
           // Redirect to dashboard after successful onboarding
           setTimeout(() => {
             navigate("/dashboard");
@@ -127,25 +129,25 @@ export default () => {
         }
       } else {
         const authorData = local.formData.author;
-        
+
         if (!authorData.name) {
           local.error = "Nama penulis harus diisi";
           local.submitting = false;
           local.render();
           return;
         }
-        
+
         // Call API to save author profile
         const result = await api.onboarding({
           role: "author",
-          user: session.data.user
+          user: current.user!,
         });
-        
+
         if (result.success) {
           // If we need to handle file uploads, we'd need to create another API endpoint
-          
+
           local.success = "Profil penulis berhasil dibuat";
-          
+
           // Redirect to dashboard after successful onboarding
           setTimeout(() => {
             navigate("/dashboard");
@@ -163,28 +165,31 @@ export default () => {
     }
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, type: 'logo' | 'avatar') => {
+  const handleImageUpload = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: "logo" | "avatar"
+  ) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    
+
     // Validate file type
     if (!file.type.startsWith("image/")) {
       local.error = "File harus berupa gambar (JPG, PNG, etc.)";
       local.render();
       return;
     }
-    
+
     // Validate file size (max 2MB)
     if (file.size > 2 * 1024 * 1024) {
       local.error = "Ukuran gambar tidak boleh melebihi 2MB";
       local.render();
       return;
     }
-    
+
     // Create a preview URL
     const reader = new FileReader();
     reader.onload = () => {
-      if (type === 'logo') {
+      if (type === "logo") {
         local.formData.publisher.logo = file;
         local.formData.publisher.logoPreview = reader.result as string;
       } else {
@@ -212,42 +217,50 @@ export default () => {
                 <CardHeader>
                   <CardTitle>Selamat Datang di Platform Penerbitan</CardTitle>
                   <CardDescription>
-                    Lengkapi profil Anda untuk mulai menerbitkan dan mengelola buku.
+                    Lengkapi profil Anda untuk mulai menerbitkan dan mengelola
+                    buku.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Tabs value={local.role} onValueChange={(value) => {
-                    local.role = value;
-                    local.render();
-                  }} className="w-full">
+                  <Tabs
+                    value={local.role}
+                    onValueChange={(value) => {
+                      local.role = value;
+                      local.render();
+                    }}
+                    className="w-full"
+                  >
                     <TabsList className="grid grid-cols-2 mb-8">
                       <TabsTrigger value="publisher">Saya Penerbit</TabsTrigger>
                       <TabsTrigger value="author">Saya Penulis</TabsTrigger>
                     </TabsList>
-                    
+
                     {local.error && (
                       <div className="bg-red-50 text-red-700 p-3 rounded-md mb-6">
                         {local.error}
                       </div>
                     )}
-                    
+
                     {local.success && (
                       <div className="bg-green-50 text-green-700 p-3 rounded-md mb-6">
                         {local.success}
                       </div>
                     )}
-                    
+
                     <TabsContent value="publisher">
                       <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid md:grid-cols-[1fr_auto] gap-6">
                           <div className="space-y-4">
                             <div>
-                              <Label htmlFor="publisher-name">Nama Penerbit</Label>
+                              <Label htmlFor="publisher-name">
+                                Nama Penerbit
+                              </Label>
                               <Input
                                 id="publisher-name"
                                 value={local.formData.publisher.name}
-                                onChange={e => {
-                                  local.formData.publisher.name = e.target.value;
+                                onChange={(e) => {
+                                  local.formData.publisher.name =
+                                    e.target.value;
                                   local.render();
                                 }}
                                 placeholder="Masukkan nama penerbit"
@@ -255,42 +268,45 @@ export default () => {
                                 required
                               />
                             </div>
-                            
+
                             <div>
                               <Label htmlFor="publisher-desc">Deskripsi</Label>
                               <textarea
                                 id="publisher-desc"
                                 value={local.formData.publisher.description}
-                                onChange={e => {
-                                  local.formData.publisher.description = e.target.value;
+                                onChange={(e) => {
+                                  local.formData.publisher.description =
+                                    e.target.value;
                                   local.render();
                                 }}
                                 placeholder="Sekilas tentang penerbit Anda"
                                 className="mt-1 flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                               />
                             </div>
-                            
+
                             <div>
                               <Label htmlFor="publisher-website">Website</Label>
                               <Input
                                 id="publisher-website"
                                 value={local.formData.publisher.website}
-                                onChange={e => {
-                                  local.formData.publisher.website = e.target.value;
+                                onChange={(e) => {
+                                  local.formData.publisher.website =
+                                    e.target.value;
                                   local.render();
                                 }}
                                 placeholder="https://website-penerbit.com"
                                 className="mt-1"
                               />
                             </div>
-                            
+
                             <div>
                               <Label htmlFor="publisher-address">Alamat</Label>
                               <textarea
                                 id="publisher-address"
                                 value={local.formData.publisher.address}
-                                onChange={e => {
-                                  local.formData.publisher.address = e.target.value;
+                                onChange={(e) => {
+                                  local.formData.publisher.address =
+                                    e.target.value;
                                   local.render();
                                 }}
                                 placeholder="Alamat lengkap kantor penerbit"
@@ -298,15 +314,17 @@ export default () => {
                               />
                             </div>
                           </div>
-                          
+
                           <div>
-                            <Label htmlFor="publisher-logo">Logo Penerbit</Label>
+                            <Label htmlFor="publisher-logo">
+                              Logo Penerbit
+                            </Label>
                             <div className="mt-1 border rounded-lg overflow-hidden bg-muted/50 w-40 h-40 flex items-center justify-center relative">
                               {local.formData.publisher.logoPreview ? (
                                 <>
-                                  <img 
-                                    src={local.formData.publisher.logoPreview} 
-                                    alt="Logo Preview" 
+                                  <img
+                                    src={local.formData.publisher.logoPreview}
+                                    alt="Logo Preview"
                                     className="w-full h-full object-contain"
                                   />
                                   <Button
@@ -326,8 +344,13 @@ export default () => {
                               ) : (
                                 <div className="text-center p-4">
                                   <div className="text-3xl mb-2">🏢</div>
-                                  <p className="text-muted-foreground text-sm mb-4">Unggah logo</p>
-                                  <Label htmlFor="logoUpload" className="cursor-pointer">
+                                  <p className="text-muted-foreground text-sm mb-4">
+                                    Unggah logo
+                                  </p>
+                                  <Label
+                                    htmlFor="logoUpload"
+                                    className="cursor-pointer"
+                                  >
                                     <span className="bg-primary text-primary-foreground px-3 py-2 rounded-md text-sm">
                                       Pilih Gambar
                                     </span>
@@ -336,7 +359,9 @@ export default () => {
                                       type="file"
                                       accept="image/*"
                                       className="hidden"
-                                      onChange={e => handleImageUpload(e, 'logo')}
+                                      onChange={(e) =>
+                                        handleImageUpload(e, "logo")
+                                      }
                                     />
                                   </Label>
                                 </div>
@@ -344,17 +369,19 @@ export default () => {
                             </div>
                           </div>
                         </div>
-                        
-                        <Button 
-                          type="submit" 
+
+                        <Button
+                          type="submit"
                           className="w-full"
                           disabled={local.submitting}
                         >
-                          {local.submitting ? "Memproses..." : "Daftar Sebagai Penerbit"}
+                          {local.submitting
+                            ? "Memproses..."
+                            : "Daftar Sebagai Penerbit"}
                         </Button>
                       </form>
                     </TabsContent>
-                    
+
                     <TabsContent value="author">
                       <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid md:grid-cols-[1fr_auto] gap-6">
@@ -364,7 +391,7 @@ export default () => {
                               <Input
                                 id="author-name"
                                 value={local.formData.author.name}
-                                onChange={e => {
+                                onChange={(e) => {
                                   local.formData.author.name = e.target.value;
                                   local.render();
                                 }}
@@ -373,13 +400,13 @@ export default () => {
                                 required
                               />
                             </div>
-                            
+
                             <div>
                               <Label htmlFor="author-bio">Biografi</Label>
                               <textarea
                                 id="author-bio"
                                 value={local.formData.author.bio}
-                                onChange={e => {
+                                onChange={(e) => {
                                   local.formData.author.bio = e.target.value;
                                   local.render();
                                 }}
@@ -388,13 +415,15 @@ export default () => {
                                 className="mt-1 flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                               />
                             </div>
-                            
+
                             <div>
-                              <Label htmlFor="author-socmed">Media Sosial</Label>
+                              <Label htmlFor="author-socmed">
+                                Media Sosial
+                              </Label>
                               <Input
                                 id="author-socmed"
                                 value={local.formData.author.socmed}
-                                onChange={e => {
+                                onChange={(e) => {
                                   local.formData.author.socmed = e.target.value;
                                   local.render();
                                 }}
@@ -403,15 +432,15 @@ export default () => {
                               />
                             </div>
                           </div>
-                          
+
                           <div>
                             <Label htmlFor="author-avatar">Foto Profil</Label>
                             <div className="mt-1 border rounded-lg overflow-hidden bg-muted/50 w-40 h-40 flex items-center justify-center relative">
                               {local.formData.author.avatarPreview ? (
                                 <>
-                                  <img 
-                                    src={local.formData.author.avatarPreview} 
-                                    alt="Avatar Preview" 
+                                  <img
+                                    src={local.formData.author.avatarPreview}
+                                    alt="Avatar Preview"
                                     className="w-full h-full object-cover"
                                   />
                                   <Button
@@ -431,8 +460,13 @@ export default () => {
                               ) : (
                                 <div className="text-center p-4">
                                   <div className="text-3xl mb-2">👤</div>
-                                  <p className="text-muted-foreground text-sm mb-4">Unggah foto</p>
-                                  <Label htmlFor="avatarUpload" className="cursor-pointer">
+                                  <p className="text-muted-foreground text-sm mb-4">
+                                    Unggah foto
+                                  </p>
+                                  <Label
+                                    htmlFor="avatarUpload"
+                                    className="cursor-pointer"
+                                  >
                                     <span className="bg-primary text-primary-foreground px-3 py-2 rounded-md text-sm">
                                       Pilih Gambar
                                     </span>
@@ -441,7 +475,9 @@ export default () => {
                                       type="file"
                                       accept="image/*"
                                       className="hidden"
-                                      onChange={e => handleImageUpload(e, 'avatar')}
+                                      onChange={(e) =>
+                                        handleImageUpload(e, "avatar")
+                                      }
                                     />
                                   </Label>
                                 </div>
@@ -449,13 +485,15 @@ export default () => {
                             </div>
                           </div>
                         </div>
-                        
-                        <Button 
-                          type="submit" 
+
+                        <Button
+                          type="submit"
                           className="w-full"
                           disabled={local.submitting}
                         >
-                          {local.submitting ? "Memproses..." : "Daftar Sebagai Penulis"}
+                          {local.submitting
+                            ? "Memproses..."
+                            : "Daftar Sebagai Penulis"}
                         </Button>
                       </form>
                     </TabsContent>

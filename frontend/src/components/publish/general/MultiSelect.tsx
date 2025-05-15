@@ -1,5 +1,3 @@
-import * as React from "react";
-import { X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   Command,
@@ -13,8 +11,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
 import { useLocal } from "@/lib/hooks/use-local";
+import { cn } from "@/lib/utils";
+import { X } from "lucide-react";
 
 export interface Option {
   label: string;

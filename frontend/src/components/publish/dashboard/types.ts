@@ -1,12 +1,14 @@
 // Type definitions for dashboard components
 
+import type { Decimal } from "shared/models/runtime/library";
+
 export interface Product {
   id: string;
   name: string;
   cover?: string;
   status: string;
-  real_price: number;
-  author: { name: string };
+  real_price: number | Decimal;
+  author?: { name: string };
 }
 
 export interface Author {

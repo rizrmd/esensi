@@ -77,3 +77,15 @@ export function getBrowserInfo() {
     return getBrowserName();
   }
 }
+
+export type ApiResponse<T> = {
+  success: boolean;
+  data?: T;
+  message?: string;
+  pagination?: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+};

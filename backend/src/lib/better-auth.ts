@@ -1,5 +1,6 @@
 import { APIError, betterAuth } from "better-auth";
 import { openAPI, twoFactor, username } from "better-auth/plugins";
+import type { User as AuthUser } from "better-auth/types";
 import { randomUUIDv7 } from "bun";
 import nodemailer from "nodemailer";
 import { Pool } from "pg";
@@ -257,13 +258,69 @@ ${url}
       updatedAt: "updated_at",
     },
     additionalFields: {
-      id_customer: { type: "string", required: false },
-      id_author: { type: "string", required: false },
-      id_affiliate: { type: "string", required: false },
-      id_management: { type: "string", required: false },
-      id_publisher: { type: "string", required: false },
-      id_sales_and_marketing: { type: "string", required: false },
-      id_support: { type: "string", required: false },
+      idCustomer: {
+        type: "string",
+        required: false,
+        fieldName: "id_customer",
+        references: {
+          model: "customer",
+          field: "id",
+        },
+      },
+      idAuthor: {
+        type: "string",
+        required: false,
+        fieldName: "id_author",
+        references: {
+          model: "author",
+          field: "id",
+        },
+      },
+      idAffiliate: {
+        type: "string",
+        required: false,
+        fieldName: "id_affiliate",
+        references: {
+          model: "affiliate",
+          field: "id",
+        },
+      },
+      idManagement: {
+        type: "string",
+        required: false,
+        fieldName: "id_management",
+        references: {
+          model: "management",
+          field: "id",
+        },
+      },
+      idPublisher: {
+        type: "string",
+        required: false,
+        fieldName: "id_publisher",
+        references: {
+          model: "publisher",
+          field: "id",
+        },
+      },
+      idSalesAndMarketing: {
+        type: "string",
+        required: false,
+        fieldName: "id_sales_and_marketing",
+        references: {
+          model: "sales_and_marketing",
+          field: "id",
+        },
+      },
+      idSupport: {
+        type: "string",
+        required: false,
+        fieldName: "id_support",
+        references: {
+          model: "support",
+          field: "id",
+        },
+      },
     },
     changeEmail: {
       enabled: true,
@@ -328,7 +385,7 @@ export const utils = {
         userId: string;
         expiresAt: Date;
         ipAddress?: string | null;
-        userAgent?: string | null ;
+        userAgent?: string | null;
         createdAt: Date;
         updatedAt: Date;
         token: string;
@@ -489,3 +546,14 @@ export const utils = {
     return response;
   },
 };
+
+export type User = AuthUser &
+  Partial<{
+    idCustomer?: string | null;
+    idAuthor?: string | null;
+    idAffiliate?: string | null;
+    idManagement?: string | null;
+    idPublisher?: string | null;
+    idSalesAndMarketing?: string | null;
+    idSupport?: string | null;
+  }>;

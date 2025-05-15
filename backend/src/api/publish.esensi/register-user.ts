@@ -1,10 +1,10 @@
+import type { User } from "backend/lib/better-auth";
 import { defineAPI } from "rlib/server";
-import type { User } from "better-auth/types";
 
 export default defineAPI({
   name: "register_user",
   url: "/api/auth/register-user",
-  async handler(arg: { user: User }) {
+  async handler(arg: { user: Partial<User> }) {
     try {
       const { user } = arg;
 
@@ -28,7 +28,7 @@ export default defineAPI({
 
       const newAuthor = await db.author.create({
         data: {
-          name: user.name,
+          name: user.name!,
           id_account: existingAccount!.id,
         },
       });

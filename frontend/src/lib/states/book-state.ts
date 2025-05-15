@@ -6,6 +6,7 @@ interface BookProcessState {
   description: string;
   categories: { label: string; value: string }[];
   coverImage: File | null;
+  coverImageFileName: string;
   coverImagePreview: string;
   price: string;
   contentFile: File | null;
@@ -29,6 +30,7 @@ const initialBookProcessState: BookProcessState = {
   categories: [],
   coverImage: null,
   coverImagePreview: "",
+  coverImageFileName: "",
   price: "",
   contentFile: null,
   contentFileName: "",
@@ -41,7 +43,9 @@ const initialBookProcessState: BookProcessState = {
   pageSuccessMessage: "",
 };
 
-export const bookProcessWrite = proxy<BookProcessState>({ ...initialBookProcessState });
+export const bookProcessWrite = proxy<BookProcessState>({
+  ...initialBookProcessState,
+});
 
 export const bookProcessState = {
   write: bookProcessWrite,
@@ -60,11 +64,11 @@ export const bookProcessState = {
     }
 
     // Special handling if data is provided but these specific fields are not
-    if (data && typeof data.pageLoading === 'undefined') {
-        bookProcessWrite.pageLoading = currentPageLoading;
+    if (data && typeof data.pageLoading === "undefined") {
+      bookProcessWrite.pageLoading = currentPageLoading;
     }
-    if (data && typeof data.activeTab === 'undefined') {
-        bookProcessWrite.activeTab = currentActiveTab;
+    if (data && typeof data.activeTab === "undefined") {
+      bookProcessWrite.activeTab = currentActiveTab;
     }
   },
   setFormError(message: string) {
@@ -86,5 +90,5 @@ export const bookProcessState = {
   },
   clearPageSuccessMessage() {
     bookProcessWrite.pageSuccessMessage = "";
-  }
+  },
 };
