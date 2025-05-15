@@ -3,9 +3,9 @@ import { join } from "node:path";
 
 export default defineAPI({
   name: "files",
-  url: "/files/*",
+  url: "/_file/upload/*",
   async handler() {
     const req = this.req!;
-    return new Response(Bun.file(join(process.cwd(), "upload", ...req.url.split("/files/").slice(1))));
+    return new Response(Bun.file(join(process.cwd(), "_file/upload", ...req.url.split("/_file/upload/").slice(1))));
   }
 });

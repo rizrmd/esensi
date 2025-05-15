@@ -4,17 +4,37 @@ import { betterAuth } from "@/lib/better-auth";
 import { useLocal } from "@/lib/hooks/use-local";
 import { useRoot } from "@/lib/hooks/use-router";
 import { navigate } from "@/lib/router";
+import { isAuthor, isPublisher } from "@/lib/utils";
 
 const menu = [
   { label: "Beranda", href: "/dashboard" },
   { label: "Daftar Buku Yang Belum Disetujui", href: "/manage-book" },
   { label: "Daftar Produk Yang Telah Disetujui", href: "/manage-product" },
+  { label: "Profil", href: "/profil" },
   { label: "Keluar", action: "signout" },
 ];
 
 export const PublishMenuBar = ({ title }: { title: string }) => {
   const { currentPath } = useRoot();
-  const local = useLocal({}, async () => {});
+  const local = useLocal(
+    {
+      menu: [] as typeof menu,
+    },
+    async () => {
+      const session = await betterAuth.getSession();
+      if (session) {
+        const user = session.data?.user;
+        if (!!user && isPublisher(user)) {
+          local.menu = menu.filter((x) => x.href !== "/manage-book");
+          local.render();
+        }
+        if (!!user && isAuthor(user)) {
+          local.menu = menu;
+          local.render();
+        }
+      }
+    }
+  );
 
   const handleMenuClick = (item: (typeof menu)[number]) => {
     if (item.action === "signout")
@@ -32,7 +52,7 @@ export const PublishMenuBar = ({ title }: { title: string }) => {
           </span>
         </div>
         <div className="flex gap-2">
-          {menu
+          {local.menu
             .filter(
               (item) =>
                 currentPath !== "/onboarding" ||

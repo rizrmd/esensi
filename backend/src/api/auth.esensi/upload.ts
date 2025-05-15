@@ -18,11 +18,9 @@ export default defineAPI({
     Readable.fromWeb(req.body).pipe(busboy);
 
     const date = new Date();
-    const dateDir = `${date.getFullYear()}-${date.getMonth() + 0}-${date.getDay()}`;
-    const dirname = [
-      "upload",
-      dateDir,
-    ];
+    const yyyyMM = `${date.getFullYear()}-${date.getMonth() + 0}`;
+    const dd = `${date.getDay()}`;
+    const dirname = ["_file", "upload", yyyyMM, dd];
     dir.ensure(join(process.cwd(), ...dirname));
 
     const upload = await new Promise<{ name: string; file: Buffer }>((done) => {
@@ -32,7 +30,7 @@ export default defineAPI({
             done({ name: info, file: data });
           })
           .on("close", () => {
-            console.log(`File [${name}] done`);
+            // console.log(`File [${name}] done`);
           });
       });
     });
@@ -41,6 +39,8 @@ export default defineAPI({
     const file = Bun.file(join(process.cwd(), ...dirname, fileName));
 
     await file.write(upload.file);
-    return { name: "/" + ["files", dateDir, fileName].join("/") };
+    return {
+      name: "/" + [...dirname, fileName].join("/"),
+    };
   },
 });

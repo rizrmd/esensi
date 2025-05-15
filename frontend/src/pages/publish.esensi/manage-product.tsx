@@ -83,7 +83,6 @@ export default function ProductListPage() {
                                     src={baseUrl.publish_esensi + product.cover}
                                     alt={product.name}
                                     className="object-cover w-full h-full"
-                                    style={{ maxHeight: 260 }}
                                   />
                                 ) : (
                                   <div className="text-gray-400 text-sm">

@@ -62,7 +62,7 @@ export default function BookListPage() {
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                   <div className="container mx-8 py-8">
-                    <h1 className="text-2xl font-bold mb-6">Daftar Produk Yang Disetujui</h1>
+                    <h1 className="text-2xl font-bold mb-6">Daftar Buku Yang Belum Disetujui</h1>
                     {local.loading ? (
                       <div>Mengambil data produk yang disetujui...</div>
                     ) : (
@@ -83,7 +83,6 @@ export default function BookListPage() {
                                     src={baseUrl.publish_esensi + book.cover}
                                     alt={book.name}
                                     className="object-cover w-full h-full"
-                                    style={{ maxHeight: 260 }}
                                   />
                                 ) : (
                                   <div className="text-gray-400 text-sm">
