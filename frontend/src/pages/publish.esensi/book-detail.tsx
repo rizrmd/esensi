@@ -6,12 +6,12 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type { author, product } from "shared/models";
+import type { author, book } from "shared/models";
 
-export default function ProductDetailPage() {
+export default function BookDetailPage() {
   const local = useLocal(
     {
-      product: null as (product & { author: author | null }) | null,
+      book: null as (book & { author: author | null }) | null,
       loading: true,
       error: "",
     },
@@ -25,11 +25,11 @@ export default function ProductDetailPage() {
         return;
       }
       try {
-        const res = await api.product_detail({ id });
+        const res = await api.book_detail({ id });
         if (!res.data) {
           local.error = "Produk tidak ditemukan.";
         } else {
-          local.product = res.data;
+          local.book = res.data;
         }
       } catch (error) {
         local.error = "Terjadi kesalahan saat memuat data produk.";
@@ -73,13 +73,13 @@ export default function ProductDetailPage() {
                     <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-8 shadow-sm">
                       {local.error}
                     </div>
-                  ) : local.product ? (
+                  ) : local.book ? (
                     <Card className="shadow-md border border-gray-200">
                       <div className="w-full bg-gray-100 flex items-center justify-center overflow-hidden rounded-t-xl">
-                        {local.product.cover ? (
+                        {local.book.cover ? (
                           <img
-                            src={baseUrl.publish_esensi + local.product.cover}
-                            alt={local.product.name}
+                            src={baseUrl.publish_esensi + local.book.cover}
+                            alt={local.book.name}
                             className="mx-auto object-cover"
                           />
                         ) : (
@@ -90,80 +90,80 @@ export default function ProductDetailPage() {
                       </div>
                       <CardHeader>
                         <CardTitle className="text-xl font-bold mb-2">
-                          {local.product.name}
+                          {local.book.name}
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="mb-2 text-sm text-gray-600">
                           ID Produk:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.id}
+                            {local.book.id}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Nama:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.name}
+                            {local.book.name}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Slug:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.slug}
+                            {local.book.slug}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Alias:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.alias ?? "-"}
+                            {local.book.alias ?? "-"}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Harga Coret:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.strike_price
-                              ? `Rp${local.product.strike_price.toLocaleString()}`
+                            {local.book.strike_price
+                              ? `Rp${local.book.strike_price.toLocaleString()}`
                               : "-"}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Harga:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.real_price
-                              ? `Rp${local.product.real_price.toLocaleString()}`
+                            {local.book.real_price
+                              ? `Rp${local.book.real_price.toLocaleString()}`
                               : "-"}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Penulis:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.author?.name ?? "-"}
+                            {local.book.author?.name ?? "-"}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Status:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.status}
+                            {local.book.status}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Mata Uang:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.currency}
+                            {local.book.currency}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           SKU:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.sku ?? "-"}
+                            {local.book.sku ?? "-"}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Tanggal Terbit:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.published_date
+                            {local.book.published_date
                               ? new Date(
-                                  local.product.published_date
+                                  local.book.published_date
                                 ).toLocaleDateString("id-ID")
                               : "-"}
                           </span>
@@ -171,32 +171,32 @@ export default function ProductDetailPage() {
                         <div className="mb-2 text-sm text-gray-600">
                           Fisik:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.is_physical ? "Ya" : "Tidak"}
+                            {local.book.is_physical ? "Ya" : "Tidak"}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Minimal Preorder:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.preorder_min_qty ?? "-"}
+                            {local.book.preorder_min_qty ?? "-"}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Tipe Konten:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.content_type ?? "-"}
+                            {local.book.content_type ?? "-"}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Deskripsi:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.desc ?? "-"}
+                            {local.book.desc ?? "-"}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Info Tambahan:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.product.info
-                              ? JSON.stringify(local.product.info)
+                            {local.book.info
+                              ? JSON.stringify(local.book.info)
                               : "-"}
                           </span>
                         </div>
