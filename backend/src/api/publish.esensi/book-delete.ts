@@ -1,11 +1,10 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { book } from "shared/models";
 
 export default defineAPI({
   name: "book_delete",
   url: "/api/book/delete",
-  async handler(arg: { id: string }): Promise<ApiResponse<book>> {
+  async handler(arg: { id: string }): Promise<ApiResponse<void>> {
     try {
       // Check if book exists
       const book = await db.book.findUnique({ where: { id: arg.id } });

@@ -7,19 +7,27 @@ import type {
   author,
   book,
   product,
-  publisher
+  promo_code,
+  publisher,
+  publisher_author,
+  transaction,
 } from "shared/models";
 
 export default defineAPI({
-  name: "author_profile",
-  url: "/api/author/profile",
+  name: "author_detail",
+  url: "/api/author/detail",
   async handler(arg: { user: Partial<User> }): Promise<
     ApiResponse<
       | (author & {
-          auth_account: auth_account | null;
           auth_user: auth_user[];
+          auth_account: auth_account | null;
+          publisher_author: (publisher_author & {
+            publisher: publisher & {
+              transaction: transaction[];
+              promo_code: promo_code[];
+            };
+          })[];
           book: book[];
-          publisher_author: { publisher: publisher }[];
           product: product[];
         })
       | null
@@ -35,26 +43,27 @@ export default defineAPI({
           },
         },
         include: {
-          auth_account: true,
           auth_user: true,
-          book: true,
+          auth_account: true,
           publisher_author: {
-            select: {
-              publisher: true,
+            include: {
+              publisher: {
+                include: {
+                  transaction: true,
+                  promo_code: true,
+                },
+              },
             },
           },
-          product: {
-            orderBy: {
-              published_date: "desc",
-            },
-          },
+          book: true,
+          product: true,
         },
       });
 
       return { success: true, data: author };
     } catch (error) {
-      console.error("Error fetching author profile:", error);
-      return { success: false, message: "Gagal mengambil profil penulis" };
+      console.error("Error fetching publisher profile:", error);
+      return { success: false, message: "Gagal mengambil profil penerbit" };
     }
   },
 });

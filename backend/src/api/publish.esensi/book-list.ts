@@ -1,6 +1,6 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { book } from "shared/models";
+import type { author, book, book_history } from "shared/models";
 
 export default defineAPI({
   name: "book_list",
@@ -10,7 +10,11 @@ export default defineAPI({
     limit?: number;
     search?: string;
     status?: string;
-  }): Promise<ApiResponse<book[]>> {
+  }): Promise<
+    ApiResponse<
+      (book & { author: author | null; book_history: book_history[] })[]
+    >
+  > {
     try {
       const page = arg.page || 1;
       const limit = arg.limit || 10;
@@ -30,18 +34,26 @@ export default defineAPI({
       }
 
       const total = await db.book.count({ where });
-      const books: book[] = await db.book.findMany({
+      const book = await db.book.findMany({
         where,
         orderBy: {
           published_date: "desc",
         },
         skip,
         take: limit,
+        include: {
+          author: true,
+          book_history: {
+            orderBy: {
+              created_at: "desc",
+            },
+          },
+        },
       });
 
       return {
         success: true,
-        data: books,
+        data: book,
         pagination: {
           total,
           page,

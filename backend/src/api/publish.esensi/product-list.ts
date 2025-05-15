@@ -1,6 +1,6 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { product } from "shared/models";
+import type { author, bundle, category, product } from "shared/models";
 
 export default defineAPI({
   name: "product_list",
@@ -10,7 +10,15 @@ export default defineAPI({
     limit?: number;
     search?: string;
     status?: string;
-  }): Promise<ApiResponse<product[]>> {
+  }): Promise<
+    ApiResponse<
+      (product & {
+        author: author | null;
+        bundle_product: { bundle: bundle }[];
+        product_category: { category: category }[];
+      })[]
+    >
+  > {
     try {
       const page = arg.page || 1;
       const limit = arg.limit || 10;
@@ -30,12 +38,17 @@ export default defineAPI({
       }
 
       const total = await db.product.count({ where });
-      const products: product[] = await db.product.findMany({
+      const product = await db.product.findMany({
         where,
         include: {
           author: true,
+          bundle_product: {
+            select: {
+              bundle: true,
+            },
+          },
           product_category: {
-            include: {
+            select: {
               category: true,
             },
           },
@@ -49,7 +62,7 @@ export default defineAPI({
 
       return {
         success: true,
-        data: products,
+        data: product,
         pagination: {
           total,
           page,

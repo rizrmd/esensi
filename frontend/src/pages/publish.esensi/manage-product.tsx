@@ -73,51 +73,62 @@ export default function ProductListPage() {
                           </div>
                         ) : (
                           local.products.map((product: any) => (
-                            <Card
+                            <div
                               key={product.id}
-                              className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-lg transition-shadow"
+                              className="cursor-pointer"
+                              onClick={() =>
+                                navigate(
+                                  `product-detail?id=${product.id}`
+                                )
+                              }
                             >
-                              <div className="aspect-[3/4] w-full bg-gray-100 flex items-center justify-center overflow-hidden rounded-t-xl">
-                                {product.cover ? (
-                                  <img
-                                    src={baseUrl.publish_esensi + product.cover}
-                                    alt={product.name}
-                                    className="object-cover w-full h-full"
-                                  />
-                                ) : (
-                                  <div className="text-gray-400 text-sm">
-                                    Tidak ada gambar
+                              <Card
+                                className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-lg transition-shadow"
+                              >
+                                <div className="aspect-[3/4] w-full bg-gray-100 flex items-center justify-center overflow-hidden rounded-t-xl">
+                                  {product.cover ? (
+                                    <img
+                                      src={
+                                        baseUrl.publish_esensi + product.cover
+                                      }
+                                      alt={product.name}
+                                      className="object-cover w-full h-full"
+                                    />
+                                  ) : (
+                                    <div className="text-gray-400 text-sm">
+                                      Tidak ada gambar
+                                    </div>
+                                  )}
+                                </div>
+                                <CardHeader className="flex-1">
+                                  <CardTitle className="text-lg font-semibold line-clamp-2 mb-2">
+                                    {product.name}
+                                  </CardTitle>
+                                </CardHeader>
+                                <CardContent className="pb-4">
+                                  <div className="mb-1 text-sm text-gray-600">
+                                    Harga:{" "}
+                                    <span className="font-medium text-gray-900">
+                                      Rp
+                                      {product.real_price?.toLocaleString() ??
+                                        "-"}
+                                    </span>
                                   </div>
-                                )}
-                              </div>
-                              <CardHeader className="flex-1">
-                                <CardTitle className="text-lg font-semibold line-clamp-2 mb-2">
-                                  {product.name}
-                                </CardTitle>
-                              </CardHeader>
-                              <CardContent className="pb-4">
-                                <div className="mb-1 text-sm text-gray-600">
-                                  Harga:{" "}
-                                  <span className="font-medium text-gray-900">
-                                    Rp
-                                    {product.real_price?.toLocaleString() ??
-                                      "-"}
-                                  </span>
-                                </div>
-                                <div className="mb-1 text-sm text-gray-600">
-                                  Penulis:{" "}
-                                  <span className="font-medium text-gray-900">
-                                    {product.author?.name ?? "-"}
-                                  </span>
-                                </div>
-                                <div className="mb-1 text-sm text-gray-600">
-                                  Status:{" "}
-                                  <span className="font-medium text-gray-900">
-                                    {product.status}
-                                  </span>
-                                </div>
-                              </CardContent>
-                            </Card>
+                                  <div className="mb-1 text-sm text-gray-600">
+                                    Penulis:{" "}
+                                    <span className="font-medium text-gray-900">
+                                      {product.author?.name ?? "-"}
+                                    </span>
+                                  </div>
+                                  <div className="mb-1 text-sm text-gray-600">
+                                    Status:{" "}
+                                    <span className="font-medium text-gray-900">
+                                      {product.status}
+                                    </span>
+                                  </div>
+                                </CardContent>
+                              </Card>
+                            </div>
                           ))
                         )}
                       </div>

@@ -106,6 +106,7 @@ model author {
   id_account       String?            @db.Uuid
   auth_user        auth_user[]
   auth_account     auth_account?      @relation(fields: [id_account], references: [id], map: "author_id_user_fkey")
+  book             book[]
   product          product[]
   publisher_author publisher_author[]
 }
@@ -449,6 +450,7 @@ model book {
   ai_suggested_content Json?          @default("{}")
   preorder_min_qty     Int?
   content_type         String?        @db.VarChar(20)
+  author               author?        @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "book_fk_id_author")
   book_history         book_history[]
 }
 

@@ -1,6 +1,6 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { book_history } from "shared/models";
+import type { book, book_history } from "shared/models";
 
 export default defineAPI({
   name: "book_history_list",
@@ -9,7 +9,7 @@ export default defineAPI({
     book_id: string;
     page?: number;
     limit?: number;
-  }): Promise<ApiResponse<book_history[]>> {
+  }): Promise<ApiResponse<(book_history & { book: book })[]>> {
     try {
       // Check if book exists
       const book = await db.book.findUnique({
@@ -39,6 +39,9 @@ export default defineAPI({
         },
         skip,
         take: limit,
+        include: {
+          book: true,
+        },
       });
 
       return {

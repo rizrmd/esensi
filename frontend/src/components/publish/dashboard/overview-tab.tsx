@@ -233,7 +233,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             : product.status}
         </Badge>
         <span className="font-medium text-sm">
-          {formatCurrency(product.real_price)}
+          {formatCurrency(product.real_price as number)}
         </span>
       </CardFooter>
     </Card>

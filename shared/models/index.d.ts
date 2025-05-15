@@ -4220,12 +4220,14 @@ export namespace Prisma {
 
   export type AuthorCountOutputType = {
     auth_user: number
+    book: number
     product: number
     publisher_author: number
   }
 
   export type AuthorCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_user?: boolean | AuthorCountOutputTypeCountAuth_userArgs
+    book?: boolean | AuthorCountOutputTypeCountBookArgs
     product?: boolean | AuthorCountOutputTypeCountProductArgs
     publisher_author?: boolean | AuthorCountOutputTypeCountPublisher_authorArgs
   }
@@ -4246,6 +4248,13 @@ export namespace Prisma {
    */
   export type AuthorCountOutputTypeCountAuth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: auth_userWhereInput
+  }
+
+  /**
+   * AuthorCountOutputType without action
+   */
+  export type AuthorCountOutputTypeCountBookArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: bookWhereInput
   }
 
   /**
@@ -12055,6 +12064,7 @@ export namespace Prisma {
     id_account?: boolean
     auth_user?: boolean | author$auth_userArgs<ExtArgs>
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
+    book?: boolean | author$bookArgs<ExtArgs>
     product?: boolean | author$productArgs<ExtArgs>
     publisher_author?: boolean | author$publisher_authorArgs<ExtArgs>
     _count?: boolean | AuthorCountOutputTypeDefaultArgs<ExtArgs>
@@ -12084,6 +12094,7 @@ export namespace Prisma {
   export type authorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_user?: boolean | author$auth_userArgs<ExtArgs>
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
+    book?: boolean | author$bookArgs<ExtArgs>
     product?: boolean | author$productArgs<ExtArgs>
     publisher_author?: boolean | author$publisher_authorArgs<ExtArgs>
     _count?: boolean | AuthorCountOutputTypeDefaultArgs<ExtArgs>
@@ -12100,6 +12111,7 @@ export namespace Prisma {
     objects: {
       auth_user: Prisma.$auth_userPayload<ExtArgs>[]
       auth_account: Prisma.$auth_accountPayload<ExtArgs> | null
+      book: Prisma.$bookPayload<ExtArgs>[]
       product: Prisma.$productPayload<ExtArgs>[]
       publisher_author: Prisma.$publisher_authorPayload<ExtArgs>[]
     }
@@ -12503,6 +12515,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     auth_user<T extends author$auth_userArgs<ExtArgs> = {}>(args?: Subset<T, author$auth_userArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     auth_account<T extends author$auth_accountArgs<ExtArgs> = {}>(args?: Subset<T, author$auth_accountArgs<ExtArgs>>): Prisma__auth_accountClient<$Result.GetResult<Prisma.$auth_accountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    book<T extends author$bookArgs<ExtArgs> = {}>(args?: Subset<T, author$bookArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     product<T extends author$productArgs<ExtArgs> = {}>(args?: Subset<T, author$productArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$productPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     publisher_author<T extends author$publisher_authorArgs<ExtArgs> = {}>(args?: Subset<T, author$publisher_authorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$publisher_authorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -12973,6 +12986,30 @@ export namespace Prisma {
      */
     include?: auth_accountInclude<ExtArgs> | null
     where?: auth_accountWhereInput
+  }
+
+  /**
+   * author.book
+   */
+  export type author$bookArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book
+     */
+    select?: bookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book
+     */
+    omit?: bookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookInclude<ExtArgs> | null
+    where?: bookWhereInput
+    orderBy?: bookOrderByWithRelationInput | bookOrderByWithRelationInput[]
+    cursor?: bookWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BookScalarFieldEnum | BookScalarFieldEnum[]
   }
 
   /**
@@ -43815,6 +43852,7 @@ export namespace Prisma {
     ai_suggested_content?: boolean
     preorder_min_qty?: boolean
     content_type?: boolean
+    author?: boolean | book$authorArgs<ExtArgs>
     book_history?: boolean | book$book_historyArgs<ExtArgs>
     _count?: boolean | BookCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["book"]>
@@ -43841,6 +43879,7 @@ export namespace Prisma {
     ai_suggested_content?: boolean
     preorder_min_qty?: boolean
     content_type?: boolean
+    author?: boolean | book$authorArgs<ExtArgs>
   }, ExtArgs["result"]["book"]>
 
   export type bookSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -43865,6 +43904,7 @@ export namespace Prisma {
     ai_suggested_content?: boolean
     preorder_min_qty?: boolean
     content_type?: boolean
+    author?: boolean | book$authorArgs<ExtArgs>
   }, ExtArgs["result"]["book"]>
 
   export type bookSelectScalar = {
@@ -43893,15 +43933,21 @@ export namespace Prisma {
 
   export type bookOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "alias" | "strike_price" | "real_price" | "desc" | "info" | "status" | "currency" | "deleted_at" | "img_file" | "cover" | "product_file" | "sku" | "id_author" | "published_date" | "is_physical" | "ai_suggested_content" | "preorder_min_qty" | "content_type", ExtArgs["result"]["book"]>
   export type bookInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | book$authorArgs<ExtArgs>
     book_history?: boolean | book$book_historyArgs<ExtArgs>
     _count?: boolean | BookCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type bookIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type bookIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type bookIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | book$authorArgs<ExtArgs>
+  }
+  export type bookIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | book$authorArgs<ExtArgs>
+  }
 
   export type $bookPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "book"
     objects: {
+      author: Prisma.$authorPayload<ExtArgs> | null
       book_history: Prisma.$book_historyPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -44320,6 +44366,7 @@ export namespace Prisma {
    */
   export interface Prisma__bookClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    author<T extends book$authorArgs<ExtArgs> = {}>(args?: Subset<T, book$authorArgs<ExtArgs>>): Prisma__authorClient<$Result.GetResult<Prisma.$authorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     book_history<T extends book$book_historyArgs<ExtArgs> = {}>(args?: Subset<T, book$book_historyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_historyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -44620,6 +44667,10 @@ export namespace Prisma {
      */
     data: bookCreateManyInput | bookCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -44690,6 +44741,10 @@ export namespace Prisma {
      * Limit how many books to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -44756,6 +44811,25 @@ export namespace Prisma {
      * Limit how many books to delete.
      */
     limit?: number
+  }
+
+  /**
+   * book.author
+   */
+  export type book$authorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the author
+     */
+    select?: authorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the author
+     */
+    omit?: authorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: authorInclude<ExtArgs> | null
+    where?: authorWhereInput
   }
 
   /**
@@ -46957,6 +47031,7 @@ export namespace Prisma {
     id_account?: UuidNullableFilter<"author"> | string | null
     auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
+    book?: BookListRelationFilter
     product?: ProductListRelationFilter
     publisher_author?: Publisher_authorListRelationFilter
   }
@@ -46967,6 +47042,7 @@ export namespace Prisma {
     id_account?: SortOrderInput | SortOrder
     auth_user?: auth_userOrderByRelationAggregateInput
     auth_account?: auth_accountOrderByWithRelationInput
+    book?: bookOrderByRelationAggregateInput
     product?: productOrderByRelationAggregateInput
     publisher_author?: publisher_authorOrderByRelationAggregateInput
   }
@@ -46980,6 +47056,7 @@ export namespace Prisma {
     id_account?: UuidNullableFilter<"author"> | string | null
     auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
+    book?: BookListRelationFilter
     product?: ProductListRelationFilter
     publisher_author?: Publisher_authorListRelationFilter
   }, "id">
@@ -48822,6 +48899,7 @@ export namespace Prisma {
     ai_suggested_content?: JsonNullableFilter<"book">
     preorder_min_qty?: IntNullableFilter<"book"> | number | null
     content_type?: StringNullableFilter<"book"> | string | null
+    author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
     book_history?: Book_historyListRelationFilter
   }
 
@@ -48847,6 +48925,7 @@ export namespace Prisma {
     ai_suggested_content?: SortOrderInput | SortOrder
     preorder_min_qty?: SortOrderInput | SortOrder
     content_type?: SortOrderInput | SortOrder
+    author?: authorOrderByWithRelationInput
     book_history?: book_historyOrderByRelationAggregateInput
   }
 
@@ -48875,6 +48954,7 @@ export namespace Prisma {
     ai_suggested_content?: JsonNullableFilter<"book">
     preorder_min_qty?: IntNullableFilter<"book"> | number | null
     content_type?: StringNullableFilter<"book"> | string | null
+    author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
     book_history?: Book_historyListRelationFilter
   }, "id">
 
@@ -49508,6 +49588,7 @@ export namespace Prisma {
     name: string
     auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
+    book?: bookCreateNestedManyWithoutAuthorInput
     product?: productCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorCreateNestedManyWithoutAuthorInput
   }
@@ -49517,6 +49598,7 @@ export namespace Prisma {
     name: string
     id_account?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
+    book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
   }
@@ -49526,6 +49608,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
+    book?: bookUpdateManyWithoutAuthorNestedInput
     product?: productUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutAuthorNestedInput
   }
@@ -49535,6 +49618,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
+    book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
   }
@@ -51421,12 +51505,12 @@ export namespace Prisma {
     cover?: string
     product_file?: string
     sku?: string
-    id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    author?: authorCreateNestedOneWithoutBookInput
     book_history?: book_historyCreateNestedManyWithoutBookInput
   }
 
@@ -51471,12 +51555,12 @@ export namespace Prisma {
     cover?: StringFieldUpdateOperationsInput | string
     product_file?: StringFieldUpdateOperationsInput | string
     sku?: StringFieldUpdateOperationsInput | string
-    id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    author?: authorUpdateOneWithoutBookNestedInput
     book_history?: book_historyUpdateManyWithoutBookNestedInput
   }
 
@@ -51545,7 +51629,6 @@ export namespace Prisma {
     cover?: StringFieldUpdateOperationsInput | string
     product_file?: StringFieldUpdateOperationsInput | string
     sku?: StringFieldUpdateOperationsInput | string
-    id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
@@ -52189,6 +52272,12 @@ export namespace Prisma {
     updated_at?: SortOrder
   }
 
+  export type BookListRelationFilter = {
+    every?: bookWhereInput
+    some?: bookWhereInput
+    none?: bookWhereInput
+  }
+
   export type ProductListRelationFilter = {
     every?: productWhereInput
     some?: productWhereInput
@@ -52199,6 +52288,10 @@ export namespace Prisma {
     every?: publisher_authorWhereInput
     some?: publisher_authorWhereInput
     none?: publisher_authorWhereInput
+  }
+
+  export type bookOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type productOrderByRelationAggregateInput = {
@@ -54321,6 +54414,13 @@ export namespace Prisma {
     connect?: auth_accountWhereUniqueInput
   }
 
+  export type bookCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<bookCreateWithoutAuthorInput, bookUncheckedCreateWithoutAuthorInput> | bookCreateWithoutAuthorInput[] | bookUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: bookCreateOrConnectWithoutAuthorInput | bookCreateOrConnectWithoutAuthorInput[]
+    createMany?: bookCreateManyAuthorInputEnvelope
+    connect?: bookWhereUniqueInput | bookWhereUniqueInput[]
+  }
+
   export type productCreateNestedManyWithoutAuthorInput = {
     create?: XOR<productCreateWithoutAuthorInput, productUncheckedCreateWithoutAuthorInput> | productCreateWithoutAuthorInput[] | productUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: productCreateOrConnectWithoutAuthorInput | productCreateOrConnectWithoutAuthorInput[]
@@ -54340,6 +54440,13 @@ export namespace Prisma {
     connectOrCreate?: auth_userCreateOrConnectWithoutAuthorInput | auth_userCreateOrConnectWithoutAuthorInput[]
     createMany?: auth_userCreateManyAuthorInputEnvelope
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
+  }
+
+  export type bookUncheckedCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<bookCreateWithoutAuthorInput, bookUncheckedCreateWithoutAuthorInput> | bookCreateWithoutAuthorInput[] | bookUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: bookCreateOrConnectWithoutAuthorInput | bookCreateOrConnectWithoutAuthorInput[]
+    createMany?: bookCreateManyAuthorInputEnvelope
+    connect?: bookWhereUniqueInput | bookWhereUniqueInput[]
   }
 
   export type productUncheckedCreateNestedManyWithoutAuthorInput = {
@@ -54378,6 +54485,20 @@ export namespace Prisma {
     delete?: auth_accountWhereInput | boolean
     connect?: auth_accountWhereUniqueInput
     update?: XOR<XOR<auth_accountUpdateToOneWithWhereWithoutAuthorInput, auth_accountUpdateWithoutAuthorInput>, auth_accountUncheckedUpdateWithoutAuthorInput>
+  }
+
+  export type bookUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<bookCreateWithoutAuthorInput, bookUncheckedCreateWithoutAuthorInput> | bookCreateWithoutAuthorInput[] | bookUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: bookCreateOrConnectWithoutAuthorInput | bookCreateOrConnectWithoutAuthorInput[]
+    upsert?: bookUpsertWithWhereUniqueWithoutAuthorInput | bookUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: bookCreateManyAuthorInputEnvelope
+    set?: bookWhereUniqueInput | bookWhereUniqueInput[]
+    disconnect?: bookWhereUniqueInput | bookWhereUniqueInput[]
+    delete?: bookWhereUniqueInput | bookWhereUniqueInput[]
+    connect?: bookWhereUniqueInput | bookWhereUniqueInput[]
+    update?: bookUpdateWithWhereUniqueWithoutAuthorInput | bookUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: bookUpdateManyWithWhereWithoutAuthorInput | bookUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: bookScalarWhereInput | bookScalarWhereInput[]
   }
 
   export type productUpdateManyWithoutAuthorNestedInput = {
@@ -54420,6 +54541,20 @@ export namespace Prisma {
     update?: auth_userUpdateWithWhereUniqueWithoutAuthorInput | auth_userUpdateWithWhereUniqueWithoutAuthorInput[]
     updateMany?: auth_userUpdateManyWithWhereWithoutAuthorInput | auth_userUpdateManyWithWhereWithoutAuthorInput[]
     deleteMany?: auth_userScalarWhereInput | auth_userScalarWhereInput[]
+  }
+
+  export type bookUncheckedUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<bookCreateWithoutAuthorInput, bookUncheckedCreateWithoutAuthorInput> | bookCreateWithoutAuthorInput[] | bookUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: bookCreateOrConnectWithoutAuthorInput | bookCreateOrConnectWithoutAuthorInput[]
+    upsert?: bookUpsertWithWhereUniqueWithoutAuthorInput | bookUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: bookCreateManyAuthorInputEnvelope
+    set?: bookWhereUniqueInput | bookWhereUniqueInput[]
+    disconnect?: bookWhereUniqueInput | bookWhereUniqueInput[]
+    delete?: bookWhereUniqueInput | bookWhereUniqueInput[]
+    connect?: bookWhereUniqueInput | bookWhereUniqueInput[]
+    update?: bookUpdateWithWhereUniqueWithoutAuthorInput | bookUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: bookUpdateManyWithWhereWithoutAuthorInput | bookUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: bookScalarWhereInput | bookScalarWhereInput[]
   }
 
   export type productUncheckedUpdateManyWithoutAuthorNestedInput = {
@@ -56152,6 +56287,12 @@ export namespace Prisma {
     update?: XOR<XOR<publisherUpdateToOneWithWhereWithoutWithdrawalInput, publisherUpdateWithoutWithdrawalInput>, publisherUncheckedUpdateWithoutWithdrawalInput>
   }
 
+  export type authorCreateNestedOneWithoutBookInput = {
+    create?: XOR<authorCreateWithoutBookInput, authorUncheckedCreateWithoutBookInput>
+    connectOrCreate?: authorCreateOrConnectWithoutBookInput
+    connect?: authorWhereUniqueInput
+  }
+
   export type book_historyCreateNestedManyWithoutBookInput = {
     create?: XOR<book_historyCreateWithoutBookInput, book_historyUncheckedCreateWithoutBookInput> | book_historyCreateWithoutBookInput[] | book_historyUncheckedCreateWithoutBookInput[]
     connectOrCreate?: book_historyCreateOrConnectWithoutBookInput | book_historyCreateOrConnectWithoutBookInput[]
@@ -56164,6 +56305,16 @@ export namespace Prisma {
     connectOrCreate?: book_historyCreateOrConnectWithoutBookInput | book_historyCreateOrConnectWithoutBookInput[]
     createMany?: book_historyCreateManyBookInputEnvelope
     connect?: book_historyWhereUniqueInput | book_historyWhereUniqueInput[]
+  }
+
+  export type authorUpdateOneWithoutBookNestedInput = {
+    create?: XOR<authorCreateWithoutBookInput, authorUncheckedCreateWithoutBookInput>
+    connectOrCreate?: authorCreateOrConnectWithoutBookInput
+    upsert?: authorUpsertWithoutBookInput
+    disconnect?: authorWhereInput | boolean
+    delete?: authorWhereInput | boolean
+    connect?: authorWhereUniqueInput
+    update?: XOR<XOR<authorUpdateToOneWithWhereWithoutBookInput, authorUpdateWithoutBookInput>, authorUncheckedUpdateWithoutBookInput>
   }
 
   export type book_historyUpdateManyWithoutBookNestedInput = {
@@ -56848,6 +56999,7 @@ export namespace Prisma {
     id?: string
     name: string
     auth_user?: auth_userCreateNestedManyWithoutAuthorInput
+    book?: bookCreateNestedManyWithoutAuthorInput
     product?: productCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorCreateNestedManyWithoutAuthorInput
   }
@@ -56856,6 +57008,7 @@ export namespace Prisma {
     id?: string
     name: string
     auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
+    book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
   }
@@ -57577,6 +57730,7 @@ export namespace Prisma {
     id?: string
     name: string
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
+    book?: bookCreateNestedManyWithoutAuthorInput
     product?: productCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorCreateNestedManyWithoutAuthorInput
   }
@@ -57585,6 +57739,7 @@ export namespace Prisma {
     id?: string
     name: string
     id_account?: string | null
+    book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
   }
@@ -57835,6 +57990,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
+    book?: bookUpdateManyWithoutAuthorNestedInput
     product?: productUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutAuthorNestedInput
   }
@@ -57843,6 +57999,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
+    book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
   }
@@ -58093,6 +58250,64 @@ export namespace Prisma {
     create: XOR<auth_accountCreateWithoutAuthorInput, auth_accountUncheckedCreateWithoutAuthorInput>
   }
 
+  export type bookCreateWithoutAuthorInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    strike_price?: Decimal | DecimalJsLike | number | string | null
+    real_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+    book_history?: book_historyCreateNestedManyWithoutBookInput
+  }
+
+  export type bookUncheckedCreateWithoutAuthorInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    strike_price?: Decimal | DecimalJsLike | number | string | null
+    real_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+    book_history?: book_historyUncheckedCreateNestedManyWithoutBookInput
+  }
+
+  export type bookCreateOrConnectWithoutAuthorInput = {
+    where: bookWhereUniqueInput
+    create: XOR<bookCreateWithoutAuthorInput, bookUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type bookCreateManyAuthorInputEnvelope = {
+    data: bookCreateManyAuthorInput | bookCreateManyAuthorInput[]
+    skipDuplicates?: boolean
+  }
+
   export type productCreateWithoutAuthorInput = {
     id?: string
     name: string
@@ -58252,6 +58467,49 @@ export namespace Prisma {
     publisher?: publisherUncheckedUpdateManyWithoutAuth_accountNestedInput
     sales_and_marketing?: sales_and_marketingUncheckedUpdateManyWithoutAuth_accountNestedInput
     support?: supportUncheckedUpdateManyWithoutAuth_accountNestedInput
+  }
+
+  export type bookUpsertWithWhereUniqueWithoutAuthorInput = {
+    where: bookWhereUniqueInput
+    update: XOR<bookUpdateWithoutAuthorInput, bookUncheckedUpdateWithoutAuthorInput>
+    create: XOR<bookCreateWithoutAuthorInput, bookUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type bookUpdateWithWhereUniqueWithoutAuthorInput = {
+    where: bookWhereUniqueInput
+    data: XOR<bookUpdateWithoutAuthorInput, bookUncheckedUpdateWithoutAuthorInput>
+  }
+
+  export type bookUpdateManyWithWhereWithoutAuthorInput = {
+    where: bookScalarWhereInput
+    data: XOR<bookUpdateManyMutationInput, bookUncheckedUpdateManyWithoutAuthorInput>
+  }
+
+  export type bookScalarWhereInput = {
+    AND?: bookScalarWhereInput | bookScalarWhereInput[]
+    OR?: bookScalarWhereInput[]
+    NOT?: bookScalarWhereInput | bookScalarWhereInput[]
+    id?: UuidFilter<"book"> | string
+    name?: StringFilter<"book"> | string
+    slug?: StringFilter<"book"> | string
+    alias?: StringFilter<"book"> | string
+    strike_price?: DecimalNullableFilter<"book"> | Decimal | DecimalJsLike | number | string | null
+    real_price?: DecimalFilter<"book"> | Decimal | DecimalJsLike | number | string
+    desc?: StringFilter<"book"> | string
+    info?: JsonFilter<"book">
+    status?: StringFilter<"book"> | string
+    currency?: StringFilter<"book"> | string
+    deleted_at?: DateTimeNullableFilter<"book"> | Date | string | null
+    img_file?: StringFilter<"book"> | string
+    cover?: StringFilter<"book"> | string
+    product_file?: StringFilter<"book"> | string
+    sku?: StringFilter<"book"> | string
+    id_author?: UuidNullableFilter<"book"> | string | null
+    published_date?: DateTimeFilter<"book"> | Date | string
+    is_physical?: BoolFilter<"book"> | boolean
+    ai_suggested_content?: JsonNullableFilter<"book">
+    preorder_min_qty?: IntNullableFilter<"book"> | number | null
+    content_type?: StringNullableFilter<"book"> | string | null
   }
 
   export type productUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -60233,6 +60491,7 @@ export namespace Prisma {
     name: string
     auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
+    book?: bookCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorCreateNestedManyWithoutAuthorInput
   }
 
@@ -60241,6 +60500,7 @@ export namespace Prisma {
     name: string
     id_account?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
+    book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
   }
 
@@ -60399,6 +60659,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
+    book?: bookUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutAuthorNestedInput
   }
 
@@ -60407,6 +60668,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
+    book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
@@ -61153,6 +61415,7 @@ export namespace Prisma {
     name: string
     auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
+    book?: bookCreateNestedManyWithoutAuthorInput
     product?: productCreateNestedManyWithoutAuthorInput
   }
 
@@ -61161,6 +61424,7 @@ export namespace Prisma {
     name: string
     id_account?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
+    book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
   }
 
@@ -61212,6 +61476,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
+    book?: bookUpdateManyWithoutAuthorNestedInput
     product?: productUpdateManyWithoutAuthorNestedInput
   }
 
@@ -61220,6 +61485,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
+    book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
@@ -62507,6 +62773,29 @@ export namespace Prisma {
     transaction?: transactionUncheckedUpdateManyWithoutPublisherNestedInput
   }
 
+  export type authorCreateWithoutBookInput = {
+    id?: string
+    name: string
+    auth_user?: auth_userCreateNestedManyWithoutAuthorInput
+    auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
+    product?: productCreateNestedManyWithoutAuthorInput
+    publisher_author?: publisher_authorCreateNestedManyWithoutAuthorInput
+  }
+
+  export type authorUncheckedCreateWithoutBookInput = {
+    id?: string
+    name: string
+    id_account?: string | null
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
+    product?: productUncheckedCreateNestedManyWithoutAuthorInput
+    publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
+  }
+
+  export type authorCreateOrConnectWithoutBookInput = {
+    where: authorWhereUniqueInput
+    create: XOR<authorCreateWithoutBookInput, authorUncheckedCreateWithoutBookInput>
+  }
+
   export type book_historyCreateWithoutBookInput = {
     created_at?: Date | string
     description: string
@@ -62525,6 +62814,35 @@ export namespace Prisma {
   export type book_historyCreateManyBookInputEnvelope = {
     data: book_historyCreateManyBookInput | book_historyCreateManyBookInput[]
     skipDuplicates?: boolean
+  }
+
+  export type authorUpsertWithoutBookInput = {
+    update: XOR<authorUpdateWithoutBookInput, authorUncheckedUpdateWithoutBookInput>
+    create: XOR<authorCreateWithoutBookInput, authorUncheckedCreateWithoutBookInput>
+    where?: authorWhereInput
+  }
+
+  export type authorUpdateToOneWithWhereWithoutBookInput = {
+    where?: authorWhereInput
+    data: XOR<authorUpdateWithoutBookInput, authorUncheckedUpdateWithoutBookInput>
+  }
+
+  export type authorUpdateWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
+    auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
+    product?: productUpdateManyWithoutAuthorNestedInput
+    publisher_author?: publisher_authorUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type authorUncheckedUpdateWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
+    product?: productUncheckedUpdateManyWithoutAuthorNestedInput
+    publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type book_historyUpsertWithWhereUniqueWithoutBookInput = {
@@ -62568,12 +62886,12 @@ export namespace Prisma {
     cover?: string
     product_file?: string
     sku?: string
-    id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
+    author?: authorCreateNestedOneWithoutBookInput
   }
 
   export type bookUncheckedCreateWithoutBook_historyInput = {
@@ -62632,12 +62950,12 @@ export namespace Prisma {
     cover?: StringFieldUpdateOperationsInput | string
     product_file?: StringFieldUpdateOperationsInput | string
     sku?: StringFieldUpdateOperationsInput | string
-    id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
     ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    author?: authorUpdateOneWithoutBookNestedInput
   }
 
   export type bookUncheckedUpdateWithoutBook_historyInput = {
@@ -62806,6 +63124,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
+    book?: bookUpdateManyWithoutAuthorNestedInput
     product?: productUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutAuthorNestedInput
   }
@@ -62814,6 +63133,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
+    book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
   }
@@ -63099,6 +63419,29 @@ export namespace Prisma {
     id_support?: string | null
   }
 
+  export type bookCreateManyAuthorInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    strike_price?: Decimal | DecimalJsLike | number | string | null
+    real_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+  }
+
   export type productCreateManyAuthorInput = {
     id?: string
     name: string
@@ -63188,6 +63531,77 @@ export namespace Prisma {
     id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
     id_sales_and_marketing?: NullableStringFieldUpdateOperationsInput | string | null
     id_support?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type bookUpdateWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    book_history?: book_historyUpdateManyWithoutBookNestedInput
+  }
+
+  export type bookUncheckedUpdateWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    book_history?: book_historyUncheckedUpdateManyWithoutBookNestedInput
+  }
+
+  export type bookUncheckedUpdateManyWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type productUpdateWithoutAuthorInput = {

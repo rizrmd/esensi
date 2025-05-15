@@ -1,12 +1,11 @@
-import type { User } from "backend/lib/better-auth";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import type { author, bundle, category, product } from "shared/models";
 
 export default defineAPI({
-  name: "product_create",
-  url: "/api/product/create",
-  async handler(arg: { user: Partial<User>; data: product }): Promise<
+  name: "product_detail",
+  url: "/api/product/detail",
+  async handler(arg: { id: string }): Promise<
     ApiResponse<
       product & {
         author: author | null;
@@ -16,9 +15,10 @@ export default defineAPI({
     >
   > {
     try {
-      // Create product directly with the provided data
-      const created = await db.product.create({
-        data: arg.data as any,
+      const product = await db.product.findUnique({
+        where: {
+          id: arg.id,
+        },
         include: {
           author: true,
           bundle_product: {
@@ -34,16 +34,22 @@ export default defineAPI({
         },
       });
 
+      if (!product) {
+        return {
+          success: false,
+          message: "Produk tidak ditemukan",
+        };
+      }
+
       return {
         success: true,
-        data: created,
-        message: "Produk berhasil ditambahkan",
+        data: product,
       };
     } catch (error) {
-      console.error("Error in products create API:", error);
+      console.error("Error in product detail API:", error);
       return {
         success: false,
-        message: "Terjadi kesalahan dalam menambahkan produk",
+        message: "Terjadi kesalahan dalam mengambil detail produk",
       };
     }
   },

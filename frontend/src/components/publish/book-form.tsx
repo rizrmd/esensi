@@ -1,25 +1,27 @@
-import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
-} from "@/components/ui/select";
-import { 
-  Card, 
-  CardContent, 
-  CardDescription, 
-  CardFooter, 
-  CardHeader, 
-  CardTitle 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
-import { FileUpload, FileUploadDropzone, FileUploadList } from "@/components/ui/file-upload";
+import {
+  FileUpload,
+  FileUploadDropzone,
+  FileUploadList,
+} from "@/components/ui/file-upload";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { baseUrl } from "@/lib/gen/base-url";
-import type { book } from "shared/models";
 
 // Categories list
 const categories = [
@@ -78,17 +80,15 @@ export const BookForm = ({
   onCoverImageChange,
   onSubmit,
   onCancel,
-  onSlugGenerate
+  onSlugGenerate,
 }: BookFormProps) => {
   return (
     <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
-        <CardDescription>
-          {description}
-        </CardDescription>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
-      
+
       <form onSubmit={onSubmit}>
         <CardContent className="space-y-4">
           <div className="space-y-2">
@@ -104,13 +104,13 @@ export const BookForm = ({
               <p className="text-sm text-red-500">{errors.name}</p>
             )}
           </div>
-          
+
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <label className="block text-sm font-medium">Slug</label>
-              <Button 
-                type="button" 
-                variant="outline" 
+              <Button
+                type="button"
+                variant="outline"
                 size="sm"
                 onClick={onSlugGenerate}
                 disabled={loading || !formData.name}
@@ -132,7 +132,7 @@ export const BookForm = ({
               Slug akan digunakan dalam URL buku Anda
             </p>
           </div>
-          
+
           <div className="space-y-2">
             <label className="block text-sm font-medium">Deskripsi</label>
             <Textarea
@@ -143,7 +143,7 @@ export const BookForm = ({
               disabled={loading}
             />
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="block text-sm font-medium">Kategori</label>
@@ -164,9 +164,11 @@ export const BookForm = ({
                 </SelectContent>
               </Select>
             </div>
-            
+
             <div className="space-y-2">
-              <label className="block text-sm font-medium">Harga (opsional)</label>
+              <label className="block text-sm font-medium">
+                Harga (opsional)
+              </label>
               <Input
                 type="text"
                 value={formData.price}
@@ -179,7 +181,7 @@ export const BookForm = ({
               )}
             </div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="block text-sm font-medium">Status</label>
@@ -198,40 +200,46 @@ export const BookForm = ({
                 </SelectContent>
               </Select>
             </div>
-            
+
             <div className="space-y-2">
-              <label className="block text-sm font-medium">{isEdit ? "Tanggal Publikasi" : "Tanggal Publikasi (opsional)"}</label>
+              <label className="block text-sm font-medium">
+                {isEdit ? "Tanggal Publikasi" : "Tanggal Publikasi (opsional)"}
+              </label>
               <Input
                 type="date"
                 value={formData.published_date}
-                onChange={(e) => onFormDataChange("published_date", e.target.value)}
+                onChange={(e) =>
+                  onFormDataChange("published_date", e.target.value)
+                }
                 disabled={loading}
               />
             </div>
           </div>
-          
+
           <div className="space-y-2">
             <label className="block text-sm font-medium">Cover Buku</label>
-            
+
             {isEdit && formData.cover_image && !coverImage && (
               <div className="mb-4">
                 <p className="text-sm mb-2">Cover saat ini:</p>
                 <div className="w-48 h-64 border rounded overflow-hidden">
-                  <img 
-                    src={`${baseUrl.auth_esensi}/uploads/${formData.cover_image}`} 
-                    alt="Cover buku saat ini" 
+                  <img
+                    src={`${baseUrl.auth_esensi}/uploads/${formData.cover_image}`}
+                    alt="Cover buku saat ini"
                     className="w-full h-full object-cover"
                   />
                 </div>
               </div>
             )}
-            
+
             <FileUpload
               maxFiles={1}
               maxSize={2 * 1024 * 1024} // 2MB
               className="w-full"
               value={coverImage ? [coverImage] : []}
-              onValueChange={(files) => onCoverImageChange(files.length > 0 ? files[0] : null)}
+              onValueChange={(files) =>
+                onCoverImageChange(files.length > 0 ? files[0] : null)
+              }
               accept="image/*"
               disabled={loading}
             >
@@ -242,10 +250,9 @@ export const BookForm = ({
                     {isEdit ? "Ganti Cover Buku" : "Unggah Cover Buku"}
                   </div>
                   <div className="text-xs text-gray-500">
-                    {isEdit 
-                      ? "Unggah gambar baru untuk mengganti cover buku Anda" 
-                      : "Tarik dan lepas file gambar di sini atau klik untuk menjelajah"
-                    }
+                    {isEdit
+                      ? "Unggah gambar baru untuk mengganti cover buku Anda"
+                      : "Tarik dan lepas file gambar di sini atau klik untuk menjelajah"}
                   </div>
                 </div>
               </FileUploadDropzone>
@@ -256,7 +263,7 @@ export const BookForm = ({
             </p>
           </div>
         </CardContent>
-        
+
         <CardFooter className="flex justify-between">
           <Button
             type="button"
@@ -266,11 +273,12 @@ export const BookForm = ({
           >
             Kembali
           </Button>
-          <Button
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? "Menyimpan..." : (isEdit ? "Simpan Perubahan" : "Simpan Buku")}
+          <Button type="submit" disabled={loading}>
+            {loading
+              ? "Menyimpan..."
+              : isEdit
+              ? "Simpan Perubahan"
+              : "Simpan Buku"}
           </Button>
         </CardFooter>
       </form>

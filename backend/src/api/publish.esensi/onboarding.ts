@@ -1,10 +1,15 @@
 import type { User } from "backend/lib/better-auth";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
+import type { author, publisher } from "shared/models";
 
 export default defineAPI({
   name: "onboarding",
   url: "/api/onboarding",
-  async handler(arg: { role: "author" | "publisher"; user: Partial<User> }) {
+  async handler(arg: {
+    role: "author" | "publisher";
+    user: Partial<User>;
+  }): Promise<ApiResponse<{ author?: author; publisher?: publisher }>> {
     const { role, user } = arg;
     try {
       const account = await db.auth_account.findFirst({
@@ -30,7 +35,7 @@ export default defineAPI({
         return {
           success: true,
           message: "Berhasil terdaftar sebagai penulis",
-          author: newAuthor,
+          data: { author: newAuthor },
         };
       } else if (role === "publisher") {
         // Create new publisher entry
@@ -47,7 +52,7 @@ export default defineAPI({
         return {
           success: true,
           message: "Berhasil terdaftar sebagai penerbit",
-          publisher: newPublisher,
+          data: { publisher: newPublisher },
         };
       } else {
         return { success: false, message: "Peran tidak valid" };

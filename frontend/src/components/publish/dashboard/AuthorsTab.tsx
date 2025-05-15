@@ -1,38 +1,35 @@
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
-} from "@/components/ui/table";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogFooter,
 } from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
-  Avatar,
-  AvatarFallback,
-} from "@/components/ui/avatar";
-import type { DashboardData } from "./types";
-import { useLocal } from "@/lib/hooks/use-local";
-import type { FormEvent } from "react";
-import { api } from "@/lib/gen/publish.esensi";
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { betterAuth } from "@/lib/better-auth";
+import { api } from "@/lib/gen/publish.esensi";
+import { useLocal } from "@/lib/hooks/use-local";
 import { MoreHorizontal, UserPlus } from "lucide-react";
+import type { FormEvent } from "react";
+import type { DashboardData } from "./types";
 
 interface AuthorsTabProps {
   data: DashboardData;
@@ -41,53 +38,60 @@ interface AuthorsTabProps {
 export const AuthorsTab = ({ data }: AuthorsTabProps) => {
   const { authors = [] } = data;
 
-  const local = useLocal({
-    searchQuery: "",
-    filteredAuthors: authors,
-    isDialogOpen: false,
-    newAuthorData: {
-      name: "",
-      email: ""
+  const local = useLocal(
+    {
+      searchQuery: "",
+      filteredAuthors: authors,
+      isDialogOpen: false,
+      newAuthorData: {
+        name: "",
+        email: "",
+      },
+      isSubmitting: false,
+      error: "",
+      success: "",
+      newAuthorId: "",
     },
-    isSubmitting: false,
-    error: "",
-    success: "",
-    newAuthorId: ""
-  }, async () => {
-    local.filteredAuthors = authors;
-    local.render();
-  });
+    async () => {
+      local.filteredAuthors = authors;
+      local.render();
+    }
+  );
 
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
-    
+
     if (local.searchQuery.trim() === "") {
       local.filteredAuthors = authors;
     } else {
-      const filtered = authors.filter(author => 
-        author.name.toLowerCase().includes(local.searchQuery.toLowerCase()) ||
-        (author.auth_user?.[0]?.email && author.auth_user[0].email.toLowerCase().includes(local.searchQuery.toLowerCase()))
+      const filtered = authors.filter(
+        (author) =>
+          author.name.toLowerCase().includes(local.searchQuery.toLowerCase()) ||
+          (author.auth_user?.[0]?.email &&
+            author.auth_user[0].email
+              .toLowerCase()
+              .includes(local.searchQuery.toLowerCase()))
       );
       local.filteredAuthors = filtered;
     }
-    
+
     local.render();
   };
 
   const handleAddAuthor = async (e: FormEvent) => {
     e.preventDefault();
-    
+
     if (!local.newAuthorData.name || !local.newAuthorData.email) {
       local.error = "Mohon isi semua kolom";
       local.render();
       return;
     }
-    
+
     local.isSubmitting = true;
     local.error = "";
     local.success = "";
     local.render();
-    
+
     try {
       const userInfo = await betterAuth.getSession();
       if (!userInfo.data?.user) {
@@ -95,39 +99,37 @@ export const AuthorsTab = ({ data }: AuthorsTabProps) => {
         local.render();
         return;
       }
-      
+
       const authorResponse = await api.onboarding({
         role: "author",
-        user: userInfo.data.user
+        user: userInfo.data.user,
       });
-      
-      if (!authorResponse.success || !authorResponse.author?.id) {
+
+      if (!authorResponse.success || !authorResponse.data?.author?.id) {
         local.error = authorResponse.message || "Gagal membuat penulis baru";
         local.isSubmitting = false;
         local.render();
         return;
       }
-      
-      const authorId = authorResponse.author.id;
-      
-      const result = await api.publisher_authors({
+
+      const authorId = authorResponse.data.author.id;
+
+      const result = await api.publisher_author_create({
         user: userInfo.data.user,
-        action: 'add',
-        author_id: authorId
+        author_id: authorId,
       });
-      
+
       if (result.success) {
         local.success = "Penulis baru berhasil ditambahkan";
         local.newAuthorData = { name: "", email: "" };
         local.isDialogOpen = false;
-        
-        const authorsRes = await api.publisher_authors({
+
+        const res = await api.publisher_author_list({
           user: userInfo.data.user,
-          action: 'list'
         });
-        
-        if (authorsRes.success && Array.isArray(authorsRes.data)) {
-          local.filteredAuthors = authorsRes.data;
+
+        if (res.success && Array.isArray(res.data)) {
+          local.filteredAuthors = res.data.map((pa) => ({ ...pa.author }));
         }
       } else {
         local.error = result.message || "Gagal menambahkan penulis";
@@ -143,9 +145,9 @@ export const AuthorsTab = ({ data }: AuthorsTabProps) => {
 
   const getInitials = (name: string) => {
     return name
-      .split(' ')
-      .map(word => word[0])
-      .join('')
+      .split(" ")
+      .map((word) => word[0])
+      .join("")
       .toUpperCase()
       .substring(0, 2);
   };
@@ -154,10 +156,13 @@ export const AuthorsTab = ({ data }: AuthorsTabProps) => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <h1 className="text-2xl font-bold tracking-tight">Penulis</h1>
-        <Dialog open={local.isDialogOpen} onOpenChange={(open) => {
-          local.isDialogOpen = open;
-          local.render();
-        }}>
+        <Dialog
+          open={local.isDialogOpen}
+          onOpenChange={(open) => {
+            local.isDialogOpen = open;
+            local.render();
+          }}
+        >
           <DialogTrigger asChild>
             <Button>
               <UserPlus className="mr-2 h-4 w-4" />
@@ -168,11 +173,11 @@ export const AuthorsTab = ({ data }: AuthorsTabProps) => {
             <DialogHeader>
               <DialogTitle>Tambah Penulis Baru</DialogTitle>
               <DialogDescription>
-                Tambahkan penulis baru ke dalam publisher Anda.
-                Penulis akan menerima email undangan.
+                Tambahkan penulis baru ke dalam publisher Anda. Penulis akan
+                menerima email undangan.
               </DialogDescription>
             </DialogHeader>
-            
+
             <form onSubmit={handleAddAuthor} className="space-y-4 py-4">
               <div className="space-y-2">
                 <label htmlFor="name" className="text-sm font-medium">
@@ -181,14 +186,14 @@ export const AuthorsTab = ({ data }: AuthorsTabProps) => {
                 <Input
                   id="name"
                   value={local.newAuthorData.name}
-                  onChange={e => {
+                  onChange={(e) => {
                     local.newAuthorData.name = e.target.value;
                     local.render();
                   }}
                   placeholder="Masukkan nama penulis"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <label htmlFor="email" className="text-sm font-medium">
                   Email
@@ -197,22 +202,22 @@ export const AuthorsTab = ({ data }: AuthorsTabProps) => {
                   id="email"
                   type="email"
                   value={local.newAuthorData.email}
-                  onChange={e => {
+                  onChange={(e) => {
                     local.newAuthorData.email = e.target.value;
                     local.render();
                   }}
                   placeholder="Masukkan email penulis"
                 />
               </div>
-              
+
               {local.error && (
                 <p className="text-sm text-red-500">{local.error}</p>
               )}
-              
+
               {local.success && (
                 <p className="text-sm text-green-500">{local.success}</p>
               )}
-              
+
               <DialogFooter>
                 <Button type="submit" disabled={local.isSubmitting}>
                   {local.isSubmitting ? "Menambahkan..." : "Tambah Penulis"}
@@ -222,28 +227,28 @@ export const AuthorsTab = ({ data }: AuthorsTabProps) => {
           </DialogContent>
         </Dialog>
       </div>
-      
+
       {/* Search */}
       <form onSubmit={handleSearch} className="relative max-w-md">
         <Input
           placeholder="Cari penulis..."
           value={local.searchQuery}
-          onChange={e => {
+          onChange={(e) => {
             local.searchQuery = e.target.value;
             local.render();
           }}
           className="w-full"
         />
-        <Button 
-          type="submit" 
-          variant="ghost" 
-          size="sm" 
+        <Button
+          type="submit"
+          variant="ghost"
+          size="sm"
           className="absolute right-0 top-0 h-full"
         >
           Cari
         </Button>
       </form>
-      
+
       {/* Authors table */}
       {local.filteredAuthors && local.filteredAuthors.length > 0 ? (
         <div className="border rounded-lg overflow-hidden">
@@ -258,11 +263,13 @@ export const AuthorsTab = ({ data }: AuthorsTabProps) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {local.filteredAuthors.map(author => (
+              {local.filteredAuthors.map((author) => (
                 <TableRow key={author.id}>
                   <TableCell>
                     <Avatar>
-                      <AvatarFallback>{getInitials(author.name)}</AvatarFallback>
+                      <AvatarFallback>
+                        {getInitials(author.name)}
+                      </AvatarFallback>
                     </Avatar>
                   </TableCell>
                   <TableCell className="font-medium">{author.name}</TableCell>
@@ -277,12 +284,8 @@ export const AuthorsTab = ({ data }: AuthorsTabProps) => {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem>
-                          Lihat Produk
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          Edit
-                        </DropdownMenuItem>
+                        <DropdownMenuItem>Lihat Produk</DropdownMenuItem>
+                        <DropdownMenuItem>Edit</DropdownMenuItem>
                         <DropdownMenuItem className="text-red-600">
                           Hapus
                         </DropdownMenuItem>
@@ -296,11 +299,15 @@ export const AuthorsTab = ({ data }: AuthorsTabProps) => {
         </div>
       ) : (
         <div className="bg-muted/40 rounded-lg p-8 text-center">
-          <p className="text-muted-foreground mb-4">Belum ada penulis di publisher Anda</p>
-          <Button onClick={() => {
-            local.isDialogOpen = true;
-            local.render();
-          }}>
+          <p className="text-muted-foreground mb-4">
+            Belum ada penulis di publisher Anda
+          </p>
+          <Button
+            onClick={() => {
+              local.isDialogOpen = true;
+              local.render();
+            }}
+          >
             <UserPlus className="mr-2 h-4 w-4" />
             Tambah Penulis
           </Button>
