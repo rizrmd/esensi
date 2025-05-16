@@ -2,10 +2,14 @@ import type { User } from "backend/lib/better-auth";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
+export type RegisterUserAPIResponse = ApiResponse<void>;
+
 export default defineAPI({
   name: "register_user",
   url: "/api/auth/register-user",
-  async handler(arg: { user: Partial<User> }): Promise<ApiResponse<void>> {
+  async handler(arg: {
+    user: Partial<User>;
+  }): Promise<RegisterUserAPIResponse> {
     try {
       const { user } = arg;
 
@@ -19,7 +23,7 @@ export default defineAPI({
       if (existingUser?.id_author) {
         return {
           success: true,
-          message: "User already has an author record",
+          message: "Pengguna sudah terdaftar sebagai penulis",
         };
       }
 
@@ -43,12 +47,12 @@ export default defineAPI({
 
       return {
         success: true,
-        message: "Berhasil mendaftarkan akun Google sebagai penulis",
+        message: "Berhasil mendaftarkan akun penulis",
       };
     } catch (error) {
       return {
         success: false,
-        message: "Terjadi kesalahan saat memproses akun Google",
+        message: "Terjadi kesalahan saat mendaftarkan akun penulis",
       };
     }
   },

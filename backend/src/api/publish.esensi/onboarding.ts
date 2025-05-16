@@ -3,13 +3,18 @@ import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import type { author, publisher } from "shared/models";
 
+export type OnboardingAPIResponse = ApiResponse<{
+  author?: author;
+  publisher?: publisher;
+}>;
+
 export default defineAPI({
   name: "onboarding",
   url: "/api/onboarding",
   async handler(arg: {
     role: "author" | "publisher";
     user: Partial<User>;
-  }): Promise<ApiResponse<{ author?: author; publisher?: publisher }>> {
+  }): Promise<OnboardingAPIResponse> {
     const { role, user } = arg;
     try {
       const account = await db.auth_account.findFirst({

@@ -2,6 +2,14 @@ import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import type { author, bundle, category, product } from "shared/models";
 
+export type ProductListAPIResponse = ApiResponse<
+  (product & {
+    author: author | null;
+    bundle_product: { bundle: bundle }[];
+    product_category: { category: category }[];
+  })[]
+>;
+
 export default defineAPI({
   name: "product_list",
   url: "/api/product/list",
@@ -10,15 +18,7 @@ export default defineAPI({
     limit?: number;
     search?: string;
     status?: string;
-  }): Promise<
-    ApiResponse<
-      (product & {
-        author: author | null;
-        bundle_product: { bundle: bundle }[];
-        product_category: { category: category }[];
-      })[]
-    >
-  > {
+  }): Promise<ProductListAPIResponse> {
     try {
       const page = arg.page || 1;
       const limit = arg.limit || 10;

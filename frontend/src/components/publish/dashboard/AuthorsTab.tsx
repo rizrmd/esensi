@@ -24,7 +24,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { betterAuth } from "@/lib/better-auth";
+import {
+  betterAuth,
+  type AuthClientGetSessionAPIResponse,
+} from "@/lib/better-auth";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { MoreHorizontal, UserPlus } from "lucide-react";
@@ -93,7 +96,8 @@ export const AuthorsTab = ({ data }: AuthorsTabProps) => {
     local.render();
 
     try {
-      const userInfo = await betterAuth.getSession();
+      const userInfo: AuthClientGetSessionAPIResponse =
+        await betterAuth.getSession();
       if (!userInfo.data?.user) {
         local.error = "Sesi tidak valid";
         local.render();

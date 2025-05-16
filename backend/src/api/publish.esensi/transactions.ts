@@ -1,5 +1,14 @@
 import type { User } from "backend/lib/better-auth";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
+import type { transaction, withdrawal } from "shared/models";
+import type { Decimal } from "shared/models/runtime/library";
+
+export type TransactionAPIResponse = ApiResponse<{
+  transaction: transaction[];
+  balance: number | Decimal;
+  withdrawal: withdrawal[];
+}>;
 
 export default defineAPI({
   name: "transactions",
@@ -9,7 +18,7 @@ export default defineAPI({
     page?: number;
     limit?: number;
     type?: string;
-  }) {
+  }): Promise<TransactionAPIResponse> {
     try {
       const page = arg.page || 1;
       const limit = arg.limit || 10;
@@ -42,7 +51,7 @@ export default defineAPI({
       const total = await db.transaction.count({ where });
 
       // Get paginated results
-      const transactions = await db.transaction.findMany({
+      const transaction = await db.transaction.findMany({
         where,
         orderBy: { created_at: "desc" },
         skip,
@@ -58,7 +67,7 @@ export default defineAPI({
       const balance = result._sum.amount || 0;
 
       // Also get withdrawal information
-      const withdrawals = await db.withdrawal.findMany({
+      const withdrawal = await db.withdrawal.findMany({
         where: { id_publisher: publisherId },
         orderBy: { requested_at: "desc" },
         take: 5,
@@ -67,9 +76,9 @@ export default defineAPI({
       return {
         success: true,
         data: {
-          transactions,
+          transaction,
           balance,
-          withdrawals,
+          withdrawal,
         },
         pagination: {
           total,

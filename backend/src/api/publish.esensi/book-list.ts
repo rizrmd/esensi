@@ -2,6 +2,10 @@ import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import type { author, book, book_history } from "shared/models";
 
+export type BookListAPIResponse = ApiResponse<
+  (book & { author: author | null; book_history: book_history[] })[]
+>;
+
 export default defineAPI({
   name: "book_list",
   url: "/api/book/list",
@@ -10,11 +14,7 @@ export default defineAPI({
     limit?: number;
     search?: string;
     status?: string;
-  }): Promise<
-    ApiResponse<
-      (book & { author: author | null; book_history: book_history[] })[]
-    >
-  > {
+  }): Promise<BookListAPIResponse> {
     try {
       const page = arg.page || 1;
       const limit = arg.limit || 10;

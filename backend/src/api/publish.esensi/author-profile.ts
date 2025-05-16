@@ -7,24 +7,26 @@ import type {
   author,
   book,
   product,
-  publisher
+  publisher,
 } from "shared/models";
+
+export type AuthorProfileAPIResponse = ApiResponse<
+  | (author & {
+      auth_account: auth_account | null;
+      auth_user: auth_user[];
+      book: book[];
+      publisher_author: { publisher: publisher }[];
+      product: product[];
+    })
+  | null
+>;
 
 export default defineAPI({
   name: "author_profile",
   url: "/api/author/profile",
-  async handler(arg: { user: Partial<User> }): Promise<
-    ApiResponse<
-      | (author & {
-          auth_account: auth_account | null;
-          auth_user: auth_user[];
-          book: book[];
-          publisher_author: { publisher: publisher }[];
-          product: product[];
-        })
-      | null
-    >
-  > {
+  async handler(arg: {
+    user: Partial<User>;
+  }): Promise<AuthorProfileAPIResponse> {
     try {
       const author = await db.author.findFirst({
         where: {

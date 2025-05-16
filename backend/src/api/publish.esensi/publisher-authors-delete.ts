@@ -2,13 +2,15 @@ import type { User } from "backend/lib/better-auth";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
+export type PublisherAuthorDeleteAPIResponse = ApiResponse<void>;
+
 export default defineAPI({
   name: "publisher_author_delete",
   url: "/api/publisher-author/delete",
   async handler(arg: {
     user: Partial<User>;
     author_id: string;
-  }): Promise<ApiResponse<void>> {
+  }): Promise<PublisherAuthorDeleteAPIResponse> {
     try {
       // Get publisher ID from auth user
       const authUser = await db.auth_user.findUnique({

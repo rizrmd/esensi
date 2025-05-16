@@ -1,5 +1,12 @@
 import type { User } from "backend/lib/better-auth";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
+import type { transaction, withdrawal } from "shared/models";
+
+export type WithdrawalAPIResponse = ApiResponse<{
+  withdrawal: withdrawal;
+  transaction: transaction;
+}>;
 
 export default defineAPI({
   name: "withdrawal",
@@ -12,7 +19,7 @@ export default defineAPI({
       account_number: string;
       account_name: string;
     };
-  }) {
+  }): Promise<WithdrawalAPIResponse> {
     try {
       // Get publisher ID from auth user
       const authUser = await db.auth_user.findUnique({
@@ -66,7 +73,7 @@ export default defineAPI({
       });
 
       // Create transaction record for the withdrawal with bank details in info
-      await db.transaction.create({
+      const transaction = await db.transaction.create({
         data: {
           id_publisher: publisherId,
           type: "withdrawal",
@@ -84,7 +91,7 @@ export default defineAPI({
 
       return {
         success: true,
-        data: withdrawal,
+        data: { withdrawal, transaction },
         message: "Permintaan penarikan berhasil dibuat",
       };
     } catch (error) {

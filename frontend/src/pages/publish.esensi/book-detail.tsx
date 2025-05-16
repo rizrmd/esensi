@@ -6,6 +6,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import type { BookDetailAPIResponse } from "backend/api/publish.esensi/book-detail";
 import type { author, book } from "shared/models";
 
 export default function BookDetailPage() {
@@ -25,7 +26,7 @@ export default function BookDetailPage() {
         return;
       }
       try {
-        const res = await api.book_detail({ id });
+        const res: BookDetailAPIResponse = await api.book_detail({ id });
         if (!res.data) {
           local.error = "Produk tidak ditemukan.";
         } else {

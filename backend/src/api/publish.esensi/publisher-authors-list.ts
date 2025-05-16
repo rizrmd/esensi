@@ -10,21 +10,23 @@ import type {
   publisher_author,
 } from "shared/models";
 
+export type PublisherAuthorListAPIResponse = ApiResponse<
+  (publisher_author & {
+    author: author & {
+      auth_account: auth_account | null;
+      auth_user: auth_user[];
+      book: book[];
+      product: product[];
+    };
+  })[]
+>;
+
 export default defineAPI({
   name: "publisher_author_list",
   url: "/api/publisher-author/list",
-  async handler(arg: { user: Partial<User> }): Promise<
-    ApiResponse<
-      (publisher_author & {
-        author: author & {
-          auth_account: auth_account | null;
-          auth_user: auth_user[];
-          book: book[];
-          product: product[];
-        };
-      })[]
-    >
-  > {
+  async handler(arg: {
+    user: Partial<User>;
+  }): Promise<PublisherAuthorListAPIResponse> {
     try {
       // Get publisher ID from auth user
       const authUser = await db.auth_user.findUnique({

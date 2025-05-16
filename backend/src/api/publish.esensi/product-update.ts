@@ -2,18 +2,21 @@ import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import type { author, bundle, category, product } from "shared/models";
 
+export type ProductUpdateAPIResponse = ApiResponse<
+  product & {
+    author: author | null;
+    bundle_product: { bundle: bundle }[];
+    product_category: { category: category }[];
+  }
+>;
+
 export default defineAPI({
   name: "product_update",
   url: "/api/product/update",
-  async handler(arg: { id: string; data: product }): Promise<
-    ApiResponse<
-      product & {
-        author: author | null;
-        bundle_product: { bundle: bundle }[];
-        product_category: { category: category }[];
-      }
-    >
-  > {
+  async handler(arg: {
+    id: string;
+    data: product;
+  }): Promise<ProductUpdateAPIResponse> {
     try {
       // Check if product exists
       const product = await db.product.findUnique({ where: { id: arg.id } });

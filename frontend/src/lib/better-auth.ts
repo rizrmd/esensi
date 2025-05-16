@@ -2,7 +2,7 @@ import { current } from "@/components/app/protected";
 import { baseUrl } from "@/lib/gen/base-url";
 import { createAuthClient } from "better-auth/client";
 import { twoFactorClient } from "better-auth/client/plugins";
-import type { User as AuthUser } from "better-auth/types";
+import type { User as AuthUser, Session } from "better-auth/types";
 
 type FetchOptions = {
   onRequest?: (ctx: any) => void;
@@ -31,6 +31,13 @@ type Provider =
   | "kick"
   | "zoom";
 
+type error = {
+  code?: string | undefined;
+  message?: string | undefined;
+  status: number;
+  statusText: string;
+} | null;
+
 export type User = AuthUser &
   Partial<{
     idCustomer?: string | null;
@@ -41,6 +48,11 @@ export type User = AuthUser &
     idSalesAndMarketing?: string | null;
     idSupport?: string | null;
   }>;
+
+export type AuthClientGetSessionAPIResponse = {
+  data: { user: User; session: Session } | null;
+  error: error;
+};
 
 const authClient = createAuthClient({
   baseURL: `${location.protocol}//${location.host}`,
@@ -154,7 +166,7 @@ export const betterAuth = {
   useSession: () => {
     return authClient.useSession;
   },
-  getSession: async () => {
+  getSession: async (): Promise<AuthClientGetSessionAPIResponse> => {
     const { data, error } = await authClient.getSession();
     if (data?.user) {
       if (data.user["idCustomer"] === "null") data.user["idCustomer"] = null;

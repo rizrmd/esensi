@@ -13,7 +13,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { betterAuth, type User } from "@/lib/better-auth";
+import {
+  betterAuth,
+  type AuthClientGetSessionAPIResponse,
+  type User,
+} from "@/lib/better-auth";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
@@ -56,7 +60,8 @@ export default () => {
     async () => {
       // Initialize
       try {
-        const session = await betterAuth.getSession();
+        const session: AuthClientGetSessionAPIResponse =
+          await betterAuth.getSession();
         if (!session.data?.user) {
           navigate("/");
           return;

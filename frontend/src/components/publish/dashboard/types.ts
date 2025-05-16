@@ -1,5 +1,6 @@
 // Type definitions for dashboard components
 
+import type { transaction, withdrawal } from "shared/models";
 import type { Decimal } from "shared/models/runtime/library";
 
 export interface Product {
@@ -16,26 +17,6 @@ export interface Author {
   name: string;
   auth_user?: { email: string }[];
   productCount?: number;
-}
-
-export interface Transaction {
-  id: string;
-  type: string;
-  amount: number;
-  created_at: string;
-}
-
-export interface Withdrawal {
-  id: string;
-  amount: number;
-  status: string;
-  requested_at: string;
-}
-
-export interface TransactionData {
-  balance: number;
-  transactions: Transaction[];
-  withdrawals: Withdrawal[];
 }
 
 export interface PublisherData {
@@ -60,24 +41,28 @@ export interface DashboardData {
   authorData: AuthorData | null;
   products: Product[];
   authors: Author[];
-  transactions: TransactionData | null;
+  transactions: {
+    transaction: transaction[];
+    balance: number | Decimal;
+    withdrawal: withdrawal[];
+  } | null;
 }
 
 // Helper functions
 export const formatDate = (dateString: string) => {
   const date = new Date(dateString);
-  return new Intl.DateTimeFormat('id-ID', { 
-    day: 'numeric', 
-    month: 'long', 
-    year: 'numeric'
+  return new Intl.DateTimeFormat("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
   }).format(date);
 };
 
 export const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
     minimumFractionDigits: 0,
-    maximumFractionDigits: 0
+    maximumFractionDigits: 0,
   }).format(amount);
 };

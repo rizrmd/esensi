@@ -2,12 +2,12 @@ import type { User } from "backend/lib/better-auth";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
+export type CheckAuthorAPIResponse = ApiResponse<{ isAuthor: boolean }>;
+
 export default defineAPI({
   name: "check_author",
   url: "/api/publish/check-author",
-  async handler(arg: {
-    user: Partial<User>;
-  }): Promise<ApiResponse<{ isAuthor: boolean }>> {
+  async handler(arg: { user: Partial<User> }): Promise<CheckAuthorAPIResponse> {
     try {
       // Check if the user has author role
       const user = await db.auth_user.findUnique({

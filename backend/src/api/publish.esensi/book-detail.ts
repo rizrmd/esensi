@@ -2,14 +2,14 @@ import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import type { author, book, book_history } from "shared/models";
 
+export type BookDetailAPIResponse = ApiResponse<
+  book & { author: author | null; book_history: book_history[] }
+>;
+
 export default defineAPI({
   name: "book_detail",
   url: "/api/book/detail",
-  async handler(arg: {
-    id: string;
-  }): Promise<
-    ApiResponse<book & { author: author | null; book_history: book_history[] }>
-  > {
+  async handler(arg: { id: string }): Promise<BookDetailAPIResponse> {
     try {
       const book = await db.book.findUnique({
         where: {

@@ -1,16 +1,20 @@
-import { baseUrl } from "@/lib/gen/base-url";
+import { AppLoading } from "@/components/app/loading";
 import { EForm } from "@/components/ext/eform/EForm";
 import { SideForm } from "@/components/ext/side-form";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Alert } from "@/components/ui/global-alert";
-import { betterAuth, type User } from "@/lib/better-auth";
+import { Label } from "@/components/ui/label";
+import {
+  betterAuth,
+  type AuthClientGetSessionAPIResponse,
+  type User,
+} from "@/lib/better-auth";
+import { baseUrl } from "@/lib/gen/base-url";
+import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { useEffect } from "react";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { useLocal } from "@/lib/hooks/use-local";
-import { AppLoading } from "@/components/app/loading";
 
 export default () => {
   const u = baseUrl;
@@ -30,7 +34,8 @@ export default () => {
       verifyType: "otp" as "otp" | "totp",
     },
     async () => {
-      const ses = await betterAuth.getSession();
+      const ses: AuthClientGetSessionAPIResponse =
+        await betterAuth.getSession();
       if (ses.data?.user) {
         if (!callbackURL) window.location.replace(u.main_esensi);
         else window.location.replace(callbackURL);

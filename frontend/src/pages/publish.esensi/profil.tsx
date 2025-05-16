@@ -1,7 +1,11 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
-import { betterAuth, type User } from "@/lib/better-auth";
+import {
+  betterAuth,
+  type AuthClientGetSessionAPIResponse,
+  type User,
+} from "@/lib/better-auth";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
@@ -17,7 +21,8 @@ export default () => {
     },
     async () => {
       try {
-        const session = await betterAuth.getSession();
+        const session: AuthClientGetSessionAPIResponse =
+          await betterAuth.getSession();
         if (!session.data?.user) {
           navigate("/");
           return;

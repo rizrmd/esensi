@@ -1,6 +1,9 @@
 import { AppLogo } from "@/components/app/logo";
 import { Button } from "@/components/ui/button";
-import { betterAuth } from "@/lib/better-auth";
+import {
+  betterAuth,
+  type AuthClientGetSessionAPIResponse,
+} from "@/lib/better-auth";
 import { useLocal } from "@/lib/hooks/use-local";
 import { useRoot } from "@/lib/hooks/use-router";
 import { navigate } from "@/lib/router";
@@ -21,7 +24,8 @@ export const PublishMenuBar = ({ title }: { title: string }) => {
       menu: [] as typeof menu,
     },
     async () => {
-      const session = await betterAuth.getSession();
+      const session: AuthClientGetSessionAPIResponse =
+        await betterAuth.getSession();
       if (session) {
         const user = session.data?.user;
         if (!!user && isPublisher(user)) {

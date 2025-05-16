@@ -13,28 +13,30 @@ import type {
   transaction,
 } from "shared/models";
 
+export type PublisherDetailAPIResponse = ApiResponse<
+  | (publisher & {
+      auth_user: auth_user[];
+      auth_account: auth_account | null;
+      publisher_author: (publisher_author & {
+        author: author & {
+          auth_account: auth_account | null;
+          auth_user: auth_user[];
+          book: book[];
+          product: product[];
+        };
+      })[];
+      transaction: transaction[];
+      promo_code: promo_code[];
+    })
+  | null
+>;
+
 export default defineAPI({
   name: "publisher_detail",
   url: "/api/publisher/detail",
-  async handler(arg: { user: Partial<User> }): Promise<
-    ApiResponse<
-      | (publisher & {
-          auth_user: auth_user[];
-          auth_account: auth_account | null;
-          publisher_author: (publisher_author & {
-            author: author & {
-              auth_account: auth_account | null;
-              auth_user: auth_user[];
-              book: book[];
-              product: product[];
-            };
-          })[];
-          transaction: transaction[];
-          promo_code: promo_code[];
-        })
-      | null
-    >
-  > {
+  async handler(arg: {
+    user: Partial<User>;
+  }): Promise<PublisherDetailAPIResponse> {
     try {
       const publisher = await db.publisher.findFirst({
         where: {
