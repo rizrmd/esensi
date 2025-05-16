@@ -1,12 +1,14 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import { PlusCircle } from "lucide-react";
 import type { book } from "shared/models";
-import { baseUrl } from "@/lib/gen/base-url";
 
 export default function BookListPage() {
   const local = useLocal(
@@ -61,15 +63,26 @@ export default function BookListPage() {
                 ) : null}
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                  <div className="container mx-8 py-8">
-                    <h1 className="text-2xl font-bold mb-6">Daftar Buku Yang Belum Disetujui</h1>
+                  <div className="mx-8 py-8">
+                    <div className="flex justify-between items-center mb-6">
+                      <h1 className="text-2xl font-bold">
+                        Daftar Buku Yang Belum Disetujui
+                      </h1>
+                      <Button
+                        onClick={() => navigate("/book-create")}
+                        className="flex items-center gap-2"
+                      >
+                        <PlusCircle className="h-5 w-5" />
+                        <span>Tambah Buku</span>
+                      </Button>
+                    </div>
                     {local.loading ? (
-                      <div>Mengambil data produk yang disetujui...</div>
+                      <div>Mengambil data buku...</div>
                     ) : (
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                         {local.books.length === 0 ? (
                           <div className="col-span-full text-center text-muted-foreground">
-                            Belum ada produk yang disetujui.
+                            Belum ada buku
                           </div>
                         ) : (
                           local.books.map((book: any) => (
@@ -80,12 +93,20 @@ export default function BookListPage() {
                               <div className="aspect-[3/4] w-full bg-gray-100 flex items-center justify-center overflow-hidden rounded-t-xl">
                                 {book.cover ? (
                                   <img
-                                    src={baseUrl.publish_esensi + book.cover}
+                                    src={
+                                      baseUrl.publish_esensi + "/" + book.cover
+                                    }
                                     alt={book.name}
-                                    className="object-cover w-full h-full"
+                                    className="object-cover w-full h-full text-center flex items-center justify-center"
+                                    onError={(e) => {
+                                      const target = e.currentTarget;
+                                      target.style.display = "flex";
+                                      target.style.alignItems = "center";
+                                      target.style.justifyContent = "center";
+                                    }}
                                   />
                                 ) : (
-                                  <div className="text-gray-400 text-sm">
+                                  <div className="text-gray-400 text-sm flex items-center justify-center w-full h-full">
                                     Tidak ada gambar
                                   </div>
                                 )}
@@ -100,8 +121,7 @@ export default function BookListPage() {
                                   Harga:{" "}
                                   <span className="font-medium text-gray-900">
                                     Rp
-                                    {book.real_price?.toLocaleString() ??
-                                      "-"}
+                                    {book.real_price?.toLocaleString() ?? "-"}
                                   </span>
                                 </div>
                                 <div className="mb-1 text-sm text-gray-600">

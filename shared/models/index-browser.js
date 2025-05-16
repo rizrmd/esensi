@@ -334,7 +334,8 @@ exports.Prisma.ProductScalarFieldEnum = {
   is_physical: 'is_physical',
   ai_suggested_content: 'ai_suggested_content',
   preorder_min_qty: 'preorder_min_qty',
-  content_type: 'content_type'
+  content_type: 'content_type',
+  is_chapter: 'is_chapter'
 };
 
 exports.Prisma.Product_categoryScalarFieldEnum = {
@@ -478,6 +479,13 @@ exports.Prisma.Book_historyScalarFieldEnum = {
   description: 'description'
 };
 
+exports.Prisma.ChapterScalarFieldEnum = {
+  id: 'id',
+  id_product: 'id_product',
+  number: 'number',
+  name: 'name'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -545,7 +553,8 @@ exports.Prisma.ModelName = {
   transaction: 'transaction',
   withdrawal: 'withdrawal',
   book: 'book',
-  book_history: 'book_history'
+  book_history: 'book_history',
+  chapter: 'chapter'
 };
 
 /**

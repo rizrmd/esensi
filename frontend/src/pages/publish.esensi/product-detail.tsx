@@ -1,11 +1,14 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import type { ProductDetailAPIResponse } from "backend/api/publish.esensi/product-detail";
+import { ArrowLeft, PlusCircle } from "lucide-react";
 import type { author, product } from "shared/models";
 
 export default function ProductDetailPage() {
@@ -25,7 +28,7 @@ export default function ProductDetailPage() {
         return;
       }
       try {
-        const res = await api.product_detail({ id });
+        const res: ProductDetailAPIResponse = await api.product_detail({ id });
         if (!res.data) {
           local.error = "Produk tidak ditemukan.";
         } else {
@@ -68,7 +71,28 @@ export default function ProductDetailPage() {
               ) : null}
 
               <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                <div>
+                <div className="p-6">
+                  <div className="flex justify-between items-center mb-6">
+                    <div className="flex items-center gap-4">
+                      <Button
+                        variant="outline"
+                        onClick={() => navigate("/manage-product")}
+                        className="flex items-center gap-2 border border-gray-300 rounded-md px-3 py-1.5"
+                      >
+                        <ArrowLeft className="h-4 w-4 mr-1" />
+                        Kembali ke Daftar
+                      </Button>
+                      <h1 className="text-2xl font-bold">Detail Produk</h1>
+                    </div>
+                    <Button
+                      onClick={() => navigate("/product-create")}
+                      className="flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white rounded-md px-3 py-1.5"
+                      variant="ghost"
+                    >
+                      <PlusCircle className="h-4 w-4 mr-1" />
+                      Tambah Produk
+                    </Button>
+                  </div>
                   {local.error ? (
                     <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-8 shadow-sm">
                       {local.error}
@@ -78,7 +102,9 @@ export default function ProductDetailPage() {
                       <div className="w-full bg-gray-100 flex items-center justify-center overflow-hidden rounded-t-xl">
                         {local.product.cover ? (
                           <img
-                            src={baseUrl.publish_esensi + local.product.cover}
+                            src={
+                              baseUrl.publish_esensi + "/" + local.product.cover
+                            }
                             alt={local.product.name}
                             className="mx-auto object-cover"
                           />
@@ -188,9 +214,14 @@ export default function ProductDetailPage() {
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Deskripsi:{" "}
-                          <span className="font-medium text-gray-900">
-                            {local.product.desc ?? "-"}
-                          </span>
+                          {local.product.desc ? (
+                            <div 
+                              className="font-medium text-gray-900 mt-2 p-3 border border-gray-100 rounded-md"
+                              dangerouslySetInnerHTML={{ __html: local.product.desc }}
+                            />
+                          ) : (
+                            <span className="font-medium text-gray-900">-</span>
+                          )}
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Info Tambahan:{" "}

@@ -1,12 +1,14 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import { PlusCircle } from "lucide-react";
 import type { product } from "shared/models";
-import { baseUrl } from "@/lib/gen/base-url";
 
 export default function ProductListPage() {
   const local = useLocal(
@@ -61,15 +63,26 @@ export default function ProductListPage() {
                 ) : null}
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                  <div className="container mx-8 py-8">
-                    <h1 className="text-2xl font-bold mb-6">Daftar Produk Yang Disetujui</h1>
+                  <div className="mx-8 py-8">
+                    <div className="flex justify-between items-center mb-6">
+                      <h1 className="text-2xl font-bold">
+                        Daftar Produk Yang Disetujui
+                      </h1>
+                      <Button
+                        onClick={() => navigate("/product-create")}
+                        className="flex items-center gap-2"
+                      >
+                        <PlusCircle className="h-5 w-5" />
+                        <span>Tambah Produk</span>
+                      </Button>
+                    </div>
                     {local.loading ? (
-                      <div>Mengambil data produk yang disetujui...</div>
+                      <div>Mengambil data produk...</div>
                     ) : (
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                         {local.products.length === 0 ? (
                           <div className="col-span-full text-center text-muted-foreground">
-                            Belum ada produk yang disetujui.
+                            Belum ada produk.
                           </div>
                         ) : (
                           local.products.map((product: any) => (
@@ -77,25 +90,29 @@ export default function ProductListPage() {
                               key={product.id}
                               className="cursor-pointer"
                               onClick={() =>
-                                navigate(
-                                  `product-detail?id=${product.id}`
-                                )
+                                navigate(`product-detail?id=${product.id}`)
                               }
                             >
-                              <Card
-                                className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-lg transition-shadow"
-                              >
+                              <Card className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
                                 <div className="aspect-[3/4] w-full bg-gray-100 flex items-center justify-center overflow-hidden rounded-t-xl">
                                   {product.cover ? (
                                     <img
                                       src={
-                                        baseUrl.publish_esensi + product.cover
+                                        baseUrl.publish_esensi +
+                                        "/" +
+                                        product.cover
                                       }
                                       alt={product.name}
-                                      className="object-cover w-full h-full"
+                                      className="object-cover w-full h-full text-center flex items-center justify-center"
+                                      onError={(e) => {
+                                        const target = e.currentTarget;
+                                        target.style.display = "flex";
+                                        target.style.alignItems = "center";
+                                        target.style.justifyContent = "center";
+                                      }}
                                     />
                                   ) : (
-                                    <div className="text-gray-400 text-sm">
+                                    <div className="text-gray-400 text-sm flex items-center justify-center w-full h-full">
                                       Tidak ada gambar
                                     </div>
                                   )}
