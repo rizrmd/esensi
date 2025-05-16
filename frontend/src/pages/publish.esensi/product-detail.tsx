@@ -8,7 +8,7 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import type { ProductDetailAPIResponse } from "backend/api/publish.esensi/product-detail";
-import { ArrowLeft, PlusCircle } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import type { author, product } from "shared/models";
 
 export default function ProductDetailPage() {
@@ -60,7 +60,7 @@ export default function ProductDetailPage() {
     >
       {() => (
         <div className="flex min-h-svh flex-col bg-gray-50">
-          <PublishMenuBar title="Dasbor" />
+          <PublishMenuBar title="Detil Produk Yang Telah Disetujui" />
           {/* Main Content */}
           <main className="flex-1">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
@@ -82,16 +82,10 @@ export default function ProductDetailPage() {
                         <ArrowLeft className="h-4 w-4 mr-1" />
                         Kembali ke Daftar
                       </Button>
-                      <h1 className="text-2xl font-bold">Detail Produk</h1>
+                      <h1 className="text-2xl font-bold">
+                        Detil Produk Yang Telah Disetujui
+                      </h1>
                     </div>
-                    <Button
-                      onClick={() => navigate("/product-create")}
-                      className="flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white rounded-md px-3 py-1.5"
-                      variant="ghost"
-                    >
-                      <PlusCircle className="h-4 w-4 mr-1" />
-                      Tambah Produk
-                    </Button>
                   </div>
                   {local.error ? (
                     <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-8 shadow-sm">
@@ -215,9 +209,11 @@ export default function ProductDetailPage() {
                         <div className="mb-2 text-sm text-gray-600">
                           Deskripsi:{" "}
                           {local.product.desc ? (
-                            <div 
+                            <div
                               className="font-medium text-gray-900 mt-2 p-3 border border-gray-100 rounded-md"
-                              dangerouslySetInnerHTML={{ __html: local.product.desc }}
+                              dangerouslySetInnerHTML={{
+                                __html: local.product.desc,
+                              }}
                             />
                           ) : (
                             <span className="font-medium text-gray-900">-</span>

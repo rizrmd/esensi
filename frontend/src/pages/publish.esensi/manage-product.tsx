@@ -1,13 +1,11 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { PlusCircle } from "lucide-react";
 import type { product } from "shared/models";
 
 export default function ProductListPage() {
@@ -52,7 +50,7 @@ export default function ProductListPage() {
       {({ user }) => {
         return (
           <div className="flex min-h-svh flex-col bg-gray-50">
-            <PublishMenuBar title="Dasbor" />
+            <PublishMenuBar title="Daftar Produk Yang Telah Disetujui" />
             {/* Main Content */}
             <main className="flex-1">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
@@ -68,13 +66,6 @@ export default function ProductListPage() {
                       <h1 className="text-2xl font-bold">
                         Daftar Produk Yang Disetujui
                       </h1>
-                      <Button
-                        onClick={() => navigate("/product-create")}
-                        className="flex items-center gap-2"
-                      >
-                        <PlusCircle className="h-5 w-5" />
-                        <span>Tambah Produk</span>
-                      </Button>
                     </div>
                     {local.loading ? (
                       <div>Mengambil data produk...</div>

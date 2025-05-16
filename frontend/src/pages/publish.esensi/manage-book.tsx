@@ -52,7 +52,7 @@ export default function BookListPage() {
       {({ user }) => {
         return (
           <div className="flex min-h-svh flex-col bg-gray-50">
-            <PublishMenuBar title="Dasbor" />
+            <PublishMenuBar title="Daftar Buku Yang Belum Disetujui" />
             {/* Main Content */}
             <main className="flex-1">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">

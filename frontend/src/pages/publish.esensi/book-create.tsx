@@ -17,18 +17,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type { product } from "shared/models";
+import type { book } from "shared/models";
 
-export default function ProductCreatePage() {
+export default function BookCreatePage() {
   const local = useLocal(
     {
-      product: {
+      book: {
         name: "",
         slug: "",
         alias: "",
         desc: "",
         cover: "",
-        price_type: "free",
         strike_price: 0,
         real_price: 0,
         currency: "IDR",
@@ -39,7 +38,7 @@ export default function ProductCreatePage() {
         preorder_min_qty: 0,
         content_type: "text",
         info: {},
-      } as unknown as product,
+      } as unknown as book,
       loading: false,
       error: "",
       success: "",
@@ -58,18 +57,19 @@ export default function ProductCreatePage() {
     local.render();
 
     try {
-      const res = await api.product_create({
-        user: {}, // User information will be handled by the API
-        data: local.product,
+      console.log("local.book", local.book);
+      const res = await api.book_create({
+        data: local.book,
       });
+      console.log("res", res);
 
       if (res.success && res.data) {
-        local.success = "Produk berhasil ditambahkan!";
+        local.success = "Buku berhasil ditambahkan!";
         setTimeout(() => {
-          navigate(`/publish/product-detail?id=${res.data?.id}`);
+          navigate(`/book-detail?id=${res.data?.id}`);
         }, 1500);
       } else {
-        local.error = res.message || "Gagal menambahkan produk.";
+        local.error = res.message || "Gagal menambahkan buku.";
       }
     } catch (err) {
       local.error = "Terjadi kesalahan saat menghubungi server.";
@@ -94,16 +94,16 @@ export default function ProductCreatePage() {
       processedValue = value ? new Date(value) : new Date();
     }
 
-    local.product = {
-      ...local.product,
+    local.book = {
+      ...local.book,
       [name]: processedValue,
     };
     local.render();
   };
 
   const handleCheckboxChange = (name: string, checked: boolean) => {
-    local.product = {
-      ...local.product,
+    local.book = {
+      ...local.book,
       [name]: checked,
     };
     local.render();
@@ -124,7 +124,7 @@ export default function ProductCreatePage() {
     >
       {() => (
         <div className="flex min-h-svh flex-col bg-gray-50">
-          <PublishMenuBar title="Tambah Produk" />
+          <PublishMenuBar title="Tambah Buku" />
           <main className="flex-1">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
               {local.error ? (
@@ -142,24 +142,23 @@ export default function ProductCreatePage() {
               <Card className="shadow-md border border-gray-200">
                 <CardHeader>
                   <CardTitle className="text-xl font-bold">
-                    Tambah Produk Baru
+                    Tambah Buku Baru
                   </CardTitle>
                   <CardDescription>
-                    Silahkan isi formulir di bawah untuk menambahkan produk
-                    baru.
+                    Silahkan isi formulir di bawah untuk menambahkan buku baru.
                   </CardDescription>
                 </CardHeader>
                 <form onSubmit={handleSubmit}>
                   <CardContent className="space-y-6">
                     <div className="space-y-4">
                       <div>
-                        <Label htmlFor="name">Nama Produk</Label>
+                        <Label htmlFor="name">Nama Buku</Label>
                         <Input
                           id="name"
                           name="name"
-                          value={local.product.name}
+                          value={local.book.name}
                           onChange={handleChange}
-                          placeholder="Masukkan nama produk"
+                          placeholder="Masukkan nama buku"
                           required
                           className="mt-1"
                         />
@@ -170,14 +169,14 @@ export default function ProductCreatePage() {
                         <Input
                           id="slug"
                           name="slug"
-                          value={local.product.slug}
+                          value={local.book.slug}
                           onChange={handleChange}
-                          placeholder="contoh-nama-produk"
+                          placeholder="contoh-nama-buku"
                           required
                           className="mt-1"
                         />
                         <p className="text-xs text-gray-500 mt-1">
-                          Slug akan digunakan untuk URL produk
+                          Slug akan digunakan untuk URL buku
                         </p>
                       </div>
 
@@ -186,9 +185,9 @@ export default function ProductCreatePage() {
                         <Input
                           id="alias"
                           name="alias"
-                          value={local.product.alias || ""}
+                          value={local.book.alias || ""}
                           onChange={handleChange}
-                          placeholder="Alias produk"
+                          placeholder="Alias buku"
                           className="mt-1"
                         />
                       </div>
@@ -198,9 +197,9 @@ export default function ProductCreatePage() {
                         <Textarea
                           id="desc"
                           name="desc"
-                          value={local.product.desc || ""}
+                          value={local.book.desc || ""}
                           onChange={handleChange}
-                          placeholder="Deskripsi produk"
+                          placeholder="Deskripsi buku"
                           className="mt-1"
                           rows={4}
                         />
@@ -211,7 +210,7 @@ export default function ProductCreatePage() {
                         <Input
                           id="cover"
                           name="cover"
-                          value={local.product.cover || ""}
+                          value={local.book.cover || ""}
                           onChange={handleChange}
                           placeholder="https://contoh.com/gambar.jpg"
                           className="mt-1"
@@ -226,8 +225,8 @@ export default function ProductCreatePage() {
                             name="real_price"
                             type="number"
                             value={
-                              local.product.real_price
-                                ? Number(local.product.real_price)
+                              local.book.real_price
+                                ? Number(local.book.real_price)
                                 : 0
                             }
                             onChange={handleChange}
@@ -242,8 +241,8 @@ export default function ProductCreatePage() {
                             name="strike_price"
                             type="number"
                             value={
-                              local.product.strike_price
-                                ? Number(local.product.strike_price)
+                              local.book.strike_price
+                                ? Number(local.book.strike_price)
                                 : 0
                             }
                             onChange={handleChange}
@@ -259,7 +258,7 @@ export default function ProductCreatePage() {
                           <select
                             id="currency"
                             name="currency"
-                            value={local.product.currency}
+                            value={local.book.currency}
                             onChange={handleChange}
                             className="mt-1 w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                           >
@@ -272,7 +271,7 @@ export default function ProductCreatePage() {
                           <select
                             id="status"
                             name="status"
-                            value={local.product.status}
+                            value={local.book.status}
                             onChange={handleChange}
                             className="mt-1 w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                           >
@@ -290,8 +289,8 @@ export default function ProductCreatePage() {
                           name="published_date"
                           type="datetime-local"
                           value={
-                            local.product.published_date
-                              ? new Date(local.product.published_date)
+                            local.book.published_date
+                              ? new Date(local.book.published_date)
                                   .toISOString()
                                   .slice(0, 16)
                               : new Date().toISOString().slice(0, 16)
@@ -306,7 +305,7 @@ export default function ProductCreatePage() {
                         <Input
                           id="sku"
                           name="sku"
-                          value={local.product.sku || ""}
+                          value={local.book.sku || ""}
                           onChange={handleChange}
                           placeholder="Stock Keeping Unit"
                           className="mt-1"
@@ -318,7 +317,7 @@ export default function ProductCreatePage() {
                         <Input
                           id="content_type"
                           name="content_type"
-                          value={local.product.content_type || ""}
+                          value={local.book.content_type || ""}
                           onChange={handleChange}
                           placeholder="Contoh: ebook, video, audio"
                           className="mt-1"
@@ -328,7 +327,7 @@ export default function ProductCreatePage() {
                       <div className="flex items-center space-x-2">
                         <Checkbox
                           id="is_physical"
-                          checked={local.product.is_physical}
+                          checked={local.book.is_physical}
                           onCheckedChange={(checked) =>
                             handleCheckboxChange(
                               "is_physical",
@@ -336,10 +335,10 @@ export default function ProductCreatePage() {
                             )
                           }
                         />
-                        <Label htmlFor="is_physical">Produk Fisik</Label>
+                        <Label htmlFor="is_physical">Buku Fisik</Label>
                       </div>
 
-                      {local.product.is_physical && (
+                      {local.book.is_physical && (
                         <div>
                           <Label htmlFor="preorder_min_qty">
                             Minimal Preorder
@@ -349,8 +348,8 @@ export default function ProductCreatePage() {
                             name="preorder_min_qty"
                             type="number"
                             value={
-                              local.product.preorder_min_qty
-                                ? Number(local.product.preorder_min_qty)
+                              local.book.preorder_min_qty
+                                ? Number(local.book.preorder_min_qty)
                                 : 0
                             }
                             onChange={handleChange}
@@ -365,7 +364,7 @@ export default function ProductCreatePage() {
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={() => navigate("/manage-product")}
+                      onClick={() => navigate("/manage-book")}
                     >
                       Batal
                     </Button>
@@ -373,7 +372,7 @@ export default function ProductCreatePage() {
                       {local.isSubmitting ? (
                         <span>Menyimpan...</span>
                       ) : (
-                        <span>Simpan Produk</span>
+                        <span>Simpan Buku</span>
                       )}
                     </Button>
                   </CardFooter>

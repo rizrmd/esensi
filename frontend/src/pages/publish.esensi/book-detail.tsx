@@ -22,7 +22,7 @@ export default function BookDetailPage() {
       const params = new URLSearchParams(location.search);
       const id = params.get("id");
       if (!id) {
-        local.error = "Produk tidak ditemukan.";
+        local.error = "Buku tidak ditemukan.";
         local.loading = false;
         local.render();
         return;
@@ -30,12 +30,12 @@ export default function BookDetailPage() {
       try {
         const res: BookDetailAPIResponse = await api.book_detail({ id });
         if (!res.data) {
-          local.error = "Produk tidak ditemukan.";
+          local.error = "Buku tidak ditemukan.";
         } else {
           local.book = res.data;
         }
       } catch (error) {
-        local.error = "Terjadi kesalahan saat memuat data produk.";
+        local.error = "Terjadi kesalahan saat memuat data buku.";
       } finally {
         local.loading = false;
         local.render();
@@ -60,7 +60,7 @@ export default function BookDetailPage() {
     >
       {() => (
         <div className="flex min-h-svh flex-col bg-gray-50">
-          <PublishMenuBar title="Dasbor" />
+          <PublishMenuBar title="Detil Buku Yang Belum Disetujui" />
           {/* Main Content */}
           <main className="flex-1">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
@@ -82,7 +82,7 @@ export default function BookDetailPage() {
                         <ArrowLeft className="h-4 w-4 mr-1" />
                         Kembali ke Daftar
                       </Button>
-                      <h1 className="text-2xl font-bold">Detail Produk</h1>
+                      <h1 className="text-2xl font-bold">Detil Buku Yang Belum Disetujui</h1>
                     </div>
                     <Button
                       onClick={() => navigate("/book-create")}
@@ -121,7 +121,7 @@ export default function BookDetailPage() {
                       </CardHeader>
                       <CardContent>
                         <div className="mb-2 text-sm text-gray-600">
-                          ID Produk:{" "}
+                          ID Buku:{" "}
                           <span className="font-medium text-gray-900">
                             {local.book.id}
                           </span>
