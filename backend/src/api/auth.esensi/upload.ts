@@ -3,10 +3,12 @@ import { join } from "node:path";
 import { Readable } from "node:stream";
 import { defineAPI, dir } from "rlib/server";
 
+export type UploadAPIResponse = { name?: string; error?: string };
+
 export default defineAPI({
   name: "upload",
   url: "/api/upload",
-  async handler() {
+  async handler(): Promise<UploadAPIResponse> {
     const req = this.req!;
     const type = req.headers.get("content-type");
     if (!req.body || !type) {
@@ -40,7 +42,7 @@ export default defineAPI({
 
     await file.write(upload.file);
     return {
-      name: "/" + [...dirname, fileName].join("/"),
+      name: [...dirname, fileName].join("/"),
     };
   },
 });

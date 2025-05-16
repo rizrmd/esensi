@@ -1,5 +1,6 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
+import { MyFileUpload } from "@/components/ext/my-file-upload";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,9 +15,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import type { UploadAPIResponse } from "backend/api/auth.esensi/upload";
 import type { book } from "shared/models";
 
 export default function BookCreatePage() {
@@ -43,6 +46,7 @@ export default function BookCreatePage() {
       error: "",
       success: "",
       isSubmitting: false,
+      files: [] as File[],
     },
     async () => {
       // Initialization logic if needed
@@ -57,7 +61,19 @@ export default function BookCreatePage() {
     local.render();
 
     try {
-      console.log("local.book", local.book);
+      // Upload cover image if available
+      if (local.files.length > 0) {
+        const file = local.files[0];
+        const formData = new FormData();
+        formData.append("file", file);
+        const res = await fetch(`${baseUrl.auth_esensi}/api/upload`, {
+          method: "POST",
+          body: formData,
+        });
+        const uploaded: UploadAPIResponse = await res.json();
+        if (uploaded.name) local.book.cover = uploaded.name;
+      }
+
       const res = await api.book_create({
         data: local.book,
       });
@@ -206,14 +222,12 @@ export default function BookCreatePage() {
                       </div>
 
                       <div>
-                        <Label htmlFor="cover">URL Cover</Label>
-                        <Input
-                          id="cover"
-                          name="cover"
-                          value={local.book.cover || ""}
-                          onChange={handleChange}
-                          placeholder="https://contoh.com/gambar.jpg"
-                          className="mt-1"
+                        <MyFileUpload
+                          title="Cover Buku"
+                          onImageChange={(files) => {
+                            local.files = files;
+                            local.render();
+                          }}
                         />
                       </div>
 

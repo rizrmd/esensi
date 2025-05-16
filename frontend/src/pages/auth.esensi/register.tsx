@@ -1,22 +1,14 @@
 import { EForm } from "@/components/ext/eform/EForm";
+import { MyFileUpload } from "@/components/ext/my-file-upload";
 import { SideForm } from "@/components/ext/side-form";
 import { Button } from "@/components/ui/button";
-import {
-  FileUpload,
-  FileUploadDropzone,
-  FileUploadItem,
-  FileUploadItemDelete,
-  FileUploadItemPreview,
-  FileUploadList,
-  FileUploadTrigger,
-} from "@/components/ui/file-upload";
 import { Alert } from "@/components/ui/global-alert";
 import { betterAuth } from "@/lib/better-auth";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { Upload, X } from "lucide-react";
+import type { UploadAPIResponse } from "backend/api/auth.esensi/upload";
 
 export default () => {
   const local = useLocal(
@@ -79,10 +71,8 @@ export default () => {
                   method: "POST",
                   body: formData,
                 });
-                const uploaded = (await res.json()) as { name: string };
-                if (uploaded.name) {
-                  write.image = uploaded.name;
-                }
+                const uploaded: UploadAPIResponse = await res.json();
+                if (uploaded.name) write.image = uploaded.name;
               }
 
               const res = await betterAuth.signUp({
@@ -142,7 +132,7 @@ export default () => {
           }}
           className="space-y-4 pt-3"
         >
-          {({ Field, read, write }) => {
+          {({ Field, read }) => {
             return (
               <>
                 <Field
@@ -163,64 +153,13 @@ export default () => {
                   input={{ type: "password" }}
                   label="Konfirmasi Kata Sandi"
                 />
-
-                <FileUpload
-                  maxFiles={1}
-                  maxSize={1 * 1024 * 1024}
-                  className="w-full max-w-md"
-                  value={local.files}
-                  onValueChange={(files) => {
+                <MyFileUpload
+                  title="Foto Profil"
+                  onImageChange={(files) => {
                     local.files = files;
                     local.render();
                   }}
-                  accept="image/*"
-                >
-                  <span className="font-medium text-sm">Foto Profil</span>
-                  {local.files.length === 0 && (
-                    <FileUploadDropzone>
-                      <div className="flex flex-col items-center gap-1 text-center">
-                        <div className="flex items-center justify-center rounded-full border p-2.5">
-                          <Upload className="size-6 text-muted-foreground" />
-                        </div>
-                        <p className="font-medium text-sm">
-                          Seret & taruh file di sini
-                        </p>
-                        <p className="text-muted-foreground text-xs">
-                          Atau klik untuk mencari (ukuran maks 1MB)
-                        </p>
-                      </div>
-                      <FileUploadTrigger asChild>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="mt-2 w-fit"
-                        >
-                          Cari file
-                        </Button>
-                      </FileUploadTrigger>
-                    </FileUploadDropzone>
-                  )}
-                  <FileUploadList>
-                    {local.files.map((file, index) => (
-                      <FileUploadItem key={index} value={file}>
-                        <FileUploadItemPreview
-                          style={{ width: 100, height: 100, borderRadius: 100 }}
-                        />
-                        {/* <FileUploadItemMetadata /> */}
-                        <FileUploadItemDelete asChild>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="size-7"
-                          >
-                            <X />
-                          </Button>
-                        </FileUploadItemDelete>
-                      </FileUploadItem>
-                    ))}
-                  </FileUploadList>
-                </FileUpload>
-
+                />
                 <Button
                   type="submit"
                   className="w-full"
