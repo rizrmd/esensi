@@ -120,6 +120,41 @@ model banner {
   link        String?
 }
 
+model book {
+  id                   String         @id(map: "book_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                 String
+  slug                 String
+  alias                String         @default("")
+  submitted_price      Decimal        @db.Decimal(18, 2)
+  desc                 String         @default("")
+  info                 Json           @default("{}")
+  status               String         @default("draft") @db.VarChar(10)
+  currency             String         @default("Rp.") @db.VarChar(3)
+  deleted_at           DateTime?
+  img_file             String         @default("")
+  cover                String         @default("")
+  product_file         String         @default("[]")
+  sku                  String         @default("")
+  id_author            String?        @db.Uuid
+  published_date       DateTime       @default(now())
+  is_physical          Boolean        @default(false)
+  ai_suggested_content Json?          @default("{}")
+  preorder_min_qty     Int?
+  content_type         String?        @db.VarChar(20)
+  is_chapter           Boolean        @default(false)
+  author               author?        @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "book_fk_id_author")
+  book_history         book_history[]
+}
+
+model book_history {
+  book_id     String   @db.Uuid
+  created_at  DateTime @default(now())
+  description String
+  book        book     @relation(fields: [book_id], references: [id], onDelete: Cascade, map: "book_history_fk_book_id")
+
+  @@id([book_id, created_at], map: "book_history_id")
+}
+
 model bundle {
   id              String            @id(map: "bundle_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name            String
@@ -167,6 +202,14 @@ model category {
   category         category?          @relation("categoryTocategory", fields: [id_parent], references: [id], onDelete: NoAction, onUpdate: NoAction)
   other_category   category[]         @relation("categoryTocategory")
   product_category product_category[]
+}
+
+model chapter {
+  id         String  @id(map: "chapter_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_product String  @db.Uuid
+  number     Int
+  name       String
+  product    product @relation(fields: [id_product], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model customer {
@@ -428,82 +471,4 @@ model withdrawal {
   requested_at DateTime  @default(now())
   processed_at DateTime?
   publisher    publisher @relation(fields: [id_publisher], references: [id])
-}
-
-model book {
-  id                   String         @id(map: "book_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name                 String
-  slug                 String
-  alias                String         @default("")
-  strike_price         Decimal?       @db.Decimal(18, 2)
-  real_price           Decimal        @db.Decimal(18, 2)
-  desc                 String         @default("")
-  info                 Json           @default("{}")
-  status               String         @default("draft") @db.VarChar(10)
-  currency             String         @default("Rp.") @db.VarChar(3)
-  deleted_at           DateTime?
-  img_file             String         @default("")
-  cover                String         @default("")
-  product_file         String         @default("[]")
-  sku                  String         @default("")
-  id_author            String?        @db.Uuid
-  published_date       DateTime       @default(now())
-  is_physical          Boolean        @default(false)
-  ai_suggested_content Json?          @default("{}")
-  preorder_min_qty     Int?
-  content_type         String?        @db.VarChar(20)
-  author               author?        @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "book_fk_id_author")
-  book_history         book_history[]
-}
-
-model book_history {
-  book_id     String   @db.Uuid
-  created_at  DateTime @default(now())
-  description String
-  book        book     @relation(fields: [book_id], references: [id], onDelete: Cascade, map: "book_history_fk_book_id")
-
-  @@id([book_id, created_at], map: "book_history_id")
-}
-
-model chapter {
-  id         String  @id(map: "chapter_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_product String  @db.Uuid
-  number     Int
-  name       String
-  product    product @relation(fields: [id_product], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model book {
-  id                   String         @id(map: "book_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name                 String
-  slug                 String
-  alias                String         @default("")
-  strike_price         Decimal?       @db.Decimal(18, 2)
-  real_price           Decimal        @db.Decimal(18, 2)
-  desc                 String         @default("")
-  info                 Json           @default("{}")
-  status               String         @default("draft") @db.VarChar(10)
-  currency             String         @default("Rp.") @db.VarChar(3)
-  deleted_at           DateTime?
-  img_file             String         @default("")
-  cover                String         @default("")
-  product_file         String         @default("[]")
-  sku                  String         @default("")
-  id_author            String?        @db.Uuid
-  published_date       DateTime       @default(now())
-  is_physical          Boolean        @default(false)
-  ai_suggested_content Json?          @default("{}")
-  preorder_min_qty     Int?
-  content_type         String?        @db.VarChar(20)
-  author               author?        @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "book_fk_id_author")
-  book_history         book_history[]
-}
-
-model book_history {
-  book_id     String   @db.Uuid
-  created_at  DateTime @default(now())
-  description String
-  book        book     @relation(fields: [book_id], references: [id], onDelete: Cascade, map: "book_history_fk_book_id")
-
-  @@id([book_id, created_at], map: "book_history_id")
 }

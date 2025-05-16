@@ -205,6 +205,36 @@ exports.Prisma.BannerScalarFieldEnum = {
   link: 'link'
 };
 
+exports.Prisma.BookScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  alias: 'alias',
+  submitted_price: 'submitted_price',
+  desc: 'desc',
+  info: 'info',
+  status: 'status',
+  currency: 'currency',
+  deleted_at: 'deleted_at',
+  img_file: 'img_file',
+  cover: 'cover',
+  product_file: 'product_file',
+  sku: 'sku',
+  id_author: 'id_author',
+  published_date: 'published_date',
+  is_physical: 'is_physical',
+  ai_suggested_content: 'ai_suggested_content',
+  preorder_min_qty: 'preorder_min_qty',
+  content_type: 'content_type',
+  is_chapter: 'is_chapter'
+};
+
+exports.Prisma.Book_historyScalarFieldEnum = {
+  book_id: 'book_id',
+  created_at: 'created_at',
+  description: 'description'
+};
+
 exports.Prisma.BundleScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -241,6 +271,13 @@ exports.Prisma.CategoryScalarFieldEnum = {
   deleted_at: 'deleted_at',
   slug: 'slug',
   img: 'img'
+};
+
+exports.Prisma.ChapterScalarFieldEnum = {
+  id: 'id',
+  id_product: 'id_product',
+  number: 'number',
+  name: 'name'
 };
 
 exports.Prisma.CustomerScalarFieldEnum = {
@@ -449,73 +486,6 @@ exports.Prisma.WithdrawalScalarFieldEnum = {
   processed_at: 'processed_at'
 };
 
-exports.Prisma.BookScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  slug: 'slug',
-  alias: 'alias',
-  strike_price: 'strike_price',
-  real_price: 'real_price',
-  desc: 'desc',
-  info: 'info',
-  status: 'status',
-  currency: 'currency',
-  deleted_at: 'deleted_at',
-  img_file: 'img_file',
-  cover: 'cover',
-  product_file: 'product_file',
-  sku: 'sku',
-  id_author: 'id_author',
-  published_date: 'published_date',
-  is_physical: 'is_physical',
-  ai_suggested_content: 'ai_suggested_content',
-  preorder_min_qty: 'preorder_min_qty',
-  content_type: 'content_type'
-};
-
-exports.Prisma.Book_historyScalarFieldEnum = {
-  book_id: 'book_id',
-  created_at: 'created_at',
-  description: 'description'
-};
-
-exports.Prisma.ChapterScalarFieldEnum = {
-  id: 'id',
-  id_product: 'id_product',
-  number: 'number',
-  name: 'name'
-};
-
-exports.Prisma.BookScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  slug: 'slug',
-  alias: 'alias',
-  strike_price: 'strike_price',
-  real_price: 'real_price',
-  desc: 'desc',
-  info: 'info',
-  status: 'status',
-  currency: 'currency',
-  deleted_at: 'deleted_at',
-  img_file: 'img_file',
-  cover: 'cover',
-  product_file: 'product_file',
-  sku: 'sku',
-  id_author: 'id_author',
-  published_date: 'published_date',
-  is_physical: 'is_physical',
-  ai_suggested_content: 'ai_suggested_content',
-  preorder_min_qty: 'preorder_min_qty',
-  content_type: 'content_type'
-};
-
-exports.Prisma.Book_historyScalarFieldEnum = {
-  book_id: 'book_id',
-  created_at: 'created_at',
-  description: 'description'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -556,10 +526,13 @@ exports.Prisma.ModelName = {
   auth_verification: 'auth_verification',
   author: 'author',
   banner: 'banner',
+  book: 'book',
+  book_history: 'book_history',
   bundle: 'bundle',
   bundle_category: 'bundle_category',
   bundle_product: 'bundle_product',
   category: 'category',
+  chapter: 'chapter',
   customer: 'customer',
   customer_reader: 'customer_reader',
   customer_track: 'customer_track',
@@ -581,10 +554,7 @@ exports.Prisma.ModelName = {
   t_sales_download: 't_sales_download',
   t_sales_line: 't_sales_line',
   transaction: 'transaction',
-  withdrawal: 'withdrawal',
-  book: 'book',
-  book_history: 'book_history',
-  chapter: 'chapter'
+  withdrawal: 'withdrawal'
 };
 
 /**

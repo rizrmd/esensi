@@ -11,46 +11,66 @@ import {
 import { useLocal } from "@/lib/hooks/use-local";
 import { Upload, X } from "lucide-react";
 
-type MyFileUploadProps = {
+export type MyFileUploadProps = {
   title: string;
+  files?: File[];
   onImageChange?: (files: File[]) => void;
   maxSize?: number;
+  maxFiles?: number;
+  initialImage?: string;
+  accept?: string;
 };
 
 export const MyFileUpload = ({
   title,
+  files = [],
   onImageChange,
   maxSize = 1 * 1024 * 1024, // default to 1MB
+  maxFiles = 1,
+  initialImage,
+  accept,
 }: MyFileUploadProps) => {
   const local = useLocal(
     {
-      files: [] as File[],
+      files: files,
+      initialImage: initialImage || "",
     },
     () => {}
   );
 
   return (
     <FileUpload
-      maxFiles={1}
+      maxFiles={maxFiles}
       maxSize={maxSize}
       className="w-full max-w-md"
       value={local.files}
       onValueChange={(files) => {
         local.files = files;
-        if (onImageChange) {
-          onImageChange(files);
-        }
+        if (onImageChange) onImageChange(files);
         local.render();
       }}
-      accept="image/*"
+      accept={accept}
     >
       <span className="font-medium text-sm">{title}</span>
       {local.files.length === 0 && (
         <FileUploadDropzone>
           <div className="flex flex-col items-center gap-1 text-center">
-            <div className="flex items-center justify-center rounded-full border p-2.5">
-              <Upload className="size-6 text-muted-foreground" />
-            </div>
+            {initialImage ? (
+              <div className="mb-2">
+                <img
+                  src={initialImage}
+                  alt="Initial"
+                  className="w-24 h-24 object-cover rounded-full border"
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Gambar saat ini
+                </p>
+              </div>
+            ) : (
+              <div className="flex items-center justify-center rounded-full border p-2.5">
+                <Upload className="size-6 text-muted-foreground" />
+              </div>
+            )}
             <p className="font-medium text-sm">Seret & taruh file di sini</p>
             <p className="text-muted-foreground text-xs">
               Atau klik untuk mencari (ukuran maks {maxSize / (1024 * 1024)}MB)

@@ -155,6 +155,7 @@ export default () => {
                 />
                 <MyFileUpload
                   title="Foto Profil"
+                  accept="image/*"
                   onImageChange={(files) => {
                     local.files = files;
                     local.render();

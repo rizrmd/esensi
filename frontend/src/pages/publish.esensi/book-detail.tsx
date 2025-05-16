@@ -8,7 +8,7 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import type { BookDetailAPIResponse } from "backend/api/publish.esensi/book-detail";
-import { ArrowLeft, PlusCircle } from "lucide-react";
+import { ArrowLeft, Edit, PlusCircle } from "lucide-react";
 import type { author, book } from "shared/models";
 
 export default function BookDetailPage() {
@@ -86,14 +86,26 @@ export default function BookDetailPage() {
                         Detil Buku Yang Belum Disetujui
                       </h1>
                     </div>
-                    <Button
-                      onClick={() => navigate("/book-create")}
-                      className="flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white rounded-md px-3 py-1.5"
-                      variant="ghost"
-                    >
-                      <PlusCircle className="h-4 w-4 mr-1" />
-                      Tambah Buku
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      {local.book && (
+                        <Button
+                          onClick={() => navigate(`/book-update?id=${local.book?.id}`)}
+                          className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-3 py-1.5"
+                          variant="default"
+                        >
+                          <Edit className="h-4 w-4 mr-1" />
+                          Edit Buku
+                        </Button>
+                      )}
+                      <Button
+                        onClick={() => navigate("/book-create")}
+                        className="flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white rounded-md px-3 py-1.5"
+                        variant="ghost"
+                      >
+                        <PlusCircle className="h-4 w-4 mr-1" />
+                        Tambah Buku
+                      </Button>
+                    </div>
                   </div>
                   {local.error ? (
                     <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-8 shadow-sm">
