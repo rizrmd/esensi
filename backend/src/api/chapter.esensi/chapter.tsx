@@ -57,11 +57,11 @@ export default defineAPI({
 
     const seo_data = {
       slug: `/chapter/${req.params.slug}/${req.params.number}`,
-      meta_title: `${product?.name} oleh ${product?.info} | Unduh Ebook Sekarang`,
-      meta_description: `eBook ${product?.name} dengan tema ${cats}. Dapatkan sinopsis, preview, dan link unduh legal dengan aman, murah, dan terpercaya hanya di sini!`,
+      meta_title: `[Judul Buku] Chapter [Nomor Bab] - [Judul Bab] | Esensi Online`,
+      meta_description: `Baca Bab [Nomor Bab] “[Judul Bab]” dari “[Judul Buku]” karya [Nama Penulis] di Esensi Online. [Deskripsi singkat isi atau suasana bab]. Update terbaru, gratis dibaca`,
       image: `${product?.cover}`,
-      headings: `${product?.name}`,
-      paragraph: `${product?.desc}`,
+      headings: `[Judul Buku] - Chapter [Nomor chapt]: [Judul chapter]`,
+      paragraph: `Chapter [Nomor Bab] dari “[Judul Buku]” adalah kelanjutan kisah yang [deskripsi suasana bab: mendebarkan / menyentuh / mengejutkan]. Nikmati kisah ini secara gratis dan eksklusif di Esensi Online—update rutin dari penulis [Nama Penulis].`,
       keywords: `${cats}`,
       is_product: true,
       price: product?.real_price,

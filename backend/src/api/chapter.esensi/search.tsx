@@ -107,11 +107,14 @@ export default defineAPI({
     const seo_data = {
       slug: `/search${req.params?.slug ? `/${req.params.slug}` : `/_`}${page > 1 ? `/${page}` : ``}`,
       page: page,
-      meta_title: `Hasil Pencarian untuk ebook ${keyword}`,
-      meta_description: `Temukan eBook tentang ${keyword}. Temukan bacaan berkualitas, update terbaru, dan pilihan eBook digital terbaik Indonesia.`,
+      meta_title: `Hasil Pencarian untuk Judul dan Chapter "[Kata Kunci]" | Esensi Online`,
+      meta_description: `Lihat hasil pencarian untuk "[Kata Kunci]" di Esensi Online. Temukan cerita menarik berdasarkan judul, genre, atau tag yang cocok dengan preferensimu`,
       image: ``,
-      headings: `Hasil Pencarian untuk ebook ${keyword}`,
-      paragraph: `Temukan eBook tentang ${keyword}. Temukan bacaan berkualitas, update terbaru, dan pilihan eBook digital terbaik Indonesia.`,
+      headings: `Hasil Pencarian untuk Judul dan Chapter "[Kata Kunci]" | Esensi Online`,
+      h2: `Hasil Pencarian untuk “[Kata Kunci]” di Esensi Online`,
+      h3: `Web Novel yang Cocok dengan Pencarianmu`,
+      h4: `Rekomendasi Cerita Lainnya yang Mungkin Kamu Suka`,
+      paragraph: `Berikut adalah hasil pencarian untuk judul buku atau judul chapter “[Kata Kunci]” di Esensi Online. Daftar ini mencakup cerita-cerita yang paling relevan dengan pencarianmu. Coba ubah kata kunci atau filter hasil untuk menemukan cerita favoritmu.`,
       is_product: false,
     };
 

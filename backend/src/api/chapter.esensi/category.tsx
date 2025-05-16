@@ -73,11 +73,14 @@ export default defineAPI({
     const seo_data = {
       slug: `/category/${req.params?.slug ? `${req.params.slug}` : ``}${page > 1 ? `/${page}` : ``}`,
       page: page,
-      meta_title: `Ebook ${cat?.name} Terbaik | Unduh dan baca Ebook ${cat?.name}`,
-      meta_description: `Lihat koleksi eBook kategori ${cat?.name}. Temukan bacaan berkualitas, update terbaru, dan pilihan eBook digital terbaik Indonesia.`,
+      meta_title: `Chapter Web Novel ${cat?.name} Terbaik | Koleksi Cerita ${cat?.name} di Esensi Online`,
+      meta_description: `Temukan koleksi web novel ${cat?.name} di Esensi Online. Baca cerita ${cat?.name} yang seru, gratis, dan selalu update!`,
       image: ``,
-      headings: `Ebook ${cat?.name} Terbaik | Unduh dan baca Ebook ${cat?.name}`,
-      paragraph: `Lihat koleksi eBook kategori ${cat?.name}. Temukan bacaan berkualitas, update terbaru, dan pilihan eBook digital terbaik Indonesia.`,
+      headings: `Chapter Web Novel ${cat?.name} di Esensi Online`,
+      h2: `Rekomendasi Cerita ${cat?.name} Terbaik`,
+      h3: `Update Terbaru di Kategori ${cat?.name}`,
+      h4: `Jelajahi Cerita ${cat?.name} Lainnya di Esensi Online`,
+      paragraph: `Kategori ${cat?.name} di Esensi Online menghadirkan cerita-cerita pilihan dengan tema ${cat?.name}. Cocok untuk kamu yang suka ${cat?.name}. Temukan web novel favoritmu di sini dan nikmati bacaan berkualitas setiap hari!`,
       is_product: false,
     };
 

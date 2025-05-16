@@ -10,7 +10,7 @@ export default defineAPI({
     const books_per_page = 20;
     const skip_books = page > 1 ? (page - 1) * books_per_page : 0;
 
-    const products = await db.product.findMany({
+    const products = await db.book.findMany({
       select: {
         name: true,
         slug: true,
@@ -18,7 +18,6 @@ export default defineAPI({
         real_price: true,
         strike_price: true,
         cover: true,
-        is_chapter: true,
       },
       where: {
         status: "published",
@@ -50,11 +49,16 @@ export default defineAPI({
     const seo_data = {
       slug: `/browse${page > 1 ? `/${page}` : ``}`,
       page: page,
-      meta_title: ``,
-      meta_description: ``,
+      meta_title: `Katalog Chapter Web Novel Lengkap | Semua Judul Chapter Buku di Esensi Online`,
+      meta_description: `Lihat seluruh koleksi judul web novel di Esensi Online. Temukan cerita favoritmu dari berbagai genre seperti fantasi, romantis, aksi, dan banyak lagi. Update setiap hari!`,
       image: ``,
-      headings: ``,
-      paragraph: ``,
+      headings: `Katalog Chapter Lengkap Web Novel di Esensi Online`,
+      h2: `Jelajahi Semua Judul Cerita dari Berbagai Genre`,
+      h3: `Cari Berdasarkan Genre, Judul, atau Penulis`,
+      h4: `Update Terbaru di Esensi Online`,
+      h5: `Bergabunglah dengan Komunitas Pembaca Esensi Online`,
+      paragraph: `Selamat datang di katalog lengkap Esensi Online! Di sini kamu bisa menjelajahi semua judul web novel yang tersedia—mulai dari kisah cinta yang mengharukan hingga petualangan epik penuh aksi. Gunakan fitur pencarian dan filter untuk menemukan cerita yang sesuai dengan seleramu. Koleksi kami diperbarui setiap hari untuk menghadirkan bacaan segar dan berkualitas.
+`,
       is_product: false,
     };
 

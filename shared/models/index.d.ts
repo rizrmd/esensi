@@ -198,6 +198,16 @@ export type book_history = $Result.DefaultSelection<Prisma.$book_historyPayload>
  * 
  */
 export type chapter = $Result.DefaultSelection<Prisma.$chapterPayload>
+/**
+ * Model book
+ * 
+ */
+export type book = $Result.DefaultSelection<Prisma.$bookPayload>
+/**
+ * Model book_history
+ * 
+ */
+export type book_history = $Result.DefaultSelection<Prisma.$book_historyPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -693,6 +703,26 @@ export class PrismaClient<
     * ```
     */
   get chapter(): Prisma.chapterDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.book`: Exposes CRUD operations for the **book** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Books
+    * const books = await prisma.book.findMany()
+    * ```
+    */
+  get book(): Prisma.bookDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.book_history`: Exposes CRUD operations for the **book_history** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Book_histories
+    * const book_histories = await prisma.book_history.findMany()
+    * ```
+    */
+  get book_history(): Prisma.book_historyDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1169,7 +1199,7 @@ export namespace Prisma {
     withdrawal: 'withdrawal',
     book: 'book',
     book_history: 'book_history',
-    chapter: 'chapter'
+    chapter: 'chapter',
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1188,7 +1218,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "affiliate" | "auth_account" | "auth_session" | "auth_two_factor" | "auth_user" | "auth_verification" | "author" | "banner" | "bundle" | "bundle_category" | "bundle_product" | "category" | "customer" | "customer_reader" | "customer_track" | "landing" | "landing_items" | "management" | "midtrx" | "preorder" | "product" | "product_category" | "promo_code" | "publisher" | "publisher_author" | "sales_and_marketing" | "support" | "t_ai_credit" | "t_ai_credit_topup" | "t_sales" | "t_sales_download" | "t_sales_line" | "transaction" | "withdrawal" | "book" | "book_history" | "chapter"
+      modelProps: "affiliate" | "auth_account" | "auth_session" | "auth_two_factor" | "auth_user" | "auth_verification" | "author" | "banner" | "bundle" | "bundle_category" | "bundle_product" | "category" | "customer" | "customer_reader" | "customer_track" | "landing" | "landing_items" | "management" | "midtrx" | "preorder" | "product" | "product_category" | "promo_code" | "publisher" | "publisher_author" | "sales_and_marketing" | "support" | "t_ai_credit" | "t_ai_credit_topup" | "t_sales" | "t_sales_download" | "t_sales_line" | "transaction" | "withdrawal" | "chapter"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3930,6 +3960,154 @@ export namespace Prisma {
           }
         }
       }
+      book: {
+        payload: Prisma.$bookPayload<ExtArgs>
+        fields: Prisma.bookFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.bookFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$bookPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.bookFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$bookPayload>
+          }
+          findFirst: {
+            args: Prisma.bookFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$bookPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.bookFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$bookPayload>
+          }
+          findMany: {
+            args: Prisma.bookFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$bookPayload>[]
+          }
+          create: {
+            args: Prisma.bookCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$bookPayload>
+          }
+          createMany: {
+            args: Prisma.bookCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.bookCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$bookPayload>[]
+          }
+          delete: {
+            args: Prisma.bookDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$bookPayload>
+          }
+          update: {
+            args: Prisma.bookUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$bookPayload>
+          }
+          deleteMany: {
+            args: Prisma.bookDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.bookUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.bookUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$bookPayload>[]
+          }
+          upsert: {
+            args: Prisma.bookUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$bookPayload>
+          }
+          aggregate: {
+            args: Prisma.BookAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBook>
+          }
+          groupBy: {
+            args: Prisma.bookGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BookGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.bookCountArgs<ExtArgs>
+            result: $Utils.Optional<BookCountAggregateOutputType> | number
+          }
+        }
+      }
+      book_history: {
+        payload: Prisma.$book_historyPayload<ExtArgs>
+        fields: Prisma.book_historyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.book_historyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_historyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.book_historyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_historyPayload>
+          }
+          findFirst: {
+            args: Prisma.book_historyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_historyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.book_historyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_historyPayload>
+          }
+          findMany: {
+            args: Prisma.book_historyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_historyPayload>[]
+          }
+          create: {
+            args: Prisma.book_historyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_historyPayload>
+          }
+          createMany: {
+            args: Prisma.book_historyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.book_historyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_historyPayload>[]
+          }
+          delete: {
+            args: Prisma.book_historyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_historyPayload>
+          }
+          update: {
+            args: Prisma.book_historyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_historyPayload>
+          }
+          deleteMany: {
+            args: Prisma.book_historyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.book_historyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.book_historyUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_historyPayload>[]
+          }
+          upsert: {
+            args: Prisma.book_historyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_historyPayload>
+          }
+          aggregate: {
+            args: Prisma.Book_historyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBook_history>
+          }
+          groupBy: {
+            args: Prisma.book_historyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Book_historyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.book_historyCountArgs<ExtArgs>
+            result: $Utils.Optional<Book_historyCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4051,6 +4229,8 @@ export namespace Prisma {
     book?: bookOmit
     book_history?: book_historyOmit
     chapter?: chapterOmit
+    book?: bookOmit
+    book_history?: book_historyOmit
   }
 
   /* Types for Logging */
@@ -47128,6 +47308,2387 @@ export namespace Prisma {
 
 
   /**
+   * Model book
+   */
+
+  export type AggregateBook = {
+    _count: BookCountAggregateOutputType | null
+    _avg: BookAvgAggregateOutputType | null
+    _sum: BookSumAggregateOutputType | null
+    _min: BookMinAggregateOutputType | null
+    _max: BookMaxAggregateOutputType | null
+  }
+
+  export type BookAvgAggregateOutputType = {
+    strike_price: Decimal | null
+    real_price: Decimal | null
+    preorder_min_qty: number | null
+  }
+
+  export type BookSumAggregateOutputType = {
+    strike_price: Decimal | null
+    real_price: Decimal | null
+    preorder_min_qty: number | null
+  }
+
+  export type BookMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    slug: string | null
+    alias: string | null
+    strike_price: Decimal | null
+    real_price: Decimal | null
+    desc: string | null
+    status: string | null
+    currency: string | null
+    deleted_at: Date | null
+    img_file: string | null
+    cover: string | null
+    product_file: string | null
+    sku: string | null
+    id_author: string | null
+    published_date: Date | null
+    is_physical: boolean | null
+    preorder_min_qty: number | null
+    content_type: string | null
+  }
+
+  export type BookMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    slug: string | null
+    alias: string | null
+    strike_price: Decimal | null
+    real_price: Decimal | null
+    desc: string | null
+    status: string | null
+    currency: string | null
+    deleted_at: Date | null
+    img_file: string | null
+    cover: string | null
+    product_file: string | null
+    sku: string | null
+    id_author: string | null
+    published_date: Date | null
+    is_physical: boolean | null
+    preorder_min_qty: number | null
+    content_type: string | null
+  }
+
+  export type BookCountAggregateOutputType = {
+    id: number
+    name: number
+    slug: number
+    alias: number
+    strike_price: number
+    real_price: number
+    desc: number
+    info: number
+    status: number
+    currency: number
+    deleted_at: number
+    img_file: number
+    cover: number
+    product_file: number
+    sku: number
+    id_author: number
+    published_date: number
+    is_physical: number
+    ai_suggested_content: number
+    preorder_min_qty: number
+    content_type: number
+    _all: number
+  }
+
+
+  export type BookAvgAggregateInputType = {
+    strike_price?: true
+    real_price?: true
+    preorder_min_qty?: true
+  }
+
+  export type BookSumAggregateInputType = {
+    strike_price?: true
+    real_price?: true
+    preorder_min_qty?: true
+  }
+
+  export type BookMinAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    alias?: true
+    strike_price?: true
+    real_price?: true
+    desc?: true
+    status?: true
+    currency?: true
+    deleted_at?: true
+    img_file?: true
+    cover?: true
+    product_file?: true
+    sku?: true
+    id_author?: true
+    published_date?: true
+    is_physical?: true
+    preorder_min_qty?: true
+    content_type?: true
+  }
+
+  export type BookMaxAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    alias?: true
+    strike_price?: true
+    real_price?: true
+    desc?: true
+    status?: true
+    currency?: true
+    deleted_at?: true
+    img_file?: true
+    cover?: true
+    product_file?: true
+    sku?: true
+    id_author?: true
+    published_date?: true
+    is_physical?: true
+    preorder_min_qty?: true
+    content_type?: true
+  }
+
+  export type BookCountAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    alias?: true
+    strike_price?: true
+    real_price?: true
+    desc?: true
+    info?: true
+    status?: true
+    currency?: true
+    deleted_at?: true
+    img_file?: true
+    cover?: true
+    product_file?: true
+    sku?: true
+    id_author?: true
+    published_date?: true
+    is_physical?: true
+    ai_suggested_content?: true
+    preorder_min_qty?: true
+    content_type?: true
+    _all?: true
+  }
+
+  export type BookAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which book to aggregate.
+     */
+    where?: bookWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of books to fetch.
+     */
+    orderBy?: bookOrderByWithRelationInput | bookOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: bookWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` books from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` books.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned books
+    **/
+    _count?: true | BookCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BookAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BookSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BookMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BookMaxAggregateInputType
+  }
+
+  export type GetBookAggregateType<T extends BookAggregateArgs> = {
+        [P in keyof T & keyof AggregateBook]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBook[P]>
+      : GetScalarType<T[P], AggregateBook[P]>
+  }
+
+
+
+
+  export type bookGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: bookWhereInput
+    orderBy?: bookOrderByWithAggregationInput | bookOrderByWithAggregationInput[]
+    by: BookScalarFieldEnum[] | BookScalarFieldEnum
+    having?: bookScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BookCountAggregateInputType | true
+    _avg?: BookAvgAggregateInputType
+    _sum?: BookSumAggregateInputType
+    _min?: BookMinAggregateInputType
+    _max?: BookMaxAggregateInputType
+  }
+
+  export type BookGroupByOutputType = {
+    id: string
+    name: string
+    slug: string
+    alias: string
+    strike_price: Decimal | null
+    real_price: Decimal
+    desc: string
+    info: JsonValue
+    status: string
+    currency: string
+    deleted_at: Date | null
+    img_file: string
+    cover: string
+    product_file: string
+    sku: string
+    id_author: string | null
+    published_date: Date
+    is_physical: boolean
+    ai_suggested_content: JsonValue | null
+    preorder_min_qty: number | null
+    content_type: string | null
+    _count: BookCountAggregateOutputType | null
+    _avg: BookAvgAggregateOutputType | null
+    _sum: BookSumAggregateOutputType | null
+    _min: BookMinAggregateOutputType | null
+    _max: BookMaxAggregateOutputType | null
+  }
+
+  type GetBookGroupByPayload<T extends bookGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BookGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BookGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BookGroupByOutputType[P]>
+            : GetScalarType<T[P], BookGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type bookSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    alias?: boolean
+    strike_price?: boolean
+    real_price?: boolean
+    desc?: boolean
+    info?: boolean
+    status?: boolean
+    currency?: boolean
+    deleted_at?: boolean
+    img_file?: boolean
+    cover?: boolean
+    product_file?: boolean
+    sku?: boolean
+    id_author?: boolean
+    published_date?: boolean
+    is_physical?: boolean
+    ai_suggested_content?: boolean
+    preorder_min_qty?: boolean
+    content_type?: boolean
+    author?: boolean | book$authorArgs<ExtArgs>
+    book_history?: boolean | book$book_historyArgs<ExtArgs>
+    _count?: boolean | BookCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["book"]>
+
+  export type bookSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    alias?: boolean
+    strike_price?: boolean
+    real_price?: boolean
+    desc?: boolean
+    info?: boolean
+    status?: boolean
+    currency?: boolean
+    deleted_at?: boolean
+    img_file?: boolean
+    cover?: boolean
+    product_file?: boolean
+    sku?: boolean
+    id_author?: boolean
+    published_date?: boolean
+    is_physical?: boolean
+    ai_suggested_content?: boolean
+    preorder_min_qty?: boolean
+    content_type?: boolean
+    author?: boolean | book$authorArgs<ExtArgs>
+  }, ExtArgs["result"]["book"]>
+
+  export type bookSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    alias?: boolean
+    strike_price?: boolean
+    real_price?: boolean
+    desc?: boolean
+    info?: boolean
+    status?: boolean
+    currency?: boolean
+    deleted_at?: boolean
+    img_file?: boolean
+    cover?: boolean
+    product_file?: boolean
+    sku?: boolean
+    id_author?: boolean
+    published_date?: boolean
+    is_physical?: boolean
+    ai_suggested_content?: boolean
+    preorder_min_qty?: boolean
+    content_type?: boolean
+    author?: boolean | book$authorArgs<ExtArgs>
+  }, ExtArgs["result"]["book"]>
+
+  export type bookSelectScalar = {
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    alias?: boolean
+    strike_price?: boolean
+    real_price?: boolean
+    desc?: boolean
+    info?: boolean
+    status?: boolean
+    currency?: boolean
+    deleted_at?: boolean
+    img_file?: boolean
+    cover?: boolean
+    product_file?: boolean
+    sku?: boolean
+    id_author?: boolean
+    published_date?: boolean
+    is_physical?: boolean
+    ai_suggested_content?: boolean
+    preorder_min_qty?: boolean
+    content_type?: boolean
+  }
+
+  export type bookOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "alias" | "strike_price" | "real_price" | "desc" | "info" | "status" | "currency" | "deleted_at" | "img_file" | "cover" | "product_file" | "sku" | "id_author" | "published_date" | "is_physical" | "ai_suggested_content" | "preorder_min_qty" | "content_type", ExtArgs["result"]["book"]>
+  export type bookInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | book$authorArgs<ExtArgs>
+    book_history?: boolean | book$book_historyArgs<ExtArgs>
+    _count?: boolean | BookCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type bookIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | book$authorArgs<ExtArgs>
+  }
+  export type bookIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | book$authorArgs<ExtArgs>
+  }
+
+  export type $bookPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "book"
+    objects: {
+      author: Prisma.$authorPayload<ExtArgs> | null
+      book_history: Prisma.$book_historyPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      slug: string
+      alias: string
+      strike_price: Prisma.Decimal | null
+      real_price: Prisma.Decimal
+      desc: string
+      info: Prisma.JsonValue
+      status: string
+      currency: string
+      deleted_at: Date | null
+      img_file: string
+      cover: string
+      product_file: string
+      sku: string
+      id_author: string | null
+      published_date: Date
+      is_physical: boolean
+      ai_suggested_content: Prisma.JsonValue | null
+      preorder_min_qty: number | null
+      content_type: string | null
+    }, ExtArgs["result"]["book"]>
+    composites: {}
+  }
+
+  type bookGetPayload<S extends boolean | null | undefined | bookDefaultArgs> = $Result.GetResult<Prisma.$bookPayload, S>
+
+  type bookCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<bookFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BookCountAggregateInputType | true
+    }
+
+  export interface bookDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['book'], meta: { name: 'book' } }
+    /**
+     * Find zero or one Book that matches the filter.
+     * @param {bookFindUniqueArgs} args - Arguments to find a Book
+     * @example
+     * // Get one Book
+     * const book = await prisma.book.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends bookFindUniqueArgs>(args: SelectSubset<T, bookFindUniqueArgs<ExtArgs>>): Prisma__bookClient<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Book that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {bookFindUniqueOrThrowArgs} args - Arguments to find a Book
+     * @example
+     * // Get one Book
+     * const book = await prisma.book.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends bookFindUniqueOrThrowArgs>(args: SelectSubset<T, bookFindUniqueOrThrowArgs<ExtArgs>>): Prisma__bookClient<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Book that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {bookFindFirstArgs} args - Arguments to find a Book
+     * @example
+     * // Get one Book
+     * const book = await prisma.book.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends bookFindFirstArgs>(args?: SelectSubset<T, bookFindFirstArgs<ExtArgs>>): Prisma__bookClient<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Book that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {bookFindFirstOrThrowArgs} args - Arguments to find a Book
+     * @example
+     * // Get one Book
+     * const book = await prisma.book.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends bookFindFirstOrThrowArgs>(args?: SelectSubset<T, bookFindFirstOrThrowArgs<ExtArgs>>): Prisma__bookClient<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Books that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {bookFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Books
+     * const books = await prisma.book.findMany()
+     * 
+     * // Get first 10 Books
+     * const books = await prisma.book.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bookWithIdOnly = await prisma.book.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends bookFindManyArgs>(args?: SelectSubset<T, bookFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Book.
+     * @param {bookCreateArgs} args - Arguments to create a Book.
+     * @example
+     * // Create one Book
+     * const Book = await prisma.book.create({
+     *   data: {
+     *     // ... data to create a Book
+     *   }
+     * })
+     * 
+     */
+    create<T extends bookCreateArgs>(args: SelectSubset<T, bookCreateArgs<ExtArgs>>): Prisma__bookClient<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Books.
+     * @param {bookCreateManyArgs} args - Arguments to create many Books.
+     * @example
+     * // Create many Books
+     * const book = await prisma.book.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends bookCreateManyArgs>(args?: SelectSubset<T, bookCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Books and returns the data saved in the database.
+     * @param {bookCreateManyAndReturnArgs} args - Arguments to create many Books.
+     * @example
+     * // Create many Books
+     * const book = await prisma.book.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Books and only return the `id`
+     * const bookWithIdOnly = await prisma.book.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends bookCreateManyAndReturnArgs>(args?: SelectSubset<T, bookCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Book.
+     * @param {bookDeleteArgs} args - Arguments to delete one Book.
+     * @example
+     * // Delete one Book
+     * const Book = await prisma.book.delete({
+     *   where: {
+     *     // ... filter to delete one Book
+     *   }
+     * })
+     * 
+     */
+    delete<T extends bookDeleteArgs>(args: SelectSubset<T, bookDeleteArgs<ExtArgs>>): Prisma__bookClient<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Book.
+     * @param {bookUpdateArgs} args - Arguments to update one Book.
+     * @example
+     * // Update one Book
+     * const book = await prisma.book.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends bookUpdateArgs>(args: SelectSubset<T, bookUpdateArgs<ExtArgs>>): Prisma__bookClient<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Books.
+     * @param {bookDeleteManyArgs} args - Arguments to filter Books to delete.
+     * @example
+     * // Delete a few Books
+     * const { count } = await prisma.book.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends bookDeleteManyArgs>(args?: SelectSubset<T, bookDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Books.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {bookUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Books
+     * const book = await prisma.book.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends bookUpdateManyArgs>(args: SelectSubset<T, bookUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Books and returns the data updated in the database.
+     * @param {bookUpdateManyAndReturnArgs} args - Arguments to update many Books.
+     * @example
+     * // Update many Books
+     * const book = await prisma.book.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Books and only return the `id`
+     * const bookWithIdOnly = await prisma.book.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends bookUpdateManyAndReturnArgs>(args: SelectSubset<T, bookUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Book.
+     * @param {bookUpsertArgs} args - Arguments to update or create a Book.
+     * @example
+     * // Update or create a Book
+     * const book = await prisma.book.upsert({
+     *   create: {
+     *     // ... data to create a Book
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Book we want to update
+     *   }
+     * })
+     */
+    upsert<T extends bookUpsertArgs>(args: SelectSubset<T, bookUpsertArgs<ExtArgs>>): Prisma__bookClient<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Books.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {bookCountArgs} args - Arguments to filter Books to count.
+     * @example
+     * // Count the number of Books
+     * const count = await prisma.book.count({
+     *   where: {
+     *     // ... the filter for the Books we want to count
+     *   }
+     * })
+    **/
+    count<T extends bookCountArgs>(
+      args?: Subset<T, bookCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BookCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Book.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BookAggregateArgs>(args: Subset<T, BookAggregateArgs>): Prisma.PrismaPromise<GetBookAggregateType<T>>
+
+    /**
+     * Group by Book.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {bookGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends bookGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: bookGroupByArgs['orderBy'] }
+        : { orderBy?: bookGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, bookGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBookGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the book model
+   */
+  readonly fields: bookFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for book.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__bookClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    author<T extends book$authorArgs<ExtArgs> = {}>(args?: Subset<T, book$authorArgs<ExtArgs>>): Prisma__authorClient<$Result.GetResult<Prisma.$authorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    book_history<T extends book$book_historyArgs<ExtArgs> = {}>(args?: Subset<T, book$book_historyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_historyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the book model
+   */
+  interface bookFieldRefs {
+    readonly id: FieldRef<"book", 'String'>
+    readonly name: FieldRef<"book", 'String'>
+    readonly slug: FieldRef<"book", 'String'>
+    readonly alias: FieldRef<"book", 'String'>
+    readonly strike_price: FieldRef<"book", 'Decimal'>
+    readonly real_price: FieldRef<"book", 'Decimal'>
+    readonly desc: FieldRef<"book", 'String'>
+    readonly info: FieldRef<"book", 'Json'>
+    readonly status: FieldRef<"book", 'String'>
+    readonly currency: FieldRef<"book", 'String'>
+    readonly deleted_at: FieldRef<"book", 'DateTime'>
+    readonly img_file: FieldRef<"book", 'String'>
+    readonly cover: FieldRef<"book", 'String'>
+    readonly product_file: FieldRef<"book", 'String'>
+    readonly sku: FieldRef<"book", 'String'>
+    readonly id_author: FieldRef<"book", 'String'>
+    readonly published_date: FieldRef<"book", 'DateTime'>
+    readonly is_physical: FieldRef<"book", 'Boolean'>
+    readonly ai_suggested_content: FieldRef<"book", 'Json'>
+    readonly preorder_min_qty: FieldRef<"book", 'Int'>
+    readonly content_type: FieldRef<"book", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * book findUnique
+   */
+  export type bookFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book
+     */
+    select?: bookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book
+     */
+    omit?: bookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookInclude<ExtArgs> | null
+    /**
+     * Filter, which book to fetch.
+     */
+    where: bookWhereUniqueInput
+  }
+
+  /**
+   * book findUniqueOrThrow
+   */
+  export type bookFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book
+     */
+    select?: bookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book
+     */
+    omit?: bookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookInclude<ExtArgs> | null
+    /**
+     * Filter, which book to fetch.
+     */
+    where: bookWhereUniqueInput
+  }
+
+  /**
+   * book findFirst
+   */
+  export type bookFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book
+     */
+    select?: bookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book
+     */
+    omit?: bookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookInclude<ExtArgs> | null
+    /**
+     * Filter, which book to fetch.
+     */
+    where?: bookWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of books to fetch.
+     */
+    orderBy?: bookOrderByWithRelationInput | bookOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for books.
+     */
+    cursor?: bookWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` books from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` books.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of books.
+     */
+    distinct?: BookScalarFieldEnum | BookScalarFieldEnum[]
+  }
+
+  /**
+   * book findFirstOrThrow
+   */
+  export type bookFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book
+     */
+    select?: bookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book
+     */
+    omit?: bookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookInclude<ExtArgs> | null
+    /**
+     * Filter, which book to fetch.
+     */
+    where?: bookWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of books to fetch.
+     */
+    orderBy?: bookOrderByWithRelationInput | bookOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for books.
+     */
+    cursor?: bookWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` books from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` books.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of books.
+     */
+    distinct?: BookScalarFieldEnum | BookScalarFieldEnum[]
+  }
+
+  /**
+   * book findMany
+   */
+  export type bookFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book
+     */
+    select?: bookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book
+     */
+    omit?: bookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookInclude<ExtArgs> | null
+    /**
+     * Filter, which books to fetch.
+     */
+    where?: bookWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of books to fetch.
+     */
+    orderBy?: bookOrderByWithRelationInput | bookOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing books.
+     */
+    cursor?: bookWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` books from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` books.
+     */
+    skip?: number
+    distinct?: BookScalarFieldEnum | BookScalarFieldEnum[]
+  }
+
+  /**
+   * book create
+   */
+  export type bookCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book
+     */
+    select?: bookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book
+     */
+    omit?: bookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookInclude<ExtArgs> | null
+    /**
+     * The data needed to create a book.
+     */
+    data: XOR<bookCreateInput, bookUncheckedCreateInput>
+  }
+
+  /**
+   * book createMany
+   */
+  export type bookCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many books.
+     */
+    data: bookCreateManyInput | bookCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * book createManyAndReturn
+   */
+  export type bookCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book
+     */
+    select?: bookSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the book
+     */
+    omit?: bookOmit<ExtArgs> | null
+    /**
+     * The data used to create many books.
+     */
+    data: bookCreateManyInput | bookCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * book update
+   */
+  export type bookUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book
+     */
+    select?: bookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book
+     */
+    omit?: bookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookInclude<ExtArgs> | null
+    /**
+     * The data needed to update a book.
+     */
+    data: XOR<bookUpdateInput, bookUncheckedUpdateInput>
+    /**
+     * Choose, which book to update.
+     */
+    where: bookWhereUniqueInput
+  }
+
+  /**
+   * book updateMany
+   */
+  export type bookUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update books.
+     */
+    data: XOR<bookUpdateManyMutationInput, bookUncheckedUpdateManyInput>
+    /**
+     * Filter which books to update
+     */
+    where?: bookWhereInput
+    /**
+     * Limit how many books to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * book updateManyAndReturn
+   */
+  export type bookUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book
+     */
+    select?: bookSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the book
+     */
+    omit?: bookOmit<ExtArgs> | null
+    /**
+     * The data used to update books.
+     */
+    data: XOR<bookUpdateManyMutationInput, bookUncheckedUpdateManyInput>
+    /**
+     * Filter which books to update
+     */
+    where?: bookWhereInput
+    /**
+     * Limit how many books to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * book upsert
+   */
+  export type bookUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book
+     */
+    select?: bookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book
+     */
+    omit?: bookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookInclude<ExtArgs> | null
+    /**
+     * The filter to search for the book to update in case it exists.
+     */
+    where: bookWhereUniqueInput
+    /**
+     * In case the book found by the `where` argument doesn't exist, create a new book with this data.
+     */
+    create: XOR<bookCreateInput, bookUncheckedCreateInput>
+    /**
+     * In case the book was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<bookUpdateInput, bookUncheckedUpdateInput>
+  }
+
+  /**
+   * book delete
+   */
+  export type bookDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book
+     */
+    select?: bookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book
+     */
+    omit?: bookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookInclude<ExtArgs> | null
+    /**
+     * Filter which book to delete.
+     */
+    where: bookWhereUniqueInput
+  }
+
+  /**
+   * book deleteMany
+   */
+  export type bookDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which books to delete
+     */
+    where?: bookWhereInput
+    /**
+     * Limit how many books to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * book.author
+   */
+  export type book$authorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the author
+     */
+    select?: authorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the author
+     */
+    omit?: authorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: authorInclude<ExtArgs> | null
+    where?: authorWhereInput
+  }
+
+  /**
+   * book.book_history
+   */
+  export type book$book_historyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_history
+     */
+    select?: book_historySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_history
+     */
+    omit?: book_historyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_historyInclude<ExtArgs> | null
+    where?: book_historyWhereInput
+    orderBy?: book_historyOrderByWithRelationInput | book_historyOrderByWithRelationInput[]
+    cursor?: book_historyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Book_historyScalarFieldEnum | Book_historyScalarFieldEnum[]
+  }
+
+  /**
+   * book without action
+   */
+  export type bookDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book
+     */
+    select?: bookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book
+     */
+    omit?: bookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model book_history
+   */
+
+  export type AggregateBook_history = {
+    _count: Book_historyCountAggregateOutputType | null
+    _min: Book_historyMinAggregateOutputType | null
+    _max: Book_historyMaxAggregateOutputType | null
+  }
+
+  export type Book_historyMinAggregateOutputType = {
+    book_id: string | null
+    created_at: Date | null
+    description: string | null
+  }
+
+  export type Book_historyMaxAggregateOutputType = {
+    book_id: string | null
+    created_at: Date | null
+    description: string | null
+  }
+
+  export type Book_historyCountAggregateOutputType = {
+    book_id: number
+    created_at: number
+    description: number
+    _all: number
+  }
+
+
+  export type Book_historyMinAggregateInputType = {
+    book_id?: true
+    created_at?: true
+    description?: true
+  }
+
+  export type Book_historyMaxAggregateInputType = {
+    book_id?: true
+    created_at?: true
+    description?: true
+  }
+
+  export type Book_historyCountAggregateInputType = {
+    book_id?: true
+    created_at?: true
+    description?: true
+    _all?: true
+  }
+
+  export type Book_historyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which book_history to aggregate.
+     */
+    where?: book_historyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of book_histories to fetch.
+     */
+    orderBy?: book_historyOrderByWithRelationInput | book_historyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: book_historyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` book_histories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` book_histories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned book_histories
+    **/
+    _count?: true | Book_historyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Book_historyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Book_historyMaxAggregateInputType
+  }
+
+  export type GetBook_historyAggregateType<T extends Book_historyAggregateArgs> = {
+        [P in keyof T & keyof AggregateBook_history]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBook_history[P]>
+      : GetScalarType<T[P], AggregateBook_history[P]>
+  }
+
+
+
+
+  export type book_historyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: book_historyWhereInput
+    orderBy?: book_historyOrderByWithAggregationInput | book_historyOrderByWithAggregationInput[]
+    by: Book_historyScalarFieldEnum[] | Book_historyScalarFieldEnum
+    having?: book_historyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Book_historyCountAggregateInputType | true
+    _min?: Book_historyMinAggregateInputType
+    _max?: Book_historyMaxAggregateInputType
+  }
+
+  export type Book_historyGroupByOutputType = {
+    book_id: string
+    created_at: Date
+    description: string
+    _count: Book_historyCountAggregateOutputType | null
+    _min: Book_historyMinAggregateOutputType | null
+    _max: Book_historyMaxAggregateOutputType | null
+  }
+
+  type GetBook_historyGroupByPayload<T extends book_historyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Book_historyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Book_historyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Book_historyGroupByOutputType[P]>
+            : GetScalarType<T[P], Book_historyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type book_historySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    book_id?: boolean
+    created_at?: boolean
+    description?: boolean
+    book?: boolean | bookDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["book_history"]>
+
+  export type book_historySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    book_id?: boolean
+    created_at?: boolean
+    description?: boolean
+    book?: boolean | bookDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["book_history"]>
+
+  export type book_historySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    book_id?: boolean
+    created_at?: boolean
+    description?: boolean
+    book?: boolean | bookDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["book_history"]>
+
+  export type book_historySelectScalar = {
+    book_id?: boolean
+    created_at?: boolean
+    description?: boolean
+  }
+
+  export type book_historyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"book_id" | "created_at" | "description", ExtArgs["result"]["book_history"]>
+  export type book_historyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book?: boolean | bookDefaultArgs<ExtArgs>
+  }
+  export type book_historyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book?: boolean | bookDefaultArgs<ExtArgs>
+  }
+  export type book_historyIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book?: boolean | bookDefaultArgs<ExtArgs>
+  }
+
+  export type $book_historyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "book_history"
+    objects: {
+      book: Prisma.$bookPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      book_id: string
+      created_at: Date
+      description: string
+    }, ExtArgs["result"]["book_history"]>
+    composites: {}
+  }
+
+  type book_historyGetPayload<S extends boolean | null | undefined | book_historyDefaultArgs> = $Result.GetResult<Prisma.$book_historyPayload, S>
+
+  type book_historyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<book_historyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Book_historyCountAggregateInputType | true
+    }
+
+  export interface book_historyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['book_history'], meta: { name: 'book_history' } }
+    /**
+     * Find zero or one Book_history that matches the filter.
+     * @param {book_historyFindUniqueArgs} args - Arguments to find a Book_history
+     * @example
+     * // Get one Book_history
+     * const book_history = await prisma.book_history.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends book_historyFindUniqueArgs>(args: SelectSubset<T, book_historyFindUniqueArgs<ExtArgs>>): Prisma__book_historyClient<$Result.GetResult<Prisma.$book_historyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Book_history that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {book_historyFindUniqueOrThrowArgs} args - Arguments to find a Book_history
+     * @example
+     * // Get one Book_history
+     * const book_history = await prisma.book_history.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends book_historyFindUniqueOrThrowArgs>(args: SelectSubset<T, book_historyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__book_historyClient<$Result.GetResult<Prisma.$book_historyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Book_history that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_historyFindFirstArgs} args - Arguments to find a Book_history
+     * @example
+     * // Get one Book_history
+     * const book_history = await prisma.book_history.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends book_historyFindFirstArgs>(args?: SelectSubset<T, book_historyFindFirstArgs<ExtArgs>>): Prisma__book_historyClient<$Result.GetResult<Prisma.$book_historyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Book_history that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_historyFindFirstOrThrowArgs} args - Arguments to find a Book_history
+     * @example
+     * // Get one Book_history
+     * const book_history = await prisma.book_history.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends book_historyFindFirstOrThrowArgs>(args?: SelectSubset<T, book_historyFindFirstOrThrowArgs<ExtArgs>>): Prisma__book_historyClient<$Result.GetResult<Prisma.$book_historyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Book_histories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_historyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Book_histories
+     * const book_histories = await prisma.book_history.findMany()
+     * 
+     * // Get first 10 Book_histories
+     * const book_histories = await prisma.book_history.findMany({ take: 10 })
+     * 
+     * // Only select the `book_id`
+     * const book_historyWithBook_idOnly = await prisma.book_history.findMany({ select: { book_id: true } })
+     * 
+     */
+    findMany<T extends book_historyFindManyArgs>(args?: SelectSubset<T, book_historyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_historyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Book_history.
+     * @param {book_historyCreateArgs} args - Arguments to create a Book_history.
+     * @example
+     * // Create one Book_history
+     * const Book_history = await prisma.book_history.create({
+     *   data: {
+     *     // ... data to create a Book_history
+     *   }
+     * })
+     * 
+     */
+    create<T extends book_historyCreateArgs>(args: SelectSubset<T, book_historyCreateArgs<ExtArgs>>): Prisma__book_historyClient<$Result.GetResult<Prisma.$book_historyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Book_histories.
+     * @param {book_historyCreateManyArgs} args - Arguments to create many Book_histories.
+     * @example
+     * // Create many Book_histories
+     * const book_history = await prisma.book_history.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends book_historyCreateManyArgs>(args?: SelectSubset<T, book_historyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Book_histories and returns the data saved in the database.
+     * @param {book_historyCreateManyAndReturnArgs} args - Arguments to create many Book_histories.
+     * @example
+     * // Create many Book_histories
+     * const book_history = await prisma.book_history.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Book_histories and only return the `book_id`
+     * const book_historyWithBook_idOnly = await prisma.book_history.createManyAndReturn({
+     *   select: { book_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends book_historyCreateManyAndReturnArgs>(args?: SelectSubset<T, book_historyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_historyPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Book_history.
+     * @param {book_historyDeleteArgs} args - Arguments to delete one Book_history.
+     * @example
+     * // Delete one Book_history
+     * const Book_history = await prisma.book_history.delete({
+     *   where: {
+     *     // ... filter to delete one Book_history
+     *   }
+     * })
+     * 
+     */
+    delete<T extends book_historyDeleteArgs>(args: SelectSubset<T, book_historyDeleteArgs<ExtArgs>>): Prisma__book_historyClient<$Result.GetResult<Prisma.$book_historyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Book_history.
+     * @param {book_historyUpdateArgs} args - Arguments to update one Book_history.
+     * @example
+     * // Update one Book_history
+     * const book_history = await prisma.book_history.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends book_historyUpdateArgs>(args: SelectSubset<T, book_historyUpdateArgs<ExtArgs>>): Prisma__book_historyClient<$Result.GetResult<Prisma.$book_historyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Book_histories.
+     * @param {book_historyDeleteManyArgs} args - Arguments to filter Book_histories to delete.
+     * @example
+     * // Delete a few Book_histories
+     * const { count } = await prisma.book_history.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends book_historyDeleteManyArgs>(args?: SelectSubset<T, book_historyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Book_histories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_historyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Book_histories
+     * const book_history = await prisma.book_history.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends book_historyUpdateManyArgs>(args: SelectSubset<T, book_historyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Book_histories and returns the data updated in the database.
+     * @param {book_historyUpdateManyAndReturnArgs} args - Arguments to update many Book_histories.
+     * @example
+     * // Update many Book_histories
+     * const book_history = await prisma.book_history.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Book_histories and only return the `book_id`
+     * const book_historyWithBook_idOnly = await prisma.book_history.updateManyAndReturn({
+     *   select: { book_id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends book_historyUpdateManyAndReturnArgs>(args: SelectSubset<T, book_historyUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_historyPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Book_history.
+     * @param {book_historyUpsertArgs} args - Arguments to update or create a Book_history.
+     * @example
+     * // Update or create a Book_history
+     * const book_history = await prisma.book_history.upsert({
+     *   create: {
+     *     // ... data to create a Book_history
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Book_history we want to update
+     *   }
+     * })
+     */
+    upsert<T extends book_historyUpsertArgs>(args: SelectSubset<T, book_historyUpsertArgs<ExtArgs>>): Prisma__book_historyClient<$Result.GetResult<Prisma.$book_historyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Book_histories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_historyCountArgs} args - Arguments to filter Book_histories to count.
+     * @example
+     * // Count the number of Book_histories
+     * const count = await prisma.book_history.count({
+     *   where: {
+     *     // ... the filter for the Book_histories we want to count
+     *   }
+     * })
+    **/
+    count<T extends book_historyCountArgs>(
+      args?: Subset<T, book_historyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Book_historyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Book_history.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Book_historyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Book_historyAggregateArgs>(args: Subset<T, Book_historyAggregateArgs>): Prisma.PrismaPromise<GetBook_historyAggregateType<T>>
+
+    /**
+     * Group by Book_history.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_historyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends book_historyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: book_historyGroupByArgs['orderBy'] }
+        : { orderBy?: book_historyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, book_historyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBook_historyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the book_history model
+   */
+  readonly fields: book_historyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for book_history.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__book_historyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    book<T extends bookDefaultArgs<ExtArgs> = {}>(args?: Subset<T, bookDefaultArgs<ExtArgs>>): Prisma__bookClient<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the book_history model
+   */
+  interface book_historyFieldRefs {
+    readonly book_id: FieldRef<"book_history", 'String'>
+    readonly created_at: FieldRef<"book_history", 'DateTime'>
+    readonly description: FieldRef<"book_history", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * book_history findUnique
+   */
+  export type book_historyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_history
+     */
+    select?: book_historySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_history
+     */
+    omit?: book_historyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_historyInclude<ExtArgs> | null
+    /**
+     * Filter, which book_history to fetch.
+     */
+    where: book_historyWhereUniqueInput
+  }
+
+  /**
+   * book_history findUniqueOrThrow
+   */
+  export type book_historyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_history
+     */
+    select?: book_historySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_history
+     */
+    omit?: book_historyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_historyInclude<ExtArgs> | null
+    /**
+     * Filter, which book_history to fetch.
+     */
+    where: book_historyWhereUniqueInput
+  }
+
+  /**
+   * book_history findFirst
+   */
+  export type book_historyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_history
+     */
+    select?: book_historySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_history
+     */
+    omit?: book_historyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_historyInclude<ExtArgs> | null
+    /**
+     * Filter, which book_history to fetch.
+     */
+    where?: book_historyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of book_histories to fetch.
+     */
+    orderBy?: book_historyOrderByWithRelationInput | book_historyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for book_histories.
+     */
+    cursor?: book_historyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` book_histories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` book_histories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of book_histories.
+     */
+    distinct?: Book_historyScalarFieldEnum | Book_historyScalarFieldEnum[]
+  }
+
+  /**
+   * book_history findFirstOrThrow
+   */
+  export type book_historyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_history
+     */
+    select?: book_historySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_history
+     */
+    omit?: book_historyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_historyInclude<ExtArgs> | null
+    /**
+     * Filter, which book_history to fetch.
+     */
+    where?: book_historyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of book_histories to fetch.
+     */
+    orderBy?: book_historyOrderByWithRelationInput | book_historyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for book_histories.
+     */
+    cursor?: book_historyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` book_histories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` book_histories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of book_histories.
+     */
+    distinct?: Book_historyScalarFieldEnum | Book_historyScalarFieldEnum[]
+  }
+
+  /**
+   * book_history findMany
+   */
+  export type book_historyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_history
+     */
+    select?: book_historySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_history
+     */
+    omit?: book_historyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_historyInclude<ExtArgs> | null
+    /**
+     * Filter, which book_histories to fetch.
+     */
+    where?: book_historyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of book_histories to fetch.
+     */
+    orderBy?: book_historyOrderByWithRelationInput | book_historyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing book_histories.
+     */
+    cursor?: book_historyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` book_histories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` book_histories.
+     */
+    skip?: number
+    distinct?: Book_historyScalarFieldEnum | Book_historyScalarFieldEnum[]
+  }
+
+  /**
+   * book_history create
+   */
+  export type book_historyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_history
+     */
+    select?: book_historySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_history
+     */
+    omit?: book_historyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_historyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a book_history.
+     */
+    data: XOR<book_historyCreateInput, book_historyUncheckedCreateInput>
+  }
+
+  /**
+   * book_history createMany
+   */
+  export type book_historyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many book_histories.
+     */
+    data: book_historyCreateManyInput | book_historyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * book_history createManyAndReturn
+   */
+  export type book_historyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_history
+     */
+    select?: book_historySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_history
+     */
+    omit?: book_historyOmit<ExtArgs> | null
+    /**
+     * The data used to create many book_histories.
+     */
+    data: book_historyCreateManyInput | book_historyCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_historyIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * book_history update
+   */
+  export type book_historyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_history
+     */
+    select?: book_historySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_history
+     */
+    omit?: book_historyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_historyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a book_history.
+     */
+    data: XOR<book_historyUpdateInput, book_historyUncheckedUpdateInput>
+    /**
+     * Choose, which book_history to update.
+     */
+    where: book_historyWhereUniqueInput
+  }
+
+  /**
+   * book_history updateMany
+   */
+  export type book_historyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update book_histories.
+     */
+    data: XOR<book_historyUpdateManyMutationInput, book_historyUncheckedUpdateManyInput>
+    /**
+     * Filter which book_histories to update
+     */
+    where?: book_historyWhereInput
+    /**
+     * Limit how many book_histories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * book_history updateManyAndReturn
+   */
+  export type book_historyUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_history
+     */
+    select?: book_historySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_history
+     */
+    omit?: book_historyOmit<ExtArgs> | null
+    /**
+     * The data used to update book_histories.
+     */
+    data: XOR<book_historyUpdateManyMutationInput, book_historyUncheckedUpdateManyInput>
+    /**
+     * Filter which book_histories to update
+     */
+    where?: book_historyWhereInput
+    /**
+     * Limit how many book_histories to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_historyIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * book_history upsert
+   */
+  export type book_historyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_history
+     */
+    select?: book_historySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_history
+     */
+    omit?: book_historyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_historyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the book_history to update in case it exists.
+     */
+    where: book_historyWhereUniqueInput
+    /**
+     * In case the book_history found by the `where` argument doesn't exist, create a new book_history with this data.
+     */
+    create: XOR<book_historyCreateInput, book_historyUncheckedCreateInput>
+    /**
+     * In case the book_history was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<book_historyUpdateInput, book_historyUncheckedUpdateInput>
+  }
+
+  /**
+   * book_history delete
+   */
+  export type book_historyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_history
+     */
+    select?: book_historySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_history
+     */
+    omit?: book_historyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_historyInclude<ExtArgs> | null
+    /**
+     * Filter which book_history to delete.
+     */
+    where: book_historyWhereUniqueInput
+  }
+
+  /**
+   * book_history deleteMany
+   */
+  export type book_historyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which book_histories to delete
+     */
+    where?: book_historyWhereInput
+    /**
+     * Limit how many book_histories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * book_history without action
+   */
+  export type book_historyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_history
+     */
+    select?: book_historySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_history
+     */
+    omit?: book_historyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_historyInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -47616,6 +50177,42 @@ export namespace Prisma {
   };
 
   export type ChapterScalarFieldEnum = (typeof ChapterScalarFieldEnum)[keyof typeof ChapterScalarFieldEnum]
+
+
+  export const BookScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    slug: 'slug',
+    alias: 'alias',
+    strike_price: 'strike_price',
+    real_price: 'real_price',
+    desc: 'desc',
+    info: 'info',
+    status: 'status',
+    currency: 'currency',
+    deleted_at: 'deleted_at',
+    img_file: 'img_file',
+    cover: 'cover',
+    product_file: 'product_file',
+    sku: 'sku',
+    id_author: 'id_author',
+    published_date: 'published_date',
+    is_physical: 'is_physical',
+    ai_suggested_content: 'ai_suggested_content',
+    preorder_min_qty: 'preorder_min_qty',
+    content_type: 'content_type'
+  };
+
+  export type BookScalarFieldEnum = (typeof BookScalarFieldEnum)[keyof typeof BookScalarFieldEnum]
+
+
+  export const Book_historyScalarFieldEnum: {
+    book_id: 'book_id',
+    created_at: 'created_at',
+    description: 'description'
+  };
+
+  export type Book_historyScalarFieldEnum = (typeof Book_historyScalarFieldEnum)[keyof typeof Book_historyScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -50351,6 +52948,192 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"chapter"> | string
   }
 
+  export type bookWhereInput = {
+    AND?: bookWhereInput | bookWhereInput[]
+    OR?: bookWhereInput[]
+    NOT?: bookWhereInput | bookWhereInput[]
+    id?: UuidFilter<"book"> | string
+    name?: StringFilter<"book"> | string
+    slug?: StringFilter<"book"> | string
+    alias?: StringFilter<"book"> | string
+    strike_price?: DecimalNullableFilter<"book"> | Decimal | DecimalJsLike | number | string | null
+    real_price?: DecimalFilter<"book"> | Decimal | DecimalJsLike | number | string
+    desc?: StringFilter<"book"> | string
+    info?: JsonFilter<"book">
+    status?: StringFilter<"book"> | string
+    currency?: StringFilter<"book"> | string
+    deleted_at?: DateTimeNullableFilter<"book"> | Date | string | null
+    img_file?: StringFilter<"book"> | string
+    cover?: StringFilter<"book"> | string
+    product_file?: StringFilter<"book"> | string
+    sku?: StringFilter<"book"> | string
+    id_author?: UuidNullableFilter<"book"> | string | null
+    published_date?: DateTimeFilter<"book"> | Date | string
+    is_physical?: BoolFilter<"book"> | boolean
+    ai_suggested_content?: JsonNullableFilter<"book">
+    preorder_min_qty?: IntNullableFilter<"book"> | number | null
+    content_type?: StringNullableFilter<"book"> | string | null
+    author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
+    book_history?: Book_historyListRelationFilter
+  }
+
+  export type bookOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    alias?: SortOrder
+    strike_price?: SortOrderInput | SortOrder
+    real_price?: SortOrder
+    desc?: SortOrder
+    info?: SortOrder
+    status?: SortOrder
+    currency?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    img_file?: SortOrder
+    cover?: SortOrder
+    product_file?: SortOrder
+    sku?: SortOrder
+    id_author?: SortOrderInput | SortOrder
+    published_date?: SortOrder
+    is_physical?: SortOrder
+    ai_suggested_content?: SortOrderInput | SortOrder
+    preorder_min_qty?: SortOrderInput | SortOrder
+    content_type?: SortOrderInput | SortOrder
+    author?: authorOrderByWithRelationInput
+    book_history?: book_historyOrderByRelationAggregateInput
+  }
+
+  export type bookWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: bookWhereInput | bookWhereInput[]
+    OR?: bookWhereInput[]
+    NOT?: bookWhereInput | bookWhereInput[]
+    name?: StringFilter<"book"> | string
+    slug?: StringFilter<"book"> | string
+    alias?: StringFilter<"book"> | string
+    strike_price?: DecimalNullableFilter<"book"> | Decimal | DecimalJsLike | number | string | null
+    real_price?: DecimalFilter<"book"> | Decimal | DecimalJsLike | number | string
+    desc?: StringFilter<"book"> | string
+    info?: JsonFilter<"book">
+    status?: StringFilter<"book"> | string
+    currency?: StringFilter<"book"> | string
+    deleted_at?: DateTimeNullableFilter<"book"> | Date | string | null
+    img_file?: StringFilter<"book"> | string
+    cover?: StringFilter<"book"> | string
+    product_file?: StringFilter<"book"> | string
+    sku?: StringFilter<"book"> | string
+    id_author?: UuidNullableFilter<"book"> | string | null
+    published_date?: DateTimeFilter<"book"> | Date | string
+    is_physical?: BoolFilter<"book"> | boolean
+    ai_suggested_content?: JsonNullableFilter<"book">
+    preorder_min_qty?: IntNullableFilter<"book"> | number | null
+    content_type?: StringNullableFilter<"book"> | string | null
+    author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
+    book_history?: Book_historyListRelationFilter
+  }, "id">
+
+  export type bookOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    alias?: SortOrder
+    strike_price?: SortOrderInput | SortOrder
+    real_price?: SortOrder
+    desc?: SortOrder
+    info?: SortOrder
+    status?: SortOrder
+    currency?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    img_file?: SortOrder
+    cover?: SortOrder
+    product_file?: SortOrder
+    sku?: SortOrder
+    id_author?: SortOrderInput | SortOrder
+    published_date?: SortOrder
+    is_physical?: SortOrder
+    ai_suggested_content?: SortOrderInput | SortOrder
+    preorder_min_qty?: SortOrderInput | SortOrder
+    content_type?: SortOrderInput | SortOrder
+    _count?: bookCountOrderByAggregateInput
+    _avg?: bookAvgOrderByAggregateInput
+    _max?: bookMaxOrderByAggregateInput
+    _min?: bookMinOrderByAggregateInput
+    _sum?: bookSumOrderByAggregateInput
+  }
+
+  export type bookScalarWhereWithAggregatesInput = {
+    AND?: bookScalarWhereWithAggregatesInput | bookScalarWhereWithAggregatesInput[]
+    OR?: bookScalarWhereWithAggregatesInput[]
+    NOT?: bookScalarWhereWithAggregatesInput | bookScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"book"> | string
+    name?: StringWithAggregatesFilter<"book"> | string
+    slug?: StringWithAggregatesFilter<"book"> | string
+    alias?: StringWithAggregatesFilter<"book"> | string
+    strike_price?: DecimalNullableWithAggregatesFilter<"book"> | Decimal | DecimalJsLike | number | string | null
+    real_price?: DecimalWithAggregatesFilter<"book"> | Decimal | DecimalJsLike | number | string
+    desc?: StringWithAggregatesFilter<"book"> | string
+    info?: JsonWithAggregatesFilter<"book">
+    status?: StringWithAggregatesFilter<"book"> | string
+    currency?: StringWithAggregatesFilter<"book"> | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"book"> | Date | string | null
+    img_file?: StringWithAggregatesFilter<"book"> | string
+    cover?: StringWithAggregatesFilter<"book"> | string
+    product_file?: StringWithAggregatesFilter<"book"> | string
+    sku?: StringWithAggregatesFilter<"book"> | string
+    id_author?: UuidNullableWithAggregatesFilter<"book"> | string | null
+    published_date?: DateTimeWithAggregatesFilter<"book"> | Date | string
+    is_physical?: BoolWithAggregatesFilter<"book"> | boolean
+    ai_suggested_content?: JsonNullableWithAggregatesFilter<"book">
+    preorder_min_qty?: IntNullableWithAggregatesFilter<"book"> | number | null
+    content_type?: StringNullableWithAggregatesFilter<"book"> | string | null
+  }
+
+  export type book_historyWhereInput = {
+    AND?: book_historyWhereInput | book_historyWhereInput[]
+    OR?: book_historyWhereInput[]
+    NOT?: book_historyWhereInput | book_historyWhereInput[]
+    book_id?: UuidFilter<"book_history"> | string
+    created_at?: DateTimeFilter<"book_history"> | Date | string
+    description?: StringFilter<"book_history"> | string
+    book?: XOR<BookScalarRelationFilter, bookWhereInput>
+  }
+
+  export type book_historyOrderByWithRelationInput = {
+    book_id?: SortOrder
+    created_at?: SortOrder
+    description?: SortOrder
+    book?: bookOrderByWithRelationInput
+  }
+
+  export type book_historyWhereUniqueInput = Prisma.AtLeast<{
+    book_id_created_at?: book_historyBook_idCreated_atCompoundUniqueInput
+    AND?: book_historyWhereInput | book_historyWhereInput[]
+    OR?: book_historyWhereInput[]
+    NOT?: book_historyWhereInput | book_historyWhereInput[]
+    book_id?: UuidFilter<"book_history"> | string
+    created_at?: DateTimeFilter<"book_history"> | Date | string
+    description?: StringFilter<"book_history"> | string
+    book?: XOR<BookScalarRelationFilter, bookWhereInput>
+  }, "book_id_created_at">
+
+  export type book_historyOrderByWithAggregationInput = {
+    book_id?: SortOrder
+    created_at?: SortOrder
+    description?: SortOrder
+    _count?: book_historyCountOrderByAggregateInput
+    _max?: book_historyMaxOrderByAggregateInput
+    _min?: book_historyMinOrderByAggregateInput
+  }
+
+  export type book_historyScalarWhereWithAggregatesInput = {
+    AND?: book_historyScalarWhereWithAggregatesInput | book_historyScalarWhereWithAggregatesInput[]
+    OR?: book_historyScalarWhereWithAggregatesInput[]
+    NOT?: book_historyScalarWhereWithAggregatesInput | book_historyScalarWhereWithAggregatesInput[]
+    book_id?: UuidWithAggregatesFilter<"book_history"> | string
+    created_at?: DateTimeWithAggregatesFilter<"book_history"> | Date | string
+    description?: StringWithAggregatesFilter<"book_history"> | string
+  }
+
   export type affiliateCreateInput = {
     id?: string
     name: string
@@ -53051,6 +55834,218 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
   }
 
+  export type bookCreateInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    strike_price?: Decimal | DecimalJsLike | number | string | null
+    real_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+    author?: authorCreateNestedOneWithoutBookInput
+    book_history?: book_historyCreateNestedManyWithoutBookInput
+  }
+
+  export type bookUncheckedCreateInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    strike_price?: Decimal | DecimalJsLike | number | string | null
+    real_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    id_author?: string | null
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+    book_history?: book_historyUncheckedCreateNestedManyWithoutBookInput
+  }
+
+  export type bookUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    author?: authorUpdateOneWithoutBookNestedInput
+    book_history?: book_historyUpdateManyWithoutBookNestedInput
+  }
+
+  export type bookUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    id_author?: NullableStringFieldUpdateOperationsInput | string | null
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    book_history?: book_historyUncheckedUpdateManyWithoutBookNestedInput
+  }
+
+  export type bookCreateManyInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    strike_price?: Decimal | DecimalJsLike | number | string | null
+    real_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    id_author?: string | null
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+  }
+
+  export type bookUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type bookUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    id_author?: NullableStringFieldUpdateOperationsInput | string | null
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type book_historyCreateInput = {
+    created_at?: Date | string
+    description: string
+    book: bookCreateNestedOneWithoutBook_historyInput
+  }
+
+  export type book_historyUncheckedCreateInput = {
+    book_id: string
+    created_at?: Date | string
+    description: string
+  }
+
+  export type book_historyUpdateInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    book?: bookUpdateOneRequiredWithoutBook_historyNestedInput
+  }
+
+  export type book_historyUncheckedUpdateInput = {
+    book_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type book_historyCreateManyInput = {
+    book_id: string
+    created_at?: Date | string
+    description: string
+  }
+
+  export type book_historyUpdateManyMutationInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type book_historyUncheckedUpdateManyInput = {
+    book_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -55133,6 +58128,124 @@ export namespace Prisma {
 
   export type chapterSumOrderByAggregateInput = {
     number?: SortOrder
+  }
+
+  export type Book_historyListRelationFilter = {
+    every?: book_historyWhereInput
+    some?: book_historyWhereInput
+    none?: book_historyWhereInput
+  }
+
+  export type book_historyOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type bookCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    alias?: SortOrder
+    strike_price?: SortOrder
+    real_price?: SortOrder
+    desc?: SortOrder
+    info?: SortOrder
+    status?: SortOrder
+    currency?: SortOrder
+    deleted_at?: SortOrder
+    img_file?: SortOrder
+    cover?: SortOrder
+    product_file?: SortOrder
+    sku?: SortOrder
+    id_author?: SortOrder
+    published_date?: SortOrder
+    is_physical?: SortOrder
+    ai_suggested_content?: SortOrder
+    preorder_min_qty?: SortOrder
+    content_type?: SortOrder
+  }
+
+  export type bookAvgOrderByAggregateInput = {
+    strike_price?: SortOrder
+    real_price?: SortOrder
+    preorder_min_qty?: SortOrder
+  }
+
+  export type bookMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    alias?: SortOrder
+    strike_price?: SortOrder
+    real_price?: SortOrder
+    desc?: SortOrder
+    status?: SortOrder
+    currency?: SortOrder
+    deleted_at?: SortOrder
+    img_file?: SortOrder
+    cover?: SortOrder
+    product_file?: SortOrder
+    sku?: SortOrder
+    id_author?: SortOrder
+    published_date?: SortOrder
+    is_physical?: SortOrder
+    preorder_min_qty?: SortOrder
+    content_type?: SortOrder
+  }
+
+  export type bookMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    alias?: SortOrder
+    strike_price?: SortOrder
+    real_price?: SortOrder
+    desc?: SortOrder
+    status?: SortOrder
+    currency?: SortOrder
+    deleted_at?: SortOrder
+    img_file?: SortOrder
+    cover?: SortOrder
+    product_file?: SortOrder
+    sku?: SortOrder
+    id_author?: SortOrder
+    published_date?: SortOrder
+    is_physical?: SortOrder
+    preorder_min_qty?: SortOrder
+    content_type?: SortOrder
+  }
+
+  export type bookSumOrderByAggregateInput = {
+    strike_price?: SortOrder
+    real_price?: SortOrder
+    preorder_min_qty?: SortOrder
+  }
+
+  export type BookScalarRelationFilter = {
+    is?: bookWhereInput
+    isNot?: bookWhereInput
+  }
+
+  export type book_historyBook_idCreated_atCompoundUniqueInput = {
+    book_id: string
+    created_at: Date | string
+  }
+
+  export type book_historyCountOrderByAggregateInput = {
+    book_id?: SortOrder
+    created_at?: SortOrder
+    description?: SortOrder
+  }
+
+  export type book_historyMaxOrderByAggregateInput = {
+    book_id?: SortOrder
+    created_at?: SortOrder
+    description?: SortOrder
+  }
+
+  export type book_historyMinOrderByAggregateInput = {
+    book_id?: SortOrder
+    created_at?: SortOrder
+    description?: SortOrder
   }
 
   export type auth_accountCreateNestedOneWithoutAffiliateInput = {
@@ -57805,6 +60918,78 @@ export namespace Prisma {
     upsert?: productUpsertWithoutChapterInput
     connect?: productWhereUniqueInput
     update?: XOR<XOR<productUpdateToOneWithWhereWithoutChapterInput, productUpdateWithoutChapterInput>, productUncheckedUpdateWithoutChapterInput>
+  }
+
+  export type authorCreateNestedOneWithoutBookInput = {
+    create?: XOR<authorCreateWithoutBookInput, authorUncheckedCreateWithoutBookInput>
+    connectOrCreate?: authorCreateOrConnectWithoutBookInput
+    connect?: authorWhereUniqueInput
+  }
+
+  export type book_historyCreateNestedManyWithoutBookInput = {
+    create?: XOR<book_historyCreateWithoutBookInput, book_historyUncheckedCreateWithoutBookInput> | book_historyCreateWithoutBookInput[] | book_historyUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: book_historyCreateOrConnectWithoutBookInput | book_historyCreateOrConnectWithoutBookInput[]
+    createMany?: book_historyCreateManyBookInputEnvelope
+    connect?: book_historyWhereUniqueInput | book_historyWhereUniqueInput[]
+  }
+
+  export type book_historyUncheckedCreateNestedManyWithoutBookInput = {
+    create?: XOR<book_historyCreateWithoutBookInput, book_historyUncheckedCreateWithoutBookInput> | book_historyCreateWithoutBookInput[] | book_historyUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: book_historyCreateOrConnectWithoutBookInput | book_historyCreateOrConnectWithoutBookInput[]
+    createMany?: book_historyCreateManyBookInputEnvelope
+    connect?: book_historyWhereUniqueInput | book_historyWhereUniqueInput[]
+  }
+
+  export type authorUpdateOneWithoutBookNestedInput = {
+    create?: XOR<authorCreateWithoutBookInput, authorUncheckedCreateWithoutBookInput>
+    connectOrCreate?: authorCreateOrConnectWithoutBookInput
+    upsert?: authorUpsertWithoutBookInput
+    disconnect?: authorWhereInput | boolean
+    delete?: authorWhereInput | boolean
+    connect?: authorWhereUniqueInput
+    update?: XOR<XOR<authorUpdateToOneWithWhereWithoutBookInput, authorUpdateWithoutBookInput>, authorUncheckedUpdateWithoutBookInput>
+  }
+
+  export type book_historyUpdateManyWithoutBookNestedInput = {
+    create?: XOR<book_historyCreateWithoutBookInput, book_historyUncheckedCreateWithoutBookInput> | book_historyCreateWithoutBookInput[] | book_historyUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: book_historyCreateOrConnectWithoutBookInput | book_historyCreateOrConnectWithoutBookInput[]
+    upsert?: book_historyUpsertWithWhereUniqueWithoutBookInput | book_historyUpsertWithWhereUniqueWithoutBookInput[]
+    createMany?: book_historyCreateManyBookInputEnvelope
+    set?: book_historyWhereUniqueInput | book_historyWhereUniqueInput[]
+    disconnect?: book_historyWhereUniqueInput | book_historyWhereUniqueInput[]
+    delete?: book_historyWhereUniqueInput | book_historyWhereUniqueInput[]
+    connect?: book_historyWhereUniqueInput | book_historyWhereUniqueInput[]
+    update?: book_historyUpdateWithWhereUniqueWithoutBookInput | book_historyUpdateWithWhereUniqueWithoutBookInput[]
+    updateMany?: book_historyUpdateManyWithWhereWithoutBookInput | book_historyUpdateManyWithWhereWithoutBookInput[]
+    deleteMany?: book_historyScalarWhereInput | book_historyScalarWhereInput[]
+  }
+
+  export type book_historyUncheckedUpdateManyWithoutBookNestedInput = {
+    create?: XOR<book_historyCreateWithoutBookInput, book_historyUncheckedCreateWithoutBookInput> | book_historyCreateWithoutBookInput[] | book_historyUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: book_historyCreateOrConnectWithoutBookInput | book_historyCreateOrConnectWithoutBookInput[]
+    upsert?: book_historyUpsertWithWhereUniqueWithoutBookInput | book_historyUpsertWithWhereUniqueWithoutBookInput[]
+    createMany?: book_historyCreateManyBookInputEnvelope
+    set?: book_historyWhereUniqueInput | book_historyWhereUniqueInput[]
+    disconnect?: book_historyWhereUniqueInput | book_historyWhereUniqueInput[]
+    delete?: book_historyWhereUniqueInput | book_historyWhereUniqueInput[]
+    connect?: book_historyWhereUniqueInput | book_historyWhereUniqueInput[]
+    update?: book_historyUpdateWithWhereUniqueWithoutBookInput | book_historyUpdateWithWhereUniqueWithoutBookInput[]
+    updateMany?: book_historyUpdateManyWithWhereWithoutBookInput | book_historyUpdateManyWithWhereWithoutBookInput[]
+    deleteMany?: book_historyScalarWhereInput | book_historyScalarWhereInput[]
+  }
+
+  export type bookCreateNestedOneWithoutBook_historyInput = {
+    create?: XOR<bookCreateWithoutBook_historyInput, bookUncheckedCreateWithoutBook_historyInput>
+    connectOrCreate?: bookCreateOrConnectWithoutBook_historyInput
+    connect?: bookWhereUniqueInput
+  }
+
+  export type bookUpdateOneRequiredWithoutBook_historyNestedInput = {
+    create?: XOR<bookCreateWithoutBook_historyInput, bookUncheckedCreateWithoutBook_historyInput>
+    connectOrCreate?: bookCreateOrConnectWithoutBook_historyInput
+    upsert?: bookUpsertWithoutBook_historyInput
+    connect?: bookWhereUniqueInput
+    update?: XOR<XOR<bookUpdateToOneWithWhereWithoutBook_historyInput, bookUpdateWithoutBook_historyInput>, bookUncheckedUpdateWithoutBook_historyInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -64669,6 +67854,215 @@ export namespace Prisma {
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUncheckedUpdateManyWithoutProductNestedInput
+  }
+
+  export type authorCreateWithoutBookInput = {
+    id?: string
+    name: string
+    auth_user?: auth_userCreateNestedManyWithoutAuthorInput
+    auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
+    product?: productCreateNestedManyWithoutAuthorInput
+    publisher_author?: publisher_authorCreateNestedManyWithoutAuthorInput
+  }
+
+  export type authorUncheckedCreateWithoutBookInput = {
+    id?: string
+    name: string
+    id_account?: string | null
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
+    product?: productUncheckedCreateNestedManyWithoutAuthorInput
+    publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
+  }
+
+  export type authorCreateOrConnectWithoutBookInput = {
+    where: authorWhereUniqueInput
+    create: XOR<authorCreateWithoutBookInput, authorUncheckedCreateWithoutBookInput>
+  }
+
+  export type book_historyCreateWithoutBookInput = {
+    created_at?: Date | string
+    description: string
+  }
+
+  export type book_historyUncheckedCreateWithoutBookInput = {
+    created_at?: Date | string
+    description: string
+  }
+
+  export type book_historyCreateOrConnectWithoutBookInput = {
+    where: book_historyWhereUniqueInput
+    create: XOR<book_historyCreateWithoutBookInput, book_historyUncheckedCreateWithoutBookInput>
+  }
+
+  export type book_historyCreateManyBookInputEnvelope = {
+    data: book_historyCreateManyBookInput | book_historyCreateManyBookInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type authorUpsertWithoutBookInput = {
+    update: XOR<authorUpdateWithoutBookInput, authorUncheckedUpdateWithoutBookInput>
+    create: XOR<authorCreateWithoutBookInput, authorUncheckedCreateWithoutBookInput>
+    where?: authorWhereInput
+  }
+
+  export type authorUpdateToOneWithWhereWithoutBookInput = {
+    where?: authorWhereInput
+    data: XOR<authorUpdateWithoutBookInput, authorUncheckedUpdateWithoutBookInput>
+  }
+
+  export type authorUpdateWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
+    auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
+    product?: productUpdateManyWithoutAuthorNestedInput
+    publisher_author?: publisher_authorUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type authorUncheckedUpdateWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    id_account?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
+    product?: productUncheckedUpdateManyWithoutAuthorNestedInput
+    publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type book_historyUpsertWithWhereUniqueWithoutBookInput = {
+    where: book_historyWhereUniqueInput
+    update: XOR<book_historyUpdateWithoutBookInput, book_historyUncheckedUpdateWithoutBookInput>
+    create: XOR<book_historyCreateWithoutBookInput, book_historyUncheckedCreateWithoutBookInput>
+  }
+
+  export type book_historyUpdateWithWhereUniqueWithoutBookInput = {
+    where: book_historyWhereUniqueInput
+    data: XOR<book_historyUpdateWithoutBookInput, book_historyUncheckedUpdateWithoutBookInput>
+  }
+
+  export type book_historyUpdateManyWithWhereWithoutBookInput = {
+    where: book_historyScalarWhereInput
+    data: XOR<book_historyUpdateManyMutationInput, book_historyUncheckedUpdateManyWithoutBookInput>
+  }
+
+  export type book_historyScalarWhereInput = {
+    AND?: book_historyScalarWhereInput | book_historyScalarWhereInput[]
+    OR?: book_historyScalarWhereInput[]
+    NOT?: book_historyScalarWhereInput | book_historyScalarWhereInput[]
+    book_id?: UuidFilter<"book_history"> | string
+    created_at?: DateTimeFilter<"book_history"> | Date | string
+    description?: StringFilter<"book_history"> | string
+  }
+
+  export type bookCreateWithoutBook_historyInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    strike_price?: Decimal | DecimalJsLike | number | string | null
+    real_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+    author?: authorCreateNestedOneWithoutBookInput
+  }
+
+  export type bookUncheckedCreateWithoutBook_historyInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    strike_price?: Decimal | DecimalJsLike | number | string | null
+    real_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    id_author?: string | null
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+  }
+
+  export type bookCreateOrConnectWithoutBook_historyInput = {
+    where: bookWhereUniqueInput
+    create: XOR<bookCreateWithoutBook_historyInput, bookUncheckedCreateWithoutBook_historyInput>
+  }
+
+  export type bookUpsertWithoutBook_historyInput = {
+    update: XOR<bookUpdateWithoutBook_historyInput, bookUncheckedUpdateWithoutBook_historyInput>
+    create: XOR<bookCreateWithoutBook_historyInput, bookUncheckedCreateWithoutBook_historyInput>
+    where?: bookWhereInput
+  }
+
+  export type bookUpdateToOneWithWhereWithoutBook_historyInput = {
+    where?: bookWhereInput
+    data: XOR<bookUpdateWithoutBook_historyInput, bookUncheckedUpdateWithoutBook_historyInput>
+  }
+
+  export type bookUpdateWithoutBook_historyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    author?: authorUpdateOneWithoutBookNestedInput
+  }
+
+  export type bookUncheckedUpdateWithoutBook_historyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    id_author?: NullableStringFieldUpdateOperationsInput | string | null
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type auth_userCreateManyAffiliateInput = {

@@ -486,6 +486,36 @@ exports.Prisma.ChapterScalarFieldEnum = {
   name: 'name'
 };
 
+exports.Prisma.BookScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  alias: 'alias',
+  strike_price: 'strike_price',
+  real_price: 'real_price',
+  desc: 'desc',
+  info: 'info',
+  status: 'status',
+  currency: 'currency',
+  deleted_at: 'deleted_at',
+  img_file: 'img_file',
+  cover: 'cover',
+  product_file: 'product_file',
+  sku: 'sku',
+  id_author: 'id_author',
+  published_date: 'published_date',
+  is_physical: 'is_physical',
+  ai_suggested_content: 'ai_suggested_content',
+  preorder_min_qty: 'preorder_min_qty',
+  content_type: 'content_type'
+};
+
+exports.Prisma.Book_historyScalarFieldEnum = {
+  book_id: 'book_id',
+  created_at: 'created_at',
+  description: 'description'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
