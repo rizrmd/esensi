@@ -1,15 +1,14 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
+import { LayoutToggle } from "@/components/publish/layout-toggle";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataPagination } from "@/components/ui/data-pagination";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import type { ProductListAPIResponse } from "backend/api/publish.esensi/product-list";
-import { Grid, List, LayoutGrid } from "lucide-react";
 import type { product } from "shared/models";
 
 export default function ProductListPage() {
@@ -83,50 +82,38 @@ export default function ProductListPage() {
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                   <div className="mx-8 py-8">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                    <div className="flex justify-between items-start mb-8 gap-4">
                       <h1 className="text-2xl font-bold text-gray-800">
                         Daftar Produk Yang Disetujui
                       </h1>
-                      <div className="flex items-center gap-4">
-                        <ToggleGroup 
-                          type="single" 
-                          value={local.layout} 
-                          onValueChange={(value) => {
-                            if (value) {
+                      <div className="flex flex-col gap-3 items-end">
+                        <div className="flex items-center gap-4">
+                          <LayoutToggle
+                            layout={local.layout}
+                            onLayoutChange={(value) => {
                               local.layout = value;
                               local.render();
-                            }
-                          }}
-                          className="border rounded-md"
-                        >
-                          <ToggleGroupItem value="grid" aria-label="Tampilan Ikon">
-                            <Grid className="h-4 w-4" />
-                          </ToggleGroupItem>
-                          <ToggleGroupItem value="list" aria-label="Tampilan Daftar">
-                            <LayoutGrid className="h-4 w-4" />
-                          </ToggleGroupItem>
-                          <ToggleGroupItem value="compact" aria-label="Tampilan Daftar Ringkas">
-                            <List className="h-4 w-4" />
-                          </ToggleGroupItem>
-                        </ToggleGroup>
-                      </div>
-                      <DataPagination 
+                            }}
+                          />
+                        </div>
+                        <DataPagination
                           total={local.total}
                           page={local.page}
-                        limit={local.limit}
-                        totalPages={local.totalPages}
-                        onPageChange={async (newPage) => {
-                          local.page = newPage;
-                          local.render();
-                          await loadData();
-                        }}
-                        onLimitChange={async (newLimit) => {
-                          local.limit = newLimit;
-                          local.page = 1;
-                          local.render();
-                          await loadData();
-                        }}
-                      />
+                          limit={local.limit}
+                          totalPages={local.totalPages}
+                          onPageChange={async (newPage) => {
+                            local.page = newPage;
+                            local.render();
+                            await loadData();
+                          }}
+                          onLimitChange={async (newLimit) => {
+                            local.limit = newLimit;
+                            local.page = 1;
+                            local.render();
+                            await loadData();
+                          }}
+                        />
+                      </div>
                     </div>
                     {local.loading ? (
                       <div>Mengambil data produk...</div>
@@ -145,7 +132,9 @@ export default function ProductListPage() {
                                     key={product.id}
                                     className="cursor-pointer"
                                     onClick={() =>
-                                      navigate(`product-detail?id=${product.id}`)
+                                      navigate(
+                                        `product-detail?id=${product.id}`
+                                      )
                                     }
                                   >
                                     <Card className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
@@ -162,8 +151,10 @@ export default function ProductListPage() {
                                             onError={(e) => {
                                               const target = e.currentTarget;
                                               target.style.display = "flex";
-                                              target.style.alignItems = "center";
-                                              target.style.justifyContent = "center";
+                                              target.style.alignItems =
+                                                "center";
+                                              target.style.justifyContent =
+                                                "center";
                                             }}
                                           />
                                         ) : (
@@ -204,27 +195,37 @@ export default function ProductListPage() {
                                 ))}
                               </div>
                             )}
-                            
+
                             {local.layout === "list" && (
                               <div className="flex flex-col gap-4">
                                 {local.products.map((product: any) => (
-                                  <Card 
+                                  <Card
                                     key={product.id}
                                     className="cursor-pointer hover:shadow-md transition-shadow"
-                                    onClick={() => navigate(`product-detail?id=${product.id}`)}
+                                    onClick={() =>
+                                      navigate(
+                                        `product-detail?id=${product.id}`
+                                      )
+                                    }
                                   >
                                     <div className="flex">
                                       <div className="w-40 h-40 bg-gray-100 flex items-center justify-center overflow-hidden">
                                         {product.cover ? (
                                           <img
-                                            src={baseUrl.publish_esensi + "/" + product.cover}
+                                            src={
+                                              baseUrl.publish_esensi +
+                                              "/" +
+                                              product.cover
+                                            }
                                             alt={product.name}
                                             className="object-cover w-full h-full"
                                             onError={(e) => {
                                               const target = e.currentTarget;
                                               target.style.display = "flex";
-                                              target.style.alignItems = "center";
-                                              target.style.justifyContent = "center";
+                                              target.style.alignItems =
+                                                "center";
+                                              target.style.justifyContent =
+                                                "center";
                                             }}
                                           />
                                         ) : (
@@ -234,16 +235,29 @@ export default function ProductListPage() {
                                         )}
                                       </div>
                                       <div className="flex-1 p-4">
-                                        <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+                                        <h3 className="text-lg font-semibold mb-2">
+                                          {product.name}
+                                        </h3>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                           <div className="text-sm text-gray-600">
-                                            Harga: <span className="font-medium text-gray-900">Rp{product.real_price?.toLocaleString() ?? "-"}</span>
+                                            Harga:{" "}
+                                            <span className="font-medium text-gray-900">
+                                              Rp
+                                              {product.real_price?.toLocaleString() ??
+                                                "-"}
+                                            </span>
                                           </div>
                                           <div className="text-sm text-gray-600">
-                                            Penulis: <span className="font-medium text-gray-900">{product.author?.name ?? "-"}</span>
+                                            Penulis:{" "}
+                                            <span className="font-medium text-gray-900">
+                                              {product.author?.name ?? "-"}
+                                            </span>
                                           </div>
                                           <div className="text-sm text-gray-600">
-                                            Status: <span className="font-medium text-gray-900">{product.status}</span>
+                                            Status:{" "}
+                                            <span className="font-medium text-gray-900">
+                                              {product.status}
+                                            </span>
                                           </div>
                                         </div>
                                       </div>
@@ -252,48 +266,80 @@ export default function ProductListPage() {
                                 ))}
                               </div>
                             )}
-                            
+
                             {local.layout === "compact" && (
                               <div className="border rounded-md overflow-hidden">
                                 <table className="w-full">
                                   <thead>
                                     <tr className="border-b bg-muted/50">
-                                      <th className="p-2 text-left text-xs font-medium text-gray-600">Produk</th>
-                                      <th className="p-2 text-left text-xs font-medium text-gray-600">Penulis</th>
-                                      <th className="p-2 text-left text-xs font-medium text-gray-600">Harga</th>
-                                      <th className="p-2 text-left text-xs font-medium text-gray-600">Status</th>
+                                      <th className="p-2 text-left text-xs font-medium text-gray-600">
+                                        Produk
+                                      </th>
+                                      <th className="p-2 text-left text-xs font-medium text-gray-600">
+                                        Penulis
+                                      </th>
+                                      <th className="p-2 text-left text-xs font-medium text-gray-600">
+                                        Harga
+                                      </th>
+                                      <th className="p-2 text-left text-xs font-medium text-gray-600">
+                                        Status
+                                      </th>
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    {local.products.map((product: any, index) => (
-                                      <tr 
-                                        key={product.id}
-                                        className={`border-b hover:bg-muted/50 cursor-pointer ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
-                                        onClick={() => navigate(`product-detail?id=${product.id}`)}
-                                      >
-                                        <td className="p-2">
-                                          <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-gray-100 flex-shrink-0 rounded overflow-hidden">
-                                              {product.cover ? (
-                                                <img
-                                                  src={baseUrl.publish_esensi + "/" + product.cover}
-                                                  alt={product.name}
-                                                  className="object-cover w-full h-full"
-                                                />
-                                              ) : (
-                                                <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
-                                                  No img
-                                                </div>
-                                              )}
+                                    {local.products.map(
+                                      (product: any, index) => (
+                                        <tr
+                                          key={product.id}
+                                          className={`border-b hover:bg-muted/50 cursor-pointer ${
+                                            index % 2 === 0
+                                              ? "bg-white"
+                                              : "bg-gray-50"
+                                          }`}
+                                          onClick={() =>
+                                            navigate(
+                                              `product-detail?id=${product.id}`
+                                            )
+                                          }
+                                        >
+                                          <td className="p-2">
+                                            <div className="flex items-center gap-3">
+                                              <div className="w-10 h-10 bg-gray-100 flex-shrink-0 rounded overflow-hidden">
+                                                {product.cover ? (
+                                                  <img
+                                                    src={
+                                                      baseUrl.publish_esensi +
+                                                      "/" +
+                                                      product.cover
+                                                    }
+                                                    alt={product.name}
+                                                    className="object-cover w-full h-full"
+                                                  />
+                                                ) : (
+                                                  <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
+                                                    No img
+                                                  </div>
+                                                )}
+                                              </div>
+                                              <span className="font-medium text-sm">
+                                                {product.name}
+                                              </span>
                                             </div>
-                                            <span className="font-medium text-sm">{product.name}</span>
-                                          </div>
-                                        </td>
-                                        <td className="p-2 text-sm">{product.author?.name ?? "-"}</td>
-                                        <td className="p-2 text-sm">Rp{product.real_price?.toLocaleString() ?? "-"}</td>
-                                        <td className="p-2 text-sm">{product.status}</td>
-                                      </tr>
-                                    ))}
+                                          </td>
+                                          <td className="p-2 text-sm">
+                                            {product.author?.name ?? "-"}
+                                          </td>
+                                          <td className="p-2 text-sm">
+                                            Rp
+                                            {product.real_price?.toLocaleString() ??
+                                              "-"}
+                                          </td>
+                                          <td className="p-2 text-sm">
+                                            {product.status}
+                                          </td>
+                                        </tr>
+                                      )
+                                    )}
                                   </tbody>
                                 </table>
                               </div>

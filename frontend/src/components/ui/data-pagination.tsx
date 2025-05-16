@@ -30,7 +30,7 @@ export function DataPagination({
   }, [page, limit, updateUrl]);
 
   return (
-    <div className="w-full md:w-auto bg-white shadow-sm rounded-lg border border-gray-200 px-4 py-3">
+    <div className="w-full md:w-auto bg-white shadow-sm rounded-lg border border-gray-200 px-4 py-3 flex flex-col gap-4">
       <div className="flex flex-col sm:flex-row items-center gap-4">
         <div className="flex items-center gap-2">
           <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
@@ -44,26 +44,21 @@ export function DataPagination({
             </svg>
           </div>
           <span className="text-sm font-medium text-gray-700">
-            Total data:{" "}
-            <span className="text-primary font-semibold">
-              {total}
-            </span>
+            Total: <span className="text-primary font-semibold">{total}</span>
           </span>
         </div>
 
         <div className="h-8 border-r border-gray-200 hidden sm:block"></div>
 
         <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-700">
-            Tampilkan
-          </span>
+          <span className="text-sm text-gray-700">Tampilkan</span>
           <select
             value={limit}
             onChange={async (e) => {
               const newLimit = parseInt(e.target.value);
               onLimitChange(newLimit);
             }}
-            className="h-8 rounded-md border border-gray-200 text-sm px-2 py-0 bg-white hover:bg-gray-50 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+            className="h-8 rounded-md border border-gray-200 text-sm px-2 py-0 bg-white hover:bg-gray-50 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all cursor-pointer"
           >
             <option value="5">5</option>
             <option value="10">10</option>
@@ -71,10 +66,13 @@ export function DataPagination({
             <option value="100">100</option>
           </select>
         </div>
+      </div>
 
-        <div className="h-8 border-r border-gray-200 hidden sm:block"></div>
-
+      <div className="flex flex-col sm:flex-row items-center gap-4">
         <div className="flex items-center gap-2">
+          <span className="text-sm text-gray-500">
+            Halaman
+          </span>
           <div className="flex items-center gap-1">
             <button
               disabled={page === 1}
@@ -83,7 +81,7 @@ export function DataPagination({
                   onPageChange(page - 1);
                 }
               }}
-              className="h-8 w-8 flex items-center justify-center rounded-md border border-gray-200 text-gray-500 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+              className="h-8 w-8 flex items-center justify-center rounded-md border border-gray-200 text-gray-500 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors cursor-pointer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -105,16 +103,15 @@ export function DataPagination({
                 const newPage = parseInt(e.target.value);
                 onPageChange(newPage);
               }}
-              className="h-8 w-16 rounded-md border border-gray-200 text-sm px-2 py-0 bg-white hover:bg-gray-50 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+              className="h-8 w-16 rounded-md border border-gray-200 text-sm px-2 py-0 bg-white hover:bg-gray-50 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all cursor-pointer"
             >
-              {Array.from(
-                { length: totalPages },
-                (_, i) => i + 1
-              ).map((pageNum) => (
-                <option key={pageNum} value={pageNum}>
-                  {pageNum}
-                </option>
-              ))}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (pageNum) => (
+                  <option key={pageNum} value={pageNum}>
+                    {pageNum}
+                  </option>
+                )
+              )}
             </select>
 
             <button
@@ -124,7 +121,7 @@ export function DataPagination({
                   onPageChange(page + 1);
                 }
               }}
-              className="h-8 w-8 flex items-center justify-center rounded-md border border-gray-200 text-gray-500 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+              className="h-8 w-8 flex items-center justify-center rounded-md border border-gray-200 text-gray-500 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors cursor-pointer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -141,7 +138,7 @@ export function DataPagination({
             </button>
           </div>
           <span className="text-sm text-gray-500">
-            dari {totalPages} halaman
+            dari {totalPages}
           </span>
         </div>
       </div>

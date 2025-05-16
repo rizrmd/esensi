@@ -1,16 +1,16 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
+import { LayoutToggle } from "@/components/publish/layout-toggle";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataPagination } from "@/components/ui/data-pagination";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import type { BookListAPIResponse } from "backend/api/publish.esensi/book-list";
-import { Grid, List, LayoutGrid, PlusCircle } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import type { book } from "shared/models";
 
 export default function BookListPage() {
@@ -84,60 +84,50 @@ export default function BookListPage() {
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                   <div className="mx-8 py-8">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-                      <div className="flex flex-row items-center gap-4">
+                    <div className="flex justify-between items-start mb-8 gap-4">
+                      <div className="flex items-center gap-4">
                         <h1 className="text-2xl font-bold text-gray-800">
                           Daftar Buku Yang Disetujui
                         </h1>
-                        <Button
-                          onClick={() => navigate("/book-create")}
-                          className="flex items-center gap-2"
-                          variant="default"
-                        >
-                          <PlusCircle className="h-5 w-5" />
-                          <span>Tambah Buku</span>
-                        </Button>
                       </div>
-                      <div className="flex items-center gap-4">
-                        <ToggleGroup 
-                          type="single" 
-                          value={local.layout} 
-                          onValueChange={(value) => {
-                            if (value) {
-                              local.layout = value;
-                              local.render();
-                            }
+                      <div className="flex flex-col gap-3 items-end">
+                        <div className="flex items-center gap-4">
+                          <div className="flex gap-2">
+                            <Button
+                              onClick={() => navigate("/book-create")}
+                              className="flex items-center gap-2"
+                              variant="default"
+                            >
+                              <PlusCircle className="h-5 w-5" />
+                              <span>Tambah Buku</span>
+                            </Button>
+                            <LayoutToggle
+                              layout={local.layout}
+                              onLayoutChange={(value) => {
+                                local.layout = value;
+                                local.render();
+                              }}
+                            />
+                          </div>
+                        </div>
+                        <DataPagination
+                          total={local.total}
+                          page={local.page}
+                          limit={local.limit}
+                          totalPages={local.totalPages}
+                          onPageChange={async (newPage) => {
+                            local.page = newPage;
+                            local.render();
+                            await loadData();
                           }}
-                          className="border rounded-md"
-                        >
-                          <ToggleGroupItem value="grid" aria-label="Tampilan Ikon">
-                            <Grid className="h-4 w-4" />
-                          </ToggleGroupItem>
-                          <ToggleGroupItem value="list" aria-label="Tampilan Daftar">
-                            <LayoutGrid className="h-4 w-4" />
-                          </ToggleGroupItem>
-                          <ToggleGroupItem value="compact" aria-label="Tampilan Daftar Ringkas">
-                            <List className="h-4 w-4" />
-                          </ToggleGroupItem>
-                        </ToggleGroup>
+                          onLimitChange={async (newLimit) => {
+                            local.limit = newLimit;
+                            local.page = 1;
+                            local.render();
+                            await loadData();
+                          }}
+                        />
                       </div>
-                      <DataPagination
-                        total={local.total}
-                        page={local.page}
-                        limit={local.limit}
-                        totalPages={local.totalPages}
-                        onPageChange={async (newPage) => {
-                          local.page = newPage;
-                          local.render();
-                          await loadData();
-                        }}
-                        onLimitChange={async (newLimit) => {
-                          local.limit = newLimit;
-                          local.page = 1;
-                          local.render();
-                          await loadData();
-                        }}
-                      />
                     </div>
                     {local.loading ? (
                       <div>Mengambil data buku...</div>
@@ -173,8 +163,10 @@ export default function BookListPage() {
                                             onError={(e) => {
                                               const target = e.currentTarget;
                                               target.style.display = "flex";
-                                              target.style.alignItems = "center";
-                                              target.style.justifyContent = "center";
+                                              target.style.alignItems =
+                                                "center";
+                                              target.style.justifyContent =
+                                                "center";
                                             }}
                                           />
                                         ) : (
@@ -193,7 +185,8 @@ export default function BookListPage() {
                                           Harga:{" "}
                                           <span className="font-medium text-gray-900">
                                             Rp
-                                            {book.real_price?.toLocaleString() ?? "-"}
+                                            {book.real_price?.toLocaleString() ??
+                                              "-"}
                                           </span>
                                         </div>
                                         <div className="mb-1 text-sm text-gray-600">
@@ -218,23 +211,31 @@ export default function BookListPage() {
                             {local.layout === "list" && (
                               <div className="flex flex-col gap-4">
                                 {local.books.map((book: any) => (
-                                  <Card 
+                                  <Card
                                     key={book.id}
                                     className="cursor-pointer hover:shadow-md transition-shadow"
-                                    onClick={() => navigate(`book-detail?id=${book.id}`)}
+                                    onClick={() =>
+                                      navigate(`book-detail?id=${book.id}`)
+                                    }
                                   >
                                     <div className="flex">
                                       <div className="w-40 h-40 bg-gray-100 flex items-center justify-center overflow-hidden">
                                         {book.cover ? (
                                           <img
-                                            src={baseUrl.publish_esensi + "/" + book.cover}
+                                            src={
+                                              baseUrl.publish_esensi +
+                                              "/" +
+                                              book.cover
+                                            }
                                             alt={book.name}
                                             className="object-cover w-full h-full"
                                             onError={(e) => {
                                               const target = e.currentTarget;
                                               target.style.display = "flex";
-                                              target.style.alignItems = "center";
-                                              target.style.justifyContent = "center";
+                                              target.style.alignItems =
+                                                "center";
+                                              target.style.justifyContent =
+                                                "center";
                                             }}
                                           />
                                         ) : (
@@ -244,16 +245,29 @@ export default function BookListPage() {
                                         )}
                                       </div>
                                       <div className="flex-1 p-4">
-                                        <h3 className="text-lg font-semibold mb-2">{book.name}</h3>
+                                        <h3 className="text-lg font-semibold mb-2">
+                                          {book.name}
+                                        </h3>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                           <div className="text-sm text-gray-600">
-                                            Harga: <span className="font-medium text-gray-900">Rp{book.real_price?.toLocaleString() ?? "-"}</span>
+                                            Harga:{" "}
+                                            <span className="font-medium text-gray-900">
+                                              Rp
+                                              {book.real_price?.toLocaleString() ??
+                                                "-"}
+                                            </span>
                                           </div>
                                           <div className="text-sm text-gray-600">
-                                            Penulis: <span className="font-medium text-gray-900">{book.author?.name ?? "-"}</span>
+                                            Penulis:{" "}
+                                            <span className="font-medium text-gray-900">
+                                              {book.author?.name ?? "-"}
+                                            </span>
                                           </div>
                                           <div className="text-sm text-gray-600">
-                                            Status: <span className="font-medium text-gray-900">{book.status}</span>
+                                            Status:{" "}
+                                            <span className="font-medium text-gray-900">
+                                              {book.status}
+                                            </span>
                                           </div>
                                         </div>
                                       </div>
@@ -268,25 +282,43 @@ export default function BookListPage() {
                                 <table className="w-full">
                                   <thead>
                                     <tr className="border-b bg-muted/50">
-                                      <th className="p-2 text-left text-xs font-medium text-gray-600">Buku</th>
-                                      <th className="p-2 text-left text-xs font-medium text-gray-600">Penulis</th>
-                                      <th className="p-2 text-left text-xs font-medium text-gray-600">Harga</th>
-                                      <th className="p-2 text-left text-xs font-medium text-gray-600">Status</th>
+                                      <th className="p-2 text-left text-xs font-medium text-gray-600">
+                                        Buku
+                                      </th>
+                                      <th className="p-2 text-left text-xs font-medium text-gray-600">
+                                        Penulis
+                                      </th>
+                                      <th className="p-2 text-left text-xs font-medium text-gray-600">
+                                        Harga
+                                      </th>
+                                      <th className="p-2 text-left text-xs font-medium text-gray-600">
+                                        Status
+                                      </th>
                                     </tr>
                                   </thead>
                                   <tbody>
                                     {local.books.map((book: any, index) => (
-                                      <tr 
+                                      <tr
                                         key={book.id}
-                                        className={`border-b hover:bg-muted/50 cursor-pointer ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
-                                        onClick={() => navigate(`book-detail?id=${book.id}`)}
+                                        className={`border-b hover:bg-muted/50 cursor-pointer ${
+                                          index % 2 === 0
+                                            ? "bg-white"
+                                            : "bg-gray-50"
+                                        }`}
+                                        onClick={() =>
+                                          navigate(`book-detail?id=${book.id}`)
+                                        }
                                       >
                                         <td className="p-2">
                                           <div className="flex items-center gap-3">
                                             <div className="w-10 h-10 bg-gray-100 flex-shrink-0 rounded overflow-hidden">
                                               {book.cover ? (
                                                 <img
-                                                  src={baseUrl.publish_esensi + "/" + book.cover}
+                                                  src={
+                                                    baseUrl.publish_esensi +
+                                                    "/" +
+                                                    book.cover
+                                                  }
                                                   alt={book.name}
                                                   className="object-cover w-full h-full"
                                                 />
@@ -296,12 +328,22 @@ export default function BookListPage() {
                                                 </div>
                                               )}
                                             </div>
-                                            <span className="font-medium text-sm">{book.name}</span>
+                                            <span className="font-medium text-sm">
+                                              {book.name}
+                                            </span>
                                           </div>
                                         </td>
-                                        <td className="p-2 text-sm">{book.author?.name ?? "-"}</td>
-                                        <td className="p-2 text-sm">Rp{book.real_price?.toLocaleString() ?? "-"}</td>
-                                        <td className="p-2 text-sm">{book.status}</td>
+                                        <td className="p-2 text-sm">
+                                          {book.author?.name ?? "-"}
+                                        </td>
+                                        <td className="p-2 text-sm">
+                                          Rp
+                                          {book.real_price?.toLocaleString() ??
+                                            "-"}
+                                        </td>
+                                        <td className="p-2 text-sm">
+                                          {book.status}
+                                        </td>
                                       </tr>
                                     ))}
                                   </tbody>
