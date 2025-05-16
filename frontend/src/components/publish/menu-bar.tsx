@@ -17,7 +17,7 @@ const menu = [
   { label: "Keluar", action: "signout" },
 ];
 
-export const PublishMenuBar = ({ title }: { title: string }) => {
+export const PublishMenuBar = ({ title }: { title?: string } = {}) => {
   const { currentPath } = useRoot();
   const local = useLocal(
     {

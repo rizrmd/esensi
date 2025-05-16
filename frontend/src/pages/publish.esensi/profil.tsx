@@ -11,8 +11,6 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 
 export default () => {
-  const logout = () => betterAuth.signOut().finally(() => navigate("/"));
-
   const local = useLocal(
     {
       user: null as Partial<User> | null,

@@ -2,33 +2,51 @@ import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DataPagination } from "@/components/ui/data-pagination";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import type { ProductListAPIResponse } from "backend/api/publish.esensi/product-list";
 import type { product } from "shared/models";
 
 export default function ProductListPage() {
   const local = useLocal(
-    { products: [] as product[], loading: true, page: 1, limit: 50, error: "" },
+    {
+      products: [] as product[],
+      loading: true,
+      total: 0,
+      page: 1,
+      limit: 50,
+      totalPages: 0,
+      error: "",
+    },
     async () => {
       const params = new URLSearchParams(location.search);
       local.page = parseInt(params.get("page") || ("1" as string)) as number;
       local.limit = parseInt(params.get("limit") || ("50" as string)) as number;
-      try {
-        const res = await api.product_list({
-          page: local.page,
-          limit: local.limit,
-        });
-        local.products = res.data || [];
-      } catch (error) {
-        local.error = "Terjadi kesalahan saat memuat data.";
-      } finally {
-        local.loading = false;
-        local.render();
-      }
+      await loadData();
     }
   );
+
+  async function loadData() {
+    try {
+      const res: ProductListAPIResponse = await api.product_list({
+        page: local.page,
+        limit: local.limit,
+      });
+      local.products = res.data || [];
+      local.total = res.pagination!.total || 0;
+      local.page = res.pagination!.page || 0;
+      local.limit = res.pagination!.limit || 0;
+      local.totalPages = res.pagination!.totalPages || 0;
+    } catch (error) {
+      local.error = "Terjadi kesalahan saat memuat data.";
+    } finally {
+      local.loading = false;
+      local.render();
+    }
+  }
 
   if (local.loading) {
     return <AppLoading />;
@@ -50,7 +68,7 @@ export default function ProductListPage() {
       {({ user }) => {
         return (
           <div className="flex min-h-svh flex-col bg-gray-50">
-            <PublishMenuBar title="Daftar Produk Yang Telah Disetujui" />
+            <PublishMenuBar />
             {/* Main Content */}
             <main className="flex-1">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
@@ -62,10 +80,27 @@ export default function ProductListPage() {
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                   <div className="mx-8 py-8">
-                    <div className="flex justify-between items-center mb-6">
-                      <h1 className="text-2xl font-bold">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                      <h1 className="text-2xl font-bold text-gray-800">
                         Daftar Produk Yang Disetujui
                       </h1>
+                      <DataPagination 
+                        total={local.total}
+                        page={local.page}
+                        limit={local.limit}
+                        totalPages={local.totalPages}
+                        onPageChange={async (newPage) => {
+                          local.page = newPage;
+                          local.render();
+                          await loadData();
+                        }}
+                        onLimitChange={async (newLimit) => {
+                          local.limit = newLimit;
+                          local.page = 1;
+                          local.render();
+                          await loadData();
+                        }}
+                      />
                     </div>
                     {local.loading ? (
                       <div>Mengambil data produk...</div>

@@ -124,7 +124,7 @@ export default function BookCreatePage() {
     >
       {() => (
         <div className="flex min-h-svh flex-col bg-gray-50">
-          <PublishMenuBar title="Tambah Buku" />
+          <PublishMenuBar />
           <main className="flex-1">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
               {local.error ? (

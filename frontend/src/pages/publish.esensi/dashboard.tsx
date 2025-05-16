@@ -11,8 +11,6 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 
 export default () => {
-  const logout = () => betterAuth.signOut().finally(() => navigate("/"));
-
   const local = useLocal(
     {
       user: null as Partial<User> | null,
@@ -61,7 +59,7 @@ export default () => {
       {({ user }) => {
         return (
           <div className="flex min-h-svh flex-col bg-gray-50">
-            <PublishMenuBar title="Dasbor" />
+            <PublishMenuBar />
             {/* Main Content */}
             <main className="flex-1">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">

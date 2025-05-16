@@ -60,7 +60,7 @@ export default function BookDetailPage() {
     >
       {() => (
         <div className="flex min-h-svh flex-col bg-gray-50">
-          <PublishMenuBar title="Detil Buku Yang Belum Disetujui" />
+          <PublishMenuBar />
           {/* Main Content */}
           <main className="flex-1">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
@@ -82,7 +82,9 @@ export default function BookDetailPage() {
                         <ArrowLeft className="h-4 w-4 mr-1" />
                         Kembali ke Daftar
                       </Button>
-                      <h1 className="text-2xl font-bold">Detil Buku Yang Belum Disetujui</h1>
+                      <h1 className="text-2xl font-bold">
+                        Detil Buku Yang Belum Disetujui
+                      </h1>
                     </div>
                     <Button
                       onClick={() => navigate("/book-create")}
@@ -215,9 +217,11 @@ export default function BookDetailPage() {
                         <div className="mb-2 text-sm text-gray-600">
                           Deskripsi:{" "}
                           {local.book.desc ? (
-                            <div 
+                            <div
                               className="font-medium text-gray-900 mt-2 p-3 border border-gray-100 rounded-md"
-                              dangerouslySetInnerHTML={{ __html: local.book.desc }}
+                              dangerouslySetInnerHTML={{
+                                __html: local.book.desc,
+                              }}
                             />
                           ) : (
                             <span className="font-medium text-gray-900">-</span>

@@ -60,7 +60,7 @@ export default function ProductDetailPage() {
     >
       {() => (
         <div className="flex min-h-svh flex-col bg-gray-50">
-          <PublishMenuBar title="Detil Produk Yang Telah Disetujui" />
+          <PublishMenuBar />
           {/* Main Content */}
           <main className="flex-1">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">

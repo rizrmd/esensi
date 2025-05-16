@@ -29,8 +29,6 @@ export const current = {
 };
 
 export default () => {
-  const logout = () => betterAuth.signOut().finally(() => navigate("/"));
-
   const local = useLocal(
     {
       loading: true,
@@ -214,7 +212,7 @@ export default () => {
     <Protected>
       {({ user }) => (
         <div className="flex min-h-svh flex-col">
-          <PublishMenuBar title="Onboarding" />
+          <PublishMenuBar />
           {/* Main Content */}
           <div className="flex-1 container py-6 md:py-10">
             <div className="max-w-3xl mx-auto">
