@@ -9,14 +9,16 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type { BookListAPIResponse } from "backend/api/publish.esensi/book-list";
+import type {
+  Book,
+  BookListAPIResponse,
+} from "backend/api/publish.esensi/book-list";
 import { PlusCircle } from "lucide-react";
-import type { book } from "shared/models";
 
 export default function BookListPage() {
   const local = useLocal(
     {
-      books: [] as book[],
+      books: [] as Book[],
       loading: true,
       total: 0,
       page: 1,
@@ -141,7 +143,7 @@ export default function BookListPage() {
                           <>
                             {local.layout === "grid" && (
                               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                                {local.books.map((book: any) => (
+                                {local.books.map((book: Book) => (
                                   <div
                                     key={book.id}
                                     className="cursor-pointer"
@@ -185,7 +187,7 @@ export default function BookListPage() {
                                           Harga:{" "}
                                           <span className="font-medium text-gray-900">
                                             Rp
-                                            {book.real_price?.toLocaleString() ??
+                                            {book.submitted_price?.toLocaleString() ??
                                               "-"}
                                           </span>
                                         </div>
@@ -210,7 +212,7 @@ export default function BookListPage() {
 
                             {local.layout === "list" && (
                               <div className="flex flex-col gap-4">
-                                {local.books.map((book: any) => (
+                                {local.books.map((book: Book) => (
                                   <Card
                                     key={book.id}
                                     className="cursor-pointer hover:shadow-md transition-shadow"
@@ -253,7 +255,7 @@ export default function BookListPage() {
                                             Harga:{" "}
                                             <span className="font-medium text-gray-900">
                                               Rp
-                                              {book.real_price?.toLocaleString() ??
+                                              {book.submitted_price?.toLocaleString() ??
                                                 "-"}
                                             </span>
                                           </div>
@@ -297,55 +299,59 @@ export default function BookListPage() {
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    {local.books.map((book: any, index) => (
-                                      <tr
-                                        key={book.id}
-                                        className={`border-b hover:bg-muted/50 cursor-pointer ${
-                                          index % 2 === 0
-                                            ? "bg-white"
-                                            : "bg-gray-50"
-                                        }`}
-                                        onClick={() =>
-                                          navigate(`book-detail?id=${book.id}`)
-                                        }
-                                      >
-                                        <td className="p-2">
-                                          <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-gray-100 flex-shrink-0 rounded overflow-hidden">
-                                              {book.cover ? (
-                                                <img
-                                                  src={
-                                                    baseUrl.publish_esensi +
-                                                    "/" +
-                                                    book.cover
-                                                  }
-                                                  alt={book.name}
-                                                  className="object-cover w-full h-full"
-                                                />
-                                              ) : (
-                                                <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
-                                                  No img
-                                                </div>
-                                              )}
+                                    {local.books.map(
+                                      (book: Book, index) => (
+                                        <tr
+                                          key={book.id}
+                                          className={`border-b hover:bg-muted/50 cursor-pointer ${
+                                            index % 2 === 0
+                                              ? "bg-white"
+                                              : "bg-gray-50"
+                                          }`}
+                                          onClick={() =>
+                                            navigate(
+                                              `book-detail?id=${book.id}`
+                                            )
+                                          }
+                                        >
+                                          <td className="p-2">
+                                            <div className="flex items-center gap-3">
+                                              <div className="w-10 h-10 bg-gray-100 flex-shrink-0 rounded overflow-hidden">
+                                                {book.cover ? (
+                                                  <img
+                                                    src={
+                                                      baseUrl.publish_esensi +
+                                                      "/" +
+                                                      book.cover
+                                                    }
+                                                    alt={book.name}
+                                                    className="object-cover w-full h-full"
+                                                  />
+                                                ) : (
+                                                  <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
+                                                    No img
+                                                  </div>
+                                                )}
+                                              </div>
+                                              <span className="font-medium text-sm">
+                                                {book.name}
+                                              </span>
                                             </div>
-                                            <span className="font-medium text-sm">
-                                              {book.name}
-                                            </span>
-                                          </div>
-                                        </td>
-                                        <td className="p-2 text-sm">
-                                          {book.author?.name ?? "-"}
-                                        </td>
-                                        <td className="p-2 text-sm">
-                                          Rp
-                                          {book.real_price?.toLocaleString() ??
-                                            "-"}
-                                        </td>
-                                        <td className="p-2 text-sm">
-                                          {book.status}
-                                        </td>
-                                      </tr>
-                                    ))}
+                                          </td>
+                                          <td className="p-2 text-sm">
+                                            {book.author?.name ?? "-"}
+                                          </td>
+                                          <td className="p-2 text-sm">
+                                            Rp
+                                            {book.submitted_price?.toLocaleString() ??
+                                              "-"}
+                                          </td>
+                                          <td className="p-2 text-sm">
+                                            {book.status}
+                                          </td>
+                                        </tr>
+                                      )
+                                    )}
                                   </tbody>
                                 </table>
                               </div>

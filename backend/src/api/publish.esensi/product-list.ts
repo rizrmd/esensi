@@ -2,13 +2,13 @@ import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import type { author, bundle, category, product } from "shared/models";
 
-export type ProductListAPIResponse = ApiResponse<
-  (product & {
-    author: author | null;
-    bundle_product: { bundle: bundle }[];
-    product_category: { category: category }[];
-  })[]
->;
+export type Product = product & {
+  author: author | null;
+  bundle_product: { bundle: bundle }[];
+  product_category: { category: category }[];
+};
+
+export type ProductListAPIResponse = ApiResponse<Product[]>;
 
 export default defineAPI({
   name: "product_list",

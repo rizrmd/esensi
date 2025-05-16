@@ -8,13 +8,12 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type { ProductListAPIResponse } from "backend/api/publish.esensi/product-list";
-import type { product } from "shared/models";
+import type { Product, ProductListAPIResponse } from "backend/api/publish.esensi/product-list";
 
 export default function ProductListPage() {
   const local = useLocal(
     {
-      products: [] as product[],
+      products: [] as Product[],
       loading: true,
       total: 0,
       page: 1,
@@ -127,7 +126,7 @@ export default function ProductListPage() {
                           <>
                             {local.layout === "grid" && (
                               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                                {local.products.map((product: any) => (
+                                {local.products.map((product: Product) => (
                                   <div
                                     key={product.id}
                                     className="cursor-pointer"
@@ -198,7 +197,7 @@ export default function ProductListPage() {
 
                             {local.layout === "list" && (
                               <div className="flex flex-col gap-4">
-                                {local.products.map((product: any) => (
+                                {local.products.map((product: Product) => (
                                   <Card
                                     key={product.id}
                                     className="cursor-pointer hover:shadow-md transition-shadow"
@@ -288,7 +287,7 @@ export default function ProductListPage() {
                                   </thead>
                                   <tbody>
                                     {local.products.map(
-                                      (product: any, index) => (
+                                      (product: Product, index) => (
                                         <tr
                                           key={product.id}
                                           className={`border-b hover:bg-muted/50 cursor-pointer ${

@@ -159,18 +159,10 @@ export default function BookDetailPage() {
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
-                          Harga Coret:{" "}
-                          <span className="font-medium text-gray-900">
-                            {local.book.strike_price
-                              ? `Rp${local.book.strike_price.toLocaleString()}`
-                              : "-"}
-                          </span>
-                        </div>
-                        <div className="mb-2 text-sm text-gray-600">
                           Harga:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.book.real_price
-                              ? `Rp${local.book.real_price.toLocaleString()}`
+                            {local.book.submitted_price
+                              ? `Rp${local.book.submitted_price.toLocaleString()}`
                               : "-"}
                           </span>
                         </div>

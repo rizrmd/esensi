@@ -2,9 +2,12 @@ import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import type { author, book, book_history } from "shared/models";
 
-export type BookListAPIResponse = ApiResponse<
-  (book & { author: author | null; book_history: book_history[] })[]
->;
+export type Book = (book & {
+  author: author | null;
+  book_history: book_history[];
+});
+
+export type BookListAPIResponse = ApiResponse<Book[]>;
 
 export default defineAPI({
   name: "book_list",

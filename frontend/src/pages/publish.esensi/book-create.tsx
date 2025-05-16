@@ -233,30 +233,14 @@ export default function BookCreatePage() {
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <Label htmlFor="real_price">Harga</Label>
+                          <Label htmlFor="submitted_price">Harga</Label>
                           <Input
-                            id="real_price"
-                            name="real_price"
+                            id="submitted_price"
+                            name="submitted_price"
                             type="number"
                             value={
-                              local.book.real_price
-                                ? Number(local.book.real_price)
-                                : 0
-                            }
-                            onChange={handleChange}
-                            placeholder="0"
-                            className="mt-1"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="strike_price">Harga Coret</Label>
-                          <Input
-                            id="strike_price"
-                            name="strike_price"
-                            type="number"
-                            value={
-                              local.book.strike_price
-                                ? Number(local.book.strike_price)
+                              local.book.submitted_price
+                                ? Number(local.book.submitted_price)
                                 : 0
                             }
                             onChange={handleChange}
