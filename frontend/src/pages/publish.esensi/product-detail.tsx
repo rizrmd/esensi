@@ -7,7 +7,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ChevronRight } from "lucide-react";
 import type { author, product } from "shared/models";
 
 export default function ProductDetailPage() {
@@ -71,6 +71,30 @@ export default function ProductDetailPage() {
 
               <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div className="p-6">
+                  {/* Breadcrumb Navigation */}
+                  <nav className="flex items-center text-sm text-gray-600 mb-4">
+                    <button
+                      onClick={() => navigate("/dashboard")}
+                      className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
+                    >
+                      Beranda
+                    </button>
+                    <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+                    <button
+                      onClick={() => navigate("/manage-product")}
+                      className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
+                    >
+                      Daftar Produk
+                    </button>
+                    <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+                    <span className="text-gray-800 font-medium">
+                      Detil Produk
+                    </span>
+                  </nav>
+
+                  {/* Divider line */}
+                  <div className="border-b border-gray-200 mb-6"></div>
+
                   <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center gap-4">
                       <Button

@@ -9,6 +9,7 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import type { Product } from "backend/api/types";
+import { ChevronRight } from "lucide-react";
 
 export default function ProductListPage() {
   const local = useLocal(
@@ -81,6 +82,23 @@ export default function ProductListPage() {
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                   <div className="mx-8 py-8">
+                    {/* Breadcrumb Navigation */}
+                    <nav className="flex items-center text-sm text-gray-600 mb-4">
+                      <button
+                        onClick={() => navigate("/dashboard")}
+                        className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
+                      >
+                        Beranda
+                      </button>
+                      <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+                      <span className="text-gray-800 font-medium">
+                        Daftar Produk (Telah Disetujui)
+                      </span>
+                    </nav>
+
+                    {/* Divider line */}
+                    <div className="border-b border-gray-200 mb-6"></div>
+
                     <div className="flex justify-between items-start mb-8 gap-4">
                       <h1 className="text-2xl font-bold text-gray-800">
                         Daftar Produk (Telah Disetujui)

@@ -20,6 +20,7 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import type { UploadAPIResponse } from "backend/api/upload";
+import { ChevronRight } from "lucide-react";
 import type { book } from "shared/models";
 
 export default function BookUpdatePage() {
@@ -206,8 +207,43 @@ export default function BookUpdatePage() {
               ) : null}
 
               <Card className="shadow-md border border-gray-200">
+                {/* Breadcrumb Navigation */}
+                <div className="px-6 pt-6">
+                  <nav className="flex items-center text-sm text-gray-600 mb-4">
+                    <button
+                      onClick={() => navigate("/dashboard")}
+                      className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
+                    >
+                      Beranda
+                    </button>
+                    <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+                    <button
+                      onClick={() => navigate("/manage-book")}
+                      className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
+                    >
+                      Daftar Buku
+                    </button>
+                    <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+                    <button
+                      onClick={() => navigate(`/book-detail?id=${bookId}`)}
+                      className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
+                    >
+                      Detil Buku
+                    </button>
+                    <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+                    <span className="text-gray-800 font-medium">
+                      Perbarui Buku
+                    </span>
+                  </nav>
+
+                  {/* Divider line */}
+                  <div className="border-b border-gray-200 mb-4"></div>
+                </div>
+
                 <CardHeader>
-                  <CardTitle className="text-xl font-bold">Edit Buku</CardTitle>
+                  <CardTitle className="text-xl font-bold">
+                    Perbarui Buku
+                  </CardTitle>
                   <CardDescription>
                     Silahkan edit formulir di bawah untuk memperbarui buku.
                   </CardDescription>
@@ -414,13 +450,25 @@ export default function BookUpdatePage() {
                     </div>
                   </CardContent>
                   <CardFooter className="flex justify-between">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => navigate("/manage-book")}
-                    >
-                      Batal
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => navigate("/manage-book")}
+                      >
+                        Batal
+                      </Button>
+                      {bookId && (
+                        <Button
+                          type="button"
+                          variant="secondary"
+                          onClick={() => navigate(`/book-detail?id=${bookId}`)}
+                          className="border border-gray-300"
+                        >
+                          Lihat Detail
+                        </Button>
+                      )}
+                    </div>
                     <Button type="submit" disabled={local.isSubmitting}>
                       {local.isSubmitting ? (
                         <span>Menyimpan...</span>

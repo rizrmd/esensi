@@ -11,7 +11,7 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import type {} from "backend/api/publish.esensi/book-list";
 import type { Book } from "backend/api/types";
-import { PlusCircle } from "lucide-react";
+import { ChevronRight, PlusCircle } from "lucide-react";
 
 export default function BookListPage() {
   const local = useLocal(
@@ -73,6 +73,7 @@ export default function BookListPage() {
         return (
           <div className="flex min-h-svh flex-col bg-gray-50">
             <PublishMenuBar />
+
             {/* Main Content */}
             <main className="flex-1">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
@@ -84,6 +85,23 @@ export default function BookListPage() {
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                   <div className="mx-8 py-8">
+                    {/* Breadcrumb Navigation */}
+                    <nav className="flex items-center text-sm text-gray-600 mb-4">
+                      <button
+                        onClick={() => navigate("/dashboard")}
+                        className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
+                      >
+                        Beranda
+                      </button>
+                      <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+                      <span className="text-gray-800 font-medium">
+                        Buku (Belum Disetujui)
+                      </span>
+                    </nav>
+
+                    {/* Divider line */}
+                    <div className="border-b border-gray-200 mb-6"></div>
+
                     <div className="flex justify-between items-start mb-8 gap-4">
                       <div className="flex items-center gap-4">
                         <h1 className="text-2xl font-bold text-gray-800">

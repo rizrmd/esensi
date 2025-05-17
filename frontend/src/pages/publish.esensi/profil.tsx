@@ -23,6 +23,7 @@ import { api as publishApi } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import type { UploadAPIResponse } from "backend/api/upload";
+import { ChevronRight } from "lucide-react";
 import type { auth_user } from "shared/models";
 
 export default () => {
@@ -192,8 +193,23 @@ export default () => {
 
               <Card className="shadow-md border border-gray-200">
                 <CardHeader>
+                  {/* Breadcrumb Navigation */}
+                  <nav className="flex items-center text-sm text-gray-600 mb-4">
+                    <button
+                      onClick={() => navigate("/dashboard")}
+                      className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
+                    >
+                      Beranda
+                    </button>
+                    <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+                    <span className="text-gray-800 font-medium">Profil</span>
+                  </nav>
+
+                  {/* Divider line */}
+                  <div className="border-b border-gray-200 mb-6"></div>
+
                   <CardTitle className="text-xl font-bold">
-                    Edit Profil
+                    Perbarui Profil
                   </CardTitle>
                   <CardDescription>
                     Silahkan edit formulir di bawah untuk memperbarui profil
