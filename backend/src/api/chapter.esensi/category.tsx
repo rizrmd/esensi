@@ -22,7 +22,7 @@ export default defineAPI({
       },
     });
 
-    const products = await db.product.findMany({
+    const books = await db.product.findMany({
       where: {
         id: {
           in: cat?.product_category?.map(
@@ -65,7 +65,7 @@ export default defineAPI({
 
     const data = {
       title: `Ebook tentang ${cat?.name}`,
-      products: products,
+      products: books,
       page: page,
       pages: total_pages,
     }

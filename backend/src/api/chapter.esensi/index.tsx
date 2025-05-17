@@ -12,7 +12,8 @@ export default defineAPI({
       title: `Esensi Chapter`,
       content: {},
     };
-
+    
+    
     const seo_data = {
       slug: `/`,
       meta_title: `Baca Chapter Web Novel Terbaru dan Terpopuler | Esensi Online - Katalog Cerita Indonesia`,

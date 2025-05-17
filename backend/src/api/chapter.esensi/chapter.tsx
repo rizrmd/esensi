@@ -11,7 +11,7 @@ export default defineAPI({
 
     // if slug == "_" redirect to /browse
 
-    const product = await db.product.findFirst(
+    const book = await db.product.findFirst(
       {
         where: {
           slug: req.params.slug,
@@ -37,11 +37,11 @@ export default defineAPI({
     );
 
     let cats = "";
-    product?.product_category.map((cat) => {
+    book?.product_category.map((cat) => {
       cats = cats + ", " + cat.category.name;
     });
 
-    const categories = product?.product_category.map((cat) => {
+    const categories = book?.product_category.map((cat) => {
       return {
         name: cat.category.name,
         slug: cat.category.slug,
@@ -50,7 +50,7 @@ export default defineAPI({
 
     const data = {
       title: `Detail Ebook`,
-      product: product,
+      product: book,
       categories: categories,
     }
 
@@ -59,13 +59,13 @@ export default defineAPI({
       slug: `/chapter/${req.params.slug}/${req.params.number}`,
       meta_title: `[Judul Buku] Chapter [Nomor Bab] - [Judul Bab] | Esensi Online`,
       meta_description: `Baca Bab [Nomor Bab] “[Judul Bab]” dari “[Judul Buku]” karya [Nama Penulis] di Esensi Online. [Deskripsi singkat isi atau suasana bab]. Update terbaru, gratis dibaca`,
-      image: `${product?.cover}`,
+      image: `${book?.cover}`,
       headings: `[Judul Buku] - Chapter [Nomor chapt]: [Judul chapter]`,
       paragraph: `Chapter [Nomor Bab] dari “[Judul Buku]” adalah kelanjutan kisah yang [deskripsi suasana bab: mendebarkan / menyentuh / mengejutkan]. Nikmati kisah ini secara gratis dan eksklusif di Esensi Online—update rutin dari penulis [Nama Penulis].`,
       keywords: `${cats}`,
       is_product: true,
-      price: product?.real_price,
-      currencry: product?.currency,
+      price: book?.real_price,
+      currencry: book?.currency,
     };
 
     return {

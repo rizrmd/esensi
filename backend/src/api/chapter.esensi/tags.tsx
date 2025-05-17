@@ -10,11 +10,11 @@ export default defineAPI({
     const books_per_page = 20;
     const skip_books = page > 1 ? ((page - 1) * books_per_page) : 0;
 
-    const cat_slug = req?.params.slug ? req.params.slug : ``;
+    const tag_slug = req?.params.slug ? req.params.slug : ``;
 
-    const cat = await db.category.findFirst({
+    const tag = await db.category.findFirst({
       where: {
-        slug: cat_slug,
+        slug: tag_slug,
         deleted_at: null
       },
       include: {
@@ -25,7 +25,7 @@ export default defineAPI({
     const products = await db.product.findMany({
       where: {
         id: {
-          in: cat?.product_category?.map(
+          in: tag?.product_category?.map(
             (x) => x.id_product
           )
         },
@@ -55,7 +55,7 @@ export default defineAPI({
       await db.product.count({
         where: {
           id: {
-            in: cat?.product_category?.map(
+            in: tag?.product_category?.map(
               (x) => x.id_product
             )
           },
@@ -64,7 +64,7 @@ export default defineAPI({
       }) / books_per_page);
 
     const data = {
-      title: `Ebook tentang ${cat?.name}`,
+      title: `Ebook tentang ${tag?.name}`,
       products: products,
       page: page,
       pages: total_pages,
@@ -73,14 +73,14 @@ export default defineAPI({
     const seo_data = {
       slug: `/tags/${req.params?.slug ? `${req.params.slug}` : ``}${page > 1 ? `/${page}` : ``}`,
       page: page,
-      meta_title: `Web Novel Tag [Nama Tag] | Koleksi Cerita [Deskripsi Tag] di Esensi Online`,
-      meta_description: `Temukan cerita-cerita dengan tag [Nama Tag] di Esensi Online. Baca web novel bertema [Deskripsi Tag] yang seru, update, dan bisa diakses kapan saja!`,
+      meta_title: `Web Novel Tag ${tag?.name} | Koleksi Cerita ${tag?.name} di Esensi Online`,
+      meta_description: `Temukan cerita-cerita dengan tag ${tag?.name} di Esensi Online. Baca web novel bertema ${tag?.name} yang seru, update, dan bisa diakses kapan saja!`,
       image: ``,
-      headings: `Web Novel dengan Tag “[Nama Tag]” di Esensi Online`,
-      h2: `Koleksi Cerita [Nama Tag] Terpopuler`,
-      h3: `Update Terbaru untuk Tag [Nama Tag]`,
-      h4: `Jelajahi Tag Cerita Lainnya di Esensi Online`,
-      paragraph: `Tag “[Nama Tag]” di Esensi Online mengumpulkan cerita-cerita bertema [deskripsi singkat tag]. Temukan berbagai judul seru dan unik yang bisa kamu baca kapan saja. Koleksi ini selalu diperbarui untuk menghadirkan bacaan terbaik bagi para pecinta genre ini.`,
+      headings: `Web Novel dengan Tag ${tag?.name} di Esensi Online`,
+      h2: `Koleksi Cerita ${tag?.name} Terpopuler`,
+      h3: `Update Terbaru untuk Tag ${tag?.name}`,
+      h4: `Jelajahi ${tag?.name} Lainnya di Esensi Online`,
+      paragraph: `Tag ${tag?.name} di Esensi Online mengumpulkan cerita-cerita bertema ${tag?.name}. Temukan berbagai judul seru dan unik yang bisa kamu baca kapan saja. Koleksi ini selalu diperbarui untuk menghadirkan bacaan terbaik bagi para pecinta genre ini.`,
       is_product: false,
     };
 

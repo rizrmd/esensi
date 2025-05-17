@@ -10,7 +10,7 @@ export default defineAPI({
     const books_per_page = 20;
     const skip_books = page > 1 ? (page - 1) * books_per_page : 0;
 
-    const products = await db.book.findMany({
+    const books = await db.book.findMany({
       select: {
         name: true,
         slug: true,
@@ -41,7 +41,7 @@ export default defineAPI({
 
     const data = {
       title: ``,
-      products: products,
+      products: books,
       page: page,
       pages: total_pages,
     };
