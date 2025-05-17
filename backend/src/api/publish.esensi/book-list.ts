@@ -1,23 +1,16 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { author, book, book_history } from "shared/models";
-
-export type Book = (book & {
-  author: author | null;
-  book_history: book_history[];
-});
-
-export type BookListAPIResponse = ApiResponse<Book[]>;
+import type { Book } from "../types";
 
 export default defineAPI({
   name: "book_list",
-  url: "/api/book/list",
+  url: "/api/publish/book/list",
   async handler(arg: {
     page?: number;
     limit?: number;
     search?: string;
     status?: string;
-  }): Promise<BookListAPIResponse> {
+  }): Promise<ApiResponse<Book[]>> {
     try {
       const page = arg.page || 1;
       const limit = arg.limit || 10;

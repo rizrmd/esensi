@@ -1,16 +1,11 @@
 import type { User } from "backend/lib/better-auth";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { transaction, withdrawal } from "shared/models";
-
-export type WithdrawalAPIResponse = ApiResponse<{
-  withdrawal: withdrawal;
-  transaction: transaction;
-}>;
+import type { Withdrawal } from "../types";
 
 export default defineAPI({
   name: "withdrawal",
-  url: "/api/withdrawal",
+  url: "/api/publish/withdrawal",
   async handler(arg: {
     user: Partial<User>;
     withdrawal: {
@@ -19,7 +14,7 @@ export default defineAPI({
       account_number: string;
       account_name: string;
     };
-  }): Promise<WithdrawalAPIResponse> {
+  }): Promise<ApiResponse<Withdrawal>> {
     try {
       // Get publisher ID from auth user
       const authUser = await db.auth_user.findUnique({

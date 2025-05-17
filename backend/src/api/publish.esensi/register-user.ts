@@ -2,14 +2,10 @@ import type { User } from "backend/lib/better-auth";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
-export type RegisterUserAPIResponse = ApiResponse<void>;
-
 export default defineAPI({
   name: "register_user",
-  url: "/api/auth/register-user",
-  async handler(arg: {
-    user: Partial<User>;
-  }): Promise<RegisterUserAPIResponse> {
+  url: "/api/publish/auth/register-user",
+  async handler(arg: { user: Partial<User> }): Promise<ApiResponse<void>> {
     try {
       const { user } = arg;
 

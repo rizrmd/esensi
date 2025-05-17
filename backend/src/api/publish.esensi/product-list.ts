@@ -1,24 +1,16 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { author, bundle, category, product } from "shared/models";
-
-export type Product = product & {
-  author: author | null;
-  bundle_product: { bundle: bundle }[];
-  product_category: { category: category }[];
-};
-
-export type ProductListAPIResponse = ApiResponse<Product[]>;
+import type { Product } from "../types";
 
 export default defineAPI({
   name: "product_list",
-  url: "/api/product/list",
+  url: "/api/publish/product/list",
   async handler(arg: {
     page?: number;
     limit?: number;
     search?: string;
     status?: string;
-  }): Promise<ProductListAPIResponse> {
+  }): Promise<ApiResponse<Product[]>> {
     try {
       const page = arg.page || 1;
       const limit = arg.limit || 10;

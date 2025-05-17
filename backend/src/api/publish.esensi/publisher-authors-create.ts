@@ -1,33 +1,15 @@
 import type { User } from "backend/lib/better-auth";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type {
-  auth_account,
-  auth_user,
-  author,
-  book,
-  product,
-  publisher_author,
-} from "shared/models";
-
-export type PublisherAuthorCreateAPIResponse = ApiResponse<
-  (publisher_author & {
-    author: author & {
-      auth_account: auth_account | null;
-      auth_user: auth_user[];
-      book: book[];
-      product: product[];
-    };
-  })[]
->;
+import type { PublisherAuthor } from "../types";
 
 export default defineAPI({
   name: "publisher_author_create",
-  url: "/api/publisher-author/create",
+  url: "/api/publish/publisher-author/create",
   async handler(arg: {
     user: Partial<User>;
     author_id: string;
-  }): Promise<PublisherAuthorCreateAPIResponse> {
+  }): Promise<ApiResponse<PublisherAuthor>> {
     try {
       // Get publisher ID from auth user
       const authUser = await db.auth_user.findUnique({

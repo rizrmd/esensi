@@ -1,0 +1,106 @@
+import type {
+  affiliate,
+  auth_account,
+  auth_user,
+  author,
+  book,
+  book_history,
+  bundle,
+  category,
+  customer,
+  management,
+  product,
+  promo_code,
+  publisher,
+  publisher_author,
+  sales_and_marketing,
+  support,
+  transaction,
+  withdrawal,
+} from "shared/models";
+import type { Decimal } from "shared/models/runtime/library";
+
+export type Author = author & {
+  auth_user: auth_user[];
+  auth_account: auth_account | null;
+  publisher_author: (publisher_author & {
+    publisher: publisher & {
+      transaction: transaction[];
+      promo_code: promo_code[];
+    };
+  })[];
+  book: book[];
+  product: product[];
+};
+
+export type Book = book & {
+  author: author | null;
+  book_history: book_history[];
+};
+
+export type BookHistory = book_history & { book: book };
+
+export type RoleCheck = {
+  affiliate?: boolean;
+  author?: boolean;
+  customer?: boolean;
+  management?: boolean;
+  publisher?: boolean;
+  sales_and_marketing?: boolean;
+  support?: boolean;
+};
+
+export type Onboarding = {
+  author?: author;
+  publisher?: publisher;
+};
+
+export type Product = product & {
+  author: author | null;
+  bundle_product: { bundle: bundle }[];
+  product_category: { category: category }[];
+};
+
+export type PublisherAuthor = publisher_author & {
+  author: author & {
+    auth_account: auth_account | null;
+    auth_user: auth_user[];
+    book: book[];
+    product: product[];
+  };
+};
+
+export type Publisher = publisher & {
+  auth_user: auth_user[];
+  auth_account: auth_account | null;
+  publisher_author: (publisher_author & {
+    author: author & {
+      book: book[];
+      product: product[];
+    };
+  })[];
+  transaction: transaction[];
+  promo_code: promo_code[];
+};
+
+export type Transactions = {
+  transaction: transaction[];
+  balance: number | Decimal;
+  withdrawal: withdrawal[];
+};
+
+export type AuthUser = auth_user & {
+  auth_account: auth_account[];
+  affiliate: affiliate | null;
+  author: author | null;
+  customer: customer | null;
+  management: management | null;
+  publisher: publisher | null;
+  sales_and_marketing: sales_and_marketing | null;
+  support: support | null;
+};
+
+export type Withdrawal = {
+  withdrawal: withdrawal;
+  transaction: transaction;
+};

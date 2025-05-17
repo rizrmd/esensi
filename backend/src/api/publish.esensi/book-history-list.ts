@@ -1,21 +1,16 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { book, book_history } from "shared/models";
-
-export type BookHistoryListAPIResponse = ApiResponse<
-  (book_history & { book: book })[]
->;
+import type { BookHistory } from "../types";
 
 export default defineAPI({
   name: "book_history_list",
-  url: "/api/book/history/list",
+  url: "/api/publish/book-history/list",
   async handler(arg: {
     book_id: string;
     page?: number;
     limit?: number;
-  }): Promise<BookHistoryListAPIResponse> {
+  }): Promise<ApiResponse<BookHistory[]>> {
     try {
-      // Check if book exists
       const book = await db.book.findUnique({
         where: { id: arg.book_id },
       });

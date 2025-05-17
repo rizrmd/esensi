@@ -1,71 +1,70 @@
-import type { User } from "backend/lib/better-auth";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type {
-  auth_account,
-  auth_user,
-  author,
-  book,
-  product,
-  promo_code,
-  publisher,
-  publisher_author,
-  transaction,
-} from "shared/models";
-
-export type AuthorDetailAPIResponse = ApiResponse<
-  | (author & {
-      auth_user: auth_user[];
-      auth_account: auth_account | null;
-      publisher_author: (publisher_author & {
-        publisher: publisher & {
-          transaction: transaction[];
-          promo_code: promo_code[];
-        };
-      })[];
-      book: book[];
-      product: product[];
-    })
-  | null
->;
+import type { Author } from "../types";
 
 export default defineAPI({
   name: "author_detail",
-  url: "/api/author/detail",
-  async handler(arg: {
-    user: Partial<User>;
-  }): Promise<AuthorDetailAPIResponse> {
+  url: "/api/publish/author/detail",
+  async handler(arg: { id: string }): Promise<ApiResponse<Author>> {
     try {
-      const author = await db.author.findFirst({
+      const author = await db.author.findUnique({
         where: {
-          auth_user: {
-            some: {
-              id: arg.user.id,
-            },
-          },
+          id: arg.id,
         },
         include: {
-          auth_user: true,
           auth_account: true,
+          auth_user: {
+            orderBy: {
+              created_at: "desc",
+            },
+            take: 10,
+          },
           publisher_author: {
             include: {
               publisher: {
                 include: {
-                  transaction: true,
-                  promo_code: true,
+                  transaction: {
+                    orderBy: {
+                      created_at: "desc",
+                    },
+                    take: 10,
+                  },
+                  promo_code: {
+                    orderBy: {
+                      valid_to: "desc",
+                    },
+                    take: 10,
+                  },
                 },
               },
             },
           },
-          book: true,
-          product: true,
+          book: {
+            orderBy: {
+              published_date: "desc",
+            },
+            take: 10,
+          },
+          product: {
+            orderBy: {
+              published_date: "desc",
+            },
+            take: 10,
+          },
         },
       });
 
+      if (!author) {
+        return {
+          success: false,
+          message: "Penulis tidak ditemukan",
+        };
+      }
+
       return { success: true, data: author };
     } catch (error) {
-      console.error("Error fetching publisher profile:", error);
-      return { success: false, message: "Gagal mengambil profil penerbit" };
+      console.error("Error in author detail API:", error);
+      return { success: false, message: "Gagal mengambil detil penulis" };
     }
   },
 });
