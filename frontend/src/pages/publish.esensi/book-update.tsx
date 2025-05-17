@@ -19,7 +19,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type { UploadAPIResponse } from "backend/api/auth.esensi/upload";
+import type { UploadAPIResponse } from "backend/api/upload";
 import type { book } from "shared/models";
 
 export default function BookUpdatePage() {

@@ -8,7 +8,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type { Product, ProductListAPIResponse } from "backend/api/publish.esensi/product-list";
+import type { Product } from "backend/api/types";
 
 export default function ProductListPage() {
   const local = useLocal(
@@ -32,7 +32,7 @@ export default function ProductListPage() {
 
   async function loadData() {
     try {
-      const res: ProductListAPIResponse = await api.product_list({
+      const res = await api.product_list({
         page: local.page,
         limit: local.limit,
       });
@@ -83,7 +83,7 @@ export default function ProductListPage() {
                   <div className="mx-8 py-8">
                     <div className="flex justify-between items-start mb-8 gap-4">
                       <h1 className="text-2xl font-bold text-gray-800">
-                        Daftar Produk Yang Disetujui
+                        Daftar Produk (Telah Disetujui)
                       </h1>
                       <div className="flex flex-col gap-3 items-end">
                         <div className="flex items-center gap-4">

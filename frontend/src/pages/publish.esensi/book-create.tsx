@@ -19,7 +19,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type { UploadAPIResponse } from "backend/api/auth.esensi/upload";
+import type { UploadAPIResponse } from "backend/api/upload";
 import type { book } from "shared/models";
 
 export default function BookCreatePage() {
@@ -158,7 +158,7 @@ export default function BookCreatePage() {
               <Card className="shadow-md border border-gray-200">
                 <CardHeader>
                   <CardTitle className="text-xl font-bold">
-                    Tambah Buku Baru
+                    Tambah Buku
                   </CardTitle>
                   <CardDescription>
                     Silahkan isi formulir di bawah untuk menambahkan buku baru.

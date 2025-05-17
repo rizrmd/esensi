@@ -70,7 +70,15 @@ export default () => {
                 ) : null}
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                  <div className="p-6"></div>
+                  <div className="mx-8 py-8">
+                    <div className="flex justify-between items-start mb-8 gap-4">
+                      <div className="flex items-center gap-4">
+                        <h1 className="text-2xl font-bold text-gray-800">
+                          Profil
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </main>

@@ -7,7 +7,6 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type { BookDetailAPIResponse } from "backend/api/publish.esensi/book-detail";
 import { ArrowLeft, Edit, PlusCircle } from "lucide-react";
 import type { author, book } from "shared/models";
 
@@ -28,7 +27,7 @@ export default function BookDetailPage() {
         return;
       }
       try {
-        const res: BookDetailAPIResponse = await api.book_detail({ id });
+        const res = await api.book_detail({ id });
         if (!res.data) {
           local.error = "Buku tidak ditemukan.";
         } else {
@@ -83,13 +82,15 @@ export default function BookDetailPage() {
                         Kembali ke Daftar
                       </Button>
                       <h1 className="text-2xl font-bold">
-                        Detil Buku Yang Belum Disetujui
+                        Detil Buku (Belum Disetujui)
                       </h1>
                     </div>
                     <div className="flex items-center gap-2">
                       {local.book && (
                         <Button
-                          onClick={() => navigate(`/book-update?id=${local.book?.id}`)}
+                          onClick={() =>
+                            navigate(`/book-update?id=${local.book?.id}`)
+                          }
                           className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-3 py-1.5"
                           variant="default"
                         >

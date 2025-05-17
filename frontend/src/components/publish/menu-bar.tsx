@@ -11,8 +11,8 @@ import { isAuthor, isPublisher } from "@/lib/utils";
 
 const menu = [
   { label: "Beranda", href: "/dashboard" },
-  { label: "Daftar Buku Yang Belum Disetujui", href: "/manage-book" },
-  { label: "Daftar Produk Yang Telah Disetujui", href: "/manage-product" },
+  { label: "Buku (Belum Disetujui)", href: "/manage-book" },
+  { label: "Produk (Telah Disetujui)", href: "/manage-product" },
   { label: "Profil", href: "/profil" },
   { label: "Keluar", action: "signout" },
 ];

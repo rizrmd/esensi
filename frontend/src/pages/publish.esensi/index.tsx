@@ -1,15 +1,12 @@
 import { Protected } from "@/components/app/protected";
 import { SideForm } from "@/components/ext/side-form";
 import { Button } from "@/components/ui/button";
-import { api } from "@/lib/gen/auth.esensi";
 import { baseUrl } from "@/lib/gen/base-url";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 
 export default () => {
-  useLocal({}, () => {
-    api.check({ id: "asd" });
-  });
+  useLocal({}, () => {});
 
   const u = baseUrl;
   const content = (

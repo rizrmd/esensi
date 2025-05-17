@@ -11,18 +11,17 @@ import { AppLoading } from "./loading";
 
 export const current = {
   user: null as User | null,
-  // session: null as Session | null,
   iframe: null as HTMLIFrameElement | null,
   signoutCallback: undefined as undefined | (() => void),
 };
 export type Role =
-  | "publisher"
-  | "author"
-  | "sales_and_marketing"
-  | "customer"
-  | "support"
   | "affiliate"
-  | "management";
+  | "author"
+  | "customer"
+  | "management"
+  | "publisher"
+  | "sales_and_marketing"
+  | "support";
 export const Protected: FC<{
   children:
     | ReactNode
@@ -58,9 +57,7 @@ export const Protected: FC<{
 
       window.addEventListener("message", (e) => {
         if (e.data?.action == "signout") {
-          if (current.signoutCallback) {
-            current.signoutCallback();
-          }
+          if (current.signoutCallback) current.signoutCallback();
           current.signoutCallback = undefined;
         }
         if (e.data?.action == "session") {
@@ -87,28 +84,17 @@ export const Protected: FC<{
               const roles = Array.isArray(role) ? role : [role];
               local.missing_role = [];
               for (const r of roles) {
-                if ((current.user as any)[snakeToCamel(`id_${r}`)]) {
-                } else {
+                if (!(current.user as any)[snakeToCamel(`id_${r}`)]) {
                   if (r) local.missing_role.push(r);
                 }
               }
-
-              if (
-                roles.length > 0 &&
-                local.missing_role.length < roles.length
-              ) {
+              if (roles.length > 0 && local.missing_role.length < roles.length)
                 local.missing_role = [];
-              }
             }
 
-            if (!current.user) {
-              Alert.info("Error loading session");
-            }
-
+            if (!current.user) Alert.info("Error loading session");
             if (onLoad) {
-              if (!local.loaded) {
-                local.loaded = true;
-              }
+              if (!local.loaded) local.loaded = true;
               onLoad({ user: current.user });
             }
           }
@@ -122,9 +108,7 @@ export const Protected: FC<{
 
   if (local.loading) return <AppLoading />;
 
-  if (!!fallbackUrl && !current.user) {
-    navigate(fallbackUrl);
-  }
+  if (!!fallbackUrl && !current.user) navigate(fallbackUrl);
   if (local.missing_role.length > 0) {
     if (fallbackUrl) {
       navigate(fallbackUrl);
@@ -132,9 +116,7 @@ export const Protected: FC<{
     }
     if (fallback) {
       const result = fallback({ missing_role: local.missing_role });
-      if (result) {
-        return result;
-      }
+      if (result) return result;
     }
     return (
       <div className="flex flex-col items-center justify-center w-full min-h-[400px] py-12 space-y-4 md:space-y-8">

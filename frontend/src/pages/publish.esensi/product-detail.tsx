@@ -7,7 +7,6 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type { ProductDetailAPIResponse } from "backend/api/publish.esensi/product-detail";
 import { ArrowLeft } from "lucide-react";
 import type { author, product } from "shared/models";
 
@@ -28,7 +27,7 @@ export default function ProductDetailPage() {
         return;
       }
       try {
-        const res: ProductDetailAPIResponse = await api.product_detail({ id });
+        const res = await api.product_detail({ id });
         if (!res.data) {
           local.error = "Produk tidak ditemukan.";
         } else {
@@ -83,7 +82,7 @@ export default function ProductDetailPage() {
                         Kembali ke Daftar
                       </Button>
                       <h1 className="text-2xl font-bold">
-                        Detil Produk Yang Telah Disetujui
+                        Detil Produk (Telah Disetujui)
                       </h1>
                     </div>
                   </div>
