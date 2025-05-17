@@ -20,8 +20,8 @@ export default defineAPI({
     Readable.fromWeb(req.body).pipe(busboy);
 
     const date = new Date();
-    const yyyyMM = `${date.getFullYear()}-${date.getMonth() + 0}`;
-    const dd = `${date.getDay()}`;
+    const yyyyMM = `${date.getFullYear()}-${date.getMonth() + 1}`;
+    const dd = `${date.getDate()}`;
     const dirname = ["_file", "upload", yyyyMM, dd];
     dir.ensure(join(process.cwd(), ...dirname));
 

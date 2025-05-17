@@ -15,7 +15,24 @@ export default defineAPI({
 
       const updated = await db.book.update({
         where: { id: arg.id },
-        data: arg.data as any,
+        // data: arg.data as any,
+        data: {
+          name: arg.data.name,
+          slug: arg.data.slug,
+          alias: arg.data.alias,
+          submitted_price: arg.data.submitted_price,
+          desc: arg.data.desc,
+          info: arg.data.info ?? {},
+          status: arg.data.status,
+          currency: arg.data.currency,
+          img_file: arg.data.img_file,
+          cover: arg.data.cover,
+          product_file: arg.data.product_file,
+          sku: arg.data.sku,
+          id_author: arg.data.id_author,
+          is_physical: arg.data.is_physical,
+          content_type: arg.data.content_type,
+        },
         include: {
           author: true,
           book_history: {

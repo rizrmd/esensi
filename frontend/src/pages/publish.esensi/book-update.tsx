@@ -365,8 +365,7 @@ export default function BookUpdatePage() {
                             className="mt-1 w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                           >
                             <option value="draft">Draft</option>
-                            <option value="published">Published</option>
-                            <option value="archived">Archived</option>
+                            <option value="submitted">Submitted</option>
                           </select>
                         </div>
                       </div>

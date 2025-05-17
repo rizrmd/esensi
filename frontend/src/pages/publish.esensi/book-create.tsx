@@ -31,8 +31,7 @@ export default function BookCreatePage() {
         alias: "",
         desc: "",
         cover: "",
-        strike_price: 0,
-        real_price: 0,
+        submitted_price: 0,
         currency: "IDR",
         sku: "",
         status: "draft",
@@ -72,6 +71,7 @@ export default function BookCreatePage() {
         });
         const uploaded: UploadAPIResponse = await res.json();
         if (uploaded.name) local.book.cover = uploaded.name;
+        if (!!local.book.cover) console.log("local.book.cover", local.book.cover);
       }
 
       const res = await api.book_create({
@@ -274,8 +274,7 @@ export default function BookCreatePage() {
                             className="mt-1 w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                           >
                             <option value="draft">Draft</option>
-                            <option value="published">Published</option>
-                            <option value="archived">Archived</option>
+                            <option value="submitted">Submitted</option>
                           </select>
                         </div>
                       </div>
