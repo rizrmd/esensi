@@ -4,21 +4,15 @@ import type { auth_user } from "shared/models";
 import type { AuthUser } from "../types";
 
 export default defineAPI({
-  name: "user_update",
-  url: "/api/auth/user/update",
+  name: "user_detail",
+  url: "/api/auth/user/detail",
   async handler(arg: {
     id: string;
     data: auth_user;
   }): Promise<ApiResponse<AuthUser>> {
     try {
-      const user = await db.auth_user.findUnique({ where: { id: arg.id } });
-      if (!user) {
-        return { success: false, message: "User tidak ditemukan" };
-      }
-
-      const updated = await db.auth_user.update({
+      const user = await db.auth_user.findUnique({
         where: { id: arg.id },
-        data: arg.data as any,
         include: {
           auth_account: {
             take: 10,
@@ -35,10 +29,13 @@ export default defineAPI({
         },
       });
 
+      if (!user) {
+        return { success: false, message: "User tidak ditemukan" };
+      }
+
       return {
         success: true,
-        data: updated,
-        message: "User berhasil diperbarui",
+        data: user,
       };
     } catch (error) {
       console.error("Error in auth_user update API:", error);
