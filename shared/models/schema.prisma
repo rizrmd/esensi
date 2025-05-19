@@ -328,6 +328,7 @@ model product {
   preorder             preorder[]
   author               author?            @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction)
   product_category     product_category[]
+  product_tags         product_tags[]
   t_sales_download     t_sales_download[]
   t_sales_line         t_sales_line[]
 }
@@ -471,4 +472,22 @@ model withdrawal {
   requested_at DateTime  @default(now())
   processed_at DateTime?
   publisher    publisher @relation(fields: [id_publisher], references: [id])
+}
+
+model product_tags {
+  id_product String  @db.Uuid
+  id_tags    String  @db.Uuid
+  id         String  @id(map: "product_tags_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  product    product @relation(fields: [id_product], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tags       tags    @relation(fields: [id_tags], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model tags {
+  id           String         @id(map: "tags_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String
+  id_parent    String?        @db.Uuid
+  deleted_at   DateTime?
+  slug         String?
+  img          String?
+  product_tags product_tags[]
 }

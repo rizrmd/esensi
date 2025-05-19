@@ -15,8 +15,7 @@ export default defineAPI({
         name: true,
         slug: true,
         currency: true,
-        real_price: true,
-        strike_price: true,
+        submitted_price: true,
         cover: true,
       },
       where: {
@@ -31,7 +30,7 @@ export default defineAPI({
     });
 
     const total_pages = Math.ceil(
-      (await db.product.count({
+      (await db.book.count({
         where: {
           status: "published",
           deleted_at: null,
@@ -57,8 +56,7 @@ export default defineAPI({
       h3: `Cari Berdasarkan Genre, Judul, atau Penulis`,
       h4: `Update Terbaru di Esensi Online`,
       h5: `Bergabunglah dengan Komunitas Pembaca Esensi Online`,
-      paragraph: `Selamat datang di katalog lengkap Esensi Online! Di sini kamu bisa menjelajahi semua judul web novel yang tersedia—mulai dari kisah cinta yang mengharukan hingga petualangan epik penuh aksi. Gunakan fitur pencarian dan filter untuk menemukan cerita yang sesuai dengan seleramu. Koleksi kami diperbarui setiap hari untuk menghadirkan bacaan segar dan berkualitas.
-`,
+      paragraph: `Selamat datang di katalog lengkap Esensi Online! Di sini kamu bisa menjelajahi semua judul web novel yang tersedia—mulai dari kisah cinta yang mengharukan hingga petualangan epik penuh aksi. Gunakan fitur pencarian dan filter untuk menemukan cerita yang sesuai dengan seleramu. Koleksi kami diperbarui setiap hari untuk menghadirkan bacaan segar dan berkualitas.`,
       is_product: false,
     };
 

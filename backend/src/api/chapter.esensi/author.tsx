@@ -8,7 +8,7 @@ export default defineAPI({
     const req = this.req!;
     const page = req.params?.page ? parseInt(req.params.page) : 1;
     const books_per_page = 20;
-    const skip_books = page > 1 ? ((page - 1) * books_per_page) : 0;
+    const skip_books = page > 1 ? (page - 1) * books_per_page : 0;
 
     const user_data = await db.auth_user.findFirst({
       where: {
@@ -44,8 +44,7 @@ export default defineAPI({
         slug: true,
         cover: true,
         currency: true,
-        real_price: true,
-        strike_price: true,
+        submitted_price: true,
       },
       orderBy: {
         published_date: "desc",
@@ -53,6 +52,16 @@ export default defineAPI({
       take: books_per_page,
       skip: skip_books,
     });
+
+    const total_pages = Math.ceil(
+      (await db.book.count({
+        where: {
+          id_author: author_data?.id ?? undefined,
+          status: "published",
+          deleted_at: null,
+        },
+      })) / books_per_page
+    );
 
     const data = {
       title: ``,

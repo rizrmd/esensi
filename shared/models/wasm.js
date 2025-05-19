@@ -486,6 +486,21 @@ exports.Prisma.WithdrawalScalarFieldEnum = {
   processed_at: 'processed_at'
 };
 
+exports.Prisma.Product_tagsScalarFieldEnum = {
+  id_product: 'id_product',
+  id_tags: 'id_tags',
+  id: 'id'
+};
+
+exports.Prisma.TagsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  id_parent: 'id_parent',
+  deleted_at: 'deleted_at',
+  slug: 'slug',
+  img: 'img'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -554,7 +569,9 @@ exports.Prisma.ModelName = {
   t_sales_download: 't_sales_download',
   t_sales_line: 't_sales_line',
   transaction: 'transaction',
-  withdrawal: 'withdrawal'
+  withdrawal: 'withdrawal',
+  product_tags: 'product_tags',
+  tags: 'tags'
 };
 
 /**

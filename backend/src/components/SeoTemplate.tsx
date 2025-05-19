@@ -81,7 +81,10 @@ export const SeoTemplate = (arg: { data: any }) => {
           <meta name="description" content={the_desc} />
           <link rel="canonical" href={url} />
           {/* <link rel="icon" href="" /> */}
-          <meta property="og:title" content={the_title.replace(`'`, ``).replace(`"`, ``)} />
+          <meta
+            property="og:title"
+            content={the_title.replace(`'`, ``).replace(`"`, ``)}
+          />
           <meta property="og:description" content={the_desc} />
           <meta property="og:image" content={meta_img} />
           <meta property="og:url" content={url} />

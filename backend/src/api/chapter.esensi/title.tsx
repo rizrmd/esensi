@@ -24,7 +24,7 @@ export default defineAPI({
             category: {
               select: {
                 name: true,
-                slug: true
+                slug: true,
               },
             },
           },
