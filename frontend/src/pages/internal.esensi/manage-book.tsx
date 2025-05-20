@@ -175,7 +175,6 @@ export default function BookListPage() {
                                               baseUrl.publish_esensi +
                                               "/" +
                                               book.cover
-                                              + "?w=350"
                                             }
                                             alt={book.name}
                                             className="object-cover w-full h-full text-center flex items-center justify-center"
