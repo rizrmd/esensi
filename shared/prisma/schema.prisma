@@ -19,7 +19,6 @@ model affiliate {
 model auth_account {
   id                       String      @id(map: "m_user_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   password                 String?
-  role                     String      @default("") @db.VarChar(10)
   id_provider              String?     @db.VarChar
   access_token             String?
   refresh_token            String?

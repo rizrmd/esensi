@@ -6444,7 +6444,6 @@ export namespace Prisma {
   export type Auth_accountMinAggregateOutputType = {
     id: string | null
     password: string | null
-    role: string | null
     id_provider: string | null
     access_token: string | null
     refresh_token: string | null
@@ -6461,7 +6460,6 @@ export namespace Prisma {
   export type Auth_accountMaxAggregateOutputType = {
     id: string | null
     password: string | null
-    role: string | null
     id_provider: string | null
     access_token: string | null
     refresh_token: string | null
@@ -6478,7 +6476,6 @@ export namespace Prisma {
   export type Auth_accountCountAggregateOutputType = {
     id: number
     password: number
-    role: number
     id_provider: number
     access_token: number
     refresh_token: number
@@ -6497,7 +6494,6 @@ export namespace Prisma {
   export type Auth_accountMinAggregateInputType = {
     id?: true
     password?: true
-    role?: true
     id_provider?: true
     access_token?: true
     refresh_token?: true
@@ -6514,7 +6510,6 @@ export namespace Prisma {
   export type Auth_accountMaxAggregateInputType = {
     id?: true
     password?: true
-    role?: true
     id_provider?: true
     access_token?: true
     refresh_token?: true
@@ -6531,7 +6526,6 @@ export namespace Prisma {
   export type Auth_accountCountAggregateInputType = {
     id?: true
     password?: true
-    role?: true
     id_provider?: true
     access_token?: true
     refresh_token?: true
@@ -6621,7 +6615,6 @@ export namespace Prisma {
   export type Auth_accountGroupByOutputType = {
     id: string
     password: string | null
-    role: string
     id_provider: string | null
     access_token: string | null
     refresh_token: string | null
@@ -6655,7 +6648,6 @@ export namespace Prisma {
   export type auth_accountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     password?: boolean
-    role?: boolean
     id_provider?: boolean
     access_token?: boolean
     refresh_token?: boolean
@@ -6679,7 +6671,6 @@ export namespace Prisma {
   export type auth_accountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     password?: boolean
-    role?: boolean
     id_provider?: boolean
     access_token?: boolean
     refresh_token?: boolean
@@ -6697,7 +6688,6 @@ export namespace Prisma {
   export type auth_accountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     password?: boolean
-    role?: boolean
     id_provider?: boolean
     access_token?: boolean
     refresh_token?: boolean
@@ -6715,7 +6705,6 @@ export namespace Prisma {
   export type auth_accountSelectScalar = {
     id?: boolean
     password?: boolean
-    role?: boolean
     id_provider?: boolean
     access_token?: boolean
     refresh_token?: boolean
@@ -6729,7 +6718,7 @@ export namespace Prisma {
     id_account?: boolean
   }
 
-  export type auth_accountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "password" | "role" | "id_provider" | "access_token" | "refresh_token" | "id_token" | "access_token_expires_at" | "refresh_token_expires_at" | "scope" | "created_at" | "updated_at" | "id_user" | "id_account", ExtArgs["result"]["auth_account"]>
+  export type auth_accountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "password" | "id_provider" | "access_token" | "refresh_token" | "id_token" | "access_token_expires_at" | "refresh_token_expires_at" | "scope" | "created_at" | "updated_at" | "id_user" | "id_account", ExtArgs["result"]["auth_account"]>
   export type auth_accountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     affiliate?: boolean | auth_account$affiliateArgs<ExtArgs>
     auth_user?: boolean | auth_account$auth_userArgs<ExtArgs>
@@ -6759,7 +6748,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       password: string | null
-      role: string
       id_provider: string | null
       access_token: string | null
       refresh_token: string | null
@@ -7202,7 +7190,6 @@ export namespace Prisma {
   interface auth_accountFieldRefs {
     readonly id: FieldRef<"auth_account", 'String'>
     readonly password: FieldRef<"auth_account", 'String'>
-    readonly role: FieldRef<"auth_account", 'String'>
     readonly id_provider: FieldRef<"auth_account", 'String'>
     readonly access_token: FieldRef<"auth_account", 'String'>
     readonly refresh_token: FieldRef<"auth_account", 'String'>
@@ -52068,7 +52055,6 @@ export namespace Prisma {
   export const Auth_accountScalarFieldEnum: {
     id: 'id',
     password: 'password',
-    role: 'role',
     id_provider: 'id_provider',
     access_token: 'access_token',
     refresh_token: 'refresh_token',
@@ -52783,7 +52769,6 @@ export namespace Prisma {
     NOT?: auth_accountWhereInput | auth_accountWhereInput[]
     id?: UuidFilter<"auth_account"> | string
     password?: StringNullableFilter<"auth_account"> | string | null
-    role?: StringFilter<"auth_account"> | string
     id_provider?: StringNullableFilter<"auth_account"> | string | null
     access_token?: StringNullableFilter<"auth_account"> | string | null
     refresh_token?: StringNullableFilter<"auth_account"> | string | null
@@ -52806,7 +52791,6 @@ export namespace Prisma {
   export type auth_accountOrderByWithRelationInput = {
     id?: SortOrder
     password?: SortOrderInput | SortOrder
-    role?: SortOrder
     id_provider?: SortOrderInput | SortOrder
     access_token?: SortOrderInput | SortOrder
     refresh_token?: SortOrderInput | SortOrder
@@ -52832,7 +52816,6 @@ export namespace Prisma {
     OR?: auth_accountWhereInput[]
     NOT?: auth_accountWhereInput | auth_accountWhereInput[]
     password?: StringNullableFilter<"auth_account"> | string | null
-    role?: StringFilter<"auth_account"> | string
     id_provider?: StringNullableFilter<"auth_account"> | string | null
     access_token?: StringNullableFilter<"auth_account"> | string | null
     refresh_token?: StringNullableFilter<"auth_account"> | string | null
@@ -52855,7 +52838,6 @@ export namespace Prisma {
   export type auth_accountOrderByWithAggregationInput = {
     id?: SortOrder
     password?: SortOrderInput | SortOrder
-    role?: SortOrder
     id_provider?: SortOrderInput | SortOrder
     access_token?: SortOrderInput | SortOrder
     refresh_token?: SortOrderInput | SortOrder
@@ -52878,7 +52860,6 @@ export namespace Prisma {
     NOT?: auth_accountScalarWhereWithAggregatesInput | auth_accountScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"auth_account"> | string
     password?: StringNullableWithAggregatesFilter<"auth_account"> | string | null
-    role?: StringWithAggregatesFilter<"auth_account"> | string
     id_provider?: StringNullableWithAggregatesFilter<"auth_account"> | string | null
     access_token?: StringNullableWithAggregatesFilter<"auth_account"> | string | null
     refresh_token?: StringNullableWithAggregatesFilter<"auth_account"> | string | null
@@ -55634,7 +55615,6 @@ export namespace Prisma {
   export type auth_accountCreateInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -55656,7 +55636,6 @@ export namespace Prisma {
   export type auth_accountUncheckedCreateInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -55678,7 +55657,6 @@ export namespace Prisma {
   export type auth_accountUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55700,7 +55678,6 @@ export namespace Prisma {
   export type auth_accountUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55722,7 +55699,6 @@ export namespace Prisma {
   export type auth_accountCreateManyInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -55739,7 +55715,6 @@ export namespace Prisma {
   export type auth_accountUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55755,7 +55730,6 @@ export namespace Prisma {
   export type auth_accountUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58783,7 +58757,6 @@ export namespace Prisma {
   export type auth_accountCountOrderByAggregateInput = {
     id?: SortOrder
     password?: SortOrder
-    role?: SortOrder
     id_provider?: SortOrder
     access_token?: SortOrder
     refresh_token?: SortOrder
@@ -58800,7 +58773,6 @@ export namespace Prisma {
   export type auth_accountMaxOrderByAggregateInput = {
     id?: SortOrder
     password?: SortOrder
-    role?: SortOrder
     id_provider?: SortOrder
     access_token?: SortOrder
     refresh_token?: SortOrder
@@ -58817,7 +58789,6 @@ export namespace Prisma {
   export type auth_accountMinOrderByAggregateInput = {
     id?: SortOrder
     password?: SortOrder
-    role?: SortOrder
     id_provider?: SortOrder
     access_token?: SortOrder
     refresh_token?: SortOrder
@@ -64190,7 +64161,6 @@ export namespace Prisma {
   export type auth_accountCreateWithoutAffiliateInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -64211,7 +64181,6 @@ export namespace Prisma {
   export type auth_accountUncheckedCreateWithoutAffiliateInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -64302,7 +64271,6 @@ export namespace Prisma {
   export type auth_accountUpdateWithoutAffiliateInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64323,7 +64291,6 @@ export namespace Prisma {
   export type auth_accountUncheckedUpdateWithoutAffiliateInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64976,7 +64943,6 @@ export namespace Prisma {
   export type auth_accountCreateWithoutAuth_userInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -64997,7 +64963,6 @@ export namespace Prisma {
   export type auth_accountUncheckedCreateWithoutAuth_userInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -65276,7 +65241,6 @@ export namespace Prisma {
     NOT?: auth_accountScalarWhereInput | auth_accountScalarWhereInput[]
     id?: UuidFilter<"auth_account"> | string
     password?: StringNullableFilter<"auth_account"> | string | null
-    role?: StringFilter<"auth_account"> | string
     id_provider?: StringNullableFilter<"auth_account"> | string | null
     access_token?: StringNullableFilter<"auth_account"> | string | null
     refresh_token?: StringNullableFilter<"auth_account"> | string | null
@@ -65613,7 +65577,6 @@ export namespace Prisma {
   export type auth_accountCreateWithoutAuthorInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -65634,7 +65597,6 @@ export namespace Prisma {
   export type auth_accountUncheckedCreateWithoutAuthorInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -65843,7 +65805,6 @@ export namespace Prisma {
   export type auth_accountUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65864,7 +65825,6 @@ export namespace Prisma {
   export type auth_accountUncheckedUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -67637,7 +67597,6 @@ export namespace Prisma {
   export type auth_accountCreateWithoutCustomerInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -67658,7 +67617,6 @@ export namespace Prisma {
   export type auth_accountUncheckedCreateWithoutCustomerInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -67831,7 +67789,6 @@ export namespace Prisma {
   export type auth_accountUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -67852,7 +67809,6 @@ export namespace Prisma {
   export type auth_accountUncheckedUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68480,7 +68436,6 @@ export namespace Prisma {
   export type auth_accountCreateWithoutInternalInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -68501,7 +68456,6 @@ export namespace Prisma {
   export type auth_accountUncheckedCreateWithoutInternalInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -68554,7 +68508,6 @@ export namespace Prisma {
   export type auth_accountUpdateWithoutInternalInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68575,7 +68528,6 @@ export namespace Prisma {
   export type auth_accountUncheckedUpdateWithoutInternalInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69550,7 +69502,6 @@ export namespace Prisma {
   export type auth_accountCreateWithoutPublisherInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -69571,7 +69522,6 @@ export namespace Prisma {
   export type auth_accountUncheckedCreateWithoutPublisherInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -69752,7 +69702,6 @@ export namespace Prisma {
   export type auth_accountUpdateWithoutPublisherInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69773,7 +69722,6 @@ export namespace Prisma {
   export type auth_accountUncheckedUpdateWithoutPublisherInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71737,7 +71685,6 @@ export namespace Prisma {
   export type auth_accountCreateManyAuth_userInput = {
     id?: string
     password?: string | null
-    role?: string
     id_provider?: string | null
     access_token?: string | null
     refresh_token?: string | null
@@ -71784,7 +71731,6 @@ export namespace Prisma {
   export type auth_accountUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71805,7 +71751,6 @@ export namespace Prisma {
   export type auth_accountUncheckedUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71826,7 +71771,6 @@ export namespace Prisma {
   export type auth_accountUncheckedUpdateManyWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
     id_provider?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null

@@ -129,7 +129,6 @@ exports.Prisma.AffiliateScalarFieldEnum = {
 exports.Prisma.Auth_accountScalarFieldEnum = {
   id: 'id',
   password: 'password',
-  role: 'role',
   id_provider: 'id_provider',
   access_token: 'access_token',
   refresh_token: 'refresh_token',
