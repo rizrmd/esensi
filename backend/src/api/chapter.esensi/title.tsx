@@ -42,7 +42,6 @@ export default defineAPI({
       },
     });
 
-
     const author = await db.auth_user.findFirst({
       select: {
         name: true,
@@ -93,6 +92,7 @@ export default defineAPI({
       tags: tags,
       ratings: ratings,
       reviews: reviews,
+      content: ``,
     };
 
     const seo_data = {
