@@ -8,7 +8,6 @@ import { navigate } from "@/lib/router";
 export default () => {
   useLocal({}, () => {});
 
-  const u = baseUrl;
   const content = (
     <SideForm sideImage={"/img/side-bg.jpg"}>
       <div className="space-y-6 w-full">
@@ -24,7 +23,7 @@ export default () => {
             <Button className="w-full" asChild>
               <a
                 href={`${u.auth_esensi}/login?callbackURL=${encodeURIComponent(
-                  u.publish_esensi + "/dashboard"
+                  baseUrl.publish_esensi + "/dashboard"
                 )}`}
               >
                 Login ke Esensi

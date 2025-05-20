@@ -161,7 +161,7 @@ export default function BookListPage() {
                                         {book.cover ? (
                                           <img
                                             src={
-                                              baseUrl.publish_esensi +
+                                              baseUrl.internal_esensi +
                                               "/" +
                                               book.cover
                                             }
@@ -230,7 +230,7 @@ export default function BookListPage() {
                                         {book.cover ? (
                                           <img
                                             src={
-                                              baseUrl.publish_esensi +
+                                              baseUrl.internal_esensi +
                                               "/" +
                                               book.cover
                                             }
@@ -322,7 +322,7 @@ export default function BookListPage() {
                                               {book.cover ? (
                                                 <img
                                                   src={
-                                                    baseUrl.publish_esensi +
+                                                    baseUrl.internal_esensi +
                                                     "/" +
                                                     book.cover
                                                   }

@@ -220,7 +220,7 @@ export default function ProductListPage() {
                                         {product.cover ? (
                                           <img
                                             src={
-                                              baseUrl.publish_esensi +
+                                              baseUrl.internal_esensi +
                                               "/" +
                                               product.cover
                                             }
@@ -315,7 +315,7 @@ export default function ProductListPage() {
                                                 {product.cover ? (
                                                   <img
                                                     src={
-                                                      baseUrl.publish_esensi +
+                                                      baseUrl.internal_esensi +
                                                       "/" +
                                                       product.cover
                                                     }
