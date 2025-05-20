@@ -162,6 +162,7 @@ export default function ProductListPage() {
                                               baseUrl.publish_esensi +
                                               "/" +
                                               product.cover
+                                              + "?w=350"
                                             }
                                             alt={product.name}
                                             className="object-cover w-full h-full text-center flex items-center justify-center"
