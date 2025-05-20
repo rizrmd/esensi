@@ -6,7 +6,10 @@ import type { Book } from "../types";
 export default defineAPI({
   name: "book_update",
   url: "/api/publish/book/update",
-  async handler(arg: { id: string; data: book }): Promise<ApiResponse<Book>> {
+  async handler(arg: {
+    id: string;
+    data: Partial<book>;
+  }): Promise<ApiResponse<Book>> {
     try {
       const book = await db.book.findUnique({ where: { id: arg.id } });
       if (!book) {
@@ -15,7 +18,6 @@ export default defineAPI({
 
       const updated = await db.book.update({
         where: { id: arg.id },
-        // data: arg.data as any,
         data: {
           name: arg.data.name,
           slug: arg.data.slug,

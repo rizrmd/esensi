@@ -39,7 +39,7 @@ export default () => {
   return (
     <>
       <Protected
-        role={["management", "sales_and_marketing", "support"]}
+        role={["internal"]}
         onLoad={({ user }) => {
           if (user) navigate("/dashboard");
         }}

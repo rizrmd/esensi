@@ -8,10 +8,9 @@ export default defineAPI({
   url: "/api/publish/product/update",
   async handler(arg: {
     id: string;
-    data: product;
+    data: Partial<product>;
   }): Promise<ApiResponse<Product>> {
     try {
-      // Check if product exists
       const product = await db.product.findUnique({ where: { id: arg.id } });
       if (!product) {
         return { success: false, message: "Produk tidak ditemukan" };
@@ -19,7 +18,24 @@ export default defineAPI({
 
       const updated = await db.product.update({
         where: { id: arg.id },
-        data: arg.data as any,
+        data: {
+          name: arg.data.name,
+          slug: arg.data.slug,
+          alias: arg.data.alias,
+          strike_price: arg.data.strike_price,
+          real_price: arg.data.real_price,
+          desc: arg.data.desc,
+          info: arg.data.info ?? {},
+          status: arg.data.status,
+          currency: arg.data.currency,
+          img_file: arg.data.img_file,
+          cover: arg.data.cover,
+          product_file: arg.data.product_file,
+          sku: arg.data.sku,
+          id_author: arg.data.id_author,
+          is_physical: arg.data.is_physical,
+          content_type: arg.data.content_type,
+        },
         include: {
           author: true,
           bundle_product: {

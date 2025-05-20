@@ -285,12 +285,12 @@ ${url}
           field: "id",
         },
       },
-      idManagement: {
+      idInternal: {
         type: "string",
         required: false,
-        fieldName: "id_management",
+        fieldName: "id_internal",
         references: {
-          model: "management",
+          model: "internal",
           field: "id",
         },
       },
@@ -300,24 +300,6 @@ ${url}
         fieldName: "id_publisher",
         references: {
           model: "publisher",
-          field: "id",
-        },
-      },
-      idSalesAndMarketing: {
-        type: "string",
-        required: false,
-        fieldName: "id_sales_and_marketing",
-        references: {
-          model: "sales_and_marketing",
-          field: "id",
-        },
-      },
-      idSupport: {
-        type: "string",
-        required: false,
-        fieldName: "id_support",
-        references: {
-          model: "support",
           field: "id",
         },
       },
@@ -478,10 +460,8 @@ export const utils = {
         id_customer,
         id_author,
         id_affiliate,
-        id_management,
+        id_internal,
         id_publisher,
-        id_sales_and_marketing,
-        id_support,
       }: {
         id: string;
         name: string;
@@ -494,10 +474,8 @@ export const utils = {
         id_customer?: string | null;
         id_author?: string | null;
         id_affiliate?: string | null;
-        id_management?: string | null;
+        id_internal?: string | null;
         id_publisher?: string | null;
-        id_sales_and_marketing?: string | null;
-        id_support?: string | null;
       }) => ({
         id,
         name,
@@ -510,10 +488,8 @@ export const utils = {
         id_customer,
         id_author,
         id_affiliate,
-        id_management,
+        id_internal,
         id_publisher,
-        id_sales_and_marketing,
-        id_support,
       }),
     },
   },

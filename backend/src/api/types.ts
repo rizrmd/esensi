@@ -8,13 +8,11 @@ import type {
   bundle,
   category,
   customer,
-  management,
+  internal,
   product,
   promo_code,
   publisher,
   publisher_author,
-  sales_and_marketing,
-  support,
   transaction,
   withdrawal,
 } from "shared/models";
@@ -44,10 +42,8 @@ export type RoleCheck = {
   affiliate?: boolean;
   author?: boolean;
   customer?: boolean;
-  management?: boolean;
+  internal?: boolean;
   publisher?: boolean;
-  sales_and_marketing?: boolean;
-  support?: boolean;
 };
 
 export type Onboarding = {
@@ -94,13 +90,15 @@ export type AuthUser = auth_user & {
   affiliate: affiliate | null;
   author: author | null;
   customer: customer | null;
-  management: management | null;
+  internal: internal | null;
   publisher: publisher | null;
-  sales_and_marketing: sales_and_marketing | null;
-  support: support | null;
 };
 
 export type Withdrawal = {
   withdrawal: withdrawal;
   transaction: transaction;
+};
+
+export type Account = auth_account & {
+  auth_user: auth_user | null;
 };

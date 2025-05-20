@@ -18,10 +18,8 @@ export type Role =
   | "affiliate"
   | "author"
   | "customer"
-  | "management"
-  | "publisher"
-  | "sales_and_marketing"
-  | "support";
+  | "internal"
+  | "publisher";
 export const Protected: FC<{
   children:
     | ReactNode

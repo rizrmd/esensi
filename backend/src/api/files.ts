@@ -9,7 +9,7 @@ export default defineAPI({
   async handler(): Promise<Response> {
     const req = this.req!;
     let path = req.url.split("?")[0];
-    const qs = "?" + req.url.split("?")[1];
+    const qs = !req.url.split("?")[1] ? "" : "?" + req.url.split("?")[1];
     const fileName = path!.split("/_file/upload/").slice(1).join("/");
     const fileExtension = fileName.split(".").pop();
 
@@ -29,16 +29,42 @@ export default defineAPI({
 
     if (!(await bunFile.exists())) {
       if (isImage) {
-        return Response.redirect(
+        const prodPath =
           "https://esensi.online/_img/upload/" +
-            req.url.split("/_file/upload/").slice(1).join("/") +
-            qs
-        );
+          req.url.split("/_file/upload/").slice(1).join("/") +
+          qs;
+
+        try {
+          const resp = await fetch(prodPath, { method: "HEAD" });
+          if (resp.ok) {
+            const contentType = resp.headers.get("content-type");
+            if (contentType && contentType.startsWith("image/")) {
+              return Response.redirect(prodPath);
+            }
+          }
+        } catch (error) {
+          console.error("Failed to fetch production image:", error);
+        }
+
+        return new Response("Not Found", { status: 404 });
       } else {
-        return Response.redirect(
+        const prodPath =
           "https://esensi.online/_file/upload/" +
-            req.url.split("/_file/upload/").slice(1).join("/")
-        );
+          req.url.split("/_file/upload/").slice(1).join("/");
+
+        try {
+          const resp = await fetch(prodPath, { method: "HEAD" });
+          if (resp.ok) {
+            const contentType = resp.headers.get("content-type");
+            if (contentType && contentType.startsWith("image/")) {
+              return Response.redirect(prodPath);
+            }
+          }
+        } catch (error) {
+          console.error("Failed to fetch production image:", error);
+        }
+
+        return new Response("Not Found", { status: 404 });
       }
     } else {
       if (isImage) {

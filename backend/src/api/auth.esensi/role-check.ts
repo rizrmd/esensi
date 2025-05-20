@@ -8,15 +8,7 @@ export default defineAPI({
   url: "/api/auth/role-check",
   async handler(arg: {
     user: Partial<User>;
-    role: (
-      | "affiliate"
-      | "author"
-      | "customer"
-      | "management"
-      | "publisher"
-      | "sales_and_marketing"
-      | "support"
-    )[];
+    role: ("affiliate" | "author" | "customer" | "internal" | "publisher")[];
   }): Promise<ApiResponse<RoleCheck | null>> {
     try {
       const user = await db.auth_user.findUnique({
@@ -36,12 +28,8 @@ export default defineAPI({
         roles.affiliate = role === "affiliate" && user.id_affiliate !== null;
         roles.author = role === "author" && user.id_author !== null;
         roles.customer = role === "customer" && user.id_customer !== null;
-        roles.management = role === "management" && user.id_management !== null;
+        roles.internal = role === "internal" && user.id_internal !== null;
         roles.publisher = role === "publisher" && user.id_publisher !== null;
-        roles.sales_and_marketing =
-          role === "sales_and_marketing" &&
-          user.id_sales_and_marketing !== null;
-        roles.support = role === "support" && user.id_support !== null;
       }
 
       return {

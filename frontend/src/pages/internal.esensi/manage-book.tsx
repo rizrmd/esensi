@@ -58,7 +58,7 @@ export default function BookListPage() {
 
   return (
     <Protected
-      role={["publisher", "author"]}
+      role={["internal"]}
       fallback={({ missing_role }) => {
         if (
           missing_role.includes("publisher") ||
