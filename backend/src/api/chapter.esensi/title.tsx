@@ -11,48 +11,65 @@ export default defineAPI({
 
     // if slug == "_" redirect to /browse
 
-    const book = await db.product.findFirst({
+    const book = await db.book.findFirst({
       where: {
         slug: req.params.slug,
         status: "published",
         is_chapter: true,
         deleted_at: null,
       },
-      include: {
-        product_category: {
-          select: {
-            category: {
-              select: {
-                name: true,
-                slug: true,
-              },
-            },
-          },
-          where: {
-            category: {
-              deleted_at: null,
-            },
-          },
-        },
+    });
+
+    let cats = ``;
+
+    const author = await db.auth_user.findFirst({
+      select: {
+        name: true,
+        username: true,
+        display_username: true,
+        image: true,
+      },
+      where: {
+        id_author: book?.id_author,
       },
     });
 
-    let cats = "";
-    book?.product_category.map((cat) => {
-      cats = cats + ", " + cat.category.name;
+    const chapters = await db.chapter.findMany({
+      where: {
+        id_product: book?.id,
+      },
+      orderBy: {
+        number: `asc`,
+      },
     });
 
-    const categories = book?.product_category.map((cat) => {
-      return {
-        name: cat.category.name,
-        slug: cat.category.slug,
-      };
+    const ratings = await db.reviews.aggregate({
+      _avg: {
+        rating: true,
+      },
+      _count: {
+        id: true,
+      },
+      where: {
+        id_book: book?.id,
+        deleted_at: null,
+        parent: null,
+      },
+    });
+
+    const reviews = await db.reviews.findMany({
+      where: {
+        id_book: book?.id,
+        deleted_at: null,
+      },
     });
 
     const data = {
       title: `Detail Ebook`,
-      product: book,
-      categories: categories,
+      book: book,
+      author: author,
+      ratings: ratings,
+      reviews: reviews,
     };
 
     const seo_data = {
@@ -64,7 +81,7 @@ export default defineAPI({
       paragraph: `${book?.desc}`,
       keywords: `${cats}`,
       is_product: true,
-      price: book?.real_price,
+      price: book?.submitted_price,
       currencry: book?.currency,
     };
 
