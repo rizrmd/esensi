@@ -31,17 +31,11 @@ export default defineAPI({
       if (isImage) {
         const prodPath =
           "https://esensi.online/_img/upload/" +
-          req.url.split("/_file/upload/").slice(1).join("/") +
-          qs;
+          req.url.split("/_file/upload/").slice(1).join("/");
 
         try {
           const resp = await fetch(prodPath, { method: "HEAD" });
-          if (resp.ok) {
-            const contentType = resp.headers.get("content-type");
-            if (contentType && contentType.startsWith("image/")) {
-              return Response.redirect(prodPath);
-            }
-          }
+          if (resp.ok) return Response.redirect(prodPath);
         } catch (error) {
           console.error("Failed to fetch production image:", error);
         }
@@ -54,12 +48,7 @@ export default defineAPI({
 
         try {
           const resp = await fetch(prodPath, { method: "HEAD" });
-          if (resp.ok) {
-            const contentType = resp.headers.get("content-type");
-            if (contentType && contentType.startsWith("image/")) {
-              return Response.redirect(prodPath);
-            }
-          }
+          if (resp.ok) return Response.redirect(prodPath);
         } catch (error) {
           console.error("Failed to fetch production image:", error);
         }

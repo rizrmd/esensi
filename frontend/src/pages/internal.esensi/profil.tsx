@@ -161,18 +161,7 @@ export default () => {
   }
 
   return (
-    <Protected
-      role={["internal"]}
-      fallback={({ missing_role }) => {
-        if (
-          missing_role.includes("publisher") ||
-          missing_role.includes("author")
-        ) {
-          navigate("/onboarding");
-          return <AppLoading />;
-        }
-      }}
-    >
+    <Protected role={["internal"]}>
       {({ user }) => (
         <div className="flex min-h-svh flex-col bg-gray-50">
           <PublishMenuBar title="Profil" />

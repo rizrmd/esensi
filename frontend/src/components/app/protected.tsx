@@ -67,14 +67,10 @@ export const Protected: FC<{
               current.user["idAuthor"] = null;
             if (current.user["idCustomer"] === "null")
               current.user["idCustomer"] = null;
-            if (current.user["idManagement"] === "null")
-              current.user["idManagement"] = null;
+            if (current.user["idInternal"] === "null")
+              current.user["idInternal"] = null;
             if (current.user["idPublisher"] === "null")
               current.user["idPublisher"] = null;
-            if (current.user["idSalesAndMarketing"] === "null")
-              current.user["idSalesAndMarketing"] = null;
-            if (current.user["idSupport"] === "null")
-              current.user["idSupport"] = null;
           }
 
           if (current.user) {
