@@ -199,15 +199,35 @@ export type transaction = $Result.DefaultSelection<Prisma.$transactionPayload>
  */
 export type withdrawal = $Result.DefaultSelection<Prisma.$withdrawalPayload>
 /**
- * Model product_tags
- * 
- */
-export type product_tags = $Result.DefaultSelection<Prisma.$product_tagsPayload>
-/**
  * Model tags
  * 
  */
 export type tags = $Result.DefaultSelection<Prisma.$tagsPayload>
+/**
+ * Model reviews
+ * 
+ */
+export type reviews = $Result.DefaultSelection<Prisma.$reviewsPayload>
+/**
+ * Model reviews_likes
+ * 
+ */
+export type reviews_likes = $Result.DefaultSelection<Prisma.$reviews_likesPayload>
+/**
+ * Model book_genre
+ * 
+ */
+export type book_genre = $Result.DefaultSelection<Prisma.$book_genrePayload>
+/**
+ * Model book_tags
+ * 
+ */
+export type book_tags = $Result.DefaultSelection<Prisma.$book_tagsPayload>
+/**
+ * Model genre
+ * 
+ */
+export type genre = $Result.DefaultSelection<Prisma.$genrePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -705,16 +725,6 @@ export class PrismaClient<
   get withdrawal(): Prisma.withdrawalDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.product_tags`: Exposes CRUD operations for the **product_tags** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Product_tags
-    * const product_tags = await prisma.product_tags.findMany()
-    * ```
-    */
-  get product_tags(): Prisma.product_tagsDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.tags`: Exposes CRUD operations for the **tags** model.
     * Example usage:
     * ```ts
@@ -723,6 +733,56 @@ export class PrismaClient<
     * ```
     */
   get tags(): Prisma.tagsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.reviews`: Exposes CRUD operations for the **reviews** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Reviews
+    * const reviews = await prisma.reviews.findMany()
+    * ```
+    */
+  get reviews(): Prisma.reviewsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.reviews_likes`: Exposes CRUD operations for the **reviews_likes** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Reviews_likes
+    * const reviews_likes = await prisma.reviews_likes.findMany()
+    * ```
+    */
+  get reviews_likes(): Prisma.reviews_likesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.book_genre`: Exposes CRUD operations for the **book_genre** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Book_genres
+    * const book_genres = await prisma.book_genre.findMany()
+    * ```
+    */
+  get book_genre(): Prisma.book_genreDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.book_tags`: Exposes CRUD operations for the **book_tags** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Book_tags
+    * const book_tags = await prisma.book_tags.findMany()
+    * ```
+    */
+  get book_tags(): Prisma.book_tagsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.genre`: Exposes CRUD operations for the **genre** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Genres
+    * const genres = await prisma.genre.findMany()
+    * ```
+    */
+  get genre(): Prisma.genreDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1200,8 +1260,12 @@ export namespace Prisma {
     t_sales_line: 't_sales_line',
     transaction: 'transaction',
     withdrawal: 'withdrawal',
-    product_tags: 'product_tags',
-    tags: 'tags'
+    tags: 'tags',
+    reviews: 'reviews',
+    reviews_likes: 'reviews_likes',
+    book_genre: 'book_genre',
+    book_tags: 'book_tags',
+    genre: 'genre'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1220,7 +1284,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "affiliate" | "auth_account" | "auth_session" | "auth_two_factor" | "auth_user" | "auth_verification" | "author" | "banner" | "book" | "book_history" | "bundle" | "bundle_category" | "bundle_product" | "category" | "chapter" | "customer" | "customer_reader" | "customer_track" | "landing" | "landing_items" | "management" | "midtrx" | "preorder" | "product" | "product_category" | "promo_code" | "publisher" | "publisher_author" | "sales_and_marketing" | "support" | "t_ai_credit" | "t_ai_credit_topup" | "t_sales" | "t_sales_download" | "t_sales_line" | "transaction" | "withdrawal" | "product_tags" | "tags"
+      modelProps: "affiliate" | "auth_account" | "auth_session" | "auth_two_factor" | "auth_user" | "auth_verification" | "author" | "banner" | "book" | "book_history" | "bundle" | "bundle_category" | "bundle_product" | "category" | "chapter" | "customer" | "customer_reader" | "customer_track" | "landing" | "landing_items" | "management" | "midtrx" | "preorder" | "product" | "product_category" | "promo_code" | "publisher" | "publisher_author" | "sales_and_marketing" | "support" | "t_ai_credit" | "t_ai_credit_topup" | "t_sales" | "t_sales_download" | "t_sales_line" | "transaction" | "withdrawal" | "tags" | "reviews" | "reviews_likes" | "book_genre" | "book_tags" | "genre"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3962,80 +4026,6 @@ export namespace Prisma {
           }
         }
       }
-      product_tags: {
-        payload: Prisma.$product_tagsPayload<ExtArgs>
-        fields: Prisma.product_tagsFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.product_tagsFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$product_tagsPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.product_tagsFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$product_tagsPayload>
-          }
-          findFirst: {
-            args: Prisma.product_tagsFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$product_tagsPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.product_tagsFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$product_tagsPayload>
-          }
-          findMany: {
-            args: Prisma.product_tagsFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$product_tagsPayload>[]
-          }
-          create: {
-            args: Prisma.product_tagsCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$product_tagsPayload>
-          }
-          createMany: {
-            args: Prisma.product_tagsCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.product_tagsCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$product_tagsPayload>[]
-          }
-          delete: {
-            args: Prisma.product_tagsDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$product_tagsPayload>
-          }
-          update: {
-            args: Prisma.product_tagsUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$product_tagsPayload>
-          }
-          deleteMany: {
-            args: Prisma.product_tagsDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.product_tagsUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.product_tagsUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$product_tagsPayload>[]
-          }
-          upsert: {
-            args: Prisma.product_tagsUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$product_tagsPayload>
-          }
-          aggregate: {
-            args: Prisma.Product_tagsAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateProduct_tags>
-          }
-          groupBy: {
-            args: Prisma.product_tagsGroupByArgs<ExtArgs>
-            result: $Utils.Optional<Product_tagsGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.product_tagsCountArgs<ExtArgs>
-            result: $Utils.Optional<Product_tagsCountAggregateOutputType> | number
-          }
-        }
-      }
       tags: {
         payload: Prisma.$tagsPayload<ExtArgs>
         fields: Prisma.tagsFieldRefs
@@ -4107,6 +4097,376 @@ export namespace Prisma {
           count: {
             args: Prisma.tagsCountArgs<ExtArgs>
             result: $Utils.Optional<TagsCountAggregateOutputType> | number
+          }
+        }
+      }
+      reviews: {
+        payload: Prisma.$reviewsPayload<ExtArgs>
+        fields: Prisma.reviewsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.reviewsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviewsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.reviewsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviewsPayload>
+          }
+          findFirst: {
+            args: Prisma.reviewsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviewsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.reviewsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviewsPayload>
+          }
+          findMany: {
+            args: Prisma.reviewsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviewsPayload>[]
+          }
+          create: {
+            args: Prisma.reviewsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviewsPayload>
+          }
+          createMany: {
+            args: Prisma.reviewsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.reviewsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviewsPayload>[]
+          }
+          delete: {
+            args: Prisma.reviewsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviewsPayload>
+          }
+          update: {
+            args: Prisma.reviewsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviewsPayload>
+          }
+          deleteMany: {
+            args: Prisma.reviewsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.reviewsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.reviewsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviewsPayload>[]
+          }
+          upsert: {
+            args: Prisma.reviewsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviewsPayload>
+          }
+          aggregate: {
+            args: Prisma.ReviewsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateReviews>
+          }
+          groupBy: {
+            args: Prisma.reviewsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ReviewsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.reviewsCountArgs<ExtArgs>
+            result: $Utils.Optional<ReviewsCountAggregateOutputType> | number
+          }
+        }
+      }
+      reviews_likes: {
+        payload: Prisma.$reviews_likesPayload<ExtArgs>
+        fields: Prisma.reviews_likesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.reviews_likesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviews_likesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.reviews_likesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviews_likesPayload>
+          }
+          findFirst: {
+            args: Prisma.reviews_likesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviews_likesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.reviews_likesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviews_likesPayload>
+          }
+          findMany: {
+            args: Prisma.reviews_likesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviews_likesPayload>[]
+          }
+          create: {
+            args: Prisma.reviews_likesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviews_likesPayload>
+          }
+          createMany: {
+            args: Prisma.reviews_likesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.reviews_likesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviews_likesPayload>[]
+          }
+          delete: {
+            args: Prisma.reviews_likesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviews_likesPayload>
+          }
+          update: {
+            args: Prisma.reviews_likesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviews_likesPayload>
+          }
+          deleteMany: {
+            args: Prisma.reviews_likesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.reviews_likesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.reviews_likesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviews_likesPayload>[]
+          }
+          upsert: {
+            args: Prisma.reviews_likesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reviews_likesPayload>
+          }
+          aggregate: {
+            args: Prisma.Reviews_likesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateReviews_likes>
+          }
+          groupBy: {
+            args: Prisma.reviews_likesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Reviews_likesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.reviews_likesCountArgs<ExtArgs>
+            result: $Utils.Optional<Reviews_likesCountAggregateOutputType> | number
+          }
+        }
+      }
+      book_genre: {
+        payload: Prisma.$book_genrePayload<ExtArgs>
+        fields: Prisma.book_genreFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.book_genreFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_genrePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.book_genreFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_genrePayload>
+          }
+          findFirst: {
+            args: Prisma.book_genreFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_genrePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.book_genreFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_genrePayload>
+          }
+          findMany: {
+            args: Prisma.book_genreFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_genrePayload>[]
+          }
+          create: {
+            args: Prisma.book_genreCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_genrePayload>
+          }
+          createMany: {
+            args: Prisma.book_genreCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.book_genreCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_genrePayload>[]
+          }
+          delete: {
+            args: Prisma.book_genreDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_genrePayload>
+          }
+          update: {
+            args: Prisma.book_genreUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_genrePayload>
+          }
+          deleteMany: {
+            args: Prisma.book_genreDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.book_genreUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.book_genreUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_genrePayload>[]
+          }
+          upsert: {
+            args: Prisma.book_genreUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_genrePayload>
+          }
+          aggregate: {
+            args: Prisma.Book_genreAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBook_genre>
+          }
+          groupBy: {
+            args: Prisma.book_genreGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Book_genreGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.book_genreCountArgs<ExtArgs>
+            result: $Utils.Optional<Book_genreCountAggregateOutputType> | number
+          }
+        }
+      }
+      book_tags: {
+        payload: Prisma.$book_tagsPayload<ExtArgs>
+        fields: Prisma.book_tagsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.book_tagsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_tagsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.book_tagsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_tagsPayload>
+          }
+          findFirst: {
+            args: Prisma.book_tagsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_tagsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.book_tagsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_tagsPayload>
+          }
+          findMany: {
+            args: Prisma.book_tagsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_tagsPayload>[]
+          }
+          create: {
+            args: Prisma.book_tagsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_tagsPayload>
+          }
+          createMany: {
+            args: Prisma.book_tagsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.book_tagsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_tagsPayload>[]
+          }
+          delete: {
+            args: Prisma.book_tagsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_tagsPayload>
+          }
+          update: {
+            args: Prisma.book_tagsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_tagsPayload>
+          }
+          deleteMany: {
+            args: Prisma.book_tagsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.book_tagsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.book_tagsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_tagsPayload>[]
+          }
+          upsert: {
+            args: Prisma.book_tagsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$book_tagsPayload>
+          }
+          aggregate: {
+            args: Prisma.Book_tagsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBook_tags>
+          }
+          groupBy: {
+            args: Prisma.book_tagsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Book_tagsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.book_tagsCountArgs<ExtArgs>
+            result: $Utils.Optional<Book_tagsCountAggregateOutputType> | number
+          }
+        }
+      }
+      genre: {
+        payload: Prisma.$genrePayload<ExtArgs>
+        fields: Prisma.genreFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.genreFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$genrePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.genreFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$genrePayload>
+          }
+          findFirst: {
+            args: Prisma.genreFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$genrePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.genreFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$genrePayload>
+          }
+          findMany: {
+            args: Prisma.genreFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$genrePayload>[]
+          }
+          create: {
+            args: Prisma.genreCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$genrePayload>
+          }
+          createMany: {
+            args: Prisma.genreCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.genreCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$genrePayload>[]
+          }
+          delete: {
+            args: Prisma.genreDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$genrePayload>
+          }
+          update: {
+            args: Prisma.genreUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$genrePayload>
+          }
+          deleteMany: {
+            args: Prisma.genreDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.genreUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.genreUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$genrePayload>[]
+          }
+          upsert: {
+            args: Prisma.genreUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$genrePayload>
+          }
+          aggregate: {
+            args: Prisma.GenreAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGenre>
+          }
+          groupBy: {
+            args: Prisma.genreGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GenreGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.genreCountArgs<ExtArgs>
+            result: $Utils.Optional<GenreCountAggregateOutputType> | number
           }
         }
       }
@@ -4231,8 +4591,12 @@ export namespace Prisma {
     t_sales_line?: t_sales_lineOmit
     transaction?: transactionOmit
     withdrawal?: withdrawalOmit
-    product_tags?: product_tagsOmit
     tags?: tagsOmit
+    reviews?: reviewsOmit
+    reviews_likes?: reviews_likesOmit
+    book_genre?: book_genreOmit
+    book_tags?: book_tagsOmit
+    genre?: genreOmit
   }
 
   /* Types for Logging */
@@ -4446,12 +4810,16 @@ export namespace Prisma {
     auth_account: number
     auth_session: number
     auth_two_factor: number
+    reviews: number
+    reviews_likes: number
   }
 
   export type Auth_userCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_account?: boolean | Auth_userCountOutputTypeCountAuth_accountArgs
     auth_session?: boolean | Auth_userCountOutputTypeCountAuth_sessionArgs
     auth_two_factor?: boolean | Auth_userCountOutputTypeCountAuth_two_factorArgs
+    reviews?: boolean | Auth_userCountOutputTypeCountReviewsArgs
+    reviews_likes?: boolean | Auth_userCountOutputTypeCountReviews_likesArgs
   }
 
   // Custom InputTypes
@@ -4484,6 +4852,20 @@ export namespace Prisma {
    */
   export type Auth_userCountOutputTypeCountAuth_two_factorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: auth_two_factorWhereInput
+  }
+
+  /**
+   * Auth_userCountOutputType without action
+   */
+  export type Auth_userCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: reviewsWhereInput
+  }
+
+  /**
+   * Auth_userCountOutputType without action
+   */
+  export type Auth_userCountOutputTypeCountReviews_likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: reviews_likesWhereInput
   }
 
 
@@ -4550,11 +4932,17 @@ export namespace Prisma {
    */
 
   export type BookCountOutputType = {
+    book_genre: number
     book_history: number
+    book_tags: number
+    reviews: number
   }
 
   export type BookCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book_genre?: boolean | BookCountOutputTypeCountBook_genreArgs
     book_history?: boolean | BookCountOutputTypeCountBook_historyArgs
+    book_tags?: boolean | BookCountOutputTypeCountBook_tagsArgs
+    reviews?: boolean | BookCountOutputTypeCountReviewsArgs
   }
 
   // Custom InputTypes
@@ -4571,8 +4959,29 @@ export namespace Prisma {
   /**
    * BookCountOutputType without action
    */
+  export type BookCountOutputTypeCountBook_genreArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: book_genreWhereInput
+  }
+
+  /**
+   * BookCountOutputType without action
+   */
   export type BookCountOutputTypeCountBook_historyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: book_historyWhereInput
+  }
+
+  /**
+   * BookCountOutputType without action
+   */
+  export type BookCountOutputTypeCountBook_tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: book_tagsWhereInput
+  }
+
+  /**
+   * BookCountOutputType without action
+   */
+  export type BookCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: reviewsWhereInput
   }
 
 
@@ -4813,7 +5222,6 @@ export namespace Prisma {
     customer_reader: number
     preorder: number
     product_category: number
-    product_tags: number
     t_sales_download: number
     t_sales_line: number
   }
@@ -4824,7 +5232,6 @@ export namespace Prisma {
     customer_reader?: boolean | ProductCountOutputTypeCountCustomer_readerArgs
     preorder?: boolean | ProductCountOutputTypeCountPreorderArgs
     product_category?: boolean | ProductCountOutputTypeCountProduct_categoryArgs
-    product_tags?: boolean | ProductCountOutputTypeCountProduct_tagsArgs
     t_sales_download?: boolean | ProductCountOutputTypeCountT_sales_downloadArgs
     t_sales_line?: boolean | ProductCountOutputTypeCountT_sales_lineArgs
   }
@@ -4873,13 +5280,6 @@ export namespace Prisma {
    */
   export type ProductCountOutputTypeCountProduct_categoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: product_categoryWhereInput
-  }
-
-  /**
-   * ProductCountOutputType without action
-   */
-  export type ProductCountOutputTypeCountProduct_tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: product_tagsWhereInput
   }
 
   /**
@@ -5102,11 +5502,13 @@ export namespace Prisma {
    */
 
   export type TagsCountOutputType = {
-    product_tags: number
+    book_tags: number
+    other_tags: number
   }
 
   export type TagsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    product_tags?: boolean | TagsCountOutputTypeCountProduct_tagsArgs
+    book_tags?: boolean | TagsCountOutputTypeCountBook_tagsArgs
+    other_tags?: boolean | TagsCountOutputTypeCountOther_tagsArgs
   }
 
   // Custom InputTypes
@@ -5123,8 +5525,86 @@ export namespace Prisma {
   /**
    * TagsCountOutputType without action
    */
-  export type TagsCountOutputTypeCountProduct_tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: product_tagsWhereInput
+  export type TagsCountOutputTypeCountBook_tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: book_tagsWhereInput
+  }
+
+  /**
+   * TagsCountOutputType without action
+   */
+  export type TagsCountOutputTypeCountOther_tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tagsWhereInput
+  }
+
+
+  /**
+   * Count Type ReviewsCountOutputType
+   */
+
+  export type ReviewsCountOutputType = {
+    reviews_likes: number
+  }
+
+  export type ReviewsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviews_likes?: boolean | ReviewsCountOutputTypeCountReviews_likesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ReviewsCountOutputType without action
+   */
+  export type ReviewsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReviewsCountOutputType
+     */
+    select?: ReviewsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ReviewsCountOutputType without action
+   */
+  export type ReviewsCountOutputTypeCountReviews_likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: reviews_likesWhereInput
+  }
+
+
+  /**
+   * Count Type GenreCountOutputType
+   */
+
+  export type GenreCountOutputType = {
+    book_genre: number
+    other_genre: number
+  }
+
+  export type GenreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book_genre?: boolean | GenreCountOutputTypeCountBook_genreArgs
+    other_genre?: boolean | GenreCountOutputTypeCountOther_genreArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GenreCountOutputType without action
+   */
+  export type GenreCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenreCountOutputType
+     */
+    select?: GenreCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GenreCountOutputType without action
+   */
+  export type GenreCountOutputTypeCountBook_genreArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: book_genreWhereInput
+  }
+
+  /**
+   * GenreCountOutputType without action
+   */
+  export type GenreCountOutputTypeCountOther_genreArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: genreWhereInput
   }
 
 
@@ -10017,6 +10497,8 @@ export namespace Prisma {
     publisher?: boolean | auth_user$publisherArgs<ExtArgs>
     sales_and_marketing?: boolean | auth_user$sales_and_marketingArgs<ExtArgs>
     support?: boolean | auth_user$supportArgs<ExtArgs>
+    reviews?: boolean | auth_user$reviewsArgs<ExtArgs>
+    reviews_likes?: boolean | auth_user$reviews_likesArgs<ExtArgs>
     _count?: boolean | Auth_userCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["auth_user"]>
 
@@ -10106,6 +10588,8 @@ export namespace Prisma {
     publisher?: boolean | auth_user$publisherArgs<ExtArgs>
     sales_and_marketing?: boolean | auth_user$sales_and_marketingArgs<ExtArgs>
     support?: boolean | auth_user$supportArgs<ExtArgs>
+    reviews?: boolean | auth_user$reviewsArgs<ExtArgs>
+    reviews_likes?: boolean | auth_user$reviews_likesArgs<ExtArgs>
     _count?: boolean | Auth_userCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type auth_userIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10140,6 +10624,8 @@ export namespace Prisma {
       publisher: Prisma.$publisherPayload<ExtArgs> | null
       sales_and_marketing: Prisma.$sales_and_marketingPayload<ExtArgs> | null
       support: Prisma.$supportPayload<ExtArgs> | null
+      reviews: Prisma.$reviewsPayload<ExtArgs>[]
+      reviews_likes: Prisma.$reviews_likesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10563,6 +11049,8 @@ export namespace Prisma {
     publisher<T extends auth_user$publisherArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$publisherArgs<ExtArgs>>): Prisma__publisherClient<$Result.GetResult<Prisma.$publisherPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     sales_and_marketing<T extends auth_user$sales_and_marketingArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$sales_and_marketingArgs<ExtArgs>>): Prisma__sales_and_marketingClient<$Result.GetResult<Prisma.$sales_and_marketingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     support<T extends auth_user$supportArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$supportArgs<ExtArgs>>): Prisma__supportClient<$Result.GetResult<Prisma.$supportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    reviews<T extends auth_user$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reviews_likes<T extends auth_user$reviews_likesArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$reviews_likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviews_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11207,6 +11695,54 @@ export namespace Prisma {
      */
     include?: supportInclude<ExtArgs> | null
     where?: supportWhereInput
+  }
+
+  /**
+   * auth_user.reviews
+   */
+  export type auth_user$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    where?: reviewsWhereInput
+    orderBy?: reviewsOrderByWithRelationInput | reviewsOrderByWithRelationInput[]
+    cursor?: reviewsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReviewsScalarFieldEnum | ReviewsScalarFieldEnum[]
+  }
+
+  /**
+   * auth_user.reviews_likes
+   */
+  export type auth_user$reviews_likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews_likes
+     */
+    select?: reviews_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews_likes
+     */
+    omit?: reviews_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviews_likesInclude<ExtArgs> | null
+    where?: reviews_likesWhereInput
+    orderBy?: reviews_likesOrderByWithRelationInput | reviews_likesOrderByWithRelationInput[]
+    cursor?: reviews_likesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Reviews_likesScalarFieldEnum | Reviews_likesScalarFieldEnum[]
   }
 
   /**
@@ -14732,7 +15268,10 @@ export namespace Prisma {
     content_type?: boolean
     is_chapter?: boolean
     author?: boolean | book$authorArgs<ExtArgs>
+    book_genre?: boolean | book$book_genreArgs<ExtArgs>
     book_history?: boolean | book$book_historyArgs<ExtArgs>
+    book_tags?: boolean | book$book_tagsArgs<ExtArgs>
+    reviews?: boolean | book$reviewsArgs<ExtArgs>
     _count?: boolean | BookCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["book"]>
 
@@ -14813,7 +15352,10 @@ export namespace Prisma {
   export type bookOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "alias" | "submitted_price" | "desc" | "info" | "status" | "currency" | "deleted_at" | "img_file" | "cover" | "product_file" | "sku" | "id_author" | "published_date" | "is_physical" | "ai_suggested_content" | "preorder_min_qty" | "content_type" | "is_chapter", ExtArgs["result"]["book"]>
   export type bookInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | book$authorArgs<ExtArgs>
+    book_genre?: boolean | book$book_genreArgs<ExtArgs>
     book_history?: boolean | book$book_historyArgs<ExtArgs>
+    book_tags?: boolean | book$book_tagsArgs<ExtArgs>
+    reviews?: boolean | book$reviewsArgs<ExtArgs>
     _count?: boolean | BookCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type bookIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14827,7 +15369,10 @@ export namespace Prisma {
     name: "book"
     objects: {
       author: Prisma.$authorPayload<ExtArgs> | null
+      book_genre: Prisma.$book_genrePayload<ExtArgs>[]
       book_history: Prisma.$book_historyPayload<ExtArgs>[]
+      book_tags: Prisma.$book_tagsPayload<ExtArgs>[]
+      reviews: Prisma.$reviewsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -15246,7 +15791,10 @@ export namespace Prisma {
   export interface Prisma__bookClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     author<T extends book$authorArgs<ExtArgs> = {}>(args?: Subset<T, book$authorArgs<ExtArgs>>): Prisma__authorClient<$Result.GetResult<Prisma.$authorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    book_genre<T extends book$book_genreArgs<ExtArgs> = {}>(args?: Subset<T, book$book_genreArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_genrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     book_history<T extends book$book_historyArgs<ExtArgs> = {}>(args?: Subset<T, book$book_historyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_historyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    book_tags<T extends book$book_tagsArgs<ExtArgs> = {}>(args?: Subset<T, book$book_tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_tagsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reviews<T extends book$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, book$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15712,6 +16260,30 @@ export namespace Prisma {
   }
 
   /**
+   * book.book_genre
+   */
+  export type book$book_genreArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_genre
+     */
+    select?: book_genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_genre
+     */
+    omit?: book_genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_genreInclude<ExtArgs> | null
+    where?: book_genreWhereInput
+    orderBy?: book_genreOrderByWithRelationInput | book_genreOrderByWithRelationInput[]
+    cursor?: book_genreWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Book_genreScalarFieldEnum | Book_genreScalarFieldEnum[]
+  }
+
+  /**
    * book.book_history
    */
   export type book$book_historyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15733,6 +16305,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Book_historyScalarFieldEnum | Book_historyScalarFieldEnum[]
+  }
+
+  /**
+   * book.book_tags
+   */
+  export type book$book_tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_tags
+     */
+    select?: book_tagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_tags
+     */
+    omit?: book_tagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_tagsInclude<ExtArgs> | null
+    where?: book_tagsWhereInput
+    orderBy?: book_tagsOrderByWithRelationInput | book_tagsOrderByWithRelationInput[]
+    cursor?: book_tagsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Book_tagsScalarFieldEnum | Book_tagsScalarFieldEnum[]
+  }
+
+  /**
+   * book.reviews
+   */
+  export type book$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    where?: reviewsWhereInput
+    orderBy?: reviewsOrderByWithRelationInput | reviewsOrderByWithRelationInput[]
+    cursor?: reviewsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReviewsScalarFieldEnum | ReviewsScalarFieldEnum[]
   }
 
   /**
@@ -31651,7 +32271,6 @@ export namespace Prisma {
     preorder?: boolean | product$preorderArgs<ExtArgs>
     author?: boolean | product$authorArgs<ExtArgs>
     product_category?: boolean | product$product_categoryArgs<ExtArgs>
-    product_tags?: boolean | product$product_tagsArgs<ExtArgs>
     t_sales_download?: boolean | product$t_sales_downloadArgs<ExtArgs>
     t_sales_line?: boolean | product$t_sales_lineArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
@@ -31742,7 +32361,6 @@ export namespace Prisma {
     preorder?: boolean | product$preorderArgs<ExtArgs>
     author?: boolean | product$authorArgs<ExtArgs>
     product_category?: boolean | product$product_categoryArgs<ExtArgs>
-    product_tags?: boolean | product$product_tagsArgs<ExtArgs>
     t_sales_download?: boolean | product$t_sales_downloadArgs<ExtArgs>
     t_sales_line?: boolean | product$t_sales_lineArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
@@ -31763,7 +32381,6 @@ export namespace Prisma {
       preorder: Prisma.$preorderPayload<ExtArgs>[]
       author: Prisma.$authorPayload<ExtArgs> | null
       product_category: Prisma.$product_categoryPayload<ExtArgs>[]
-      product_tags: Prisma.$product_tagsPayload<ExtArgs>[]
       t_sales_download: Prisma.$t_sales_downloadPayload<ExtArgs>[]
       t_sales_line: Prisma.$t_sales_linePayload<ExtArgs>[]
     }
@@ -32190,7 +32807,6 @@ export namespace Prisma {
     preorder<T extends product$preorderArgs<ExtArgs> = {}>(args?: Subset<T, product$preorderArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$preorderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     author<T extends product$authorArgs<ExtArgs> = {}>(args?: Subset<T, product$authorArgs<ExtArgs>>): Prisma__authorClient<$Result.GetResult<Prisma.$authorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     product_category<T extends product$product_categoryArgs<ExtArgs> = {}>(args?: Subset<T, product$product_categoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$product_categoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    product_tags<T extends product$product_tagsArgs<ExtArgs> = {}>(args?: Subset<T, product$product_tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$product_tagsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     t_sales_download<T extends product$t_sales_downloadArgs<ExtArgs> = {}>(args?: Subset<T, product$t_sales_downloadArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$t_sales_downloadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     t_sales_line<T extends product$t_sales_lineArgs<ExtArgs> = {}>(args?: Subset<T, product$t_sales_lineArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$t_sales_linePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -32776,30 +33392,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Product_categoryScalarFieldEnum | Product_categoryScalarFieldEnum[]
-  }
-
-  /**
-   * product.product_tags
-   */
-  export type product$product_tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the product_tags
-     */
-    select?: product_tagsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the product_tags
-     */
-    omit?: product_tagsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: product_tagsInclude<ExtArgs> | null
-    where?: product_tagsWhereInput
-    orderBy?: product_tagsOrderByWithRelationInput | product_tagsOrderByWithRelationInput[]
-    cursor?: product_tagsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Product_tagsScalarFieldEnum | Product_tagsScalarFieldEnum[]
   }
 
   /**
@@ -47374,1046 +47966,6 @@ export namespace Prisma {
 
 
   /**
-   * Model product_tags
-   */
-
-  export type AggregateProduct_tags = {
-    _count: Product_tagsCountAggregateOutputType | null
-    _min: Product_tagsMinAggregateOutputType | null
-    _max: Product_tagsMaxAggregateOutputType | null
-  }
-
-  export type Product_tagsMinAggregateOutputType = {
-    id_product: string | null
-    id_tags: string | null
-    id: string | null
-  }
-
-  export type Product_tagsMaxAggregateOutputType = {
-    id_product: string | null
-    id_tags: string | null
-    id: string | null
-  }
-
-  export type Product_tagsCountAggregateOutputType = {
-    id_product: number
-    id_tags: number
-    id: number
-    _all: number
-  }
-
-
-  export type Product_tagsMinAggregateInputType = {
-    id_product?: true
-    id_tags?: true
-    id?: true
-  }
-
-  export type Product_tagsMaxAggregateInputType = {
-    id_product?: true
-    id_tags?: true
-    id?: true
-  }
-
-  export type Product_tagsCountAggregateInputType = {
-    id_product?: true
-    id_tags?: true
-    id?: true
-    _all?: true
-  }
-
-  export type Product_tagsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which product_tags to aggregate.
-     */
-    where?: product_tagsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of product_tags to fetch.
-     */
-    orderBy?: product_tagsOrderByWithRelationInput | product_tagsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: product_tagsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` product_tags from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` product_tags.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned product_tags
-    **/
-    _count?: true | Product_tagsCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: Product_tagsMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: Product_tagsMaxAggregateInputType
-  }
-
-  export type GetProduct_tagsAggregateType<T extends Product_tagsAggregateArgs> = {
-        [P in keyof T & keyof AggregateProduct_tags]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateProduct_tags[P]>
-      : GetScalarType<T[P], AggregateProduct_tags[P]>
-  }
-
-
-
-
-  export type product_tagsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: product_tagsWhereInput
-    orderBy?: product_tagsOrderByWithAggregationInput | product_tagsOrderByWithAggregationInput[]
-    by: Product_tagsScalarFieldEnum[] | Product_tagsScalarFieldEnum
-    having?: product_tagsScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: Product_tagsCountAggregateInputType | true
-    _min?: Product_tagsMinAggregateInputType
-    _max?: Product_tagsMaxAggregateInputType
-  }
-
-  export type Product_tagsGroupByOutputType = {
-    id_product: string
-    id_tags: string
-    id: string
-    _count: Product_tagsCountAggregateOutputType | null
-    _min: Product_tagsMinAggregateOutputType | null
-    _max: Product_tagsMaxAggregateOutputType | null
-  }
-
-  type GetProduct_tagsGroupByPayload<T extends product_tagsGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<Product_tagsGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof Product_tagsGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], Product_tagsGroupByOutputType[P]>
-            : GetScalarType<T[P], Product_tagsGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type product_tagsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_product?: boolean
-    id_tags?: boolean
-    id?: boolean
-    product?: boolean | productDefaultArgs<ExtArgs>
-    tags?: boolean | tagsDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["product_tags"]>
-
-  export type product_tagsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_product?: boolean
-    id_tags?: boolean
-    id?: boolean
-    product?: boolean | productDefaultArgs<ExtArgs>
-    tags?: boolean | tagsDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["product_tags"]>
-
-  export type product_tagsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_product?: boolean
-    id_tags?: boolean
-    id?: boolean
-    product?: boolean | productDefaultArgs<ExtArgs>
-    tags?: boolean | tagsDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["product_tags"]>
-
-  export type product_tagsSelectScalar = {
-    id_product?: boolean
-    id_tags?: boolean
-    id?: boolean
-  }
-
-  export type product_tagsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_product" | "id_tags" | "id", ExtArgs["result"]["product_tags"]>
-  export type product_tagsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    product?: boolean | productDefaultArgs<ExtArgs>
-    tags?: boolean | tagsDefaultArgs<ExtArgs>
-  }
-  export type product_tagsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    product?: boolean | productDefaultArgs<ExtArgs>
-    tags?: boolean | tagsDefaultArgs<ExtArgs>
-  }
-  export type product_tagsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    product?: boolean | productDefaultArgs<ExtArgs>
-    tags?: boolean | tagsDefaultArgs<ExtArgs>
-  }
-
-  export type $product_tagsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "product_tags"
-    objects: {
-      product: Prisma.$productPayload<ExtArgs>
-      tags: Prisma.$tagsPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id_product: string
-      id_tags: string
-      id: string
-    }, ExtArgs["result"]["product_tags"]>
-    composites: {}
-  }
-
-  type product_tagsGetPayload<S extends boolean | null | undefined | product_tagsDefaultArgs> = $Result.GetResult<Prisma.$product_tagsPayload, S>
-
-  type product_tagsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<product_tagsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: Product_tagsCountAggregateInputType | true
-    }
-
-  export interface product_tagsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['product_tags'], meta: { name: 'product_tags' } }
-    /**
-     * Find zero or one Product_tags that matches the filter.
-     * @param {product_tagsFindUniqueArgs} args - Arguments to find a Product_tags
-     * @example
-     * // Get one Product_tags
-     * const product_tags = await prisma.product_tags.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends product_tagsFindUniqueArgs>(args: SelectSubset<T, product_tagsFindUniqueArgs<ExtArgs>>): Prisma__product_tagsClient<$Result.GetResult<Prisma.$product_tagsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Product_tags that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {product_tagsFindUniqueOrThrowArgs} args - Arguments to find a Product_tags
-     * @example
-     * // Get one Product_tags
-     * const product_tags = await prisma.product_tags.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends product_tagsFindUniqueOrThrowArgs>(args: SelectSubset<T, product_tagsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__product_tagsClient<$Result.GetResult<Prisma.$product_tagsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Product_tags that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {product_tagsFindFirstArgs} args - Arguments to find a Product_tags
-     * @example
-     * // Get one Product_tags
-     * const product_tags = await prisma.product_tags.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends product_tagsFindFirstArgs>(args?: SelectSubset<T, product_tagsFindFirstArgs<ExtArgs>>): Prisma__product_tagsClient<$Result.GetResult<Prisma.$product_tagsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Product_tags that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {product_tagsFindFirstOrThrowArgs} args - Arguments to find a Product_tags
-     * @example
-     * // Get one Product_tags
-     * const product_tags = await prisma.product_tags.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends product_tagsFindFirstOrThrowArgs>(args?: SelectSubset<T, product_tagsFindFirstOrThrowArgs<ExtArgs>>): Prisma__product_tagsClient<$Result.GetResult<Prisma.$product_tagsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Product_tags that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {product_tagsFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Product_tags
-     * const product_tags = await prisma.product_tags.findMany()
-     * 
-     * // Get first 10 Product_tags
-     * const product_tags = await prisma.product_tags.findMany({ take: 10 })
-     * 
-     * // Only select the `id_product`
-     * const product_tagsWithId_productOnly = await prisma.product_tags.findMany({ select: { id_product: true } })
-     * 
-     */
-    findMany<T extends product_tagsFindManyArgs>(args?: SelectSubset<T, product_tagsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$product_tagsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Product_tags.
-     * @param {product_tagsCreateArgs} args - Arguments to create a Product_tags.
-     * @example
-     * // Create one Product_tags
-     * const Product_tags = await prisma.product_tags.create({
-     *   data: {
-     *     // ... data to create a Product_tags
-     *   }
-     * })
-     * 
-     */
-    create<T extends product_tagsCreateArgs>(args: SelectSubset<T, product_tagsCreateArgs<ExtArgs>>): Prisma__product_tagsClient<$Result.GetResult<Prisma.$product_tagsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Product_tags.
-     * @param {product_tagsCreateManyArgs} args - Arguments to create many Product_tags.
-     * @example
-     * // Create many Product_tags
-     * const product_tags = await prisma.product_tags.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends product_tagsCreateManyArgs>(args?: SelectSubset<T, product_tagsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Product_tags and returns the data saved in the database.
-     * @param {product_tagsCreateManyAndReturnArgs} args - Arguments to create many Product_tags.
-     * @example
-     * // Create many Product_tags
-     * const product_tags = await prisma.product_tags.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Product_tags and only return the `id_product`
-     * const product_tagsWithId_productOnly = await prisma.product_tags.createManyAndReturn({
-     *   select: { id_product: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends product_tagsCreateManyAndReturnArgs>(args?: SelectSubset<T, product_tagsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$product_tagsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Product_tags.
-     * @param {product_tagsDeleteArgs} args - Arguments to delete one Product_tags.
-     * @example
-     * // Delete one Product_tags
-     * const Product_tags = await prisma.product_tags.delete({
-     *   where: {
-     *     // ... filter to delete one Product_tags
-     *   }
-     * })
-     * 
-     */
-    delete<T extends product_tagsDeleteArgs>(args: SelectSubset<T, product_tagsDeleteArgs<ExtArgs>>): Prisma__product_tagsClient<$Result.GetResult<Prisma.$product_tagsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Product_tags.
-     * @param {product_tagsUpdateArgs} args - Arguments to update one Product_tags.
-     * @example
-     * // Update one Product_tags
-     * const product_tags = await prisma.product_tags.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends product_tagsUpdateArgs>(args: SelectSubset<T, product_tagsUpdateArgs<ExtArgs>>): Prisma__product_tagsClient<$Result.GetResult<Prisma.$product_tagsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Product_tags.
-     * @param {product_tagsDeleteManyArgs} args - Arguments to filter Product_tags to delete.
-     * @example
-     * // Delete a few Product_tags
-     * const { count } = await prisma.product_tags.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends product_tagsDeleteManyArgs>(args?: SelectSubset<T, product_tagsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Product_tags.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {product_tagsUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Product_tags
-     * const product_tags = await prisma.product_tags.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends product_tagsUpdateManyArgs>(args: SelectSubset<T, product_tagsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Product_tags and returns the data updated in the database.
-     * @param {product_tagsUpdateManyAndReturnArgs} args - Arguments to update many Product_tags.
-     * @example
-     * // Update many Product_tags
-     * const product_tags = await prisma.product_tags.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Product_tags and only return the `id_product`
-     * const product_tagsWithId_productOnly = await prisma.product_tags.updateManyAndReturn({
-     *   select: { id_product: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends product_tagsUpdateManyAndReturnArgs>(args: SelectSubset<T, product_tagsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$product_tagsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Product_tags.
-     * @param {product_tagsUpsertArgs} args - Arguments to update or create a Product_tags.
-     * @example
-     * // Update or create a Product_tags
-     * const product_tags = await prisma.product_tags.upsert({
-     *   create: {
-     *     // ... data to create a Product_tags
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Product_tags we want to update
-     *   }
-     * })
-     */
-    upsert<T extends product_tagsUpsertArgs>(args: SelectSubset<T, product_tagsUpsertArgs<ExtArgs>>): Prisma__product_tagsClient<$Result.GetResult<Prisma.$product_tagsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Product_tags.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {product_tagsCountArgs} args - Arguments to filter Product_tags to count.
-     * @example
-     * // Count the number of Product_tags
-     * const count = await prisma.product_tags.count({
-     *   where: {
-     *     // ... the filter for the Product_tags we want to count
-     *   }
-     * })
-    **/
-    count<T extends product_tagsCountArgs>(
-      args?: Subset<T, product_tagsCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], Product_tagsCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Product_tags.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {Product_tagsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends Product_tagsAggregateArgs>(args: Subset<T, Product_tagsAggregateArgs>): Prisma.PrismaPromise<GetProduct_tagsAggregateType<T>>
-
-    /**
-     * Group by Product_tags.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {product_tagsGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends product_tagsGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: product_tagsGroupByArgs['orderBy'] }
-        : { orderBy?: product_tagsGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, product_tagsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProduct_tagsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the product_tags model
-   */
-  readonly fields: product_tagsFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for product_tags.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__product_tagsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    product<T extends productDefaultArgs<ExtArgs> = {}>(args?: Subset<T, productDefaultArgs<ExtArgs>>): Prisma__productClient<$Result.GetResult<Prisma.$productPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    tags<T extends tagsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, tagsDefaultArgs<ExtArgs>>): Prisma__tagsClient<$Result.GetResult<Prisma.$tagsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the product_tags model
-   */
-  interface product_tagsFieldRefs {
-    readonly id_product: FieldRef<"product_tags", 'String'>
-    readonly id_tags: FieldRef<"product_tags", 'String'>
-    readonly id: FieldRef<"product_tags", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * product_tags findUnique
-   */
-  export type product_tagsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the product_tags
-     */
-    select?: product_tagsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the product_tags
-     */
-    omit?: product_tagsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: product_tagsInclude<ExtArgs> | null
-    /**
-     * Filter, which product_tags to fetch.
-     */
-    where: product_tagsWhereUniqueInput
-  }
-
-  /**
-   * product_tags findUniqueOrThrow
-   */
-  export type product_tagsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the product_tags
-     */
-    select?: product_tagsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the product_tags
-     */
-    omit?: product_tagsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: product_tagsInclude<ExtArgs> | null
-    /**
-     * Filter, which product_tags to fetch.
-     */
-    where: product_tagsWhereUniqueInput
-  }
-
-  /**
-   * product_tags findFirst
-   */
-  export type product_tagsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the product_tags
-     */
-    select?: product_tagsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the product_tags
-     */
-    omit?: product_tagsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: product_tagsInclude<ExtArgs> | null
-    /**
-     * Filter, which product_tags to fetch.
-     */
-    where?: product_tagsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of product_tags to fetch.
-     */
-    orderBy?: product_tagsOrderByWithRelationInput | product_tagsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for product_tags.
-     */
-    cursor?: product_tagsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` product_tags from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` product_tags.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of product_tags.
-     */
-    distinct?: Product_tagsScalarFieldEnum | Product_tagsScalarFieldEnum[]
-  }
-
-  /**
-   * product_tags findFirstOrThrow
-   */
-  export type product_tagsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the product_tags
-     */
-    select?: product_tagsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the product_tags
-     */
-    omit?: product_tagsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: product_tagsInclude<ExtArgs> | null
-    /**
-     * Filter, which product_tags to fetch.
-     */
-    where?: product_tagsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of product_tags to fetch.
-     */
-    orderBy?: product_tagsOrderByWithRelationInput | product_tagsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for product_tags.
-     */
-    cursor?: product_tagsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` product_tags from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` product_tags.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of product_tags.
-     */
-    distinct?: Product_tagsScalarFieldEnum | Product_tagsScalarFieldEnum[]
-  }
-
-  /**
-   * product_tags findMany
-   */
-  export type product_tagsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the product_tags
-     */
-    select?: product_tagsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the product_tags
-     */
-    omit?: product_tagsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: product_tagsInclude<ExtArgs> | null
-    /**
-     * Filter, which product_tags to fetch.
-     */
-    where?: product_tagsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of product_tags to fetch.
-     */
-    orderBy?: product_tagsOrderByWithRelationInput | product_tagsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing product_tags.
-     */
-    cursor?: product_tagsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` product_tags from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` product_tags.
-     */
-    skip?: number
-    distinct?: Product_tagsScalarFieldEnum | Product_tagsScalarFieldEnum[]
-  }
-
-  /**
-   * product_tags create
-   */
-  export type product_tagsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the product_tags
-     */
-    select?: product_tagsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the product_tags
-     */
-    omit?: product_tagsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: product_tagsInclude<ExtArgs> | null
-    /**
-     * The data needed to create a product_tags.
-     */
-    data: XOR<product_tagsCreateInput, product_tagsUncheckedCreateInput>
-  }
-
-  /**
-   * product_tags createMany
-   */
-  export type product_tagsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many product_tags.
-     */
-    data: product_tagsCreateManyInput | product_tagsCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * product_tags createManyAndReturn
-   */
-  export type product_tagsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the product_tags
-     */
-    select?: product_tagsSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the product_tags
-     */
-    omit?: product_tagsOmit<ExtArgs> | null
-    /**
-     * The data used to create many product_tags.
-     */
-    data: product_tagsCreateManyInput | product_tagsCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: product_tagsIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * product_tags update
-   */
-  export type product_tagsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the product_tags
-     */
-    select?: product_tagsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the product_tags
-     */
-    omit?: product_tagsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: product_tagsInclude<ExtArgs> | null
-    /**
-     * The data needed to update a product_tags.
-     */
-    data: XOR<product_tagsUpdateInput, product_tagsUncheckedUpdateInput>
-    /**
-     * Choose, which product_tags to update.
-     */
-    where: product_tagsWhereUniqueInput
-  }
-
-  /**
-   * product_tags updateMany
-   */
-  export type product_tagsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update product_tags.
-     */
-    data: XOR<product_tagsUpdateManyMutationInput, product_tagsUncheckedUpdateManyInput>
-    /**
-     * Filter which product_tags to update
-     */
-    where?: product_tagsWhereInput
-    /**
-     * Limit how many product_tags to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * product_tags updateManyAndReturn
-   */
-  export type product_tagsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the product_tags
-     */
-    select?: product_tagsSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the product_tags
-     */
-    omit?: product_tagsOmit<ExtArgs> | null
-    /**
-     * The data used to update product_tags.
-     */
-    data: XOR<product_tagsUpdateManyMutationInput, product_tagsUncheckedUpdateManyInput>
-    /**
-     * Filter which product_tags to update
-     */
-    where?: product_tagsWhereInput
-    /**
-     * Limit how many product_tags to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: product_tagsIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * product_tags upsert
-   */
-  export type product_tagsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the product_tags
-     */
-    select?: product_tagsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the product_tags
-     */
-    omit?: product_tagsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: product_tagsInclude<ExtArgs> | null
-    /**
-     * The filter to search for the product_tags to update in case it exists.
-     */
-    where: product_tagsWhereUniqueInput
-    /**
-     * In case the product_tags found by the `where` argument doesn't exist, create a new product_tags with this data.
-     */
-    create: XOR<product_tagsCreateInput, product_tagsUncheckedCreateInput>
-    /**
-     * In case the product_tags was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<product_tagsUpdateInput, product_tagsUncheckedUpdateInput>
-  }
-
-  /**
-   * product_tags delete
-   */
-  export type product_tagsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the product_tags
-     */
-    select?: product_tagsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the product_tags
-     */
-    omit?: product_tagsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: product_tagsInclude<ExtArgs> | null
-    /**
-     * Filter which product_tags to delete.
-     */
-    where: product_tagsWhereUniqueInput
-  }
-
-  /**
-   * product_tags deleteMany
-   */
-  export type product_tagsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which product_tags to delete
-     */
-    where?: product_tagsWhereInput
-    /**
-     * Limit how many product_tags to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * product_tags without action
-   */
-  export type product_tagsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the product_tags
-     */
-    select?: product_tagsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the product_tags
-     */
-    omit?: product_tagsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: product_tagsInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model tags
    */
 
@@ -48585,7 +48137,9 @@ export namespace Prisma {
     deleted_at?: boolean
     slug?: boolean
     img?: boolean
-    product_tags?: boolean | tags$product_tagsArgs<ExtArgs>
+    book_tags?: boolean | tags$book_tagsArgs<ExtArgs>
+    tags?: boolean | tags$tagsArgs<ExtArgs>
+    other_tags?: boolean | tags$other_tagsArgs<ExtArgs>
     _count?: boolean | TagsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tags"]>
 
@@ -48596,6 +48150,7 @@ export namespace Prisma {
     deleted_at?: boolean
     slug?: boolean
     img?: boolean
+    tags?: boolean | tags$tagsArgs<ExtArgs>
   }, ExtArgs["result"]["tags"]>
 
   export type tagsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -48605,6 +48160,7 @@ export namespace Prisma {
     deleted_at?: boolean
     slug?: boolean
     img?: boolean
+    tags?: boolean | tags$tagsArgs<ExtArgs>
   }, ExtArgs["result"]["tags"]>
 
   export type tagsSelectScalar = {
@@ -48618,16 +48174,24 @@ export namespace Prisma {
 
   export type tagsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_parent" | "deleted_at" | "slug" | "img", ExtArgs["result"]["tags"]>
   export type tagsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    product_tags?: boolean | tags$product_tagsArgs<ExtArgs>
+    book_tags?: boolean | tags$book_tagsArgs<ExtArgs>
+    tags?: boolean | tags$tagsArgs<ExtArgs>
+    other_tags?: boolean | tags$other_tagsArgs<ExtArgs>
     _count?: boolean | TagsCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type tagsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type tagsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type tagsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tags?: boolean | tags$tagsArgs<ExtArgs>
+  }
+  export type tagsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tags?: boolean | tags$tagsArgs<ExtArgs>
+  }
 
   export type $tagsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "tags"
     objects: {
-      product_tags: Prisma.$product_tagsPayload<ExtArgs>[]
+      book_tags: Prisma.$book_tagsPayload<ExtArgs>[]
+      tags: Prisma.$tagsPayload<ExtArgs> | null
+      other_tags: Prisma.$tagsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -49030,7 +48594,9 @@ export namespace Prisma {
    */
   export interface Prisma__tagsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    product_tags<T extends tags$product_tagsArgs<ExtArgs> = {}>(args?: Subset<T, tags$product_tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$product_tagsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    book_tags<T extends tags$book_tagsArgs<ExtArgs> = {}>(args?: Subset<T, tags$book_tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_tagsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tags<T extends tags$tagsArgs<ExtArgs> = {}>(args?: Subset<T, tags$tagsArgs<ExtArgs>>): Prisma__tagsClient<$Result.GetResult<Prisma.$tagsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    other_tags<T extends tags$other_tagsArgs<ExtArgs> = {}>(args?: Subset<T, tags$other_tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tagsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -49315,6 +48881,10 @@ export namespace Prisma {
      */
     data: tagsCreateManyInput | tagsCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tagsIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -49385,6 +48955,10 @@ export namespace Prisma {
      * Limit how many tags to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tagsIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -49454,27 +49028,70 @@ export namespace Prisma {
   }
 
   /**
-   * tags.product_tags
+   * tags.book_tags
    */
-  export type tags$product_tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type tags$book_tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the product_tags
+     * Select specific fields to fetch from the book_tags
      */
-    select?: product_tagsSelect<ExtArgs> | null
+    select?: book_tagsSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the product_tags
+     * Omit specific fields from the book_tags
      */
-    omit?: product_tagsOmit<ExtArgs> | null
+    omit?: book_tagsOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: product_tagsInclude<ExtArgs> | null
-    where?: product_tagsWhereInput
-    orderBy?: product_tagsOrderByWithRelationInput | product_tagsOrderByWithRelationInput[]
-    cursor?: product_tagsWhereUniqueInput
+    include?: book_tagsInclude<ExtArgs> | null
+    where?: book_tagsWhereInput
+    orderBy?: book_tagsOrderByWithRelationInput | book_tagsOrderByWithRelationInput[]
+    cursor?: book_tagsWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Product_tagsScalarFieldEnum | Product_tagsScalarFieldEnum[]
+    distinct?: Book_tagsScalarFieldEnum | Book_tagsScalarFieldEnum[]
+  }
+
+  /**
+   * tags.tags
+   */
+  export type tags$tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tags
+     */
+    select?: tagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tags
+     */
+    omit?: tagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tagsInclude<ExtArgs> | null
+    where?: tagsWhereInput
+  }
+
+  /**
+   * tags.other_tags
+   */
+  export type tags$other_tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tags
+     */
+    select?: tagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tags
+     */
+    omit?: tagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tagsInclude<ExtArgs> | null
+    where?: tagsWhereInput
+    orderBy?: tagsOrderByWithRelationInput | tagsOrderByWithRelationInput[]
+    cursor?: tagsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TagsScalarFieldEnum | TagsScalarFieldEnum[]
   }
 
   /**
@@ -49493,6 +49110,5443 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: tagsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model reviews
+   */
+
+  export type AggregateReviews = {
+    _count: ReviewsCountAggregateOutputType | null
+    _avg: ReviewsAvgAggregateOutputType | null
+    _sum: ReviewsSumAggregateOutputType | null
+    _min: ReviewsMinAggregateOutputType | null
+    _max: ReviewsMaxAggregateOutputType | null
+  }
+
+  export type ReviewsAvgAggregateOutputType = {
+    rating: Decimal | null
+  }
+
+  export type ReviewsSumAggregateOutputType = {
+    rating: Decimal | null
+  }
+
+  export type ReviewsMinAggregateOutputType = {
+    id: string | null
+    id_book: string | null
+    comments: string | null
+    rating: Decimal | null
+    created_at: Date | null
+    deleted_at: Date | null
+    parent: string | null
+    id_user: string | null
+  }
+
+  export type ReviewsMaxAggregateOutputType = {
+    id: string | null
+    id_book: string | null
+    comments: string | null
+    rating: Decimal | null
+    created_at: Date | null
+    deleted_at: Date | null
+    parent: string | null
+    id_user: string | null
+  }
+
+  export type ReviewsCountAggregateOutputType = {
+    id: number
+    id_book: number
+    comments: number
+    rating: number
+    created_at: number
+    deleted_at: number
+    parent: number
+    id_user: number
+    _all: number
+  }
+
+
+  export type ReviewsAvgAggregateInputType = {
+    rating?: true
+  }
+
+  export type ReviewsSumAggregateInputType = {
+    rating?: true
+  }
+
+  export type ReviewsMinAggregateInputType = {
+    id?: true
+    id_book?: true
+    comments?: true
+    rating?: true
+    created_at?: true
+    deleted_at?: true
+    parent?: true
+    id_user?: true
+  }
+
+  export type ReviewsMaxAggregateInputType = {
+    id?: true
+    id_book?: true
+    comments?: true
+    rating?: true
+    created_at?: true
+    deleted_at?: true
+    parent?: true
+    id_user?: true
+  }
+
+  export type ReviewsCountAggregateInputType = {
+    id?: true
+    id_book?: true
+    comments?: true
+    rating?: true
+    created_at?: true
+    deleted_at?: true
+    parent?: true
+    id_user?: true
+    _all?: true
+  }
+
+  export type ReviewsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which reviews to aggregate.
+     */
+    where?: reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reviews to fetch.
+     */
+    orderBy?: reviewsOrderByWithRelationInput | reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned reviews
+    **/
+    _count?: true | ReviewsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ReviewsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ReviewsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ReviewsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ReviewsMaxAggregateInputType
+  }
+
+  export type GetReviewsAggregateType<T extends ReviewsAggregateArgs> = {
+        [P in keyof T & keyof AggregateReviews]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReviews[P]>
+      : GetScalarType<T[P], AggregateReviews[P]>
+  }
+
+
+
+
+  export type reviewsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: reviewsWhereInput
+    orderBy?: reviewsOrderByWithAggregationInput | reviewsOrderByWithAggregationInput[]
+    by: ReviewsScalarFieldEnum[] | ReviewsScalarFieldEnum
+    having?: reviewsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ReviewsCountAggregateInputType | true
+    _avg?: ReviewsAvgAggregateInputType
+    _sum?: ReviewsSumAggregateInputType
+    _min?: ReviewsMinAggregateInputType
+    _max?: ReviewsMaxAggregateInputType
+  }
+
+  export type ReviewsGroupByOutputType = {
+    id: string
+    id_book: string
+    comments: string
+    rating: Decimal | null
+    created_at: Date
+    deleted_at: Date | null
+    parent: string | null
+    id_user: string
+    _count: ReviewsCountAggregateOutputType | null
+    _avg: ReviewsAvgAggregateOutputType | null
+    _sum: ReviewsSumAggregateOutputType | null
+    _min: ReviewsMinAggregateOutputType | null
+    _max: ReviewsMaxAggregateOutputType | null
+  }
+
+  type GetReviewsGroupByPayload<T extends reviewsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ReviewsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ReviewsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ReviewsGroupByOutputType[P]>
+            : GetScalarType<T[P], ReviewsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type reviewsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_book?: boolean
+    comments?: boolean
+    rating?: boolean
+    created_at?: boolean
+    deleted_at?: boolean
+    parent?: boolean
+    id_user?: boolean
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+    reviews_likes?: boolean | reviews$reviews_likesArgs<ExtArgs>
+    _count?: boolean | ReviewsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reviews"]>
+
+  export type reviewsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_book?: boolean
+    comments?: boolean
+    rating?: boolean
+    created_at?: boolean
+    deleted_at?: boolean
+    parent?: boolean
+    id_user?: boolean
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reviews"]>
+
+  export type reviewsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_book?: boolean
+    comments?: boolean
+    rating?: boolean
+    created_at?: boolean
+    deleted_at?: boolean
+    parent?: boolean
+    id_user?: boolean
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reviews"]>
+
+  export type reviewsSelectScalar = {
+    id?: boolean
+    id_book?: boolean
+    comments?: boolean
+    rating?: boolean
+    created_at?: boolean
+    deleted_at?: boolean
+    parent?: boolean
+    id_user?: boolean
+  }
+
+  export type reviewsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_book" | "comments" | "rating" | "created_at" | "deleted_at" | "parent" | "id_user", ExtArgs["result"]["reviews"]>
+  export type reviewsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+    reviews_likes?: boolean | reviews$reviews_likesArgs<ExtArgs>
+    _count?: boolean | ReviewsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type reviewsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }
+  export type reviewsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }
+
+  export type $reviewsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "reviews"
+    objects: {
+      book: Prisma.$bookPayload<ExtArgs>
+      auth_user: Prisma.$auth_userPayload<ExtArgs>
+      reviews_likes: Prisma.$reviews_likesPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      id_book: string
+      comments: string
+      rating: Prisma.Decimal | null
+      created_at: Date
+      deleted_at: Date | null
+      parent: string | null
+      id_user: string
+    }, ExtArgs["result"]["reviews"]>
+    composites: {}
+  }
+
+  type reviewsGetPayload<S extends boolean | null | undefined | reviewsDefaultArgs> = $Result.GetResult<Prisma.$reviewsPayload, S>
+
+  type reviewsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<reviewsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ReviewsCountAggregateInputType | true
+    }
+
+  export interface reviewsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['reviews'], meta: { name: 'reviews' } }
+    /**
+     * Find zero or one Reviews that matches the filter.
+     * @param {reviewsFindUniqueArgs} args - Arguments to find a Reviews
+     * @example
+     * // Get one Reviews
+     * const reviews = await prisma.reviews.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends reviewsFindUniqueArgs>(args: SelectSubset<T, reviewsFindUniqueArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Reviews that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {reviewsFindUniqueOrThrowArgs} args - Arguments to find a Reviews
+     * @example
+     * // Get one Reviews
+     * const reviews = await prisma.reviews.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends reviewsFindUniqueOrThrowArgs>(args: SelectSubset<T, reviewsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Reviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviewsFindFirstArgs} args - Arguments to find a Reviews
+     * @example
+     * // Get one Reviews
+     * const reviews = await prisma.reviews.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends reviewsFindFirstArgs>(args?: SelectSubset<T, reviewsFindFirstArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Reviews that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviewsFindFirstOrThrowArgs} args - Arguments to find a Reviews
+     * @example
+     * // Get one Reviews
+     * const reviews = await prisma.reviews.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends reviewsFindFirstOrThrowArgs>(args?: SelectSubset<T, reviewsFindFirstOrThrowArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Reviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviewsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Reviews
+     * const reviews = await prisma.reviews.findMany()
+     * 
+     * // Get first 10 Reviews
+     * const reviews = await prisma.reviews.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const reviewsWithIdOnly = await prisma.reviews.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends reviewsFindManyArgs>(args?: SelectSubset<T, reviewsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Reviews.
+     * @param {reviewsCreateArgs} args - Arguments to create a Reviews.
+     * @example
+     * // Create one Reviews
+     * const Reviews = await prisma.reviews.create({
+     *   data: {
+     *     // ... data to create a Reviews
+     *   }
+     * })
+     * 
+     */
+    create<T extends reviewsCreateArgs>(args: SelectSubset<T, reviewsCreateArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Reviews.
+     * @param {reviewsCreateManyArgs} args - Arguments to create many Reviews.
+     * @example
+     * // Create many Reviews
+     * const reviews = await prisma.reviews.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends reviewsCreateManyArgs>(args?: SelectSubset<T, reviewsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Reviews and returns the data saved in the database.
+     * @param {reviewsCreateManyAndReturnArgs} args - Arguments to create many Reviews.
+     * @example
+     * // Create many Reviews
+     * const reviews = await prisma.reviews.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Reviews and only return the `id`
+     * const reviewsWithIdOnly = await prisma.reviews.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends reviewsCreateManyAndReturnArgs>(args?: SelectSubset<T, reviewsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Reviews.
+     * @param {reviewsDeleteArgs} args - Arguments to delete one Reviews.
+     * @example
+     * // Delete one Reviews
+     * const Reviews = await prisma.reviews.delete({
+     *   where: {
+     *     // ... filter to delete one Reviews
+     *   }
+     * })
+     * 
+     */
+    delete<T extends reviewsDeleteArgs>(args: SelectSubset<T, reviewsDeleteArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Reviews.
+     * @param {reviewsUpdateArgs} args - Arguments to update one Reviews.
+     * @example
+     * // Update one Reviews
+     * const reviews = await prisma.reviews.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends reviewsUpdateArgs>(args: SelectSubset<T, reviewsUpdateArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Reviews.
+     * @param {reviewsDeleteManyArgs} args - Arguments to filter Reviews to delete.
+     * @example
+     * // Delete a few Reviews
+     * const { count } = await prisma.reviews.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends reviewsDeleteManyArgs>(args?: SelectSubset<T, reviewsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviewsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Reviews
+     * const reviews = await prisma.reviews.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends reviewsUpdateManyArgs>(args: SelectSubset<T, reviewsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reviews and returns the data updated in the database.
+     * @param {reviewsUpdateManyAndReturnArgs} args - Arguments to update many Reviews.
+     * @example
+     * // Update many Reviews
+     * const reviews = await prisma.reviews.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Reviews and only return the `id`
+     * const reviewsWithIdOnly = await prisma.reviews.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends reviewsUpdateManyAndReturnArgs>(args: SelectSubset<T, reviewsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Reviews.
+     * @param {reviewsUpsertArgs} args - Arguments to update or create a Reviews.
+     * @example
+     * // Update or create a Reviews
+     * const reviews = await prisma.reviews.upsert({
+     *   create: {
+     *     // ... data to create a Reviews
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Reviews we want to update
+     *   }
+     * })
+     */
+    upsert<T extends reviewsUpsertArgs>(args: SelectSubset<T, reviewsUpsertArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviewsCountArgs} args - Arguments to filter Reviews to count.
+     * @example
+     * // Count the number of Reviews
+     * const count = await prisma.reviews.count({
+     *   where: {
+     *     // ... the filter for the Reviews we want to count
+     *   }
+     * })
+    **/
+    count<T extends reviewsCountArgs>(
+      args?: Subset<T, reviewsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ReviewsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ReviewsAggregateArgs>(args: Subset<T, ReviewsAggregateArgs>): Prisma.PrismaPromise<GetReviewsAggregateType<T>>
+
+    /**
+     * Group by Reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviewsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends reviewsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: reviewsGroupByArgs['orderBy'] }
+        : { orderBy?: reviewsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, reviewsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReviewsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the reviews model
+   */
+  readonly fields: reviewsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for reviews.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__reviewsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    book<T extends bookDefaultArgs<ExtArgs> = {}>(args?: Subset<T, bookDefaultArgs<ExtArgs>>): Prisma__bookClient<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    auth_user<T extends auth_userDefaultArgs<ExtArgs> = {}>(args?: Subset<T, auth_userDefaultArgs<ExtArgs>>): Prisma__auth_userClient<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    reviews_likes<T extends reviews$reviews_likesArgs<ExtArgs> = {}>(args?: Subset<T, reviews$reviews_likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviews_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the reviews model
+   */
+  interface reviewsFieldRefs {
+    readonly id: FieldRef<"reviews", 'String'>
+    readonly id_book: FieldRef<"reviews", 'String'>
+    readonly comments: FieldRef<"reviews", 'String'>
+    readonly rating: FieldRef<"reviews", 'Decimal'>
+    readonly created_at: FieldRef<"reviews", 'DateTime'>
+    readonly deleted_at: FieldRef<"reviews", 'DateTime'>
+    readonly parent: FieldRef<"reviews", 'String'>
+    readonly id_user: FieldRef<"reviews", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * reviews findUnique
+   */
+  export type reviewsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which reviews to fetch.
+     */
+    where: reviewsWhereUniqueInput
+  }
+
+  /**
+   * reviews findUniqueOrThrow
+   */
+  export type reviewsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which reviews to fetch.
+     */
+    where: reviewsWhereUniqueInput
+  }
+
+  /**
+   * reviews findFirst
+   */
+  export type reviewsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which reviews to fetch.
+     */
+    where?: reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reviews to fetch.
+     */
+    orderBy?: reviewsOrderByWithRelationInput | reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for reviews.
+     */
+    cursor?: reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of reviews.
+     */
+    distinct?: ReviewsScalarFieldEnum | ReviewsScalarFieldEnum[]
+  }
+
+  /**
+   * reviews findFirstOrThrow
+   */
+  export type reviewsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which reviews to fetch.
+     */
+    where?: reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reviews to fetch.
+     */
+    orderBy?: reviewsOrderByWithRelationInput | reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for reviews.
+     */
+    cursor?: reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of reviews.
+     */
+    distinct?: ReviewsScalarFieldEnum | ReviewsScalarFieldEnum[]
+  }
+
+  /**
+   * reviews findMany
+   */
+  export type reviewsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which reviews to fetch.
+     */
+    where?: reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reviews to fetch.
+     */
+    orderBy?: reviewsOrderByWithRelationInput | reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing reviews.
+     */
+    cursor?: reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reviews.
+     */
+    skip?: number
+    distinct?: ReviewsScalarFieldEnum | ReviewsScalarFieldEnum[]
+  }
+
+  /**
+   * reviews create
+   */
+  export type reviewsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a reviews.
+     */
+    data: XOR<reviewsCreateInput, reviewsUncheckedCreateInput>
+  }
+
+  /**
+   * reviews createMany
+   */
+  export type reviewsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many reviews.
+     */
+    data: reviewsCreateManyInput | reviewsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * reviews createManyAndReturn
+   */
+  export type reviewsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * The data used to create many reviews.
+     */
+    data: reviewsCreateManyInput | reviewsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * reviews update
+   */
+  export type reviewsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a reviews.
+     */
+    data: XOR<reviewsUpdateInput, reviewsUncheckedUpdateInput>
+    /**
+     * Choose, which reviews to update.
+     */
+    where: reviewsWhereUniqueInput
+  }
+
+  /**
+   * reviews updateMany
+   */
+  export type reviewsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update reviews.
+     */
+    data: XOR<reviewsUpdateManyMutationInput, reviewsUncheckedUpdateManyInput>
+    /**
+     * Filter which reviews to update
+     */
+    where?: reviewsWhereInput
+    /**
+     * Limit how many reviews to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * reviews updateManyAndReturn
+   */
+  export type reviewsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * The data used to update reviews.
+     */
+    data: XOR<reviewsUpdateManyMutationInput, reviewsUncheckedUpdateManyInput>
+    /**
+     * Filter which reviews to update
+     */
+    where?: reviewsWhereInput
+    /**
+     * Limit how many reviews to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * reviews upsert
+   */
+  export type reviewsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the reviews to update in case it exists.
+     */
+    where: reviewsWhereUniqueInput
+    /**
+     * In case the reviews found by the `where` argument doesn't exist, create a new reviews with this data.
+     */
+    create: XOR<reviewsCreateInput, reviewsUncheckedCreateInput>
+    /**
+     * In case the reviews was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<reviewsUpdateInput, reviewsUncheckedUpdateInput>
+  }
+
+  /**
+   * reviews delete
+   */
+  export type reviewsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+    /**
+     * Filter which reviews to delete.
+     */
+    where: reviewsWhereUniqueInput
+  }
+
+  /**
+   * reviews deleteMany
+   */
+  export type reviewsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which reviews to delete
+     */
+    where?: reviewsWhereInput
+    /**
+     * Limit how many reviews to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * reviews.reviews_likes
+   */
+  export type reviews$reviews_likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews_likes
+     */
+    select?: reviews_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews_likes
+     */
+    omit?: reviews_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviews_likesInclude<ExtArgs> | null
+    where?: reviews_likesWhereInput
+    orderBy?: reviews_likesOrderByWithRelationInput | reviews_likesOrderByWithRelationInput[]
+    cursor?: reviews_likesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Reviews_likesScalarFieldEnum | Reviews_likesScalarFieldEnum[]
+  }
+
+  /**
+   * reviews without action
+   */
+  export type reviewsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews
+     */
+    select?: reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews
+     */
+    omit?: reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviewsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model reviews_likes
+   */
+
+  export type AggregateReviews_likes = {
+    _count: Reviews_likesCountAggregateOutputType | null
+    _min: Reviews_likesMinAggregateOutputType | null
+    _max: Reviews_likesMaxAggregateOutputType | null
+  }
+
+  export type Reviews_likesMinAggregateOutputType = {
+    id: string | null
+    id_reviews: string | null
+    id_user: string | null
+  }
+
+  export type Reviews_likesMaxAggregateOutputType = {
+    id: string | null
+    id_reviews: string | null
+    id_user: string | null
+  }
+
+  export type Reviews_likesCountAggregateOutputType = {
+    id: number
+    id_reviews: number
+    id_user: number
+    _all: number
+  }
+
+
+  export type Reviews_likesMinAggregateInputType = {
+    id?: true
+    id_reviews?: true
+    id_user?: true
+  }
+
+  export type Reviews_likesMaxAggregateInputType = {
+    id?: true
+    id_reviews?: true
+    id_user?: true
+  }
+
+  export type Reviews_likesCountAggregateInputType = {
+    id?: true
+    id_reviews?: true
+    id_user?: true
+    _all?: true
+  }
+
+  export type Reviews_likesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which reviews_likes to aggregate.
+     */
+    where?: reviews_likesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reviews_likes to fetch.
+     */
+    orderBy?: reviews_likesOrderByWithRelationInput | reviews_likesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: reviews_likesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reviews_likes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reviews_likes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned reviews_likes
+    **/
+    _count?: true | Reviews_likesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Reviews_likesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Reviews_likesMaxAggregateInputType
+  }
+
+  export type GetReviews_likesAggregateType<T extends Reviews_likesAggregateArgs> = {
+        [P in keyof T & keyof AggregateReviews_likes]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReviews_likes[P]>
+      : GetScalarType<T[P], AggregateReviews_likes[P]>
+  }
+
+
+
+
+  export type reviews_likesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: reviews_likesWhereInput
+    orderBy?: reviews_likesOrderByWithAggregationInput | reviews_likesOrderByWithAggregationInput[]
+    by: Reviews_likesScalarFieldEnum[] | Reviews_likesScalarFieldEnum
+    having?: reviews_likesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Reviews_likesCountAggregateInputType | true
+    _min?: Reviews_likesMinAggregateInputType
+    _max?: Reviews_likesMaxAggregateInputType
+  }
+
+  export type Reviews_likesGroupByOutputType = {
+    id: string
+    id_reviews: string
+    id_user: string
+    _count: Reviews_likesCountAggregateOutputType | null
+    _min: Reviews_likesMinAggregateOutputType | null
+    _max: Reviews_likesMaxAggregateOutputType | null
+  }
+
+  type GetReviews_likesGroupByPayload<T extends reviews_likesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Reviews_likesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Reviews_likesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Reviews_likesGroupByOutputType[P]>
+            : GetScalarType<T[P], Reviews_likesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type reviews_likesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_reviews?: boolean
+    id_user?: boolean
+    reviews?: boolean | reviewsDefaultArgs<ExtArgs>
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reviews_likes"]>
+
+  export type reviews_likesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_reviews?: boolean
+    id_user?: boolean
+    reviews?: boolean | reviewsDefaultArgs<ExtArgs>
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reviews_likes"]>
+
+  export type reviews_likesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_reviews?: boolean
+    id_user?: boolean
+    reviews?: boolean | reviewsDefaultArgs<ExtArgs>
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reviews_likes"]>
+
+  export type reviews_likesSelectScalar = {
+    id?: boolean
+    id_reviews?: boolean
+    id_user?: boolean
+  }
+
+  export type reviews_likesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_reviews" | "id_user", ExtArgs["result"]["reviews_likes"]>
+  export type reviews_likesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviews?: boolean | reviewsDefaultArgs<ExtArgs>
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }
+  export type reviews_likesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviews?: boolean | reviewsDefaultArgs<ExtArgs>
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }
+  export type reviews_likesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviews?: boolean | reviewsDefaultArgs<ExtArgs>
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }
+
+  export type $reviews_likesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "reviews_likes"
+    objects: {
+      reviews: Prisma.$reviewsPayload<ExtArgs>
+      auth_user: Prisma.$auth_userPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      id_reviews: string
+      id_user: string
+    }, ExtArgs["result"]["reviews_likes"]>
+    composites: {}
+  }
+
+  type reviews_likesGetPayload<S extends boolean | null | undefined | reviews_likesDefaultArgs> = $Result.GetResult<Prisma.$reviews_likesPayload, S>
+
+  type reviews_likesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<reviews_likesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Reviews_likesCountAggregateInputType | true
+    }
+
+  export interface reviews_likesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['reviews_likes'], meta: { name: 'reviews_likes' } }
+    /**
+     * Find zero or one Reviews_likes that matches the filter.
+     * @param {reviews_likesFindUniqueArgs} args - Arguments to find a Reviews_likes
+     * @example
+     * // Get one Reviews_likes
+     * const reviews_likes = await prisma.reviews_likes.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends reviews_likesFindUniqueArgs>(args: SelectSubset<T, reviews_likesFindUniqueArgs<ExtArgs>>): Prisma__reviews_likesClient<$Result.GetResult<Prisma.$reviews_likesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Reviews_likes that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {reviews_likesFindUniqueOrThrowArgs} args - Arguments to find a Reviews_likes
+     * @example
+     * // Get one Reviews_likes
+     * const reviews_likes = await prisma.reviews_likes.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends reviews_likesFindUniqueOrThrowArgs>(args: SelectSubset<T, reviews_likesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__reviews_likesClient<$Result.GetResult<Prisma.$reviews_likesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Reviews_likes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviews_likesFindFirstArgs} args - Arguments to find a Reviews_likes
+     * @example
+     * // Get one Reviews_likes
+     * const reviews_likes = await prisma.reviews_likes.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends reviews_likesFindFirstArgs>(args?: SelectSubset<T, reviews_likesFindFirstArgs<ExtArgs>>): Prisma__reviews_likesClient<$Result.GetResult<Prisma.$reviews_likesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Reviews_likes that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviews_likesFindFirstOrThrowArgs} args - Arguments to find a Reviews_likes
+     * @example
+     * // Get one Reviews_likes
+     * const reviews_likes = await prisma.reviews_likes.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends reviews_likesFindFirstOrThrowArgs>(args?: SelectSubset<T, reviews_likesFindFirstOrThrowArgs<ExtArgs>>): Prisma__reviews_likesClient<$Result.GetResult<Prisma.$reviews_likesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Reviews_likes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviews_likesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Reviews_likes
+     * const reviews_likes = await prisma.reviews_likes.findMany()
+     * 
+     * // Get first 10 Reviews_likes
+     * const reviews_likes = await prisma.reviews_likes.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const reviews_likesWithIdOnly = await prisma.reviews_likes.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends reviews_likesFindManyArgs>(args?: SelectSubset<T, reviews_likesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviews_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Reviews_likes.
+     * @param {reviews_likesCreateArgs} args - Arguments to create a Reviews_likes.
+     * @example
+     * // Create one Reviews_likes
+     * const Reviews_likes = await prisma.reviews_likes.create({
+     *   data: {
+     *     // ... data to create a Reviews_likes
+     *   }
+     * })
+     * 
+     */
+    create<T extends reviews_likesCreateArgs>(args: SelectSubset<T, reviews_likesCreateArgs<ExtArgs>>): Prisma__reviews_likesClient<$Result.GetResult<Prisma.$reviews_likesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Reviews_likes.
+     * @param {reviews_likesCreateManyArgs} args - Arguments to create many Reviews_likes.
+     * @example
+     * // Create many Reviews_likes
+     * const reviews_likes = await prisma.reviews_likes.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends reviews_likesCreateManyArgs>(args?: SelectSubset<T, reviews_likesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Reviews_likes and returns the data saved in the database.
+     * @param {reviews_likesCreateManyAndReturnArgs} args - Arguments to create many Reviews_likes.
+     * @example
+     * // Create many Reviews_likes
+     * const reviews_likes = await prisma.reviews_likes.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Reviews_likes and only return the `id`
+     * const reviews_likesWithIdOnly = await prisma.reviews_likes.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends reviews_likesCreateManyAndReturnArgs>(args?: SelectSubset<T, reviews_likesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviews_likesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Reviews_likes.
+     * @param {reviews_likesDeleteArgs} args - Arguments to delete one Reviews_likes.
+     * @example
+     * // Delete one Reviews_likes
+     * const Reviews_likes = await prisma.reviews_likes.delete({
+     *   where: {
+     *     // ... filter to delete one Reviews_likes
+     *   }
+     * })
+     * 
+     */
+    delete<T extends reviews_likesDeleteArgs>(args: SelectSubset<T, reviews_likesDeleteArgs<ExtArgs>>): Prisma__reviews_likesClient<$Result.GetResult<Prisma.$reviews_likesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Reviews_likes.
+     * @param {reviews_likesUpdateArgs} args - Arguments to update one Reviews_likes.
+     * @example
+     * // Update one Reviews_likes
+     * const reviews_likes = await prisma.reviews_likes.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends reviews_likesUpdateArgs>(args: SelectSubset<T, reviews_likesUpdateArgs<ExtArgs>>): Prisma__reviews_likesClient<$Result.GetResult<Prisma.$reviews_likesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Reviews_likes.
+     * @param {reviews_likesDeleteManyArgs} args - Arguments to filter Reviews_likes to delete.
+     * @example
+     * // Delete a few Reviews_likes
+     * const { count } = await prisma.reviews_likes.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends reviews_likesDeleteManyArgs>(args?: SelectSubset<T, reviews_likesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reviews_likes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviews_likesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Reviews_likes
+     * const reviews_likes = await prisma.reviews_likes.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends reviews_likesUpdateManyArgs>(args: SelectSubset<T, reviews_likesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reviews_likes and returns the data updated in the database.
+     * @param {reviews_likesUpdateManyAndReturnArgs} args - Arguments to update many Reviews_likes.
+     * @example
+     * // Update many Reviews_likes
+     * const reviews_likes = await prisma.reviews_likes.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Reviews_likes and only return the `id`
+     * const reviews_likesWithIdOnly = await prisma.reviews_likes.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends reviews_likesUpdateManyAndReturnArgs>(args: SelectSubset<T, reviews_likesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviews_likesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Reviews_likes.
+     * @param {reviews_likesUpsertArgs} args - Arguments to update or create a Reviews_likes.
+     * @example
+     * // Update or create a Reviews_likes
+     * const reviews_likes = await prisma.reviews_likes.upsert({
+     *   create: {
+     *     // ... data to create a Reviews_likes
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Reviews_likes we want to update
+     *   }
+     * })
+     */
+    upsert<T extends reviews_likesUpsertArgs>(args: SelectSubset<T, reviews_likesUpsertArgs<ExtArgs>>): Prisma__reviews_likesClient<$Result.GetResult<Prisma.$reviews_likesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Reviews_likes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviews_likesCountArgs} args - Arguments to filter Reviews_likes to count.
+     * @example
+     * // Count the number of Reviews_likes
+     * const count = await prisma.reviews_likes.count({
+     *   where: {
+     *     // ... the filter for the Reviews_likes we want to count
+     *   }
+     * })
+    **/
+    count<T extends reviews_likesCountArgs>(
+      args?: Subset<T, reviews_likesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Reviews_likesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Reviews_likes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Reviews_likesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Reviews_likesAggregateArgs>(args: Subset<T, Reviews_likesAggregateArgs>): Prisma.PrismaPromise<GetReviews_likesAggregateType<T>>
+
+    /**
+     * Group by Reviews_likes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reviews_likesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends reviews_likesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: reviews_likesGroupByArgs['orderBy'] }
+        : { orderBy?: reviews_likesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, reviews_likesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReviews_likesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the reviews_likes model
+   */
+  readonly fields: reviews_likesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for reviews_likes.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__reviews_likesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    reviews<T extends reviewsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, reviewsDefaultArgs<ExtArgs>>): Prisma__reviewsClient<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    auth_user<T extends auth_userDefaultArgs<ExtArgs> = {}>(args?: Subset<T, auth_userDefaultArgs<ExtArgs>>): Prisma__auth_userClient<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the reviews_likes model
+   */
+  interface reviews_likesFieldRefs {
+    readonly id: FieldRef<"reviews_likes", 'String'>
+    readonly id_reviews: FieldRef<"reviews_likes", 'String'>
+    readonly id_user: FieldRef<"reviews_likes", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * reviews_likes findUnique
+   */
+  export type reviews_likesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews_likes
+     */
+    select?: reviews_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews_likes
+     */
+    omit?: reviews_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviews_likesInclude<ExtArgs> | null
+    /**
+     * Filter, which reviews_likes to fetch.
+     */
+    where: reviews_likesWhereUniqueInput
+  }
+
+  /**
+   * reviews_likes findUniqueOrThrow
+   */
+  export type reviews_likesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews_likes
+     */
+    select?: reviews_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews_likes
+     */
+    omit?: reviews_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviews_likesInclude<ExtArgs> | null
+    /**
+     * Filter, which reviews_likes to fetch.
+     */
+    where: reviews_likesWhereUniqueInput
+  }
+
+  /**
+   * reviews_likes findFirst
+   */
+  export type reviews_likesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews_likes
+     */
+    select?: reviews_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews_likes
+     */
+    omit?: reviews_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviews_likesInclude<ExtArgs> | null
+    /**
+     * Filter, which reviews_likes to fetch.
+     */
+    where?: reviews_likesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reviews_likes to fetch.
+     */
+    orderBy?: reviews_likesOrderByWithRelationInput | reviews_likesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for reviews_likes.
+     */
+    cursor?: reviews_likesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reviews_likes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reviews_likes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of reviews_likes.
+     */
+    distinct?: Reviews_likesScalarFieldEnum | Reviews_likesScalarFieldEnum[]
+  }
+
+  /**
+   * reviews_likes findFirstOrThrow
+   */
+  export type reviews_likesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews_likes
+     */
+    select?: reviews_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews_likes
+     */
+    omit?: reviews_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviews_likesInclude<ExtArgs> | null
+    /**
+     * Filter, which reviews_likes to fetch.
+     */
+    where?: reviews_likesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reviews_likes to fetch.
+     */
+    orderBy?: reviews_likesOrderByWithRelationInput | reviews_likesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for reviews_likes.
+     */
+    cursor?: reviews_likesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reviews_likes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reviews_likes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of reviews_likes.
+     */
+    distinct?: Reviews_likesScalarFieldEnum | Reviews_likesScalarFieldEnum[]
+  }
+
+  /**
+   * reviews_likes findMany
+   */
+  export type reviews_likesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews_likes
+     */
+    select?: reviews_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews_likes
+     */
+    omit?: reviews_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviews_likesInclude<ExtArgs> | null
+    /**
+     * Filter, which reviews_likes to fetch.
+     */
+    where?: reviews_likesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reviews_likes to fetch.
+     */
+    orderBy?: reviews_likesOrderByWithRelationInput | reviews_likesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing reviews_likes.
+     */
+    cursor?: reviews_likesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reviews_likes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reviews_likes.
+     */
+    skip?: number
+    distinct?: Reviews_likesScalarFieldEnum | Reviews_likesScalarFieldEnum[]
+  }
+
+  /**
+   * reviews_likes create
+   */
+  export type reviews_likesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews_likes
+     */
+    select?: reviews_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews_likes
+     */
+    omit?: reviews_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviews_likesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a reviews_likes.
+     */
+    data: XOR<reviews_likesCreateInput, reviews_likesUncheckedCreateInput>
+  }
+
+  /**
+   * reviews_likes createMany
+   */
+  export type reviews_likesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many reviews_likes.
+     */
+    data: reviews_likesCreateManyInput | reviews_likesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * reviews_likes createManyAndReturn
+   */
+  export type reviews_likesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews_likes
+     */
+    select?: reviews_likesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews_likes
+     */
+    omit?: reviews_likesOmit<ExtArgs> | null
+    /**
+     * The data used to create many reviews_likes.
+     */
+    data: reviews_likesCreateManyInput | reviews_likesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviews_likesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * reviews_likes update
+   */
+  export type reviews_likesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews_likes
+     */
+    select?: reviews_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews_likes
+     */
+    omit?: reviews_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviews_likesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a reviews_likes.
+     */
+    data: XOR<reviews_likesUpdateInput, reviews_likesUncheckedUpdateInput>
+    /**
+     * Choose, which reviews_likes to update.
+     */
+    where: reviews_likesWhereUniqueInput
+  }
+
+  /**
+   * reviews_likes updateMany
+   */
+  export type reviews_likesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update reviews_likes.
+     */
+    data: XOR<reviews_likesUpdateManyMutationInput, reviews_likesUncheckedUpdateManyInput>
+    /**
+     * Filter which reviews_likes to update
+     */
+    where?: reviews_likesWhereInput
+    /**
+     * Limit how many reviews_likes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * reviews_likes updateManyAndReturn
+   */
+  export type reviews_likesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews_likes
+     */
+    select?: reviews_likesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews_likes
+     */
+    omit?: reviews_likesOmit<ExtArgs> | null
+    /**
+     * The data used to update reviews_likes.
+     */
+    data: XOR<reviews_likesUpdateManyMutationInput, reviews_likesUncheckedUpdateManyInput>
+    /**
+     * Filter which reviews_likes to update
+     */
+    where?: reviews_likesWhereInput
+    /**
+     * Limit how many reviews_likes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviews_likesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * reviews_likes upsert
+   */
+  export type reviews_likesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews_likes
+     */
+    select?: reviews_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews_likes
+     */
+    omit?: reviews_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviews_likesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the reviews_likes to update in case it exists.
+     */
+    where: reviews_likesWhereUniqueInput
+    /**
+     * In case the reviews_likes found by the `where` argument doesn't exist, create a new reviews_likes with this data.
+     */
+    create: XOR<reviews_likesCreateInput, reviews_likesUncheckedCreateInput>
+    /**
+     * In case the reviews_likes was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<reviews_likesUpdateInput, reviews_likesUncheckedUpdateInput>
+  }
+
+  /**
+   * reviews_likes delete
+   */
+  export type reviews_likesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews_likes
+     */
+    select?: reviews_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews_likes
+     */
+    omit?: reviews_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviews_likesInclude<ExtArgs> | null
+    /**
+     * Filter which reviews_likes to delete.
+     */
+    where: reviews_likesWhereUniqueInput
+  }
+
+  /**
+   * reviews_likes deleteMany
+   */
+  export type reviews_likesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which reviews_likes to delete
+     */
+    where?: reviews_likesWhereInput
+    /**
+     * Limit how many reviews_likes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * reviews_likes without action
+   */
+  export type reviews_likesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reviews_likes
+     */
+    select?: reviews_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reviews_likes
+     */
+    omit?: reviews_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reviews_likesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model book_genre
+   */
+
+  export type AggregateBook_genre = {
+    _count: Book_genreCountAggregateOutputType | null
+    _min: Book_genreMinAggregateOutputType | null
+    _max: Book_genreMaxAggregateOutputType | null
+  }
+
+  export type Book_genreMinAggregateOutputType = {
+    id: string | null
+    id_genre: string | null
+    id_book: string | null
+  }
+
+  export type Book_genreMaxAggregateOutputType = {
+    id: string | null
+    id_genre: string | null
+    id_book: string | null
+  }
+
+  export type Book_genreCountAggregateOutputType = {
+    id: number
+    id_genre: number
+    id_book: number
+    _all: number
+  }
+
+
+  export type Book_genreMinAggregateInputType = {
+    id?: true
+    id_genre?: true
+    id_book?: true
+  }
+
+  export type Book_genreMaxAggregateInputType = {
+    id?: true
+    id_genre?: true
+    id_book?: true
+  }
+
+  export type Book_genreCountAggregateInputType = {
+    id?: true
+    id_genre?: true
+    id_book?: true
+    _all?: true
+  }
+
+  export type Book_genreAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which book_genre to aggregate.
+     */
+    where?: book_genreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of book_genres to fetch.
+     */
+    orderBy?: book_genreOrderByWithRelationInput | book_genreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: book_genreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` book_genres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` book_genres.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned book_genres
+    **/
+    _count?: true | Book_genreCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Book_genreMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Book_genreMaxAggregateInputType
+  }
+
+  export type GetBook_genreAggregateType<T extends Book_genreAggregateArgs> = {
+        [P in keyof T & keyof AggregateBook_genre]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBook_genre[P]>
+      : GetScalarType<T[P], AggregateBook_genre[P]>
+  }
+
+
+
+
+  export type book_genreGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: book_genreWhereInput
+    orderBy?: book_genreOrderByWithAggregationInput | book_genreOrderByWithAggregationInput[]
+    by: Book_genreScalarFieldEnum[] | Book_genreScalarFieldEnum
+    having?: book_genreScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Book_genreCountAggregateInputType | true
+    _min?: Book_genreMinAggregateInputType
+    _max?: Book_genreMaxAggregateInputType
+  }
+
+  export type Book_genreGroupByOutputType = {
+    id: string
+    id_genre: string
+    id_book: string
+    _count: Book_genreCountAggregateOutputType | null
+    _min: Book_genreMinAggregateOutputType | null
+    _max: Book_genreMaxAggregateOutputType | null
+  }
+
+  type GetBook_genreGroupByPayload<T extends book_genreGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Book_genreGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Book_genreGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Book_genreGroupByOutputType[P]>
+            : GetScalarType<T[P], Book_genreGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type book_genreSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_genre?: boolean
+    id_book?: boolean
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    genre?: boolean | genreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["book_genre"]>
+
+  export type book_genreSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_genre?: boolean
+    id_book?: boolean
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    genre?: boolean | genreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["book_genre"]>
+
+  export type book_genreSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_genre?: boolean
+    id_book?: boolean
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    genre?: boolean | genreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["book_genre"]>
+
+  export type book_genreSelectScalar = {
+    id?: boolean
+    id_genre?: boolean
+    id_book?: boolean
+  }
+
+  export type book_genreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_genre" | "id_book", ExtArgs["result"]["book_genre"]>
+  export type book_genreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    genre?: boolean | genreDefaultArgs<ExtArgs>
+  }
+  export type book_genreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    genre?: boolean | genreDefaultArgs<ExtArgs>
+  }
+  export type book_genreIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    genre?: boolean | genreDefaultArgs<ExtArgs>
+  }
+
+  export type $book_genrePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "book_genre"
+    objects: {
+      book: Prisma.$bookPayload<ExtArgs>
+      genre: Prisma.$genrePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      id_genre: string
+      id_book: string
+    }, ExtArgs["result"]["book_genre"]>
+    composites: {}
+  }
+
+  type book_genreGetPayload<S extends boolean | null | undefined | book_genreDefaultArgs> = $Result.GetResult<Prisma.$book_genrePayload, S>
+
+  type book_genreCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<book_genreFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Book_genreCountAggregateInputType | true
+    }
+
+  export interface book_genreDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['book_genre'], meta: { name: 'book_genre' } }
+    /**
+     * Find zero or one Book_genre that matches the filter.
+     * @param {book_genreFindUniqueArgs} args - Arguments to find a Book_genre
+     * @example
+     * // Get one Book_genre
+     * const book_genre = await prisma.book_genre.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends book_genreFindUniqueArgs>(args: SelectSubset<T, book_genreFindUniqueArgs<ExtArgs>>): Prisma__book_genreClient<$Result.GetResult<Prisma.$book_genrePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Book_genre that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {book_genreFindUniqueOrThrowArgs} args - Arguments to find a Book_genre
+     * @example
+     * // Get one Book_genre
+     * const book_genre = await prisma.book_genre.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends book_genreFindUniqueOrThrowArgs>(args: SelectSubset<T, book_genreFindUniqueOrThrowArgs<ExtArgs>>): Prisma__book_genreClient<$Result.GetResult<Prisma.$book_genrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Book_genre that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_genreFindFirstArgs} args - Arguments to find a Book_genre
+     * @example
+     * // Get one Book_genre
+     * const book_genre = await prisma.book_genre.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends book_genreFindFirstArgs>(args?: SelectSubset<T, book_genreFindFirstArgs<ExtArgs>>): Prisma__book_genreClient<$Result.GetResult<Prisma.$book_genrePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Book_genre that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_genreFindFirstOrThrowArgs} args - Arguments to find a Book_genre
+     * @example
+     * // Get one Book_genre
+     * const book_genre = await prisma.book_genre.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends book_genreFindFirstOrThrowArgs>(args?: SelectSubset<T, book_genreFindFirstOrThrowArgs<ExtArgs>>): Prisma__book_genreClient<$Result.GetResult<Prisma.$book_genrePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Book_genres that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_genreFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Book_genres
+     * const book_genres = await prisma.book_genre.findMany()
+     * 
+     * // Get first 10 Book_genres
+     * const book_genres = await prisma.book_genre.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const book_genreWithIdOnly = await prisma.book_genre.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends book_genreFindManyArgs>(args?: SelectSubset<T, book_genreFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_genrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Book_genre.
+     * @param {book_genreCreateArgs} args - Arguments to create a Book_genre.
+     * @example
+     * // Create one Book_genre
+     * const Book_genre = await prisma.book_genre.create({
+     *   data: {
+     *     // ... data to create a Book_genre
+     *   }
+     * })
+     * 
+     */
+    create<T extends book_genreCreateArgs>(args: SelectSubset<T, book_genreCreateArgs<ExtArgs>>): Prisma__book_genreClient<$Result.GetResult<Prisma.$book_genrePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Book_genres.
+     * @param {book_genreCreateManyArgs} args - Arguments to create many Book_genres.
+     * @example
+     * // Create many Book_genres
+     * const book_genre = await prisma.book_genre.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends book_genreCreateManyArgs>(args?: SelectSubset<T, book_genreCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Book_genres and returns the data saved in the database.
+     * @param {book_genreCreateManyAndReturnArgs} args - Arguments to create many Book_genres.
+     * @example
+     * // Create many Book_genres
+     * const book_genre = await prisma.book_genre.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Book_genres and only return the `id`
+     * const book_genreWithIdOnly = await prisma.book_genre.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends book_genreCreateManyAndReturnArgs>(args?: SelectSubset<T, book_genreCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_genrePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Book_genre.
+     * @param {book_genreDeleteArgs} args - Arguments to delete one Book_genre.
+     * @example
+     * // Delete one Book_genre
+     * const Book_genre = await prisma.book_genre.delete({
+     *   where: {
+     *     // ... filter to delete one Book_genre
+     *   }
+     * })
+     * 
+     */
+    delete<T extends book_genreDeleteArgs>(args: SelectSubset<T, book_genreDeleteArgs<ExtArgs>>): Prisma__book_genreClient<$Result.GetResult<Prisma.$book_genrePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Book_genre.
+     * @param {book_genreUpdateArgs} args - Arguments to update one Book_genre.
+     * @example
+     * // Update one Book_genre
+     * const book_genre = await prisma.book_genre.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends book_genreUpdateArgs>(args: SelectSubset<T, book_genreUpdateArgs<ExtArgs>>): Prisma__book_genreClient<$Result.GetResult<Prisma.$book_genrePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Book_genres.
+     * @param {book_genreDeleteManyArgs} args - Arguments to filter Book_genres to delete.
+     * @example
+     * // Delete a few Book_genres
+     * const { count } = await prisma.book_genre.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends book_genreDeleteManyArgs>(args?: SelectSubset<T, book_genreDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Book_genres.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_genreUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Book_genres
+     * const book_genre = await prisma.book_genre.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends book_genreUpdateManyArgs>(args: SelectSubset<T, book_genreUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Book_genres and returns the data updated in the database.
+     * @param {book_genreUpdateManyAndReturnArgs} args - Arguments to update many Book_genres.
+     * @example
+     * // Update many Book_genres
+     * const book_genre = await prisma.book_genre.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Book_genres and only return the `id`
+     * const book_genreWithIdOnly = await prisma.book_genre.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends book_genreUpdateManyAndReturnArgs>(args: SelectSubset<T, book_genreUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_genrePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Book_genre.
+     * @param {book_genreUpsertArgs} args - Arguments to update or create a Book_genre.
+     * @example
+     * // Update or create a Book_genre
+     * const book_genre = await prisma.book_genre.upsert({
+     *   create: {
+     *     // ... data to create a Book_genre
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Book_genre we want to update
+     *   }
+     * })
+     */
+    upsert<T extends book_genreUpsertArgs>(args: SelectSubset<T, book_genreUpsertArgs<ExtArgs>>): Prisma__book_genreClient<$Result.GetResult<Prisma.$book_genrePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Book_genres.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_genreCountArgs} args - Arguments to filter Book_genres to count.
+     * @example
+     * // Count the number of Book_genres
+     * const count = await prisma.book_genre.count({
+     *   where: {
+     *     // ... the filter for the Book_genres we want to count
+     *   }
+     * })
+    **/
+    count<T extends book_genreCountArgs>(
+      args?: Subset<T, book_genreCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Book_genreCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Book_genre.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Book_genreAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Book_genreAggregateArgs>(args: Subset<T, Book_genreAggregateArgs>): Prisma.PrismaPromise<GetBook_genreAggregateType<T>>
+
+    /**
+     * Group by Book_genre.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_genreGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends book_genreGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: book_genreGroupByArgs['orderBy'] }
+        : { orderBy?: book_genreGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, book_genreGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBook_genreGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the book_genre model
+   */
+  readonly fields: book_genreFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for book_genre.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__book_genreClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    book<T extends bookDefaultArgs<ExtArgs> = {}>(args?: Subset<T, bookDefaultArgs<ExtArgs>>): Prisma__bookClient<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    genre<T extends genreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, genreDefaultArgs<ExtArgs>>): Prisma__genreClient<$Result.GetResult<Prisma.$genrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the book_genre model
+   */
+  interface book_genreFieldRefs {
+    readonly id: FieldRef<"book_genre", 'String'>
+    readonly id_genre: FieldRef<"book_genre", 'String'>
+    readonly id_book: FieldRef<"book_genre", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * book_genre findUnique
+   */
+  export type book_genreFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_genre
+     */
+    select?: book_genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_genre
+     */
+    omit?: book_genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_genreInclude<ExtArgs> | null
+    /**
+     * Filter, which book_genre to fetch.
+     */
+    where: book_genreWhereUniqueInput
+  }
+
+  /**
+   * book_genre findUniqueOrThrow
+   */
+  export type book_genreFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_genre
+     */
+    select?: book_genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_genre
+     */
+    omit?: book_genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_genreInclude<ExtArgs> | null
+    /**
+     * Filter, which book_genre to fetch.
+     */
+    where: book_genreWhereUniqueInput
+  }
+
+  /**
+   * book_genre findFirst
+   */
+  export type book_genreFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_genre
+     */
+    select?: book_genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_genre
+     */
+    omit?: book_genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_genreInclude<ExtArgs> | null
+    /**
+     * Filter, which book_genre to fetch.
+     */
+    where?: book_genreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of book_genres to fetch.
+     */
+    orderBy?: book_genreOrderByWithRelationInput | book_genreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for book_genres.
+     */
+    cursor?: book_genreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` book_genres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` book_genres.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of book_genres.
+     */
+    distinct?: Book_genreScalarFieldEnum | Book_genreScalarFieldEnum[]
+  }
+
+  /**
+   * book_genre findFirstOrThrow
+   */
+  export type book_genreFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_genre
+     */
+    select?: book_genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_genre
+     */
+    omit?: book_genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_genreInclude<ExtArgs> | null
+    /**
+     * Filter, which book_genre to fetch.
+     */
+    where?: book_genreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of book_genres to fetch.
+     */
+    orderBy?: book_genreOrderByWithRelationInput | book_genreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for book_genres.
+     */
+    cursor?: book_genreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` book_genres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` book_genres.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of book_genres.
+     */
+    distinct?: Book_genreScalarFieldEnum | Book_genreScalarFieldEnum[]
+  }
+
+  /**
+   * book_genre findMany
+   */
+  export type book_genreFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_genre
+     */
+    select?: book_genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_genre
+     */
+    omit?: book_genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_genreInclude<ExtArgs> | null
+    /**
+     * Filter, which book_genres to fetch.
+     */
+    where?: book_genreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of book_genres to fetch.
+     */
+    orderBy?: book_genreOrderByWithRelationInput | book_genreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing book_genres.
+     */
+    cursor?: book_genreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` book_genres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` book_genres.
+     */
+    skip?: number
+    distinct?: Book_genreScalarFieldEnum | Book_genreScalarFieldEnum[]
+  }
+
+  /**
+   * book_genre create
+   */
+  export type book_genreCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_genre
+     */
+    select?: book_genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_genre
+     */
+    omit?: book_genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_genreInclude<ExtArgs> | null
+    /**
+     * The data needed to create a book_genre.
+     */
+    data: XOR<book_genreCreateInput, book_genreUncheckedCreateInput>
+  }
+
+  /**
+   * book_genre createMany
+   */
+  export type book_genreCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many book_genres.
+     */
+    data: book_genreCreateManyInput | book_genreCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * book_genre createManyAndReturn
+   */
+  export type book_genreCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_genre
+     */
+    select?: book_genreSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_genre
+     */
+    omit?: book_genreOmit<ExtArgs> | null
+    /**
+     * The data used to create many book_genres.
+     */
+    data: book_genreCreateManyInput | book_genreCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_genreIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * book_genre update
+   */
+  export type book_genreUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_genre
+     */
+    select?: book_genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_genre
+     */
+    omit?: book_genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_genreInclude<ExtArgs> | null
+    /**
+     * The data needed to update a book_genre.
+     */
+    data: XOR<book_genreUpdateInput, book_genreUncheckedUpdateInput>
+    /**
+     * Choose, which book_genre to update.
+     */
+    where: book_genreWhereUniqueInput
+  }
+
+  /**
+   * book_genre updateMany
+   */
+  export type book_genreUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update book_genres.
+     */
+    data: XOR<book_genreUpdateManyMutationInput, book_genreUncheckedUpdateManyInput>
+    /**
+     * Filter which book_genres to update
+     */
+    where?: book_genreWhereInput
+    /**
+     * Limit how many book_genres to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * book_genre updateManyAndReturn
+   */
+  export type book_genreUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_genre
+     */
+    select?: book_genreSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_genre
+     */
+    omit?: book_genreOmit<ExtArgs> | null
+    /**
+     * The data used to update book_genres.
+     */
+    data: XOR<book_genreUpdateManyMutationInput, book_genreUncheckedUpdateManyInput>
+    /**
+     * Filter which book_genres to update
+     */
+    where?: book_genreWhereInput
+    /**
+     * Limit how many book_genres to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_genreIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * book_genre upsert
+   */
+  export type book_genreUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_genre
+     */
+    select?: book_genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_genre
+     */
+    omit?: book_genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_genreInclude<ExtArgs> | null
+    /**
+     * The filter to search for the book_genre to update in case it exists.
+     */
+    where: book_genreWhereUniqueInput
+    /**
+     * In case the book_genre found by the `where` argument doesn't exist, create a new book_genre with this data.
+     */
+    create: XOR<book_genreCreateInput, book_genreUncheckedCreateInput>
+    /**
+     * In case the book_genre was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<book_genreUpdateInput, book_genreUncheckedUpdateInput>
+  }
+
+  /**
+   * book_genre delete
+   */
+  export type book_genreDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_genre
+     */
+    select?: book_genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_genre
+     */
+    omit?: book_genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_genreInclude<ExtArgs> | null
+    /**
+     * Filter which book_genre to delete.
+     */
+    where: book_genreWhereUniqueInput
+  }
+
+  /**
+   * book_genre deleteMany
+   */
+  export type book_genreDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which book_genres to delete
+     */
+    where?: book_genreWhereInput
+    /**
+     * Limit how many book_genres to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * book_genre without action
+   */
+  export type book_genreDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_genre
+     */
+    select?: book_genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_genre
+     */
+    omit?: book_genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_genreInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model book_tags
+   */
+
+  export type AggregateBook_tags = {
+    _count: Book_tagsCountAggregateOutputType | null
+    _min: Book_tagsMinAggregateOutputType | null
+    _max: Book_tagsMaxAggregateOutputType | null
+  }
+
+  export type Book_tagsMinAggregateOutputType = {
+    id: string | null
+    id_tags: string | null
+    id_book: string | null
+  }
+
+  export type Book_tagsMaxAggregateOutputType = {
+    id: string | null
+    id_tags: string | null
+    id_book: string | null
+  }
+
+  export type Book_tagsCountAggregateOutputType = {
+    id: number
+    id_tags: number
+    id_book: number
+    _all: number
+  }
+
+
+  export type Book_tagsMinAggregateInputType = {
+    id?: true
+    id_tags?: true
+    id_book?: true
+  }
+
+  export type Book_tagsMaxAggregateInputType = {
+    id?: true
+    id_tags?: true
+    id_book?: true
+  }
+
+  export type Book_tagsCountAggregateInputType = {
+    id?: true
+    id_tags?: true
+    id_book?: true
+    _all?: true
+  }
+
+  export type Book_tagsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which book_tags to aggregate.
+     */
+    where?: book_tagsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of book_tags to fetch.
+     */
+    orderBy?: book_tagsOrderByWithRelationInput | book_tagsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: book_tagsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` book_tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` book_tags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned book_tags
+    **/
+    _count?: true | Book_tagsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Book_tagsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Book_tagsMaxAggregateInputType
+  }
+
+  export type GetBook_tagsAggregateType<T extends Book_tagsAggregateArgs> = {
+        [P in keyof T & keyof AggregateBook_tags]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBook_tags[P]>
+      : GetScalarType<T[P], AggregateBook_tags[P]>
+  }
+
+
+
+
+  export type book_tagsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: book_tagsWhereInput
+    orderBy?: book_tagsOrderByWithAggregationInput | book_tagsOrderByWithAggregationInput[]
+    by: Book_tagsScalarFieldEnum[] | Book_tagsScalarFieldEnum
+    having?: book_tagsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Book_tagsCountAggregateInputType | true
+    _min?: Book_tagsMinAggregateInputType
+    _max?: Book_tagsMaxAggregateInputType
+  }
+
+  export type Book_tagsGroupByOutputType = {
+    id: string
+    id_tags: string
+    id_book: string
+    _count: Book_tagsCountAggregateOutputType | null
+    _min: Book_tagsMinAggregateOutputType | null
+    _max: Book_tagsMaxAggregateOutputType | null
+  }
+
+  type GetBook_tagsGroupByPayload<T extends book_tagsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Book_tagsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Book_tagsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Book_tagsGroupByOutputType[P]>
+            : GetScalarType<T[P], Book_tagsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type book_tagsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_tags?: boolean
+    id_book?: boolean
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    tags?: boolean | tagsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["book_tags"]>
+
+  export type book_tagsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_tags?: boolean
+    id_book?: boolean
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    tags?: boolean | tagsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["book_tags"]>
+
+  export type book_tagsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_tags?: boolean
+    id_book?: boolean
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    tags?: boolean | tagsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["book_tags"]>
+
+  export type book_tagsSelectScalar = {
+    id?: boolean
+    id_tags?: boolean
+    id_book?: boolean
+  }
+
+  export type book_tagsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_tags" | "id_book", ExtArgs["result"]["book_tags"]>
+  export type book_tagsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    tags?: boolean | tagsDefaultArgs<ExtArgs>
+  }
+  export type book_tagsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    tags?: boolean | tagsDefaultArgs<ExtArgs>
+  }
+  export type book_tagsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book?: boolean | bookDefaultArgs<ExtArgs>
+    tags?: boolean | tagsDefaultArgs<ExtArgs>
+  }
+
+  export type $book_tagsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "book_tags"
+    objects: {
+      book: Prisma.$bookPayload<ExtArgs>
+      tags: Prisma.$tagsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      id_tags: string
+      id_book: string
+    }, ExtArgs["result"]["book_tags"]>
+    composites: {}
+  }
+
+  type book_tagsGetPayload<S extends boolean | null | undefined | book_tagsDefaultArgs> = $Result.GetResult<Prisma.$book_tagsPayload, S>
+
+  type book_tagsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<book_tagsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Book_tagsCountAggregateInputType | true
+    }
+
+  export interface book_tagsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['book_tags'], meta: { name: 'book_tags' } }
+    /**
+     * Find zero or one Book_tags that matches the filter.
+     * @param {book_tagsFindUniqueArgs} args - Arguments to find a Book_tags
+     * @example
+     * // Get one Book_tags
+     * const book_tags = await prisma.book_tags.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends book_tagsFindUniqueArgs>(args: SelectSubset<T, book_tagsFindUniqueArgs<ExtArgs>>): Prisma__book_tagsClient<$Result.GetResult<Prisma.$book_tagsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Book_tags that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {book_tagsFindUniqueOrThrowArgs} args - Arguments to find a Book_tags
+     * @example
+     * // Get one Book_tags
+     * const book_tags = await prisma.book_tags.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends book_tagsFindUniqueOrThrowArgs>(args: SelectSubset<T, book_tagsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__book_tagsClient<$Result.GetResult<Prisma.$book_tagsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Book_tags that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_tagsFindFirstArgs} args - Arguments to find a Book_tags
+     * @example
+     * // Get one Book_tags
+     * const book_tags = await prisma.book_tags.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends book_tagsFindFirstArgs>(args?: SelectSubset<T, book_tagsFindFirstArgs<ExtArgs>>): Prisma__book_tagsClient<$Result.GetResult<Prisma.$book_tagsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Book_tags that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_tagsFindFirstOrThrowArgs} args - Arguments to find a Book_tags
+     * @example
+     * // Get one Book_tags
+     * const book_tags = await prisma.book_tags.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends book_tagsFindFirstOrThrowArgs>(args?: SelectSubset<T, book_tagsFindFirstOrThrowArgs<ExtArgs>>): Prisma__book_tagsClient<$Result.GetResult<Prisma.$book_tagsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Book_tags that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_tagsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Book_tags
+     * const book_tags = await prisma.book_tags.findMany()
+     * 
+     * // Get first 10 Book_tags
+     * const book_tags = await prisma.book_tags.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const book_tagsWithIdOnly = await prisma.book_tags.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends book_tagsFindManyArgs>(args?: SelectSubset<T, book_tagsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_tagsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Book_tags.
+     * @param {book_tagsCreateArgs} args - Arguments to create a Book_tags.
+     * @example
+     * // Create one Book_tags
+     * const Book_tags = await prisma.book_tags.create({
+     *   data: {
+     *     // ... data to create a Book_tags
+     *   }
+     * })
+     * 
+     */
+    create<T extends book_tagsCreateArgs>(args: SelectSubset<T, book_tagsCreateArgs<ExtArgs>>): Prisma__book_tagsClient<$Result.GetResult<Prisma.$book_tagsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Book_tags.
+     * @param {book_tagsCreateManyArgs} args - Arguments to create many Book_tags.
+     * @example
+     * // Create many Book_tags
+     * const book_tags = await prisma.book_tags.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends book_tagsCreateManyArgs>(args?: SelectSubset<T, book_tagsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Book_tags and returns the data saved in the database.
+     * @param {book_tagsCreateManyAndReturnArgs} args - Arguments to create many Book_tags.
+     * @example
+     * // Create many Book_tags
+     * const book_tags = await prisma.book_tags.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Book_tags and only return the `id`
+     * const book_tagsWithIdOnly = await prisma.book_tags.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends book_tagsCreateManyAndReturnArgs>(args?: SelectSubset<T, book_tagsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_tagsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Book_tags.
+     * @param {book_tagsDeleteArgs} args - Arguments to delete one Book_tags.
+     * @example
+     * // Delete one Book_tags
+     * const Book_tags = await prisma.book_tags.delete({
+     *   where: {
+     *     // ... filter to delete one Book_tags
+     *   }
+     * })
+     * 
+     */
+    delete<T extends book_tagsDeleteArgs>(args: SelectSubset<T, book_tagsDeleteArgs<ExtArgs>>): Prisma__book_tagsClient<$Result.GetResult<Prisma.$book_tagsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Book_tags.
+     * @param {book_tagsUpdateArgs} args - Arguments to update one Book_tags.
+     * @example
+     * // Update one Book_tags
+     * const book_tags = await prisma.book_tags.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends book_tagsUpdateArgs>(args: SelectSubset<T, book_tagsUpdateArgs<ExtArgs>>): Prisma__book_tagsClient<$Result.GetResult<Prisma.$book_tagsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Book_tags.
+     * @param {book_tagsDeleteManyArgs} args - Arguments to filter Book_tags to delete.
+     * @example
+     * // Delete a few Book_tags
+     * const { count } = await prisma.book_tags.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends book_tagsDeleteManyArgs>(args?: SelectSubset<T, book_tagsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Book_tags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_tagsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Book_tags
+     * const book_tags = await prisma.book_tags.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends book_tagsUpdateManyArgs>(args: SelectSubset<T, book_tagsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Book_tags and returns the data updated in the database.
+     * @param {book_tagsUpdateManyAndReturnArgs} args - Arguments to update many Book_tags.
+     * @example
+     * // Update many Book_tags
+     * const book_tags = await prisma.book_tags.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Book_tags and only return the `id`
+     * const book_tagsWithIdOnly = await prisma.book_tags.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends book_tagsUpdateManyAndReturnArgs>(args: SelectSubset<T, book_tagsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_tagsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Book_tags.
+     * @param {book_tagsUpsertArgs} args - Arguments to update or create a Book_tags.
+     * @example
+     * // Update or create a Book_tags
+     * const book_tags = await prisma.book_tags.upsert({
+     *   create: {
+     *     // ... data to create a Book_tags
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Book_tags we want to update
+     *   }
+     * })
+     */
+    upsert<T extends book_tagsUpsertArgs>(args: SelectSubset<T, book_tagsUpsertArgs<ExtArgs>>): Prisma__book_tagsClient<$Result.GetResult<Prisma.$book_tagsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Book_tags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_tagsCountArgs} args - Arguments to filter Book_tags to count.
+     * @example
+     * // Count the number of Book_tags
+     * const count = await prisma.book_tags.count({
+     *   where: {
+     *     // ... the filter for the Book_tags we want to count
+     *   }
+     * })
+    **/
+    count<T extends book_tagsCountArgs>(
+      args?: Subset<T, book_tagsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Book_tagsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Book_tags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Book_tagsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Book_tagsAggregateArgs>(args: Subset<T, Book_tagsAggregateArgs>): Prisma.PrismaPromise<GetBook_tagsAggregateType<T>>
+
+    /**
+     * Group by Book_tags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {book_tagsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends book_tagsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: book_tagsGroupByArgs['orderBy'] }
+        : { orderBy?: book_tagsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, book_tagsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBook_tagsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the book_tags model
+   */
+  readonly fields: book_tagsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for book_tags.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__book_tagsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    book<T extends bookDefaultArgs<ExtArgs> = {}>(args?: Subset<T, bookDefaultArgs<ExtArgs>>): Prisma__bookClient<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tags<T extends tagsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, tagsDefaultArgs<ExtArgs>>): Prisma__tagsClient<$Result.GetResult<Prisma.$tagsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the book_tags model
+   */
+  interface book_tagsFieldRefs {
+    readonly id: FieldRef<"book_tags", 'String'>
+    readonly id_tags: FieldRef<"book_tags", 'String'>
+    readonly id_book: FieldRef<"book_tags", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * book_tags findUnique
+   */
+  export type book_tagsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_tags
+     */
+    select?: book_tagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_tags
+     */
+    omit?: book_tagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_tagsInclude<ExtArgs> | null
+    /**
+     * Filter, which book_tags to fetch.
+     */
+    where: book_tagsWhereUniqueInput
+  }
+
+  /**
+   * book_tags findUniqueOrThrow
+   */
+  export type book_tagsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_tags
+     */
+    select?: book_tagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_tags
+     */
+    omit?: book_tagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_tagsInclude<ExtArgs> | null
+    /**
+     * Filter, which book_tags to fetch.
+     */
+    where: book_tagsWhereUniqueInput
+  }
+
+  /**
+   * book_tags findFirst
+   */
+  export type book_tagsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_tags
+     */
+    select?: book_tagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_tags
+     */
+    omit?: book_tagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_tagsInclude<ExtArgs> | null
+    /**
+     * Filter, which book_tags to fetch.
+     */
+    where?: book_tagsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of book_tags to fetch.
+     */
+    orderBy?: book_tagsOrderByWithRelationInput | book_tagsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for book_tags.
+     */
+    cursor?: book_tagsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` book_tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` book_tags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of book_tags.
+     */
+    distinct?: Book_tagsScalarFieldEnum | Book_tagsScalarFieldEnum[]
+  }
+
+  /**
+   * book_tags findFirstOrThrow
+   */
+  export type book_tagsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_tags
+     */
+    select?: book_tagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_tags
+     */
+    omit?: book_tagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_tagsInclude<ExtArgs> | null
+    /**
+     * Filter, which book_tags to fetch.
+     */
+    where?: book_tagsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of book_tags to fetch.
+     */
+    orderBy?: book_tagsOrderByWithRelationInput | book_tagsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for book_tags.
+     */
+    cursor?: book_tagsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` book_tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` book_tags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of book_tags.
+     */
+    distinct?: Book_tagsScalarFieldEnum | Book_tagsScalarFieldEnum[]
+  }
+
+  /**
+   * book_tags findMany
+   */
+  export type book_tagsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_tags
+     */
+    select?: book_tagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_tags
+     */
+    omit?: book_tagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_tagsInclude<ExtArgs> | null
+    /**
+     * Filter, which book_tags to fetch.
+     */
+    where?: book_tagsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of book_tags to fetch.
+     */
+    orderBy?: book_tagsOrderByWithRelationInput | book_tagsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing book_tags.
+     */
+    cursor?: book_tagsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` book_tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` book_tags.
+     */
+    skip?: number
+    distinct?: Book_tagsScalarFieldEnum | Book_tagsScalarFieldEnum[]
+  }
+
+  /**
+   * book_tags create
+   */
+  export type book_tagsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_tags
+     */
+    select?: book_tagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_tags
+     */
+    omit?: book_tagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_tagsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a book_tags.
+     */
+    data: XOR<book_tagsCreateInput, book_tagsUncheckedCreateInput>
+  }
+
+  /**
+   * book_tags createMany
+   */
+  export type book_tagsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many book_tags.
+     */
+    data: book_tagsCreateManyInput | book_tagsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * book_tags createManyAndReturn
+   */
+  export type book_tagsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_tags
+     */
+    select?: book_tagsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_tags
+     */
+    omit?: book_tagsOmit<ExtArgs> | null
+    /**
+     * The data used to create many book_tags.
+     */
+    data: book_tagsCreateManyInput | book_tagsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_tagsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * book_tags update
+   */
+  export type book_tagsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_tags
+     */
+    select?: book_tagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_tags
+     */
+    omit?: book_tagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_tagsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a book_tags.
+     */
+    data: XOR<book_tagsUpdateInput, book_tagsUncheckedUpdateInput>
+    /**
+     * Choose, which book_tags to update.
+     */
+    where: book_tagsWhereUniqueInput
+  }
+
+  /**
+   * book_tags updateMany
+   */
+  export type book_tagsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update book_tags.
+     */
+    data: XOR<book_tagsUpdateManyMutationInput, book_tagsUncheckedUpdateManyInput>
+    /**
+     * Filter which book_tags to update
+     */
+    where?: book_tagsWhereInput
+    /**
+     * Limit how many book_tags to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * book_tags updateManyAndReturn
+   */
+  export type book_tagsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_tags
+     */
+    select?: book_tagsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_tags
+     */
+    omit?: book_tagsOmit<ExtArgs> | null
+    /**
+     * The data used to update book_tags.
+     */
+    data: XOR<book_tagsUpdateManyMutationInput, book_tagsUncheckedUpdateManyInput>
+    /**
+     * Filter which book_tags to update
+     */
+    where?: book_tagsWhereInput
+    /**
+     * Limit how many book_tags to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_tagsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * book_tags upsert
+   */
+  export type book_tagsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_tags
+     */
+    select?: book_tagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_tags
+     */
+    omit?: book_tagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_tagsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the book_tags to update in case it exists.
+     */
+    where: book_tagsWhereUniqueInput
+    /**
+     * In case the book_tags found by the `where` argument doesn't exist, create a new book_tags with this data.
+     */
+    create: XOR<book_tagsCreateInput, book_tagsUncheckedCreateInput>
+    /**
+     * In case the book_tags was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<book_tagsUpdateInput, book_tagsUncheckedUpdateInput>
+  }
+
+  /**
+   * book_tags delete
+   */
+  export type book_tagsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_tags
+     */
+    select?: book_tagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_tags
+     */
+    omit?: book_tagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_tagsInclude<ExtArgs> | null
+    /**
+     * Filter which book_tags to delete.
+     */
+    where: book_tagsWhereUniqueInput
+  }
+
+  /**
+   * book_tags deleteMany
+   */
+  export type book_tagsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which book_tags to delete
+     */
+    where?: book_tagsWhereInput
+    /**
+     * Limit how many book_tags to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * book_tags without action
+   */
+  export type book_tagsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_tags
+     */
+    select?: book_tagsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_tags
+     */
+    omit?: book_tagsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_tagsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model genre
+   */
+
+  export type AggregateGenre = {
+    _count: GenreCountAggregateOutputType | null
+    _min: GenreMinAggregateOutputType | null
+    _max: GenreMaxAggregateOutputType | null
+  }
+
+  export type GenreMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    id_parent: string | null
+    slug: string | null
+    img: string | null
+    deleted_at: Date | null
+  }
+
+  export type GenreMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    id_parent: string | null
+    slug: string | null
+    img: string | null
+    deleted_at: Date | null
+  }
+
+  export type GenreCountAggregateOutputType = {
+    id: number
+    name: number
+    id_parent: number
+    slug: number
+    img: number
+    deleted_at: number
+    _all: number
+  }
+
+
+  export type GenreMinAggregateInputType = {
+    id?: true
+    name?: true
+    id_parent?: true
+    slug?: true
+    img?: true
+    deleted_at?: true
+  }
+
+  export type GenreMaxAggregateInputType = {
+    id?: true
+    name?: true
+    id_parent?: true
+    slug?: true
+    img?: true
+    deleted_at?: true
+  }
+
+  export type GenreCountAggregateInputType = {
+    id?: true
+    name?: true
+    id_parent?: true
+    slug?: true
+    img?: true
+    deleted_at?: true
+    _all?: true
+  }
+
+  export type GenreAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which genre to aggregate.
+     */
+    where?: genreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of genres to fetch.
+     */
+    orderBy?: genreOrderByWithRelationInput | genreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: genreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` genres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` genres.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned genres
+    **/
+    _count?: true | GenreCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GenreMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GenreMaxAggregateInputType
+  }
+
+  export type GetGenreAggregateType<T extends GenreAggregateArgs> = {
+        [P in keyof T & keyof AggregateGenre]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGenre[P]>
+      : GetScalarType<T[P], AggregateGenre[P]>
+  }
+
+
+
+
+  export type genreGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: genreWhereInput
+    orderBy?: genreOrderByWithAggregationInput | genreOrderByWithAggregationInput[]
+    by: GenreScalarFieldEnum[] | GenreScalarFieldEnum
+    having?: genreScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GenreCountAggregateInputType | true
+    _min?: GenreMinAggregateInputType
+    _max?: GenreMaxAggregateInputType
+  }
+
+  export type GenreGroupByOutputType = {
+    id: string
+    name: string
+    id_parent: string | null
+    slug: string | null
+    img: string | null
+    deleted_at: Date | null
+    _count: GenreCountAggregateOutputType | null
+    _min: GenreMinAggregateOutputType | null
+    _max: GenreMaxAggregateOutputType | null
+  }
+
+  type GetGenreGroupByPayload<T extends genreGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GenreGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GenreGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GenreGroupByOutputType[P]>
+            : GetScalarType<T[P], GenreGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type genreSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    id_parent?: boolean
+    slug?: boolean
+    img?: boolean
+    deleted_at?: boolean
+    book_genre?: boolean | genre$book_genreArgs<ExtArgs>
+    genre?: boolean | genre$genreArgs<ExtArgs>
+    other_genre?: boolean | genre$other_genreArgs<ExtArgs>
+    _count?: boolean | GenreCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["genre"]>
+
+  export type genreSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    id_parent?: boolean
+    slug?: boolean
+    img?: boolean
+    deleted_at?: boolean
+    genre?: boolean | genre$genreArgs<ExtArgs>
+  }, ExtArgs["result"]["genre"]>
+
+  export type genreSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    id_parent?: boolean
+    slug?: boolean
+    img?: boolean
+    deleted_at?: boolean
+    genre?: boolean | genre$genreArgs<ExtArgs>
+  }, ExtArgs["result"]["genre"]>
+
+  export type genreSelectScalar = {
+    id?: boolean
+    name?: boolean
+    id_parent?: boolean
+    slug?: boolean
+    img?: boolean
+    deleted_at?: boolean
+  }
+
+  export type genreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_parent" | "slug" | "img" | "deleted_at", ExtArgs["result"]["genre"]>
+  export type genreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book_genre?: boolean | genre$book_genreArgs<ExtArgs>
+    genre?: boolean | genre$genreArgs<ExtArgs>
+    other_genre?: boolean | genre$other_genreArgs<ExtArgs>
+    _count?: boolean | GenreCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type genreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    genre?: boolean | genre$genreArgs<ExtArgs>
+  }
+  export type genreIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    genre?: boolean | genre$genreArgs<ExtArgs>
+  }
+
+  export type $genrePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "genre"
+    objects: {
+      book_genre: Prisma.$book_genrePayload<ExtArgs>[]
+      genre: Prisma.$genrePayload<ExtArgs> | null
+      other_genre: Prisma.$genrePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      id_parent: string | null
+      slug: string | null
+      img: string | null
+      deleted_at: Date | null
+    }, ExtArgs["result"]["genre"]>
+    composites: {}
+  }
+
+  type genreGetPayload<S extends boolean | null | undefined | genreDefaultArgs> = $Result.GetResult<Prisma.$genrePayload, S>
+
+  type genreCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<genreFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GenreCountAggregateInputType | true
+    }
+
+  export interface genreDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['genre'], meta: { name: 'genre' } }
+    /**
+     * Find zero or one Genre that matches the filter.
+     * @param {genreFindUniqueArgs} args - Arguments to find a Genre
+     * @example
+     * // Get one Genre
+     * const genre = await prisma.genre.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends genreFindUniqueArgs>(args: SelectSubset<T, genreFindUniqueArgs<ExtArgs>>): Prisma__genreClient<$Result.GetResult<Prisma.$genrePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Genre that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {genreFindUniqueOrThrowArgs} args - Arguments to find a Genre
+     * @example
+     * // Get one Genre
+     * const genre = await prisma.genre.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends genreFindUniqueOrThrowArgs>(args: SelectSubset<T, genreFindUniqueOrThrowArgs<ExtArgs>>): Prisma__genreClient<$Result.GetResult<Prisma.$genrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Genre that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {genreFindFirstArgs} args - Arguments to find a Genre
+     * @example
+     * // Get one Genre
+     * const genre = await prisma.genre.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends genreFindFirstArgs>(args?: SelectSubset<T, genreFindFirstArgs<ExtArgs>>): Prisma__genreClient<$Result.GetResult<Prisma.$genrePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Genre that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {genreFindFirstOrThrowArgs} args - Arguments to find a Genre
+     * @example
+     * // Get one Genre
+     * const genre = await prisma.genre.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends genreFindFirstOrThrowArgs>(args?: SelectSubset<T, genreFindFirstOrThrowArgs<ExtArgs>>): Prisma__genreClient<$Result.GetResult<Prisma.$genrePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Genres that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {genreFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Genres
+     * const genres = await prisma.genre.findMany()
+     * 
+     * // Get first 10 Genres
+     * const genres = await prisma.genre.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const genreWithIdOnly = await prisma.genre.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends genreFindManyArgs>(args?: SelectSubset<T, genreFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$genrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Genre.
+     * @param {genreCreateArgs} args - Arguments to create a Genre.
+     * @example
+     * // Create one Genre
+     * const Genre = await prisma.genre.create({
+     *   data: {
+     *     // ... data to create a Genre
+     *   }
+     * })
+     * 
+     */
+    create<T extends genreCreateArgs>(args: SelectSubset<T, genreCreateArgs<ExtArgs>>): Prisma__genreClient<$Result.GetResult<Prisma.$genrePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Genres.
+     * @param {genreCreateManyArgs} args - Arguments to create many Genres.
+     * @example
+     * // Create many Genres
+     * const genre = await prisma.genre.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends genreCreateManyArgs>(args?: SelectSubset<T, genreCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Genres and returns the data saved in the database.
+     * @param {genreCreateManyAndReturnArgs} args - Arguments to create many Genres.
+     * @example
+     * // Create many Genres
+     * const genre = await prisma.genre.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Genres and only return the `id`
+     * const genreWithIdOnly = await prisma.genre.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends genreCreateManyAndReturnArgs>(args?: SelectSubset<T, genreCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$genrePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Genre.
+     * @param {genreDeleteArgs} args - Arguments to delete one Genre.
+     * @example
+     * // Delete one Genre
+     * const Genre = await prisma.genre.delete({
+     *   where: {
+     *     // ... filter to delete one Genre
+     *   }
+     * })
+     * 
+     */
+    delete<T extends genreDeleteArgs>(args: SelectSubset<T, genreDeleteArgs<ExtArgs>>): Prisma__genreClient<$Result.GetResult<Prisma.$genrePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Genre.
+     * @param {genreUpdateArgs} args - Arguments to update one Genre.
+     * @example
+     * // Update one Genre
+     * const genre = await prisma.genre.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends genreUpdateArgs>(args: SelectSubset<T, genreUpdateArgs<ExtArgs>>): Prisma__genreClient<$Result.GetResult<Prisma.$genrePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Genres.
+     * @param {genreDeleteManyArgs} args - Arguments to filter Genres to delete.
+     * @example
+     * // Delete a few Genres
+     * const { count } = await prisma.genre.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends genreDeleteManyArgs>(args?: SelectSubset<T, genreDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Genres.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {genreUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Genres
+     * const genre = await prisma.genre.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends genreUpdateManyArgs>(args: SelectSubset<T, genreUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Genres and returns the data updated in the database.
+     * @param {genreUpdateManyAndReturnArgs} args - Arguments to update many Genres.
+     * @example
+     * // Update many Genres
+     * const genre = await prisma.genre.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Genres and only return the `id`
+     * const genreWithIdOnly = await prisma.genre.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends genreUpdateManyAndReturnArgs>(args: SelectSubset<T, genreUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$genrePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Genre.
+     * @param {genreUpsertArgs} args - Arguments to update or create a Genre.
+     * @example
+     * // Update or create a Genre
+     * const genre = await prisma.genre.upsert({
+     *   create: {
+     *     // ... data to create a Genre
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Genre we want to update
+     *   }
+     * })
+     */
+    upsert<T extends genreUpsertArgs>(args: SelectSubset<T, genreUpsertArgs<ExtArgs>>): Prisma__genreClient<$Result.GetResult<Prisma.$genrePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Genres.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {genreCountArgs} args - Arguments to filter Genres to count.
+     * @example
+     * // Count the number of Genres
+     * const count = await prisma.genre.count({
+     *   where: {
+     *     // ... the filter for the Genres we want to count
+     *   }
+     * })
+    **/
+    count<T extends genreCountArgs>(
+      args?: Subset<T, genreCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GenreCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Genre.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenreAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GenreAggregateArgs>(args: Subset<T, GenreAggregateArgs>): Prisma.PrismaPromise<GetGenreAggregateType<T>>
+
+    /**
+     * Group by Genre.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {genreGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends genreGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: genreGroupByArgs['orderBy'] }
+        : { orderBy?: genreGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, genreGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGenreGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the genre model
+   */
+  readonly fields: genreFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for genre.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__genreClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    book_genre<T extends genre$book_genreArgs<ExtArgs> = {}>(args?: Subset<T, genre$book_genreArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_genrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    genre<T extends genre$genreArgs<ExtArgs> = {}>(args?: Subset<T, genre$genreArgs<ExtArgs>>): Prisma__genreClient<$Result.GetResult<Prisma.$genrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    other_genre<T extends genre$other_genreArgs<ExtArgs> = {}>(args?: Subset<T, genre$other_genreArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$genrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the genre model
+   */
+  interface genreFieldRefs {
+    readonly id: FieldRef<"genre", 'String'>
+    readonly name: FieldRef<"genre", 'String'>
+    readonly id_parent: FieldRef<"genre", 'String'>
+    readonly slug: FieldRef<"genre", 'String'>
+    readonly img: FieldRef<"genre", 'String'>
+    readonly deleted_at: FieldRef<"genre", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * genre findUnique
+   */
+  export type genreFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the genre
+     */
+    select?: genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the genre
+     */
+    omit?: genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: genreInclude<ExtArgs> | null
+    /**
+     * Filter, which genre to fetch.
+     */
+    where: genreWhereUniqueInput
+  }
+
+  /**
+   * genre findUniqueOrThrow
+   */
+  export type genreFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the genre
+     */
+    select?: genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the genre
+     */
+    omit?: genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: genreInclude<ExtArgs> | null
+    /**
+     * Filter, which genre to fetch.
+     */
+    where: genreWhereUniqueInput
+  }
+
+  /**
+   * genre findFirst
+   */
+  export type genreFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the genre
+     */
+    select?: genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the genre
+     */
+    omit?: genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: genreInclude<ExtArgs> | null
+    /**
+     * Filter, which genre to fetch.
+     */
+    where?: genreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of genres to fetch.
+     */
+    orderBy?: genreOrderByWithRelationInput | genreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for genres.
+     */
+    cursor?: genreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` genres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` genres.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of genres.
+     */
+    distinct?: GenreScalarFieldEnum | GenreScalarFieldEnum[]
+  }
+
+  /**
+   * genre findFirstOrThrow
+   */
+  export type genreFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the genre
+     */
+    select?: genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the genre
+     */
+    omit?: genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: genreInclude<ExtArgs> | null
+    /**
+     * Filter, which genre to fetch.
+     */
+    where?: genreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of genres to fetch.
+     */
+    orderBy?: genreOrderByWithRelationInput | genreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for genres.
+     */
+    cursor?: genreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` genres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` genres.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of genres.
+     */
+    distinct?: GenreScalarFieldEnum | GenreScalarFieldEnum[]
+  }
+
+  /**
+   * genre findMany
+   */
+  export type genreFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the genre
+     */
+    select?: genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the genre
+     */
+    omit?: genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: genreInclude<ExtArgs> | null
+    /**
+     * Filter, which genres to fetch.
+     */
+    where?: genreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of genres to fetch.
+     */
+    orderBy?: genreOrderByWithRelationInput | genreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing genres.
+     */
+    cursor?: genreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` genres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` genres.
+     */
+    skip?: number
+    distinct?: GenreScalarFieldEnum | GenreScalarFieldEnum[]
+  }
+
+  /**
+   * genre create
+   */
+  export type genreCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the genre
+     */
+    select?: genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the genre
+     */
+    omit?: genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: genreInclude<ExtArgs> | null
+    /**
+     * The data needed to create a genre.
+     */
+    data: XOR<genreCreateInput, genreUncheckedCreateInput>
+  }
+
+  /**
+   * genre createMany
+   */
+  export type genreCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many genres.
+     */
+    data: genreCreateManyInput | genreCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * genre createManyAndReturn
+   */
+  export type genreCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the genre
+     */
+    select?: genreSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the genre
+     */
+    omit?: genreOmit<ExtArgs> | null
+    /**
+     * The data used to create many genres.
+     */
+    data: genreCreateManyInput | genreCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: genreIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * genre update
+   */
+  export type genreUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the genre
+     */
+    select?: genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the genre
+     */
+    omit?: genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: genreInclude<ExtArgs> | null
+    /**
+     * The data needed to update a genre.
+     */
+    data: XOR<genreUpdateInput, genreUncheckedUpdateInput>
+    /**
+     * Choose, which genre to update.
+     */
+    where: genreWhereUniqueInput
+  }
+
+  /**
+   * genre updateMany
+   */
+  export type genreUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update genres.
+     */
+    data: XOR<genreUpdateManyMutationInput, genreUncheckedUpdateManyInput>
+    /**
+     * Filter which genres to update
+     */
+    where?: genreWhereInput
+    /**
+     * Limit how many genres to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * genre updateManyAndReturn
+   */
+  export type genreUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the genre
+     */
+    select?: genreSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the genre
+     */
+    omit?: genreOmit<ExtArgs> | null
+    /**
+     * The data used to update genres.
+     */
+    data: XOR<genreUpdateManyMutationInput, genreUncheckedUpdateManyInput>
+    /**
+     * Filter which genres to update
+     */
+    where?: genreWhereInput
+    /**
+     * Limit how many genres to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: genreIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * genre upsert
+   */
+  export type genreUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the genre
+     */
+    select?: genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the genre
+     */
+    omit?: genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: genreInclude<ExtArgs> | null
+    /**
+     * The filter to search for the genre to update in case it exists.
+     */
+    where: genreWhereUniqueInput
+    /**
+     * In case the genre found by the `where` argument doesn't exist, create a new genre with this data.
+     */
+    create: XOR<genreCreateInput, genreUncheckedCreateInput>
+    /**
+     * In case the genre was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<genreUpdateInput, genreUncheckedUpdateInput>
+  }
+
+  /**
+   * genre delete
+   */
+  export type genreDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the genre
+     */
+    select?: genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the genre
+     */
+    omit?: genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: genreInclude<ExtArgs> | null
+    /**
+     * Filter which genre to delete.
+     */
+    where: genreWhereUniqueInput
+  }
+
+  /**
+   * genre deleteMany
+   */
+  export type genreDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which genres to delete
+     */
+    where?: genreWhereInput
+    /**
+     * Limit how many genres to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * genre.book_genre
+   */
+  export type genre$book_genreArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book_genre
+     */
+    select?: book_genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book_genre
+     */
+    omit?: book_genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: book_genreInclude<ExtArgs> | null
+    where?: book_genreWhereInput
+    orderBy?: book_genreOrderByWithRelationInput | book_genreOrderByWithRelationInput[]
+    cursor?: book_genreWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Book_genreScalarFieldEnum | Book_genreScalarFieldEnum[]
+  }
+
+  /**
+   * genre.genre
+   */
+  export type genre$genreArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the genre
+     */
+    select?: genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the genre
+     */
+    omit?: genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: genreInclude<ExtArgs> | null
+    where?: genreWhereInput
+  }
+
+  /**
+   * genre.other_genre
+   */
+  export type genre$other_genreArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the genre
+     */
+    select?: genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the genre
+     */
+    omit?: genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: genreInclude<ExtArgs> | null
+    where?: genreWhereInput
+    orderBy?: genreOrderByWithRelationInput | genreOrderByWithRelationInput[]
+    cursor?: genreWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GenreScalarFieldEnum | GenreScalarFieldEnum[]
+  }
+
+  /**
+   * genre without action
+   */
+  export type genreDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the genre
+     */
+    select?: genreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the genre
+     */
+    omit?: genreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: genreInclude<ExtArgs> | null
   }
 
 
@@ -49987,15 +55041,6 @@ export namespace Prisma {
   export type WithdrawalScalarFieldEnum = (typeof WithdrawalScalarFieldEnum)[keyof typeof WithdrawalScalarFieldEnum]
 
 
-  export const Product_tagsScalarFieldEnum: {
-    id_product: 'id_product',
-    id_tags: 'id_tags',
-    id: 'id'
-  };
-
-  export type Product_tagsScalarFieldEnum = (typeof Product_tagsScalarFieldEnum)[keyof typeof Product_tagsScalarFieldEnum]
-
-
   export const TagsScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -50006,6 +55051,59 @@ export namespace Prisma {
   };
 
   export type TagsScalarFieldEnum = (typeof TagsScalarFieldEnum)[keyof typeof TagsScalarFieldEnum]
+
+
+  export const ReviewsScalarFieldEnum: {
+    id: 'id',
+    id_book: 'id_book',
+    comments: 'comments',
+    rating: 'rating',
+    created_at: 'created_at',
+    deleted_at: 'deleted_at',
+    parent: 'parent',
+    id_user: 'id_user'
+  };
+
+  export type ReviewsScalarFieldEnum = (typeof ReviewsScalarFieldEnum)[keyof typeof ReviewsScalarFieldEnum]
+
+
+  export const Reviews_likesScalarFieldEnum: {
+    id: 'id',
+    id_reviews: 'id_reviews',
+    id_user: 'id_user'
+  };
+
+  export type Reviews_likesScalarFieldEnum = (typeof Reviews_likesScalarFieldEnum)[keyof typeof Reviews_likesScalarFieldEnum]
+
+
+  export const Book_genreScalarFieldEnum: {
+    id: 'id',
+    id_genre: 'id_genre',
+    id_book: 'id_book'
+  };
+
+  export type Book_genreScalarFieldEnum = (typeof Book_genreScalarFieldEnum)[keyof typeof Book_genreScalarFieldEnum]
+
+
+  export const Book_tagsScalarFieldEnum: {
+    id: 'id',
+    id_tags: 'id_tags',
+    id_book: 'id_book'
+  };
+
+  export type Book_tagsScalarFieldEnum = (typeof Book_tagsScalarFieldEnum)[keyof typeof Book_tagsScalarFieldEnum]
+
+
+  export const GenreScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    id_parent: 'id_parent',
+    slug: 'slug',
+    img: 'img',
+    deleted_at: 'deleted_at'
+  };
+
+  export type GenreScalarFieldEnum = (typeof GenreScalarFieldEnum)[keyof typeof GenreScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -50475,6 +55573,8 @@ export namespace Prisma {
     publisher?: XOR<PublisherNullableScalarRelationFilter, publisherWhereInput> | null
     sales_and_marketing?: XOR<Sales_and_marketingNullableScalarRelationFilter, sales_and_marketingWhereInput> | null
     support?: XOR<SupportNullableScalarRelationFilter, supportWhereInput> | null
+    reviews?: ReviewsListRelationFilter
+    reviews_likes?: Reviews_likesListRelationFilter
   }
 
   export type auth_userOrderByWithRelationInput = {
@@ -50505,6 +55605,8 @@ export namespace Prisma {
     publisher?: publisherOrderByWithRelationInput
     sales_and_marketing?: sales_and_marketingOrderByWithRelationInput
     support?: supportOrderByWithRelationInput
+    reviews?: reviewsOrderByRelationAggregateInput
+    reviews_likes?: reviews_likesOrderByRelationAggregateInput
   }
 
   export type auth_userWhereUniqueInput = Prisma.AtLeast<{
@@ -50538,6 +55640,8 @@ export namespace Prisma {
     publisher?: XOR<PublisherNullableScalarRelationFilter, publisherWhereInput> | null
     sales_and_marketing?: XOR<Sales_and_marketingNullableScalarRelationFilter, sales_and_marketingWhereInput> | null
     support?: XOR<SupportNullableScalarRelationFilter, supportWhereInput> | null
+    reviews?: ReviewsListRelationFilter
+    reviews_likes?: Reviews_likesListRelationFilter
   }, "id" | "email">
 
   export type auth_userOrderByWithAggregationInput = {
@@ -50783,7 +55887,10 @@ export namespace Prisma {
     content_type?: StringNullableFilter<"book"> | string | null
     is_chapter?: BoolFilter<"book"> | boolean
     author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
+    book_genre?: Book_genreListRelationFilter
     book_history?: Book_historyListRelationFilter
+    book_tags?: Book_tagsListRelationFilter
+    reviews?: ReviewsListRelationFilter
   }
 
   export type bookOrderByWithRelationInput = {
@@ -50809,7 +55916,10 @@ export namespace Prisma {
     content_type?: SortOrderInput | SortOrder
     is_chapter?: SortOrder
     author?: authorOrderByWithRelationInput
+    book_genre?: book_genreOrderByRelationAggregateInput
     book_history?: book_historyOrderByRelationAggregateInput
+    book_tags?: book_tagsOrderByRelationAggregateInput
+    reviews?: reviewsOrderByRelationAggregateInput
   }
 
   export type bookWhereUniqueInput = Prisma.AtLeast<{
@@ -50838,7 +55948,10 @@ export namespace Prisma {
     content_type?: StringNullableFilter<"book"> | string | null
     is_chapter?: BoolFilter<"book"> | boolean
     author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
+    book_genre?: Book_genreListRelationFilter
     book_history?: Book_historyListRelationFilter
+    book_tags?: Book_tagsListRelationFilter
+    reviews?: ReviewsListRelationFilter
   }, "id">
 
   export type bookOrderByWithAggregationInput = {
@@ -51800,7 +56913,6 @@ export namespace Prisma {
     preorder?: PreorderListRelationFilter
     author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
     product_category?: Product_categoryListRelationFilter
-    product_tags?: Product_tagsListRelationFilter
     t_sales_download?: T_sales_downloadListRelationFilter
     t_sales_line?: T_sales_lineListRelationFilter
   }
@@ -51834,7 +56946,6 @@ export namespace Prisma {
     preorder?: preorderOrderByRelationAggregateInput
     author?: authorOrderByWithRelationInput
     product_category?: product_categoryOrderByRelationAggregateInput
-    product_tags?: product_tagsOrderByRelationAggregateInput
     t_sales_download?: t_sales_downloadOrderByRelationAggregateInput
     t_sales_line?: t_sales_lineOrderByRelationAggregateInput
   }
@@ -51871,7 +56982,6 @@ export namespace Prisma {
     preorder?: PreorderListRelationFilter
     author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
     product_category?: Product_categoryListRelationFilter
-    product_tags?: Product_tagsListRelationFilter
     t_sales_download?: T_sales_downloadListRelationFilter
     t_sales_line?: T_sales_lineListRelationFilter
   }, "id">
@@ -52744,54 +57854,6 @@ export namespace Prisma {
     processed_at?: DateTimeNullableWithAggregatesFilter<"withdrawal"> | Date | string | null
   }
 
-  export type product_tagsWhereInput = {
-    AND?: product_tagsWhereInput | product_tagsWhereInput[]
-    OR?: product_tagsWhereInput[]
-    NOT?: product_tagsWhereInput | product_tagsWhereInput[]
-    id_product?: UuidFilter<"product_tags"> | string
-    id_tags?: UuidFilter<"product_tags"> | string
-    id?: UuidFilter<"product_tags"> | string
-    product?: XOR<ProductScalarRelationFilter, productWhereInput>
-    tags?: XOR<TagsScalarRelationFilter, tagsWhereInput>
-  }
-
-  export type product_tagsOrderByWithRelationInput = {
-    id_product?: SortOrder
-    id_tags?: SortOrder
-    id?: SortOrder
-    product?: productOrderByWithRelationInput
-    tags?: tagsOrderByWithRelationInput
-  }
-
-  export type product_tagsWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: product_tagsWhereInput | product_tagsWhereInput[]
-    OR?: product_tagsWhereInput[]
-    NOT?: product_tagsWhereInput | product_tagsWhereInput[]
-    id_product?: UuidFilter<"product_tags"> | string
-    id_tags?: UuidFilter<"product_tags"> | string
-    product?: XOR<ProductScalarRelationFilter, productWhereInput>
-    tags?: XOR<TagsScalarRelationFilter, tagsWhereInput>
-  }, "id">
-
-  export type product_tagsOrderByWithAggregationInput = {
-    id_product?: SortOrder
-    id_tags?: SortOrder
-    id?: SortOrder
-    _count?: product_tagsCountOrderByAggregateInput
-    _max?: product_tagsMaxOrderByAggregateInput
-    _min?: product_tagsMinOrderByAggregateInput
-  }
-
-  export type product_tagsScalarWhereWithAggregatesInput = {
-    AND?: product_tagsScalarWhereWithAggregatesInput | product_tagsScalarWhereWithAggregatesInput[]
-    OR?: product_tagsScalarWhereWithAggregatesInput[]
-    NOT?: product_tagsScalarWhereWithAggregatesInput | product_tagsScalarWhereWithAggregatesInput[]
-    id_product?: UuidWithAggregatesFilter<"product_tags"> | string
-    id_tags?: UuidWithAggregatesFilter<"product_tags"> | string
-    id?: UuidWithAggregatesFilter<"product_tags"> | string
-  }
-
   export type tagsWhereInput = {
     AND?: tagsWhereInput | tagsWhereInput[]
     OR?: tagsWhereInput[]
@@ -52802,7 +57864,9 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableFilter<"tags"> | Date | string | null
     slug?: StringNullableFilter<"tags"> | string | null
     img?: StringNullableFilter<"tags"> | string | null
-    product_tags?: Product_tagsListRelationFilter
+    book_tags?: Book_tagsListRelationFilter
+    tags?: XOR<TagsNullableScalarRelationFilter, tagsWhereInput> | null
+    other_tags?: TagsListRelationFilter
   }
 
   export type tagsOrderByWithRelationInput = {
@@ -52812,7 +57876,9 @@ export namespace Prisma {
     deleted_at?: SortOrderInput | SortOrder
     slug?: SortOrderInput | SortOrder
     img?: SortOrderInput | SortOrder
-    product_tags?: product_tagsOrderByRelationAggregateInput
+    book_tags?: book_tagsOrderByRelationAggregateInput
+    tags?: tagsOrderByWithRelationInput
+    other_tags?: tagsOrderByRelationAggregateInput
   }
 
   export type tagsWhereUniqueInput = Prisma.AtLeast<{
@@ -52825,7 +57891,9 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableFilter<"tags"> | Date | string | null
     slug?: StringNullableFilter<"tags"> | string | null
     img?: StringNullableFilter<"tags"> | string | null
-    product_tags?: Product_tagsListRelationFilter
+    book_tags?: Book_tagsListRelationFilter
+    tags?: XOR<TagsNullableScalarRelationFilter, tagsWhereInput> | null
+    other_tags?: TagsListRelationFilter
   }, "id">
 
   export type tagsOrderByWithAggregationInput = {
@@ -52850,6 +57918,294 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableWithAggregatesFilter<"tags"> | Date | string | null
     slug?: StringNullableWithAggregatesFilter<"tags"> | string | null
     img?: StringNullableWithAggregatesFilter<"tags"> | string | null
+  }
+
+  export type reviewsWhereInput = {
+    AND?: reviewsWhereInput | reviewsWhereInput[]
+    OR?: reviewsWhereInput[]
+    NOT?: reviewsWhereInput | reviewsWhereInput[]
+    id?: UuidFilter<"reviews"> | string
+    id_book?: UuidFilter<"reviews"> | string
+    comments?: StringFilter<"reviews"> | string
+    rating?: DecimalNullableFilter<"reviews"> | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFilter<"reviews"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"reviews"> | Date | string | null
+    parent?: UuidNullableFilter<"reviews"> | string | null
+    id_user?: UuidFilter<"reviews"> | string
+    book?: XOR<BookScalarRelationFilter, bookWhereInput>
+    auth_user?: XOR<Auth_userScalarRelationFilter, auth_userWhereInput>
+    reviews_likes?: Reviews_likesListRelationFilter
+  }
+
+  export type reviewsOrderByWithRelationInput = {
+    id?: SortOrder
+    id_book?: SortOrder
+    comments?: SortOrder
+    rating?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    parent?: SortOrderInput | SortOrder
+    id_user?: SortOrder
+    book?: bookOrderByWithRelationInput
+    auth_user?: auth_userOrderByWithRelationInput
+    reviews_likes?: reviews_likesOrderByRelationAggregateInput
+  }
+
+  export type reviewsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: reviewsWhereInput | reviewsWhereInput[]
+    OR?: reviewsWhereInput[]
+    NOT?: reviewsWhereInput | reviewsWhereInput[]
+    id_book?: UuidFilter<"reviews"> | string
+    comments?: StringFilter<"reviews"> | string
+    rating?: DecimalNullableFilter<"reviews"> | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFilter<"reviews"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"reviews"> | Date | string | null
+    parent?: UuidNullableFilter<"reviews"> | string | null
+    id_user?: UuidFilter<"reviews"> | string
+    book?: XOR<BookScalarRelationFilter, bookWhereInput>
+    auth_user?: XOR<Auth_userScalarRelationFilter, auth_userWhereInput>
+    reviews_likes?: Reviews_likesListRelationFilter
+  }, "id">
+
+  export type reviewsOrderByWithAggregationInput = {
+    id?: SortOrder
+    id_book?: SortOrder
+    comments?: SortOrder
+    rating?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    parent?: SortOrderInput | SortOrder
+    id_user?: SortOrder
+    _count?: reviewsCountOrderByAggregateInput
+    _avg?: reviewsAvgOrderByAggregateInput
+    _max?: reviewsMaxOrderByAggregateInput
+    _min?: reviewsMinOrderByAggregateInput
+    _sum?: reviewsSumOrderByAggregateInput
+  }
+
+  export type reviewsScalarWhereWithAggregatesInput = {
+    AND?: reviewsScalarWhereWithAggregatesInput | reviewsScalarWhereWithAggregatesInput[]
+    OR?: reviewsScalarWhereWithAggregatesInput[]
+    NOT?: reviewsScalarWhereWithAggregatesInput | reviewsScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"reviews"> | string
+    id_book?: UuidWithAggregatesFilter<"reviews"> | string
+    comments?: StringWithAggregatesFilter<"reviews"> | string
+    rating?: DecimalNullableWithAggregatesFilter<"reviews"> | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeWithAggregatesFilter<"reviews"> | Date | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"reviews"> | Date | string | null
+    parent?: UuidNullableWithAggregatesFilter<"reviews"> | string | null
+    id_user?: UuidWithAggregatesFilter<"reviews"> | string
+  }
+
+  export type reviews_likesWhereInput = {
+    AND?: reviews_likesWhereInput | reviews_likesWhereInput[]
+    OR?: reviews_likesWhereInput[]
+    NOT?: reviews_likesWhereInput | reviews_likesWhereInput[]
+    id?: UuidFilter<"reviews_likes"> | string
+    id_reviews?: UuidFilter<"reviews_likes"> | string
+    id_user?: UuidFilter<"reviews_likes"> | string
+    reviews?: XOR<ReviewsScalarRelationFilter, reviewsWhereInput>
+    auth_user?: XOR<Auth_userScalarRelationFilter, auth_userWhereInput>
+  }
+
+  export type reviews_likesOrderByWithRelationInput = {
+    id?: SortOrder
+    id_reviews?: SortOrder
+    id_user?: SortOrder
+    reviews?: reviewsOrderByWithRelationInput
+    auth_user?: auth_userOrderByWithRelationInput
+  }
+
+  export type reviews_likesWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: reviews_likesWhereInput | reviews_likesWhereInput[]
+    OR?: reviews_likesWhereInput[]
+    NOT?: reviews_likesWhereInput | reviews_likesWhereInput[]
+    id_reviews?: UuidFilter<"reviews_likes"> | string
+    id_user?: UuidFilter<"reviews_likes"> | string
+    reviews?: XOR<ReviewsScalarRelationFilter, reviewsWhereInput>
+    auth_user?: XOR<Auth_userScalarRelationFilter, auth_userWhereInput>
+  }, "id">
+
+  export type reviews_likesOrderByWithAggregationInput = {
+    id?: SortOrder
+    id_reviews?: SortOrder
+    id_user?: SortOrder
+    _count?: reviews_likesCountOrderByAggregateInput
+    _max?: reviews_likesMaxOrderByAggregateInput
+    _min?: reviews_likesMinOrderByAggregateInput
+  }
+
+  export type reviews_likesScalarWhereWithAggregatesInput = {
+    AND?: reviews_likesScalarWhereWithAggregatesInput | reviews_likesScalarWhereWithAggregatesInput[]
+    OR?: reviews_likesScalarWhereWithAggregatesInput[]
+    NOT?: reviews_likesScalarWhereWithAggregatesInput | reviews_likesScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"reviews_likes"> | string
+    id_reviews?: UuidWithAggregatesFilter<"reviews_likes"> | string
+    id_user?: UuidWithAggregatesFilter<"reviews_likes"> | string
+  }
+
+  export type book_genreWhereInput = {
+    AND?: book_genreWhereInput | book_genreWhereInput[]
+    OR?: book_genreWhereInput[]
+    NOT?: book_genreWhereInput | book_genreWhereInput[]
+    id?: UuidFilter<"book_genre"> | string
+    id_genre?: UuidFilter<"book_genre"> | string
+    id_book?: UuidFilter<"book_genre"> | string
+    book?: XOR<BookScalarRelationFilter, bookWhereInput>
+    genre?: XOR<GenreScalarRelationFilter, genreWhereInput>
+  }
+
+  export type book_genreOrderByWithRelationInput = {
+    id?: SortOrder
+    id_genre?: SortOrder
+    id_book?: SortOrder
+    book?: bookOrderByWithRelationInput
+    genre?: genreOrderByWithRelationInput
+  }
+
+  export type book_genreWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: book_genreWhereInput | book_genreWhereInput[]
+    OR?: book_genreWhereInput[]
+    NOT?: book_genreWhereInput | book_genreWhereInput[]
+    id_genre?: UuidFilter<"book_genre"> | string
+    id_book?: UuidFilter<"book_genre"> | string
+    book?: XOR<BookScalarRelationFilter, bookWhereInput>
+    genre?: XOR<GenreScalarRelationFilter, genreWhereInput>
+  }, "id">
+
+  export type book_genreOrderByWithAggregationInput = {
+    id?: SortOrder
+    id_genre?: SortOrder
+    id_book?: SortOrder
+    _count?: book_genreCountOrderByAggregateInput
+    _max?: book_genreMaxOrderByAggregateInput
+    _min?: book_genreMinOrderByAggregateInput
+  }
+
+  export type book_genreScalarWhereWithAggregatesInput = {
+    AND?: book_genreScalarWhereWithAggregatesInput | book_genreScalarWhereWithAggregatesInput[]
+    OR?: book_genreScalarWhereWithAggregatesInput[]
+    NOT?: book_genreScalarWhereWithAggregatesInput | book_genreScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"book_genre"> | string
+    id_genre?: UuidWithAggregatesFilter<"book_genre"> | string
+    id_book?: UuidWithAggregatesFilter<"book_genre"> | string
+  }
+
+  export type book_tagsWhereInput = {
+    AND?: book_tagsWhereInput | book_tagsWhereInput[]
+    OR?: book_tagsWhereInput[]
+    NOT?: book_tagsWhereInput | book_tagsWhereInput[]
+    id?: UuidFilter<"book_tags"> | string
+    id_tags?: UuidFilter<"book_tags"> | string
+    id_book?: UuidFilter<"book_tags"> | string
+    book?: XOR<BookScalarRelationFilter, bookWhereInput>
+    tags?: XOR<TagsScalarRelationFilter, tagsWhereInput>
+  }
+
+  export type book_tagsOrderByWithRelationInput = {
+    id?: SortOrder
+    id_tags?: SortOrder
+    id_book?: SortOrder
+    book?: bookOrderByWithRelationInput
+    tags?: tagsOrderByWithRelationInput
+  }
+
+  export type book_tagsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: book_tagsWhereInput | book_tagsWhereInput[]
+    OR?: book_tagsWhereInput[]
+    NOT?: book_tagsWhereInput | book_tagsWhereInput[]
+    id_tags?: UuidFilter<"book_tags"> | string
+    id_book?: UuidFilter<"book_tags"> | string
+    book?: XOR<BookScalarRelationFilter, bookWhereInput>
+    tags?: XOR<TagsScalarRelationFilter, tagsWhereInput>
+  }, "id">
+
+  export type book_tagsOrderByWithAggregationInput = {
+    id?: SortOrder
+    id_tags?: SortOrder
+    id_book?: SortOrder
+    _count?: book_tagsCountOrderByAggregateInput
+    _max?: book_tagsMaxOrderByAggregateInput
+    _min?: book_tagsMinOrderByAggregateInput
+  }
+
+  export type book_tagsScalarWhereWithAggregatesInput = {
+    AND?: book_tagsScalarWhereWithAggregatesInput | book_tagsScalarWhereWithAggregatesInput[]
+    OR?: book_tagsScalarWhereWithAggregatesInput[]
+    NOT?: book_tagsScalarWhereWithAggregatesInput | book_tagsScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"book_tags"> | string
+    id_tags?: UuidWithAggregatesFilter<"book_tags"> | string
+    id_book?: UuidWithAggregatesFilter<"book_tags"> | string
+  }
+
+  export type genreWhereInput = {
+    AND?: genreWhereInput | genreWhereInput[]
+    OR?: genreWhereInput[]
+    NOT?: genreWhereInput | genreWhereInput[]
+    id?: UuidFilter<"genre"> | string
+    name?: StringFilter<"genre"> | string
+    id_parent?: UuidNullableFilter<"genre"> | string | null
+    slug?: StringNullableFilter<"genre"> | string | null
+    img?: StringNullableFilter<"genre"> | string | null
+    deleted_at?: DateTimeNullableFilter<"genre"> | Date | string | null
+    book_genre?: Book_genreListRelationFilter
+    genre?: XOR<GenreNullableScalarRelationFilter, genreWhereInput> | null
+    other_genre?: GenreListRelationFilter
+  }
+
+  export type genreOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    id_parent?: SortOrderInput | SortOrder
+    slug?: SortOrderInput | SortOrder
+    img?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    book_genre?: book_genreOrderByRelationAggregateInput
+    genre?: genreOrderByWithRelationInput
+    other_genre?: genreOrderByRelationAggregateInput
+  }
+
+  export type genreWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: genreWhereInput | genreWhereInput[]
+    OR?: genreWhereInput[]
+    NOT?: genreWhereInput | genreWhereInput[]
+    name?: StringFilter<"genre"> | string
+    id_parent?: UuidNullableFilter<"genre"> | string | null
+    slug?: StringNullableFilter<"genre"> | string | null
+    img?: StringNullableFilter<"genre"> | string | null
+    deleted_at?: DateTimeNullableFilter<"genre"> | Date | string | null
+    book_genre?: Book_genreListRelationFilter
+    genre?: XOR<GenreNullableScalarRelationFilter, genreWhereInput> | null
+    other_genre?: GenreListRelationFilter
+  }, "id">
+
+  export type genreOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    id_parent?: SortOrderInput | SortOrder
+    slug?: SortOrderInput | SortOrder
+    img?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    _count?: genreCountOrderByAggregateInput
+    _max?: genreMaxOrderByAggregateInput
+    _min?: genreMinOrderByAggregateInput
+  }
+
+  export type genreScalarWhereWithAggregatesInput = {
+    AND?: genreScalarWhereWithAggregatesInput | genreScalarWhereWithAggregatesInput[]
+    OR?: genreScalarWhereWithAggregatesInput[]
+    NOT?: genreScalarWhereWithAggregatesInput | genreScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"genre"> | string
+    name?: StringWithAggregatesFilter<"genre"> | string
+    id_parent?: UuidNullableWithAggregatesFilter<"genre"> | string | null
+    slug?: StringNullableWithAggregatesFilter<"genre"> | string | null
+    img?: StringNullableWithAggregatesFilter<"genre"> | string | null
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"genre"> | Date | string | null
   }
 
   export type affiliateCreateInput = {
@@ -53188,6 +58544,8 @@ export namespace Prisma {
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
     sales_and_marketing?: sales_and_marketingCreateNestedOneWithoutAuth_userInput
     support?: supportCreateNestedOneWithoutAuth_userInput
+    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userUncheckedCreateInput = {
@@ -53211,6 +58569,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userUpdateInput = {
@@ -53234,6 +58594,8 @@ export namespace Prisma {
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     sales_and_marketing?: sales_and_marketingUpdateOneWithoutAuth_userNestedInput
     support?: supportUpdateOneWithoutAuth_userNestedInput
+    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateInput = {
@@ -53257,6 +58619,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userCreateManyInput = {
@@ -53517,7 +58881,10 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     author?: authorCreateNestedOneWithoutBookInput
+    book_genre?: book_genreCreateNestedManyWithoutBookInput
     book_history?: book_historyCreateNestedManyWithoutBookInput
+    book_tags?: book_tagsCreateNestedManyWithoutBookInput
+    reviews?: reviewsCreateNestedManyWithoutBookInput
   }
 
   export type bookUncheckedCreateInput = {
@@ -53542,7 +58909,10 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
     book_history?: book_historyUncheckedCreateNestedManyWithoutBookInput
+    book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutBookInput
   }
 
   export type bookUpdateInput = {
@@ -53567,7 +58937,10 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     author?: authorUpdateOneWithoutBookNestedInput
+    book_genre?: book_genreUpdateManyWithoutBookNestedInput
     book_history?: book_historyUpdateManyWithoutBookNestedInput
+    book_tags?: book_tagsUpdateManyWithoutBookNestedInput
+    reviews?: reviewsUpdateManyWithoutBookNestedInput
   }
 
   export type bookUncheckedUpdateInput = {
@@ -53592,7 +58965,10 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
     book_history?: book_historyUncheckedUpdateManyWithoutBookNestedInput
+    book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutBookNestedInput
   }
 
   export type bookCreateManyInput = {
@@ -54579,7 +59955,6 @@ export namespace Prisma {
     preorder?: preorderCreateNestedManyWithoutProductInput
     author?: authorCreateNestedOneWithoutProductInput
     product_category?: product_categoryCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineCreateNestedManyWithoutProductInput
   }
@@ -54612,7 +59987,6 @@ export namespace Prisma {
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
     preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
     product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsUncheckedCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineUncheckedCreateNestedManyWithoutProductInput
   }
@@ -54645,7 +60019,6 @@ export namespace Prisma {
     preorder?: preorderUpdateManyWithoutProductNestedInput
     author?: authorUpdateOneWithoutProductNestedInput
     product_category?: product_categoryUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUpdateManyWithoutProductNestedInput
   }
@@ -54678,7 +60051,6 @@ export namespace Prisma {
     customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
     preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUncheckedUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -55556,54 +60928,15 @@ export namespace Prisma {
     processed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type product_tagsCreateInput = {
-    id?: string
-    product: productCreateNestedOneWithoutProduct_tagsInput
-    tags: tagsCreateNestedOneWithoutProduct_tagsInput
-  }
-
-  export type product_tagsUncheckedCreateInput = {
-    id_product: string
-    id_tags: string
-    id?: string
-  }
-
-  export type product_tagsUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    product?: productUpdateOneRequiredWithoutProduct_tagsNestedInput
-    tags?: tagsUpdateOneRequiredWithoutProduct_tagsNestedInput
-  }
-
-  export type product_tagsUncheckedUpdateInput = {
-    id_product?: StringFieldUpdateOperationsInput | string
-    id_tags?: StringFieldUpdateOperationsInput | string
-    id?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type product_tagsCreateManyInput = {
-    id_product: string
-    id_tags: string
-    id?: string
-  }
-
-  export type product_tagsUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type product_tagsUncheckedUpdateManyInput = {
-    id_product?: StringFieldUpdateOperationsInput | string
-    id_tags?: StringFieldUpdateOperationsInput | string
-    id?: StringFieldUpdateOperationsInput | string
-  }
-
   export type tagsCreateInput = {
     id?: string
     name: string
-    id_parent?: string | null
     deleted_at?: Date | string | null
     slug?: string | null
     img?: string | null
-    product_tags?: product_tagsCreateNestedManyWithoutTagsInput
+    book_tags?: book_tagsCreateNestedManyWithoutTagsInput
+    tags?: tagsCreateNestedOneWithoutOther_tagsInput
+    other_tags?: tagsCreateNestedManyWithoutTagsInput
   }
 
   export type tagsUncheckedCreateInput = {
@@ -55613,17 +60946,19 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     slug?: string | null
     img?: string | null
-    product_tags?: product_tagsUncheckedCreateNestedManyWithoutTagsInput
+    book_tags?: book_tagsUncheckedCreateNestedManyWithoutTagsInput
+    other_tags?: tagsUncheckedCreateNestedManyWithoutTagsInput
   }
 
   export type tagsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    id_parent?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
     img?: NullableStringFieldUpdateOperationsInput | string | null
-    product_tags?: product_tagsUpdateManyWithoutTagsNestedInput
+    book_tags?: book_tagsUpdateManyWithoutTagsNestedInput
+    tags?: tagsUpdateOneWithoutOther_tagsNestedInput
+    other_tags?: tagsUpdateManyWithoutTagsNestedInput
   }
 
   export type tagsUncheckedUpdateInput = {
@@ -55633,7 +60968,8 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
     img?: NullableStringFieldUpdateOperationsInput | string | null
-    product_tags?: product_tagsUncheckedUpdateManyWithoutTagsNestedInput
+    book_tags?: book_tagsUncheckedUpdateManyWithoutTagsNestedInput
+    other_tags?: tagsUncheckedUpdateManyWithoutTagsNestedInput
   }
 
   export type tagsCreateManyInput = {
@@ -55648,7 +60984,6 @@ export namespace Prisma {
   export type tagsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    id_parent?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
     img?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55661,6 +60996,275 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
     img?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type reviewsCreateInput = {
+    id?: string
+    comments: string
+    rating?: Decimal | DecimalJsLike | number | string | null
+    created_at: Date | string
+    deleted_at?: Date | string | null
+    parent?: string | null
+    book: bookCreateNestedOneWithoutReviewsInput
+    auth_user: auth_userCreateNestedOneWithoutReviewsInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutReviewsInput
+  }
+
+  export type reviewsUncheckedCreateInput = {
+    id?: string
+    id_book: string
+    comments: string
+    rating?: Decimal | DecimalJsLike | number | string | null
+    created_at: Date | string
+    deleted_at?: Date | string | null
+    parent?: string | null
+    id_user: string
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutReviewsInput
+  }
+
+  export type reviewsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comments?: StringFieldUpdateOperationsInput | string
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    book?: bookUpdateOneRequiredWithoutReviewsNestedInput
+    auth_user?: auth_userUpdateOneRequiredWithoutReviewsNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutReviewsNestedInput
+  }
+
+  export type reviewsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_book?: StringFieldUpdateOperationsInput | string
+    comments?: StringFieldUpdateOperationsInput | string
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    id_user?: StringFieldUpdateOperationsInput | string
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutReviewsNestedInput
+  }
+
+  export type reviewsCreateManyInput = {
+    id?: string
+    id_book: string
+    comments: string
+    rating?: Decimal | DecimalJsLike | number | string | null
+    created_at: Date | string
+    deleted_at?: Date | string | null
+    parent?: string | null
+    id_user: string
+  }
+
+  export type reviewsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comments?: StringFieldUpdateOperationsInput | string
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type reviewsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_book?: StringFieldUpdateOperationsInput | string
+    comments?: StringFieldUpdateOperationsInput | string
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    id_user?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type reviews_likesCreateInput = {
+    id?: string
+    reviews: reviewsCreateNestedOneWithoutReviews_likesInput
+    auth_user: auth_userCreateNestedOneWithoutReviews_likesInput
+  }
+
+  export type reviews_likesUncheckedCreateInput = {
+    id?: string
+    id_reviews: string
+    id_user: string
+  }
+
+  export type reviews_likesUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reviews?: reviewsUpdateOneRequiredWithoutReviews_likesNestedInput
+    auth_user?: auth_userUpdateOneRequiredWithoutReviews_likesNestedInput
+  }
+
+  export type reviews_likesUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_reviews?: StringFieldUpdateOperationsInput | string
+    id_user?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type reviews_likesCreateManyInput = {
+    id?: string
+    id_reviews: string
+    id_user: string
+  }
+
+  export type reviews_likesUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type reviews_likesUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_reviews?: StringFieldUpdateOperationsInput | string
+    id_user?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type book_genreCreateInput = {
+    id?: string
+    book: bookCreateNestedOneWithoutBook_genreInput
+    genre: genreCreateNestedOneWithoutBook_genreInput
+  }
+
+  export type book_genreUncheckedCreateInput = {
+    id?: string
+    id_genre: string
+    id_book: string
+  }
+
+  export type book_genreUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    book?: bookUpdateOneRequiredWithoutBook_genreNestedInput
+    genre?: genreUpdateOneRequiredWithoutBook_genreNestedInput
+  }
+
+  export type book_genreUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_genre?: StringFieldUpdateOperationsInput | string
+    id_book?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type book_genreCreateManyInput = {
+    id?: string
+    id_genre: string
+    id_book: string
+  }
+
+  export type book_genreUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type book_genreUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_genre?: StringFieldUpdateOperationsInput | string
+    id_book?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type book_tagsCreateInput = {
+    id?: string
+    book: bookCreateNestedOneWithoutBook_tagsInput
+    tags: tagsCreateNestedOneWithoutBook_tagsInput
+  }
+
+  export type book_tagsUncheckedCreateInput = {
+    id?: string
+    id_tags: string
+    id_book: string
+  }
+
+  export type book_tagsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    book?: bookUpdateOneRequiredWithoutBook_tagsNestedInput
+    tags?: tagsUpdateOneRequiredWithoutBook_tagsNestedInput
+  }
+
+  export type book_tagsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_tags?: StringFieldUpdateOperationsInput | string
+    id_book?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type book_tagsCreateManyInput = {
+    id?: string
+    id_tags: string
+    id_book: string
+  }
+
+  export type book_tagsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type book_tagsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_tags?: StringFieldUpdateOperationsInput | string
+    id_book?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type genreCreateInput = {
+    id?: string
+    name: string
+    slug?: string | null
+    img?: string | null
+    deleted_at?: Date | string | null
+    book_genre?: book_genreCreateNestedManyWithoutGenreInput
+    genre?: genreCreateNestedOneWithoutOther_genreInput
+    other_genre?: genreCreateNestedManyWithoutGenreInput
+  }
+
+  export type genreUncheckedCreateInput = {
+    id?: string
+    name: string
+    id_parent?: string | null
+    slug?: string | null
+    img?: string | null
+    deleted_at?: Date | string | null
+    book_genre?: book_genreUncheckedCreateNestedManyWithoutGenreInput
+    other_genre?: genreUncheckedCreateNestedManyWithoutGenreInput
+  }
+
+  export type genreUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    book_genre?: book_genreUpdateManyWithoutGenreNestedInput
+    genre?: genreUpdateOneWithoutOther_genreNestedInput
+    other_genre?: genreUpdateManyWithoutGenreNestedInput
+  }
+
+  export type genreUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    id_parent?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    book_genre?: book_genreUncheckedUpdateManyWithoutGenreNestedInput
+    other_genre?: genreUncheckedUpdateManyWithoutGenreNestedInput
+  }
+
+  export type genreCreateManyInput = {
+    id?: string
+    name: string
+    id_parent?: string | null
+    slug?: string | null
+    img?: string | null
+    deleted_at?: Date | string | null
+  }
+
+  export type genreUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type genreUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    id_parent?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -56119,6 +61723,18 @@ export namespace Prisma {
     isNot?: supportWhereInput | null
   }
 
+  export type ReviewsListRelationFilter = {
+    every?: reviewsWhereInput
+    some?: reviewsWhereInput
+    none?: reviewsWhereInput
+  }
+
+  export type Reviews_likesListRelationFilter = {
+    every?: reviews_likesWhereInput
+    some?: reviews_likesWhereInput
+    none?: reviews_likesWhereInput
+  }
+
   export type auth_accountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -56128,6 +61744,14 @@ export namespace Prisma {
   }
 
   export type auth_two_factorOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type reviewsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type reviews_likesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -56377,13 +62001,33 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type Book_genreListRelationFilter = {
+    every?: book_genreWhereInput
+    some?: book_genreWhereInput
+    none?: book_genreWhereInput
+  }
+
   export type Book_historyListRelationFilter = {
     every?: book_historyWhereInput
     some?: book_historyWhereInput
     none?: book_historyWhereInput
   }
 
+  export type Book_tagsListRelationFilter = {
+    every?: book_tagsWhereInput
+    some?: book_tagsWhereInput
+    none?: book_tagsWhereInput
+  }
+
+  export type book_genreOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type book_historyOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type book_tagsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -57182,21 +62826,11 @@ export namespace Prisma {
     none?: preorderWhereInput
   }
 
-  export type Product_tagsListRelationFilter = {
-    every?: product_tagsWhereInput
-    some?: product_tagsWhereInput
-    none?: product_tagsWhereInput
-  }
-
   export type chapterOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type preorderOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type product_tagsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -57755,27 +63389,19 @@ export namespace Prisma {
     amount?: SortOrder
   }
 
-  export type TagsScalarRelationFilter = {
-    is?: tagsWhereInput
-    isNot?: tagsWhereInput
+  export type TagsNullableScalarRelationFilter = {
+    is?: tagsWhereInput | null
+    isNot?: tagsWhereInput | null
   }
 
-  export type product_tagsCountOrderByAggregateInput = {
-    id_product?: SortOrder
-    id_tags?: SortOrder
-    id?: SortOrder
+  export type TagsListRelationFilter = {
+    every?: tagsWhereInput
+    some?: tagsWhereInput
+    none?: tagsWhereInput
   }
 
-  export type product_tagsMaxOrderByAggregateInput = {
-    id_product?: SortOrder
-    id_tags?: SortOrder
-    id?: SortOrder
-  }
-
-  export type product_tagsMinOrderByAggregateInput = {
-    id_product?: SortOrder
-    id_tags?: SortOrder
-    id?: SortOrder
+  export type tagsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type tagsCountOrderByAggregateInput = {
@@ -57803,6 +63429,158 @@ export namespace Prisma {
     deleted_at?: SortOrder
     slug?: SortOrder
     img?: SortOrder
+  }
+
+  export type reviewsCountOrderByAggregateInput = {
+    id?: SortOrder
+    id_book?: SortOrder
+    comments?: SortOrder
+    rating?: SortOrder
+    created_at?: SortOrder
+    deleted_at?: SortOrder
+    parent?: SortOrder
+    id_user?: SortOrder
+  }
+
+  export type reviewsAvgOrderByAggregateInput = {
+    rating?: SortOrder
+  }
+
+  export type reviewsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    id_book?: SortOrder
+    comments?: SortOrder
+    rating?: SortOrder
+    created_at?: SortOrder
+    deleted_at?: SortOrder
+    parent?: SortOrder
+    id_user?: SortOrder
+  }
+
+  export type reviewsMinOrderByAggregateInput = {
+    id?: SortOrder
+    id_book?: SortOrder
+    comments?: SortOrder
+    rating?: SortOrder
+    created_at?: SortOrder
+    deleted_at?: SortOrder
+    parent?: SortOrder
+    id_user?: SortOrder
+  }
+
+  export type reviewsSumOrderByAggregateInput = {
+    rating?: SortOrder
+  }
+
+  export type ReviewsScalarRelationFilter = {
+    is?: reviewsWhereInput
+    isNot?: reviewsWhereInput
+  }
+
+  export type reviews_likesCountOrderByAggregateInput = {
+    id?: SortOrder
+    id_reviews?: SortOrder
+    id_user?: SortOrder
+  }
+
+  export type reviews_likesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    id_reviews?: SortOrder
+    id_user?: SortOrder
+  }
+
+  export type reviews_likesMinOrderByAggregateInput = {
+    id?: SortOrder
+    id_reviews?: SortOrder
+    id_user?: SortOrder
+  }
+
+  export type GenreScalarRelationFilter = {
+    is?: genreWhereInput
+    isNot?: genreWhereInput
+  }
+
+  export type book_genreCountOrderByAggregateInput = {
+    id?: SortOrder
+    id_genre?: SortOrder
+    id_book?: SortOrder
+  }
+
+  export type book_genreMaxOrderByAggregateInput = {
+    id?: SortOrder
+    id_genre?: SortOrder
+    id_book?: SortOrder
+  }
+
+  export type book_genreMinOrderByAggregateInput = {
+    id?: SortOrder
+    id_genre?: SortOrder
+    id_book?: SortOrder
+  }
+
+  export type TagsScalarRelationFilter = {
+    is?: tagsWhereInput
+    isNot?: tagsWhereInput
+  }
+
+  export type book_tagsCountOrderByAggregateInput = {
+    id?: SortOrder
+    id_tags?: SortOrder
+    id_book?: SortOrder
+  }
+
+  export type book_tagsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    id_tags?: SortOrder
+    id_book?: SortOrder
+  }
+
+  export type book_tagsMinOrderByAggregateInput = {
+    id?: SortOrder
+    id_tags?: SortOrder
+    id_book?: SortOrder
+  }
+
+  export type GenreNullableScalarRelationFilter = {
+    is?: genreWhereInput | null
+    isNot?: genreWhereInput | null
+  }
+
+  export type GenreListRelationFilter = {
+    every?: genreWhereInput
+    some?: genreWhereInput
+    none?: genreWhereInput
+  }
+
+  export type genreOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type genreCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    id_parent?: SortOrder
+    slug?: SortOrder
+    img?: SortOrder
+    deleted_at?: SortOrder
+  }
+
+  export type genreMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    id_parent?: SortOrder
+    slug?: SortOrder
+    img?: SortOrder
+    deleted_at?: SortOrder
+  }
+
+  export type genreMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    id_parent?: SortOrder
+    slug?: SortOrder
+    img?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type auth_accountCreateNestedOneWithoutAffiliateInput = {
@@ -58280,6 +64058,20 @@ export namespace Prisma {
     connect?: supportWhereUniqueInput
   }
 
+  export type reviewsCreateNestedManyWithoutAuth_userInput = {
+    create?: XOR<reviewsCreateWithoutAuth_userInput, reviewsUncheckedCreateWithoutAuth_userInput> | reviewsCreateWithoutAuth_userInput[] | reviewsUncheckedCreateWithoutAuth_userInput[]
+    connectOrCreate?: reviewsCreateOrConnectWithoutAuth_userInput | reviewsCreateOrConnectWithoutAuth_userInput[]
+    createMany?: reviewsCreateManyAuth_userInputEnvelope
+    connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+  }
+
+  export type reviews_likesCreateNestedManyWithoutAuth_userInput = {
+    create?: XOR<reviews_likesCreateWithoutAuth_userInput, reviews_likesUncheckedCreateWithoutAuth_userInput> | reviews_likesCreateWithoutAuth_userInput[] | reviews_likesUncheckedCreateWithoutAuth_userInput[]
+    connectOrCreate?: reviews_likesCreateOrConnectWithoutAuth_userInput | reviews_likesCreateOrConnectWithoutAuth_userInput[]
+    createMany?: reviews_likesCreateManyAuth_userInputEnvelope
+    connect?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+  }
+
   export type auth_accountUncheckedCreateNestedManyWithoutAuth_userInput = {
     create?: XOR<auth_accountCreateWithoutAuth_userInput, auth_accountUncheckedCreateWithoutAuth_userInput> | auth_accountCreateWithoutAuth_userInput[] | auth_accountUncheckedCreateWithoutAuth_userInput[]
     connectOrCreate?: auth_accountCreateOrConnectWithoutAuth_userInput | auth_accountCreateOrConnectWithoutAuth_userInput[]
@@ -58299,6 +64091,20 @@ export namespace Prisma {
     connectOrCreate?: auth_two_factorCreateOrConnectWithoutAuth_userInput | auth_two_factorCreateOrConnectWithoutAuth_userInput[]
     createMany?: auth_two_factorCreateManyAuth_userInputEnvelope
     connect?: auth_two_factorWhereUniqueInput | auth_two_factorWhereUniqueInput[]
+  }
+
+  export type reviewsUncheckedCreateNestedManyWithoutAuth_userInput = {
+    create?: XOR<reviewsCreateWithoutAuth_userInput, reviewsUncheckedCreateWithoutAuth_userInput> | reviewsCreateWithoutAuth_userInput[] | reviewsUncheckedCreateWithoutAuth_userInput[]
+    connectOrCreate?: reviewsCreateOrConnectWithoutAuth_userInput | reviewsCreateOrConnectWithoutAuth_userInput[]
+    createMany?: reviewsCreateManyAuth_userInputEnvelope
+    connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+  }
+
+  export type reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput = {
+    create?: XOR<reviews_likesCreateWithoutAuth_userInput, reviews_likesUncheckedCreateWithoutAuth_userInput> | reviews_likesCreateWithoutAuth_userInput[] | reviews_likesUncheckedCreateWithoutAuth_userInput[]
+    connectOrCreate?: reviews_likesCreateOrConnectWithoutAuth_userInput | reviews_likesCreateOrConnectWithoutAuth_userInput[]
+    createMany?: reviews_likesCreateManyAuth_userInputEnvelope
+    connect?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -58421,6 +64227,34 @@ export namespace Prisma {
     update?: XOR<XOR<supportUpdateToOneWithWhereWithoutAuth_userInput, supportUpdateWithoutAuth_userInput>, supportUncheckedUpdateWithoutAuth_userInput>
   }
 
+  export type reviewsUpdateManyWithoutAuth_userNestedInput = {
+    create?: XOR<reviewsCreateWithoutAuth_userInput, reviewsUncheckedCreateWithoutAuth_userInput> | reviewsCreateWithoutAuth_userInput[] | reviewsUncheckedCreateWithoutAuth_userInput[]
+    connectOrCreate?: reviewsCreateOrConnectWithoutAuth_userInput | reviewsCreateOrConnectWithoutAuth_userInput[]
+    upsert?: reviewsUpsertWithWhereUniqueWithoutAuth_userInput | reviewsUpsertWithWhereUniqueWithoutAuth_userInput[]
+    createMany?: reviewsCreateManyAuth_userInputEnvelope
+    set?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    disconnect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    delete?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    update?: reviewsUpdateWithWhereUniqueWithoutAuth_userInput | reviewsUpdateWithWhereUniqueWithoutAuth_userInput[]
+    updateMany?: reviewsUpdateManyWithWhereWithoutAuth_userInput | reviewsUpdateManyWithWhereWithoutAuth_userInput[]
+    deleteMany?: reviewsScalarWhereInput | reviewsScalarWhereInput[]
+  }
+
+  export type reviews_likesUpdateManyWithoutAuth_userNestedInput = {
+    create?: XOR<reviews_likesCreateWithoutAuth_userInput, reviews_likesUncheckedCreateWithoutAuth_userInput> | reviews_likesCreateWithoutAuth_userInput[] | reviews_likesUncheckedCreateWithoutAuth_userInput[]
+    connectOrCreate?: reviews_likesCreateOrConnectWithoutAuth_userInput | reviews_likesCreateOrConnectWithoutAuth_userInput[]
+    upsert?: reviews_likesUpsertWithWhereUniqueWithoutAuth_userInput | reviews_likesUpsertWithWhereUniqueWithoutAuth_userInput[]
+    createMany?: reviews_likesCreateManyAuth_userInputEnvelope
+    set?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    disconnect?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    delete?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    connect?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    update?: reviews_likesUpdateWithWhereUniqueWithoutAuth_userInput | reviews_likesUpdateWithWhereUniqueWithoutAuth_userInput[]
+    updateMany?: reviews_likesUpdateManyWithWhereWithoutAuth_userInput | reviews_likesUpdateManyWithWhereWithoutAuth_userInput[]
+    deleteMany?: reviews_likesScalarWhereInput | reviews_likesScalarWhereInput[]
+  }
+
   export type auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput = {
     create?: XOR<auth_accountCreateWithoutAuth_userInput, auth_accountUncheckedCreateWithoutAuth_userInput> | auth_accountCreateWithoutAuth_userInput[] | auth_accountUncheckedCreateWithoutAuth_userInput[]
     connectOrCreate?: auth_accountCreateOrConnectWithoutAuth_userInput | auth_accountCreateOrConnectWithoutAuth_userInput[]
@@ -58461,6 +64295,34 @@ export namespace Prisma {
     update?: auth_two_factorUpdateWithWhereUniqueWithoutAuth_userInput | auth_two_factorUpdateWithWhereUniqueWithoutAuth_userInput[]
     updateMany?: auth_two_factorUpdateManyWithWhereWithoutAuth_userInput | auth_two_factorUpdateManyWithWhereWithoutAuth_userInput[]
     deleteMany?: auth_two_factorScalarWhereInput | auth_two_factorScalarWhereInput[]
+  }
+
+  export type reviewsUncheckedUpdateManyWithoutAuth_userNestedInput = {
+    create?: XOR<reviewsCreateWithoutAuth_userInput, reviewsUncheckedCreateWithoutAuth_userInput> | reviewsCreateWithoutAuth_userInput[] | reviewsUncheckedCreateWithoutAuth_userInput[]
+    connectOrCreate?: reviewsCreateOrConnectWithoutAuth_userInput | reviewsCreateOrConnectWithoutAuth_userInput[]
+    upsert?: reviewsUpsertWithWhereUniqueWithoutAuth_userInput | reviewsUpsertWithWhereUniqueWithoutAuth_userInput[]
+    createMany?: reviewsCreateManyAuth_userInputEnvelope
+    set?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    disconnect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    delete?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    update?: reviewsUpdateWithWhereUniqueWithoutAuth_userInput | reviewsUpdateWithWhereUniqueWithoutAuth_userInput[]
+    updateMany?: reviewsUpdateManyWithWhereWithoutAuth_userInput | reviewsUpdateManyWithWhereWithoutAuth_userInput[]
+    deleteMany?: reviewsScalarWhereInput | reviewsScalarWhereInput[]
+  }
+
+  export type reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput = {
+    create?: XOR<reviews_likesCreateWithoutAuth_userInput, reviews_likesUncheckedCreateWithoutAuth_userInput> | reviews_likesCreateWithoutAuth_userInput[] | reviews_likesUncheckedCreateWithoutAuth_userInput[]
+    connectOrCreate?: reviews_likesCreateOrConnectWithoutAuth_userInput | reviews_likesCreateOrConnectWithoutAuth_userInput[]
+    upsert?: reviews_likesUpsertWithWhereUniqueWithoutAuth_userInput | reviews_likesUpsertWithWhereUniqueWithoutAuth_userInput[]
+    createMany?: reviews_likesCreateManyAuth_userInputEnvelope
+    set?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    disconnect?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    delete?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    connect?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    update?: reviews_likesUpdateWithWhereUniqueWithoutAuth_userInput | reviews_likesUpdateWithWhereUniqueWithoutAuth_userInput[]
+    updateMany?: reviews_likesUpdateManyWithWhereWithoutAuth_userInput | reviews_likesUpdateManyWithWhereWithoutAuth_userInput[]
+    deleteMany?: reviews_likesScalarWhereInput | reviews_likesScalarWhereInput[]
   }
 
   export type auth_userCreateNestedManyWithoutAuthorInput = {
@@ -58653,6 +64515,13 @@ export namespace Prisma {
     connect?: authorWhereUniqueInput
   }
 
+  export type book_genreCreateNestedManyWithoutBookInput = {
+    create?: XOR<book_genreCreateWithoutBookInput, book_genreUncheckedCreateWithoutBookInput> | book_genreCreateWithoutBookInput[] | book_genreUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: book_genreCreateOrConnectWithoutBookInput | book_genreCreateOrConnectWithoutBookInput[]
+    createMany?: book_genreCreateManyBookInputEnvelope
+    connect?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+  }
+
   export type book_historyCreateNestedManyWithoutBookInput = {
     create?: XOR<book_historyCreateWithoutBookInput, book_historyUncheckedCreateWithoutBookInput> | book_historyCreateWithoutBookInput[] | book_historyUncheckedCreateWithoutBookInput[]
     connectOrCreate?: book_historyCreateOrConnectWithoutBookInput | book_historyCreateOrConnectWithoutBookInput[]
@@ -58660,11 +64529,46 @@ export namespace Prisma {
     connect?: book_historyWhereUniqueInput | book_historyWhereUniqueInput[]
   }
 
+  export type book_tagsCreateNestedManyWithoutBookInput = {
+    create?: XOR<book_tagsCreateWithoutBookInput, book_tagsUncheckedCreateWithoutBookInput> | book_tagsCreateWithoutBookInput[] | book_tagsUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: book_tagsCreateOrConnectWithoutBookInput | book_tagsCreateOrConnectWithoutBookInput[]
+    createMany?: book_tagsCreateManyBookInputEnvelope
+    connect?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+  }
+
+  export type reviewsCreateNestedManyWithoutBookInput = {
+    create?: XOR<reviewsCreateWithoutBookInput, reviewsUncheckedCreateWithoutBookInput> | reviewsCreateWithoutBookInput[] | reviewsUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: reviewsCreateOrConnectWithoutBookInput | reviewsCreateOrConnectWithoutBookInput[]
+    createMany?: reviewsCreateManyBookInputEnvelope
+    connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+  }
+
+  export type book_genreUncheckedCreateNestedManyWithoutBookInput = {
+    create?: XOR<book_genreCreateWithoutBookInput, book_genreUncheckedCreateWithoutBookInput> | book_genreCreateWithoutBookInput[] | book_genreUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: book_genreCreateOrConnectWithoutBookInput | book_genreCreateOrConnectWithoutBookInput[]
+    createMany?: book_genreCreateManyBookInputEnvelope
+    connect?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+  }
+
   export type book_historyUncheckedCreateNestedManyWithoutBookInput = {
     create?: XOR<book_historyCreateWithoutBookInput, book_historyUncheckedCreateWithoutBookInput> | book_historyCreateWithoutBookInput[] | book_historyUncheckedCreateWithoutBookInput[]
     connectOrCreate?: book_historyCreateOrConnectWithoutBookInput | book_historyCreateOrConnectWithoutBookInput[]
     createMany?: book_historyCreateManyBookInputEnvelope
     connect?: book_historyWhereUniqueInput | book_historyWhereUniqueInput[]
+  }
+
+  export type book_tagsUncheckedCreateNestedManyWithoutBookInput = {
+    create?: XOR<book_tagsCreateWithoutBookInput, book_tagsUncheckedCreateWithoutBookInput> | book_tagsCreateWithoutBookInput[] | book_tagsUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: book_tagsCreateOrConnectWithoutBookInput | book_tagsCreateOrConnectWithoutBookInput[]
+    createMany?: book_tagsCreateManyBookInputEnvelope
+    connect?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+  }
+
+  export type reviewsUncheckedCreateNestedManyWithoutBookInput = {
+    create?: XOR<reviewsCreateWithoutBookInput, reviewsUncheckedCreateWithoutBookInput> | reviewsCreateWithoutBookInput[] | reviewsUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: reviewsCreateOrConnectWithoutBookInput | reviewsCreateOrConnectWithoutBookInput[]
+    createMany?: reviewsCreateManyBookInputEnvelope
+    connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
   }
 
   export type DecimalFieldUpdateOperationsInput = {
@@ -58693,6 +64597,20 @@ export namespace Prisma {
     update?: XOR<XOR<authorUpdateToOneWithWhereWithoutBookInput, authorUpdateWithoutBookInput>, authorUncheckedUpdateWithoutBookInput>
   }
 
+  export type book_genreUpdateManyWithoutBookNestedInput = {
+    create?: XOR<book_genreCreateWithoutBookInput, book_genreUncheckedCreateWithoutBookInput> | book_genreCreateWithoutBookInput[] | book_genreUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: book_genreCreateOrConnectWithoutBookInput | book_genreCreateOrConnectWithoutBookInput[]
+    upsert?: book_genreUpsertWithWhereUniqueWithoutBookInput | book_genreUpsertWithWhereUniqueWithoutBookInput[]
+    createMany?: book_genreCreateManyBookInputEnvelope
+    set?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    disconnect?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    delete?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    connect?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    update?: book_genreUpdateWithWhereUniqueWithoutBookInput | book_genreUpdateWithWhereUniqueWithoutBookInput[]
+    updateMany?: book_genreUpdateManyWithWhereWithoutBookInput | book_genreUpdateManyWithWhereWithoutBookInput[]
+    deleteMany?: book_genreScalarWhereInput | book_genreScalarWhereInput[]
+  }
+
   export type book_historyUpdateManyWithoutBookNestedInput = {
     create?: XOR<book_historyCreateWithoutBookInput, book_historyUncheckedCreateWithoutBookInput> | book_historyCreateWithoutBookInput[] | book_historyUncheckedCreateWithoutBookInput[]
     connectOrCreate?: book_historyCreateOrConnectWithoutBookInput | book_historyCreateOrConnectWithoutBookInput[]
@@ -58707,6 +64625,48 @@ export namespace Prisma {
     deleteMany?: book_historyScalarWhereInput | book_historyScalarWhereInput[]
   }
 
+  export type book_tagsUpdateManyWithoutBookNestedInput = {
+    create?: XOR<book_tagsCreateWithoutBookInput, book_tagsUncheckedCreateWithoutBookInput> | book_tagsCreateWithoutBookInput[] | book_tagsUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: book_tagsCreateOrConnectWithoutBookInput | book_tagsCreateOrConnectWithoutBookInput[]
+    upsert?: book_tagsUpsertWithWhereUniqueWithoutBookInput | book_tagsUpsertWithWhereUniqueWithoutBookInput[]
+    createMany?: book_tagsCreateManyBookInputEnvelope
+    set?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    disconnect?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    delete?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    connect?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    update?: book_tagsUpdateWithWhereUniqueWithoutBookInput | book_tagsUpdateWithWhereUniqueWithoutBookInput[]
+    updateMany?: book_tagsUpdateManyWithWhereWithoutBookInput | book_tagsUpdateManyWithWhereWithoutBookInput[]
+    deleteMany?: book_tagsScalarWhereInput | book_tagsScalarWhereInput[]
+  }
+
+  export type reviewsUpdateManyWithoutBookNestedInput = {
+    create?: XOR<reviewsCreateWithoutBookInput, reviewsUncheckedCreateWithoutBookInput> | reviewsCreateWithoutBookInput[] | reviewsUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: reviewsCreateOrConnectWithoutBookInput | reviewsCreateOrConnectWithoutBookInput[]
+    upsert?: reviewsUpsertWithWhereUniqueWithoutBookInput | reviewsUpsertWithWhereUniqueWithoutBookInput[]
+    createMany?: reviewsCreateManyBookInputEnvelope
+    set?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    disconnect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    delete?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    update?: reviewsUpdateWithWhereUniqueWithoutBookInput | reviewsUpdateWithWhereUniqueWithoutBookInput[]
+    updateMany?: reviewsUpdateManyWithWhereWithoutBookInput | reviewsUpdateManyWithWhereWithoutBookInput[]
+    deleteMany?: reviewsScalarWhereInput | reviewsScalarWhereInput[]
+  }
+
+  export type book_genreUncheckedUpdateManyWithoutBookNestedInput = {
+    create?: XOR<book_genreCreateWithoutBookInput, book_genreUncheckedCreateWithoutBookInput> | book_genreCreateWithoutBookInput[] | book_genreUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: book_genreCreateOrConnectWithoutBookInput | book_genreCreateOrConnectWithoutBookInput[]
+    upsert?: book_genreUpsertWithWhereUniqueWithoutBookInput | book_genreUpsertWithWhereUniqueWithoutBookInput[]
+    createMany?: book_genreCreateManyBookInputEnvelope
+    set?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    disconnect?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    delete?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    connect?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    update?: book_genreUpdateWithWhereUniqueWithoutBookInput | book_genreUpdateWithWhereUniqueWithoutBookInput[]
+    updateMany?: book_genreUpdateManyWithWhereWithoutBookInput | book_genreUpdateManyWithWhereWithoutBookInput[]
+    deleteMany?: book_genreScalarWhereInput | book_genreScalarWhereInput[]
+  }
+
   export type book_historyUncheckedUpdateManyWithoutBookNestedInput = {
     create?: XOR<book_historyCreateWithoutBookInput, book_historyUncheckedCreateWithoutBookInput> | book_historyCreateWithoutBookInput[] | book_historyUncheckedCreateWithoutBookInput[]
     connectOrCreate?: book_historyCreateOrConnectWithoutBookInput | book_historyCreateOrConnectWithoutBookInput[]
@@ -58719,6 +64679,34 @@ export namespace Prisma {
     update?: book_historyUpdateWithWhereUniqueWithoutBookInput | book_historyUpdateWithWhereUniqueWithoutBookInput[]
     updateMany?: book_historyUpdateManyWithWhereWithoutBookInput | book_historyUpdateManyWithWhereWithoutBookInput[]
     deleteMany?: book_historyScalarWhereInput | book_historyScalarWhereInput[]
+  }
+
+  export type book_tagsUncheckedUpdateManyWithoutBookNestedInput = {
+    create?: XOR<book_tagsCreateWithoutBookInput, book_tagsUncheckedCreateWithoutBookInput> | book_tagsCreateWithoutBookInput[] | book_tagsUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: book_tagsCreateOrConnectWithoutBookInput | book_tagsCreateOrConnectWithoutBookInput[]
+    upsert?: book_tagsUpsertWithWhereUniqueWithoutBookInput | book_tagsUpsertWithWhereUniqueWithoutBookInput[]
+    createMany?: book_tagsCreateManyBookInputEnvelope
+    set?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    disconnect?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    delete?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    connect?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    update?: book_tagsUpdateWithWhereUniqueWithoutBookInput | book_tagsUpdateWithWhereUniqueWithoutBookInput[]
+    updateMany?: book_tagsUpdateManyWithWhereWithoutBookInput | book_tagsUpdateManyWithWhereWithoutBookInput[]
+    deleteMany?: book_tagsScalarWhereInput | book_tagsScalarWhereInput[]
+  }
+
+  export type reviewsUncheckedUpdateManyWithoutBookNestedInput = {
+    create?: XOR<reviewsCreateWithoutBookInput, reviewsUncheckedCreateWithoutBookInput> | reviewsCreateWithoutBookInput[] | reviewsUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: reviewsCreateOrConnectWithoutBookInput | reviewsCreateOrConnectWithoutBookInput[]
+    upsert?: reviewsUpsertWithWhereUniqueWithoutBookInput | reviewsUpsertWithWhereUniqueWithoutBookInput[]
+    createMany?: reviewsCreateManyBookInputEnvelope
+    set?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    disconnect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    delete?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
+    update?: reviewsUpdateWithWhereUniqueWithoutBookInput | reviewsUpdateWithWhereUniqueWithoutBookInput[]
+    updateMany?: reviewsUpdateManyWithWhereWithoutBookInput | reviewsUpdateManyWithWhereWithoutBookInput[]
+    deleteMany?: reviewsScalarWhereInput | reviewsScalarWhereInput[]
   }
 
   export type bookCreateNestedOneWithoutBook_historyInput = {
@@ -59526,13 +65514,6 @@ export namespace Prisma {
     connect?: product_categoryWhereUniqueInput | product_categoryWhereUniqueInput[]
   }
 
-  export type product_tagsCreateNestedManyWithoutProductInput = {
-    create?: XOR<product_tagsCreateWithoutProductInput, product_tagsUncheckedCreateWithoutProductInput> | product_tagsCreateWithoutProductInput[] | product_tagsUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: product_tagsCreateOrConnectWithoutProductInput | product_tagsCreateOrConnectWithoutProductInput[]
-    createMany?: product_tagsCreateManyProductInputEnvelope
-    connect?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-  }
-
   export type t_sales_downloadCreateNestedManyWithoutProductInput = {
     create?: XOR<t_sales_downloadCreateWithoutProductInput, t_sales_downloadUncheckedCreateWithoutProductInput> | t_sales_downloadCreateWithoutProductInput[] | t_sales_downloadUncheckedCreateWithoutProductInput[]
     connectOrCreate?: t_sales_downloadCreateOrConnectWithoutProductInput | t_sales_downloadCreateOrConnectWithoutProductInput[]
@@ -59580,13 +65561,6 @@ export namespace Prisma {
     connectOrCreate?: product_categoryCreateOrConnectWithoutProductInput | product_categoryCreateOrConnectWithoutProductInput[]
     createMany?: product_categoryCreateManyProductInputEnvelope
     connect?: product_categoryWhereUniqueInput | product_categoryWhereUniqueInput[]
-  }
-
-  export type product_tagsUncheckedCreateNestedManyWithoutProductInput = {
-    create?: XOR<product_tagsCreateWithoutProductInput, product_tagsUncheckedCreateWithoutProductInput> | product_tagsCreateWithoutProductInput[] | product_tagsUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: product_tagsCreateOrConnectWithoutProductInput | product_tagsCreateOrConnectWithoutProductInput[]
-    createMany?: product_tagsCreateManyProductInputEnvelope
-    connect?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
   }
 
   export type t_sales_downloadUncheckedCreateNestedManyWithoutProductInput = {
@@ -59681,20 +65655,6 @@ export namespace Prisma {
     update?: product_categoryUpdateWithWhereUniqueWithoutProductInput | product_categoryUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: product_categoryUpdateManyWithWhereWithoutProductInput | product_categoryUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: product_categoryScalarWhereInput | product_categoryScalarWhereInput[]
-  }
-
-  export type product_tagsUpdateManyWithoutProductNestedInput = {
-    create?: XOR<product_tagsCreateWithoutProductInput, product_tagsUncheckedCreateWithoutProductInput> | product_tagsCreateWithoutProductInput[] | product_tagsUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: product_tagsCreateOrConnectWithoutProductInput | product_tagsCreateOrConnectWithoutProductInput[]
-    upsert?: product_tagsUpsertWithWhereUniqueWithoutProductInput | product_tagsUpsertWithWhereUniqueWithoutProductInput[]
-    createMany?: product_tagsCreateManyProductInputEnvelope
-    set?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    disconnect?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    delete?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    connect?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    update?: product_tagsUpdateWithWhereUniqueWithoutProductInput | product_tagsUpdateWithWhereUniqueWithoutProductInput[]
-    updateMany?: product_tagsUpdateManyWithWhereWithoutProductInput | product_tagsUpdateManyWithWhereWithoutProductInput[]
-    deleteMany?: product_tagsScalarWhereInput | product_tagsScalarWhereInput[]
   }
 
   export type t_sales_downloadUpdateManyWithoutProductNestedInput = {
@@ -59793,20 +65753,6 @@ export namespace Prisma {
     update?: product_categoryUpdateWithWhereUniqueWithoutProductInput | product_categoryUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: product_categoryUpdateManyWithWhereWithoutProductInput | product_categoryUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: product_categoryScalarWhereInput | product_categoryScalarWhereInput[]
-  }
-
-  export type product_tagsUncheckedUpdateManyWithoutProductNestedInput = {
-    create?: XOR<product_tagsCreateWithoutProductInput, product_tagsUncheckedCreateWithoutProductInput> | product_tagsCreateWithoutProductInput[] | product_tagsUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: product_tagsCreateOrConnectWithoutProductInput | product_tagsCreateOrConnectWithoutProductInput[]
-    upsert?: product_tagsUpsertWithWhereUniqueWithoutProductInput | product_tagsUpsertWithWhereUniqueWithoutProductInput[]
-    createMany?: product_tagsCreateManyProductInputEnvelope
-    set?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    disconnect?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    delete?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    connect?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    update?: product_tagsUpdateWithWhereUniqueWithoutProductInput | product_tagsUpdateWithWhereUniqueWithoutProductInput[]
-    updateMany?: product_tagsUpdateManyWithWhereWithoutProductInput | product_tagsUpdateManyWithWhereWithoutProductInput[]
-    deleteMany?: product_tagsScalarWhereInput | product_tagsScalarWhereInput[]
   }
 
   export type t_sales_downloadUncheckedUpdateManyWithoutProductNestedInput = {
@@ -60519,74 +66465,358 @@ export namespace Prisma {
     update?: XOR<XOR<publisherUpdateToOneWithWhereWithoutWithdrawalInput, publisherUpdateWithoutWithdrawalInput>, publisherUncheckedUpdateWithoutWithdrawalInput>
   }
 
-  export type productCreateNestedOneWithoutProduct_tagsInput = {
-    create?: XOR<productCreateWithoutProduct_tagsInput, productUncheckedCreateWithoutProduct_tagsInput>
-    connectOrCreate?: productCreateOrConnectWithoutProduct_tagsInput
-    connect?: productWhereUniqueInput
+  export type book_tagsCreateNestedManyWithoutTagsInput = {
+    create?: XOR<book_tagsCreateWithoutTagsInput, book_tagsUncheckedCreateWithoutTagsInput> | book_tagsCreateWithoutTagsInput[] | book_tagsUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: book_tagsCreateOrConnectWithoutTagsInput | book_tagsCreateOrConnectWithoutTagsInput[]
+    createMany?: book_tagsCreateManyTagsInputEnvelope
+    connect?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
   }
 
-  export type tagsCreateNestedOneWithoutProduct_tagsInput = {
-    create?: XOR<tagsCreateWithoutProduct_tagsInput, tagsUncheckedCreateWithoutProduct_tagsInput>
-    connectOrCreate?: tagsCreateOrConnectWithoutProduct_tagsInput
+  export type tagsCreateNestedOneWithoutOther_tagsInput = {
+    create?: XOR<tagsCreateWithoutOther_tagsInput, tagsUncheckedCreateWithoutOther_tagsInput>
+    connectOrCreate?: tagsCreateOrConnectWithoutOther_tagsInput
     connect?: tagsWhereUniqueInput
   }
 
-  export type productUpdateOneRequiredWithoutProduct_tagsNestedInput = {
-    create?: XOR<productCreateWithoutProduct_tagsInput, productUncheckedCreateWithoutProduct_tagsInput>
-    connectOrCreate?: productCreateOrConnectWithoutProduct_tagsInput
-    upsert?: productUpsertWithoutProduct_tagsInput
-    connect?: productWhereUniqueInput
-    update?: XOR<XOR<productUpdateToOneWithWhereWithoutProduct_tagsInput, productUpdateWithoutProduct_tagsInput>, productUncheckedUpdateWithoutProduct_tagsInput>
+  export type tagsCreateNestedManyWithoutTagsInput = {
+    create?: XOR<tagsCreateWithoutTagsInput, tagsUncheckedCreateWithoutTagsInput> | tagsCreateWithoutTagsInput[] | tagsUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: tagsCreateOrConnectWithoutTagsInput | tagsCreateOrConnectWithoutTagsInput[]
+    createMany?: tagsCreateManyTagsInputEnvelope
+    connect?: tagsWhereUniqueInput | tagsWhereUniqueInput[]
   }
 
-  export type tagsUpdateOneRequiredWithoutProduct_tagsNestedInput = {
-    create?: XOR<tagsCreateWithoutProduct_tagsInput, tagsUncheckedCreateWithoutProduct_tagsInput>
-    connectOrCreate?: tagsCreateOrConnectWithoutProduct_tagsInput
-    upsert?: tagsUpsertWithoutProduct_tagsInput
+  export type book_tagsUncheckedCreateNestedManyWithoutTagsInput = {
+    create?: XOR<book_tagsCreateWithoutTagsInput, book_tagsUncheckedCreateWithoutTagsInput> | book_tagsCreateWithoutTagsInput[] | book_tagsUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: book_tagsCreateOrConnectWithoutTagsInput | book_tagsCreateOrConnectWithoutTagsInput[]
+    createMany?: book_tagsCreateManyTagsInputEnvelope
+    connect?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+  }
+
+  export type tagsUncheckedCreateNestedManyWithoutTagsInput = {
+    create?: XOR<tagsCreateWithoutTagsInput, tagsUncheckedCreateWithoutTagsInput> | tagsCreateWithoutTagsInput[] | tagsUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: tagsCreateOrConnectWithoutTagsInput | tagsCreateOrConnectWithoutTagsInput[]
+    createMany?: tagsCreateManyTagsInputEnvelope
+    connect?: tagsWhereUniqueInput | tagsWhereUniqueInput[]
+  }
+
+  export type book_tagsUpdateManyWithoutTagsNestedInput = {
+    create?: XOR<book_tagsCreateWithoutTagsInput, book_tagsUncheckedCreateWithoutTagsInput> | book_tagsCreateWithoutTagsInput[] | book_tagsUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: book_tagsCreateOrConnectWithoutTagsInput | book_tagsCreateOrConnectWithoutTagsInput[]
+    upsert?: book_tagsUpsertWithWhereUniqueWithoutTagsInput | book_tagsUpsertWithWhereUniqueWithoutTagsInput[]
+    createMany?: book_tagsCreateManyTagsInputEnvelope
+    set?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    disconnect?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    delete?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    connect?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    update?: book_tagsUpdateWithWhereUniqueWithoutTagsInput | book_tagsUpdateWithWhereUniqueWithoutTagsInput[]
+    updateMany?: book_tagsUpdateManyWithWhereWithoutTagsInput | book_tagsUpdateManyWithWhereWithoutTagsInput[]
+    deleteMany?: book_tagsScalarWhereInput | book_tagsScalarWhereInput[]
+  }
+
+  export type tagsUpdateOneWithoutOther_tagsNestedInput = {
+    create?: XOR<tagsCreateWithoutOther_tagsInput, tagsUncheckedCreateWithoutOther_tagsInput>
+    connectOrCreate?: tagsCreateOrConnectWithoutOther_tagsInput
+    upsert?: tagsUpsertWithoutOther_tagsInput
+    disconnect?: tagsWhereInput | boolean
+    delete?: tagsWhereInput | boolean
     connect?: tagsWhereUniqueInput
-    update?: XOR<XOR<tagsUpdateToOneWithWhereWithoutProduct_tagsInput, tagsUpdateWithoutProduct_tagsInput>, tagsUncheckedUpdateWithoutProduct_tagsInput>
+    update?: XOR<XOR<tagsUpdateToOneWithWhereWithoutOther_tagsInput, tagsUpdateWithoutOther_tagsInput>, tagsUncheckedUpdateWithoutOther_tagsInput>
   }
 
-  export type product_tagsCreateNestedManyWithoutTagsInput = {
-    create?: XOR<product_tagsCreateWithoutTagsInput, product_tagsUncheckedCreateWithoutTagsInput> | product_tagsCreateWithoutTagsInput[] | product_tagsUncheckedCreateWithoutTagsInput[]
-    connectOrCreate?: product_tagsCreateOrConnectWithoutTagsInput | product_tagsCreateOrConnectWithoutTagsInput[]
-    createMany?: product_tagsCreateManyTagsInputEnvelope
-    connect?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
+  export type tagsUpdateManyWithoutTagsNestedInput = {
+    create?: XOR<tagsCreateWithoutTagsInput, tagsUncheckedCreateWithoutTagsInput> | tagsCreateWithoutTagsInput[] | tagsUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: tagsCreateOrConnectWithoutTagsInput | tagsCreateOrConnectWithoutTagsInput[]
+    upsert?: tagsUpsertWithWhereUniqueWithoutTagsInput | tagsUpsertWithWhereUniqueWithoutTagsInput[]
+    createMany?: tagsCreateManyTagsInputEnvelope
+    set?: tagsWhereUniqueInput | tagsWhereUniqueInput[]
+    disconnect?: tagsWhereUniqueInput | tagsWhereUniqueInput[]
+    delete?: tagsWhereUniqueInput | tagsWhereUniqueInput[]
+    connect?: tagsWhereUniqueInput | tagsWhereUniqueInput[]
+    update?: tagsUpdateWithWhereUniqueWithoutTagsInput | tagsUpdateWithWhereUniqueWithoutTagsInput[]
+    updateMany?: tagsUpdateManyWithWhereWithoutTagsInput | tagsUpdateManyWithWhereWithoutTagsInput[]
+    deleteMany?: tagsScalarWhereInput | tagsScalarWhereInput[]
   }
 
-  export type product_tagsUncheckedCreateNestedManyWithoutTagsInput = {
-    create?: XOR<product_tagsCreateWithoutTagsInput, product_tagsUncheckedCreateWithoutTagsInput> | product_tagsCreateWithoutTagsInput[] | product_tagsUncheckedCreateWithoutTagsInput[]
-    connectOrCreate?: product_tagsCreateOrConnectWithoutTagsInput | product_tagsCreateOrConnectWithoutTagsInput[]
-    createMany?: product_tagsCreateManyTagsInputEnvelope
-    connect?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
+  export type book_tagsUncheckedUpdateManyWithoutTagsNestedInput = {
+    create?: XOR<book_tagsCreateWithoutTagsInput, book_tagsUncheckedCreateWithoutTagsInput> | book_tagsCreateWithoutTagsInput[] | book_tagsUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: book_tagsCreateOrConnectWithoutTagsInput | book_tagsCreateOrConnectWithoutTagsInput[]
+    upsert?: book_tagsUpsertWithWhereUniqueWithoutTagsInput | book_tagsUpsertWithWhereUniqueWithoutTagsInput[]
+    createMany?: book_tagsCreateManyTagsInputEnvelope
+    set?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    disconnect?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    delete?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    connect?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+    update?: book_tagsUpdateWithWhereUniqueWithoutTagsInput | book_tagsUpdateWithWhereUniqueWithoutTagsInput[]
+    updateMany?: book_tagsUpdateManyWithWhereWithoutTagsInput | book_tagsUpdateManyWithWhereWithoutTagsInput[]
+    deleteMany?: book_tagsScalarWhereInput | book_tagsScalarWhereInput[]
   }
 
-  export type product_tagsUpdateManyWithoutTagsNestedInput = {
-    create?: XOR<product_tagsCreateWithoutTagsInput, product_tagsUncheckedCreateWithoutTagsInput> | product_tagsCreateWithoutTagsInput[] | product_tagsUncheckedCreateWithoutTagsInput[]
-    connectOrCreate?: product_tagsCreateOrConnectWithoutTagsInput | product_tagsCreateOrConnectWithoutTagsInput[]
-    upsert?: product_tagsUpsertWithWhereUniqueWithoutTagsInput | product_tagsUpsertWithWhereUniqueWithoutTagsInput[]
-    createMany?: product_tagsCreateManyTagsInputEnvelope
-    set?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    disconnect?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    delete?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    connect?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    update?: product_tagsUpdateWithWhereUniqueWithoutTagsInput | product_tagsUpdateWithWhereUniqueWithoutTagsInput[]
-    updateMany?: product_tagsUpdateManyWithWhereWithoutTagsInput | product_tagsUpdateManyWithWhereWithoutTagsInput[]
-    deleteMany?: product_tagsScalarWhereInput | product_tagsScalarWhereInput[]
+  export type tagsUncheckedUpdateManyWithoutTagsNestedInput = {
+    create?: XOR<tagsCreateWithoutTagsInput, tagsUncheckedCreateWithoutTagsInput> | tagsCreateWithoutTagsInput[] | tagsUncheckedCreateWithoutTagsInput[]
+    connectOrCreate?: tagsCreateOrConnectWithoutTagsInput | tagsCreateOrConnectWithoutTagsInput[]
+    upsert?: tagsUpsertWithWhereUniqueWithoutTagsInput | tagsUpsertWithWhereUniqueWithoutTagsInput[]
+    createMany?: tagsCreateManyTagsInputEnvelope
+    set?: tagsWhereUniqueInput | tagsWhereUniqueInput[]
+    disconnect?: tagsWhereUniqueInput | tagsWhereUniqueInput[]
+    delete?: tagsWhereUniqueInput | tagsWhereUniqueInput[]
+    connect?: tagsWhereUniqueInput | tagsWhereUniqueInput[]
+    update?: tagsUpdateWithWhereUniqueWithoutTagsInput | tagsUpdateWithWhereUniqueWithoutTagsInput[]
+    updateMany?: tagsUpdateManyWithWhereWithoutTagsInput | tagsUpdateManyWithWhereWithoutTagsInput[]
+    deleteMany?: tagsScalarWhereInput | tagsScalarWhereInput[]
   }
 
-  export type product_tagsUncheckedUpdateManyWithoutTagsNestedInput = {
-    create?: XOR<product_tagsCreateWithoutTagsInput, product_tagsUncheckedCreateWithoutTagsInput> | product_tagsCreateWithoutTagsInput[] | product_tagsUncheckedCreateWithoutTagsInput[]
-    connectOrCreate?: product_tagsCreateOrConnectWithoutTagsInput | product_tagsCreateOrConnectWithoutTagsInput[]
-    upsert?: product_tagsUpsertWithWhereUniqueWithoutTagsInput | product_tagsUpsertWithWhereUniqueWithoutTagsInput[]
-    createMany?: product_tagsCreateManyTagsInputEnvelope
-    set?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    disconnect?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    delete?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    connect?: product_tagsWhereUniqueInput | product_tagsWhereUniqueInput[]
-    update?: product_tagsUpdateWithWhereUniqueWithoutTagsInput | product_tagsUpdateWithWhereUniqueWithoutTagsInput[]
-    updateMany?: product_tagsUpdateManyWithWhereWithoutTagsInput | product_tagsUpdateManyWithWhereWithoutTagsInput[]
-    deleteMany?: product_tagsScalarWhereInput | product_tagsScalarWhereInput[]
+  export type bookCreateNestedOneWithoutReviewsInput = {
+    create?: XOR<bookCreateWithoutReviewsInput, bookUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: bookCreateOrConnectWithoutReviewsInput
+    connect?: bookWhereUniqueInput
+  }
+
+  export type auth_userCreateNestedOneWithoutReviewsInput = {
+    create?: XOR<auth_userCreateWithoutReviewsInput, auth_userUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: auth_userCreateOrConnectWithoutReviewsInput
+    connect?: auth_userWhereUniqueInput
+  }
+
+  export type reviews_likesCreateNestedManyWithoutReviewsInput = {
+    create?: XOR<reviews_likesCreateWithoutReviewsInput, reviews_likesUncheckedCreateWithoutReviewsInput> | reviews_likesCreateWithoutReviewsInput[] | reviews_likesUncheckedCreateWithoutReviewsInput[]
+    connectOrCreate?: reviews_likesCreateOrConnectWithoutReviewsInput | reviews_likesCreateOrConnectWithoutReviewsInput[]
+    createMany?: reviews_likesCreateManyReviewsInputEnvelope
+    connect?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+  }
+
+  export type reviews_likesUncheckedCreateNestedManyWithoutReviewsInput = {
+    create?: XOR<reviews_likesCreateWithoutReviewsInput, reviews_likesUncheckedCreateWithoutReviewsInput> | reviews_likesCreateWithoutReviewsInput[] | reviews_likesUncheckedCreateWithoutReviewsInput[]
+    connectOrCreate?: reviews_likesCreateOrConnectWithoutReviewsInput | reviews_likesCreateOrConnectWithoutReviewsInput[]
+    createMany?: reviews_likesCreateManyReviewsInputEnvelope
+    connect?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+  }
+
+  export type bookUpdateOneRequiredWithoutReviewsNestedInput = {
+    create?: XOR<bookCreateWithoutReviewsInput, bookUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: bookCreateOrConnectWithoutReviewsInput
+    upsert?: bookUpsertWithoutReviewsInput
+    connect?: bookWhereUniqueInput
+    update?: XOR<XOR<bookUpdateToOneWithWhereWithoutReviewsInput, bookUpdateWithoutReviewsInput>, bookUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type auth_userUpdateOneRequiredWithoutReviewsNestedInput = {
+    create?: XOR<auth_userCreateWithoutReviewsInput, auth_userUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: auth_userCreateOrConnectWithoutReviewsInput
+    upsert?: auth_userUpsertWithoutReviewsInput
+    connect?: auth_userWhereUniqueInput
+    update?: XOR<XOR<auth_userUpdateToOneWithWhereWithoutReviewsInput, auth_userUpdateWithoutReviewsInput>, auth_userUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type reviews_likesUpdateManyWithoutReviewsNestedInput = {
+    create?: XOR<reviews_likesCreateWithoutReviewsInput, reviews_likesUncheckedCreateWithoutReviewsInput> | reviews_likesCreateWithoutReviewsInput[] | reviews_likesUncheckedCreateWithoutReviewsInput[]
+    connectOrCreate?: reviews_likesCreateOrConnectWithoutReviewsInput | reviews_likesCreateOrConnectWithoutReviewsInput[]
+    upsert?: reviews_likesUpsertWithWhereUniqueWithoutReviewsInput | reviews_likesUpsertWithWhereUniqueWithoutReviewsInput[]
+    createMany?: reviews_likesCreateManyReviewsInputEnvelope
+    set?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    disconnect?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    delete?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    connect?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    update?: reviews_likesUpdateWithWhereUniqueWithoutReviewsInput | reviews_likesUpdateWithWhereUniqueWithoutReviewsInput[]
+    updateMany?: reviews_likesUpdateManyWithWhereWithoutReviewsInput | reviews_likesUpdateManyWithWhereWithoutReviewsInput[]
+    deleteMany?: reviews_likesScalarWhereInput | reviews_likesScalarWhereInput[]
+  }
+
+  export type reviews_likesUncheckedUpdateManyWithoutReviewsNestedInput = {
+    create?: XOR<reviews_likesCreateWithoutReviewsInput, reviews_likesUncheckedCreateWithoutReviewsInput> | reviews_likesCreateWithoutReviewsInput[] | reviews_likesUncheckedCreateWithoutReviewsInput[]
+    connectOrCreate?: reviews_likesCreateOrConnectWithoutReviewsInput | reviews_likesCreateOrConnectWithoutReviewsInput[]
+    upsert?: reviews_likesUpsertWithWhereUniqueWithoutReviewsInput | reviews_likesUpsertWithWhereUniqueWithoutReviewsInput[]
+    createMany?: reviews_likesCreateManyReviewsInputEnvelope
+    set?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    disconnect?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    delete?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    connect?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
+    update?: reviews_likesUpdateWithWhereUniqueWithoutReviewsInput | reviews_likesUpdateWithWhereUniqueWithoutReviewsInput[]
+    updateMany?: reviews_likesUpdateManyWithWhereWithoutReviewsInput | reviews_likesUpdateManyWithWhereWithoutReviewsInput[]
+    deleteMany?: reviews_likesScalarWhereInput | reviews_likesScalarWhereInput[]
+  }
+
+  export type reviewsCreateNestedOneWithoutReviews_likesInput = {
+    create?: XOR<reviewsCreateWithoutReviews_likesInput, reviewsUncheckedCreateWithoutReviews_likesInput>
+    connectOrCreate?: reviewsCreateOrConnectWithoutReviews_likesInput
+    connect?: reviewsWhereUniqueInput
+  }
+
+  export type auth_userCreateNestedOneWithoutReviews_likesInput = {
+    create?: XOR<auth_userCreateWithoutReviews_likesInput, auth_userUncheckedCreateWithoutReviews_likesInput>
+    connectOrCreate?: auth_userCreateOrConnectWithoutReviews_likesInput
+    connect?: auth_userWhereUniqueInput
+  }
+
+  export type reviewsUpdateOneRequiredWithoutReviews_likesNestedInput = {
+    create?: XOR<reviewsCreateWithoutReviews_likesInput, reviewsUncheckedCreateWithoutReviews_likesInput>
+    connectOrCreate?: reviewsCreateOrConnectWithoutReviews_likesInput
+    upsert?: reviewsUpsertWithoutReviews_likesInput
+    connect?: reviewsWhereUniqueInput
+    update?: XOR<XOR<reviewsUpdateToOneWithWhereWithoutReviews_likesInput, reviewsUpdateWithoutReviews_likesInput>, reviewsUncheckedUpdateWithoutReviews_likesInput>
+  }
+
+  export type auth_userUpdateOneRequiredWithoutReviews_likesNestedInput = {
+    create?: XOR<auth_userCreateWithoutReviews_likesInput, auth_userUncheckedCreateWithoutReviews_likesInput>
+    connectOrCreate?: auth_userCreateOrConnectWithoutReviews_likesInput
+    upsert?: auth_userUpsertWithoutReviews_likesInput
+    connect?: auth_userWhereUniqueInput
+    update?: XOR<XOR<auth_userUpdateToOneWithWhereWithoutReviews_likesInput, auth_userUpdateWithoutReviews_likesInput>, auth_userUncheckedUpdateWithoutReviews_likesInput>
+  }
+
+  export type bookCreateNestedOneWithoutBook_genreInput = {
+    create?: XOR<bookCreateWithoutBook_genreInput, bookUncheckedCreateWithoutBook_genreInput>
+    connectOrCreate?: bookCreateOrConnectWithoutBook_genreInput
+    connect?: bookWhereUniqueInput
+  }
+
+  export type genreCreateNestedOneWithoutBook_genreInput = {
+    create?: XOR<genreCreateWithoutBook_genreInput, genreUncheckedCreateWithoutBook_genreInput>
+    connectOrCreate?: genreCreateOrConnectWithoutBook_genreInput
+    connect?: genreWhereUniqueInput
+  }
+
+  export type bookUpdateOneRequiredWithoutBook_genreNestedInput = {
+    create?: XOR<bookCreateWithoutBook_genreInput, bookUncheckedCreateWithoutBook_genreInput>
+    connectOrCreate?: bookCreateOrConnectWithoutBook_genreInput
+    upsert?: bookUpsertWithoutBook_genreInput
+    connect?: bookWhereUniqueInput
+    update?: XOR<XOR<bookUpdateToOneWithWhereWithoutBook_genreInput, bookUpdateWithoutBook_genreInput>, bookUncheckedUpdateWithoutBook_genreInput>
+  }
+
+  export type genreUpdateOneRequiredWithoutBook_genreNestedInput = {
+    create?: XOR<genreCreateWithoutBook_genreInput, genreUncheckedCreateWithoutBook_genreInput>
+    connectOrCreate?: genreCreateOrConnectWithoutBook_genreInput
+    upsert?: genreUpsertWithoutBook_genreInput
+    connect?: genreWhereUniqueInput
+    update?: XOR<XOR<genreUpdateToOneWithWhereWithoutBook_genreInput, genreUpdateWithoutBook_genreInput>, genreUncheckedUpdateWithoutBook_genreInput>
+  }
+
+  export type bookCreateNestedOneWithoutBook_tagsInput = {
+    create?: XOR<bookCreateWithoutBook_tagsInput, bookUncheckedCreateWithoutBook_tagsInput>
+    connectOrCreate?: bookCreateOrConnectWithoutBook_tagsInput
+    connect?: bookWhereUniqueInput
+  }
+
+  export type tagsCreateNestedOneWithoutBook_tagsInput = {
+    create?: XOR<tagsCreateWithoutBook_tagsInput, tagsUncheckedCreateWithoutBook_tagsInput>
+    connectOrCreate?: tagsCreateOrConnectWithoutBook_tagsInput
+    connect?: tagsWhereUniqueInput
+  }
+
+  export type bookUpdateOneRequiredWithoutBook_tagsNestedInput = {
+    create?: XOR<bookCreateWithoutBook_tagsInput, bookUncheckedCreateWithoutBook_tagsInput>
+    connectOrCreate?: bookCreateOrConnectWithoutBook_tagsInput
+    upsert?: bookUpsertWithoutBook_tagsInput
+    connect?: bookWhereUniqueInput
+    update?: XOR<XOR<bookUpdateToOneWithWhereWithoutBook_tagsInput, bookUpdateWithoutBook_tagsInput>, bookUncheckedUpdateWithoutBook_tagsInput>
+  }
+
+  export type tagsUpdateOneRequiredWithoutBook_tagsNestedInput = {
+    create?: XOR<tagsCreateWithoutBook_tagsInput, tagsUncheckedCreateWithoutBook_tagsInput>
+    connectOrCreate?: tagsCreateOrConnectWithoutBook_tagsInput
+    upsert?: tagsUpsertWithoutBook_tagsInput
+    connect?: tagsWhereUniqueInput
+    update?: XOR<XOR<tagsUpdateToOneWithWhereWithoutBook_tagsInput, tagsUpdateWithoutBook_tagsInput>, tagsUncheckedUpdateWithoutBook_tagsInput>
+  }
+
+  export type book_genreCreateNestedManyWithoutGenreInput = {
+    create?: XOR<book_genreCreateWithoutGenreInput, book_genreUncheckedCreateWithoutGenreInput> | book_genreCreateWithoutGenreInput[] | book_genreUncheckedCreateWithoutGenreInput[]
+    connectOrCreate?: book_genreCreateOrConnectWithoutGenreInput | book_genreCreateOrConnectWithoutGenreInput[]
+    createMany?: book_genreCreateManyGenreInputEnvelope
+    connect?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+  }
+
+  export type genreCreateNestedOneWithoutOther_genreInput = {
+    create?: XOR<genreCreateWithoutOther_genreInput, genreUncheckedCreateWithoutOther_genreInput>
+    connectOrCreate?: genreCreateOrConnectWithoutOther_genreInput
+    connect?: genreWhereUniqueInput
+  }
+
+  export type genreCreateNestedManyWithoutGenreInput = {
+    create?: XOR<genreCreateWithoutGenreInput, genreUncheckedCreateWithoutGenreInput> | genreCreateWithoutGenreInput[] | genreUncheckedCreateWithoutGenreInput[]
+    connectOrCreate?: genreCreateOrConnectWithoutGenreInput | genreCreateOrConnectWithoutGenreInput[]
+    createMany?: genreCreateManyGenreInputEnvelope
+    connect?: genreWhereUniqueInput | genreWhereUniqueInput[]
+  }
+
+  export type book_genreUncheckedCreateNestedManyWithoutGenreInput = {
+    create?: XOR<book_genreCreateWithoutGenreInput, book_genreUncheckedCreateWithoutGenreInput> | book_genreCreateWithoutGenreInput[] | book_genreUncheckedCreateWithoutGenreInput[]
+    connectOrCreate?: book_genreCreateOrConnectWithoutGenreInput | book_genreCreateOrConnectWithoutGenreInput[]
+    createMany?: book_genreCreateManyGenreInputEnvelope
+    connect?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+  }
+
+  export type genreUncheckedCreateNestedManyWithoutGenreInput = {
+    create?: XOR<genreCreateWithoutGenreInput, genreUncheckedCreateWithoutGenreInput> | genreCreateWithoutGenreInput[] | genreUncheckedCreateWithoutGenreInput[]
+    connectOrCreate?: genreCreateOrConnectWithoutGenreInput | genreCreateOrConnectWithoutGenreInput[]
+    createMany?: genreCreateManyGenreInputEnvelope
+    connect?: genreWhereUniqueInput | genreWhereUniqueInput[]
+  }
+
+  export type book_genreUpdateManyWithoutGenreNestedInput = {
+    create?: XOR<book_genreCreateWithoutGenreInput, book_genreUncheckedCreateWithoutGenreInput> | book_genreCreateWithoutGenreInput[] | book_genreUncheckedCreateWithoutGenreInput[]
+    connectOrCreate?: book_genreCreateOrConnectWithoutGenreInput | book_genreCreateOrConnectWithoutGenreInput[]
+    upsert?: book_genreUpsertWithWhereUniqueWithoutGenreInput | book_genreUpsertWithWhereUniqueWithoutGenreInput[]
+    createMany?: book_genreCreateManyGenreInputEnvelope
+    set?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    disconnect?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    delete?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    connect?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    update?: book_genreUpdateWithWhereUniqueWithoutGenreInput | book_genreUpdateWithWhereUniqueWithoutGenreInput[]
+    updateMany?: book_genreUpdateManyWithWhereWithoutGenreInput | book_genreUpdateManyWithWhereWithoutGenreInput[]
+    deleteMany?: book_genreScalarWhereInput | book_genreScalarWhereInput[]
+  }
+
+  export type genreUpdateOneWithoutOther_genreNestedInput = {
+    create?: XOR<genreCreateWithoutOther_genreInput, genreUncheckedCreateWithoutOther_genreInput>
+    connectOrCreate?: genreCreateOrConnectWithoutOther_genreInput
+    upsert?: genreUpsertWithoutOther_genreInput
+    disconnect?: genreWhereInput | boolean
+    delete?: genreWhereInput | boolean
+    connect?: genreWhereUniqueInput
+    update?: XOR<XOR<genreUpdateToOneWithWhereWithoutOther_genreInput, genreUpdateWithoutOther_genreInput>, genreUncheckedUpdateWithoutOther_genreInput>
+  }
+
+  export type genreUpdateManyWithoutGenreNestedInput = {
+    create?: XOR<genreCreateWithoutGenreInput, genreUncheckedCreateWithoutGenreInput> | genreCreateWithoutGenreInput[] | genreUncheckedCreateWithoutGenreInput[]
+    connectOrCreate?: genreCreateOrConnectWithoutGenreInput | genreCreateOrConnectWithoutGenreInput[]
+    upsert?: genreUpsertWithWhereUniqueWithoutGenreInput | genreUpsertWithWhereUniqueWithoutGenreInput[]
+    createMany?: genreCreateManyGenreInputEnvelope
+    set?: genreWhereUniqueInput | genreWhereUniqueInput[]
+    disconnect?: genreWhereUniqueInput | genreWhereUniqueInput[]
+    delete?: genreWhereUniqueInput | genreWhereUniqueInput[]
+    connect?: genreWhereUniqueInput | genreWhereUniqueInput[]
+    update?: genreUpdateWithWhereUniqueWithoutGenreInput | genreUpdateWithWhereUniqueWithoutGenreInput[]
+    updateMany?: genreUpdateManyWithWhereWithoutGenreInput | genreUpdateManyWithWhereWithoutGenreInput[]
+    deleteMany?: genreScalarWhereInput | genreScalarWhereInput[]
+  }
+
+  export type book_genreUncheckedUpdateManyWithoutGenreNestedInput = {
+    create?: XOR<book_genreCreateWithoutGenreInput, book_genreUncheckedCreateWithoutGenreInput> | book_genreCreateWithoutGenreInput[] | book_genreUncheckedCreateWithoutGenreInput[]
+    connectOrCreate?: book_genreCreateOrConnectWithoutGenreInput | book_genreCreateOrConnectWithoutGenreInput[]
+    upsert?: book_genreUpsertWithWhereUniqueWithoutGenreInput | book_genreUpsertWithWhereUniqueWithoutGenreInput[]
+    createMany?: book_genreCreateManyGenreInputEnvelope
+    set?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    disconnect?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    delete?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    connect?: book_genreWhereUniqueInput | book_genreWhereUniqueInput[]
+    update?: book_genreUpdateWithWhereUniqueWithoutGenreInput | book_genreUpdateWithWhereUniqueWithoutGenreInput[]
+    updateMany?: book_genreUpdateManyWithWhereWithoutGenreInput | book_genreUpdateManyWithWhereWithoutGenreInput[]
+    deleteMany?: book_genreScalarWhereInput | book_genreScalarWhereInput[]
+  }
+
+  export type genreUncheckedUpdateManyWithoutGenreNestedInput = {
+    create?: XOR<genreCreateWithoutGenreInput, genreUncheckedCreateWithoutGenreInput> | genreCreateWithoutGenreInput[] | genreUncheckedCreateWithoutGenreInput[]
+    connectOrCreate?: genreCreateOrConnectWithoutGenreInput | genreCreateOrConnectWithoutGenreInput[]
+    upsert?: genreUpsertWithWhereUniqueWithoutGenreInput | genreUpsertWithWhereUniqueWithoutGenreInput[]
+    createMany?: genreCreateManyGenreInputEnvelope
+    set?: genreWhereUniqueInput | genreWhereUniqueInput[]
+    disconnect?: genreWhereUniqueInput | genreWhereUniqueInput[]
+    delete?: genreWhereUniqueInput | genreWhereUniqueInput[]
+    connect?: genreWhereUniqueInput | genreWhereUniqueInput[]
+    update?: genreUpdateWithWhereUniqueWithoutGenreInput | genreUpdateWithWhereUniqueWithoutGenreInput[]
+    updateMany?: genreUpdateManyWithWhereWithoutGenreInput | genreUpdateManyWithWhereWithoutGenreInput[]
+    deleteMany?: genreScalarWhereInput | genreScalarWhereInput[]
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -61024,6 +67254,8 @@ export namespace Prisma {
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
     sales_and_marketing?: sales_and_marketingCreateNestedOneWithoutAuth_userInput
     support?: supportCreateNestedOneWithoutAuth_userInput
+    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userUncheckedCreateWithoutAffiliateInput = {
@@ -61046,6 +67278,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userCreateOrConnectWithoutAffiliateInput = {
@@ -61196,6 +67430,8 @@ export namespace Prisma {
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
     sales_and_marketing?: sales_and_marketingCreateNestedOneWithoutAuth_userInput
     support?: supportCreateNestedOneWithoutAuth_userInput
+    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userUncheckedCreateWithoutAuth_accountInput = {
@@ -61218,6 +67454,8 @@ export namespace Prisma {
     id_support?: string | null
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userCreateOrConnectWithoutAuth_accountInput = {
@@ -61445,6 +67683,8 @@ export namespace Prisma {
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     sales_and_marketing?: sales_and_marketingUpdateOneWithoutAuth_userNestedInput
     support?: supportUpdateOneWithoutAuth_userNestedInput
+    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateWithoutAuth_accountInput = {
@@ -61467,6 +67707,8 @@ export namespace Prisma {
     id_support?: NullableStringFieldUpdateOperationsInput | string | null
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
   export type authorUpsertWithWhereUniqueWithoutAuth_accountInput = {
@@ -61643,6 +67885,8 @@ export namespace Prisma {
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
     sales_and_marketing?: sales_and_marketingCreateNestedOneWithoutAuth_userInput
     support?: supportCreateNestedOneWithoutAuth_userInput
+    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userUncheckedCreateWithoutAuth_sessionInput = {
@@ -61665,6 +67909,8 @@ export namespace Prisma {
     id_support?: string | null
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userCreateOrConnectWithoutAuth_sessionInput = {
@@ -61703,6 +67949,8 @@ export namespace Prisma {
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     sales_and_marketing?: sales_and_marketingUpdateOneWithoutAuth_userNestedInput
     support?: supportUpdateOneWithoutAuth_userNestedInput
+    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateWithoutAuth_sessionInput = {
@@ -61725,6 +67973,8 @@ export namespace Prisma {
     id_support?: NullableStringFieldUpdateOperationsInput | string | null
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userCreateWithoutAuth_two_factorInput = {
@@ -61747,6 +67997,8 @@ export namespace Prisma {
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
     sales_and_marketing?: sales_and_marketingCreateNestedOneWithoutAuth_userInput
     support?: supportCreateNestedOneWithoutAuth_userInput
+    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userUncheckedCreateWithoutAuth_two_factorInput = {
@@ -61769,6 +68021,8 @@ export namespace Prisma {
     id_support?: string | null
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userCreateOrConnectWithoutAuth_two_factorInput = {
@@ -61807,6 +68061,8 @@ export namespace Prisma {
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     sales_and_marketing?: sales_and_marketingUpdateOneWithoutAuth_userNestedInput
     support?: supportUpdateOneWithoutAuth_userNestedInput
+    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateWithoutAuth_two_factorInput = {
@@ -61829,6 +68085,8 @@ export namespace Prisma {
     id_support?: NullableStringFieldUpdateOperationsInput | string | null
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_accountCreateWithoutAuth_userInput = {
@@ -62088,6 +68346,58 @@ export namespace Prisma {
   export type supportCreateOrConnectWithoutAuth_userInput = {
     where: supportWhereUniqueInput
     create: XOR<supportCreateWithoutAuth_userInput, supportUncheckedCreateWithoutAuth_userInput>
+  }
+
+  export type reviewsCreateWithoutAuth_userInput = {
+    id?: string
+    comments: string
+    rating?: Decimal | DecimalJsLike | number | string | null
+    created_at: Date | string
+    deleted_at?: Date | string | null
+    parent?: string | null
+    book: bookCreateNestedOneWithoutReviewsInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutReviewsInput
+  }
+
+  export type reviewsUncheckedCreateWithoutAuth_userInput = {
+    id?: string
+    id_book: string
+    comments: string
+    rating?: Decimal | DecimalJsLike | number | string | null
+    created_at: Date | string
+    deleted_at?: Date | string | null
+    parent?: string | null
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutReviewsInput
+  }
+
+  export type reviewsCreateOrConnectWithoutAuth_userInput = {
+    where: reviewsWhereUniqueInput
+    create: XOR<reviewsCreateWithoutAuth_userInput, reviewsUncheckedCreateWithoutAuth_userInput>
+  }
+
+  export type reviewsCreateManyAuth_userInputEnvelope = {
+    data: reviewsCreateManyAuth_userInput | reviewsCreateManyAuth_userInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type reviews_likesCreateWithoutAuth_userInput = {
+    id?: string
+    reviews: reviewsCreateNestedOneWithoutReviews_likesInput
+  }
+
+  export type reviews_likesUncheckedCreateWithoutAuth_userInput = {
+    id?: string
+    id_reviews: string
+  }
+
+  export type reviews_likesCreateOrConnectWithoutAuth_userInput = {
+    where: reviews_likesWhereUniqueInput
+    create: XOR<reviews_likesCreateWithoutAuth_userInput, reviews_likesUncheckedCreateWithoutAuth_userInput>
+  }
+
+  export type reviews_likesCreateManyAuth_userInputEnvelope = {
+    data: reviews_likesCreateManyAuth_userInput | reviews_likesCreateManyAuth_userInput[]
+    skipDuplicates?: boolean
   }
 
   export type auth_accountUpsertWithWhereUniqueWithoutAuth_userInput = {
@@ -62375,6 +68685,61 @@ export namespace Prisma {
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type reviewsUpsertWithWhereUniqueWithoutAuth_userInput = {
+    where: reviewsWhereUniqueInput
+    update: XOR<reviewsUpdateWithoutAuth_userInput, reviewsUncheckedUpdateWithoutAuth_userInput>
+    create: XOR<reviewsCreateWithoutAuth_userInput, reviewsUncheckedCreateWithoutAuth_userInput>
+  }
+
+  export type reviewsUpdateWithWhereUniqueWithoutAuth_userInput = {
+    where: reviewsWhereUniqueInput
+    data: XOR<reviewsUpdateWithoutAuth_userInput, reviewsUncheckedUpdateWithoutAuth_userInput>
+  }
+
+  export type reviewsUpdateManyWithWhereWithoutAuth_userInput = {
+    where: reviewsScalarWhereInput
+    data: XOR<reviewsUpdateManyMutationInput, reviewsUncheckedUpdateManyWithoutAuth_userInput>
+  }
+
+  export type reviewsScalarWhereInput = {
+    AND?: reviewsScalarWhereInput | reviewsScalarWhereInput[]
+    OR?: reviewsScalarWhereInput[]
+    NOT?: reviewsScalarWhereInput | reviewsScalarWhereInput[]
+    id?: UuidFilter<"reviews"> | string
+    id_book?: UuidFilter<"reviews"> | string
+    comments?: StringFilter<"reviews"> | string
+    rating?: DecimalNullableFilter<"reviews"> | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFilter<"reviews"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"reviews"> | Date | string | null
+    parent?: UuidNullableFilter<"reviews"> | string | null
+    id_user?: UuidFilter<"reviews"> | string
+  }
+
+  export type reviews_likesUpsertWithWhereUniqueWithoutAuth_userInput = {
+    where: reviews_likesWhereUniqueInput
+    update: XOR<reviews_likesUpdateWithoutAuth_userInput, reviews_likesUncheckedUpdateWithoutAuth_userInput>
+    create: XOR<reviews_likesCreateWithoutAuth_userInput, reviews_likesUncheckedCreateWithoutAuth_userInput>
+  }
+
+  export type reviews_likesUpdateWithWhereUniqueWithoutAuth_userInput = {
+    where: reviews_likesWhereUniqueInput
+    data: XOR<reviews_likesUpdateWithoutAuth_userInput, reviews_likesUncheckedUpdateWithoutAuth_userInput>
+  }
+
+  export type reviews_likesUpdateManyWithWhereWithoutAuth_userInput = {
+    where: reviews_likesScalarWhereInput
+    data: XOR<reviews_likesUpdateManyMutationInput, reviews_likesUncheckedUpdateManyWithoutAuth_userInput>
+  }
+
+  export type reviews_likesScalarWhereInput = {
+    AND?: reviews_likesScalarWhereInput | reviews_likesScalarWhereInput[]
+    OR?: reviews_likesScalarWhereInput[]
+    NOT?: reviews_likesScalarWhereInput | reviews_likesScalarWhereInput[]
+    id?: UuidFilter<"reviews_likes"> | string
+    id_reviews?: UuidFilter<"reviews_likes"> | string
+    id_user?: UuidFilter<"reviews_likes"> | string
+  }
+
   export type auth_userCreateWithoutAuthorInput = {
     id?: string
     name: string
@@ -62395,6 +68760,8 @@ export namespace Prisma {
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
     sales_and_marketing?: sales_and_marketingCreateNestedOneWithoutAuth_userInput
     support?: supportCreateNestedOneWithoutAuth_userInput
+    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userUncheckedCreateWithoutAuthorInput = {
@@ -62417,6 +68784,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userCreateOrConnectWithoutAuthorInput = {
@@ -62501,7 +68870,10 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    book_genre?: book_genreCreateNestedManyWithoutBookInput
     book_history?: book_historyCreateNestedManyWithoutBookInput
+    book_tags?: book_tagsCreateNestedManyWithoutBookInput
+    reviews?: reviewsCreateNestedManyWithoutBookInput
   }
 
   export type bookUncheckedCreateWithoutAuthorInput = {
@@ -62525,7 +68897,10 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
     book_history?: book_historyUncheckedCreateNestedManyWithoutBookInput
+    book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutBookInput
   }
 
   export type bookCreateOrConnectWithoutAuthorInput = {
@@ -62565,7 +68940,6 @@ export namespace Prisma {
     customer_reader?: customer_readerCreateNestedManyWithoutProductInput
     preorder?: preorderCreateNestedManyWithoutProductInput
     product_category?: product_categoryCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineCreateNestedManyWithoutProductInput
   }
@@ -62597,7 +68971,6 @@ export namespace Prisma {
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
     preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
     product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsUncheckedCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineUncheckedCreateNestedManyWithoutProductInput
   }
@@ -62840,6 +69213,26 @@ export namespace Prisma {
     create: XOR<authorCreateWithoutBookInput, authorUncheckedCreateWithoutBookInput>
   }
 
+  export type book_genreCreateWithoutBookInput = {
+    id?: string
+    genre: genreCreateNestedOneWithoutBook_genreInput
+  }
+
+  export type book_genreUncheckedCreateWithoutBookInput = {
+    id?: string
+    id_genre: string
+  }
+
+  export type book_genreCreateOrConnectWithoutBookInput = {
+    where: book_genreWhereUniqueInput
+    create: XOR<book_genreCreateWithoutBookInput, book_genreUncheckedCreateWithoutBookInput>
+  }
+
+  export type book_genreCreateManyBookInputEnvelope = {
+    data: book_genreCreateManyBookInput | book_genreCreateManyBookInput[]
+    skipDuplicates?: boolean
+  }
+
   export type book_historyCreateWithoutBookInput = {
     created_at?: Date | string
     description: string
@@ -62857,6 +69250,58 @@ export namespace Prisma {
 
   export type book_historyCreateManyBookInputEnvelope = {
     data: book_historyCreateManyBookInput | book_historyCreateManyBookInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type book_tagsCreateWithoutBookInput = {
+    id?: string
+    tags: tagsCreateNestedOneWithoutBook_tagsInput
+  }
+
+  export type book_tagsUncheckedCreateWithoutBookInput = {
+    id?: string
+    id_tags: string
+  }
+
+  export type book_tagsCreateOrConnectWithoutBookInput = {
+    where: book_tagsWhereUniqueInput
+    create: XOR<book_tagsCreateWithoutBookInput, book_tagsUncheckedCreateWithoutBookInput>
+  }
+
+  export type book_tagsCreateManyBookInputEnvelope = {
+    data: book_tagsCreateManyBookInput | book_tagsCreateManyBookInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type reviewsCreateWithoutBookInput = {
+    id?: string
+    comments: string
+    rating?: Decimal | DecimalJsLike | number | string | null
+    created_at: Date | string
+    deleted_at?: Date | string | null
+    parent?: string | null
+    auth_user: auth_userCreateNestedOneWithoutReviewsInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutReviewsInput
+  }
+
+  export type reviewsUncheckedCreateWithoutBookInput = {
+    id?: string
+    comments: string
+    rating?: Decimal | DecimalJsLike | number | string | null
+    created_at: Date | string
+    deleted_at?: Date | string | null
+    parent?: string | null
+    id_user: string
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutReviewsInput
+  }
+
+  export type reviewsCreateOrConnectWithoutBookInput = {
+    where: reviewsWhereUniqueInput
+    create: XOR<reviewsCreateWithoutBookInput, reviewsUncheckedCreateWithoutBookInput>
+  }
+
+  export type reviewsCreateManyBookInputEnvelope = {
+    data: reviewsCreateManyBookInput | reviewsCreateManyBookInput[]
     skipDuplicates?: boolean
   }
 
@@ -62889,6 +69334,31 @@ export namespace Prisma {
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
+  export type book_genreUpsertWithWhereUniqueWithoutBookInput = {
+    where: book_genreWhereUniqueInput
+    update: XOR<book_genreUpdateWithoutBookInput, book_genreUncheckedUpdateWithoutBookInput>
+    create: XOR<book_genreCreateWithoutBookInput, book_genreUncheckedCreateWithoutBookInput>
+  }
+
+  export type book_genreUpdateWithWhereUniqueWithoutBookInput = {
+    where: book_genreWhereUniqueInput
+    data: XOR<book_genreUpdateWithoutBookInput, book_genreUncheckedUpdateWithoutBookInput>
+  }
+
+  export type book_genreUpdateManyWithWhereWithoutBookInput = {
+    where: book_genreScalarWhereInput
+    data: XOR<book_genreUpdateManyMutationInput, book_genreUncheckedUpdateManyWithoutBookInput>
+  }
+
+  export type book_genreScalarWhereInput = {
+    AND?: book_genreScalarWhereInput | book_genreScalarWhereInput[]
+    OR?: book_genreScalarWhereInput[]
+    NOT?: book_genreScalarWhereInput | book_genreScalarWhereInput[]
+    id?: UuidFilter<"book_genre"> | string
+    id_genre?: UuidFilter<"book_genre"> | string
+    id_book?: UuidFilter<"book_genre"> | string
+  }
+
   export type book_historyUpsertWithWhereUniqueWithoutBookInput = {
     where: book_historyWhereUniqueInput
     update: XOR<book_historyUpdateWithoutBookInput, book_historyUncheckedUpdateWithoutBookInput>
@@ -62914,6 +69384,47 @@ export namespace Prisma {
     description?: StringFilter<"book_history"> | string
   }
 
+  export type book_tagsUpsertWithWhereUniqueWithoutBookInput = {
+    where: book_tagsWhereUniqueInput
+    update: XOR<book_tagsUpdateWithoutBookInput, book_tagsUncheckedUpdateWithoutBookInput>
+    create: XOR<book_tagsCreateWithoutBookInput, book_tagsUncheckedCreateWithoutBookInput>
+  }
+
+  export type book_tagsUpdateWithWhereUniqueWithoutBookInput = {
+    where: book_tagsWhereUniqueInput
+    data: XOR<book_tagsUpdateWithoutBookInput, book_tagsUncheckedUpdateWithoutBookInput>
+  }
+
+  export type book_tagsUpdateManyWithWhereWithoutBookInput = {
+    where: book_tagsScalarWhereInput
+    data: XOR<book_tagsUpdateManyMutationInput, book_tagsUncheckedUpdateManyWithoutBookInput>
+  }
+
+  export type book_tagsScalarWhereInput = {
+    AND?: book_tagsScalarWhereInput | book_tagsScalarWhereInput[]
+    OR?: book_tagsScalarWhereInput[]
+    NOT?: book_tagsScalarWhereInput | book_tagsScalarWhereInput[]
+    id?: UuidFilter<"book_tags"> | string
+    id_tags?: UuidFilter<"book_tags"> | string
+    id_book?: UuidFilter<"book_tags"> | string
+  }
+
+  export type reviewsUpsertWithWhereUniqueWithoutBookInput = {
+    where: reviewsWhereUniqueInput
+    update: XOR<reviewsUpdateWithoutBookInput, reviewsUncheckedUpdateWithoutBookInput>
+    create: XOR<reviewsCreateWithoutBookInput, reviewsUncheckedCreateWithoutBookInput>
+  }
+
+  export type reviewsUpdateWithWhereUniqueWithoutBookInput = {
+    where: reviewsWhereUniqueInput
+    data: XOR<reviewsUpdateWithoutBookInput, reviewsUncheckedUpdateWithoutBookInput>
+  }
+
+  export type reviewsUpdateManyWithWhereWithoutBookInput = {
+    where: reviewsScalarWhereInput
+    data: XOR<reviewsUpdateManyMutationInput, reviewsUncheckedUpdateManyWithoutBookInput>
+  }
+
   export type bookCreateWithoutBook_historyInput = {
     id?: string
     name: string
@@ -62936,6 +69447,9 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     author?: authorCreateNestedOneWithoutBookInput
+    book_genre?: book_genreCreateNestedManyWithoutBookInput
+    book_tags?: book_tagsCreateNestedManyWithoutBookInput
+    reviews?: reviewsCreateNestedManyWithoutBookInput
   }
 
   export type bookUncheckedCreateWithoutBook_historyInput = {
@@ -62960,6 +69474,9 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
+    book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutBookInput
   }
 
   export type bookCreateOrConnectWithoutBook_historyInput = {
@@ -63000,6 +69517,9 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     author?: authorUpdateOneWithoutBookNestedInput
+    book_genre?: book_genreUpdateManyWithoutBookNestedInput
+    book_tags?: book_tagsUpdateManyWithoutBookNestedInput
+    reviews?: reviewsUpdateManyWithoutBookNestedInput
   }
 
   export type bookUncheckedUpdateWithoutBook_historyInput = {
@@ -63024,6 +69544,9 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
+    book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutBookNestedInput
   }
 
   export type bundle_categoryCreateWithoutBundleInput = {
@@ -63392,7 +69915,6 @@ export namespace Prisma {
     preorder?: preorderCreateNestedManyWithoutProductInput
     author?: authorCreateNestedOneWithoutProductInput
     product_category?: product_categoryCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineCreateNestedManyWithoutProductInput
   }
@@ -63424,7 +69946,6 @@ export namespace Prisma {
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
     preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
     product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsUncheckedCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineUncheckedCreateNestedManyWithoutProductInput
   }
@@ -63519,7 +70040,6 @@ export namespace Prisma {
     preorder?: preorderUpdateManyWithoutProductNestedInput
     author?: authorUpdateOneWithoutProductNestedInput
     product_category?: product_categoryUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUpdateManyWithoutProductNestedInput
   }
@@ -63551,7 +70071,6 @@ export namespace Prisma {
     customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
     preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUncheckedUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -63784,7 +70303,6 @@ export namespace Prisma {
     preorder?: preorderCreateNestedManyWithoutProductInput
     author?: authorCreateNestedOneWithoutProductInput
     product_category?: product_categoryCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineCreateNestedManyWithoutProductInput
   }
@@ -63816,7 +70334,6 @@ export namespace Prisma {
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
     preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
     product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsUncheckedCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineUncheckedCreateNestedManyWithoutProductInput
   }
@@ -63864,7 +70381,6 @@ export namespace Prisma {
     preorder?: preorderUpdateManyWithoutProductNestedInput
     author?: authorUpdateOneWithoutProductNestedInput
     product_category?: product_categoryUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUpdateManyWithoutProductNestedInput
   }
@@ -63896,7 +70412,6 @@ export namespace Prisma {
     customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
     preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUncheckedUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -63921,6 +70436,8 @@ export namespace Prisma {
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
     sales_and_marketing?: sales_and_marketingCreateNestedOneWithoutAuth_userInput
     support?: supportCreateNestedOneWithoutAuth_userInput
+    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userUncheckedCreateWithoutCustomerInput = {
@@ -63943,6 +70460,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userCreateOrConnectWithoutCustomerInput = {
@@ -64378,7 +70897,6 @@ export namespace Prisma {
     preorder?: preorderCreateNestedManyWithoutProductInput
     author?: authorCreateNestedOneWithoutProductInput
     product_category?: product_categoryCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineCreateNestedManyWithoutProductInput
   }
@@ -64410,7 +70928,6 @@ export namespace Prisma {
     chapter?: chapterUncheckedCreateNestedManyWithoutProductInput
     preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
     product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsUncheckedCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineUncheckedCreateNestedManyWithoutProductInput
   }
@@ -64497,7 +71014,6 @@ export namespace Prisma {
     preorder?: preorderUpdateManyWithoutProductNestedInput
     author?: authorUpdateOneWithoutProductNestedInput
     product_category?: product_categoryUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUpdateManyWithoutProductNestedInput
   }
@@ -64529,7 +71045,6 @@ export namespace Prisma {
     chapter?: chapterUncheckedUpdateManyWithoutProductNestedInput
     preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUncheckedUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -64738,6 +71253,8 @@ export namespace Prisma {
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
     sales_and_marketing?: sales_and_marketingCreateNestedOneWithoutAuth_userInput
     support?: supportCreateNestedOneWithoutAuth_userInput
+    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userUncheckedCreateWithoutManagementInput = {
@@ -64760,6 +71277,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userCreateOrConnectWithoutManagementInput = {
@@ -64923,7 +71442,6 @@ export namespace Prisma {
     customer_reader?: customer_readerCreateNestedManyWithoutProductInput
     author?: authorCreateNestedOneWithoutProductInput
     product_category?: product_categoryCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineCreateNestedManyWithoutProductInput
   }
@@ -64955,7 +71473,6 @@ export namespace Prisma {
     chapter?: chapterUncheckedCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
     product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsUncheckedCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineUncheckedCreateNestedManyWithoutProductInput
   }
@@ -65003,7 +71520,6 @@ export namespace Prisma {
     customer_reader?: customer_readerUpdateManyWithoutProductNestedInput
     author?: authorUpdateOneWithoutProductNestedInput
     product_category?: product_categoryUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUpdateManyWithoutProductNestedInput
   }
@@ -65035,7 +71551,6 @@ export namespace Prisma {
     chapter?: chapterUncheckedUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUncheckedUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -65174,26 +71689,6 @@ export namespace Prisma {
 
   export type product_categoryCreateManyProductInputEnvelope = {
     data: product_categoryCreateManyProductInput | product_categoryCreateManyProductInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type product_tagsCreateWithoutProductInput = {
-    id?: string
-    tags: tagsCreateNestedOneWithoutProduct_tagsInput
-  }
-
-  export type product_tagsUncheckedCreateWithoutProductInput = {
-    id_tags: string
-    id?: string
-  }
-
-  export type product_tagsCreateOrConnectWithoutProductInput = {
-    where: product_tagsWhereUniqueInput
-    create: XOR<product_tagsCreateWithoutProductInput, product_tagsUncheckedCreateWithoutProductInput>
-  }
-
-  export type product_tagsCreateManyProductInputEnvelope = {
-    data: product_tagsCreateManyProductInput | product_tagsCreateManyProductInput[]
     skipDuplicates?: boolean
   }
 
@@ -65382,31 +71877,6 @@ export namespace Prisma {
     data: XOR<product_categoryUpdateManyMutationInput, product_categoryUncheckedUpdateManyWithoutProductInput>
   }
 
-  export type product_tagsUpsertWithWhereUniqueWithoutProductInput = {
-    where: product_tagsWhereUniqueInput
-    update: XOR<product_tagsUpdateWithoutProductInput, product_tagsUncheckedUpdateWithoutProductInput>
-    create: XOR<product_tagsCreateWithoutProductInput, product_tagsUncheckedCreateWithoutProductInput>
-  }
-
-  export type product_tagsUpdateWithWhereUniqueWithoutProductInput = {
-    where: product_tagsWhereUniqueInput
-    data: XOR<product_tagsUpdateWithoutProductInput, product_tagsUncheckedUpdateWithoutProductInput>
-  }
-
-  export type product_tagsUpdateManyWithWhereWithoutProductInput = {
-    where: product_tagsScalarWhereInput
-    data: XOR<product_tagsUpdateManyMutationInput, product_tagsUncheckedUpdateManyWithoutProductInput>
-  }
-
-  export type product_tagsScalarWhereInput = {
-    AND?: product_tagsScalarWhereInput | product_tagsScalarWhereInput[]
-    OR?: product_tagsScalarWhereInput[]
-    NOT?: product_tagsScalarWhereInput | product_tagsScalarWhereInput[]
-    id_product?: UuidFilter<"product_tags"> | string
-    id_tags?: UuidFilter<"product_tags"> | string
-    id?: UuidFilter<"product_tags"> | string
-  }
-
   export type t_sales_downloadUpsertWithWhereUniqueWithoutProductInput = {
     where: t_sales_downloadWhereUniqueInput
     update: XOR<t_sales_downloadUpdateWithoutProductInput, t_sales_downloadUncheckedUpdateWithoutProductInput>
@@ -65493,7 +71963,6 @@ export namespace Prisma {
     customer_reader?: customer_readerCreateNestedManyWithoutProductInput
     preorder?: preorderCreateNestedManyWithoutProductInput
     author?: authorCreateNestedOneWithoutProductInput
-    product_tags?: product_tagsCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineCreateNestedManyWithoutProductInput
   }
@@ -65525,7 +71994,6 @@ export namespace Prisma {
     chapter?: chapterUncheckedCreateNestedManyWithoutProductInput
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
     preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsUncheckedCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineUncheckedCreateNestedManyWithoutProductInput
   }
@@ -65606,7 +72074,6 @@ export namespace Prisma {
     customer_reader?: customer_readerUpdateManyWithoutProductNestedInput
     preorder?: preorderUpdateManyWithoutProductNestedInput
     author?: authorUpdateOneWithoutProductNestedInput
-    product_tags?: product_tagsUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUpdateManyWithoutProductNestedInput
   }
@@ -65638,7 +72105,6 @@ export namespace Prisma {
     chapter?: chapterUncheckedUpdateManyWithoutProductNestedInput
     customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
     preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUncheckedUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -65723,6 +72189,8 @@ export namespace Prisma {
     management?: managementCreateNestedOneWithoutAuth_userInput
     sales_and_marketing?: sales_and_marketingCreateNestedOneWithoutAuth_userInput
     support?: supportCreateNestedOneWithoutAuth_userInput
+    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userUncheckedCreateWithoutPublisherInput = {
@@ -65745,6 +72213,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userCreateOrConnectWithoutPublisherInput = {
@@ -66273,6 +72743,8 @@ export namespace Prisma {
     management?: managementCreateNestedOneWithoutAuth_userInput
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
     support?: supportCreateNestedOneWithoutAuth_userInput
+    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userUncheckedCreateWithoutSales_and_marketingInput = {
@@ -66295,6 +72767,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userCreateOrConnectWithoutSales_and_marketingInput = {
@@ -66451,6 +72925,8 @@ export namespace Prisma {
     management?: managementCreateNestedOneWithoutAuth_userInput
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
     sales_and_marketing?: sales_and_marketingCreateNestedOneWithoutAuth_userInput
+    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userUncheckedCreateWithoutSupportInput = {
@@ -66473,6 +72949,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
   export type auth_userCreateOrConnectWithoutSupportInput = {
@@ -66941,7 +73419,6 @@ export namespace Prisma {
     preorder?: preorderCreateNestedManyWithoutProductInput
     author?: authorCreateNestedOneWithoutProductInput
     product_category?: product_categoryCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineCreateNestedManyWithoutProductInput
   }
 
@@ -66973,7 +73450,6 @@ export namespace Prisma {
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
     preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
     product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsUncheckedCreateNestedManyWithoutProductInput
     t_sales_line?: t_sales_lineUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -67060,7 +73536,6 @@ export namespace Prisma {
     preorder?: preorderUpdateManyWithoutProductNestedInput
     author?: authorUpdateOneWithoutProductNestedInput
     product_category?: product_categoryUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUpdateManyWithoutProductNestedInput
   }
 
@@ -67092,7 +73567,6 @@ export namespace Prisma {
     customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
     preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUncheckedUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -67165,7 +73639,6 @@ export namespace Prisma {
     preorder?: preorderCreateNestedManyWithoutProductInput
     author?: authorCreateNestedOneWithoutProductInput
     product_category?: product_categoryCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadCreateNestedManyWithoutProductInput
   }
 
@@ -67197,7 +73670,6 @@ export namespace Prisma {
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
     preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
     product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
-    product_tags?: product_tagsUncheckedCreateNestedManyWithoutProductInput
     t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -67329,7 +73801,6 @@ export namespace Prisma {
     preorder?: preorderUpdateManyWithoutProductNestedInput
     author?: authorUpdateOneWithoutProductNestedInput
     product_category?: product_categoryUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUpdateManyWithoutProductNestedInput
   }
 
@@ -67361,7 +73832,6 @@ export namespace Prisma {
     customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
     preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUncheckedUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -67528,13 +73998,162 @@ export namespace Prisma {
     transaction?: transactionUncheckedUpdateManyWithoutPublisherNestedInput
   }
 
-  export type productCreateWithoutProduct_tagsInput = {
+  export type book_tagsCreateWithoutTagsInput = {
+    id?: string
+    book: bookCreateNestedOneWithoutBook_tagsInput
+  }
+
+  export type book_tagsUncheckedCreateWithoutTagsInput = {
+    id?: string
+    id_book: string
+  }
+
+  export type book_tagsCreateOrConnectWithoutTagsInput = {
+    where: book_tagsWhereUniqueInput
+    create: XOR<book_tagsCreateWithoutTagsInput, book_tagsUncheckedCreateWithoutTagsInput>
+  }
+
+  export type book_tagsCreateManyTagsInputEnvelope = {
+    data: book_tagsCreateManyTagsInput | book_tagsCreateManyTagsInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type tagsCreateWithoutOther_tagsInput = {
+    id?: string
+    name: string
+    deleted_at?: Date | string | null
+    slug?: string | null
+    img?: string | null
+    book_tags?: book_tagsCreateNestedManyWithoutTagsInput
+    tags?: tagsCreateNestedOneWithoutOther_tagsInput
+  }
+
+  export type tagsUncheckedCreateWithoutOther_tagsInput = {
+    id?: string
+    name: string
+    id_parent?: string | null
+    deleted_at?: Date | string | null
+    slug?: string | null
+    img?: string | null
+    book_tags?: book_tagsUncheckedCreateNestedManyWithoutTagsInput
+  }
+
+  export type tagsCreateOrConnectWithoutOther_tagsInput = {
+    where: tagsWhereUniqueInput
+    create: XOR<tagsCreateWithoutOther_tagsInput, tagsUncheckedCreateWithoutOther_tagsInput>
+  }
+
+  export type tagsCreateWithoutTagsInput = {
+    id?: string
+    name: string
+    deleted_at?: Date | string | null
+    slug?: string | null
+    img?: string | null
+    book_tags?: book_tagsCreateNestedManyWithoutTagsInput
+    other_tags?: tagsCreateNestedManyWithoutTagsInput
+  }
+
+  export type tagsUncheckedCreateWithoutTagsInput = {
+    id?: string
+    name: string
+    deleted_at?: Date | string | null
+    slug?: string | null
+    img?: string | null
+    book_tags?: book_tagsUncheckedCreateNestedManyWithoutTagsInput
+    other_tags?: tagsUncheckedCreateNestedManyWithoutTagsInput
+  }
+
+  export type tagsCreateOrConnectWithoutTagsInput = {
+    where: tagsWhereUniqueInput
+    create: XOR<tagsCreateWithoutTagsInput, tagsUncheckedCreateWithoutTagsInput>
+  }
+
+  export type tagsCreateManyTagsInputEnvelope = {
+    data: tagsCreateManyTagsInput | tagsCreateManyTagsInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type book_tagsUpsertWithWhereUniqueWithoutTagsInput = {
+    where: book_tagsWhereUniqueInput
+    update: XOR<book_tagsUpdateWithoutTagsInput, book_tagsUncheckedUpdateWithoutTagsInput>
+    create: XOR<book_tagsCreateWithoutTagsInput, book_tagsUncheckedCreateWithoutTagsInput>
+  }
+
+  export type book_tagsUpdateWithWhereUniqueWithoutTagsInput = {
+    where: book_tagsWhereUniqueInput
+    data: XOR<book_tagsUpdateWithoutTagsInput, book_tagsUncheckedUpdateWithoutTagsInput>
+  }
+
+  export type book_tagsUpdateManyWithWhereWithoutTagsInput = {
+    where: book_tagsScalarWhereInput
+    data: XOR<book_tagsUpdateManyMutationInput, book_tagsUncheckedUpdateManyWithoutTagsInput>
+  }
+
+  export type tagsUpsertWithoutOther_tagsInput = {
+    update: XOR<tagsUpdateWithoutOther_tagsInput, tagsUncheckedUpdateWithoutOther_tagsInput>
+    create: XOR<tagsCreateWithoutOther_tagsInput, tagsUncheckedCreateWithoutOther_tagsInput>
+    where?: tagsWhereInput
+  }
+
+  export type tagsUpdateToOneWithWhereWithoutOther_tagsInput = {
+    where?: tagsWhereInput
+    data: XOR<tagsUpdateWithoutOther_tagsInput, tagsUncheckedUpdateWithoutOther_tagsInput>
+  }
+
+  export type tagsUpdateWithoutOther_tagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    book_tags?: book_tagsUpdateManyWithoutTagsNestedInput
+    tags?: tagsUpdateOneWithoutOther_tagsNestedInput
+  }
+
+  export type tagsUncheckedUpdateWithoutOther_tagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    id_parent?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    book_tags?: book_tagsUncheckedUpdateManyWithoutTagsNestedInput
+  }
+
+  export type tagsUpsertWithWhereUniqueWithoutTagsInput = {
+    where: tagsWhereUniqueInput
+    update: XOR<tagsUpdateWithoutTagsInput, tagsUncheckedUpdateWithoutTagsInput>
+    create: XOR<tagsCreateWithoutTagsInput, tagsUncheckedCreateWithoutTagsInput>
+  }
+
+  export type tagsUpdateWithWhereUniqueWithoutTagsInput = {
+    where: tagsWhereUniqueInput
+    data: XOR<tagsUpdateWithoutTagsInput, tagsUncheckedUpdateWithoutTagsInput>
+  }
+
+  export type tagsUpdateManyWithWhereWithoutTagsInput = {
+    where: tagsScalarWhereInput
+    data: XOR<tagsUpdateManyMutationInput, tagsUncheckedUpdateManyWithoutTagsInput>
+  }
+
+  export type tagsScalarWhereInput = {
+    AND?: tagsScalarWhereInput | tagsScalarWhereInput[]
+    OR?: tagsScalarWhereInput[]
+    NOT?: tagsScalarWhereInput | tagsScalarWhereInput[]
+    id?: UuidFilter<"tags"> | string
+    name?: StringFilter<"tags"> | string
+    id_parent?: UuidNullableFilter<"tags"> | string | null
+    deleted_at?: DateTimeNullableFilter<"tags"> | Date | string | null
+    slug?: StringNullableFilter<"tags"> | string | null
+    img?: StringNullableFilter<"tags"> | string | null
+  }
+
+  export type bookCreateWithoutReviewsInput = {
     id?: string
     name: string
     slug: string
     alias?: string
-    strike_price?: Decimal | DecimalJsLike | number | string | null
-    real_price: Decimal | DecimalJsLike | number | string
+    submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
     info?: JsonNullValueInput | InputJsonValue
     status?: string
@@ -67550,23 +74169,18 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
-    bundle_product?: bundle_productCreateNestedManyWithoutProductInput
-    chapter?: chapterCreateNestedManyWithoutProductInput
-    customer_reader?: customer_readerCreateNestedManyWithoutProductInput
-    preorder?: preorderCreateNestedManyWithoutProductInput
-    author?: authorCreateNestedOneWithoutProductInput
-    product_category?: product_categoryCreateNestedManyWithoutProductInput
-    t_sales_download?: t_sales_downloadCreateNestedManyWithoutProductInput
-    t_sales_line?: t_sales_lineCreateNestedManyWithoutProductInput
+    author?: authorCreateNestedOneWithoutBookInput
+    book_genre?: book_genreCreateNestedManyWithoutBookInput
+    book_history?: book_historyCreateNestedManyWithoutBookInput
+    book_tags?: book_tagsCreateNestedManyWithoutBookInput
   }
 
-  export type productUncheckedCreateWithoutProduct_tagsInput = {
+  export type bookUncheckedCreateWithoutReviewsInput = {
     id?: string
     name: string
     slug: string
     alias?: string
-    strike_price?: Decimal | DecimalJsLike | number | string | null
-    real_price: Decimal | DecimalJsLike | number | string
+    submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
     info?: JsonNullValueInput | InputJsonValue
     status?: string
@@ -67583,61 +74197,106 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
-    bundle_product?: bundle_productUncheckedCreateNestedManyWithoutProductInput
-    chapter?: chapterUncheckedCreateNestedManyWithoutProductInput
-    customer_reader?: customer_readerUncheckedCreateNestedManyWithoutProductInput
-    preorder?: preorderUncheckedCreateNestedManyWithoutProductInput
-    product_category?: product_categoryUncheckedCreateNestedManyWithoutProductInput
-    t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutProductInput
-    t_sales_line?: t_sales_lineUncheckedCreateNestedManyWithoutProductInput
+    book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
+    book_history?: book_historyUncheckedCreateNestedManyWithoutBookInput
+    book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
   }
 
-  export type productCreateOrConnectWithoutProduct_tagsInput = {
-    where: productWhereUniqueInput
-    create: XOR<productCreateWithoutProduct_tagsInput, productUncheckedCreateWithoutProduct_tagsInput>
+  export type bookCreateOrConnectWithoutReviewsInput = {
+    where: bookWhereUniqueInput
+    create: XOR<bookCreateWithoutReviewsInput, bookUncheckedCreateWithoutReviewsInput>
   }
 
-  export type tagsCreateWithoutProduct_tagsInput = {
+  export type auth_userCreateWithoutReviewsInput = {
     id?: string
     name: string
-    id_parent?: string | null
-    deleted_at?: Date | string | null
-    slug?: string | null
-    img?: string | null
+    email: string
+    email_verified?: boolean
+    image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string | null
+    username?: string | null
+    display_username?: string | null
+    two_factor_enabled?: boolean | null
+    auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
+    auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
+    auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
+    affiliate?: affiliateCreateNestedOneWithoutAuth_userInput
+    author?: authorCreateNestedOneWithoutAuth_userInput
+    customer?: customerCreateNestedOneWithoutAuth_userInput
+    management?: managementCreateNestedOneWithoutAuth_userInput
+    publisher?: publisherCreateNestedOneWithoutAuth_userInput
+    sales_and_marketing?: sales_and_marketingCreateNestedOneWithoutAuth_userInput
+    support?: supportCreateNestedOneWithoutAuth_userInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
-  export type tagsUncheckedCreateWithoutProduct_tagsInput = {
+  export type auth_userUncheckedCreateWithoutReviewsInput = {
     id?: string
     name: string
-    id_parent?: string | null
-    deleted_at?: Date | string | null
-    slug?: string | null
-    img?: string | null
+    email: string
+    email_verified?: boolean
+    image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string | null
+    username?: string | null
+    display_username?: string | null
+    two_factor_enabled?: boolean | null
+    id_customer?: string | null
+    id_author?: string | null
+    id_affiliate?: string | null
+    id_management?: string | null
+    id_publisher?: string | null
+    id_sales_and_marketing?: string | null
+    id_support?: string | null
+    auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
+    auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
+    auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
-  export type tagsCreateOrConnectWithoutProduct_tagsInput = {
-    where: tagsWhereUniqueInput
-    create: XOR<tagsCreateWithoutProduct_tagsInput, tagsUncheckedCreateWithoutProduct_tagsInput>
+  export type auth_userCreateOrConnectWithoutReviewsInput = {
+    where: auth_userWhereUniqueInput
+    create: XOR<auth_userCreateWithoutReviewsInput, auth_userUncheckedCreateWithoutReviewsInput>
   }
 
-  export type productUpsertWithoutProduct_tagsInput = {
-    update: XOR<productUpdateWithoutProduct_tagsInput, productUncheckedUpdateWithoutProduct_tagsInput>
-    create: XOR<productCreateWithoutProduct_tagsInput, productUncheckedCreateWithoutProduct_tagsInput>
-    where?: productWhereInput
+  export type reviews_likesCreateWithoutReviewsInput = {
+    id?: string
+    auth_user: auth_userCreateNestedOneWithoutReviews_likesInput
   }
 
-  export type productUpdateToOneWithWhereWithoutProduct_tagsInput = {
-    where?: productWhereInput
-    data: XOR<productUpdateWithoutProduct_tagsInput, productUncheckedUpdateWithoutProduct_tagsInput>
+  export type reviews_likesUncheckedCreateWithoutReviewsInput = {
+    id?: string
+    id_user: string
   }
 
-  export type productUpdateWithoutProduct_tagsInput = {
+  export type reviews_likesCreateOrConnectWithoutReviewsInput = {
+    where: reviews_likesWhereUniqueInput
+    create: XOR<reviews_likesCreateWithoutReviewsInput, reviews_likesUncheckedCreateWithoutReviewsInput>
+  }
+
+  export type reviews_likesCreateManyReviewsInputEnvelope = {
+    data: reviews_likesCreateManyReviewsInput | reviews_likesCreateManyReviewsInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type bookUpsertWithoutReviewsInput = {
+    update: XOR<bookUpdateWithoutReviewsInput, bookUncheckedUpdateWithoutReviewsInput>
+    create: XOR<bookCreateWithoutReviewsInput, bookUncheckedCreateWithoutReviewsInput>
+    where?: bookWhereInput
+  }
+
+  export type bookUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: bookWhereInput
+    data: XOR<bookUpdateWithoutReviewsInput, bookUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type bookUpdateWithoutReviewsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     alias?: StringFieldUpdateOperationsInput | string
-    strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
     info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
@@ -67653,23 +74312,18 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
-    bundle_product?: bundle_productUpdateManyWithoutProductNestedInput
-    chapter?: chapterUpdateManyWithoutProductNestedInput
-    customer_reader?: customer_readerUpdateManyWithoutProductNestedInput
-    preorder?: preorderUpdateManyWithoutProductNestedInput
-    author?: authorUpdateOneWithoutProductNestedInput
-    product_category?: product_categoryUpdateManyWithoutProductNestedInput
-    t_sales_download?: t_sales_downloadUpdateManyWithoutProductNestedInput
-    t_sales_line?: t_sales_lineUpdateManyWithoutProductNestedInput
+    author?: authorUpdateOneWithoutBookNestedInput
+    book_genre?: book_genreUpdateManyWithoutBookNestedInput
+    book_history?: book_historyUpdateManyWithoutBookNestedInput
+    book_tags?: book_tagsUpdateManyWithoutBookNestedInput
   }
 
-  export type productUncheckedUpdateWithoutProduct_tagsInput = {
+  export type bookUncheckedUpdateWithoutReviewsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     alias?: StringFieldUpdateOperationsInput | string
-    strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
     info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
@@ -67686,78 +74340,766 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
-    bundle_product?: bundle_productUncheckedUpdateManyWithoutProductNestedInput
-    chapter?: chapterUncheckedUpdateManyWithoutProductNestedInput
-    customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
-    preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
-    product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
-    t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutProductNestedInput
-    t_sales_line?: t_sales_lineUncheckedUpdateManyWithoutProductNestedInput
+    book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
+    book_history?: book_historyUncheckedUpdateManyWithoutBookNestedInput
+    book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
   }
 
-  export type tagsUpsertWithoutProduct_tagsInput = {
-    update: XOR<tagsUpdateWithoutProduct_tagsInput, tagsUncheckedUpdateWithoutProduct_tagsInput>
-    create: XOR<tagsCreateWithoutProduct_tagsInput, tagsUncheckedCreateWithoutProduct_tagsInput>
+  export type auth_userUpsertWithoutReviewsInput = {
+    update: XOR<auth_userUpdateWithoutReviewsInput, auth_userUncheckedUpdateWithoutReviewsInput>
+    create: XOR<auth_userCreateWithoutReviewsInput, auth_userUncheckedCreateWithoutReviewsInput>
+    where?: auth_userWhereInput
+  }
+
+  export type auth_userUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: auth_userWhereInput
+    data: XOR<auth_userUpdateWithoutReviewsInput, auth_userUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type auth_userUpdateWithoutReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    display_username?: NullableStringFieldUpdateOperationsInput | string | null
+    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
+    auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
+    auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
+    affiliate?: affiliateUpdateOneWithoutAuth_userNestedInput
+    author?: authorUpdateOneWithoutAuth_userNestedInput
+    customer?: customerUpdateOneWithoutAuth_userNestedInput
+    management?: managementUpdateOneWithoutAuth_userNestedInput
+    publisher?: publisherUpdateOneWithoutAuth_userNestedInput
+    sales_and_marketing?: sales_and_marketingUpdateOneWithoutAuth_userNestedInput
+    support?: supportUpdateOneWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
+  }
+
+  export type auth_userUncheckedUpdateWithoutReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    display_username?: NullableStringFieldUpdateOperationsInput | string | null
+    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    id_customer?: NullableStringFieldUpdateOperationsInput | string | null
+    id_author?: NullableStringFieldUpdateOperationsInput | string | null
+    id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    id_management?: NullableStringFieldUpdateOperationsInput | string | null
+    id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
+    id_sales_and_marketing?: NullableStringFieldUpdateOperationsInput | string | null
+    id_support?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
+    auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
+    auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
+  }
+
+  export type reviews_likesUpsertWithWhereUniqueWithoutReviewsInput = {
+    where: reviews_likesWhereUniqueInput
+    update: XOR<reviews_likesUpdateWithoutReviewsInput, reviews_likesUncheckedUpdateWithoutReviewsInput>
+    create: XOR<reviews_likesCreateWithoutReviewsInput, reviews_likesUncheckedCreateWithoutReviewsInput>
+  }
+
+  export type reviews_likesUpdateWithWhereUniqueWithoutReviewsInput = {
+    where: reviews_likesWhereUniqueInput
+    data: XOR<reviews_likesUpdateWithoutReviewsInput, reviews_likesUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type reviews_likesUpdateManyWithWhereWithoutReviewsInput = {
+    where: reviews_likesScalarWhereInput
+    data: XOR<reviews_likesUpdateManyMutationInput, reviews_likesUncheckedUpdateManyWithoutReviewsInput>
+  }
+
+  export type reviewsCreateWithoutReviews_likesInput = {
+    id?: string
+    comments: string
+    rating?: Decimal | DecimalJsLike | number | string | null
+    created_at: Date | string
+    deleted_at?: Date | string | null
+    parent?: string | null
+    book: bookCreateNestedOneWithoutReviewsInput
+    auth_user: auth_userCreateNestedOneWithoutReviewsInput
+  }
+
+  export type reviewsUncheckedCreateWithoutReviews_likesInput = {
+    id?: string
+    id_book: string
+    comments: string
+    rating?: Decimal | DecimalJsLike | number | string | null
+    created_at: Date | string
+    deleted_at?: Date | string | null
+    parent?: string | null
+    id_user: string
+  }
+
+  export type reviewsCreateOrConnectWithoutReviews_likesInput = {
+    where: reviewsWhereUniqueInput
+    create: XOR<reviewsCreateWithoutReviews_likesInput, reviewsUncheckedCreateWithoutReviews_likesInput>
+  }
+
+  export type auth_userCreateWithoutReviews_likesInput = {
+    id?: string
+    name: string
+    email: string
+    email_verified?: boolean
+    image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string | null
+    username?: string | null
+    display_username?: string | null
+    two_factor_enabled?: boolean | null
+    auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
+    auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
+    auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
+    affiliate?: affiliateCreateNestedOneWithoutAuth_userInput
+    author?: authorCreateNestedOneWithoutAuth_userInput
+    customer?: customerCreateNestedOneWithoutAuth_userInput
+    management?: managementCreateNestedOneWithoutAuth_userInput
+    publisher?: publisherCreateNestedOneWithoutAuth_userInput
+    sales_and_marketing?: sales_and_marketingCreateNestedOneWithoutAuth_userInput
+    support?: supportCreateNestedOneWithoutAuth_userInput
+    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
+  }
+
+  export type auth_userUncheckedCreateWithoutReviews_likesInput = {
+    id?: string
+    name: string
+    email: string
+    email_verified?: boolean
+    image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string | null
+    username?: string | null
+    display_username?: string | null
+    two_factor_enabled?: boolean | null
+    id_customer?: string | null
+    id_author?: string | null
+    id_affiliate?: string | null
+    id_management?: string | null
+    id_publisher?: string | null
+    id_sales_and_marketing?: string | null
+    id_support?: string | null
+    auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
+    auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
+    auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
+  }
+
+  export type auth_userCreateOrConnectWithoutReviews_likesInput = {
+    where: auth_userWhereUniqueInput
+    create: XOR<auth_userCreateWithoutReviews_likesInput, auth_userUncheckedCreateWithoutReviews_likesInput>
+  }
+
+  export type reviewsUpsertWithoutReviews_likesInput = {
+    update: XOR<reviewsUpdateWithoutReviews_likesInput, reviewsUncheckedUpdateWithoutReviews_likesInput>
+    create: XOR<reviewsCreateWithoutReviews_likesInput, reviewsUncheckedCreateWithoutReviews_likesInput>
+    where?: reviewsWhereInput
+  }
+
+  export type reviewsUpdateToOneWithWhereWithoutReviews_likesInput = {
+    where?: reviewsWhereInput
+    data: XOR<reviewsUpdateWithoutReviews_likesInput, reviewsUncheckedUpdateWithoutReviews_likesInput>
+  }
+
+  export type reviewsUpdateWithoutReviews_likesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comments?: StringFieldUpdateOperationsInput | string
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    book?: bookUpdateOneRequiredWithoutReviewsNestedInput
+    auth_user?: auth_userUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type reviewsUncheckedUpdateWithoutReviews_likesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_book?: StringFieldUpdateOperationsInput | string
+    comments?: StringFieldUpdateOperationsInput | string
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    id_user?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type auth_userUpsertWithoutReviews_likesInput = {
+    update: XOR<auth_userUpdateWithoutReviews_likesInput, auth_userUncheckedUpdateWithoutReviews_likesInput>
+    create: XOR<auth_userCreateWithoutReviews_likesInput, auth_userUncheckedCreateWithoutReviews_likesInput>
+    where?: auth_userWhereInput
+  }
+
+  export type auth_userUpdateToOneWithWhereWithoutReviews_likesInput = {
+    where?: auth_userWhereInput
+    data: XOR<auth_userUpdateWithoutReviews_likesInput, auth_userUncheckedUpdateWithoutReviews_likesInput>
+  }
+
+  export type auth_userUpdateWithoutReviews_likesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    display_username?: NullableStringFieldUpdateOperationsInput | string | null
+    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
+    auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
+    auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
+    affiliate?: affiliateUpdateOneWithoutAuth_userNestedInput
+    author?: authorUpdateOneWithoutAuth_userNestedInput
+    customer?: customerUpdateOneWithoutAuth_userNestedInput
+    management?: managementUpdateOneWithoutAuth_userNestedInput
+    publisher?: publisherUpdateOneWithoutAuth_userNestedInput
+    sales_and_marketing?: sales_and_marketingUpdateOneWithoutAuth_userNestedInput
+    support?: supportUpdateOneWithoutAuth_userNestedInput
+    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
+  }
+
+  export type auth_userUncheckedUpdateWithoutReviews_likesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    display_username?: NullableStringFieldUpdateOperationsInput | string | null
+    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    id_customer?: NullableStringFieldUpdateOperationsInput | string | null
+    id_author?: NullableStringFieldUpdateOperationsInput | string | null
+    id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    id_management?: NullableStringFieldUpdateOperationsInput | string | null
+    id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
+    id_sales_and_marketing?: NullableStringFieldUpdateOperationsInput | string | null
+    id_support?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
+    auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
+    auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
+  }
+
+  export type bookCreateWithoutBook_genreInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    submitted_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+    is_chapter?: boolean
+    author?: authorCreateNestedOneWithoutBookInput
+    book_history?: book_historyCreateNestedManyWithoutBookInput
+    book_tags?: book_tagsCreateNestedManyWithoutBookInput
+    reviews?: reviewsCreateNestedManyWithoutBookInput
+  }
+
+  export type bookUncheckedCreateWithoutBook_genreInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    submitted_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    id_author?: string | null
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+    is_chapter?: boolean
+    book_history?: book_historyUncheckedCreateNestedManyWithoutBookInput
+    book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutBookInput
+  }
+
+  export type bookCreateOrConnectWithoutBook_genreInput = {
+    where: bookWhereUniqueInput
+    create: XOR<bookCreateWithoutBook_genreInput, bookUncheckedCreateWithoutBook_genreInput>
+  }
+
+  export type genreCreateWithoutBook_genreInput = {
+    id?: string
+    name: string
+    slug?: string | null
+    img?: string | null
+    deleted_at?: Date | string | null
+    genre?: genreCreateNestedOneWithoutOther_genreInput
+    other_genre?: genreCreateNestedManyWithoutGenreInput
+  }
+
+  export type genreUncheckedCreateWithoutBook_genreInput = {
+    id?: string
+    name: string
+    id_parent?: string | null
+    slug?: string | null
+    img?: string | null
+    deleted_at?: Date | string | null
+    other_genre?: genreUncheckedCreateNestedManyWithoutGenreInput
+  }
+
+  export type genreCreateOrConnectWithoutBook_genreInput = {
+    where: genreWhereUniqueInput
+    create: XOR<genreCreateWithoutBook_genreInput, genreUncheckedCreateWithoutBook_genreInput>
+  }
+
+  export type bookUpsertWithoutBook_genreInput = {
+    update: XOR<bookUpdateWithoutBook_genreInput, bookUncheckedUpdateWithoutBook_genreInput>
+    create: XOR<bookCreateWithoutBook_genreInput, bookUncheckedCreateWithoutBook_genreInput>
+    where?: bookWhereInput
+  }
+
+  export type bookUpdateToOneWithWhereWithoutBook_genreInput = {
+    where?: bookWhereInput
+    data: XOR<bookUpdateWithoutBook_genreInput, bookUncheckedUpdateWithoutBook_genreInput>
+  }
+
+  export type bookUpdateWithoutBook_genreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    author?: authorUpdateOneWithoutBookNestedInput
+    book_history?: book_historyUpdateManyWithoutBookNestedInput
+    book_tags?: book_tagsUpdateManyWithoutBookNestedInput
+    reviews?: reviewsUpdateManyWithoutBookNestedInput
+  }
+
+  export type bookUncheckedUpdateWithoutBook_genreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    id_author?: NullableStringFieldUpdateOperationsInput | string | null
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    book_history?: book_historyUncheckedUpdateManyWithoutBookNestedInput
+    book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutBookNestedInput
+  }
+
+  export type genreUpsertWithoutBook_genreInput = {
+    update: XOR<genreUpdateWithoutBook_genreInput, genreUncheckedUpdateWithoutBook_genreInput>
+    create: XOR<genreCreateWithoutBook_genreInput, genreUncheckedCreateWithoutBook_genreInput>
+    where?: genreWhereInput
+  }
+
+  export type genreUpdateToOneWithWhereWithoutBook_genreInput = {
+    where?: genreWhereInput
+    data: XOR<genreUpdateWithoutBook_genreInput, genreUncheckedUpdateWithoutBook_genreInput>
+  }
+
+  export type genreUpdateWithoutBook_genreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    genre?: genreUpdateOneWithoutOther_genreNestedInput
+    other_genre?: genreUpdateManyWithoutGenreNestedInput
+  }
+
+  export type genreUncheckedUpdateWithoutBook_genreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    id_parent?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    other_genre?: genreUncheckedUpdateManyWithoutGenreNestedInput
+  }
+
+  export type bookCreateWithoutBook_tagsInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    submitted_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+    is_chapter?: boolean
+    author?: authorCreateNestedOneWithoutBookInput
+    book_genre?: book_genreCreateNestedManyWithoutBookInput
+    book_history?: book_historyCreateNestedManyWithoutBookInput
+    reviews?: reviewsCreateNestedManyWithoutBookInput
+  }
+
+  export type bookUncheckedCreateWithoutBook_tagsInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    submitted_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    id_author?: string | null
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+    is_chapter?: boolean
+    book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
+    book_history?: book_historyUncheckedCreateNestedManyWithoutBookInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutBookInput
+  }
+
+  export type bookCreateOrConnectWithoutBook_tagsInput = {
+    where: bookWhereUniqueInput
+    create: XOR<bookCreateWithoutBook_tagsInput, bookUncheckedCreateWithoutBook_tagsInput>
+  }
+
+  export type tagsCreateWithoutBook_tagsInput = {
+    id?: string
+    name: string
+    deleted_at?: Date | string | null
+    slug?: string | null
+    img?: string | null
+    tags?: tagsCreateNestedOneWithoutOther_tagsInput
+    other_tags?: tagsCreateNestedManyWithoutTagsInput
+  }
+
+  export type tagsUncheckedCreateWithoutBook_tagsInput = {
+    id?: string
+    name: string
+    id_parent?: string | null
+    deleted_at?: Date | string | null
+    slug?: string | null
+    img?: string | null
+    other_tags?: tagsUncheckedCreateNestedManyWithoutTagsInput
+  }
+
+  export type tagsCreateOrConnectWithoutBook_tagsInput = {
+    where: tagsWhereUniqueInput
+    create: XOR<tagsCreateWithoutBook_tagsInput, tagsUncheckedCreateWithoutBook_tagsInput>
+  }
+
+  export type bookUpsertWithoutBook_tagsInput = {
+    update: XOR<bookUpdateWithoutBook_tagsInput, bookUncheckedUpdateWithoutBook_tagsInput>
+    create: XOR<bookCreateWithoutBook_tagsInput, bookUncheckedCreateWithoutBook_tagsInput>
+    where?: bookWhereInput
+  }
+
+  export type bookUpdateToOneWithWhereWithoutBook_tagsInput = {
+    where?: bookWhereInput
+    data: XOR<bookUpdateWithoutBook_tagsInput, bookUncheckedUpdateWithoutBook_tagsInput>
+  }
+
+  export type bookUpdateWithoutBook_tagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    author?: authorUpdateOneWithoutBookNestedInput
+    book_genre?: book_genreUpdateManyWithoutBookNestedInput
+    book_history?: book_historyUpdateManyWithoutBookNestedInput
+    reviews?: reviewsUpdateManyWithoutBookNestedInput
+  }
+
+  export type bookUncheckedUpdateWithoutBook_tagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    id_author?: NullableStringFieldUpdateOperationsInput | string | null
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
+    book_history?: book_historyUncheckedUpdateManyWithoutBookNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutBookNestedInput
+  }
+
+  export type tagsUpsertWithoutBook_tagsInput = {
+    update: XOR<tagsUpdateWithoutBook_tagsInput, tagsUncheckedUpdateWithoutBook_tagsInput>
+    create: XOR<tagsCreateWithoutBook_tagsInput, tagsUncheckedCreateWithoutBook_tagsInput>
     where?: tagsWhereInput
   }
 
-  export type tagsUpdateToOneWithWhereWithoutProduct_tagsInput = {
+  export type tagsUpdateToOneWithWhereWithoutBook_tagsInput = {
     where?: tagsWhereInput
-    data: XOR<tagsUpdateWithoutProduct_tagsInput, tagsUncheckedUpdateWithoutProduct_tagsInput>
+    data: XOR<tagsUpdateWithoutBook_tagsInput, tagsUncheckedUpdateWithoutBook_tagsInput>
   }
 
-  export type tagsUpdateWithoutProduct_tagsInput = {
+  export type tagsUpdateWithoutBook_tagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: tagsUpdateOneWithoutOther_tagsNestedInput
+    other_tags?: tagsUpdateManyWithoutTagsNestedInput
+  }
+
+  export type tagsUncheckedUpdateWithoutBook_tagsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     id_parent?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
     img?: NullableStringFieldUpdateOperationsInput | string | null
+    other_tags?: tagsUncheckedUpdateManyWithoutTagsNestedInput
   }
 
-  export type tagsUncheckedUpdateWithoutProduct_tagsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    id_parent?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    slug?: NullableStringFieldUpdateOperationsInput | string | null
-    img?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type product_tagsCreateWithoutTagsInput = {
+  export type book_genreCreateWithoutGenreInput = {
     id?: string
-    product: productCreateNestedOneWithoutProduct_tagsInput
+    book: bookCreateNestedOneWithoutBook_genreInput
   }
 
-  export type product_tagsUncheckedCreateWithoutTagsInput = {
-    id_product: string
+  export type book_genreUncheckedCreateWithoutGenreInput = {
     id?: string
+    id_book: string
   }
 
-  export type product_tagsCreateOrConnectWithoutTagsInput = {
-    where: product_tagsWhereUniqueInput
-    create: XOR<product_tagsCreateWithoutTagsInput, product_tagsUncheckedCreateWithoutTagsInput>
+  export type book_genreCreateOrConnectWithoutGenreInput = {
+    where: book_genreWhereUniqueInput
+    create: XOR<book_genreCreateWithoutGenreInput, book_genreUncheckedCreateWithoutGenreInput>
   }
 
-  export type product_tagsCreateManyTagsInputEnvelope = {
-    data: product_tagsCreateManyTagsInput | product_tagsCreateManyTagsInput[]
+  export type book_genreCreateManyGenreInputEnvelope = {
+    data: book_genreCreateManyGenreInput | book_genreCreateManyGenreInput[]
     skipDuplicates?: boolean
   }
 
-  export type product_tagsUpsertWithWhereUniqueWithoutTagsInput = {
-    where: product_tagsWhereUniqueInput
-    update: XOR<product_tagsUpdateWithoutTagsInput, product_tagsUncheckedUpdateWithoutTagsInput>
-    create: XOR<product_tagsCreateWithoutTagsInput, product_tagsUncheckedCreateWithoutTagsInput>
+  export type genreCreateWithoutOther_genreInput = {
+    id?: string
+    name: string
+    slug?: string | null
+    img?: string | null
+    deleted_at?: Date | string | null
+    book_genre?: book_genreCreateNestedManyWithoutGenreInput
+    genre?: genreCreateNestedOneWithoutOther_genreInput
   }
 
-  export type product_tagsUpdateWithWhereUniqueWithoutTagsInput = {
-    where: product_tagsWhereUniqueInput
-    data: XOR<product_tagsUpdateWithoutTagsInput, product_tagsUncheckedUpdateWithoutTagsInput>
+  export type genreUncheckedCreateWithoutOther_genreInput = {
+    id?: string
+    name: string
+    id_parent?: string | null
+    slug?: string | null
+    img?: string | null
+    deleted_at?: Date | string | null
+    book_genre?: book_genreUncheckedCreateNestedManyWithoutGenreInput
   }
 
-  export type product_tagsUpdateManyWithWhereWithoutTagsInput = {
-    where: product_tagsScalarWhereInput
-    data: XOR<product_tagsUpdateManyMutationInput, product_tagsUncheckedUpdateManyWithoutTagsInput>
+  export type genreCreateOrConnectWithoutOther_genreInput = {
+    where: genreWhereUniqueInput
+    create: XOR<genreCreateWithoutOther_genreInput, genreUncheckedCreateWithoutOther_genreInput>
+  }
+
+  export type genreCreateWithoutGenreInput = {
+    id?: string
+    name: string
+    slug?: string | null
+    img?: string | null
+    deleted_at?: Date | string | null
+    book_genre?: book_genreCreateNestedManyWithoutGenreInput
+    other_genre?: genreCreateNestedManyWithoutGenreInput
+  }
+
+  export type genreUncheckedCreateWithoutGenreInput = {
+    id?: string
+    name: string
+    slug?: string | null
+    img?: string | null
+    deleted_at?: Date | string | null
+    book_genre?: book_genreUncheckedCreateNestedManyWithoutGenreInput
+    other_genre?: genreUncheckedCreateNestedManyWithoutGenreInput
+  }
+
+  export type genreCreateOrConnectWithoutGenreInput = {
+    where: genreWhereUniqueInput
+    create: XOR<genreCreateWithoutGenreInput, genreUncheckedCreateWithoutGenreInput>
+  }
+
+  export type genreCreateManyGenreInputEnvelope = {
+    data: genreCreateManyGenreInput | genreCreateManyGenreInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type book_genreUpsertWithWhereUniqueWithoutGenreInput = {
+    where: book_genreWhereUniqueInput
+    update: XOR<book_genreUpdateWithoutGenreInput, book_genreUncheckedUpdateWithoutGenreInput>
+    create: XOR<book_genreCreateWithoutGenreInput, book_genreUncheckedCreateWithoutGenreInput>
+  }
+
+  export type book_genreUpdateWithWhereUniqueWithoutGenreInput = {
+    where: book_genreWhereUniqueInput
+    data: XOR<book_genreUpdateWithoutGenreInput, book_genreUncheckedUpdateWithoutGenreInput>
+  }
+
+  export type book_genreUpdateManyWithWhereWithoutGenreInput = {
+    where: book_genreScalarWhereInput
+    data: XOR<book_genreUpdateManyMutationInput, book_genreUncheckedUpdateManyWithoutGenreInput>
+  }
+
+  export type genreUpsertWithoutOther_genreInput = {
+    update: XOR<genreUpdateWithoutOther_genreInput, genreUncheckedUpdateWithoutOther_genreInput>
+    create: XOR<genreCreateWithoutOther_genreInput, genreUncheckedCreateWithoutOther_genreInput>
+    where?: genreWhereInput
+  }
+
+  export type genreUpdateToOneWithWhereWithoutOther_genreInput = {
+    where?: genreWhereInput
+    data: XOR<genreUpdateWithoutOther_genreInput, genreUncheckedUpdateWithoutOther_genreInput>
+  }
+
+  export type genreUpdateWithoutOther_genreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    book_genre?: book_genreUpdateManyWithoutGenreNestedInput
+    genre?: genreUpdateOneWithoutOther_genreNestedInput
+  }
+
+  export type genreUncheckedUpdateWithoutOther_genreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    id_parent?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    book_genre?: book_genreUncheckedUpdateManyWithoutGenreNestedInput
+  }
+
+  export type genreUpsertWithWhereUniqueWithoutGenreInput = {
+    where: genreWhereUniqueInput
+    update: XOR<genreUpdateWithoutGenreInput, genreUncheckedUpdateWithoutGenreInput>
+    create: XOR<genreCreateWithoutGenreInput, genreUncheckedCreateWithoutGenreInput>
+  }
+
+  export type genreUpdateWithWhereUniqueWithoutGenreInput = {
+    where: genreWhereUniqueInput
+    data: XOR<genreUpdateWithoutGenreInput, genreUncheckedUpdateWithoutGenreInput>
+  }
+
+  export type genreUpdateManyWithWhereWithoutGenreInput = {
+    where: genreScalarWhereInput
+    data: XOR<genreUpdateManyMutationInput, genreUncheckedUpdateManyWithoutGenreInput>
+  }
+
+  export type genreScalarWhereInput = {
+    AND?: genreScalarWhereInput | genreScalarWhereInput[]
+    OR?: genreScalarWhereInput[]
+    NOT?: genreScalarWhereInput | genreScalarWhereInput[]
+    id?: UuidFilter<"genre"> | string
+    name?: StringFilter<"genre"> | string
+    id_parent?: UuidNullableFilter<"genre"> | string | null
+    slug?: StringNullableFilter<"genre"> | string | null
+    img?: StringNullableFilter<"genre"> | string | null
+    deleted_at?: DateTimeNullableFilter<"genre"> | Date | string | null
   }
 
   export type auth_userCreateManyAffiliateInput = {
@@ -67799,6 +75141,8 @@ export namespace Prisma {
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     sales_and_marketing?: sales_and_marketingUpdateOneWithoutAuth_userNestedInput
     support?: supportUpdateOneWithoutAuth_userNestedInput
+    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateWithoutAffiliateInput = {
@@ -67821,6 +75165,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateManyWithoutAffiliateInput = {
@@ -68068,6 +75414,21 @@ export namespace Prisma {
     backup_codes?: string | null
   }
 
+  export type reviewsCreateManyAuth_userInput = {
+    id?: string
+    id_book: string
+    comments: string
+    rating?: Decimal | DecimalJsLike | number | string | null
+    created_at: Date | string
+    deleted_at?: Date | string | null
+    parent?: string | null
+  }
+
+  export type reviews_likesCreateManyAuth_userInput = {
+    id?: string
+    id_reviews: string
+  }
+
   export type auth_accountUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68178,6 +75539,53 @@ export namespace Prisma {
     backup_codes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type reviewsUpdateWithoutAuth_userInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comments?: StringFieldUpdateOperationsInput | string
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    book?: bookUpdateOneRequiredWithoutReviewsNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutReviewsNestedInput
+  }
+
+  export type reviewsUncheckedUpdateWithoutAuth_userInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_book?: StringFieldUpdateOperationsInput | string
+    comments?: StringFieldUpdateOperationsInput | string
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutReviewsNestedInput
+  }
+
+  export type reviewsUncheckedUpdateManyWithoutAuth_userInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_book?: StringFieldUpdateOperationsInput | string
+    comments?: StringFieldUpdateOperationsInput | string
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type reviews_likesUpdateWithoutAuth_userInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reviews?: reviewsUpdateOneRequiredWithoutReviews_likesNestedInput
+  }
+
+  export type reviews_likesUncheckedUpdateWithoutAuth_userInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_reviews?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type reviews_likesUncheckedUpdateManyWithoutAuth_userInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_reviews?: StringFieldUpdateOperationsInput | string
+  }
+
   export type auth_userCreateManyAuthorInput = {
     id?: string
     name: string
@@ -68269,6 +75677,8 @@ export namespace Prisma {
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     sales_and_marketing?: sales_and_marketingUpdateOneWithoutAuth_userNestedInput
     support?: supportUpdateOneWithoutAuth_userNestedInput
+    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateWithoutAuthorInput = {
@@ -68291,6 +75701,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateManyWithoutAuthorInput = {
@@ -68333,7 +75745,10 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    book_genre?: book_genreUpdateManyWithoutBookNestedInput
     book_history?: book_historyUpdateManyWithoutBookNestedInput
+    book_tags?: book_tagsUpdateManyWithoutBookNestedInput
+    reviews?: reviewsUpdateManyWithoutBookNestedInput
   }
 
   export type bookUncheckedUpdateWithoutAuthorInput = {
@@ -68357,7 +75772,10 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
     book_history?: book_historyUncheckedUpdateManyWithoutBookNestedInput
+    book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutBookNestedInput
   }
 
   export type bookUncheckedUpdateManyWithoutAuthorInput = {
@@ -68410,7 +75828,6 @@ export namespace Prisma {
     customer_reader?: customer_readerUpdateManyWithoutProductNestedInput
     preorder?: preorderUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUpdateManyWithoutProductNestedInput
   }
@@ -68442,7 +75859,6 @@ export namespace Prisma {
     customer_reader?: customer_readerUncheckedUpdateManyWithoutProductNestedInput
     preorder?: preorderUncheckedUpdateManyWithoutProductNestedInput
     product_category?: product_categoryUncheckedUpdateManyWithoutProductNestedInput
-    product_tags?: product_tagsUncheckedUpdateManyWithoutProductNestedInput
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutProductNestedInput
     t_sales_line?: t_sales_lineUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -68486,9 +75902,44 @@ export namespace Prisma {
     publisher_id?: StringFieldUpdateOperationsInput | string
   }
 
+  export type book_genreCreateManyBookInput = {
+    id?: string
+    id_genre: string
+  }
+
   export type book_historyCreateManyBookInput = {
     created_at?: Date | string
     description: string
+  }
+
+  export type book_tagsCreateManyBookInput = {
+    id?: string
+    id_tags: string
+  }
+
+  export type reviewsCreateManyBookInput = {
+    id?: string
+    comments: string
+    rating?: Decimal | DecimalJsLike | number | string | null
+    created_at: Date | string
+    deleted_at?: Date | string | null
+    parent?: string | null
+    id_user: string
+  }
+
+  export type book_genreUpdateWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    genre?: genreUpdateOneRequiredWithoutBook_genreNestedInput
+  }
+
+  export type book_genreUncheckedUpdateWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_genre?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type book_genreUncheckedUpdateManyWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_genre?: StringFieldUpdateOperationsInput | string
   }
 
   export type book_historyUpdateWithoutBookInput = {
@@ -68504,6 +75955,53 @@ export namespace Prisma {
   export type book_historyUncheckedUpdateManyWithoutBookInput = {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type book_tagsUpdateWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tags?: tagsUpdateOneRequiredWithoutBook_tagsNestedInput
+  }
+
+  export type book_tagsUncheckedUpdateWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_tags?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type book_tagsUncheckedUpdateManyWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_tags?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type reviewsUpdateWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comments?: StringFieldUpdateOperationsInput | string
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateOneRequiredWithoutReviewsNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutReviewsNestedInput
+  }
+
+  export type reviewsUncheckedUpdateWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comments?: StringFieldUpdateOperationsInput | string
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    id_user?: StringFieldUpdateOperationsInput | string
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutReviewsNestedInput
+  }
+
+  export type reviewsUncheckedUpdateManyWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comments?: StringFieldUpdateOperationsInput | string
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    id_user?: StringFieldUpdateOperationsInput | string
   }
 
   export type bundle_categoryCreateManyBundleInput = {
@@ -68742,6 +76240,8 @@ export namespace Prisma {
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     sales_and_marketing?: sales_and_marketingUpdateOneWithoutAuth_userNestedInput
     support?: supportUpdateOneWithoutAuth_userNestedInput
+    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateWithoutCustomerInput = {
@@ -68764,6 +76264,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateManyWithoutCustomerInput = {
@@ -68983,6 +76485,8 @@ export namespace Prisma {
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     sales_and_marketing?: sales_and_marketingUpdateOneWithoutAuth_userNestedInput
     support?: supportUpdateOneWithoutAuth_userNestedInput
+    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateWithoutManagementInput = {
@@ -69005,6 +76509,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateManyWithoutManagementInput = {
@@ -69055,11 +76561,6 @@ export namespace Prisma {
 
   export type product_categoryCreateManyProductInput = {
     id_category: string
-    id?: string
-  }
-
-  export type product_tagsCreateManyProductInput = {
-    id_tags: string
     id?: string
   }
 
@@ -69173,21 +76674,6 @@ export namespace Prisma {
 
   export type product_categoryUncheckedUpdateManyWithoutProductInput = {
     id_category?: StringFieldUpdateOperationsInput | string
-    id?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type product_tagsUpdateWithoutProductInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tags?: tagsUpdateOneRequiredWithoutProduct_tagsNestedInput
-  }
-
-  export type product_tagsUncheckedUpdateWithoutProductInput = {
-    id_tags?: StringFieldUpdateOperationsInput | string
-    id?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type product_tagsUncheckedUpdateManyWithoutProductInput = {
-    id_tags?: StringFieldUpdateOperationsInput | string
     id?: StringFieldUpdateOperationsInput | string
   }
 
@@ -69320,6 +76806,8 @@ export namespace Prisma {
     management?: managementUpdateOneWithoutAuth_userNestedInput
     sales_and_marketing?: sales_and_marketingUpdateOneWithoutAuth_userNestedInput
     support?: supportUpdateOneWithoutAuth_userNestedInput
+    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateWithoutPublisherInput = {
@@ -69342,6 +76830,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateManyWithoutPublisherInput = {
@@ -69521,6 +77011,8 @@ export namespace Prisma {
     management?: managementUpdateOneWithoutAuth_userNestedInput
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     support?: supportUpdateOneWithoutAuth_userNestedInput
+    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateWithoutSales_and_marketingInput = {
@@ -69543,6 +77035,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateManyWithoutSales_and_marketingInput = {
@@ -69603,6 +77097,8 @@ export namespace Prisma {
     management?: managementUpdateOneWithoutAuth_userNestedInput
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     sales_and_marketing?: sales_and_marketingUpdateOneWithoutAuth_userNestedInput
+    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateWithoutSupportInput = {
@@ -69625,6 +77121,8 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
   export type auth_userUncheckedUpdateManyWithoutSupportInput = {
@@ -69710,24 +77208,136 @@ export namespace Prisma {
     id_bundle?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type product_tagsCreateManyTagsInput = {
-    id_product: string
+  export type book_tagsCreateManyTagsInput = {
     id?: string
+    id_book: string
   }
 
-  export type product_tagsUpdateWithoutTagsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    product?: productUpdateOneRequiredWithoutProduct_tagsNestedInput
+  export type tagsCreateManyTagsInput = {
+    id?: string
+    name: string
+    deleted_at?: Date | string | null
+    slug?: string | null
+    img?: string | null
   }
 
-  export type product_tagsUncheckedUpdateWithoutTagsInput = {
-    id_product?: StringFieldUpdateOperationsInput | string
+  export type book_tagsUpdateWithoutTagsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    book?: bookUpdateOneRequiredWithoutBook_tagsNestedInput
   }
 
-  export type product_tagsUncheckedUpdateManyWithoutTagsInput = {
-    id_product?: StringFieldUpdateOperationsInput | string
+  export type book_tagsUncheckedUpdateWithoutTagsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    id_book?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type book_tagsUncheckedUpdateManyWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_book?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type tagsUpdateWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    book_tags?: book_tagsUpdateManyWithoutTagsNestedInput
+    other_tags?: tagsUpdateManyWithoutTagsNestedInput
+  }
+
+  export type tagsUncheckedUpdateWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    book_tags?: book_tagsUncheckedUpdateManyWithoutTagsNestedInput
+    other_tags?: tagsUncheckedUpdateManyWithoutTagsNestedInput
+  }
+
+  export type tagsUncheckedUpdateManyWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type reviews_likesCreateManyReviewsInput = {
+    id?: string
+    id_user: string
+  }
+
+  export type reviews_likesUpdateWithoutReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auth_user?: auth_userUpdateOneRequiredWithoutReviews_likesNestedInput
+  }
+
+  export type reviews_likesUncheckedUpdateWithoutReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_user?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type reviews_likesUncheckedUpdateManyWithoutReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_user?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type book_genreCreateManyGenreInput = {
+    id?: string
+    id_book: string
+  }
+
+  export type genreCreateManyGenreInput = {
+    id?: string
+    name: string
+    slug?: string | null
+    img?: string | null
+    deleted_at?: Date | string | null
+  }
+
+  export type book_genreUpdateWithoutGenreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    book?: bookUpdateOneRequiredWithoutBook_genreNestedInput
+  }
+
+  export type book_genreUncheckedUpdateWithoutGenreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_book?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type book_genreUncheckedUpdateManyWithoutGenreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_book?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type genreUpdateWithoutGenreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    book_genre?: book_genreUpdateManyWithoutGenreNestedInput
+    other_genre?: genreUpdateManyWithoutGenreNestedInput
+  }
+
+  export type genreUncheckedUpdateWithoutGenreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    book_genre?: book_genreUncheckedUpdateManyWithoutGenreNestedInput
+    other_genre?: genreUncheckedUpdateManyWithoutGenreNestedInput
+  }
+
+  export type genreUncheckedUpdateManyWithoutGenreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
 

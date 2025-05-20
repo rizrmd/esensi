@@ -11,7 +11,7 @@ export default defineAPI({
 
     const page = req.params?.page ? parseInt(req.params.page) : 1;
     const books_per_page = 20;
-    const skip_books = req.params?.page ? ((page - 1) * books_per_page) : 0;
+    const skip_books = req.params?.page ? (page - 1) * books_per_page : 0;
 
     const products_search = await db.product.findMany({
       select: {
@@ -67,10 +67,12 @@ export default defineAPI({
 
     const products = [
       ...products_search.map((e) => ({
-        ...e, type: "product"
+        ...e,
+        type: "product",
       })),
       ...bundles_search.map((e) => ({
-        ...e, type: "bundle"
+        ...e,
+        type: "bundle",
       })),
     ];
 
@@ -95,17 +97,19 @@ export default defineAPI({
     });
 
     const count_both = count_products + count_bundles;
-    const total_pages = Math.ceil( count_both / books_per_page );
+    const total_pages = Math.ceil(count_both / books_per_page);
 
     const data = {
       title: `Hasil Pencarian`,
       products: products,
       page: page,
       pages: total_pages,
-    }
+    };
 
     const seo_data = {
-      slug: `/search${req.params?.slug ? `/${req.params.slug}` : `/_`}${page > 1 ? `/${page}` : ``}`,
+      slug: `/search${req.params?.slug ? `/${req.params.slug}` : `/_`}${
+        page > 1 ? `/${page}` : ``
+      }`,
       page: page,
       meta_title: `Hasil Pencarian untuk Judul dan Chapter ${keyword} | Esensi Online`,
       meta_description: `Lihat hasil pencarian untuk ${keyword} di Esensi Online. Temukan cerita menarik berdasarkan judul, genre, atau tag yang cocok dengan preferensimu`,
@@ -119,7 +123,11 @@ export default defineAPI({
     };
 
     return {
-      jsx: (<><SeoTemplate data={seo_data} /></>),
+      jsx: (
+        <>
+          <SeoTemplate data={seo_data} />
+        </>
+      ),
       data: data,
     };
   },

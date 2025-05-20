@@ -20,7 +20,28 @@ export default defineAPI({
       },
     });
 
-    let cats = ``;
+    const genres = await db.book_genre.findMany({
+      where: {
+        id_book: book?.id,
+      },
+      include: {
+        genre: true,
+      },
+    });
+
+    const genres_name = genres.map((g) => {
+      return `, ${g.genre.name}`;
+    });
+
+    const tags = await db.book_tags.findMany({
+      where: {
+        id_book: book?.id,
+      },
+      include: {
+        tags: true,
+      },
+    });
+
 
     const author = await db.auth_user.findFirst({
       select: {
@@ -67,7 +88,9 @@ export default defineAPI({
     const data = {
       title: `Detail Ebook`,
       book: book,
+      chapters: chapters,
       author: author,
+      tags: tags,
       ratings: ratings,
       reviews: reviews,
     };
@@ -75,11 +98,11 @@ export default defineAPI({
     const seo_data = {
       slug: `/title/${req.params.slug}`,
       meta_title: `${book?.name} - Chapter Web Novel oleh ${book?.info} | Esensi Online`,
-      meta_description: `Baca ${book?.name} karya ${book?.info} di Esensi Online. Cerita ${cats} dengan alur yang menarik dan karakter yang kuat. Update secara berkala & gratis dibaca!`,
+      meta_description: `Baca ${book?.name} karya ${book?.info} di Esensi Online. Cerita ${genres_name} dengan alur yang menarik dan karakter yang kuat. Update secara berkala & gratis dibaca!`,
       image: `${book?.cover}`,
       headings: `${book?.name} oleh ${book?.info}`,
       paragraph: `${book?.desc}`,
-      keywords: `${cats}`,
+      keywords: `${genres_name}`,
       is_product: true,
       price: book?.submitted_price,
       currencry: book?.currency,

@@ -18,14 +18,14 @@ export default defineAPI({
         deleted_at: null,
       },
       include: {
-        product_tags: true,
+        book_tags: true,
       },
     });
 
     const books = await db.book.findMany({
       where: {
         id: {
-          in: tag?.product_tags?.map((x) => x.id_product),
+          in: tag?.book_tags?.map((x) => x.id_book),
         },
         is_chapter: true,
         status: "published",
@@ -51,7 +51,7 @@ export default defineAPI({
       (await db.book.count({
         where: {
           id: {
-            in: tag?.product_tags?.map((x) => x.id_product),
+            in: tag?.book_tags?.map((x) => x.id_book),
           },
           status: "published",
           deleted_at: null,

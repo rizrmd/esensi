@@ -5,7 +5,6 @@ export default defineAPI({
   name: "library",
   url: "/library",
   async handler() {
-
     const req = this.req!;
 
     //const uid = this?.session?.user.id;
@@ -18,13 +17,13 @@ export default defineAPI({
         {
           id: string;
           percent: number;
-          last_page: number
+          last_page: number;
         }
-      >
+      >,
     };
 
     if (uid) {
-
+      
     }
 
     const seo_data = {
@@ -43,7 +42,11 @@ export default defineAPI({
     };
 
     return {
-      jsx: (<><SeoTemplate data={seo_data} /></>),
+      jsx: (
+        <>
+          <SeoTemplate data={seo_data} />
+        </>
+      ),
       data: data,
     };
   },

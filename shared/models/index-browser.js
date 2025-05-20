@@ -486,12 +486,6 @@ exports.Prisma.WithdrawalScalarFieldEnum = {
   processed_at: 'processed_at'
 };
 
-exports.Prisma.Product_tagsScalarFieldEnum = {
-  id_product: 'id_product',
-  id_tags: 'id_tags',
-  id: 'id'
-};
-
 exports.Prisma.TagsScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -499,6 +493,44 @@ exports.Prisma.TagsScalarFieldEnum = {
   deleted_at: 'deleted_at',
   slug: 'slug',
   img: 'img'
+};
+
+exports.Prisma.ReviewsScalarFieldEnum = {
+  id: 'id',
+  id_book: 'id_book',
+  comments: 'comments',
+  rating: 'rating',
+  created_at: 'created_at',
+  deleted_at: 'deleted_at',
+  parent: 'parent',
+  id_user: 'id_user'
+};
+
+exports.Prisma.Reviews_likesScalarFieldEnum = {
+  id: 'id',
+  id_reviews: 'id_reviews',
+  id_user: 'id_user'
+};
+
+exports.Prisma.Book_genreScalarFieldEnum = {
+  id: 'id',
+  id_genre: 'id_genre',
+  id_book: 'id_book'
+};
+
+exports.Prisma.Book_tagsScalarFieldEnum = {
+  id: 'id',
+  id_tags: 'id_tags',
+  id_book: 'id_book'
+};
+
+exports.Prisma.GenreScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  id_parent: 'id_parent',
+  slug: 'slug',
+  img: 'img',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.SortOrder = {
@@ -570,8 +602,12 @@ exports.Prisma.ModelName = {
   t_sales_line: 't_sales_line',
   transaction: 'transaction',
   withdrawal: 'withdrawal',
-  product_tags: 'product_tags',
-  tags: 'tags'
+  tags: 'tags',
+  reviews: 'reviews',
+  reviews_likes: 'reviews_likes',
+  book_genre: 'book_genre',
+  book_tags: 'book_tags',
+  genre: 'genre'
 };
 
 /**

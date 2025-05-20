@@ -5,7 +5,6 @@ export default defineAPI({
   name: "rankings",
   url: "/rankings",
   async handler() {
-
     const req = this.req!;
 
     const data = {
@@ -27,10 +26,13 @@ export default defineAPI({
       paragraph: `Ingin tahu cerita apa yang paling banyak dibaca dan dibicarakan minggu ini? Halaman peringkat di Esensi Online menampilkan daftar web novel terpopuler berdasarkan pembaca, rating, dan update terbaru. Dari kisah romantis yang bikin baper hingga aksi seru yang mendebarkan, semua ada di sini. Temukan bacaan yang sedang naik daun atau pertahankan favoritmu di puncak ranking!`,
       is_product: false,
     };
-    
 
     return {
-      jsx: (<><SeoTemplate data={seo_data} /></>),
+      jsx: (
+        <>
+          <SeoTemplate data={seo_data} />
+        </>
+      ),
       data: data,
     };
   },

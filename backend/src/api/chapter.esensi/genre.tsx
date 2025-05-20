@@ -2,30 +2,30 @@ import { SeoTemplate } from "backend/components/SeoTemplate";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
-  name: "category",
-  url: "/category/:slug/:page",
+  name: "genre",
+  url: "/genre/:slug/:page",
   async handler() {
     const req = this.req!;
     const page = req.params?.page ? parseInt(req.params.page) : 1;
     const books_per_page = 20;
     const skip_books = page > 1 ? (page - 1) * books_per_page : 0;
 
-    const cat_slug = req?.params.slug ? req.params.slug : ``;
+    const genre_slug = req?.params.slug ? req.params.slug : ``;
 
-    const cat = await db.category.findFirst({
+    const genre = await db.genre.findFirst({
       where: {
-        slug: cat_slug,
+        slug: genre_slug,
         deleted_at: null,
       },
       include: {
-        product_category: true,
+        book_genre: true,
       },
     });
 
     const books = await db.book.findMany({
       where: {
         id: {
-          in: cat?.product_category?.map((x) => x.id_product),
+          in: genre?.book_genre?.map((x) => x.id_book),
         },
         status: "published",
         is_chapter: true,
@@ -51,7 +51,7 @@ export default defineAPI({
       (await db.book.count({
         where: {
           id: {
-            in: cat?.product_category?.map((x) => x.id_product),
+            in: genre?.book_genre?.map((x) => x.id_book),
           },
           status: "published",
           deleted_at: null,
@@ -60,7 +60,7 @@ export default defineAPI({
     );
 
     const data = {
-      title: `Ebook tentang ${cat?.name}`,
+      title: `Ebook tentang ${genre?.name}`,
       products: books,
       page: page,
       pages: total_pages,
@@ -71,14 +71,14 @@ export default defineAPI({
         page > 1 ? `/${page}` : ``
       }`,
       page: page,
-      meta_title: `Chapter Web Novel ${cat?.name} Terbaik | Koleksi Cerita ${cat?.name} di Esensi Online`,
-      meta_description: `Temukan koleksi web novel ${cat?.name} di Esensi Online. Baca cerita ${cat?.name} yang seru, gratis, dan selalu update!`,
+      meta_title: `Chapter Web Novel ${genre?.name} Terbaik | Koleksi Cerita ${genre?.name} di Esensi Online`,
+      meta_description: `Temukan koleksi web novel ${genre?.name} di Esensi Online. Baca cerita ${genre?.name} yang seru, gratis, dan selalu update!`,
       image: ``,
-      headings: `Chapter Web Novel ${cat?.name} di Esensi Online`,
-      h2: `Rekomendasi Cerita ${cat?.name} Terbaik`,
-      h3: `Update Terbaru di Kategori ${cat?.name}`,
-      h4: `Jelajahi Cerita ${cat?.name} Lainnya di Esensi Online`,
-      paragraph: `Kategori ${cat?.name} di Esensi Online menghadirkan cerita-cerita pilihan dengan tema ${cat?.name}. Cocok untuk kamu yang suka ${cat?.name}. Temukan web novel favoritmu di sini dan nikmati bacaan berkualitas setiap hari!`,
+      headings: `Chapter Web Novel ${genre?.name} di Esensi Online`,
+      h2: `Rekomendasi Cerita ${genre?.name} Terbaik`,
+      h3: `Update Terbaru di Kategori ${genre?.name}`,
+      h4: `Jelajahi Cerita ${genre?.name} Lainnya di Esensi Online`,
+      paragraph: `Kategori ${genre?.name} di Esensi Online menghadirkan cerita-cerita pilihan dengan tema ${genre?.name}. Cocok untuk kamu yang suka ${genre?.name}. Temukan web novel favoritmu di sini dan nikmati bacaan berkualitas setiap hari!`,
       is_product: false,
     };
 

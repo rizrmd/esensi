@@ -11,30 +11,28 @@ export default defineAPI({
 
     // if slug == "_" redirect to /browse
 
-    const book = await db.product.findFirst(
-      {
-        where: {
-          slug: req.params.slug,
-          status: "published",
-          is_chapter: true,
-          deleted_at: null,
-        },
-        include: {
-          product_category: {
-            select: {
-              category: {
-                select: { name: true, slug: true },
-              },
+    const book = await db.product.findFirst({
+      where: {
+        slug: req.params.slug,
+        status: "published",
+        is_chapter: true,
+        deleted_at: null,
+      },
+      include: {
+        product_category: {
+          select: {
+            category: {
+              select: { name: true, slug: true },
             },
-            where: {
-              category: {
-                deleted_at: null,
-              },
+          },
+          where: {
+            category: {
+              deleted_at: null,
             },
           },
         },
       },
-    );
+    });
 
     let cats = "";
     book?.product_category.map((cat) => {
@@ -52,8 +50,7 @@ export default defineAPI({
       title: `Detail Ebook`,
       product: book,
       categories: categories,
-    }
-
+    };
 
     const seo_data = {
       slug: `/chapter/${req.params.slug}/${req.params.number}`,
@@ -69,7 +66,11 @@ export default defineAPI({
     };
 
     return {
-      jsx: (<><SeoTemplate data={seo_data} /></>),
+      jsx: (
+        <>
+          <SeoTemplate data={seo_data} />
+        </>
+      ),
       data: data,
     };
   },
