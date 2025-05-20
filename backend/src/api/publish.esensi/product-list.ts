@@ -38,11 +38,13 @@ export default defineAPI({
             select: {
               bundle: true,
             },
+            take: 10,
           },
           product_category: {
             select: {
               category: true,
             },
+            take: 10,
           },
         },
         orderBy: {

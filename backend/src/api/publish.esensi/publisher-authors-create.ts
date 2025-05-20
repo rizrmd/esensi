@@ -1,4 +1,3 @@
-import type { User } from "backend/lib/better-auth";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import type { PublisherAuthor } from "../types";
@@ -7,37 +6,28 @@ export default defineAPI({
   name: "publisher_author_create",
   url: "/api/publish/publisher-author/create",
   async handler(arg: {
-    user: Partial<User>;
-    author_id: string;
+    id_publisher?: string;
+    id_author?: string;
   }): Promise<ApiResponse<PublisherAuthor>> {
     try {
-      // Get publisher ID from auth user
-      const authUser = await db.auth_user.findUnique({
-        where: { id: arg.user.id },
-        select: { id_publisher: true },
-      });
-
-      if (!authUser?.id_publisher) {
+      if (!arg.id_publisher) {
         return {
           success: false,
-          message: "Hanya penerbit yang dapat mengakses API ini",
+          message: "Parameter id_publisher harus diisi",
         };
       }
 
-      // Check if author exists
-      const author = await db.author.findUnique({
-        where: { id: arg.author_id },
-      });
-
-      if (!author) {
-        return { success: false, message: "Penulis tidak ditemukan" };
+      if (!arg.id_author) {
+        return {
+          success: false,
+          message: "Parameter id_author harus diisi",
+        };
       }
 
-      // Check if relationship already exists
       const existingRelation = await db.publisher_author.findFirst({
         where: {
-          publisher_id: authUser.id_publisher,
-          author_id: arg.author_id,
+          publisher_id: arg.id_publisher,
+          author_id: arg.id_author,
         },
       });
 
@@ -48,25 +38,39 @@ export default defineAPI({
         };
       }
 
-      // Create new relationship
-      await db.publisher_author.create({
+      const created = await db.publisher_author.create({
         data: {
-          publisher_id: authUser.id_publisher,
-          author_id: arg.author_id,
+          publisher_id: arg.id_publisher,
+          author_id: arg.id_author,
         },
         include: {
           author: {
             include: {
               auth_account: true,
-              auth_user: true,
-              book: true,
-              product: true,
+              auth_user: {
+                orderBy: {
+                  created_at: "desc",
+                },
+                take: 10,
+              },
+              book: {
+                orderBy: {
+                  published_date: "desc",
+                },
+                take: 10,
+              },
+              product: {
+                orderBy: {
+                  published_date: "desc",
+                },
+                take: 10,
+              },
             },
           },
         },
       });
 
-      return { success: true, message: "Penulis berhasil ditambahkan" };
+      return { success: true, message: "Penulis berhasil ditambahkan", data: created };
     } catch (error) {
       console.error("Error managing publisher authors:", error);
       return {
