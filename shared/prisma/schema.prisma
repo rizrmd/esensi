@@ -137,10 +137,13 @@ model book {
   preorder_min_qty     Int?
   content_type         String?        @db.VarChar(20)
   is_chapter           Boolean        @default(false)
+  id_product           String?        @db.Uuid
   author               author?        @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "book_fk_id_author")
+  product              product?       @relation(fields: [id_product], references: [id], map: "book_fk_id_product")
   book_genre           book_genre[]
   book_history         book_history[]
   book_tags            book_tags[]
+  ranking              ranking[]
   reviews              reviews[]
 }
 
@@ -352,6 +355,7 @@ model product {
   preorder_min_qty     Int?
   content_type         String?            @db.VarChar(20)
   is_chapter           Boolean            @default(false)
+  book                 book[]
   bundle_product       bundle_product[]
   chapter              chapter[]
   customer_reader      customer_reader[]
@@ -519,4 +523,10 @@ model withdrawal {
   requested_at DateTime  @default(now())
   processed_at DateTime?
   publisher    publisher @relation(fields: [id_publisher], references: [id])
+}
+
+model ranking {
+  id      String @id(map: "ranking_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_book String @db.Uuid
+  book    book   @relation(fields: [id_book], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

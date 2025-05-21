@@ -223,7 +223,8 @@ exports.Prisma.BookScalarFieldEnum = {
   ai_suggested_content: 'ai_suggested_content',
   preorder_min_qty: 'preorder_min_qty',
   content_type: 'content_type',
-  is_chapter: 'is_chapter'
+  is_chapter: 'is_chapter',
+  id_product: 'id_product'
 };
 
 exports.Prisma.Book_genreScalarFieldEnum = {
@@ -522,6 +523,11 @@ exports.Prisma.WithdrawalScalarFieldEnum = {
   processed_at: 'processed_at'
 };
 
+exports.Prisma.RankingScalarFieldEnum = {
+  id: 'id',
+  id_book: 'id_book'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -594,7 +600,8 @@ exports.Prisma.ModelName = {
   t_sales_line: 't_sales_line',
   tags: 'tags',
   transaction: 'transaction',
-  withdrawal: 'withdrawal'
+  withdrawal: 'withdrawal',
+  ranking: 'ranking'
 };
 
 /**
