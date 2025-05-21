@@ -8,8 +8,9 @@ export default defineAPI({
   async handler(arg: {
     page?: number;
     limit?: number;
-    search?: string;
+    id_author?: string;
     status?: string;
+    search?: string;
   }): Promise<ApiResponse<Book[]>> {
     try {
       const page = arg.page || 1;
@@ -17,16 +18,20 @@ export default defineAPI({
       const skip = (page - 1) * limit;
       const where: any = { deleted_at: null };
 
+      if (arg.id_author) {
+        where.id_author = arg.id_author;
+      }
+
+      if (arg.status) {
+        where.status = arg.status;
+      }
+
       if (arg.search) {
         where.OR = [
           { name: { contains: arg.search, mode: "insensitive" } },
           { slug: { contains: arg.search, mode: "insensitive" } },
           { desc: { contains: arg.search, mode: "insensitive" } },
         ];
-      }
-
-      if (arg.status) {
-        where.status = arg.status;
       }
 
       const total = await db.book.count({ where });

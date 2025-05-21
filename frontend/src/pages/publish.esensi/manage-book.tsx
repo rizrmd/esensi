@@ -5,17 +5,22 @@ import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataPagination } from "@/components/ui/data-pagination";
+import {
+  betterAuth,
+  type AuthClientGetSessionAPIResponse,
+  type User,
+} from "@/lib/better-auth";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type {} from "backend/api/publish.esensi/book-list";
 import type { Book } from "backend/api/types";
 import { ChevronRight, PlusCircle } from "lucide-react";
 
 export default function BookListPage() {
   const local = useLocal(
     {
+      user: null as Partial<User> | null,
       books: [] as Book[],
       loading: true,
       total: 0,
@@ -29,6 +34,15 @@ export default function BookListPage() {
       const params = new URLSearchParams(location.search);
       local.page = parseInt(params.get("page") || ("1" as string)) as number;
       local.limit = parseInt(params.get("limit") || ("50" as string)) as number;
+
+      const session: AuthClientGetSessionAPIResponse =
+        await betterAuth.getSession();
+      if (!session.data?.user) {
+        navigate("/");
+        return;
+      }
+      local.user = session.data.user;
+
       await loadData();
     }
   );
@@ -38,6 +52,7 @@ export default function BookListPage() {
       const res = await api.book_list({
         page: local.page,
         limit: local.limit,
+        id_author: local.user?.idAuthor!,
       });
       local.books = res.data || [];
       local.total = res.pagination!.total || 0;
@@ -175,8 +190,8 @@ export default function BookListPage() {
                                             src={
                                               baseUrl.publish_esensi +
                                               "/" +
-                                              book.cover
-                                              + "?w=350"
+                                              book.cover +
+                                              "?w=350"
                                             }
                                             alt={book.name}
                                             className="object-cover w-full h-full text-center flex items-center justify-center"

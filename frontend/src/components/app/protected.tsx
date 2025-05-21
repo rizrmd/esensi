@@ -14,12 +14,14 @@ export const current = {
   iframe: null as HTMLIFrameElement | null,
   signoutCallback: undefined as undefined | (() => void),
 };
+
 export type Role =
   | "affiliate"
   | "author"
   | "customer"
   | "internal"
   | "publisher";
+
 export const Protected: FC<{
   children:
     | ReactNode
@@ -32,6 +34,7 @@ export const Protected: FC<{
   const params = new URLSearchParams(location.search);
   let callbackURL = params.get("callbackURL") as string | undefined;
   callbackURL = !callbackURL ? window.location.origin : callbackURL;
+
   const local = useLocal(
     {
       loading: true,

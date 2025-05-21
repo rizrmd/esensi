@@ -4,6 +4,7 @@ import { LayoutToggle } from "@/components/publish/layout-toggle";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataPagination } from "@/components/ui/data-pagination";
+import { betterAuth, type AuthClientGetSessionAPIResponse, type User } from "@/lib/better-auth";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
@@ -14,6 +15,7 @@ import { ChevronRight } from "lucide-react";
 export default function ProductListPage() {
   const local = useLocal(
     {
+      user: null as Partial<User> | null,
       products: [] as Product[],
       loading: true,
       total: 0,
@@ -27,6 +29,15 @@ export default function ProductListPage() {
       const params = new URLSearchParams(location.search);
       local.page = parseInt(params.get("page") || ("1" as string)) as number;
       local.limit = parseInt(params.get("limit") || ("50" as string)) as number;
+
+      const session: AuthClientGetSessionAPIResponse =
+        await betterAuth.getSession();
+      if (!session.data?.user) {
+        navigate("/");
+        return;
+      }
+      local.user = session.data.user;
+
       await loadData();
     }
   );
@@ -36,6 +47,7 @@ export default function ProductListPage() {
       const res = await api.product_list({
         page: local.page,
         limit: local.limit,
+        id_author: local.user?.idAuthor!,
       });
       local.products = res.data || [];
       local.total = res.pagination!.total || 0;
@@ -162,8 +174,8 @@ export default function ProductListPage() {
                                             src={
                                               baseUrl.publish_esensi +
                                               "/" +
-                                              product.cover
-                                              + "?w=350"
+                                              product.cover +
+                                              "?w=350"
                                             }
                                             alt={product.name}
                                             className="object-cover w-full h-full text-center flex items-center justify-center"
