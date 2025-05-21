@@ -128,7 +128,7 @@ export default function BookListPage() {
                         <div className="flex items-center gap-4">
                           <div className="flex gap-2">
                             <Button
-                              onClick={() => navigate("/book-create")}
+                              onClick={() => navigate("/book-step")}
                               className="flex items-center gap-2"
                               variant="default"
                             >
@@ -180,7 +180,7 @@ export default function BookListPage() {
                                     key={book.id}
                                     className="cursor-pointer"
                                     onClick={() =>
-                                      navigate(`book-detail?id=${book.id}`)
+                                      navigate(`book-step?id=${book.id}`)
                                     }
                                   >
                                     <Card className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
@@ -250,7 +250,7 @@ export default function BookListPage() {
                                     key={book.id}
                                     className="cursor-pointer hover:shadow-md transition-shadow"
                                     onClick={() =>
-                                      navigate(`book-detail?id=${book.id}`)
+                                      navigate(`book-step?id=${book.id}`)
                                     }
                                   >
                                     <div className="flex">
@@ -260,7 +260,8 @@ export default function BookListPage() {
                                             src={
                                               baseUrl.publish_esensi +
                                               "/" +
-                                              book.cover
+                                              book.cover +
+                                              "?w=350"
                                             }
                                             alt={book.name}
                                             className="object-cover w-full h-full"
@@ -341,7 +342,7 @@ export default function BookListPage() {
                                             : "bg-gray-50"
                                         }`}
                                         onClick={() =>
-                                          navigate(`book-detail?id=${book.id}`)
+                                          navigate(`book-step?id=${book.id}`)
                                         }
                                       >
                                         <td className="p-2">
@@ -352,7 +353,8 @@ export default function BookListPage() {
                                                   src={
                                                     baseUrl.publish_esensi +
                                                     "/" +
-                                                    book.cover
+                                                    book.cover +
+                                                    "?w=350"
                                                   }
                                                   alt={book.name}
                                                   className="object-cover w-full h-full"

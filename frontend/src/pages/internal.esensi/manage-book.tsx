@@ -2,7 +2,6 @@ import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { LayoutToggle } from "@/components/publish/layout-toggle";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataPagination } from "@/components/ui/data-pagination";
 import { baseUrl } from "@/lib/gen/base-url";
@@ -11,7 +10,7 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import type { } from "backend/api/publish.esensi/book-list";
 import type { Book } from "backend/api/types";
-import { ChevronRight, PlusCircle } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 export default function BookListPage() {
   const local = useLocal(
@@ -155,7 +154,8 @@ export default function BookListPage() {
                                             src={
                                               baseUrl.internal_esensi +
                                               "/" +
-                                              book.cover
+                                              book.cover +
+                                              "?w=350"
                                             }
                                             alt={book.name}
                                             className="object-cover w-full h-full text-center flex items-center justify-center"
@@ -224,7 +224,8 @@ export default function BookListPage() {
                                             src={
                                               baseUrl.internal_esensi +
                                               "/" +
-                                              book.cover
+                                              book.cover +
+                                              "?w=350"
                                             }
                                             alt={book.name}
                                             className="object-cover w-full h-full"
@@ -316,7 +317,8 @@ export default function BookListPage() {
                                                   src={
                                                     baseUrl.internal_esensi +
                                                     "/" +
-                                                    book.cover
+                                                    book.cover +
+                                                    "?w=350"
                                                   }
                                                   alt={book.name}
                                                   className="object-cover w-full h-full"

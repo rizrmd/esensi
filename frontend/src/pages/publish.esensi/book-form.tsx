@@ -19,11 +19,15 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { ChevronRight } from "lucide-react";
 import type { UploadAPIResponse } from "backend/api/upload";
+import { ChevronRight } from "lucide-react";
 import type { book } from "shared/models";
 
-export default function BookCreatePage() {
+export default function BookFormPage() {
+  const params = new URLSearchParams(location.search);
+  const bookId = params.get("id") as string;
+  const isCreating = !bookId;
+
   const local = useLocal(
     {
       book: {
@@ -42,14 +46,80 @@ export default function BookCreatePage() {
         content_type: "text",
         info: {},
       } as unknown as book,
-      loading: false,
+      loading: true,
       error: "",
       success: "",
       isSubmitting: false,
       files: [] as File[],
     },
     async () => {
-      // Initialization logic if needed
+      if (isCreating) {
+        local.loading = false;
+        local.book = {
+          name: "",
+          slug: "",
+          alias: "",
+          desc: "",
+          cover: "",
+          submitted_price: 0,
+          currency: "IDR",
+          sku: "",
+          status: "draft",
+          published_date: new Date(),
+          is_physical: false,
+          preorder_min_qty: 0,
+          content_type: "text",
+          info: {},
+        } as unknown as book;
+        local.render();
+        return;
+      }
+
+      if (!bookId || bookId === "") {
+        local.error = "ID buku tidak ditemukan";
+        local.loading = false;
+        local.render();
+        return;
+      }
+
+      try {
+        const res = await api.book_detail({ id: bookId });
+        if (res && res.data) {
+          local.book = res.data;
+          if (res.data.cover) {
+            // Create a File object from the cover image URL
+            const fetchImage = async () => {
+              try {
+                const imageUrl = `${baseUrl.auth_esensi}/${res.data!.cover}`;
+                const response = await fetch(imageUrl);
+                const blob = await response.blob();
+                const fileName =
+                  res.data!.cover.split("/").pop() || "cover.jpg";
+
+                // Create a File object from the Blob
+                const file = new File([blob], fileName, {
+                  type: blob.type,
+                  lastModified: new Date().getTime(),
+                });
+
+                local.files = [file];
+                local.render();
+              } catch (error) {
+                console.error("Error fetching cover image:", error);
+              }
+            };
+            fetchImage();
+          }
+        } else {
+          local.error = "Buku tidak ditemukan";
+        }
+      } catch (err) {
+        local.error = "Terjadi kesalahan saat mengambil data buku";
+        console.error(err);
+      } finally {
+        local.loading = false;
+        local.render();
+      }
     }
   );
 
@@ -66,27 +136,35 @@ export default function BookCreatePage() {
         const file = local.files[0];
         const formData = new FormData();
         formData.append("file", file);
-        const res = await fetch(`${baseUrl.auth_esensi}/api/upload`, {
+        const resUpload = await fetch(`${baseUrl.auth_esensi}/api/upload`, {
           method: "POST",
           body: formData,
         });
-        const uploaded: UploadAPIResponse = await res.json();
+        const uploaded: UploadAPIResponse = await resUpload.json();
         if (uploaded.name) local.book.cover = uploaded.name;
-        if (!!local.book.cover) console.log("local.book.cover", local.book.cover);
       }
 
-      const res = await api.book_create({
-        data: local.book,
-      });
-      console.log("res", res);
+      let res;
+      if (isCreating) {
+        res = await api.book_create({ data: local.book });
+      } else {
+        res = await api.book_update({
+          id: bookId,
+          data: local.book,
+        });
+      }
 
       if (res.success && res.data) {
-        local.success = "Buku berhasil ditambahkan!";
+        local.success = isCreating
+          ? "Buku berhasil dibuat!"
+          : "Buku berhasil diperbarui!";
         setTimeout(() => {
           navigate(`/book-detail?id=${res.data?.id}`);
         }, 1500);
       } else {
-        local.error = res.message || "Gagal menambahkan buku.";
+        local.error =
+          res.message ||
+          (isCreating ? "Gagal membuat buku." : "Gagal memperbarui buku.");
       }
     } catch (err) {
       local.error = "Terjadi kesalahan saat menghubungi server.";
@@ -125,6 +203,16 @@ export default function BookCreatePage() {
     };
     local.render();
   };
+
+  if (local.loading) {
+    return <AppLoading />;
+  }
+
+  const pageTitle = isCreating ? "Tambah Buku Baru" : "Perbarui Buku";
+  const pageDescription = isCreating
+    ? "Isi formulir di bawah untuk menambahkan buku baru."
+    : "Silahkan edit formulir di bawah untuk memperbarui buku.";
+  const submitButtonText = isCreating ? "Tambah Buku" : "Perbarui Buku";
 
   return (
     <Protected
@@ -176,28 +264,34 @@ export default function BookCreatePage() {
                     </button>
                     <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
                     <button
-                      onClick={() => navigate("/book-step")}
+                      onClick={() => navigate(`/book-step?id=${bookId}`)}
                       className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
                     >
                       Proses Buku
                     </button>
                     <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                    <span className="text-gray-800 font-medium">
-                      Tambah Buku
-                    </span>
+                    {isCreating ? (
+                      <span className="text-gray-800 font-medium">
+                        Tambah Buku Baru
+                      </span>
+                    ) : (
+                      <>
+                        <span className="text-gray-800 font-medium">
+                          Perbarui Buku
+                        </span>
+                      </>
+                    )}
                   </nav>
 
                   {/* Divider line */}
-                  <div className="border-b border-gray-200"></div>
+                  <div className="border-b border-gray-200 mb-4"></div>
                 </div>
 
                 <CardHeader>
                   <CardTitle className="text-xl font-bold">
-                    Tambah Buku
+                    {pageTitle}
                   </CardTitle>
-                  <CardDescription>
-                    Silahkan isi formulir di bawah untuk menambahkan buku baru.
-                  </CardDescription>
+                  <CardDescription>{pageDescription}</CardDescription>
                 </CardHeader>
                 <form onSubmit={handleSubmit}>
                   <CardContent className="space-y-6">
@@ -259,10 +353,17 @@ export default function BookCreatePage() {
                       <div>
                         <MyFileUpload
                           title="Cover Buku"
+                          files={local.files}
+                          accept="image/*"
                           onImageChange={(files) => {
                             local.files = files;
                             local.render();
                           }}
+                          initialImage={
+                            local.book.cover
+                              ? `${baseUrl.auth_esensi}/${local.book.cover}`
+                              : undefined
+                          }
                         />
                       </div>
 
@@ -393,18 +494,30 @@ export default function BookCreatePage() {
                     </div>
                   </CardContent>
                   <CardFooter className="flex justify-between">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => navigate("/manage-book")}
-                    >
-                      Batal
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => navigate("/manage-book")}
+                      >
+                        Batal
+                      </Button>
+                      {bookId && !isCreating && (
+                        <Button
+                          type="button"
+                          variant="secondary"
+                          onClick={() => navigate(`/book-detail?id=${bookId}`)}
+                          className="border border-gray-300"
+                        >
+                          Lihat Detail
+                        </Button>
+                      )}
+                    </div>
                     <Button type="submit" disabled={local.isSubmitting}>
                       {local.isSubmitting ? (
                         <span>Menyimpan...</span>
                       ) : (
-                        <span>Simpan Buku</span>
+                        <span>{submitButtonText}</span>
                       )}
                     </Button>
                   </CardFooter>

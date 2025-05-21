@@ -4,7 +4,11 @@ import { LayoutToggle } from "@/components/publish/layout-toggle";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataPagination } from "@/components/ui/data-pagination";
-import { betterAuth, type AuthClientGetSessionAPIResponse, type User } from "@/lib/better-auth";
+import {
+  betterAuth,
+  type AuthClientGetSessionAPIResponse,
+  type User,
+} from "@/lib/better-auth";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
@@ -246,7 +250,8 @@ export default function ProductListPage() {
                                             src={
                                               baseUrl.publish_esensi +
                                               "/" +
-                                              product.cover
+                                              product.cover +
+                                              "?w=350"
                                             }
                                             alt={product.name}
                                             className="object-cover w-full h-full"
@@ -341,7 +346,8 @@ export default function ProductListPage() {
                                                     src={
                                                       baseUrl.publish_esensi +
                                                       "/" +
-                                                      product.cover
+                                                      product.cover +
+                                                      "?w=350"
                                                     }
                                                     alt={product.name}
                                                     className="object-cover w-full h-full"

@@ -148,7 +148,7 @@ export default function ProductListPage() {
                                         {product.cover ? (
                                           <img
                                             src={
-                                              baseUrl.publish_esensi +
+                                              baseUrl.internal_esensi +
                                               "/" +
                                               product.cover +
                                               "?w=350"
@@ -222,7 +222,8 @@ export default function ProductListPage() {
                                             src={
                                               baseUrl.internal_esensi +
                                               "/" +
-                                              product.cover
+                                              product.cover +
+                                              "?w=350"
                                             }
                                             alt={product.name}
                                             className="object-cover w-full h-full"
@@ -317,7 +318,8 @@ export default function ProductListPage() {
                                                     src={
                                                       baseUrl.internal_esensi +
                                                       "/" +
-                                                      product.cover
+                                                      product.cover +
+                                                      "?w=350"
                                                     }
                                                     alt={product.name}
                                                     className="object-cover w-full h-full"
