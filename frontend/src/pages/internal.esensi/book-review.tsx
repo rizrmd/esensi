@@ -19,6 +19,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import { BookStatus } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import { ChevronRight } from "lucide-react";
 import type { book } from "shared/models";
@@ -38,7 +39,7 @@ export default function BookUpdatePage() {
         submitted_price: 0,
         currency: "IDR",
         sku: "",
-        status: "draft",
+        status: BookStatus.DRAFT,
         published_date: new Date(),
         is_physical: false,
         preorder_min_qty: 0,

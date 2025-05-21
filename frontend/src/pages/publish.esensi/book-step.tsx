@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type { Book } from "backend/api/types";
-import { ArrowLeft, ChevronRight } from "lucide-react";
+import { BookStatus, type Book } from "backend/api/types";
+import { ChevronRight } from "lucide-react";
 
 type step = {
   title: string;
@@ -53,6 +53,10 @@ export default function BookStepPag() {
             local.error = "Buku tidak ditemukan.";
           } else {
             local.book = res.data;
+            if (res.data.status === BookStatus.DRAFT) local.step = 0;
+            else if (res.data.status === BookStatus.SUBMITTED) local.step = 1;
+            else if (res.data.status === BookStatus.APPROVED) local.step = 2;
+            else if (res.data.status === BookStatus.REJECTED) local.step = -1;
           }
         } catch (error) {
           local.error = "Terjadi kesalahan saat memuat data buku.";
@@ -148,13 +152,19 @@ export default function BookStepPag() {
                                 </p>
                               </div>
                             </div>
-                            <Button
-                              variant="link"
-                              onClick={() => navigate(step.link)}
-                              className="text-blue-600 hover:underline"
-                            >
-                              Lanjutkan
-                            </Button>
+                            {index <= local.step ? (
+                              <Button
+                                variant="link"
+                                onClick={() => navigate(step.link)}
+                                className="text-blue-600 hover:underline"
+                              >
+                                Lanjutkan
+                              </Button>
+                            ) : (
+                              <span className="text-gray-400 text-sm mr-4">
+                                Lanjutkan
+                              </span>
+                            )}
                           </div>
                         ))
                       )}

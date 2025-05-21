@@ -114,7 +114,7 @@ export default function BookDetailPage() {
                       <Button
                         onClick={() => navigate("/book-create")}
                         className="flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white rounded-md px-3 py-1.5"
-                        variant="ghost"
+                        variant="default"
                       >
                         <PlusCircle className="h-4 w-4 mr-1" />
                         Tambah Buku

@@ -63,7 +63,8 @@ export const Protected: FC<{
         }
         if (e.data?.action == "session") {
           current.user = e.data.user;
-          if (current.user) {
+          if (!current.user) navigate("/");
+          else {
             if (current.user["idAffiliate"] === "null")
               current.user["idAffiliate"] = null;
             if (current.user["idAuthor"] === "null")

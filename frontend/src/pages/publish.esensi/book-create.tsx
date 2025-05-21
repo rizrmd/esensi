@@ -12,15 +12,21 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Alert } from "@/components/ui/global-alert";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  betterAuth,
+  type AuthClientGetSessionAPIResponse,
+} from "@/lib/better-auth";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { ChevronRight } from "lucide-react";
+import { BookStatus } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
+import { ChevronRight } from "lucide-react";
 import type { book } from "shared/models";
 
 export default function BookCreatePage() {
@@ -35,11 +41,13 @@ export default function BookCreatePage() {
         submitted_price: 0,
         currency: "IDR",
         sku: "",
-        status: "draft",
+        status: BookStatus.DRAFT,
         published_date: new Date(),
         is_physical: false,
+        is_chapter: false,
         preorder_min_qty: 0,
         content_type: "text",
+        id_author: "",
         info: {},
       } as unknown as book,
       loading: false,
@@ -49,12 +57,34 @@ export default function BookCreatePage() {
       files: [] as File[],
     },
     async () => {
-      // Initialization logic if needed
+      const session: AuthClientGetSessionAPIResponse =
+        await betterAuth.getSession();
+      local.book.id_author = session.data!.user.idAuthor!;
     }
   );
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  };
+
+  const submitBook = async (
+    status: BookStatus.DRAFT | BookStatus.SUBMITTED
+  ) => {
+    if (!local.book.name) {
+      Alert.info("Nama buku tidak boleh kosong.");
+      local.error = "Nama buku tidak boleh kosong.";
+      local.render();
+      return;
+    }
+
+    if (!local.book.submitted_price) {
+      Alert.info("Harga buku tidak boleh kosong.");
+      local.error = "Harga buku tidak boleh kosong.";
+      local.render();
+      return;
+    }
+
+    local.book.status = status; // Setting the status based on which button was clicked
     local.isSubmitting = true;
     local.error = "";
     local.success = "";
@@ -72,18 +102,18 @@ export default function BookCreatePage() {
         });
         const uploaded: UploadAPIResponse = await res.json();
         if (uploaded.name) local.book.cover = uploaded.name;
-        if (!!local.book.cover) console.log("local.book.cover", local.book.cover);
+        if (!!local.book.cover)
+          console.log("local.book.cover", local.book.cover);
       }
 
       const res = await api.book_create({
         data: local.book,
       });
-      console.log("res", res);
 
       if (res.success && res.data) {
         local.success = "Buku berhasil ditambahkan!";
         setTimeout(() => {
-          navigate(`/book-detail?id=${res.data?.id}`);
+          navigate(`/book-step?id=${res.data?.id}`);
         }, 1500);
       } else {
         local.error = res.message || "Gagal menambahkan buku.";
@@ -299,19 +329,6 @@ export default function BookCreatePage() {
                             <option value="USD">USD</option>
                           </select>
                         </div>
-                        <div>
-                          <Label htmlFor="status">Status</Label>
-                          <select
-                            id="status"
-                            name="status"
-                            value={local.book.status}
-                            onChange={handleChange}
-                            className="mt-1 w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                          >
-                            <option value="draft">Draft</option>
-                            <option value="submitted">Submitted</option>
-                          </select>
-                        </div>
                       </div>
 
                       <div>
@@ -356,18 +373,33 @@ export default function BookCreatePage() {
                         />
                       </div>
 
-                      <div className="flex items-center space-x-2">
-                        <Checkbox
-                          id="is_physical"
-                          checked={local.book.is_physical}
-                          onCheckedChange={(checked) =>
-                            handleCheckboxChange(
-                              "is_physical",
-                              checked === true
-                            )
-                          }
-                        />
-                        <Label htmlFor="is_physical">Buku Fisik</Label>
+                      <div className="flex space-x-5">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="is_physical"
+                            checked={local.book.is_physical}
+                            onCheckedChange={(checked) =>
+                              handleCheckboxChange(
+                                "is_physical",
+                                checked === true
+                              )
+                            }
+                          />
+                          <Label htmlFor="is_physical">Buku Fisik?</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="is_chapter"
+                            checked={local.book.is_chapter}
+                            onCheckedChange={(checked) =>
+                              handleCheckboxChange(
+                                "is_chapter",
+                                checked === true
+                              )
+                            }
+                          />
+                          <Label htmlFor="is_chapter">Chapter?</Label>
+                        </div>
                       </div>
 
                       {local.book.is_physical && (
@@ -396,17 +428,34 @@ export default function BookCreatePage() {
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={() => navigate("/manage-book")}
+                      onClick={() => navigate("/book-step")}
                     >
                       Batal
                     </Button>
-                    <Button type="submit" disabled={local.isSubmitting}>
-                      {local.isSubmitting ? (
-                        <span>Menyimpan...</span>
-                      ) : (
-                        <span>Simpan Buku</span>
-                      )}
-                    </Button>
+                    <div className="flex space-x-3">
+                      <Button
+                        type="button"
+                        onClick={() => submitBook(BookStatus.DRAFT)}
+                        disabled={local.isSubmitting}
+                      >
+                        {local.isSubmitting ? (
+                          <span>Menyimpan...</span>
+                        ) : (
+                          <span>Simpan Sebagai Draft</span>
+                        )}
+                      </Button>
+                      <Button
+                        type="button"
+                        onClick={() => submitBook(BookStatus.SUBMITTED)}
+                        disabled={local.isSubmitting}
+                      >
+                        {local.isSubmitting ? (
+                          <span>Menyimpan...</span>
+                        ) : (
+                          <span>Simpan dan Ajukan</span>
+                        )}
+                      </Button>
+                    </div>
                   </CardFooter>
                 </form>
               </Card>
