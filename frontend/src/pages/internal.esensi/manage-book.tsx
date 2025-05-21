@@ -100,14 +100,6 @@ export default function BookListPage() {
                       <div className="flex flex-col gap-3 items-end">
                         <div className="flex items-center gap-4">
                           <div className="flex gap-2">
-                            <Button
-                              onClick={() => navigate("/book-review")}
-                              className="flex items-center gap-2"
-                              variant="default"
-                            >
-                              <PlusCircle className="h-5 w-5" />
-                              <span>Review Buku</span>
-                            </Button>
                             <LayoutToggle
                               layout={local.layout}
                               onLayoutChange={(value) => {

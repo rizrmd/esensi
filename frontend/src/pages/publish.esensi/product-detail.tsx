@@ -55,6 +55,7 @@ export default function ProductDetailPage() {
           navigate("/onboarding");
           return <AppLoading />;
         }
+        return null;
       }}
     >
       {() => (

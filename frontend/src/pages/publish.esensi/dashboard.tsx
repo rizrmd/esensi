@@ -54,6 +54,7 @@ export default () => {
           navigate("/onboarding");
           return <AppLoading />;
         }
+        return null;
       }}
     >
       {({ user }) => {

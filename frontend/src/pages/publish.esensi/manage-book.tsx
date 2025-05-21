@@ -67,6 +67,7 @@ export default function BookListPage() {
           navigate("/onboarding");
           return <AppLoading />;
         }
+        return null;
       }}
     >
       {({ user }) => {

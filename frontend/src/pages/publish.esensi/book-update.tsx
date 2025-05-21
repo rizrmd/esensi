@@ -187,6 +187,7 @@ export default function BookUpdatePage() {
           navigate("/onboarding");
           return <AppLoading />;
         }
+        return null;
       }}
     >
       {() => (

@@ -45,18 +45,7 @@ export default function ProductDetailPage() {
   if (local.loading) return <AppLoading />;
 
   return (
-    <Protected
-      role={["publisher", "author"]}
-      fallback={({ missing_role }) => {
-        if (
-          missing_role.includes("publisher") ||
-          missing_role.includes("author")
-        ) {
-          navigate("/onboarding");
-          return <AppLoading />;
-        }
-      }}
-    >
+    <Protected role={["publisher", "author"]}>
       {() => (
         <div className="flex min-h-svh flex-col bg-gray-50">
           <PublishMenuBar />
@@ -120,7 +109,9 @@ export default function ProductDetailPage() {
                         {local.product.cover ? (
                           <img
                             src={
-                              baseUrl.internal_esensi + "/" + local.product.cover
+                              baseUrl.internal_esensi +
+                              "/" +
+                              local.product.cover
                             }
                             alt={local.product.name}
                             className="mx-auto object-cover"

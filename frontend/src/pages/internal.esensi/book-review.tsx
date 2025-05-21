@@ -177,18 +177,7 @@ export default function BookUpdatePage() {
   }
 
   return (
-    <Protected
-      role={["publisher", "author"]}
-      fallback={({ missing_role }) => {
-        if (
-          missing_role.includes("publisher") ||
-          missing_role.includes("author")
-        ) {
-          navigate("/onboarding");
-          return <AppLoading />;
-        }
-      }}
-    >
+    <Protected role={["publisher", "author"]}>
       {() => (
         <div className="flex min-h-svh flex-col bg-gray-50">
           <PublishMenuBar />

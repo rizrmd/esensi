@@ -65,6 +65,7 @@ export default function ProductListPage() {
           navigate("/onboarding");
           return <AppLoading />;
         }
+        return null;
       }}
     >
       {({ user }) => {
