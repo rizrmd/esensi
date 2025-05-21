@@ -223,7 +223,17 @@ exports.Prisma.BookScalarFieldEnum = {
   ai_suggested_content: 'ai_suggested_content',
   preorder_min_qty: 'preorder_min_qty',
   content_type: 'content_type',
-  is_chapter: 'is_chapter'
+  is_chapter: 'is_chapter',
+  id_product: 'id_product'
+};
+
+exports.Prisma.Book_approvalScalarFieldEnum = {
+  id: 'id',
+  id_book: 'id_book',
+  id_internal: 'id_internal',
+  comment: 'comment',
+  status: 'status',
+  created_at: 'created_at'
 };
 
 exports.Prisma.Book_genreScalarFieldEnum = {
@@ -563,6 +573,7 @@ exports.Prisma.ModelName = {
   author: 'author',
   banner: 'banner',
   book: 'book',
+  book_approval: 'book_approval',
   book_genre: 'book_genre',
   book_history: 'book_history',
   book_tags: 'book_tags',

@@ -116,32 +116,46 @@ model banner {
 }
 
 model book {
-  id                   String         @id(map: "book_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id                   String          @id(map: "book_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name                 String
   slug                 String
-  alias                String         @default("")
-  submitted_price      Decimal        @db.Decimal(18, 2)
-  desc                 String         @default("")
-  info                 Json           @default("{}")
-  status               String         @default("draft") @db.VarChar(10)
-  currency             String         @default("Rp.") @db.VarChar(3)
+  alias                String          @default("")
+  submitted_price      Decimal         @db.Decimal(18, 2)
+  desc                 String          @default("")
+  info                 Json            @default("{}")
+  status               String          @default("draft") @db.VarChar(10)
+  currency             String          @default("Rp.") @db.VarChar(3)
   deleted_at           DateTime?
-  img_file             String         @default("")
-  cover                String         @default("")
-  product_file         String         @default("[]")
-  sku                  String         @default("")
-  id_author            String?        @db.Uuid
-  published_date       DateTime       @default(now())
-  is_physical          Boolean        @default(false)
-  ai_suggested_content Json?          @default("{}")
+  img_file             String          @default("")
+  cover                String          @default("")
+  product_file         String          @default("[]")
+  sku                  String          @default("")
+  id_author            String?         @db.Uuid
+  published_date       DateTime        @default(now())
+  is_physical          Boolean         @default(false)
+  ai_suggested_content Json?           @default("{}")
   preorder_min_qty     Int?
-  content_type         String?        @db.VarChar(20)
-  is_chapter           Boolean        @default(false)
-  author               author?        @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "book_fk_id_author")
+  content_type         String?         @db.VarChar(20)
+  is_chapter           Boolean         @default(false)
+  id_product           String?         @db.Uuid
+  author               author?         @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "book_fk_id_author")
+  product              product?        @relation(fields: [id_product], references: [id], map: "book_fk_id_product")
+  book_approval        book_approval[]
   book_genre           book_genre[]
   book_history         book_history[]
   book_tags            book_tags[]
   reviews              reviews[]
+}
+
+model book_approval {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_book     String   @db.Uuid
+  id_internal String   @db.Uuid
+  comment     Json?
+  status      String   @default("submitted") @db.VarChar(20)
+  created_at  DateTime @default(now())
+  book        book     @relation(fields: [id_book], references: [id], map: "book_approval_fk_id_book")
+  internal    internal @relation(fields: [id_internal], references: [id], map: "book_approval_fk_id_internal")
 }
 
 model book_genre {
@@ -278,15 +292,16 @@ model genre {
 }
 
 model internal {
-  id                     String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_account             String?       @db.Uuid
+  id                     String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_account             String?         @db.Uuid
   name                   String
-  is_sales_and_marketing Boolean       @default(false)
-  is_support             Boolean       @default(false)
-  is_management          Boolean       @default(false)
-  is_it                  Boolean       @default(false)
+  is_sales_and_marketing Boolean         @default(false)
+  is_support             Boolean         @default(false)
+  is_management          Boolean         @default(false)
+  is_it                  Boolean         @default(false)
   auth_user              auth_user[]
-  auth_account           auth_account? @relation(fields: [id_account], references: [id], map: "internal_fk_id_account")
+  book_approval          book_approval[]
+  auth_account           auth_account?   @relation(fields: [id_account], references: [id], map: "internal_fk_id_account")
 }
 
 model landing {
@@ -352,6 +367,7 @@ model product {
   preorder_min_qty     Int?
   content_type         String?            @db.VarChar(20)
   is_chapter           Boolean            @default(false)
+  book                 book[]
   bundle_product       bundle_product[]
   chapter              chapter[]
   customer_reader      customer_reader[]
