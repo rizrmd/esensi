@@ -22,7 +22,7 @@ export default () => {
           <div className="space-y-2">
             <Button className="w-full" asChild>
               <a
-                href={`${u.auth_esensi}/login?callbackURL=${encodeURIComponent(
+                href={`${baseUrl.auth_esensi}/login?callbackURL=${encodeURIComponent(
                   baseUrl.internal_esensi + "/dashboard"
                 )}`}
               >
