@@ -62,7 +62,7 @@ export default defineAPI({
       },
     });
 
-    let the_genres = "";
+    let the_genres = ``;
     genres.map((g) => {
       if (g.genre.deleted_at != null) {
         the_genres = the_genres + `, ${g.genre}`;

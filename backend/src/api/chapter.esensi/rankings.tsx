@@ -3,10 +3,19 @@ import { defineAPI } from "rlib/server";
 
 export default defineAPI({
   name: "rankings",
-  url: "/rankings",
+  url: "/rankings/:filter/:value/:daterange",
   async handler() {
     const req = this.req!;
 
+    const filterby = req.params?.filter ? req.params.filter : null;
+    const filterval = req.params?.value ? req.params.value : null;
+    const daterange = req.params?.daterange ? req.params.daterange : null;
+
+    const books = await db.book.findMany({
+      where: {
+        deleted_at: null,
+      },
+    });
     const data = {
       title: ``,
       content: ``,
