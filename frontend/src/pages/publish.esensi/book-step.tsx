@@ -149,7 +149,18 @@ export default function BookStepPag() {
                                 </h2>
                                 <p className="text-gray-500">
                                   {step.description}
+                                  <br />
                                 </p>
+                                <span className="text-gray-500 text-sm">
+                                  Status:{" "}
+                                  {index < local.step
+                                    ? "Selesai. Anda bisa lanjut ke proses berikutnya."
+                                    : index == local.step
+                                    ? "Belum Selesai. Anda harus selesaikan dulu proses ini."
+                                    : "Selesaikan dulu proses sebelumnya di nomor " +
+                                      (local.step + 1) +
+                                      "."}
+                                </span>
                               </div>
                             </div>
                             {index <= local.step ? (

@@ -102,8 +102,6 @@ export default function BookCreatePage() {
         });
         const uploaded: UploadAPIResponse = await res.json();
         if (uploaded.name) local.book.cover = uploaded.name;
-        if (!!local.book.cover)
-          console.log("local.book.cover", local.book.cover);
       }
 
       const res = await api.book_create({
