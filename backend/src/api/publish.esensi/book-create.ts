@@ -8,26 +8,43 @@ export default defineAPI({
   url: "/api/publish/book/create",
   async handler(arg: { data: Partial<book> }): Promise<ApiResponse<Book>> {
     try {
-      const created = await db.book.create({
+      const _created = await db.book.create({
         data: arg.data as any,
+      });
+
+      await db.book_changes_log.create({
+        data: {
+          id_book: _created.id,
+          created_at: new Date(),
+          changes: JSON.stringify(arg.data),
+        },
+      });
+
+      const created = await db.book.findUnique({
+        where: { id: _created.id },
         include: {
           author: true,
           book_approval: {
-            take: 10,
             orderBy: {
               created_at: "desc",
+            },
+          },
+          book_changes_log: {
+            orderBy: {
+              created_at: "asc",
             },
           },
         },
       });
 
-      await db.book_changes_log.create({
-        data: {
-          id_book: created.id,
-          created_at: new Date(),
-          changes: JSON.stringify(arg.data),
-        },
-      });
+      if (!created) {
+        return { success: false, message: "Buku tidak ditemukan" };
+      } else {
+        created.book_changes_log = created.book_changes_log.map((log) => ({
+          ...log,
+          hash_value: `${log.id_book}_${log.created_at.getTime()}`,
+        }));
+      }
 
       return {
         success: true,

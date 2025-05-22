@@ -18,6 +18,11 @@ export default defineAPI({
               created_at: "asc",
             },
           },
+          book_changes_log: {
+            orderBy: {
+              created_at: "asc",
+            },
+          },
         },
       });
 
@@ -26,6 +31,11 @@ export default defineAPI({
           success: false,
           message: "Buku tidak ditemukan",
         };
+      } else {
+        book.book_changes_log = book.book_changes_log.map((log) => ({
+          ...log,
+          hash_value: `${log.id_book}_${log.created_at.getTime()}`,
+        }));
       }
 
       return {

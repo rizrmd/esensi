@@ -45,8 +45,15 @@ export default defineAPI({
         include: {
           author: true,
           book_approval: {
+            take: 10,
             orderBy: {
               created_at: "desc",
+            },
+          },
+          book_changes_log: {
+            take: 10,
+            orderBy: {
+              created_at: "asc",
             },
           },
         },

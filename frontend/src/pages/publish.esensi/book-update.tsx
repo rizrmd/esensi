@@ -150,7 +150,6 @@ export default function BookUpdatePage() {
         local.files.new.length > 0 &&
         !isTwoFilesArrayTheSame(local.files.new, local.files.old)
       ) {
-        console.log('XXXXXX')
         const file = local.files.new[0];
         const formData = new FormData();
         formData.append("file", file);

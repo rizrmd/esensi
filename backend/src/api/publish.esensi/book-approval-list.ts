@@ -34,7 +34,7 @@ export default defineAPI({
           id_book: arg.id_book,
         },
         orderBy: {
-          created_at: "desc",
+          created_at: "asc",
         },
         skip,
         take: limit,

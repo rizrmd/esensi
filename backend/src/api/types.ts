@@ -5,6 +5,7 @@ import type {
   author,
   book,
   book_approval,
+  book_changes_log,
   bundle,
   category,
   customer,
@@ -16,7 +17,7 @@ import type {
   transaction,
   withdrawal,
 } from "shared/models";
-import type { Decimal } from "shared/models/runtime/library";
+import type { Decimal, JsonValue } from "shared/models/runtime/library";
 
 export type Author = author & {
   auth_user: auth_user[];
@@ -31,9 +32,21 @@ export type Author = author & {
   product: product[];
 };
 
+export type BookChangesLog = Omit<book_changes_log, "changes"> & {
+  changes:
+    | JsonValue
+    | null
+    | {
+        newFields: Record<string, any>;
+        oldFields: Record<string, any>;
+      };
+  hash_value?: string;
+};
+
 export type Book = book & {
   author: author | null;
   book_approval: book_approval[];
+  book_changes_log: BookChangesLog[];
 };
 
 export type BookApproval = book_approval & {

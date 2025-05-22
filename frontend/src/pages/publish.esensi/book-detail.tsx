@@ -6,8 +6,8 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type { Book } from "backend/api/types";
-import { ChevronRight } from "lucide-react";
+import type { Book, BookChangesLog } from "backend/api/types";
+import { ChevronDown, ChevronRight, ChevronUp, History } from "lucide-react";
 
 export default function BookDetailPage() {
   const local = useLocal(
@@ -15,6 +15,7 @@ export default function BookDetailPage() {
       book: null as Book | null,
       loading: true,
       error: "",
+      expandedLogs: {} as Record<string, boolean>,
     },
     async () => {
       const params = new URLSearchParams(location.search);
@@ -31,6 +32,7 @@ export default function BookDetailPage() {
           local.error = "Buku tidak ditemukan.";
         } else {
           local.book = res.data;
+          console.log("Changes log list:", res.data.book_changes_log);
         }
       } catch (error) {
         local.error = "Terjadi kesalahan saat memuat data buku.";
@@ -266,6 +268,137 @@ export default function BookDetailPage() {
                       </CardContent>
                     </Card>
                   ) : null}
+
+                  {/* Changes Log Section */}
+                  {local.book?.book_changes_log &&
+                    local.book.book_changes_log.length > 0 && (
+                      <div className="mt-8">
+                        <div className="flex items-center mb-4">
+                          <History className="h-5 w-5 mr-2 text-indigo-500" />
+                          <h2 className="text-xl font-bold">
+                            Riwayat Perubahan
+                          </h2>
+                        </div>
+
+                        {local.book.book_changes_log.map(
+                          (log: BookChangesLog) => (
+                            <Card
+                              key={log.hash_value}
+                              className="mb-4 overflow-hidden border border-gray-200"
+                            >
+                              <CardHeader className="bg-gray-50 py-3 px-4">
+                                <div
+                                  className="flex justify-between items-center cursor-pointer"
+                                  onClick={() => {
+                                    local.expandedLogs[log.hash_value!] =
+                                      !local.expandedLogs[log.hash_value!];
+                                    local.render();
+                                  }}
+                                >
+                                  <div>
+                                    <p className="font-medium text-sm">
+                                      Perubahan pada{" "}
+                                      {new Date(
+                                        log.created_at
+                                      ).toLocaleDateString("id-ID", {
+                                        year: "numeric",
+                                        month: "long",
+                                        day: "numeric",
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                      })}
+                                    </p>
+                                  </div>
+                                  {local.expandedLogs[log.hash_value!] ? (
+                                    <ChevronUp className="h-5 w-5 text-gray-500" />
+                                  ) : (
+                                    <ChevronDown className="h-5 w-5 text-gray-500" />
+                                  )}
+                                </div>
+                              </CardHeader>
+
+                              {local.expandedLogs[log.hash_value!] && (
+                                <CardContent className="p-0">
+                                  <div className="grid grid-cols-2 divide-x divide-gray-200">
+                                    <div className="p-4">
+                                      <h3 className="text-sm font-semibold text-gray-700 mb-3">
+                                        Nilai Sebelumnya
+                                      </h3>
+                                      {/* {Object.entries(
+                                        log.changes?['oldFields']
+                                      ).map(([key, value]) => (
+                                        <div
+                                          key={`old-${key}`}
+                                          className="mb-3 pb-3 border-b border-gray-100 last:border-b-0"
+                                        >
+                                          <p className="text-xs font-medium text-gray-500 mb-1">
+                                            {key}
+                                          </p>
+                                          <p className="text-sm whitespace-pre-wrap break-words font-medium">
+                                            {value === null ||
+                                            value === undefined ? (
+                                              <span className="text-gray-400 italic">
+                                                Kosong
+                                              </span>
+                                            ) : typeof value === "object" ? (
+                                              JSON.stringify(value, null, 2)
+                                            ) : (
+                                              String(value)
+                                            )}
+                                          </p>
+                                        </div>
+                                      ))} */}
+                                      {/* {Object.keys(log.changes?['oldFields'])
+                                        .length === 0 && (
+                                        <p className="text-sm text-gray-500 italic">
+                                          Tidak ada data sebelumnya
+                                        </p>
+                                      )} */}
+                                    </div>
+
+                                    <div className="p-4">
+                                      <h3 className="text-sm font-semibold text-gray-700 mb-3">
+                                        Nilai Baru
+                                      </h3>
+                                      {/* {Object.entries(
+                                        log.changes?['newFields']
+                                      ).map(([key, value]) => (
+                                        <div
+                                          key={`new-${key}`}
+                                          className="mb-3 pb-3 border-b border-gray-100 last:border-b-0"
+                                        >
+                                          <p className="text-xs font-medium text-gray-500 mb-1">
+                                            {key}
+                                          </p>
+                                          <p className="text-sm whitespace-pre-wrap break-words font-medium">
+                                            {value === null ||
+                                            value === undefined ? (
+                                              <span className="text-gray-400 italic">
+                                                Kosong
+                                              </span>
+                                            ) : typeof value === "object" ? (
+                                              JSON.stringify(value, null, 2)
+                                            ) : (
+                                              String(value)
+                                            )}
+                                          </p>
+                                        </div>
+                                      ))}
+                                      {Object.keys(log.changes?['newFields'])
+                                        .length === 0 && (
+                                        <p className="text-sm text-gray-500 italic">
+                                          Tidak ada data baru
+                                        </p>
+                                      )} */}
+                                    </div>
+                                  </div>
+                                </CardContent>
+                              )}
+                            </Card>
+                          )
+                        )}
+                      </div>
+                    )}
                 </div>
               </div>
             </div>
