@@ -102,3 +102,10 @@ export type Withdrawal = {
 export type Account = auth_account & {
   auth_user: auth_user | null;
 };
+
+export enum BookStatus {
+  DRAFT = "draft",
+  SUBMITTED = "submitted",
+  APPROVED = "approved",
+  REJECTED = "rejected",
+}

@@ -98,14 +98,6 @@ export default function ProductDetailPage() {
 
                   <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center gap-4">
-                      <Button
-                        variant="outline"
-                        onClick={() => navigate("/manage-product")}
-                        className="flex items-center gap-2 border border-gray-300 rounded-md px-3 py-1.5"
-                      >
-                        <ArrowLeft className="h-4 w-4 mr-1" />
-                        Kembali ke Daftar
-                      </Button>
                       <h1 className="text-2xl font-bold">
                         Detil Produk (Telah Disetujui)
                       </h1>

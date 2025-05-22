@@ -7,13 +7,13 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import type { Book } from "backend/api/types";
 import { ArrowLeft, ChevronRight, Edit, PlusCircle } from "lucide-react";
-import type { author, book } from "shared/models";
 
 export default function BookDetailPage() {
   const local = useLocal(
     {
-      book: null as (book & { author: author | null }) | null,
+      book: null as Book | null,
       loading: true,
       error: "",
     },
@@ -87,6 +87,13 @@ export default function BookDetailPage() {
                       Daftar Buku
                     </button>
                     <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+                    <button
+                      onClick={() => navigate("/book-step?id=" + local.book?.id)}
+                      className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
+                    >
+                      Proses Buku
+                    </button>
+                    <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
                     <span className="text-gray-800 font-medium">
                       Detil Buku
                     </span>
@@ -97,14 +104,6 @@ export default function BookDetailPage() {
 
                   <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center gap-4">
-                      <Button
-                        variant="outline"
-                        onClick={() => navigate("/manage-book")}
-                        className="flex items-center gap-2 border border-gray-300 rounded-md px-3 py-1.5"
-                      >
-                        <ArrowLeft className="h-4 w-4 mr-1" />
-                        Kembali ke Daftar
-                      </Button>
                       <h1 className="text-2xl font-bold">
                         Detil Buku (Belum Disetujui)
                       </h1>
@@ -125,13 +124,14 @@ export default function BookDetailPage() {
                       <Button
                         onClick={() => navigate("/book-create")}
                         className="flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white rounded-md px-3 py-1.5"
-                        variant="ghost"
+                        variant="default"
                       >
                         <PlusCircle className="h-4 w-4 mr-1" />
                         Tambah Buku
                       </Button>
                     </div>
                   </div>
+
                   {local.error ? (
                     <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-8 shadow-sm">
                       {local.error}

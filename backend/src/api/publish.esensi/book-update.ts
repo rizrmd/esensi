@@ -33,6 +33,7 @@ export default defineAPI({
           sku: arg.data.sku,
           id_author: arg.data.id_author,
           is_physical: arg.data.is_physical,
+          is_chapter: arg.data.is_chapter,
           content_type: arg.data.content_type,
         },
         include: {

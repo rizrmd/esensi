@@ -19,14 +19,14 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { BookStatus } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import { ChevronRight } from "lucide-react";
 import type { book } from "shared/models";
 
-export default function BookUpdatePage() {
+export default function BookFormPage() {
   const params = new URLSearchParams(location.search);
   const bookId = params.get("id") as string;
+  const isCreating = !bookId;
 
   const local = useLocal(
     {
@@ -39,7 +39,7 @@ export default function BookUpdatePage() {
         submitted_price: 0,
         currency: "IDR",
         sku: "",
-        status: BookStatus.DRAFT,
+        status: "draft",
         published_date: new Date(),
         is_physical: false,
         preorder_min_qty: 0,
@@ -53,6 +53,28 @@ export default function BookUpdatePage() {
       files: [] as File[],
     },
     async () => {
+      if (isCreating) {
+        local.loading = false;
+        local.book = {
+          name: "",
+          slug: "",
+          alias: "",
+          desc: "",
+          cover: "",
+          submitted_price: 0,
+          currency: "IDR",
+          sku: "",
+          status: "draft",
+          published_date: new Date(),
+          is_physical: false,
+          preorder_min_qty: 0,
+          content_type: "text",
+          info: {},
+        } as unknown as book;
+        local.render();
+        return;
+      }
+
       if (!bookId || bookId === "") {
         local.error = "ID buku tidak ditemukan";
         local.loading = false;
@@ -114,26 +136,35 @@ export default function BookUpdatePage() {
         const file = local.files[0];
         const formData = new FormData();
         formData.append("file", file);
-        const res = await fetch(`${baseUrl.auth_esensi}/api/upload`, {
+        const resUpload = await fetch(`${baseUrl.auth_esensi}/api/upload`, {
           method: "POST",
           body: formData,
         });
-        const uploaded: UploadAPIResponse = await res.json();
+        const uploaded: UploadAPIResponse = await resUpload.json();
         if (uploaded.name) local.book.cover = uploaded.name;
       }
 
-      const res = await api.book_update({
-        id: bookId,
-        data: local.book,
-      });
+      let res;
+      if (isCreating) {
+        res = await api.book_create({ data: local.book });
+      } else {
+        res = await api.book_update({
+          id: bookId,
+          data: local.book,
+        });
+      }
 
       if (res.success && res.data) {
-        local.success = "Buku berhasil diperbarui!";
+        local.success = isCreating
+          ? "Buku berhasil dibuat!"
+          : "Buku berhasil diperbarui!";
         setTimeout(() => {
           navigate(`/book-detail?id=${res.data?.id}`);
         }, 1500);
       } else {
-        local.error = res.message || "Gagal memperbarui buku.";
+        local.error =
+          res.message ||
+          (isCreating ? "Gagal membuat buku." : "Gagal memperbarui buku.");
       }
     } catch (err) {
       local.error = "Terjadi kesalahan saat menghubungi server.";
@@ -177,8 +208,26 @@ export default function BookUpdatePage() {
     return <AppLoading />;
   }
 
+  const pageTitle = isCreating ? "Tambah Buku Baru" : "Perbarui Buku";
+  const pageDescription = isCreating
+    ? "Isi formulir di bawah untuk menambahkan buku baru."
+    : "Silahkan edit formulir di bawah untuk memperbarui buku.";
+  const submitButtonText = isCreating ? "Tambah Buku" : "Perbarui Buku";
+
   return (
-    <Protected role={["publisher", "author"]}>
+    <Protected
+      role={["publisher", "author"]}
+      fallback={({ missing_role }) => {
+        if (
+          missing_role.includes("publisher") ||
+          missing_role.includes("author")
+        ) {
+          navigate("/onboarding");
+          return <AppLoading />;
+        }
+        return null;
+      }}
+    >
       {() => (
         <div className="flex min-h-svh flex-col bg-gray-50">
           <PublishMenuBar />
@@ -215,15 +264,23 @@ export default function BookUpdatePage() {
                     </button>
                     <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
                     <button
-                      onClick={() => navigate(`/book-detail?id=${bookId}`)}
+                      onClick={() => navigate(`/book-step?id=${bookId}`)}
                       className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
                     >
-                      Detil Buku
+                      Proses Buku
                     </button>
                     <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                    <span className="text-gray-800 font-medium">
-                      Perbarui Buku
-                    </span>
+                    {isCreating ? (
+                      <span className="text-gray-800 font-medium">
+                        Tambah Buku Baru
+                      </span>
+                    ) : (
+                      <>
+                        <span className="text-gray-800 font-medium">
+                          Perbarui Buku
+                        </span>
+                      </>
+                    )}
                   </nav>
 
                   {/* Divider line */}
@@ -232,11 +289,9 @@ export default function BookUpdatePage() {
 
                 <CardHeader>
                   <CardTitle className="text-xl font-bold">
-                    Perbarui Buku
+                    {pageTitle}
                   </CardTitle>
-                  <CardDescription>
-                    Silahkan edit formulir di bawah untuk memperbarui buku.
-                  </CardDescription>
+                  <CardDescription>{pageDescription}</CardDescription>
                 </CardHeader>
                 <form onSubmit={handleSubmit}>
                   <CardContent className="space-y-6">
@@ -447,7 +502,7 @@ export default function BookUpdatePage() {
                       >
                         Batal
                       </Button>
-                      {bookId && (
+                      {bookId && !isCreating && (
                         <Button
                           type="button"
                           variant="secondary"
@@ -462,7 +517,7 @@ export default function BookUpdatePage() {
                       {local.isSubmitting ? (
                         <span>Menyimpan...</span>
                       ) : (
-                        <span>Perbarui Buku</span>
+                        <span>{submitButtonText}</span>
                       )}
                     </Button>
                   </CardFooter>
