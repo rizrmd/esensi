@@ -105,10 +105,10 @@ export default function BookDetailPage() {
                   <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center gap-4">
                       <h1 className="text-2xl font-bold">
-                        Detil Buku (Belum Disetujui)
+                        Detil Buku
                       </h1>
                     </div>
-                    <div className="flex items-center gap-2">
+                    {/* <div className="flex items-center gap-2">
                       {local.book && (
                         <Button
                           onClick={() =>
@@ -129,7 +129,7 @@ export default function BookDetailPage() {
                         <PlusCircle className="h-4 w-4 mr-1" />
                         Tambah Buku
                       </Button>
-                    </div>
+                    </div> */}
                   </div>
 
                   {local.error ? (

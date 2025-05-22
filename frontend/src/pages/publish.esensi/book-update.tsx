@@ -20,7 +20,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { BookStatus } from "backend/api/types";
+import { BookStatus, Currency } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import { ChevronRight } from "lucide-react";
 import type { book } from "shared/models";
@@ -122,6 +122,13 @@ export default function BookUpdatePage() {
     if (!local.book.submitted_price) {
       Alert.info("Harga buku tidak boleh kosong.");
       local.error = "Harga buku tidak boleh kosong.";
+      local.render();
+      return;
+    }
+
+    if (!local.files.length) {
+      Alert.info("Cover buku harus diunggah.");
+      local.error = "Cover buku harus diunggah.";
       local.render();
       return;
     }
@@ -378,8 +385,11 @@ export default function BookUpdatePage() {
                             onChange={handleChange}
                             className="mt-1 w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                           >
-                            <option value="IDR">IDR</option>
-                            <option value="USD">USD</option>
+                            {Object.values(Currency).map((currency) => (
+                              <option key={currency} value={currency}>
+                                {currency}
+                              </option>
+                            ))}
                           </select>
                         </div>
                       </div>

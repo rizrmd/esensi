@@ -109,3 +109,11 @@ export enum BookStatus {
   APPROVED = "approved",
   REJECTED = "rejected",
 }
+
+export enum Currency {
+  IDR = "IDR",
+  USD = "USD",
+  EUR = "EUR",
+  JPY = "JPY",
+  GBP = "GBP",
+}

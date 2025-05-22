@@ -36,7 +36,8 @@ export default function BookStepPag() {
         },
         {
           title: "Ajukan",
-          description: "Proses pengajuan persetujuan buku untuk diterbitkan",
+          description:
+            "Proses pengajuan persetujuan buku untuk diterbitkan. Anda bisa melihat riwayat pengajuan sejak pengajuan pertama, revisi, hingga persetujuan",
           link: "book-submit" + bookIdQueryString,
         },
         {
@@ -122,10 +123,12 @@ export default function BookStepPag() {
                       <div className="border-b border-gray-200 mb-6"></div>
 
                       <div className="flex justify-between items-center mb-6">
-                        <div className="flex items-center gap-4">
-                          <h1 className="text-2xl font-bold">
-                            Proses Buku (Belum Disetujui)
-                          </h1>
+                        <div className="flex flex-col gap-4">
+                          <h1 className="text-2xl font-bold">Proses Buku</h1>
+                          <span className="text-gray-500">
+                            Untuk menerbitkan buku, anda harus melakukan semua 3
+                            proses di bawah ini secara bertahap.
+                          </span>
                         </div>
                       </div>
 
@@ -137,45 +140,65 @@ export default function BookStepPag() {
                         local.steps.map((step, index) => (
                           <div
                             key={index}
-                            className="flex items-center justify-between mb-4"
+                            className="flex flex-col md:flex-row md:items-center justify-between mb-6 pb-4 border-b border-gray-100 last:border-0"
                           >
-                            <div className="flex items-center gap-4">
-                              <div className="w-8 h-8 flex items-center justify-center bg-blue-100 rounded-full">
+                            <div className="flex items-center gap-3 md:gap-4">
+                              <div
+                                className={`min-w-[32px] h-8 flex items-center justify-center rounded-full text-sm font-medium ${
+                                  index <= local.step
+                                    ? "bg-blue-100 text-blue-700"
+                                    : "bg-gray-100 text-gray-500"
+                                }`}
+                                style={{ width: "32px" }}
+                              >
                                 {index + 1}
                               </div>
-                              <div>
+                              <div className="pt-1 md:pt-0">
                                 <h2 className="text-lg font-semibold">
                                   {step.title}
                                 </h2>
-                                <p className="text-gray-500">
+                                <p className="text-gray-500 text-sm md:text-base">
                                   {step.description}
-                                  <br />
                                 </p>
-                                <span className="text-gray-500 text-sm">
-                                  Status:{" "}
+                                <span className="text-gray-500 text-xs md:text-sm block mt-1">
+                                  <strong>Status: </strong>
                                   {index < local.step
-                                    ? "Selesai. Anda bisa lanjut ke proses berikutnya."
+                                    ? "Selesai ✅. Anda sudah melalui proses ini dan lanjut ke proses berikutnya."
                                     : index == local.step
-                                    ? "Belum Selesai. Anda harus selesaikan dulu proses ini."
+                                    ? "Anda sekarang berada di proses ini. Silakan lakukan proses ini."
                                     : "Selesaikan dulu proses sebelumnya di nomor " +
                                       (local.step + 1) +
                                       "."}
                                 </span>
                               </div>
                             </div>
-                            {index <= local.step ? (
-                              <Button
-                                variant="link"
-                                onClick={() => navigate(step.link)}
-                                className="text-blue-600 hover:underline"
-                              >
-                                Lanjutkan
-                              </Button>
-                            ) : (
-                              <span className="text-gray-400 text-sm mr-4">
-                                Lanjutkan
-                              </span>
-                            )}
+                            <div className="ml-10 md:ml-0 mt-2 md:mt-0">
+                              {index == local.step ? (
+                                <Button
+                                  variant="link"
+                                  onClick={() => navigate(step.link)}
+                                  className="text-blue-600 hover:underline"
+                                >
+                                  Lakukan
+                                </Button>
+                              ) : index === 0 ? (
+                                <Button
+                                  variant="link"
+                                  onClick={() =>
+                                    navigate(
+                                      "/book-detail?id=" + local.book?.id
+                                    )
+                                  }
+                                  className="text-blue-600 hover:underline"
+                                >
+                                  Lihat Detil
+                                </Button>
+                              ) : (
+                                <span className="text-gray-400 text-sm md:mr-4">
+                                  Lakukan
+                                </span>
+                              )}
+                            </div>
                           </div>
                         ))
                       )}

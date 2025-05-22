@@ -424,6 +424,12 @@ model publisher_author {
   @@unique([publisher_id, author_id])
 }
 
+model ranking {
+  id      String @id(map: "ranking_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_book String @db.Uuid
+  book    book   @relation(fields: [id_book], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ranking_relation_1")
+}
+
 model reviews {
   id            String          @id(map: "reviews_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   id_book       String          @db.Uuid
@@ -536,10 +542,4 @@ model withdrawal {
   requested_at DateTime  @default(now())
   processed_at DateTime?
   publisher    publisher @relation(fields: [id_publisher], references: [id])
-}
-
-model ranking {
-  id      String @id(map: "ranking_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_book String @db.Uuid
-  book    book   @relation(fields: [id_book], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

@@ -438,6 +438,11 @@ exports.Prisma.Publisher_authorScalarFieldEnum = {
   author_id: 'author_id'
 };
 
+exports.Prisma.RankingScalarFieldEnum = {
+  id: 'id',
+  id_book: 'id_book'
+};
+
 exports.Prisma.ReviewsScalarFieldEnum = {
   id: 'id',
   id_book: 'id_book',
@@ -532,11 +537,6 @@ exports.Prisma.WithdrawalScalarFieldEnum = {
   processed_at: 'processed_at'
 };
 
-exports.Prisma.RankingScalarFieldEnum = {
-  id: 'id',
-  id_book: 'id_book'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -601,6 +601,7 @@ exports.Prisma.ModelName = {
   promo_code: 'promo_code',
   publisher: 'publisher',
   publisher_author: 'publisher_author',
+  ranking: 'ranking',
   reviews: 'reviews',
   reviews_likes: 'reviews_likes',
   t_ai_credit: 't_ai_credit',
@@ -610,8 +611,7 @@ exports.Prisma.ModelName = {
   t_sales_line: 't_sales_line',
   tags: 'tags',
   transaction: 'transaction',
-  withdrawal: 'withdrawal',
-  ranking: 'ranking'
+  withdrawal: 'withdrawal'
 };
 
 /**
