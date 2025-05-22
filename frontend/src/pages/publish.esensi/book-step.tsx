@@ -31,19 +31,19 @@ export default function BookStepPag() {
         {
           title: "Susun",
           description:
-            "Proses pengisian formulir untuk menambah dan memperbarui data buku",
+            "Proses pengisian formulir untuk menambah dan memperbarui data buku.",
           link: (bookId ? "book-update" : "book-create") + bookIdQueryString,
         },
         {
           title: "Ajukan",
           description:
-            "Proses pengajuan persetujuan buku untuk diterbitkan. Anda bisa melihat riwayat pengajuan sejak pengajuan pertama, revisi, hingga persetujuan",
-          link: "book-submit" + bookIdQueryString,
+            "Proses persetujuan buku untuk diterbitkan. Bisa melihat riwayat persetujuan sejak awal, revisi, hingga disetujui.",
+          link: "book-approval" + bookIdQueryString,
         },
         {
           title: "Terbitkan",
           description:
-            "Proses penjualan buku yang sudah terbit. Anda bisa melihat laporan penjualan",
+            "Proses penjualan buku yang sudah terbit. Bisa melihat laporan penjualan.",
           link: "book-publish" + bookIdQueryString,
         },
       ];
@@ -165,7 +165,7 @@ export default function BookStepPag() {
                                   {index < local.step
                                     ? "Selesai ✅. Anda sudah melalui proses ini dan lanjut ke proses berikutnya."
                                     : index == local.step
-                                    ? "Anda sekarang berada di proses ini. Silakan lakukan proses ini."
+                                    ? "Anda sekarang berada di proses ini 📍. Silakan lalui proses ini."
                                     : "Selesaikan dulu proses sebelumnya di nomor " +
                                       (local.step + 1) +
                                       "."}

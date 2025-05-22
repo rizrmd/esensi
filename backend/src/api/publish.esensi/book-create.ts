@@ -12,7 +12,7 @@ export default defineAPI({
         data: arg.data as any,
         include: {
           author: true,
-          book_history: {
+          book_approval: {
             take: 10,
             orderBy: {
               created_at: "desc",

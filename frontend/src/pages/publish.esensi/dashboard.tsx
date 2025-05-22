@@ -6,7 +6,6 @@ import {
   type AuthClientGetSessionAPIResponse,
   type User,
 } from "@/lib/better-auth";
-import { api as authApi } from "@/lib/gen/auth.esensi";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";

@@ -1,18 +1,18 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { BookHistory } from "../types";
+import type { BookApproval } from "../types";
 
 export default defineAPI({
-  name: "book_history_list",
-  url: "/api/publish/book-history/list",
+  name: "book_approval_list",
+  url: "/api/publish/book-approval/list",
   async handler(arg: {
-    book_id: string;
+    id_book: string;
     page?: number;
     limit?: number;
-  }): Promise<ApiResponse<BookHistory[]>> {
+  }): Promise<ApiResponse<BookApproval[]>> {
     try {
       const book = await db.book.findUnique({
-        where: { id: arg.book_id },
+        where: { id: arg.id_book },
       });
 
       if (!book) {
@@ -23,15 +23,15 @@ export default defineAPI({
       const limit = arg.limit || 10;
       const skip = (page - 1) * limit;
 
-      const total = await db.book_history.count({
+      const total = await db.book_approval.count({
         where: {
-          book_id: arg.book_id,
+          id_book: arg.id_book,
         },
       });
 
-      const history = await db.book_history.findMany({
+      const approval = await db.book_approval.findMany({
         where: {
-          book_id: arg.book_id,
+          id_book: arg.id_book,
         },
         orderBy: {
           created_at: "desc",
@@ -45,7 +45,7 @@ export default defineAPI({
 
       return {
         success: true,
-        data: history,
+        data: approval,
         pagination: {
           total,
           page,
@@ -54,7 +54,7 @@ export default defineAPI({
         },
       };
     } catch (error) {
-      console.error("Error in book history list API:", error);
+      console.error("Error in book approval list API:", error);
       return {
         success: false,
         message: "Terjadi kesalahan dalam mengambil riwayat buku",

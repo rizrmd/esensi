@@ -242,12 +242,6 @@ exports.Prisma.Book_genreScalarFieldEnum = {
   id_book: 'id_book'
 };
 
-exports.Prisma.Book_historyScalarFieldEnum = {
-  book_id: 'book_id',
-  created_at: 'created_at',
-  description: 'description'
-};
-
 exports.Prisma.Book_tagsScalarFieldEnum = {
   id: 'id',
   id_tags: 'id_tags',
@@ -580,7 +574,6 @@ exports.Prisma.ModelName = {
   book: 'book',
   book_approval: 'book_approval',
   book_genre: 'book_genre',
-  book_history: 'book_history',
   book_tags: 'book_tags',
   bundle: 'bundle',
   bundle_category: 'bundle_category',

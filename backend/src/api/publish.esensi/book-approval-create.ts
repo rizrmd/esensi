@@ -1,24 +1,24 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { BookHistory } from "../types";
+import type { BookApproval } from "../types";
 
 export default defineAPI({
-  name: "book_history_create",
-  url: "/api/publish/book-history/create",
+  name: "book_approval_create",
+  url: "/api/publish/book-approval/create",
   async handler(arg: {
-    book_id: string;
-    description: string;
-  }): Promise<ApiResponse<BookHistory>> {
+    id_book: string;
+    comment: string;
+  }): Promise<ApiResponse<BookApproval>> {
     try {
-      const book = await db.book.findUnique({ where: { id: arg.book_id } });
+      const book = await db.book.findUnique({ where: { id: arg.id_book } });
       if (!book) {
         return { success: false, message: "Buku tidak ditemukan" };
       }
 
-      const created = await db.book_history.create({
+      const created = await db.book_approval.create({
         data: {
-          book_id: arg.book_id,
-          description: arg.description,
+          id_book: arg.id_book,
+          comment: arg.comment,
         },
         include: {
           book: true,
@@ -31,7 +31,7 @@ export default defineAPI({
         message: "Riwayat buku berhasil ditambahkan",
       };
     } catch (error) {
-      console.error("Error in book history create API:", error);
+      console.error("Error in book approval create API:", error);
       return {
         success: false,
         message: "Terjadi kesalahan dalam menambahkan riwayat buku",

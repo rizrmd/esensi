@@ -142,21 +142,20 @@ model book {
   product              product?        @relation(fields: [id_product], references: [id], map: "book_fk_id_product")
   book_approval        book_approval[]
   book_genre           book_genre[]
-  book_history         book_history[]
   book_tags            book_tags[]
   ranking              ranking[]
   reviews              reviews[]
 }
 
 model book_approval {
-  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_book     String   @db.Uuid
-  id_internal String   @db.Uuid
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_book     String    @db.Uuid
+  id_internal String?   @db.Uuid
   comment     Json?
-  status      String   @default("submitted") @db.VarChar(20)
-  created_at  DateTime @default(now())
-  book        book     @relation(fields: [id_book], references: [id], map: "book_approval_fk_id_book")
-  internal    internal @relation(fields: [id_internal], references: [id], map: "book_approval_fk_id_internal")
+  status      String    @default("submitted") @db.VarChar(20)
+  created_at  DateTime  @default(now())
+  book        book      @relation(fields: [id_book], references: [id], map: "book_approval_fk_id_book")
+  internal    internal? @relation(fields: [id_internal], references: [id], onDelete: Restrict, map: "book_approval_fk_id_internal")
 }
 
 model book_genre {
@@ -165,15 +164,6 @@ model book_genre {
   id_book  String @db.Uuid
   book     book   @relation(fields: [id_book], references: [id], onDelete: NoAction, onUpdate: NoAction)
   genre    genre  @relation(fields: [id_genre], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model book_history {
-  book_id     String   @db.Uuid
-  created_at  DateTime @default(now())
-  description String
-  book        book     @relation(fields: [book_id], references: [id], onDelete: Cascade, map: "book_history_fk_book_id")
-
-  @@id([book_id, created_at], map: "book_history_id")
 }
 
 model book_tags {

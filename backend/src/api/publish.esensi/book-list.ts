@@ -44,7 +44,7 @@ export default defineAPI({
         take: limit,
         include: {
           author: true,
-          book_history: {
+          book_approval: {
             orderBy: {
               created_at: "desc",
             },

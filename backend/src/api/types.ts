@@ -4,7 +4,7 @@ import type {
   auth_user,
   author,
   book,
-  book_history,
+  book_approval,
   bundle,
   category,
   customer,
@@ -33,10 +33,10 @@ export type Author = author & {
 
 export type Book = book & {
   author: author | null;
-  book_history: book_history[];
+  book_approval: book_approval[];
 };
 
-export type BookHistory = book_history & { book: book };
+export type BookApproval = book_approval & { book: book };
 
 export type RoleCheck = {
   affiliate?: boolean;
