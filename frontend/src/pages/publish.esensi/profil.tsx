@@ -22,6 +22,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api as publishApi } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import { getMimeType } from "@/lib/utils";
 import type { UploadAPIResponse } from "backend/api/upload";
 import { ChevronRight } from "lucide-react";
 import type { auth_user } from "shared/models";
@@ -48,7 +49,6 @@ export default () => {
         local.user = session.data.user;
         await publishApi.register_user({ user: session.data!.user });
 
-        // Fetch user data
         if (session.data.user.id) {
           const userResponse = await authApi.auth_user({
             username: session.data.user.email || "",
@@ -57,7 +57,6 @@ export default () => {
           if (userResponse) {
             local.userData = userResponse;
 
-            // Create a File object from the profile image URL if available
             if (userResponse.image) {
               try {
                 const imageUrl = `${baseUrl.auth_esensi}/${userResponse.image}`;
@@ -66,9 +65,11 @@ export default () => {
                 const fileName =
                   userResponse.image.split("/").pop() || "profile.jpg";
 
-                // Create a File object from the Blob
+                const extension = fileName.split(".").pop()?.toLowerCase();
+                const mimeType = getMimeType(extension);
+
                 const file = new File([blob], fileName, {
-                  type: blob.type,
+                  type: mimeType,
                   lastModified: new Date().getTime(),
                 });
 

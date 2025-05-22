@@ -58,3 +58,66 @@ export function formatCurrency(amount: number) {
     maximumFractionDigits: 0,
   }).format(amount);
 }
+
+export function getMimeType(ext: string | undefined) {
+  switch (ext) {
+    case "jpg":
+    case "jpeg":
+      return "image/jpeg";
+    case "png":
+      return "image/png";
+    case "gif":
+      return "image/gif";
+    case "webp":
+      return "image/webp";
+    case "svg":
+      return "image/svg+xml";
+    case "avif":
+      return "image/avif";
+    case "tiff":
+    case "tif":
+      return "image/tiff";
+    case "bmp":
+      return "image/bmp";
+    case "ico":
+      return "image/x-icon";
+    case "heif":
+    case "heic":
+      return "image/heif";
+    case "apng":
+      return "image/apng";
+    default:
+      return "application/octet-stream";
+  }
+}
+
+export function isTwoFileTheSame(
+  file1: File | null,
+  file2: File | null
+): boolean {
+  if (!file1 || !file2) return false;
+  if (file1.size !== file2.size) return false;
+  if (file1.type !== file2.type) return false;
+  if (file1.name !== file2.name) return false;
+  return true;
+}
+
+export function isTwoFilesArrayTheSame(
+  files1: File[] | null,
+  files2: File[] | null
+): boolean {
+  if (!files1 || !files2) return false;
+  if (files1.length !== files2.length) return false;
+  for (let i = 0; i < files1.length; i++) {
+    if (!isTwoFileTheSame(files1[i], files2[i])) return false;
+  }
+  return true;
+}
+
+export const getImageUrl = (url: string, width?: number, height?: number) => {
+  if (!url) return "";
+  const params = new URLSearchParams();
+  if (width) params.append("w", width.toString());
+  if (height) params.append("h", height.toString());
+  return `${url}?${params.toString()}`;
+};

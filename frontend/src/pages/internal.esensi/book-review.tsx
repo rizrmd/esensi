@@ -19,6 +19,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import { getMimeType } from "@/lib/utils";
 import { BookStatus } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import { ChevronRight } from "lucide-react";
@@ -62,10 +63,11 @@ export default function BookUpdatePage() {
 
       try {
         const res = await api.book_detail({ id: bookId });
+
         if (res && res.data) {
           local.book = res.data;
+
           if (res.data.cover) {
-            // Create a File object from the cover image URL
             const fetchImage = async () => {
               try {
                 const imageUrl = `${baseUrl.auth_esensi}/${res.data!.cover}`;
@@ -74,9 +76,11 @@ export default function BookUpdatePage() {
                 const fileName =
                   res.data!.cover.split("/").pop() || "cover.jpg";
 
-                // Create a File object from the Blob
+                const extension = fileName.split(".").pop()?.toLowerCase();
+                const mimeType = getMimeType(extension);
+
                 const file = new File([blob], fileName, {
-                  type: blob.type,
+                  type: mimeType,
                   lastModified: new Date().getTime(),
                 });
 
@@ -86,7 +90,7 @@ export default function BookUpdatePage() {
                 console.error("Error fetching cover image:", error);
               }
             };
-            fetchImage();
+            await fetchImage();
           }
         } else {
           local.error = "Buku tidak ditemukan";

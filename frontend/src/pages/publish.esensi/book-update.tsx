@@ -20,6 +20,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import { getMimeType, isTwoFilesArrayTheSame } from "@/lib/utils";
 import { BookStatus, Currency } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import { ChevronRight } from "lucide-react";
@@ -53,7 +54,10 @@ export default function BookUpdatePage() {
       error: "",
       success: "",
       isSubmitting: false,
-      files: [] as File[],
+      files: {
+        old: [] as File[],
+        new: [] as File[],
+      },
     },
     async () => {
       if (!bookId || bookId === "") {
@@ -68,8 +72,8 @@ export default function BookUpdatePage() {
         if (res && res.data) {
           local.bookId = bookId;
           local.book = res.data;
+
           if (res.data.cover) {
-            // Create a File object from the cover image URL
             const fetchImage = async () => {
               try {
                 const imageUrl = `${baseUrl.auth_esensi}/${res.data!.cover}`;
@@ -78,23 +82,24 @@ export default function BookUpdatePage() {
                 const fileName =
                   res.data!.cover.split("/").pop() || "cover.jpg";
 
-                // Create a File object from the Blob
+                const extension = fileName.split(".").pop()?.toLowerCase();
+                const mimeType = getMimeType(extension);
+
                 const file = new File([blob], fileName, {
-                  type: blob.type,
+                  type: mimeType,
                   lastModified: new Date().getTime(),
                 });
 
-                local.files = [file];
+                local.files.old = [file];
+                local.files.new = [file];
                 local.render();
               } catch (error) {
                 console.error("Error fetching cover image:", error);
               }
             };
-            fetchImage();
+            await fetchImage();
           }
-        } else {
-          local.error = "Buku tidak ditemukan";
-        }
+        } else local.error = "Buku tidak ditemukan";
       } catch (err) {
         local.error = "Terjadi kesalahan saat mengambil data buku";
         console.error(err);
@@ -126,7 +131,7 @@ export default function BookUpdatePage() {
       return;
     }
 
-    if (!local.files.length) {
+    if (!local.files.new.length) {
       Alert.info("Cover buku harus diunggah.");
       local.error = "Cover buku harus diunggah.";
       local.render();
@@ -140,9 +145,13 @@ export default function BookUpdatePage() {
     local.render();
 
     try {
-      // Upload cover image if available
-      if (local.files.length > 0) {
-        const file = local.files[0];
+      // Upload cover image if available and new
+      if (
+        local.files.new.length > 0 &&
+        !isTwoFilesArrayTheSame(local.files.new, local.files.old)
+      ) {
+        console.log('XXXXXX')
+        const file = local.files.new[0];
         const formData = new FormData();
         formData.append("file", file);
         const res = await fetch(`${baseUrl.auth_esensi}/api/upload`, {
@@ -212,7 +221,6 @@ export default function BookUpdatePage() {
     <Protected
       role={["publisher", "author"]}
       fallback={({ missing_role }) => {
-        console.log("missing role", missing_role);
         if (
           missing_role.includes("publisher") ||
           missing_role.includes("author")
@@ -342,10 +350,10 @@ export default function BookUpdatePage() {
                       <div>
                         <MyFileUpload
                           title="Cover Buku"
-                          files={local.files}
+                          files={local.files.new}
                           accept="image/*"
                           onImageChange={(files) => {
-                            local.files = files;
+                            local.files.new = files;
                             local.render();
                           }}
                           initialImage={
