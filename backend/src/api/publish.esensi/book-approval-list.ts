@@ -39,7 +39,12 @@ export default defineAPI({
         skip,
         take: limit,
         include: {
-          book: true,
+          book: {
+            include: {
+              author: true,
+            },
+          },
+          internal: true,
         },
       });
 

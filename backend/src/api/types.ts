@@ -36,7 +36,10 @@ export type Book = book & {
   book_approval: book_approval[];
 };
 
-export type BookApproval = book_approval & { book: book };
+export type BookApproval = book_approval & {
+  book: book & { author: author | null };
+  internal: internal | null;
+};
 
 export type RoleCheck = {
   affiliate?: boolean;

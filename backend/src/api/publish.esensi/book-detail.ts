@@ -15,7 +15,7 @@ export default defineAPI({
           author: true,
           book_approval: {
             orderBy: {
-              created_at: "desc",
+              created_at: "asc",
             },
           },
         },

@@ -21,7 +21,12 @@ export default defineAPI({
           comment: arg.comment,
         },
         include: {
-          book: true,
+          book: {
+            include: {
+              author: true,
+            },
+          },
+          internal: true,
         },
       });
 

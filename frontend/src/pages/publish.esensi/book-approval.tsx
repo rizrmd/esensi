@@ -3,53 +3,55 @@ import { Protected } from "@/components/app/protected";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Alert } from "@/components/ui/global-alert";
+import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { formatDate, formatDateObject } from "@/lib/utils";
+import { formatDateObject } from "@/lib/utils";
 import type { Book, BookApproval } from "backend/api/types";
-import { CalendarIcon, ChevronRight, MessageCircle, ThumbsDown, ThumbsUp } from "lucide-react";
-import { useState } from "react";
+import {
+  CalendarIcon,
+  ChevronRight,
+  MessageCircle,
+  ThumbsDown,
+  ThumbsUp,
+} from "lucide-react";
 
 export default () => {
   const local = useLocal(
     {
       bookId: null as string | null,
       book: null as Book | null,
-      book_approval: [] as BookApproval[],
+      book_approval: [] as Partial<BookApproval>[],
       loading: true,
       error: "",
       success: "",
       comment: "",
-      submitting: false
+      submitting: false,
     },
     async () => {
       const params = new URLSearchParams(location.search);
       local.bookId = params.get("id");
       if (!local.bookId) {
         local.error = "Buku tidak ditemukan.";
+        Alert.info("Buku tidak ditemukan.");
         local.loading = false;
         local.render();
         return;
       }
       try {
-        // Fetch book details
         const bookRes = await api.book_detail({ id: local.bookId });
         if (!bookRes.data) {
           local.error = "Buku tidak ditemukan.";
+          Alert.info("Buku tidak ditemukan.");
         } else {
           local.book = bookRes.data;
-        }
-        
-        // Fetch book approval history
-        const res = await api.book_approval_list({ id_book: local.bookId });
-        if (!res.data) {
-          local.error = "Riwayat persetujuan tidak ditemukan.";
-        } else {
-          local.book_approval = res.data;
+          local.book_approval = bookRes.data.book_approval || [];
         }
       } catch (error) {
         local.error = "Terjadi kesalahan saat memuat data buku.";
+        Alert.info("Terjadi kesalahan saat memuat data buku.");
       } finally {
         local.loading = false;
         local.render();
@@ -65,12 +67,14 @@ export default () => {
   const handleSubmitComment = async () => {
     if (!local.comment.trim()) {
       local.error = "Silakan masukkan komentar terlebih dahulu.";
+      Alert.info("Silakan masukkan komentar terlebih dahulu.");
       local.render();
       return;
     }
 
     if (!local.bookId) {
       local.error = "ID buku tidak ditemukan.";
+      Alert.info("ID buku tidak ditemukan.");
       local.render();
       return;
     }
@@ -83,13 +87,13 @@ export default () => {
     try {
       const response = await api.book_approval_create({
         id_book: local.bookId,
-        comment: local.comment
+        comment: local.comment,
       });
-      
+
       if (response.success) {
         local.success = "Tanggapan berhasil ditambahkan";
         local.comment = ""; // Reset the comment field
-        
+
         // Refresh the approval list
         const res = await api.book_approval_list({ id_book: local.bookId });
         if (res.data) {
@@ -97,9 +101,11 @@ export default () => {
         }
       } else {
         local.error = response.message || "Gagal menambahkan tanggapan";
+        Alert.info(response.message || "Gagal menambahkan tanggapan");
       }
     } catch (error) {
       local.error = "Terjadi kesalahan saat mengirim tanggapan.";
+      Alert.info("Terjadi kesalahan saat mengirim tanggapan.");
     } finally {
       local.submitting = false;
       local.render();
@@ -182,21 +188,26 @@ export default () => {
                       <div className="flex items-center gap-4">
                         <h1 className="text-2xl font-bold">Persetujuan Buku</h1>
                       </div>
-                      
+
                       {local.book && (
                         <div className="flex items-center gap-2">
-                          <span className="text-sm text-gray-500">Status Buku:</span>
-                          <span className={`text-sm font-medium px-2 py-1 rounded-full ${
-                            local.book.status === 'published' 
-                              ? 'bg-green-100 text-green-800' 
-                              : local.book.status === 'rejected' 
-                              ? 'bg-red-100 text-red-800' 
-                              : 'bg-yellow-100 text-yellow-800'}`}>
-                            {local.book.status === 'published' 
-                              ? 'Diterbitkan' 
-                              : local.book.status === 'rejected' 
-                              ? 'Ditolak' 
-                              : 'Menunggu'}
+                          <span className="text-sm text-gray-500">
+                            Status Buku:
+                          </span>
+                          <span
+                            className={`text-sm font-medium px-2 py-1 rounded-full ${
+                              local.book.status === "published"
+                                ? "bg-green-100 text-green-800"
+                                : local.book.status === "rejected"
+                                ? "bg-red-100 text-red-800"
+                                : "bg-yellow-100 text-yellow-800"
+                            }`}
+                          >
+                            {local.book.status === "published"
+                              ? "Diterbitkan"
+                              : local.book.status === "rejected"
+                              ? "Ditolak"
+                              : "Menunggu"}
                           </span>
                         </div>
                       )}
@@ -211,7 +222,12 @@ export default () => {
                               <div className="aspect-[3/4] w-full bg-gray-100 flex items-center justify-center rounded-lg overflow-hidden">
                                 {local.book.cover ? (
                                   <img
-                                    src={`/api/publish/files/${local.book.cover}?w=350`}
+                                    src={
+                                      baseUrl.publish_esensi +
+                                      "/" +
+                                      local.book.cover +
+                                      "?w=350"
+                                    }
                                     alt={local.book.name}
                                     className="object-cover w-full h-full"
                                   />
@@ -223,28 +239,56 @@ export default () => {
                               </div>
                             </div>
                             <div className="w-full md:w-3/4">
-                              <h2 className="text-xl font-bold text-gray-800 mb-4">{local.book.name}</h2>
+                              <h2 className="text-xl font-bold text-gray-800 mb-4">
+                                {local.book.name}
+                              </h2>
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                 <div>
-                                  <p className="text-sm text-gray-600 mb-1">Penulis</p>
-                                  <p className="font-medium">{local.book.author?.name || "-"}</p>
+                                  <p className="text-sm text-gray-600 mb-1">
+                                    Penulis
+                                  </p>
+                                  <p className="font-medium">
+                                    {local.book.author?.name || "-"}
+                                  </p>
                                 </div>
                                 <div>
-                                  <p className="text-sm text-gray-600 mb-1">Harga</p>
-                                  <p className="font-medium">Rp {local.book.submitted_price?.toLocaleString() || "-"}</p>
+                                  <p className="text-sm text-gray-600 mb-1">
+                                    Harga
+                                  </p>
+                                  <p className="font-medium">
+                                    Rp{" "}
+                                    {local.book.submitted_price?.toLocaleString() ||
+                                      "-"}
+                                  </p>
                                 </div>
                                 <div>
-                                  <p className="text-sm text-gray-600 mb-1">Jumlah Halaman</p>
-                                  <p className="font-medium">{local.book.preorder_min_qty || "-"}</p>
+                                  <p className="text-sm text-gray-600 mb-1">
+                                    Jumlah Halaman
+                                  </p>
+                                  <p className="font-medium">
+                                    {local.book.preorder_min_qty || "-"}
+                                  </p>
                                 </div>
                                 <div>
-                                  <p className="text-sm text-gray-600 mb-1">Tanggal Publikasi</p>
-                                  <p className="font-medium">{local.book.published_date ? formatDateObject(new Date(local.book.published_date)) : "-"}</p>
+                                  <p className="text-sm text-gray-600 mb-1">
+                                    Tanggal Publikasi
+                                  </p>
+                                  <p className="font-medium">
+                                    {local.book.published_date
+                                      ? formatDateObject(
+                                          new Date(local.book.published_date)
+                                        )
+                                      : "-"}
+                                  </p>
                                 </div>
                               </div>
                               <div className="mt-4">
-                                <p className="text-sm text-gray-600 mb-1">Deskripsi</p>
-                                <p className="text-sm text-gray-700">{local.book.desc || "Tidak ada deskripsi"}</p>
+                                <p className="text-sm text-gray-600 mb-1">
+                                  Deskripsi
+                                </p>
+                                <p className="text-sm text-gray-700">
+                                  {local.book.desc || "Tidak ada deskripsi"}
+                                </p>
                               </div>
                             </div>
                           </div>
@@ -253,8 +297,10 @@ export default () => {
                     )}
 
                     {/* Approval Timeline */}
-                    <h2 className="text-xl font-semibold mb-4">Riwayat Persetujuan</h2>
-                    
+                    <h2 className="text-xl font-semibold mb-4">
+                      Riwayat Persetujuan
+                    </h2>
+
                     {local.book_approval.length === 0 ? (
                       <div className="text-center py-8 text-gray-500">
                         Belum ada riwayat persetujuan untuk buku ini.
@@ -263,60 +309,81 @@ export default () => {
                       <div className="relative">
                         {/* Timeline line */}
                         <div className="absolute left-6 top-6 bottom-0 w-0.5 bg-gray-200 ml-0.5"></div>
-                        
+
                         {/* Timeline items */}
                         <div className="space-y-8">
                           {local.book_approval.map((approval, index) => (
                             <div key={approval.id} className="relative pl-14">
                               {/* Timeline dot */}
-                              <div className={`absolute left-0 top-0 w-7 h-7 rounded-full flex items-center justify-center ${
-                                approval.status === 'approved' 
-                                  ? 'bg-green-100' 
-                                  : approval.status === 'rejected' 
-                                  ? 'bg-red-100'
-                                  : 'bg-blue-100'
-                              }`}>
-                                {approval.status === 'approved' ? (
-                                  <ThumbsUp className={`w-4 h-4 text-green-700`} />
-                                ) : approval.status === 'rejected' ? (
-                                  <ThumbsDown className={`w-4 h-4 text-red-700`} />
+                              <div
+                                className={`absolute left-0 top-0 w-7 h-7 rounded-full flex items-center justify-center ${
+                                  approval.status === "approved"
+                                    ? "bg-green-100"
+                                    : approval.status === "rejected"
+                                    ? "bg-red-100"
+                                    : "bg-blue-100"
+                                }`}
+                              >
+                                {approval.status === "approved" ? (
+                                  <ThumbsUp
+                                    className={`w-4 h-4 text-green-700`}
+                                  />
+                                ) : approval.status === "rejected" ? (
+                                  <ThumbsDown
+                                    className={`w-4 h-4 text-red-700`}
+                                  />
                                 ) : (
-                                  <MessageCircle className={`w-4 h-4 text-blue-700`} />
+                                  <MessageCircle
+                                    className={`w-4 h-4 text-blue-700`}
+                                  />
                                 )}
                               </div>
-                              
+
                               <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
                                 <div className="flex items-center justify-between mb-2">
                                   <div className="font-medium">
-                                    {"Pengguna"}
-                                    <span className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
-                                      approval.status === 'approved' 
-                                        ? 'bg-green-100 text-green-800' 
-                                        : approval.status === 'rejected' 
-                                        ? 'bg-red-100 text-red-800' 
-                                        : 'bg-blue-100 text-blue-800'
-                                    }`}>
-                                      {approval.status === 'approved' 
-                                        ? 'Disetujui' 
-                                        : approval.status === 'rejected' 
-                                        ? 'Ditolak' 
-                                        : 'Komentar'}
+                                    <span className="text-blue-800 text-md">
+                                      {approval.id_internal
+                                        ? "Internal"
+                                        : "Penulis"}
+                                      &nbsp;
+                                    </span>
+                                    {approval.internal?.name ||
+                                      local.book?.author?.name}
+                                    <span
+                                      className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
+                                        approval.status === "approved"
+                                          ? "bg-green-100 text-green-800"
+                                          : approval.status === "rejected"
+                                          ? "bg-red-100 text-red-800"
+                                          : "bg-blue-100 text-blue-800"
+                                      }`}
+                                    >
+                                      {approval.status === "approved"
+                                        ? "Disetujui"
+                                        : approval.status === "rejected"
+                                        ? "Ditolak"
+                                        : approval.status === "draft"
+                                        ? "Butuh Revisi Penulis"
+                                        : "Komentar"}
                                     </span>
                                   </div>
                                   <div className="flex items-center text-sm text-gray-500">
                                     <CalendarIcon className="w-3 h-3 mr-1" />
-                                    {formatDateObject(new Date(approval.created_at))}
+                                    {formatDateObject(
+                                      new Date(approval.created_at!)
+                                    )}
                                   </div>
                                 </div>
-                                
+
                                 <div className="text-gray-700 whitespace-pre-line">
-                                  {approval.comment ? 
-                                    typeof approval.comment === 'string' 
-                                      ? approval.comment 
+                                  {approval.comment
+                                    ? typeof approval.comment === "string"
+                                      ? approval.comment
                                       : JSON.stringify(approval.comment)
                                     : "Tidak ada komentar"}
                                 </div>
-                                
+
                                 {/* Lampiran section will be implemented once backend supports attachments */}
                               </div>
                             </div>
@@ -327,9 +394,11 @@ export default () => {
 
                     {/* Add comment/response section */}
                     <div className="mt-10 pt-6 border-t border-gray-200">
-                      <h3 className="text-lg font-semibold mb-4">Tambahkan Tanggapan</h3>
+                      <h3 className="text-lg font-semibold mb-4">
+                        Tambahkan Tanggapan
+                      </h3>
                       <div className="flex flex-col gap-4">
-                        <textarea 
+                        <textarea
                           className="w-full border border-gray-300 rounded-md p-3 min-h-[120px]"
                           placeholder="Tulis tanggapan atau komentar anda..."
                           value={local.comment}
@@ -337,11 +406,13 @@ export default () => {
                           disabled={local.submitting}
                         />
                         <div className="flex justify-end gap-3">
-                          <Button 
+                          <Button
                             onClick={handleSubmitComment}
                             disabled={local.submitting || !local.comment.trim()}
                           >
-                            {local.submitting ? "Mengirim..." : "Kirim Tanggapan"}
+                            {local.submitting
+                              ? "Mengirim..."
+                              : "Kirim Tanggapan"}
                           </Button>
                         </div>
                       </div>

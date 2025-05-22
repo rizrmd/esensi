@@ -21,6 +21,14 @@ export default defineAPI({
         },
       });
 
+      await db.book_changes_log.create({
+        data: {
+          id_book: created.id,
+          created_at: new Date(),
+          changes: JSON.stringify(arg.data),
+        },
+      });
+
       return {
         success: true,
         data: created,

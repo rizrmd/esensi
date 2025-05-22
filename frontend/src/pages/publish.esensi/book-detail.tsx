@@ -1,14 +1,13 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import type { Book } from "backend/api/types";
-import { ArrowLeft, ChevronRight, Edit, PlusCircle } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 export default function BookDetailPage() {
   const local = useLocal(
@@ -88,7 +87,9 @@ export default function BookDetailPage() {
                     </button>
                     <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
                     <button
-                      onClick={() => navigate("/book-step?id=" + local.book?.id)}
+                      onClick={() =>
+                        navigate("/book-step?id=" + local.book?.id)
+                      }
                       className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
                     >
                       Proses Buku
@@ -104,9 +105,7 @@ export default function BookDetailPage() {
 
                   <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center gap-4">
-                      <h1 className="text-2xl font-bold">
-                        Detil Buku
-                      </h1>
+                      <h1 className="text-2xl font-bold">Detil Buku</h1>
                     </div>
                     {/* <div className="flex items-center gap-2">
                       {local.book && (

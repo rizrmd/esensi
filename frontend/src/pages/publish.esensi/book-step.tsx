@@ -1,7 +1,6 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
-import { Button } from "@/components/ui/button";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
@@ -29,21 +28,21 @@ export default function BookStepPag() {
       const bookIdQueryString = bookId ? `?id=${bookId}` : "";
       local.steps = [
         {
-          title: "Susun",
+          title: "Formulir Informasi Buku",
           description:
-            "Proses pengisian formulir untuk menambah dan memperbarui data buku.",
+            "Anda bisa menambah dan memperbarui data informasi buku.",
           link: (bookId ? "book-update" : "book-create") + bookIdQueryString,
         },
         {
-          title: "Ajukan",
+          title: "Persetujuan Buku",
           description:
-            "Proses persetujuan buku untuk diterbitkan. Bisa melihat riwayat persetujuan sejak awal, revisi, hingga disetujui.",
+            "Riwayat persetujuan buku mulai dari pengajuan hingga penerbitan buku.",
           link: "book-approval" + bookIdQueryString,
         },
         {
-          title: "Terbitkan",
+          title: "Penjualan Buku",
           description:
-            "Proses penjualan buku yang sudah terbit. Bisa melihat laporan penjualan.",
+            "Anda bisa melihat laporan penjualan buku yang sudah terbit.",
           link: "book-publish" + bookIdQueryString,
         },
       ];
@@ -68,6 +67,12 @@ export default function BookStepPag() {
       }
     }
   );
+
+  function tryNavigate(step: step, index: number) {
+    if (index === local.step) navigate(step.link);
+    else if (index === 0) navigate("/book-detail?id=" + local.book?.id);
+  }
+
   return (
     <>
       <Protected
@@ -125,7 +130,7 @@ export default function BookStepPag() {
                       <div className="flex justify-between items-center mb-6">
                         <div className="flex flex-col gap-4">
                           <h1 className="text-2xl font-bold">Proses Buku</h1>
-                          <span className="text-gray-500">
+                          <span className="text-gray-500 text-sm md:text-base">
                             Untuk menerbitkan buku, anda harus melakukan semua 3
                             proses di bawah ini secara bertahap.
                           </span>
@@ -142,7 +147,14 @@ export default function BookStepPag() {
                             key={index}
                             className="flex flex-col md:flex-row md:items-center justify-between mb-6 pb-4 border-b border-gray-100 last:border-0"
                           >
-                            <div className="flex items-center gap-3 md:gap-4">
+                            <div
+                              className={`flex items-center gap-3 md:gap-4 ${
+                                index <= local.step
+                                  ? "opacity-100 cursor-pointer"
+                                  : "opacity-50"
+                              }`}
+                              onClick={() => tryNavigate(step, index)}
+                            >
                               <div
                                 className={`min-w-[32px] h-8 flex items-center justify-center rounded-full text-sm font-medium ${
                                   index <= local.step
@@ -156,48 +168,27 @@ export default function BookStepPag() {
                               <div className="pt-1 md:pt-0">
                                 <h2 className="text-lg font-semibold">
                                   {step.title}
+
+                                  <span
+                                    className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
+                                      local.step > index
+                                        ? "bg-green-100 text-green-800"
+                                        : local.step === index
+                                        ? "bg-red-100 text-red-800"
+                                        : ""
+                                    }`}
+                                  >
+                                    {local.step > index
+                                      ? "Sudah"
+                                      : local.step === index
+                                      ? "Belum"
+                                      : ""}
+                                  </span>
                                 </h2>
                                 <p className="text-gray-500 text-sm md:text-base">
                                   {step.description}
                                 </p>
-                                <span className="text-gray-500 text-xs md:text-sm block mt-1">
-                                  <strong>Status: </strong>
-                                  {index < local.step
-                                    ? "Selesai ✅. Anda sudah melalui proses ini dan lanjut ke proses berikutnya."
-                                    : index == local.step
-                                    ? "Anda sekarang berada di proses ini 📍. Silakan lalui proses ini."
-                                    : "Selesaikan dulu proses sebelumnya di nomor " +
-                                      (local.step + 1) +
-                                      "."}
-                                </span>
                               </div>
-                            </div>
-                            <div className="ml-10 md:ml-0 mt-2 md:mt-0">
-                              {index == local.step ? (
-                                <Button
-                                  variant="link"
-                                  onClick={() => navigate(step.link)}
-                                  className="text-blue-600 hover:underline"
-                                >
-                                  Lakukan
-                                </Button>
-                              ) : index === 0 ? (
-                                <Button
-                                  variant="link"
-                                  onClick={() =>
-                                    navigate(
-                                      "/book-detail?id=" + local.book?.id
-                                    )
-                                  }
-                                  className="text-blue-600 hover:underline"
-                                >
-                                  Lihat Detil
-                                </Button>
-                              ) : (
-                                <span className="text-gray-400 text-sm md:mr-4">
-                                  Lakukan
-                                </span>
-                              )}
                             </div>
                           </div>
                         ))
