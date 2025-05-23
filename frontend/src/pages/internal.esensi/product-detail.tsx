@@ -45,7 +45,7 @@ export default function ProductDetailPage() {
   if (local.loading) return <AppLoading />;
 
   return (
-    <Protected role={["publisher", "author"]}>
+    <Protected role={["internal"]}>
       {() => (
         <div className="flex min-h-svh flex-col bg-gray-50">
           <InternalMenuBar />

@@ -1,4 +1,3 @@
-import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { InternalMenuBar } from "@/components/internal/menu-bar";
 import { api } from "@/lib/gen/publish.esensi";
@@ -30,19 +29,19 @@ export default function BookStepPag() {
         {
           title: "Formulir Informasi Buku",
           description:
-            "Anda bisa menambah dan memperbarui data informasi buku.",
-          link: (bookId ? "book-update" : "book-create") + bookIdQueryString,
+            "Internal bisa melihat data informasi buku yang diisi penulis.",
+          link: "book-detail" + bookIdQueryString,
         },
         {
           title: "Persetujuan Buku",
           description:
-            "Riwayat persetujuan buku mulai dari pengajuan hingga penerbitan buku.",
+            "Internal bisa berkomunikasi dengan penulis untuk memeriksa kelayakan buku untuk terbit.",
           link: "book-approval" + bookIdQueryString,
         },
         {
           title: "Penjualan Buku",
           description:
-            "Anda bisa melihat laporan penjualan buku yang sudah terbit.",
+            "Internal bisa melihat laporan penjualan buku yang sudah terbit.",
           link: "book-publish" + bookIdQueryString,
         },
       ];
@@ -55,7 +54,7 @@ export default function BookStepPag() {
             local.book = res.data;
             if (res.data.status === BookStatus.DRAFT) local.step = 0;
             else if (res.data.status === BookStatus.SUBMITTED) local.step = 1;
-            else if (res.data.status === BookStatus.APPROVED) local.step = 2;
+            else if (res.data.status === BookStatus.PUBLISHED) local.step = 2;
             else if (res.data.status === BookStatus.REJECTED) local.step = -1;
           }
         } catch (error) {
@@ -68,26 +67,9 @@ export default function BookStepPag() {
     }
   );
 
-  function tryNavigate(step: step, index: number) {
-    if (index === local.step) navigate(step.link);
-    else if (index === 0) navigate("/book-detail?id=" + local.book?.id);
-  }
-
   return (
     <>
-      <Protected
-        role={["publisher", "author"]}
-        fallback={({ missing_role }) => {
-          if (
-            missing_role.includes("publisher") ||
-            missing_role.includes("author")
-          ) {
-            navigate("/onboarding");
-            return <AppLoading />;
-          }
-          return null;
-        }}
-      >
+      <Protected role={["internal"]}>
         {({ user }) => {
           return (
             <div className="flex min-h-svh flex-col bg-gray-50">
@@ -131,8 +113,8 @@ export default function BookStepPag() {
                         <div className="flex flex-col gap-4">
                           <h1 className="text-2xl font-bold">Proses Buku</h1>
                           <span className="text-gray-500 text-sm md:text-base">
-                            Untuk menerbitkan buku, anda harus melakukan semua 3
-                            proses di bawah ini secara bertahap.
+                            Untuk menerbitkan buku, penulis harus melakukan
+                            semua 3 proses di bawah ini secara bertahap.
                           </span>
                         </div>
                       </div>
@@ -153,7 +135,7 @@ export default function BookStepPag() {
                                   ? "opacity-100 cursor-pointer"
                                   : "opacity-50"
                               }`}
-                              onClick={() => tryNavigate(step, index)}
+                              onClick={() => navigate(step.link)}
                             >
                               <div
                                 className={`min-w-[32px] h-8 flex items-center justify-center rounded-full text-sm font-medium ${

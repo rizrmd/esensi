@@ -43,10 +43,8 @@ export type User = AuthUser &
     idCustomer?: string | null;
     idAuthor?: string | null;
     idAffiliate?: string | null;
-    idManagement?: string | null;
+    idInternal?: string | null;
     idPublisher?: string | null;
-    idSalesAndMarketing?: string | null;
-    idSupport?: string | null;
   }>;
 
 export type AuthClientGetSessionAPIResponse = {

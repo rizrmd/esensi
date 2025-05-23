@@ -109,7 +109,7 @@ export default function ProductListPage() {
                       </button>
                       <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
                       <span className="text-gray-800 font-medium">
-                        Daftar Produk (Telah Disetujui)
+                        Daftar Produk
                       </span>
                     </nav>
 
@@ -118,7 +118,7 @@ export default function ProductListPage() {
 
                     <div className="flex justify-between items-start mb-8 gap-4">
                       <h1 className="text-2xl font-bold text-gray-800">
-                        Daftar Produk (Telah Disetujui)
+                        Daftar Produk
                       </h1>
                       <div className="flex flex-col gap-3 items-end">
                         <div className="flex items-center gap-4">

@@ -1,14 +1,13 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
-import { LayoutToggle } from "@/components/publish/layout-toggle";
 import { InternalMenuBar } from "@/components/internal/menu-bar";
+import { LayoutToggle } from "@/components/publish/layout-toggle";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataPagination } from "@/components/ui/data-pagination";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type { } from "backend/api/publish.esensi/book-list";
 import type { Book } from "backend/api/types";
 import { ChevronRight } from "lucide-react";
 
@@ -83,7 +82,7 @@ export default function BookListPage() {
                       </button>
                       <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
                       <span className="text-gray-800 font-medium">
-                        Buku (Belum Disetujui)
+                        Daftar Buku
                       </span>
                     </nav>
 
@@ -93,7 +92,7 @@ export default function BookListPage() {
                     <div className="flex justify-between items-start mb-8 gap-4">
                       <div className="flex items-center gap-4">
                         <h1 className="text-2xl font-bold text-gray-800">
-                          Daftar Buku (Belum Disetujui)
+                          Daftar Buku
                         </h1>
                       </div>
                       <div className="flex flex-col gap-3 items-end">
@@ -144,7 +143,7 @@ export default function BookListPage() {
                                     key={book.id}
                                     className="cursor-pointer"
                                     onClick={() =>
-                                      navigate(`book-detail?id=${book.id}`)
+                                      navigate(`book-step?id=${book.id}`)
                                     }
                                   >
                                     <Card className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
@@ -214,7 +213,7 @@ export default function BookListPage() {
                                     key={book.id}
                                     className="cursor-pointer hover:shadow-md transition-shadow"
                                     onClick={() =>
-                                      navigate(`book-detail?id=${book.id}`)
+                                      navigate(`book-step?id=${book.id}`)
                                     }
                                   >
                                     <div className="flex">
@@ -306,7 +305,7 @@ export default function BookListPage() {
                                             : "bg-gray-50"
                                         }`}
                                         onClick={() =>
-                                          navigate(`book-detail?id=${book.id}`)
+                                          navigate(`book-step?id=${book.id}`)
                                         }
                                       >
                                         <td className="p-2">

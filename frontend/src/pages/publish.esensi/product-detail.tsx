@@ -99,7 +99,7 @@ export default function ProductDetailPage() {
                   <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center gap-4">
                       <h1 className="text-2xl font-bold">
-                        Detil Produk (Telah Disetujui)
+                        Detil Produk
                       </h1>
                     </div>
                   </div>

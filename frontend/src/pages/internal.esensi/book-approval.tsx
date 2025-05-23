@@ -4,6 +4,11 @@ import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Alert } from "@/components/ui/global-alert";
+import {
+  betterAuth,
+  type AuthClientGetSessionAPIResponse,
+  type User,
+} from "@/lib/better-auth";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
@@ -21,6 +26,7 @@ import {
 export default () => {
   const local = useLocal(
     {
+      user: null as Partial<User> | null,
       bookId: null as string | null,
       book: null as Book | null,
       book_approval: [] as Partial<BookApproval>[],
@@ -31,6 +37,14 @@ export default () => {
       submitting: false,
     },
     async () => {
+      const session: AuthClientGetSessionAPIResponse =
+        await betterAuth.getSession();
+      if (!session.data?.user) {
+        navigate("/");
+        return;
+      }
+      local.user = session.data.user;
+
       const params = new URLSearchParams(location.search);
       local.bookId = params.get("id");
       if (!local.bookId) {
@@ -64,7 +78,9 @@ export default () => {
     local.render();
   };
 
-  const handleSubmitComment = async () => {
+  const handleSubmitComment = async (
+    status: BookStatus.PUBLISHED | BookStatus.REJECTED | BookStatus.DRAFT
+  ) => {
     if (!local.comment.trim()) {
       local.error = "Silakan masukkan komentar terlebih dahulu.";
       Alert.info("Silakan masukkan komentar terlebih dahulu.");
@@ -88,7 +104,8 @@ export default () => {
       const response = await api.book_approval_create({
         id_book: local.bookId,
         comment: local.comment,
-        status: BookStatus.SUBMITTED,
+        id_internal: local.user?.idInternal!,
+        status,
       });
 
       if (response.success) {
@@ -115,19 +132,7 @@ export default () => {
   }
 
   return (
-    <Protected
-      role={["publisher", "author"]}
-      fallback={({ missing_role }) => {
-        if (
-          missing_role.includes("publisher") ||
-          missing_role.includes("author")
-        ) {
-          navigate("/onboarding");
-          return <AppLoading />;
-        }
-        return null;
-      }}
-    >
+    <Protected role={["internal"]}>
       {({ user }) => {
         return (
           <div className="flex min-h-svh flex-col bg-gray-50">
@@ -407,12 +412,33 @@ export default () => {
                         />
                         <div className="flex justify-end gap-3">
                           <Button
-                            onClick={handleSubmitComment}
+                            className="bg-red-800 text-white"
+                            onClick={() =>
+                              handleSubmitComment(BookStatus.REJECTED)
+                            }
+                            disabled={local.submitting || !local.comment.trim()}
+                          >
+                            {local.submitting ? "Menolak..." : "Tolak"}
+                          </Button>
+                          <Button
+                            className="bg-yellow-600 text-white"
+                            onClick={() =>
+                              handleSubmitComment(BookStatus.DRAFT)
+                            }
                             disabled={local.submitting || !local.comment.trim()}
                           >
                             {local.submitting
-                              ? "Mengirim..."
-                              : "Kirim Tanggapan"}
+                              ? "Meminta Revisi Penulis..."
+                              : "Minta Revisi Penulis"}
+                          </Button>
+                          <Button
+                            className="bg-green-800 text-white"
+                            onClick={() =>
+                              handleSubmitComment(BookStatus.PUBLISHED)
+                            }
+                            disabled={local.submitting || !local.comment.trim()}
+                          >
+                            {local.submitting ? "Menyetujui..." : "Setuju"}
                           </Button>
                         </div>
                       </div>

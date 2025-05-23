@@ -145,12 +145,6 @@ export default function BookDetailPage() {
                       </CardHeader>
                       <CardContent>
                         <div className="mb-2 text-sm text-gray-600">
-                          ID Buku:{" "}
-                          <span className="font-medium text-gray-900">
-                            {local.book.id}
-                          </span>
-                        </div>
-                        <div className="mb-2 text-sm text-gray-600">
                           Nama:{" "}
                           <span className="font-medium text-gray-900">
                             {local.book.name}
@@ -197,7 +191,7 @@ export default function BookDetailPage() {
                         <div className="mb-2 text-sm text-gray-600">
                           SKU:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.book.sku ?? "-"}
+                            {!local.book.sku ? "-" : local.book.sku}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
@@ -241,14 +235,17 @@ export default function BookDetailPage() {
                             <span className="font-medium text-gray-900">-</span>
                           )}
                         </div>
-                        <div className="mb-2 text-sm text-gray-600">
-                          Info Tambahan:{" "}
-                          <span className="font-medium text-gray-900">
-                            {local.book.info
-                              ? JSON.stringify(local.book.info)
-                              : "-"}
-                          </span>
-                        </div>
+                        {Object.keys(local.book.info as Record<string, any>)
+                          .length > 0 && (
+                          <div className="mb-2 text-sm text-gray-600">
+                            Info Tambahan:{" "}
+                            <span className="font-medium text-gray-900">
+                              {local.book.info
+                                ? JSON.stringify(local.book.info)
+                                : "-"}
+                            </span>
+                          </div>
+                        )}
                       </CardContent>
                     </Card>
                   ) : null}

@@ -1,19 +1,29 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { InternalMenuBar } from "@/components/internal/menu-bar";
-import { Button } from "@/components/ui/button";
+import { BookChangesLog } from "@/components/publish/book-changes-log";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { ArrowLeft, ChevronRight, Edit, PlusCircle } from "lucide-react";
-import type { author, book } from "shared/models";
+import type {
+  Book,
+  BookChangesLog as BookChangesLogType,
+} from "backend/api/types";
+import { ChevronRight } from "lucide-react";
+import type { author, book_approval } from "shared/models";
 
 export default function BookDetailPage() {
   const local = useLocal(
     {
-      book: null as (book & { author: author | null }) | null,
+      book: null as
+        | (Book & {
+            author: author | null;
+            book_approval: book_approval[];
+            book_changes_log: BookChangesLogType[];
+          })
+        | null,
       loading: true,
       error: "",
     },
@@ -45,7 +55,7 @@ export default function BookDetailPage() {
   if (local.loading) return <AppLoading />;
 
   return (
-    <Protected role={["publisher", "author"]}>
+    <Protected role={["internal"]}>
       {() => (
         <div className="flex min-h-svh flex-col bg-gray-50">
           <InternalMenuBar />
@@ -76,6 +86,15 @@ export default function BookDetailPage() {
                       Daftar Buku
                     </button>
                     <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+                    <button
+                      onClick={() =>
+                        navigate("/book-step?id=" + local.book?.id)
+                      }
+                      className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
+                    >
+                      Proses Buku
+                    </button>
+                    <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
                     <span className="text-gray-800 font-medium">
                       Detil Buku
                     </span>
@@ -86,39 +105,7 @@ export default function BookDetailPage() {
 
                   <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center gap-4">
-                      <Button
-                        variant="outline"
-                        onClick={() => navigate("/manage-book")}
-                        className="flex items-center gap-2 border border-gray-300 rounded-md px-3 py-1.5"
-                      >
-                        <ArrowLeft className="h-4 w-4 mr-1" />
-                        Kembali ke Daftar
-                      </Button>
-                      <h1 className="text-2xl font-bold">
-                        Detil Buku (Belum Disetujui)
-                      </h1>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {local.book && (
-                        <Button
-                          onClick={() =>
-                            navigate(`/book-update?id=${local.book?.id}`)
-                          }
-                          className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-3 py-1.5"
-                          variant="default"
-                        >
-                          <Edit className="h-4 w-4 mr-1" />
-                          Edit Buku
-                        </Button>
-                      )}
-                      <Button
-                        onClick={() => navigate("/book-create")}
-                        className="flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white rounded-md px-3 py-1.5"
-                        variant="default"
-                      >
-                        <PlusCircle className="h-4 w-4 mr-1" />
-                        Tambah Buku
-                      </Button>
+                      <h1 className="text-2xl font-bold">Detil Buku</h1>
                     </div>
                   </div>
                   {local.error ? (
@@ -148,12 +135,6 @@ export default function BookDetailPage() {
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <div className="mb-2 text-sm text-gray-600">
-                          ID Buku:{" "}
-                          <span className="font-medium text-gray-900">
-                            {local.book.id}
-                          </span>
-                        </div>
                         <div className="mb-2 text-sm text-gray-600">
                           Nama:{" "}
                           <span className="font-medium text-gray-900">
@@ -201,7 +182,7 @@ export default function BookDetailPage() {
                         <div className="mb-2 text-sm text-gray-600">
                           SKU:{" "}
                           <span className="font-medium text-gray-900">
-                            {local.book.sku ?? "-"}
+                            {!local.book.sku ? "-" : local.book.sku}
                           </span>
                         </div>
                         <div className="mb-2 text-sm text-gray-600">
@@ -245,17 +226,29 @@ export default function BookDetailPage() {
                             <span className="font-medium text-gray-900">-</span>
                           )}
                         </div>
-                        <div className="mb-2 text-sm text-gray-600">
-                          Info Tambahan:{" "}
-                          <span className="font-medium text-gray-900">
-                            {local.book.info
-                              ? JSON.stringify(local.book.info)
-                              : "-"}
-                          </span>
-                        </div>
+                        {Object.keys(local.book.info as Record<string, any>)
+                          .length > 0 && (
+                          <div className="mb-2 text-sm text-gray-600">
+                            Info Tambahan:{" "}
+                            <span className="font-medium text-gray-900">
+                              {local.book.info
+                                ? JSON.stringify(local.book.info)
+                                : "-"}
+                            </span>
+                          </div>
+                        )}
                       </CardContent>
                     </Card>
                   ) : null}
+
+                  {/* Changes Log Section */}
+                  <BookChangesLog
+                    book={local.book}
+                    onReloadData={(log: BookChangesLogType[] | undefined) => {
+                      local.book!.book_changes_log = log!;
+                      local.render();
+                    }}
+                  />
                 </div>
               </div>
             </div>

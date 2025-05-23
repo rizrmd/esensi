@@ -182,7 +182,7 @@ export default function BookUpdatePage() {
   }
 
   return (
-    <Protected role={["publisher", "author"]}>
+    <Protected role={["internal"]}>
       {() => (
         <div className="flex min-h-svh flex-col bg-gray-50">
           <InternalMenuBar />
@@ -458,7 +458,7 @@ export default function BookUpdatePage() {
                           onClick={() => navigate(`/book-detail?id=${bookId}`)}
                           className="border border-gray-300"
                         >
-                          Lihat Detail
+                          Lihat Detil
                         </Button>
                       )}
                     </div>
