@@ -1,5 +1,6 @@
 import { SeoTemplate } from "backend/components/SeoTemplate";
 import { defineAPI } from "rlib/server";
+import { ProductStatus } from "../types";
 
 export default defineAPI({
   name: "search",
@@ -28,7 +29,7 @@ export default defineAPI({
           mode: "insensitive",
         },
         is_chapter: true,
-        status: "published",
+        status: ProductStatus.PUBLISHED,
       },
       skip: skip_books,
       take: books_per_page,
@@ -61,7 +62,7 @@ export default defineAPI({
           contains: keyword,
           mode: "insensitive",
         },
-        status: "published",
+        status: ProductStatus.PUBLISHED,
       },
     });
 
@@ -82,7 +83,7 @@ export default defineAPI({
           contains: keyword,
           mode: "insensitive",
         },
-        status: "published",
+        status: ProductStatus.PUBLISHED,
       },
     });
 
@@ -92,7 +93,7 @@ export default defineAPI({
           contains: keyword,
           mode: "insensitive",
         },
-        status: "published",
+        status: ProductStatus.PUBLISHED,
       },
     });
 

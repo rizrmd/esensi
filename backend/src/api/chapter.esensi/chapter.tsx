@@ -1,6 +1,6 @@
 import { SeoTemplate } from "backend/components/SeoTemplate";
-import { kebabCase } from "lodash";
 import { defineAPI } from "rlib/server";
+import { BookStatus } from "../types";
 
 export default defineAPI({
   name: "chapter",
@@ -20,7 +20,7 @@ export default defineAPI({
       },
       where: {
         slug: req.params.title,
-        status: "published",
+        status: BookStatus.PUBLISHED,
         is_chapter: true,
         deleted_at: null,
       },

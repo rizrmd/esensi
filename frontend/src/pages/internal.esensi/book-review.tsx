@@ -1,7 +1,7 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { MyFileUpload } from "@/components/ext/my-file-upload";
-import { PublishMenuBar } from "@/components/publish/menu-bar";
+import { InternalMenuBar } from "@/components/internal/menu-bar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -185,7 +185,7 @@ export default function BookUpdatePage() {
     <Protected role={["publisher", "author"]}>
       {() => (
         <div className="flex min-h-svh flex-col bg-gray-50">
-          <PublishMenuBar />
+          <InternalMenuBar />
           <main className="flex-1">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
               {local.error ? (

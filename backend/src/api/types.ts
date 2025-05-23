@@ -122,8 +122,15 @@ export type Account = auth_account & {
 export enum BookStatus {
   DRAFT = "draft",
   SUBMITTED = "submitted",
-  APPROVED = "approved",
+  PUBLISHED = "published",
   REJECTED = "rejected",
+  APPROVED = "approved",
+}
+
+export enum ProductStatus {
+  PUBLISHED = "published",
+  PAUSED = "paused",
+  DISCONTINUED = "DISCONTINUED",
 }
 
 export enum Currency {

@@ -1,5 +1,6 @@
 import { SeoTemplate } from "backend/components/SeoTemplate";
 import { defineAPI } from "rlib/server";
+import { ProductStatus } from "../types";
 
 export default defineAPI({
   name: "bundle",
@@ -25,7 +26,7 @@ export default defineAPI({
           },
           where: {
             product: {
-              status: "published",
+              status: ProductStatus.PUBLISHED,
               deleted_at: null,
             },
           },

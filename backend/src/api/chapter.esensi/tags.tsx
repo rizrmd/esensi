@@ -1,5 +1,6 @@
 import { SeoTemplate } from "backend/components/SeoTemplate";
 import { defineAPI } from "rlib/server";
+import { BookStatus } from "../types";
 
 export default defineAPI({
   name: "tags",
@@ -28,7 +29,7 @@ export default defineAPI({
           in: tag?.book_tags?.map((x) => x.id_book),
         },
         is_chapter: true,
-        status: "published",
+        status: BookStatus.PUBLISHED,
         deleted_at: null,
       },
       select: {
@@ -53,7 +54,7 @@ export default defineAPI({
           id: {
             in: tag?.book_tags?.map((x) => x.id_book),
           },
-          status: "published",
+          status: BookStatus.PUBLISHED,
           deleted_at: null,
         },
       })) / books_per_page

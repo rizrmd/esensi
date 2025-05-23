@@ -1,11 +1,11 @@
 import { SeoTemplate } from "backend/components/SeoTemplate";
 import { defineAPI } from "rlib/server";
+import { ProductStatus } from "../types";
 
 export default defineAPI({
   name: "store",
   url: "/store",
   async handler() {
-
     const req = this.req!;
     const allbooks = await db.product.findMany({
       select: {
@@ -18,7 +18,7 @@ export default defineAPI({
       },
       where: {
         deleted_at: null,
-        status: "published",
+        status: ProductStatus.PUBLISHED,
       },
       take: 12,
       orderBy: {
@@ -29,8 +29,8 @@ export default defineAPI({
     // Get all categories
     const categories = await db.category.findMany({
       where: {
-        deleted_at: null
-      }
+        deleted_at: null,
+      },
     });
 
     const data = {
@@ -50,7 +50,11 @@ export default defineAPI({
     };
 
     return {
-      jsx: (<><SeoTemplate data={seo_data} /></>),
+      jsx: (
+        <>
+          <SeoTemplate data={seo_data} />
+        </>
+      ),
       data: data,
     };
   },

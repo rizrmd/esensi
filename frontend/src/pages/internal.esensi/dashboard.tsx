@@ -1,6 +1,6 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
-import { PublishMenuBar } from "@/components/publish/menu-bar";
+import { InternalMenuBar } from "@/components/internal/menu-bar";
 import {
   betterAuth,
   type AuthClientGetSessionAPIResponse,
@@ -48,7 +48,7 @@ export default () => {
       {({ user }) => {
         return (
           <div className="flex min-h-svh flex-col bg-gray-50">
-            <PublishMenuBar />
+            <InternalMenuBar />
             {/* Main Content */}
             <main className="flex-1">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">

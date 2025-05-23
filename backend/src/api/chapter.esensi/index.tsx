@@ -1,5 +1,6 @@
 import { SeoTemplate } from "backend/components/SeoTemplate";
 import { defineAPI } from "rlib/server";
+import { BookStatus } from "../types";
 
 export default defineAPI({
   name: "index",
@@ -17,7 +18,7 @@ export default defineAPI({
       },
       where: {
         deleted_at: null,
-        status: "published",
+        status: BookStatus.PUBLISHED,
       },
       orderBy: {
         published_date: "desc",

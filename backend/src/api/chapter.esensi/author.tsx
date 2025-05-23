@@ -1,5 +1,6 @@
 import { SeoTemplate } from "backend/components/SeoTemplate";
 import { defineAPI } from "rlib/server";
+import { BookStatus } from "../types";
 
 export default defineAPI({
   name: "author",
@@ -36,7 +37,7 @@ export default defineAPI({
       where: {
         id_author: user_data?.id_author ?? undefined,
         deleted_at: null,
-        status: "published",
+        status: BookStatus.PUBLISHED,
       },
       select: {
         id: true,
@@ -57,7 +58,7 @@ export default defineAPI({
       (await db.book.count({
         where: {
           id_author: author_data?.id ?? undefined,
-          status: "published",
+          status: BookStatus.PUBLISHED,
           deleted_at: null,
         },
       })) / books_per_page

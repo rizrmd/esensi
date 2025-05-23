@@ -1,7 +1,7 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { LayoutToggle } from "@/components/publish/layout-toggle";
-import { PublishMenuBar } from "@/components/publish/menu-bar";
+import { InternalMenuBar } from "@/components/internal/menu-bar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataPagination } from "@/components/ui/data-pagination";
 import { baseUrl } from "@/lib/gen/base-url";
@@ -60,7 +60,7 @@ export default function BookListPage() {
       {({ user }) => {
         return (
           <div className="flex min-h-svh flex-col bg-gray-50">
-            <PublishMenuBar />
+            <InternalMenuBar />
 
             {/* Main Content */}
             <main className="flex-1">

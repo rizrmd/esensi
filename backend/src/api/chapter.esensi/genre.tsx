@@ -1,5 +1,6 @@
 import { SeoTemplate } from "backend/components/SeoTemplate";
 import { defineAPI } from "rlib/server";
+import { BookStatus } from "../types";
 
 export default defineAPI({
   name: "genre",
@@ -26,7 +27,7 @@ export default defineAPI({
         id: {
           in: genre?.book_genre?.map((x) => x.id_book),
         },
-        status: "published",
+        status: BookStatus.PUBLISHED,
         is_chapter: true,
         deleted_at: null,
       },
@@ -52,7 +53,7 @@ export default defineAPI({
           id: {
             in: genre?.book_genre?.map((x) => x.id_book),
           },
-          status: "published",
+          status: BookStatus.PUBLISHED,
           deleted_at: null,
         },
       })) / books_per_page
