@@ -1,6 +1,6 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
-import { ChangesLog } from "@/components/publish/changes-log";
+import { BookChangesLog } from "@/components/publish/book-changes-log";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { baseUrl } from "@/lib/gen/base-url";
@@ -248,7 +248,7 @@ export default function BookDetailPage() {
                   ) : null}
 
                   {/* Changes Log Section */}
-                  <ChangesLog book={local.book} />
+                  <BookChangesLog book={local.book} />
                 </div>
               </div>
             </div>

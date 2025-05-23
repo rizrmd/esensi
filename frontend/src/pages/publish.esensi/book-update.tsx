@@ -1,7 +1,7 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { MyFileUpload } from "@/components/ext/my-file-upload";
-import { ChangesLog } from "@/components/publish/changes-log";
+import { BookChangesLog } from "@/components/publish/book-changes-log";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Button } from "@/components/ui/button";
 import {
@@ -537,9 +537,7 @@ export default function BookUpdatePage() {
                 </form>
 
                 {/* Changes Log Section */}
-                <div className="px-6">
-                  <ChangesLog book={local.book as Book} />
-                </div>
+                <BookChangesLog className="px-6" book={local.book as Book} />
               </Card>
             </div>
           </main>
