@@ -210,7 +210,7 @@ export default () => {
                               ? "Diterbitkan"
                               : local.book.status === BookStatus.REJECTED
                               ? "Ditolak"
-                              : "Menunggu"}
+                              : "Draft"}
                           </span>
                         </div>
                       )}

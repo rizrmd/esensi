@@ -1,5 +1,6 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
+import { BookStepItem } from "@/components/publish/book-step-item";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
@@ -143,54 +144,13 @@ export default function BookStepPag() {
                         </div>
                       ) : (
                         local.steps.map((step, index) => (
-                          <div
+                          <BookStepItem
                             key={index}
-                            className="flex flex-col md:flex-row md:items-center justify-between mb-6 pb-4 border-b border-gray-100 last:border-0"
-                          >
-                            <div
-                              className={`flex items-center gap-3 md:gap-4 ${
-                                index <= local.step
-                                  ? "opacity-100 cursor-pointer"
-                                  : "opacity-50"
-                              }`}
-                              onClick={() => navigate(step.link)}
-                            >
-                              <div
-                                className={`min-w-[32px] h-8 flex items-center justify-center rounded-full text-sm font-medium ${
-                                  index <= local.step
-                                    ? "bg-blue-100 text-blue-700"
-                                    : "bg-gray-100 text-gray-500"
-                                }`}
-                                style={{ width: "32px" }}
-                              >
-                                {index + 1}
-                              </div>
-                              <div className="pt-1 md:pt-0">
-                                <h2 className="text-lg font-semibold">
-                                  {step.title}
-
-                                  <span
-                                    className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
-                                      local.step > index
-                                        ? "bg-green-100 text-green-800"
-                                        : local.step === index
-                                        ? "bg-red-100 text-red-800"
-                                        : ""
-                                    }`}
-                                  >
-                                    {local.step > index
-                                      ? "Sudah"
-                                      : local.step === index
-                                      ? "Belum"
-                                      : ""}
-                                  </span>
-                                </h2>
-                                <p className="text-gray-500 text-sm md:text-base">
-                                  {step.description}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
+                            step={step}
+                            index={index}
+                            currentStep={local.step}
+                            book={local.book}
+                          />
                         ))
                       )}
                     </div>

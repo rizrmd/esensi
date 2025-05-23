@@ -34,6 +34,18 @@ export default defineAPI({
         },
       });
 
+      if (!created) {
+        return {
+          success: false,
+          message: "Gagal menambahkan riwayat buku",
+        };
+      } else {
+        await db.book.update({
+          where: { id: arg.id_book },
+          data: { status: arg.status },
+        });
+      }
+
       return {
         success: true,
         data: created,
