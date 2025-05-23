@@ -5,15 +5,57 @@ export default defineAPI({
   name: "index",
   url: "/",
   async handler() {
-
     const req = this.req!;
+
+    const books_lastest = await db.book.findMany({
+      select: {
+        name: true,
+        slug: true,
+        submitted_price: true,
+        currency: true,
+        desc: true,
+      },
+      where: {
+        deleted_at: null,
+        status: "published",
+      },
+      orderBy: {
+        published_date: "desc",
+      },
+      take: 20,
+      skip: 0,
+    });
+
+    const genre = await db.genre.findMany({
+      select: {
+        name: true,
+        slug: true,
+      },
+      where: {
+        deleted_at: null,
+      },
+    });
+
+    const tags = await db.tags.findMany({
+      select: {
+        name: true,
+        slug: true,
+        img: true,
+      },
+      where: {
+        deleted_at: null,
+        id_parent: null,
+      },
+    });
 
     const data = {
       title: `Esensi Chapter`,
+      books: books_lastest,
+      genre: genre,
+      tags: tags,
       content: {},
     };
-    
-    
+
     const seo_data = {
       slug: `/`,
       meta_title: `Baca Chapter Web Novel Terbaru dan Terpopuler | Esensi Online - Katalog Cerita Indonesia`,
@@ -30,7 +72,11 @@ export default defineAPI({
     };
 
     return {
-      jsx: (<><SeoTemplate data={seo_data} /></>),
+      jsx: (
+        <>
+          <SeoTemplate data={seo_data} />
+        </>
+      ),
       data: data,
     };
   },

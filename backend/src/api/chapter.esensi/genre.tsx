@@ -9,7 +9,6 @@ export default defineAPI({
     const page = req.params?.page ? parseInt(req.params.page) : 1;
     const books_per_page = 20;
     const skip_books = page > 1 ? (page - 1) * books_per_page : 0;
-
     const genre_slug = req?.params.slug ? req.params.slug : ``;
 
     const genre = await db.genre.findFirst({
