@@ -37,7 +37,7 @@ export default defineAPI({
     const qty = product?.bundle_product.length;
 
     const data = {
-      title: `Detail Bundle`,
+      title: `Detil Bundle`,
       product: product,
     };
 

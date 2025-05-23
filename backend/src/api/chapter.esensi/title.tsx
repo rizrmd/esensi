@@ -1,6 +1,6 @@
 import { SeoTemplate } from "backend/components/SeoTemplate";
-import { kebabCase } from "lodash";
 import { defineAPI } from "rlib/server";
+import { BookStatus } from "../types";
 
 export default defineAPI({
   name: "title",
@@ -14,7 +14,7 @@ export default defineAPI({
     const book = await db.book.findFirst({
       where: {
         slug: req.params.slug,
-        status: "published",
+        status: BookStatus.PUBLISHED,
         is_chapter: true,
         deleted_at: null,
       },
@@ -85,7 +85,7 @@ export default defineAPI({
     });
 
     const data = {
-      title: `Detail Ebook`,
+      title: `Detil Ebook`,
       book: book,
       chapters: chapters,
       author: author,

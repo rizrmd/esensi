@@ -43,7 +43,7 @@ export default defineAPI({
       console.error("Error in product detail API:", error);
       return {
         success: false,
-        message: "Terjadi kesalahan dalam mengambil detail produk",
+        message: "Terjadi kesalahan dalam mengambil detil produk",
       };
     }
   },

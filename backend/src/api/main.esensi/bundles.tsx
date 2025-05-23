@@ -1,5 +1,6 @@
 import { SeoTemplate } from "backend/components/SeoTemplate";
 import { defineAPI } from "rlib/server";
+import { ProductStatus } from "../types";
 
 export default defineAPI({
   name: "bundles",
@@ -9,56 +10,55 @@ export default defineAPI({
 
     const page = req.params?.page ? parseInt(req.params.page) : 1;
     const books_per_page = 20;
-    const skip_books = page > 1 ? ((page - 1) * books_per_page) : 0;
+    const skip_books = page > 1 ? (page - 1) * books_per_page : 0;
 
-    const products = await db.bundle.findMany(
-      {
-        where: {
-          status: "published",
-          deleted_at: null,
-        },
-        skip: skip_books,
-        take: books_per_page,
-        include: {
-          bundle_product: {
-            select: {
-              product: {
-                select: {
-                  name: true,
-                  slug: true,
-                  cover: true,
-                  strike_price: true,
-                  real_price: true,
-                  currency: true,
-                  product_file: true,
-                },
+    const products = await db.bundle.findMany({
+      where: {
+        status: ProductStatus.PUBLISHED,
+        deleted_at: null,
+      },
+      skip: skip_books,
+      take: books_per_page,
+      include: {
+        bundle_product: {
+          select: {
+            product: {
+              select: {
+                name: true,
+                slug: true,
+                cover: true,
+                strike_price: true,
+                real_price: true,
+                currency: true,
+                product_file: true,
               },
             },
-            where: {
-              product: {
-                status: "published",
-                deleted_at: null,
-              },
+          },
+          where: {
+            product: {
+              status: ProductStatus.PUBLISHED,
+              deleted_at: null,
             },
           },
         },
       },
-    );
+    });
 
     const total_pages = Math.ceil(
-      await db.bundle.count({
+      (await db.bundle.count({
         where: {
-          status: "published",
+          status: ProductStatus.PUBLISHED,
           deleted_at: null,
         },
-      }) / books_per_page);
+      })) / books_per_page
+    );
 
     const data = {
       title: `Lihat Semua Bundle`,
       products: products,
       page: page,
       pages: total_pages,
-    }
+    };
 
     const seo_data = {
       slug: `/bundles${page > 1 ? `/${page}` : ``}`,
@@ -72,7 +72,11 @@ export default defineAPI({
     };
 
     return {
-      jsx: (<><SeoTemplate data={seo_data} /></>),
+      jsx: (
+        <>
+          <SeoTemplate data={seo_data} />
+        </>
+      ),
       data: data,
     };
   },

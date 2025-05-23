@@ -124,7 +124,6 @@ export enum BookStatus {
   SUBMITTED = "submitted",
   PUBLISHED = "published",
   REJECTED = "rejected",
-  APPROVED = "approved",
 }
 
 export enum ProductStatus {

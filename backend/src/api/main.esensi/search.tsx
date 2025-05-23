@@ -1,5 +1,6 @@
 import { SeoTemplate } from "backend/components/SeoTemplate";
 import { defineAPI } from "rlib/server";
+import { ProductStatus } from "../types";
 
 export default defineAPI({
   name: "search",
@@ -11,7 +12,7 @@ export default defineAPI({
 
     const page = req.params?.page ? parseInt(req.params.page) : 1;
     const books_per_page = 20;
-    const skip_books = req.params?.page ? ((page - 1) * books_per_page) : 0;
+    const skip_books = req.params?.page ? (page - 1) * books_per_page : 0;
 
     const products_search = await db.product.findMany({
       select: {
@@ -27,7 +28,7 @@ export default defineAPI({
           contains: keyword,
           mode: "insensitive",
         },
-        status: "published",
+        status: ProductStatus.PUBLISHED,
       },
       skip: skip_books,
       take: books_per_page,
@@ -60,16 +61,18 @@ export default defineAPI({
           contains: keyword,
           mode: "insensitive",
         },
-        status: "published",
+        status: ProductStatus.PUBLISHED,
       },
     });
 
     const products = [
       ...products_search.map((e) => ({
-        ...e, type: "product"
+        ...e,
+        type: "product",
       })),
       ...bundles_search.map((e) => ({
-        ...e, type: "bundle"
+        ...e,
+        type: "bundle",
       })),
     ];
 
@@ -79,7 +82,7 @@ export default defineAPI({
           contains: keyword,
           mode: "insensitive",
         },
-        status: "published",
+        status: ProductStatus.PUBLISHED,
       },
     });
 
@@ -89,22 +92,24 @@ export default defineAPI({
           contains: keyword,
           mode: "insensitive",
         },
-        status: "published",
+        status: ProductStatus.PUBLISHED,
       },
     });
 
     const count_both = count_products + count_bundles;
-    const total_pages = Math.ceil( count_both / books_per_page );
+    const total_pages = Math.ceil(count_both / books_per_page);
 
     const data = {
       title: `Hasil Pencarian`,
       products: products,
       page: page,
       pages: total_pages,
-    }
+    };
 
     const seo_data = {
-      slug: `/search${req.params?.slug ? `/${req.params.slug}` : `/_`}${page > 1 ? `/${page}` : ``}`,
+      slug: `/search${req.params?.slug ? `/${req.params.slug}` : `/_`}${
+        page > 1 ? `/${page}` : ``
+      }`,
       page: page,
       meta_title: `Hasil Pencarian untuk ebook ${keyword}`,
       meta_description: `Temukan eBook tentang ${keyword}. Temukan bacaan berkualitas, update terbaru, dan pilihan eBook digital terbaik Indonesia.`,
@@ -115,7 +120,11 @@ export default defineAPI({
     };
 
     return {
-      jsx: (<><SeoTemplate data={seo_data} /></>),
+      jsx: (
+        <>
+          <SeoTemplate data={seo_data} />
+        </>
+      ),
       data: data,
     };
   },

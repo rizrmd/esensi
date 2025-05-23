@@ -1,5 +1,6 @@
 import { SeoTemplate } from "backend/components/SeoTemplate";
 import { defineAPI } from "rlib/server";
+import { ProductStatus } from "../types";
 
 export default defineAPI({
   name: "browse",
@@ -20,7 +21,7 @@ export default defineAPI({
         cover: true,
       },
       where: {
-        status: "published",
+        status: ProductStatus.PUBLISHED,
         deleted_at: null,
       },
       orderBy: {
@@ -33,7 +34,7 @@ export default defineAPI({
     const total_pages = Math.ceil(
       (await db.product.count({
         where: {
-          status: "published",
+          status: ProductStatus.PUBLISHED,
           deleted_at: null,
         },
       })) / books_per_page

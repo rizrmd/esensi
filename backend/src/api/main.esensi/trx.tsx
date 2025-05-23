@@ -34,10 +34,10 @@ export default defineAPI({
 
     const seo_data = {
       slug: `/trx/${req.params.id}`,
-      meta_title: `Detail Pembelian Ebook Anda | ID Transaksi [ID]`,
+      meta_title: `Detil Pembelian Ebook Anda | ID Transaksi [ID]`,
       meta_description: `Cek detail dari pembelian ebook anda.`,
       image: ``,
-      headings: `Detail Pembelian Ebook Anda | ID Transaksi [ID]`,
+      headings: `Detil Pembelian Ebook Anda | ID Transaksi [ID]`,
       paragraph: `Cek detail dari pembelian ebook anda.`,
       is_product: false,
     };

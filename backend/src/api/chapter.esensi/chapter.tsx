@@ -79,7 +79,7 @@ export default defineAPI({
     const active_genres = cek_active_genres;
 
     const data = {
-      title: `Detail Ebook`,
+      title: `Detil Ebook`,
       book: book,
       product: product,
       chapter: chapter,

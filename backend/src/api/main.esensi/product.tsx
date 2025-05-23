@@ -1,6 +1,6 @@
 import { SeoTemplate } from "backend/components/SeoTemplate";
-import { kebabCase } from "lodash";
 import { defineAPI } from "rlib/server";
+import { ProductStatus } from "../types";
 
 export default defineAPI({
   name: "product",
@@ -11,29 +11,27 @@ export default defineAPI({
 
     // if slug == "_" redirect to /browse
 
-    const product = await db.product.findFirst(
-      {
-        where: {
-          slug: req.params.slug,
-          status: "published",
-          deleted_at: null,
-        },
-        include: {
-          product_category: {
-            select: {
-              category: {
-                select: { name: true, slug: true },
-              },
+    const product = await db.product.findFirst({
+      where: {
+        slug: req.params.slug,
+        status: ProductStatus.PUBLISHED,
+        deleted_at: null,
+      },
+      include: {
+        product_category: {
+          select: {
+            category: {
+              select: { name: true, slug: true },
             },
-            where: {
-              category: {
-                deleted_at: null,
-              },
+          },
+          where: {
+            category: {
+              deleted_at: null,
             },
           },
         },
       },
-    );
+    });
 
     let cats = "";
     product?.product_category.map((cat) => {
@@ -48,11 +46,10 @@ export default defineAPI({
     });
 
     const data = {
-      title: `Detail Ebook`,
+      title: `Detil Ebook`,
       product: product,
       categories: categories,
-    }
-
+    };
 
     const seo_data = {
       slug: `/product/${req.params.slug}`,
@@ -68,7 +65,11 @@ export default defineAPI({
     };
 
     return {
-      jsx: (<><SeoTemplate data={seo_data} /></>),
+      jsx: (
+        <>
+          <SeoTemplate data={seo_data} />
+        </>
+      ),
       data: data,
     };
   },

@@ -8,6 +8,8 @@ export default defineAPI({
   async handler(arg: {
     id_book: string;
     comment: string;
+    id_internal?: string;
+    status?: string;
   }): Promise<ApiResponse<BookApproval>> {
     try {
       const book = await db.book.findUnique({ where: { id: arg.id_book } });
@@ -19,6 +21,8 @@ export default defineAPI({
         data: {
           id_book: arg.id_book,
           comment: arg.comment,
+          id_internal: arg.id_internal,
+          status: arg.status,
         },
         include: {
           book: {
