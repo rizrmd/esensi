@@ -1,12 +1,17 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { baseUrl } from "@/lib/gen/base-url";
+import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
+import { cn } from "@/lib/utils";
 import type { Book, BookChangesLog } from "backend/api/types";
-import { ChevronDown, ChevronUp, History } from "lucide-react";
-
-interface ChangesLogProps {
-  book: Book | null;
-}
+import {
+  ArrowDownZA,
+  ArrowUpAZ,
+  ChevronDown,
+  ChevronUp,
+  History,
+  RefreshCw,
+} from "lucide-react";
 
 function ChangesLogItem({
   book,
@@ -85,25 +90,62 @@ function ChangesLogItem({
   );
 }
 
-export function ChangesLog({ book }: ChangesLogProps) {
-  const local = useLocal(
-    {
-      expandedLogs: {} as Record<string, boolean>,
-    },
-    async () => {
-      // No async initialization needed
-    }
-  );
+export function BookChangesLog({
+  className,
+  book,
+  onReloadData,
+}: {
+  className?: string;
+  book: Book | null;
+  onReloadData?: (log: BookChangesLog[] | undefined) => void;
+}) {
+  const local = useLocal({
+    expandedLogs: {} as Record<string, boolean>,
+    sort: "asc" as "asc" | "desc",
+  });
+
+  async function reloadData(bookId: string, sort?: "asc" | "desc") {
+    if (sort) local.sort = sort;
+    local.render();
+    const list = await api.book_changes_log_list({ id_book: bookId, sort: local.sort });
+    book!.book_changes_log = list.data!;
+    onReloadData?.(list.data);
+  }
 
   if (!book?.book_changes_log || book.book_changes_log.length === 0) {
-    return null;
+    return (
+      <div className={cn("mt-8", className)}>
+        <p className="text-sm text-gray-500 italic">
+          Tidak ada riwayat perubahan
+        </p>
+      </div>
+    );
   }
 
   return (
-    <div className="mt-8">
-      <div className="flex items-center mb-4">
-        <History className="h-5 w-5 mr-2 text-indigo-500" />
-        <h2 className="text-xl font-bold">Riwayat Perubahan</h2>
+    <div className={cn("mt-8", className)}>
+      <div className="flex items-baseline justify-between">
+        <div className="flex items-center mb-4">
+          <History className="h-5 w-5 mr-2 text-indigo-500" />
+          <h2 className="text-xl font-bold">Riwayat Perubahan</h2>
+        </div>
+        <div className="flex items-center space-x-2">
+          {local.sort === "asc" ? (
+            <ArrowUpAZ
+              className="size-5 cursor-pointer"
+              onClick={() => reloadData(book.id, "desc")}
+            />
+          ) : (
+            <ArrowDownZA
+              className="size-5 cursor-pointer"
+              onClick={() => reloadData(book.id, "asc")}
+            />
+          )}
+          <RefreshCw
+            className="size-5 cursor-pointer"
+            onClick={() => reloadData(book.id)}
+          />
+        </div>
       </div>
 
       {book.book_changes_log.map((log: BookChangesLog) => (

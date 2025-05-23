@@ -1,15 +1,19 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { BookApproval } from "../types";
+import type { BookChangesLog } from "../types";
 
 export default defineAPI({
-  name: "book_approval_list",
-  url: "/api/publish/book-approval/list",
+  name: "book_changes_log_list",
+  url: "/api/publish/book-changes-log/list",
   async handler(arg: {
     id_book: string;
     page?: number;
     limit?: number;
-  }): Promise<ApiResponse<BookApproval[]>> {
+    sort?: "asc" | "desc";
+  } = {
+    id_book: "",
+    sort: "asc",
+  }): Promise<ApiResponse<BookChangesLog[]>> {
     try {
       const book = await db.book.findUnique({
         where: { id: arg.id_book },
@@ -23,18 +27,18 @@ export default defineAPI({
       const limit = arg.limit || 10;
       const skip = (page - 1) * limit;
 
-      const total = await db.book_approval.count({
+      const total = await db.book_changes_log.count({
         where: {
           id_book: arg.id_book,
         },
       });
 
-      const approval = await db.book_approval.findMany({
+      let log = await db.book_changes_log.findMany({
         where: {
           id_book: arg.id_book,
         },
         orderBy: {
-          created_at: "asc",
+          created_at: arg.sort,
         },
         skip,
         take: limit,
@@ -44,13 +48,17 @@ export default defineAPI({
               author: true,
             },
           },
-          internal: true,
         },
       });
 
+      log = log.map((log) => ({
+        ...log,
+        hash_value: `${log.id_book}_${log.created_at.getTime()}`,
+      }));
+
       return {
         success: true,
-        data: approval,
+        data: log,
         pagination: {
           total,
           page,
@@ -59,10 +67,10 @@ export default defineAPI({
         },
       };
     } catch (error) {
-      console.error("Error in book_approval list API:", error);
+      console.error("Error in book_changes_log list API:", error);
       return {
         success: false,
-        message: "Terjadi kesalahan dalam mengambil riwayat persetujuan buku",
+        message: "Terjadi kesalahan dalam mengambil riwayat perubahan buku",
       };
     }
   },
