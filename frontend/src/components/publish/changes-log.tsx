@@ -4,10 +4,6 @@ import { useLocal } from "@/lib/hooks/use-local";
 import type { Book, BookChangesLog } from "backend/api/types";
 import { ChevronDown, ChevronUp, History } from "lucide-react";
 
-interface ChangesLogProps {
-  book: Book | null;
-}
-
 function ChangesLogItem({
   book,
   key2,
@@ -85,7 +81,7 @@ function ChangesLogItem({
   );
 }
 
-export function ChangesLog({ book }: ChangesLogProps) {
+export function ChangesLog({ book }: { book: Book | null }) {
   const local = useLocal(
     {
       expandedLogs: {} as Record<string, boolean>,

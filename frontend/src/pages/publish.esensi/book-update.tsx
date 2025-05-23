@@ -1,6 +1,7 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { MyFileUpload } from "@/components/ext/my-file-upload";
+import { ChangesLog } from "@/components/publish/changes-log";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,7 +22,7 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { getMimeType, isTwoFilesArrayTheSame } from "@/lib/utils";
-import { BookStatus, Currency } from "backend/api/types";
+import { BookStatus, Currency, type Book } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import { ChevronRight } from "lucide-react";
 import type { book } from "shared/models";
@@ -534,6 +535,11 @@ export default function BookUpdatePage() {
                     )}
                   </CardFooter>
                 </form>
+
+                {/* Changes Log Section */}
+                <div className="px-6">
+                  <ChangesLog book={local.book as Book} />
+                </div>
               </Card>
             </div>
           </main>
