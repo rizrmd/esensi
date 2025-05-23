@@ -22,10 +22,11 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { getMimeType, isTwoFilesArrayTheSame } from "@/lib/utils";
+import type { BookChangesLog as BookChangesLogType } from "backend/api/types";
 import { BookStatus, Currency, type Book } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import { ChevronRight } from "lucide-react";
-import type { book } from "shared/models";
+import type { author, book, book_approval } from "shared/models";
 
 export default function BookUpdatePage() {
   const params = new URLSearchParams(location.search);
@@ -50,7 +51,11 @@ export default function BookUpdatePage() {
         preorder_min_qty: 0,
         content_type: "text",
         info: {},
-      } as unknown as book,
+      } as unknown as book & {
+        author: author | null;
+        book_approval: book_approval[];
+        book_changes_log: BookChangesLogType[];
+      },
       loading: true,
       error: "",
       success: "",
@@ -537,7 +542,14 @@ export default function BookUpdatePage() {
                 </form>
 
                 {/* Changes Log Section */}
-                <BookChangesLog className="px-6" book={local.book as Book} />
+                <BookChangesLog
+                  className="px-6"
+                  book={local.book as Book}
+                  onReloadData={(log: BookChangesLogType[] | undefined) => {
+                    local.book.book_changes_log = log!;
+                    local.render();
+                  }}
+                />
               </Card>
             </div>
           </main>

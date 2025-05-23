@@ -7,13 +7,23 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type { Book } from "backend/api/types";
+import type {
+  Book,
+  BookChangesLog as BookChangesLogType,
+} from "backend/api/types";
 import { ChevronRight } from "lucide-react";
+import type { author, book_approval } from "shared/models";
 
 export default function BookDetailPage() {
   const local = useLocal(
     {
-      book: null as Book | null,
+      book: null as
+        | (Book & {
+            author: author | null;
+            book_approval: book_approval[];
+            book_changes_log: BookChangesLogType[];
+          })
+        | null,
       loading: true,
       error: "",
     },
@@ -28,12 +38,8 @@ export default function BookDetailPage() {
       }
       try {
         const res = await api.book_detail({ id });
-        if (!res.data) {
-          local.error = "Buku tidak ditemukan.";
-        } else {
-          local.book = res.data;
-          console.log("Changes log list:", res.data.book_changes_log);
-        }
+        if (!res.data) local.error = "Buku tidak ditemukan.";
+        else local.book = res.data;
       } catch (error) {
         local.error = "Terjadi kesalahan saat memuat data buku.";
       } finally {
@@ -248,7 +254,13 @@ export default function BookDetailPage() {
                   ) : null}
 
                   {/* Changes Log Section */}
-                  <BookChangesLog book={local.book} />
+                  <BookChangesLog
+                    book={local.book}
+                    onReloadData={(log: BookChangesLogType[] | undefined) => {
+                      local.book!.book_changes_log = log!;
+                      local.render();
+                    }}
+                  />
                 </div>
               </div>
             </div>

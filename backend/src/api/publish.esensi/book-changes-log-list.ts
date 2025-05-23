@@ -9,6 +9,10 @@ export default defineAPI({
     id_book: string;
     page?: number;
     limit?: number;
+    sort?: "asc" | "desc";
+  } = {
+    id_book: "",
+    sort: "asc",
   }): Promise<ApiResponse<BookChangesLog[]>> {
     try {
       const book = await db.book.findUnique({
@@ -34,7 +38,7 @@ export default defineAPI({
           id_book: arg.id_book,
         },
         orderBy: {
-          created_at: "asc",
+          created_at: arg.sort,
         },
         skip,
         take: limit,
