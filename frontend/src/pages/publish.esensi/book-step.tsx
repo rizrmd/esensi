@@ -40,7 +40,7 @@ export default function BookStepPag() {
               : "book-create") + bookIdQueryString,
         },
         {
-          title: "Persetujuan Penerbitan Buku",
+          title: "Persetujuan Buku",
           description:
             "Penulis bisa berkomunikasi dengan internal untuk memeriksa kelayakan buku untuk terbit.",
           link: "book-approval" + bookIdQueryString,

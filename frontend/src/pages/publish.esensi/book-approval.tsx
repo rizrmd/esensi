@@ -14,6 +14,7 @@ import {
   CalendarIcon,
   ChevronRight,
   MessageCircle,
+  RefreshCw,
   ThumbsDown,
   ThumbsUp,
 } from "lucide-react";
@@ -64,7 +65,7 @@ export default () => {
     local.render();
   };
 
-  const handleSubmitComment = async () => {
+  const handleSubmitComment = async (status: BookStatus) => {
     if (!local.comment.trim()) {
       local.error = "Silakan masukkan komentar terlebih dahulu.";
       Alert.info("Silakan masukkan komentar terlebih dahulu.");
@@ -88,7 +89,7 @@ export default () => {
       const response = await api.book_approval_create({
         id_book: local.bookId,
         comment: local.comment,
-        status: BookStatus.SUBMITTED,
+        status,
       });
 
       if (response.success) {
@@ -109,6 +110,17 @@ export default () => {
       local.render();
     }
   };
+
+  async function reloadRiwayatPersetujuan() {
+    const res = await api.book_approval_list({ id_book: local.bookId! });
+    if (res.data) {
+      local.book_approval = res.data;
+      if (res.data.length > 0) local.book!.status = res.data[0].book.status;
+      local.success = "";
+      local.comment = "";
+      local.render();
+    }
+  }
 
   if (local.loading) {
     return <AppLoading />;
@@ -205,6 +217,8 @@ export default () => {
                               ? "Diterbitkan"
                               : local.book.status === BookStatus.REJECTED
                               ? "Ditolak"
+                              : local.book.status === BookStatus.SUBMITTED
+                              ? "Diajukan"
                               : "Draft"}
                           </span>
                         </div>
@@ -295,9 +309,15 @@ export default () => {
                     )}
 
                     {/* Approval Timeline */}
-                    <h2 className="text-xl font-semibold mb-4">
-                      Riwayat Persetujuan
-                    </h2>
+                    <div className="flex items-center justify-between mb-4">
+                      <h2 className="text-xl font-semibold">
+                        Riwayat Persetujuan
+                      </h2>
+                      <RefreshCw
+                        className="size-5 cursor-pointer"
+                        onClick={() => reloadRiwayatPersetujuan()}
+                      />
+                    </div>
 
                     {local.book_approval.length === 0 ? (
                       <div className="text-center py-8 text-gray-500">
@@ -348,25 +368,29 @@ export default () => {
                                     </span>
                                     {approval.internal?.name ||
                                       local.book?.author?.name}
-                                    <span
-                                      className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
-                                        approval.status === BookStatus.PUBLISHED
-                                          ? "bg-green-100 text-green-800"
+                                    {approval.id_internal && (
+                                      <span
+                                        className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
+                                          approval.status ===
+                                          BookStatus.PUBLISHED
+                                            ? "bg-green-100 text-green-800"
+                                            : approval.status ===
+                                              BookStatus.REJECTED
+                                            ? "bg-red-100 text-red-800"
+                                            : "bg-blue-100 text-blue-800"
+                                        }`}
+                                      >
+                                        {approval.status ===
+                                        BookStatus.PUBLISHED
+                                          ? "Disetujui"
                                           : approval.status ===
                                             BookStatus.REJECTED
-                                          ? "bg-red-100 text-red-800"
-                                          : "bg-blue-100 text-blue-800"
-                                      }`}
-                                    >
-                                      {approval.status === BookStatus.PUBLISHED
-                                        ? "Disetujui"
-                                        : approval.status ===
-                                          BookStatus.REJECTED
-                                        ? "Ditolak"
-                                        : approval.status === BookStatus.DRAFT
-                                        ? "Butuh Revisi Penulis"
-                                        : "Komentar"}
-                                    </span>
+                                          ? "Ditolak"
+                                          : approval.status === BookStatus.DRAFT
+                                          ? "Butuh Revisi Penulis"
+                                          : "Komentar"}
+                                      </span>
+                                    )}
                                   </div>
                                   <div className="flex items-center text-sm text-gray-500">
                                     <CalendarIcon className="w-3 h-3 mr-1" />
@@ -406,13 +430,29 @@ export default () => {
                           disabled={local.submitting}
                         />
                         <div className="flex justify-end gap-3">
+                          {local.book?.status === BookStatus.DRAFT && (
+                            <Button
+                              onClick={() =>
+                                handleSubmitComment(BookStatus.SUBMITTED)
+                              }
+                              disabled={
+                                local.submitting || !local.comment.trim()
+                              }
+                            >
+                              {local.submitting ? "Mengajukan..." : "Ajukan"}
+                            </Button>
+                          )}
                           <Button
-                            onClick={handleSubmitComment}
+                            onClick={() =>
+                              handleSubmitComment(
+                                local.book?.status! as BookStatus
+                              )
+                            }
                             disabled={local.submitting || !local.comment.trim()}
                           >
                             {local.submitting
-                              ? "Mengirim..."
-                              : "Kirim Tanggapan"}
+                              ? "Mengkomentari..."
+                              : "Komentari"}
                           </Button>
                         </div>
                       </div>
