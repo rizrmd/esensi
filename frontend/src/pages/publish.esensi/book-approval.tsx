@@ -3,6 +3,7 @@ import { Protected } from "@/components/app/protected";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { DataPagination } from "@/components/ui/data-pagination";
 import { Alert } from "@/components/ui/global-alert";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
@@ -14,9 +15,8 @@ import {
   CalendarIcon,
   ChevronRight,
   MessageCircle,
-  RefreshCw,
   ThumbsDown,
-  ThumbsUp,
+  ThumbsUp
 } from "lucide-react";
 
 export default () => {
@@ -30,10 +30,17 @@ export default () => {
       success: "",
       comment: "",
       submitting: false,
+      page: 1,
+      limit: 10,
+      total: 0,
+      totalPages: 0,
     },
     async () => {
       const params = new URLSearchParams(location.search);
       local.bookId = params.get("id");
+      local.page = parseInt(params.get("page") || "1");
+      local.limit = parseInt(params.get("limit") || "10");
+
       if (!local.bookId) {
         local.error = "Buku tidak ditemukan.";
         Alert.info("Buku tidak ditemukan.");
@@ -48,7 +55,7 @@ export default () => {
           Alert.info("Buku tidak ditemukan.");
         } else {
           local.book = bookRes.data;
-          local.book_approval = bookRes.data.book_approval || [];
+          await loadApprovalList();
         }
       } catch (error) {
         local.error = "Terjadi kesalahan saat memuat data buku.";
@@ -59,6 +66,31 @@ export default () => {
       }
     }
   );
+
+  async function loadApprovalList() {
+    try {
+      const res = await api.book_approval_list({
+        id_book: local.bookId!,
+        page: local.page,
+        limit: local.limit,
+      });
+
+      if (res.data) {
+        local.book_approval = res.data;
+        if (res.data.length > 0) local.book!.status = res.data[0].book.status;
+
+        if (res.pagination) {
+          local.total = res.pagination.total;
+          local.page = res.pagination.page;
+          local.limit = res.pagination.limit;
+          local.totalPages = res.pagination.totalPages;
+        }
+      }
+    } catch (error) {
+      local.error = "Terjadi kesalahan saat memuat riwayat persetujuan.";
+      Alert.info("Terjadi kesalahan saat memuat riwayat persetujuan.");
+    }
+  }
 
   const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     local.comment = e.target.value;
@@ -96,8 +128,7 @@ export default () => {
         local.success = "Tanggapan berhasil ditambahkan";
         local.comment = "";
 
-        const res = await api.book_approval_list({ id_book: local.bookId });
-        if (res.data) local.book_approval = res.data;
+        await loadApprovalList();
       } else {
         local.error = response.message || "Gagal menambahkan tanggapan";
         Alert.info(response.message || "Gagal menambahkan tanggapan");
@@ -112,14 +143,10 @@ export default () => {
   };
 
   async function reloadRiwayatPersetujuan() {
-    const res = await api.book_approval_list({ id_book: local.bookId! });
-    if (res.data) {
-      local.book_approval = res.data;
-      if (res.data.length > 0) local.book!.status = res.data[0].book.status;
-      local.success = "";
-      local.comment = "";
-      local.render();
-    }
+    await loadApprovalList();
+    local.success = "";
+    local.comment = "";
+    local.render();
   }
 
   if (local.loading) {
@@ -313,10 +340,6 @@ export default () => {
                       <h2 className="text-xl font-semibold">
                         Riwayat Persetujuan
                       </h2>
-                      <RefreshCw
-                        className="size-5 cursor-pointer"
-                        onClick={() => reloadRiwayatPersetujuan()}
-                      />
                     </div>
 
                     {local.book_approval.length === 0 ? (
@@ -413,6 +436,30 @@ export default () => {
                             </div>
                           ))}
                         </div>
+                      </div>
+                    )}
+
+                    {/* Bottom Pagination */}
+                    {local.total > local.limit && (
+                      <div className="flex justify-center mt-6">
+                        <DataPagination
+                          total={local.total}
+                          page={local.page}
+                          limit={local.limit}
+                          totalPages={local.totalPages}
+                          onReload={reloadRiwayatPersetujuan}
+                          onPageChange={async (newPage) => {
+                            local.page = newPage;
+                            await loadApprovalList();
+                            local.render();
+                          }}
+                          onLimitChange={async (newLimit) => {
+                            local.limit = newLimit;
+                            local.page = 1;
+                            await loadApprovalList();
+                            local.render();
+                          }}
+                        />
                       </div>
                     )}
 

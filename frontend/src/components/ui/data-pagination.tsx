@@ -7,6 +7,7 @@ interface DataPaginationProps {
   totalPages: number;
   onPageChange: (page: number) => Promise<void> | void;
   onLimitChange: (limit: number) => Promise<void> | void;
+  onReload: () => Promise<void> | void;
   updateUrl?: boolean;
 }
 
@@ -17,6 +18,7 @@ export function DataPagination({
   totalPages,
   onPageChange,
   onLimitChange,
+  onReload,
   updateUrl = true,
 }: DataPaginationProps) {
   useEffect(() => {
@@ -33,14 +35,29 @@ export function DataPagination({
     <div className="w-full md:w-auto bg-white shadow-sm rounded-lg border border-gray-200 px-4 py-3 flex flex-col gap-4">
       <div className="flex flex-col sm:flex-row items-center gap-4">
         <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+          <div
+            className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center cursor-pointer hover:bg-primary/20 transition-colors"
+            onClick={async () => {
+              if (onReload) await onReload();
+            }}
+            title="Muat ulang data"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="w-4 h-4 text-primary"
             >
-              <path d="M10 9a3 3 0 100-6 3 3 0 000 6zM6 8a2 2 0 11-4 0 2 2 0 014 0zM1.49 15.326a.78.78 0 01-.358-.442 3 3 0 013.01-3.1.75.75 0 11.002 1.5 1.5 1.5 0 00-1.506 1.55.75.75 0 01-.734.942 1 1 0 000 2 .75.75 0 01.734.942 1.5 1.5 0 001.506 1.55.75.75 0 11-.002 1.5 3 3 0 01-3.01-3.1.78.78 0 01.358-.442zM18.51 15.326a.78.78 0 00.358-.442 3 3 0 00-3.01-3.1.75.75 0 10-.002 1.5 1.5 1.5 0 011.506 1.55.75.75 0 00.734.942 1 1 0 110 2 .75.75 0 00-.734.942 1.5 1.5 0 01-1.506 1.55.75.75 0 10.002 1.5 3 3 0 003.01-3.1.78.78 0 00-.358-.442zM10 15a3 3 0 100-6 3 3 0 000 6z" />
+              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+              <path d="M21 3v5h-5" />
+              <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+              <path d="M3 21v-5h5" />
             </svg>
           </div>
           <span className="text-sm font-medium text-gray-700">
@@ -70,9 +87,7 @@ export function DataPagination({
 
       <div className="flex flex-col sm:flex-row items-center gap-4">
         <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-500">
-            Halaman
-          </span>
+          <span className="text-sm text-gray-500">Halaman</span>
           <div className="flex items-center gap-1">
             <button
               disabled={page === 1}
@@ -137,9 +152,7 @@ export function DataPagination({
               </svg>
             </button>
           </div>
-          <span className="text-sm text-gray-500">
-            dari {totalPages}
-          </span>
+          <span className="text-sm text-gray-500">dari {totalPages}</span>
         </div>
       </div>
     </div>

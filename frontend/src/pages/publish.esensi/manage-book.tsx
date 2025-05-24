@@ -67,6 +67,11 @@ export default function BookListPage() {
     }
   }
 
+  async function reloadData() {
+    await loadData();
+    local.render();
+  }
+
   if (local.loading) {
     return <AppLoading />;
   }
@@ -149,6 +154,7 @@ export default function BookListPage() {
                           page={local.page}
                           limit={local.limit}
                           totalPages={local.totalPages}
+                          onReload={reloadData}
                           onPageChange={async (newPage) => {
                             local.page = newPage;
                             local.render();

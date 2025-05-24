@@ -1,7 +1,7 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
-import { LayoutToggle } from "@/components/publish/layout-toggle";
 import { InternalMenuBar } from "@/components/internal/menu-bar";
+import { LayoutToggle } from "@/components/publish/layout-toggle";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataPagination } from "@/components/ui/data-pagination";
 import { baseUrl } from "@/lib/gen/base-url";
@@ -50,6 +50,11 @@ export default function ProductListPage() {
     }
   }
 
+  async function reloadData() {
+    await loadData();
+    local.render();
+  }
+
   if (local.loading) {
     return <AppLoading />;
   }
@@ -60,6 +65,7 @@ export default function ProductListPage() {
         return (
           <div className="flex min-h-svh flex-col bg-gray-50">
             <InternalMenuBar />
+
             {/* Main Content */}
             <main className="flex-1">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
@@ -107,6 +113,7 @@ export default function ProductListPage() {
                           page={local.page}
                           limit={local.limit}
                           totalPages={local.totalPages}
+                          onReload={reloadData}
                           onPageChange={async (newPage) => {
                             local.page = newPage;
                             local.render();
