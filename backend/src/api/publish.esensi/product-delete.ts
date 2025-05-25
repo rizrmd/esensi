@@ -6,7 +6,6 @@ export default defineAPI({
   url: "/api/publish/product/delete",
   async handler(arg: { id: string }): Promise<ApiResponse<void>> {
     try {
-      // Check if product exists
       const product = await db.product.findUnique({ where: { id: arg.id } });
       if (!product) {
         return { success: false, message: "Produk tidak ditemukan" };

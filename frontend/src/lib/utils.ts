@@ -121,3 +121,15 @@ export const getImageUrl = (url: string, width?: number, height?: number) => {
   if (height) params.append("h", height.toString());
   return `${url}?${params.toString()}`;
 };
+
+export enum ItemLayout {
+  GRID = "grid",
+  LIST = "list",
+  COMPACT = "compact",
+}
+
+export type BookStep = {
+  title: string;
+  description: string;
+  link: string;
+};

@@ -1,6 +1,6 @@
+import type { User } from "backend/lib/better-auth";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { auth_user } from "shared/models";
 import type { AuthUser } from "../types";
 
 export default defineAPI({
@@ -8,7 +8,7 @@ export default defineAPI({
   url: "/api/auth/user/update",
   async handler(arg: {
     id: string;
-    data: auth_user;
+    data: User;
   }): Promise<ApiResponse<AuthUser>> {
     try {
       const user = await db.auth_user.findUnique({ where: { id: arg.id } });
@@ -18,7 +18,17 @@ export default defineAPI({
 
       const updated = await db.auth_user.update({
         where: { id: arg.id },
-        data: arg.data as any,
+        data: {
+          id_affiliate: arg.data.idAffiliate,
+          id_author: arg.data.idAuthor,
+          id_customer: arg.data.idCustomer,
+          id_internal: arg.data.idInternal,
+          id_publisher: arg.data.idPublisher,
+          name: arg.data.name,
+          image: arg.data.image,
+          email: arg.data.email,
+          email_verified: arg.data.emailVerified,
+        },
         include: {
           auth_account: {
             take: 10,

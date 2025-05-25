@@ -27,7 +27,7 @@ export const Protected: FC<{
     | ReactNode
     | ((opt: { user: User | null; missing_role: string[] }) => ReactNode);
   role?: Role | Role[] | "any";
-  onLoad?: (opt: { user: null | User }) => void;
+  onLoad?: (opt: { user: null | User }) => void | Promise<void>;
   fallback?: (opt: { missing_role: string[] }) => ReactNode;
   fallbackUrl?: string | null;
 }> = ({ children, role, fallback, onLoad, fallbackUrl }) => {
@@ -75,9 +75,7 @@ export const Protected: FC<{
               current.user["idInternal"] = null;
             if (current.user["idPublisher"] === "null")
               current.user["idPublisher"] = null;
-          }
 
-          if (current.user) {
             if (role !== "any") {
               const roles = Array.isArray(role) ? role : [role];
               local.missing_role = [];

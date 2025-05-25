@@ -1,9 +1,10 @@
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import type { ItemLayout } from "@/lib/utils";
 import { Grid, LayoutGrid, List } from "lucide-react";
 
 export interface LayoutToggleProps {
-  layout: string;
-  onLayoutChange: (value: string) => void;
+  layout: ItemLayout;
+  onLayoutChange: (value: ItemLayout) => void;
 }
 
 export function LayoutToggle({ layout, onLayoutChange }: LayoutToggleProps) {
@@ -12,9 +13,7 @@ export function LayoutToggle({ layout, onLayoutChange }: LayoutToggleProps) {
       type="single"
       value={layout}
       onValueChange={(value) => {
-        if (value) {
-          onLayoutChange(value);
-        }
+        if (value) onLayoutChange(value as ItemLayout);
       }}
       className="p-0"
     >

@@ -2,12 +2,9 @@ import { Protected } from "@/components/app/protected";
 import { SideForm } from "@/components/ext/side-form";
 import { Button } from "@/components/ui/button";
 import { baseUrl } from "@/lib/gen/base-url";
-import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 
 export default () => {
-  useLocal({}, () => {});
-
   const content = (
     <SideForm sideImage={"/img/side-bg.jpg"}>
       <div className="space-y-6 w-full">
@@ -22,7 +19,9 @@ export default () => {
           <div className="space-y-2">
             <Button className="w-full" asChild>
               <a
-                href={`${baseUrl.auth_esensi}/login?callbackURL=${encodeURIComponent(
+                href={`${
+                  baseUrl.auth_esensi
+                }/login?callbackURL=${encodeURIComponent(
                   baseUrl.publish_esensi + "/dashboard"
                 )}`}
               >
@@ -36,16 +35,14 @@ export default () => {
   );
 
   return (
-    <>
-      <Protected
-        role={["publisher", "author"]}
-        onLoad={({ user }) => {
-          if (user) navigate("/dashboard");
-        }}
-        fallback={() => content}
-      >
-        {content}
-      </Protected>
-    </>
+    <Protected
+      role={["publisher", "author"]}
+      onLoad={({ user }) => {
+        if (user) navigate("/dashboard");
+      }}
+      fallback={() => content}
+    >
+      {content}
+    </Protected>
   );
 };
