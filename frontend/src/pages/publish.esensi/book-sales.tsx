@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { DataPagination } from "@/components/ui/data-pagination";
 import { Alert } from "@/components/ui/global-alert";
 import {
   Table,
@@ -35,10 +36,16 @@ export default () => {
       error: "",
       totalSales: 0,
       totalItems: 0,
+      page: 1,
+      limit: 10,
+      totalPages: 0,
+      total: 0,
     },
     async () => {
       const params = new URLSearchParams(location.search);
       local.bookId = params.get("id");
+      local.page = parseInt(params.get("page") || "1") as number;
+      local.limit = parseInt(params.get("limit") || "10") as number;
 
       if (!local.bookId) {
         local.error = "Buku tidak ditemukan.";
@@ -48,44 +55,57 @@ export default () => {
         return;
       }
 
-      try {
-        const bookRes = await api.book_detail({ id: local.bookId });
-        if (!bookRes.data) {
-          local.error = "Buku tidak ditemukan.";
-          Alert.info("Buku tidak ditemukan.");
-        } else {
-          local.book = bookRes.data;
-          local.productId = local.book?.id_product || null;
-          local.product = bookRes.data.product || null;
-
-          if (local.productId) {
-            const res = await api.t_sales_line_list({
-              id_product: local.productId,
-            });
-
-            if (!res.success) {
-              local.error = res.message || "Data penjualan tidak ditemukan.";
-              Alert.info(local.error);
-            } else {
-              local.tSalesLine = res.data || [];
-              calculateTotals();
-            }
-          } else {
-            local.error = "Produk tidak ditemukan untuk buku ini.";
-          }
-          local.render();
-        }
-      } catch (error) {
-        local.error = "Terjadi kesalahan saat memuat data buku.";
-        Alert.info("Terjadi kesalahan saat memuat data buku.");
-      } finally {
-        local.loading = false;
-        local.render();
-      }
+      await loadData();
     }
   );
 
-  // Function to calculate total sales and items
+  async function loadData() {
+    local.loading = true;
+    local.render();
+
+    try {
+      const bookRes = await api.book_detail({ id: local.bookId! });
+      if (!bookRes.data) {
+        local.error = "Buku tidak ditemukan.";
+        Alert.info("Buku tidak ditemukan.");
+      } else {
+        local.book = bookRes.data;
+        local.productId = local.book?.id_product || null;
+        local.product = bookRes.data.product || null;
+
+        if (local.productId) {
+          const res = await api.t_sales_line_list({
+            id_product: local.productId,
+            page: local.page,
+            limit: local.limit,
+          });
+
+          if (!res.success) {
+            local.error = res.message || "Data penjualan tidak ditemukan.";
+            Alert.info(local.error);
+          } else {
+            local.tSalesLine = res.data || [];
+            local.total = res.pagination?.total || 0;
+            local.page = res.pagination?.page || 1;
+            local.limit = res.pagination?.limit || 10;
+            local.totalPages = res.pagination?.totalPages || 0;
+            calculateTotals();
+          }
+        } else {
+          local.error = "Produk tidak ditemukan untuk buku ini.";
+        }
+        local.render();
+      }
+    } catch (error) {
+      local.error = "Terjadi kesalahan saat memuat data buku.";
+      Alert.info("Terjadi kesalahan saat memuat data buku.");
+    } finally {
+      local.loading = false;
+      local.render();
+    }
+  }
+
+  // Function to calculate total sales and items for the current page
   const calculateTotals = () => {
     let totalSales = 0;
     let totalItems = 0;
@@ -257,48 +277,96 @@ export default () => {
 
                 {/* Sales Table */}
                 <Card>
-                  <CardHeader>
-                    <CardTitle>Daftar Transaksi</CardTitle>
-                    <CardDescription>
-                      Semua transaksi terkait buku "{local.book?.name}"
-                    </CardDescription>
+                  <CardHeader className="flex flex-row items-start justify-between">
+                    <div>
+                      <CardTitle>Daftar Transaksi</CardTitle>
+                      <CardDescription>
+                        Semua transaksi terkait buku "{local.book?.name}"
+                      </CardDescription>
+                    </div>
+
+                    {local.tSalesLine.length > 0 && (
+                      <DataPagination
+                        total={local.total}
+                        page={local.page}
+                        limit={local.limit}
+                        totalPages={local.totalPages}
+                        onReload={loadData}
+                        onPageChange={async (newPage) => {
+                          local.page = newPage;
+                          local.render();
+                          await loadData();
+                        }}
+                        onLimitChange={async (newLimit) => {
+                          local.limit = newLimit;
+                          local.page = 1;
+                          local.render();
+                          await loadData();
+                        }}
+                      />
+                    )}
                   </CardHeader>
                   <CardContent>
                     {local.tSalesLine.length > 0 ? (
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead>ID Transaksi</TableHead>
-                            <TableHead>Tanggal</TableHead>
-                            <TableHead>Jumlah</TableHead>
-                            <TableHead>Harga Satuan</TableHead>
-                            <TableHead>Total</TableHead>
-                            <TableHead>Status</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {local.tSalesLine.map((line) => (
-                            <TableRow key={line.id}>
-                              <TableCell className="font-medium">
-                                {line.t_sales.id.substring(0, 8)}...
-                              </TableCell>
-                              <TableCell>
-                                {formatDate(line.t_sales.created_at.toString())}
-                              </TableCell>
-                              <TableCell>{line.qty}</TableCell>
-                              <TableCell>
-                                {formatCurrency(line.unit_price)}
-                              </TableCell>
-                              <TableCell>
-                                {formatCurrency(line.total_price)}
-                              </TableCell>
-                              <TableCell>
-                                {getStatusBadge(line.t_sales.status)}
-                              </TableCell>
+                      <>
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              <TableHead>ID Transaksi</TableHead>
+                              <TableHead>Tanggal</TableHead>
+                              <TableHead>Jumlah</TableHead>
+                              <TableHead>Harga Satuan</TableHead>
+                              <TableHead>Total</TableHead>
+                              <TableHead>Status</TableHead>
                             </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
+                          </TableHeader>
+                          <TableBody>
+                            {local.tSalesLine.map((line) => (
+                              <TableRow key={line.id}>
+                                <TableCell className="font-medium">
+                                  {line.t_sales.id.substring(0, 8)}...
+                                </TableCell>
+                                <TableCell>
+                                  {formatDate(
+                                    line.t_sales.created_at.toString()
+                                  )}
+                                </TableCell>
+                                <TableCell>{line.qty}</TableCell>
+                                <TableCell>
+                                  {formatCurrency(line.unit_price)}
+                                </TableCell>
+                                <TableCell>
+                                  {formatCurrency(line.total_price)}
+                                </TableCell>
+                                <TableCell>
+                                  {getStatusBadge(line.t_sales.status)}
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+
+                        <div className="mt-6 flex justify-end">
+                          <DataPagination
+                            total={local.total}
+                            page={local.page}
+                            limit={local.limit}
+                            totalPages={local.totalPages}
+                            onReload={loadData}
+                            onPageChange={async (newPage) => {
+                              local.page = newPage;
+                              local.render();
+                              await loadData();
+                            }}
+                            onLimitChange={async (newLimit) => {
+                              local.limit = newLimit;
+                              local.page = 1;
+                              local.render();
+                              await loadData();
+                            }}
+                          />
+                        </div>
+                      </>
                     ) : (
                       <div className="text-center py-6">
                         <p className="text-gray-500">
