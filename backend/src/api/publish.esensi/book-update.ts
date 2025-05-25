@@ -130,12 +130,12 @@ export default defineAPI({
               created_at: "asc",
             },
           },
+          product: true,
         },
       });
 
-      if (!updated) {
-        return { success: false, message: "Buku tidak ditemukan" };
-      } else {
+      if (!updated) return { success: false, message: "Buku tidak ditemukan" };
+      else {
         updated.book_changes_log = updated.book_changes_log.map((log) => ({
           ...log,
           hash_value: `${log.id_book}_${log.created_at.getTime()}`,

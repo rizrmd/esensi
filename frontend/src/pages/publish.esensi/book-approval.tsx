@@ -49,6 +49,7 @@ export default () => {
         local.render();
         return;
       }
+
       try {
         const bookRes = await api.book_detail({ id: local.bookId });
         if (!bookRes.data) {

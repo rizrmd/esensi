@@ -14,6 +14,8 @@ import type {
   promo_code,
   publisher,
   publisher_author,
+  t_sales,
+  t_sales_line,
   transaction,
   withdrawal,
 } from "shared/models";
@@ -47,6 +49,7 @@ export type Book = book & {
   author: author | null;
   book_approval: book_approval[];
   book_changes_log: BookChangesLog[];
+  product: product | null;
 };
 
 export type BookApproval = book_approval & {
@@ -124,13 +127,13 @@ export enum BookStatus {
   SUBMITTED = "submitted",
   PUBLISHED = "published",
   REJECTED = "rejected",
-}
+};
 
 export enum ProductStatus {
   PUBLISHED = "published",
   PAUSED = "paused",
   DISCONTINUED = "DISCONTINUED",
-}
+};
 
 export enum Currency {
   IDR = "IDR",
@@ -138,4 +141,10 @@ export enum Currency {
   EUR = "EUR",
   JPY = "JPY",
   GBP = "GBP",
-}
+};
+
+export type TSalesLine = t_sales_line & {
+  t_sales: t_sales;
+  product: product | null;
+  bundle: bundle | null;
+};

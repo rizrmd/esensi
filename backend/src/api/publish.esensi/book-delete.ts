@@ -16,10 +16,7 @@ export default defineAPI({
         data: { deleted_at: new Date() },
       });
 
-      return {
-        success: true,
-        message: "Buku berhasil dihapus",
-      };
+      return { success: true, message: "Buku berhasil dihapus" };
     } catch (error) {
       console.error("Error in book delete API:", error);
       return {

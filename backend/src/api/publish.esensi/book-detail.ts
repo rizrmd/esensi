@@ -23,15 +23,12 @@ export default defineAPI({
               created_at: "asc",
             },
           },
+          product: true,
         },
       });
 
-      if (!book) {
-        return {
-          success: false,
-          message: "Buku tidak ditemukan",
-        };
-      } else {
+      if (!book) return { success: false, message: "Buku tidak ditemukan" };
+      else {
         book.book_changes_log = book.book_changes_log.map((log) => ({
           ...log,
           hash_value: `${log.id_book}_${log.created_at.getTime()}`,

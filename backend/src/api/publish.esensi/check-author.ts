@@ -22,13 +22,8 @@ export default defineAPI({
         };
       }
 
-      // Check if the user has an author ID assigned
       const isAuthor = user.id_author !== null;
-
-      return {
-        success: true,
-        data: { isAuthor },
-      };
+      return { success: true, data: { isAuthor } };
     } catch (error) {
       console.error("Error checking author status:", error);
       return {

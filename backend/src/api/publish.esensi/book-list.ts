@@ -56,6 +56,7 @@ export default defineAPI({
               created_at: "asc",
             },
           },
+          product: true,
         },
       });
 

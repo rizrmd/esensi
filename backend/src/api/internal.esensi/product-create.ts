@@ -47,6 +47,18 @@ export default defineAPI({
         },
       });
 
+      if (!created) {
+        return {
+          success: false,
+          message: "Gagal membuat produk",
+        };
+      } else {
+        await db.book.update({
+          where: { id: arg.data.id },
+          data: { id_product: created.id },
+        });
+      }
+
       return {
         success: true,
         data: created,
