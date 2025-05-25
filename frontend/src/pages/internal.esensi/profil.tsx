@@ -1,6 +1,6 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
-import { InternalMenuBar } from "@/components/internal/menu-bar";
+import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,26 +12,22 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  betterAuth,
-  type AuthClientGetSessionAPIResponse,
-  type User,
-} from "@/lib/better-auth";
+import { betterAuth, type User } from "@/lib/better-auth";
 import { api as authApi } from "@/lib/gen/auth.esensi";
 import { baseUrl } from "@/lib/gen/base-url";
-import { api as publishApi } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { getMimeType } from "@/lib/utils";
 import type { UploadAPIResponse } from "backend/api/upload";
 import { ChevronRight } from "lucide-react";
-import type { auth_user } from "shared/models";
+
+export const current = {
+  user: undefined as User | undefined,
+};
 
 export default () => {
   const local = useLocal(
     {
-      user: null as Partial<User> | null,
-      userData: {} as Partial<auth_user>,
       loading: true,
       error: "",
       success: "",
@@ -39,60 +35,39 @@ export default () => {
       files: [] as File[],
     },
     async () => {
+      const res = await betterAuth.getSession();
+      current.user = res.data?.user;
+      await loadData();
+    }
+  );
+
+  async function loadData() {
+    if (current.user?.image) {
       try {
-        const session: AuthClientGetSessionAPIResponse =
-          await betterAuth.getSession();
-        if (!session.data?.user) {
-          navigate("/");
-          return;
-        }
-        local.user = session.data.user;
-        await publishApi.register_user({ user: session.data!.user });
-
-        if (session.data.user.id) {
-          const userResponse = await authApi.auth_user({
-            username: session.data.user.email || "",
-          });
-
-          if (userResponse) {
-            local.userData = userResponse;
-
-            if (userResponse.image) {
-              try {
-                const imageUrl = `${baseUrl.auth_esensi}/${userResponse.image}`;
-                const response = await fetch(imageUrl);
-                const blob = await response.blob();
-                const fileName =
-                  userResponse.image.split("/").pop() || "profile.jpg";
-
-                const extension = fileName.split(".").pop()?.toLowerCase();
-                const mimeType = getMimeType(extension);
-
-                const file = new File([blob], fileName, {
-                  type: mimeType,
-                  lastModified: new Date().getTime(),
-                });
-
-                local.files = [file];
-              } catch (error) {
-                console.error("Error fetching profile image:", error);
-              }
-            }
-          } else {
-            local.error = "Gagal memuat data pengguna";
-          }
-        }
-
-        local.loading = false;
+        local.loading = true;
         local.render();
+
+        const imageUrl = `${baseUrl.auth_esensi}/${current.user.image}`;
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+
+        const fileName = current.user.image.split("/").pop() || "profile.jpg";
+        const extension = fileName.split(".").pop()?.toLowerCase();
+        const mimeType = getMimeType(extension);
+
+        const file = new File([blob], fileName, {
+          type: mimeType,
+          lastModified: new Date().getTime(),
+        });
+        local.files = [file];
       } catch (error) {
-        console.error("Error loading profile:", error);
-        local.error = "Terjadi kesalahan saat memuat profil";
+        console.error("Error fetching profile image:", error);
+      } finally {
         local.loading = false;
         local.render();
       }
     }
-  );
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -102,14 +77,13 @@ export default () => {
     local.render();
 
     try {
-      if (!local.user?.id) {
+      if (!current.user?.id) {
         local.error = "ID pengguna tidak ditemukan";
         local.isSubmitting = false;
         local.render();
         return;
       }
 
-      // Upload profile image if available
       if (local.files.length > 0) {
         const file = local.files[0];
         const formData = new FormData();
@@ -119,17 +93,16 @@ export default () => {
           body: formData,
         });
         const uploaded: UploadAPIResponse = await res.json();
-        if (uploaded.name) local.userData.image = uploaded.name;
+        if (uploaded.name) current.user.image = uploaded.name;
       }
 
       const res = await authApi.user_update({
-        id: local.user.id,
-        data: local.userData as auth_user,
+        id: current.user.id,
+        data: current.user,
       });
 
       if (res.success && res.data) {
         local.success = "Profil berhasil diperbarui!";
-        // Update session data if necessary
         setTimeout(() => {
           local.success = "";
           local.render();
@@ -150,167 +123,159 @@ export default () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    local.userData = {
-      ...local.userData,
-      [name]: value.trim() === "" && name === "username" ? null : value,
+    current.user = {
+      ...current.user!,
+      [name]: value.trim() === "" && name === "username" ? null : value!,
     };
     local.render();
   };
 
-  if (local.loading) {
-    return <AppLoading />;
-  }
+  if (local.loading) return <AppLoading />;
 
   return (
     <Protected role={["internal"]}>
-      {({ user }) => (
-        <div className="flex min-h-svh flex-col bg-gray-50">
-          <InternalMenuBar title="Profil" />
-          {/* Main Content */}
-          <main className="flex-1">
-            <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
-              {local.error ? (
-                <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-8 shadow-sm">
-                  {local.error}
-                </div>
-              ) : null}
+      <div className="flex min-h-svh flex-col bg-gray-50">
+        <PublishMenuBar title="Profil" />
 
-              {local.success ? (
-                <div className="bg-green-50 border border-green-200 text-green-700 p-4 rounded-lg mb-8 shadow-sm">
-                  {local.success}
-                </div>
-              ) : null}
+        <main className="flex-1">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
+            {local.error ? (
+              <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-8 shadow-sm">
+                {local.error}
+              </div>
+            ) : null}
 
-              <Card className="shadow-md border border-gray-200">
-                <CardHeader>
-                  {/* Breadcrumb Navigation */}
-                  <nav className="flex items-center text-sm text-gray-600 mb-4">
-                    <button
-                      onClick={() => navigate("/dashboard")}
-                      className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
-                    >
-                      Beranda
-                    </button>
-                    <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                    <span className="text-gray-800 font-medium">Profil</span>
-                  </nav>
+            {local.success ? (
+              <div className="bg-green-50 border border-green-200 text-green-700 p-4 rounded-lg mb-8 shadow-sm">
+                {local.success}
+              </div>
+            ) : null}
 
-                  {/* Divider line */}
-                  <div className="border-b border-gray-200 mb-6"></div>
+            <Card className="shadow-md border border-gray-200">
+              <CardHeader>
+                {/* Breadcrumb Navigation */}
+                <nav className="flex items-center text-sm text-gray-600 mb-4">
+                  <button
+                    onClick={() => navigate("/dashboard")}
+                    className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
+                  >
+                    Beranda
+                  </button>
+                  <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+                  <span className="text-gray-800 font-medium">Profil</span>
+                </nav>
 
-                  <CardTitle className="text-xl font-bold">
-                    Perbarui Profil
-                  </CardTitle>
-                  <CardDescription>
-                    Silahkan edit formulir di bawah untuk memperbarui profil
-                    Anda.
-                  </CardDescription>
-                </CardHeader>
-                <form onSubmit={handleSubmit}>
-                  <CardContent className="space-y-6">
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="name">Nama Lengkap</Label>
-                          <Input
-                            id="name"
-                            name="name"
-                            value={local.userData.name || ""}
-                            onChange={handleChange}
-                            placeholder="Nama lengkap Anda"
-                            className="mt-1"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="email">Email</Label>
-                          <Input
-                            id="email"
-                            name="email"
-                            value={local.userData.email || ""}
-                            onChange={handleChange}
-                            placeholder="Email Anda"
-                            className="mt-1"
-                            disabled
-                          />
-                        </div>
-                      </div>
+                {/* Divider line */}
+                <div className="border-b border-gray-200 mb-6"></div>
 
+                <CardTitle className="text-xl font-bold">
+                  Perbarui Profil
+                </CardTitle>
+                <CardDescription>
+                  Silahkan edit formulir di bawah untuk memperbarui profil Anda.
+                </CardDescription>
+              </CardHeader>
+              <form onSubmit={handleSubmit}>
+                <CardContent className="space-y-6">
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="username">Username</Label>
+                        <Label htmlFor="name">Nama Lengkap</Label>
                         <Input
-                          id="username"
-                          name="username"
-                          value={local.userData.username || ""}
+                          id="name"
+                          name="name"
+                          value={current.user?.name || ""}
                           onChange={handleChange}
-                          placeholder="Username Anda"
+                          placeholder="Nama lengkap Anda"
                           className="mt-1"
                         />
                       </div>
-
                       <div>
-                        <Label>Foto Profil</Label>
-                        <div className="mt-2 flex items-center gap-4">
-                          {local.userData.image || local.files.length > 0 ? (
-                            <div className="relative w-20 h-20 rounded-full overflow-hidden border bg-gray-100">
-                              <img
-                                src={
-                                  local.files.length > 0
-                                    ? URL.createObjectURL(local.files[0])
-                                    : `${baseUrl.auth_esensi}/${local.userData.image}`
-                                }
-                                alt="Foto Profil"
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                          ) : (
-                            <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center">
-                              <span className="text-gray-500 text-xs">
-                                Tidak ada foto
-                              </span>
-                            </div>
-                          )}
-                          <div>
-                            <Input
-                              id="profile-image"
-                              type="file"
-                              accept="image/*"
-                              onChange={(e) => {
-                                if (
-                                  e.target.files &&
-                                  e.target.files.length > 0
-                                ) {
-                                  local.files = [e.target.files[0]];
-                                  local.render();
-                                }
-                              }}
-                              className="max-w-sm"
+                        <Label htmlFor="email">Email</Label>
+                        <Input
+                          id="email"
+                          name="email"
+                          value={current.user?.email || ""}
+                          onChange={handleChange}
+                          placeholder="Email Anda"
+                          className="mt-1"
+                          disabled
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="username">Username</Label>
+                      <Input
+                        id="username"
+                        name="username"
+                        value={current.user?.username || ""}
+                        onChange={handleChange}
+                        placeholder="Username Anda"
+                        className="mt-1"
+                      />
+                    </div>
+
+                    <div>
+                      <Label>Foto Profil</Label>
+                      <div className="mt-2 flex items-center gap-4">
+                        {current.user?.image || local.files.length > 0 ? (
+                          <div className="relative w-20 h-20 rounded-full overflow-hidden border bg-gray-100">
+                            <img
+                              src={
+                                local.files.length > 0
+                                  ? URL.createObjectURL(local.files[0])
+                                  : `${baseUrl.auth_esensi}/${current.user?.image}`
+                              }
+                              alt="Foto Profil"
+                              className="w-full h-full object-cover"
                             />
-                            <p className="text-xs text-gray-500 mt-1">
-                              Upload gambar berformat JPG, PNG, atau GIF.
-                            </p>
                           </div>
+                        ) : (
+                          <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center">
+                            <span className="text-gray-500 text-xs">
+                              Tidak ada foto
+                            </span>
+                          </div>
+                        )}
+                        <div>
+                          <Input
+                            id="profile-image"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => {
+                              if (e.target.files && e.target.files.length > 0) {
+                                local.files = [e.target.files[0]];
+                                local.render();
+                              }
+                            }}
+                            className="max-w-sm"
+                          />
+                          <p className="text-xs text-gray-500 mt-1">
+                            Upload gambar berformat JPG, PNG, atau GIF.
+                          </p>
                         </div>
                       </div>
                     </div>
-                  </CardContent>
-                  <CardFooter className="flex justify-end space-x-4">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => navigate("/dashboard")}
-                    >
-                      Batal
-                    </Button>
-                    <Button type="submit" disabled={local.isSubmitting}>
-                      {local.isSubmitting ? "Menyimpan..." : "Simpan Perubahan"}
-                    </Button>
-                  </CardFooter>
-                </form>
-              </Card>
-            </div>
-          </main>
-        </div>
-      )}
+                  </div>
+                </CardContent>
+                <CardFooter className="flex justify-end space-x-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => navigate("/dashboard")}
+                  >
+                    Batal
+                  </Button>
+                  <Button type="submit" disabled={local.isSubmitting}>
+                    {local.isSubmitting ? "Menyimpan..." : "Simpan Perubahan"}
+                  </Button>
+                </CardFooter>
+              </form>
+            </Card>
+          </div>
+        </main>
+      </div>
     </Protected>
   );
 };
