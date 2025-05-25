@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { DataPagination } from "@/components/ui/data-pagination";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
@@ -99,20 +100,60 @@ export function BookChangesLog({
   book: Book | null;
   onReloadData?: (log: BookChangesLog[] | undefined) => void;
 }) {
-  const local = useLocal({
-    expandedLogs: {} as Record<string, boolean>,
-    sort: "asc" as "asc" | "desc",
-  });
+  const local = useLocal(
+    {
+      expandedLogs: {} as Record<string, boolean>,
+      sort: "asc" as "asc" | "desc",
+      page: 1,
+      limit: 10,
+      total: 0,
+      totalPages: 0,
+      loadedLogs: [] as BookChangesLog[],
+    },
+    async () => {
+      // Initialize pagination from URL parameters
+      const params = new URLSearchParams(location.search);
+      local.page = parseInt(params.get("page") || "1");
+      local.limit = parseInt(params.get("limit") || "10");
+
+      if (book?.id) {
+        await reloadData(book.id);
+      }
+      local.render();
+    }
+  );
 
   async function reloadData(bookId: string, sort?: "asc" | "desc") {
     if (sort) local.sort = sort;
     local.render();
-    const list = await api.book_changes_log_list({ id_book: bookId, sort: local.sort });
-    book!.book_changes_log = list.data!;
+    const list = await api.book_changes_log_list({
+      id_book: bookId,
+      sort: local.sort,
+      page: local.page,
+      limit: local.limit,
+    });
+
+    if (list.data) {
+      local.loadedLogs = list.data;
+      // Keep the logs in the book object for compatibility
+      book!.book_changes_log = list.data;
+    }
+
+    if (list.pagination) {
+      local.total = list.pagination.total;
+      local.page = list.pagination.page;
+      local.limit = list.pagination.limit;
+      local.totalPages = list.pagination.totalPages;
+    }
+
     onReloadData?.(list.data);
+    local.render();
   }
 
-  if (!book?.book_changes_log || book.book_changes_log.length === 0) {
+  if (
+    !book?.id ||
+    (!local.loadedLogs.length && !book?.book_changes_log?.length)
+  ) {
     return (
       <div className={cn("mt-8", className)}>
         <p className="text-sm text-gray-500 italic">
@@ -121,6 +162,12 @@ export function BookChangesLog({
       </div>
     );
   }
+
+  // Use loadedLogs if available, otherwise fall back to book.book_changes_log
+  const displayLogs =
+    local.loadedLogs.length > 0
+      ? local.loadedLogs
+      : book.book_changes_log || [];
 
   return (
     <div className={cn("mt-8", className)}>
@@ -148,7 +195,7 @@ export function BookChangesLog({
         </div>
       </div>
 
-      {book.book_changes_log.map((log: BookChangesLog) => (
+      {displayLogs.map((log: BookChangesLog) => (
         <Card
           key={log.hash_value}
           className="mb-4 overflow-hidden border border-gray-200"
@@ -221,6 +268,30 @@ export function BookChangesLog({
           )}
         </Card>
       ))}
+
+      {local.total > local.limit && (
+        <div className="flex justify-center my-6">
+          <DataPagination
+            total={local.total}
+            page={local.page}
+            limit={local.limit}
+            totalPages={local.totalPages}
+            onReload={async () => await reloadData(book!.id)}
+            onPageChange={async (newPage) => {
+              local.page = newPage;
+              await reloadData(book!.id);
+              local.render();
+            }}
+            onLimitChange={async (newLimit) => {
+              local.limit = newLimit;
+              local.page = 1;
+              await reloadData(book!.id);
+              local.render();
+            }}
+            updateUrl={true}
+          />
+        </div>
+      )}
     </div>
   );
 }
