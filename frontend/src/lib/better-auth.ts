@@ -40,11 +40,14 @@ type error = {
 
 export type User = AuthUser &
   Partial<{
+    username?: string | null;
+    displayUsername?: string | null;
     idCustomer?: string | null;
     idAuthor?: string | null;
     idAffiliate?: string | null;
     idInternal?: string | null;
     idPublisher?: string | null;
+    twoFactorEnabled?: boolean | null;
   }>;
 
 export type AuthClientGetSessionAPIResponse = {

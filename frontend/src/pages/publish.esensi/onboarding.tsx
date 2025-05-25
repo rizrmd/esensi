@@ -1,4 +1,3 @@
-import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Button } from "@/components/ui/button";
@@ -13,27 +12,20 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  betterAuth,
-  type AuthClientGetSessionAPIResponse,
-  type User,
-} from "@/lib/better-auth";
+import { betterAuth, type User } from "@/lib/better-auth";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import type { FormEvent } from "react";
-import type { auth_user } from "shared/models";
 
 export const current = {
-  user: null as User | null,
+  user: undefined as User | undefined,
 };
 
 export default () => {
   const local = useLocal(
     {
-      loading: true,
       submitting: false,
-      user: null as Partial<auth_user> | null,
       role: "author", // Default to author
       formData: {
         publisher: {
@@ -56,43 +48,13 @@ export default () => {
       success: "",
     },
     async () => {
-      // Initialize
-      try {
-        const session: AuthClientGetSessionAPIResponse =
-          await betterAuth.getSession();
-        if (!session.data?.user) {
-          navigate("/");
-          return;
-        }
-        local.user = session.data.user;
-        current.user = session.data.user;
-
-        // Check if user already has a role
-        const user = session.data.user;
-        // Look for id_author and id_publisher properties using safer property access
-        const hasAuthorRole = user && "id_author" in user && user.id_author;
-        const hasPublisherRole =
-          user && "id_publisher" in user && user.id_publisher;
-
-        if (hasAuthorRole || hasPublisherRole) {
-          // User already has a role, redirect to dashboard
-          navigate("/dashboard");
-          return;
-        }
-
-        local.loading = false;
-        local.render();
-      } catch (error) {
-        console.error("Error loading onboarding page:", error);
-        local.loading = false;
-        local.render();
-      }
+      const res = await betterAuth.getSession();
+      current.user = res.data?.user;
     }
   );
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
     if (local.submitting) return;
 
     local.submitting = true;
@@ -122,7 +84,6 @@ export default () => {
           // for handling file uploads specifically
 
           local.success = "Profil penerbit berhasil dibuat";
-
           // Redirect to dashboard after successful onboarding
           setTimeout(() => {
             navigate("/dashboard");
@@ -150,7 +111,6 @@ export default () => {
           // If we need to handle file uploads, we'd need to create another API endpoint
 
           local.success = "Profil penulis berhasil dibuat";
-
           // Redirect to dashboard after successful onboarding
           setTimeout(() => {
             navigate("/dashboard");
@@ -204,314 +164,312 @@ export default () => {
     reader.readAsDataURL(file);
   };
 
-  if (local.loading) {
-    return <AppLoading />;
-  }
-
   return (
-    <Protected>
-      {({ user }) => (
-        <div className="flex min-h-svh flex-col">
-          <PublishMenuBar />
-          {/* Main Content */}
-          <div className="flex-1 container py-6 md:py-10">
-            <div className="max-w-3xl mx-auto">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Selamat Datang di Platform Penerbitan</CardTitle>
-                  <CardDescription>
-                    Lengkapi profil Anda untuk mulai menerbitkan dan mengelola
-                    buku.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Tabs
-                    value={local.role}
-                    onValueChange={(value) => {
-                      local.role = value;
-                      local.render();
-                    }}
-                    className="w-full"
-                  >
-                    <TabsList className="grid grid-cols-2 mb-8">
-                      <TabsTrigger value="publisher">Saya Penerbit</TabsTrigger>
-                      <TabsTrigger value="author">Saya Penulis</TabsTrigger>
-                    </TabsList>
+    <Protected
+      onLoad={({ user }) => {
+        if (user) {
+          if (user?.idAuthor || user?.idPublisher) {
+            navigate("/dashboard");
+            return;
+          }
+        }
+      }}
+    >
+      <div className="flex min-h-svh flex-col">
+        <PublishMenuBar />
 
-                    {local.error && (
-                      <div className="bg-red-50 text-red-700 p-3 rounded-md mb-6">
-                        {local.error}
-                      </div>
-                    )}
+        <div className="flex-1 container py-6 md:py-10">
+          <div className="max-w-3xl mx-auto">
+            <Card>
+              <CardHeader>
+                <CardTitle>Selamat Datang di Platform Penerbitan</CardTitle>
+                <CardDescription>
+                  Lengkapi profil Anda untuk mulai menerbitkan dan mengelola
+                  buku.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Tabs
+                  value={local.role}
+                  onValueChange={(value) => {
+                    local.role = value;
+                    local.render();
+                  }}
+                  className="w-full"
+                >
+                  <TabsList className="grid grid-cols-2 mb-8">
+                    <TabsTrigger value="publisher">Saya Penerbit</TabsTrigger>
+                    <TabsTrigger value="author">Saya Penulis</TabsTrigger>
+                  </TabsList>
 
-                    {local.success && (
-                      <div className="bg-green-50 text-green-700 p-3 rounded-md mb-6">
-                        {local.success}
-                      </div>
-                    )}
+                  {local.error && (
+                    <div className="bg-red-50 text-red-700 p-3 rounded-md mb-6">
+                      {local.error}
+                    </div>
+                  )}
 
-                    <TabsContent value="publisher">
-                      <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid md:grid-cols-[1fr_auto] gap-6">
-                          <div className="space-y-4">
-                            <div>
-                              <Label htmlFor="publisher-name">
-                                Nama Penerbit
-                              </Label>
-                              <Input
-                                id="publisher-name"
-                                value={local.formData.publisher.name}
-                                onChange={(e) => {
-                                  local.formData.publisher.name =
-                                    e.target.value;
-                                  local.render();
-                                }}
-                                placeholder="Masukkan nama penerbit"
-                                className="mt-1"
-                                required
-                              />
-                            </div>
+                  {local.success && (
+                    <div className="bg-green-50 text-green-700 p-3 rounded-md mb-6">
+                      {local.success}
+                    </div>
+                  )}
 
-                            <div>
-                              <Label htmlFor="publisher-desc">Deskripsi</Label>
-                              <textarea
-                                id="publisher-desc"
-                                value={local.formData.publisher.description}
-                                onChange={(e) => {
-                                  local.formData.publisher.description =
-                                    e.target.value;
-                                  local.render();
-                                }}
-                                placeholder="Sekilas tentang penerbit Anda"
-                                className="mt-1 flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                              />
-                            </div>
-
-                            <div>
-                              <Label htmlFor="publisher-website">Website</Label>
-                              <Input
-                                id="publisher-website"
-                                value={local.formData.publisher.website}
-                                onChange={(e) => {
-                                  local.formData.publisher.website =
-                                    e.target.value;
-                                  local.render();
-                                }}
-                                placeholder="https://website-penerbit.com"
-                                className="mt-1"
-                              />
-                            </div>
-
-                            <div>
-                              <Label htmlFor="publisher-address">Alamat</Label>
-                              <textarea
-                                id="publisher-address"
-                                value={local.formData.publisher.address}
-                                onChange={(e) => {
-                                  local.formData.publisher.address =
-                                    e.target.value;
-                                  local.render();
-                                }}
-                                placeholder="Alamat lengkap kantor penerbit"
-                                className="mt-1 flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                              />
-                            </div>
-                          </div>
-
+                  <TabsContent value="publisher">
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div className="grid md:grid-cols-[1fr_auto] gap-6">
+                        <div className="space-y-4">
                           <div>
-                            <Label htmlFor="publisher-logo">
-                              Logo Penerbit
+                            <Label htmlFor="publisher-name">
+                              Nama Penerbit
                             </Label>
-                            <div className="mt-1 border rounded-lg overflow-hidden bg-muted/50 w-40 h-40 flex items-center justify-center relative">
-                              {local.formData.publisher.logoPreview ? (
-                                <>
-                                  <img
-                                    src={local.formData.publisher.logoPreview}
-                                    alt="Logo Preview"
-                                    className="w-full h-full object-contain"
-                                  />
-                                  <Button
-                                    type="button"
-                                    variant="destructive"
-                                    size="sm"
-                                    className="absolute top-2 right-2"
-                                    onClick={() => {
-                                      local.formData.publisher.logo = null;
-                                      local.formData.publisher.logoPreview = "";
-                                      local.render();
-                                    }}
-                                  >
-                                    Hapus
-                                  </Button>
-                                </>
-                              ) : (
-                                <div className="text-center p-4">
-                                  <div className="text-3xl mb-2">🏢</div>
-                                  <p className="text-muted-foreground text-sm mb-4">
-                                    Unggah logo
-                                  </p>
-                                  <Label
-                                    htmlFor="logoUpload"
-                                    className="cursor-pointer"
-                                  >
-                                    <span className="bg-primary text-primary-foreground px-3 py-2 rounded-md text-sm">
-                                      Pilih Gambar
-                                    </span>
-                                    <Input
-                                      id="logoUpload"
-                                      type="file"
-                                      accept="image/*"
-                                      className="hidden"
-                                      onChange={(e) =>
-                                        handleImageUpload(e, "logo")
-                                      }
-                                    />
-                                  </Label>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-
-                        <Button
-                          type="submit"
-                          className="w-full"
-                          disabled={local.submitting}
-                        >
-                          {local.submitting
-                            ? "Memproses..."
-                            : "Daftar Sebagai Penerbit"}
-                        </Button>
-                      </form>
-                    </TabsContent>
-
-                    <TabsContent value="author">
-                      <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid md:grid-cols-[1fr_auto] gap-6">
-                          <div className="space-y-4">
-                            <div>
-                              <Label htmlFor="author-name">Nama Penulis</Label>
-                              <Input
-                                id="author-name"
-                                value={local.formData.author.name}
-                                onChange={(e) => {
-                                  local.formData.author.name = e.target.value;
-                                  local.render();
-                                }}
-                                placeholder="Masukkan nama penulis"
-                                className="mt-1"
-                                required
-                              />
-                            </div>
-
-                            <div>
-                              <Label htmlFor="author-bio">Biografi</Label>
-                              <textarea
-                                id="author-bio"
-                                value={local.formData.author.bio}
-                                onChange={(e) => {
-                                  local.formData.author.bio = e.target.value;
-                                  local.render();
-                                }}
-                                placeholder="Ceritakan tentang diri Anda sebagai penulis"
-                                rows={4}
-                                className="mt-1 flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                              />
-                            </div>
-
-                            <div>
-                              <Label htmlFor="author-socmed">
-                                Media Sosial
-                              </Label>
-                              <Input
-                                id="author-socmed"
-                                value={local.formData.author.socmed}
-                                onChange={(e) => {
-                                  local.formData.author.socmed = e.target.value;
-                                  local.render();
-                                }}
-                                placeholder="Instagram, Twitter, atau website pribadi"
-                                className="mt-1"
-                              />
-                            </div>
+                            <Input
+                              id="publisher-name"
+                              value={local.formData.publisher.name}
+                              onChange={(e) => {
+                                local.formData.publisher.name = e.target.value;
+                                local.render();
+                              }}
+                              placeholder="Masukkan nama penerbit"
+                              className="mt-1"
+                              required
+                            />
                           </div>
 
                           <div>
-                            <Label htmlFor="author-avatar">Foto Profil</Label>
-                            <div className="mt-1 border rounded-lg overflow-hidden bg-muted/50 w-40 h-40 flex items-center justify-center relative">
-                              {local.formData.author.avatarPreview ? (
-                                <>
-                                  <img
-                                    src={local.formData.author.avatarPreview}
-                                    alt="Avatar Preview"
-                                    className="w-full h-full object-cover"
-                                  />
-                                  <Button
-                                    type="button"
-                                    variant="destructive"
-                                    size="sm"
-                                    className="absolute top-2 right-2"
-                                    onClick={() => {
-                                      local.formData.author.avatar = null;
-                                      local.formData.author.avatarPreview = "";
-                                      local.render();
-                                    }}
-                                  >
-                                    Hapus
-                                  </Button>
-                                </>
-                              ) : (
-                                <div className="text-center p-4">
-                                  <div className="text-3xl mb-2">👤</div>
-                                  <p className="text-muted-foreground text-sm mb-4">
-                                    Unggah foto
-                                  </p>
-                                  <Label
-                                    htmlFor="avatarUpload"
-                                    className="cursor-pointer"
-                                  >
-                                    <span className="bg-primary text-primary-foreground px-3 py-2 rounded-md text-sm">
-                                      Pilih Gambar
-                                    </span>
-                                    <Input
-                                      id="avatarUpload"
-                                      type="file"
-                                      accept="image/*"
-                                      className="hidden"
-                                      onChange={(e) =>
-                                        handleImageUpload(e, "avatar")
-                                      }
-                                    />
-                                  </Label>
-                                </div>
-                              )}
-                            </div>
+                            <Label htmlFor="publisher-desc">Deskripsi</Label>
+                            <textarea
+                              id="publisher-desc"
+                              value={local.formData.publisher.description}
+                              onChange={(e) => {
+                                local.formData.publisher.description =
+                                  e.target.value;
+                                local.render();
+                              }}
+                              placeholder="Sekilas tentang penerbit Anda"
+                              className="mt-1 flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                            />
+                          </div>
+
+                          <div>
+                            <Label htmlFor="publisher-website">Website</Label>
+                            <Input
+                              id="publisher-website"
+                              value={local.formData.publisher.website}
+                              onChange={(e) => {
+                                local.formData.publisher.website =
+                                  e.target.value;
+                                local.render();
+                              }}
+                              placeholder="https://website-penerbit.com"
+                              className="mt-1"
+                            />
+                          </div>
+
+                          <div>
+                            <Label htmlFor="publisher-address">Alamat</Label>
+                            <textarea
+                              id="publisher-address"
+                              value={local.formData.publisher.address}
+                              onChange={(e) => {
+                                local.formData.publisher.address =
+                                  e.target.value;
+                                local.render();
+                              }}
+                              placeholder="Alamat lengkap kantor penerbit"
+                              className="mt-1 flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                            />
                           </div>
                         </div>
 
-                        <Button
-                          type="submit"
-                          className="w-full"
-                          disabled={local.submitting}
-                        >
-                          {local.submitting
-                            ? "Memproses..."
-                            : "Daftar Sebagai Penulis"}
-                        </Button>
-                      </form>
-                    </TabsContent>
-                  </Tabs>
-                </CardContent>
-                <CardFooter className="border-t bg-muted/50 flex justify-between">
-                  <div className="text-sm text-muted-foreground">
-                    * Anda bisa mengubah informasi ini nanti di halaman profil
-                  </div>
-                </CardFooter>
-              </Card>
-            </div>
+                        <div>
+                          <Label htmlFor="publisher-logo">Logo Penerbit</Label>
+                          <div className="mt-1 border rounded-lg overflow-hidden bg-muted/50 w-40 h-40 flex items-center justify-center relative">
+                            {local.formData.publisher.logoPreview ? (
+                              <>
+                                <img
+                                  src={local.formData.publisher.logoPreview}
+                                  alt="Logo Preview"
+                                  className="w-full h-full object-contain"
+                                />
+                                <Button
+                                  type="button"
+                                  variant="destructive"
+                                  size="sm"
+                                  className="absolute top-2 right-2"
+                                  onClick={() => {
+                                    local.formData.publisher.logo = null;
+                                    local.formData.publisher.logoPreview = "";
+                                    local.render();
+                                  }}
+                                >
+                                  Hapus
+                                </Button>
+                              </>
+                            ) : (
+                              <div className="text-center p-4">
+                                <div className="text-3xl mb-2">🏢</div>
+                                <p className="text-muted-foreground text-sm mb-4">
+                                  Unggah logo
+                                </p>
+                                <Label
+                                  htmlFor="logoUpload"
+                                  className="cursor-pointer"
+                                >
+                                  <span className="bg-primary text-primary-foreground px-3 py-2 rounded-md text-sm">
+                                    Pilih Gambar
+                                  </span>
+                                  <Input
+                                    id="logoUpload"
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    onChange={(e) =>
+                                      handleImageUpload(e, "logo")
+                                    }
+                                  />
+                                </Label>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      <Button
+                        type="submit"
+                        className="w-full"
+                        disabled={local.submitting}
+                      >
+                        {local.submitting
+                          ? "Memproses..."
+                          : "Daftar Sebagai Penerbit"}
+                      </Button>
+                    </form>
+                  </TabsContent>
+
+                  <TabsContent value="author">
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div className="grid md:grid-cols-[1fr_auto] gap-6">
+                        <div className="space-y-4">
+                          <div>
+                            <Label htmlFor="author-name">Nama Penulis</Label>
+                            <Input
+                              id="author-name"
+                              value={local.formData.author.name}
+                              onChange={(e) => {
+                                local.formData.author.name = e.target.value;
+                                local.render();
+                              }}
+                              placeholder="Masukkan nama penulis"
+                              className="mt-1"
+                              required
+                            />
+                          </div>
+
+                          <div>
+                            <Label htmlFor="author-bio">Biografi</Label>
+                            <textarea
+                              id="author-bio"
+                              value={local.formData.author.bio}
+                              onChange={(e) => {
+                                local.formData.author.bio = e.target.value;
+                                local.render();
+                              }}
+                              placeholder="Ceritakan tentang diri Anda sebagai penulis"
+                              rows={4}
+                              className="mt-1 flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                            />
+                          </div>
+
+                          <div>
+                            <Label htmlFor="author-socmed">Media Sosial</Label>
+                            <Input
+                              id="author-socmed"
+                              value={local.formData.author.socmed}
+                              onChange={(e) => {
+                                local.formData.author.socmed = e.target.value;
+                                local.render();
+                              }}
+                              placeholder="Instagram, Twitter, atau website pribadi"
+                              className="mt-1"
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label htmlFor="author-avatar">Foto Profil</Label>
+                          <div className="mt-1 border rounded-lg overflow-hidden bg-muted/50 w-40 h-40 flex items-center justify-center relative">
+                            {local.formData.author.avatarPreview ? (
+                              <>
+                                <img
+                                  src={local.formData.author.avatarPreview}
+                                  alt="Avatar Preview"
+                                  className="w-full h-full object-cover"
+                                />
+                                <Button
+                                  type="button"
+                                  variant="destructive"
+                                  size="sm"
+                                  className="absolute top-2 right-2"
+                                  onClick={() => {
+                                    local.formData.author.avatar = null;
+                                    local.formData.author.avatarPreview = "";
+                                    local.render();
+                                  }}
+                                >
+                                  Hapus
+                                </Button>
+                              </>
+                            ) : (
+                              <div className="text-center p-4">
+                                <div className="text-3xl mb-2">👤</div>
+                                <p className="text-muted-foreground text-sm mb-4">
+                                  Unggah foto
+                                </p>
+                                <Label
+                                  htmlFor="avatarUpload"
+                                  className="cursor-pointer"
+                                >
+                                  <span className="bg-primary text-primary-foreground px-3 py-2 rounded-md text-sm">
+                                    Pilih Gambar
+                                  </span>
+                                  <Input
+                                    id="avatarUpload"
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    onChange={(e) =>
+                                      handleImageUpload(e, "avatar")
+                                    }
+                                  />
+                                </Label>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      <Button
+                        type="submit"
+                        className="w-full"
+                        disabled={local.submitting}
+                      >
+                        {local.submitting
+                          ? "Memproses..."
+                          : "Daftar Sebagai Penulis"}
+                      </Button>
+                    </form>
+                  </TabsContent>
+                </Tabs>
+              </CardContent>
+              <CardFooter className="border-t bg-muted/50 flex justify-between">
+                <div className="text-sm text-muted-foreground">
+                  * Anda bisa mengubah informasi ini nanti di halaman profil
+                </div>
+              </CardFooter>
+            </Card>
           </div>
         </div>
-      )}
+      </div>
     </Protected>
   );
 };
