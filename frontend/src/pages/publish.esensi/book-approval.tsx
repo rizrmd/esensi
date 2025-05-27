@@ -11,7 +11,12 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { formatDateObject } from "@/lib/utils";
-import { BookStatus, type Book, type BookApproval } from "backend/api/types";
+import {
+  BookStatus,
+  Role,
+  type Book,
+  type BookApproval,
+} from "backend/api/types";
 import {
   CalendarIcon,
   ChevronRight,
@@ -155,14 +160,13 @@ export default () => {
 
   return (
     <Protected
-      role={["publisher", "author"]}
+      role={[Role.AUTHOR, Role.PUBLISHER]}
       onLoad={async ({ user }) => {
         if (user && !user.idAuthor) await api.register_user({ user });
       }}
       // fallback={({ missing_role }) => {
       //   if (
-      //     missing_role.includes("publisher") ||
-      //     missing_role.includes("author")
+      //     missing_role.some((x) => x === Role.AUTHOR || x === Role.PUBLISHER)
       //   ) {
       //     navigate("/onboarding");
       //     return <AppLoading />;

@@ -23,7 +23,7 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { getMimeType, isTwoFilesArrayTheSame } from "@/lib/utils";
 import type { BookChangesLog as BookChangesLogType } from "backend/api/types";
-import { BookStatus, Currency, type Book } from "backend/api/types";
+import { BookStatus, Currency, Role, type Book } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import { ChevronRight } from "lucide-react";
 import type { author, book, book_approval } from "shared/models";
@@ -226,14 +226,13 @@ export default function BookUpdatePage() {
 
   return (
     <Protected
-      role={["publisher", "author"]}
+      role={[Role.AUTHOR, Role.PUBLISHER]}
       onLoad={async ({ user }) => {
         if (user && !user.idAuthor) await api.register_user({ user });
       }}
       // fallback={({ missing_role }) => {
       //   if (
-      //     missing_role.includes("publisher") ||
-      //     missing_role.includes("author")
+      //     missing_role.some((x) => x === Role.AUTHOR || x === Role.PUBLISHER)
       //   ) {
       //     navigate("/onboarding");
       //     return <AppLoading />;

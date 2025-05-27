@@ -1,13 +1,13 @@
 import type { User } from "backend/lib/better-auth";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { Onboarding } from "../types";
+import { Role, type Onboarding } from "../types";
 
 export default defineAPI({
   name: "onboarding",
   url: "/api/publish/onboarding",
   async handler(arg: {
-    role: "author" | "publisher";
+    role: Role.AUTHOR | Role.PUBLISHER;
     user: Partial<User>;
   }): Promise<ApiResponse<Onboarding>> {
     const { role, user } = arg;
@@ -19,7 +19,7 @@ export default defineAPI({
         return { success: false, message: "Akun tidak ditemukan" };
       }
 
-      if (role === "author") {
+      if (role === Role.AUTHOR) {
         const newAuthor = await db.author.create({
           data: { name: user.name!, id_account: account.id },
         });
@@ -34,7 +34,7 @@ export default defineAPI({
           message: "Berhasil onboarding sebagai penulis",
           data: { author: newAuthor },
         };
-      } else if (role === "publisher") {
+      } else if (role === Role.PUBLISHER) {
         const newPublisher = await db.publisher.create({
           data: { name: user.name!, id_account: account.id },
         });

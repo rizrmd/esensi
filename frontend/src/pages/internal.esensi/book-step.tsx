@@ -4,7 +4,7 @@ import { BookStepItem } from "@/components/publish/book-step-item";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { BookStatus, type Book } from "backend/api/types";
+import { BookStatus, Role, type Book } from "backend/api/types";
 import { ChevronRight } from "lucide-react";
 
 type step = {
@@ -69,7 +69,7 @@ export default function BookStepPag() {
   );
 
   return (
-    <Protected role={["internal"]}>
+    <Protected role={[Role.INTERNAL]}>
       <div className="flex min-h-svh flex-col bg-gray-50">
         <InternalMenuBar />
 

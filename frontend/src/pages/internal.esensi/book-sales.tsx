@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/table";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
-import type { Book, TSalesLine } from "backend/api/types";
+import { Role, type Book, type TSalesLine } from "backend/api/types";
 
 export default () => {
   const local = useLocal(
@@ -183,7 +183,7 @@ export default () => {
   };
 
   return (
-    <Protected role={["internal"]}>
+    <Protected role={[Role.INTERNAL]}>
       <div className="flex min-h-svh flex-col bg-gray-50">
         <PublishMenuBar />
         <main className="flex-1">

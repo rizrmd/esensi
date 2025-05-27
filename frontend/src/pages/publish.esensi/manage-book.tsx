@@ -11,7 +11,7 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { ItemLayout } from "@/lib/utils";
-import type { Book } from "backend/api/types";
+import { Role, type Book } from "backend/api/types";
 import { ChevronRight, PlusCircle } from "lucide-react";
 
 export const current = {
@@ -67,20 +67,19 @@ export default function BookListPage() {
 
   return (
     <Protected
-      role={["publisher", "author"]}
+      role={[Role.AUTHOR, Role.PUBLISHER]}
       onLoad={async ({ user }) => {
         if (user && !user.idAuthor) await api.register_user({ user });
       }}
-      fallback={({ missing_role }) => {
-        if (
-          missing_role.includes("publisher") ||
-          missing_role.includes("author")
-        ) {
-          navigate("/onboarding");
-          return <AppLoading />;
-        }
-        return null;
-      }}
+      // fallback={({ missing_role }) => {
+      //   if (
+      //     missing_role.some((x) => x === Role.AUTHOR || x === Role.PUBLISHER)
+      //   ) {
+      //     navigate("/onboarding");
+      //     return <AppLoading />;
+      //   }
+      //   return null;
+      // }}
     >
       <div className="flex min-h-svh flex-col bg-gray-50">
         <PublishMenuBar />

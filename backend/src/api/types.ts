@@ -148,3 +148,11 @@ export type TSalesLine = t_sales_line & {
   product: product | null;
   bundle: bundle | null;
 };
+
+export enum Role {
+  AFFILIATE = "affiliate",
+  AUTHOR = "author",
+  CUSTOMER = "customer",
+  INTERNAL = "internal",
+  PUBLISHER = "publisher",
+}

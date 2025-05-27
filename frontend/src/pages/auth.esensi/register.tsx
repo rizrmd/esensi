@@ -8,6 +8,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import { Role } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 
 export default () => {
@@ -87,7 +88,7 @@ export default () => {
                 if (res.data) {
                   // Call API to save author profile
                   await api.onboarding({
-                    role: "author",
+                    role: Role.AUTHOR,
                     user: res.data!.user,
                   });
                 }

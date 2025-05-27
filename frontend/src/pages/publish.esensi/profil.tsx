@@ -19,6 +19,7 @@ import { api as publishApi } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { getMimeType } from "@/lib/utils";
+import { Role } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import { ChevronRight } from "lucide-react";
 
@@ -135,14 +136,13 @@ export default () => {
 
   return (
     <Protected
-      role={["publisher", "author"]}
+      role={[Role.AUTHOR, Role.PUBLISHER]}
       onLoad={async ({ user }) => {
         if (user && !user.idAuthor) await publishApi.register_user({ user });
       }}
       // fallback={({ missing_role }) => {
       //   if (
-      //     missing_role.includes("publisher") ||
-      //     missing_role.includes("author")
+      //     missing_role.some((x) => x === Role.AUTHOR || x === Role.PUBLISHER)
       //   ) {
       //     navigate("/onboarding");
       //     return <AppLoading />;

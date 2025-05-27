@@ -16,7 +16,12 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { formatDateObject } from "@/lib/utils";
-import { BookStatus, type Book, type BookApproval } from "backend/api/types";
+import {
+  BookStatus,
+  Role,
+  type Book,
+  type BookApproval,
+} from "backend/api/types";
 import {
   CalendarIcon,
   ChevronRight,
@@ -173,7 +178,7 @@ export default () => {
   if (local.loading) return <AppLoading />;
 
   return (
-    <Protected role={["internal"]}>
+    <Protected role={[Role.INTERNAL]}>
       <div className="flex min-h-svh flex-col bg-gray-50">
         <PublishMenuBar />
 

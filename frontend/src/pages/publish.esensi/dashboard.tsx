@@ -1,9 +1,9 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { PublishMenuBar } from "@/components/publish/menu-bar";
-import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import { Role } from "backend/api/types";
 
 export default () => {
   const local = useLocal({
@@ -12,20 +12,19 @@ export default () => {
 
   return (
     <Protected
-      role={["publisher", "author"]}
-      onLoad={async ({ user }) => {
-        if (user && !user.idAuthor) await api.register_user({ user });
-      }}
-      // fallback={({ missing_role }) => {
-      //   if (
-      //     missing_role.includes("publisher") ||
-      //     missing_role.includes("author")
-      //   ) {
-      //     navigate("/onboarding");
-      //     return <AppLoading />;
-      //   }
-      //   return null;
+      role={[Role.AUTHOR, Role.PUBLISHER]}
+      // onLoad={async ({ user }) => {
+      //   if (user && !user.idAuthor) await api.register_user({ user });
       // }}
+      fallback={({ missing_role }) => {
+        if (
+          missing_role.some((x) => x === Role.AUTHOR || x === Role.PUBLISHER)
+        ) {
+          navigate("/onboarding");
+          return <AppLoading />;
+        }
+        return null;
+      }}
     >
       <div className="flex min-h-svh flex-col bg-gray-50">
         <PublishMenuBar />

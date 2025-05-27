@@ -6,7 +6,7 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import type { BookStep } from "@/lib/utils";
-import { BookStatus, type Book } from "backend/api/types";
+import { BookStatus, Role, type Book } from "backend/api/types";
 import { ChevronRight } from "lucide-react";
 
 export default function BookStepPag() {
@@ -99,20 +99,19 @@ export default function BookStepPag() {
 
   return (
     <Protected
-      role={["publisher", "author"]}
+      role={[Role.AUTHOR, Role.PUBLISHER]}
       onLoad={async ({ user }) => {
         if (user && !user.idAuthor) await api.register_user({ user });
       }}
-      fallback={({ missing_role }) => {
-        if (
-          missing_role.includes("publisher") ||
-          missing_role.includes("author")
-        ) {
-          navigate("/onboarding");
-          return <AppLoading />;
-        }
-        return null;
-      }}
+      // fallback={({ missing_role }) => {
+      //   if (
+      //     missing_role.some((x) => x === Role.AUTHOR || x === Role.PUBLISHER)
+      //   ) {
+      //     navigate("/onboarding");
+      //     return <AppLoading />;
+      //   }
+      //   return null;
+      // }}
     >
       <div className="flex min-h-svh flex-col bg-gray-50">
         <PublishMenuBar />

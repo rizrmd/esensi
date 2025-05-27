@@ -3,6 +3,7 @@ import { SideForm } from "@/components/ext/side-form";
 import { Button } from "@/components/ui/button";
 import { baseUrl } from "@/lib/gen/base-url";
 import { navigate } from "@/lib/router";
+import { Role } from "backend/api/types";
 
 export default () => {
   const content = (
@@ -36,7 +37,7 @@ export default () => {
 
   return (
     <Protected
-      role={["publisher", "author"]}
+      role={[Role.AUTHOR, Role.PUBLISHER]}
       onLoad={({ user }) => {
         if (user) navigate("/dashboard");
       }}

@@ -9,7 +9,7 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { ItemLayout } from "@/lib/utils";
-import type { Book } from "backend/api/types";
+import { Role, type Book } from "backend/api/types";
 import { ChevronRight } from "lucide-react";
 
 export default function BookListPage() {
@@ -57,7 +57,7 @@ export default function BookListPage() {
 
   return (
     <Protected
-      role={["internal"]}
+      role={[Role.INTERNAL]}
       onLoad={async ({ user }) => {
         if (user) {
           if (!user.idAuthor) await api.register_user({ user });

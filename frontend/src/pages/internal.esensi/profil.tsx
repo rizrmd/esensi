@@ -18,6 +18,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { getMimeType } from "@/lib/utils";
+import { Role } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import { ChevronRight } from "lucide-react";
 
@@ -133,7 +134,7 @@ export default () => {
   if (local.loading) return <AppLoading />;
 
   return (
-    <Protected role={["internal"]}>
+    <Protected role={[Role.INTERNAL]}>
       <div className="flex min-h-svh flex-col bg-gray-50">
         <PublishMenuBar title="Profil" />
 

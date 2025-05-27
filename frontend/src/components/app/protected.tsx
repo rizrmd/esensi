@@ -3,6 +3,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { useLocal } from "@/lib/hooks/use-local";
 import { Link, navigate } from "@/lib/router";
 import { snakeToCamel } from "@/lib/utils";
+import type { Role } from "backend/api/types";
 import { css } from "goober";
 import type { FC, ReactNode } from "react";
 import { Button } from "../ui/button";
@@ -15,20 +16,13 @@ export const current = {
   signoutCallback: undefined as undefined | (() => void),
 };
 
-export type Role =
-  | "affiliate"
-  | "author"
-  | "customer"
-  | "internal"
-  | "publisher";
-
 export const Protected: FC<{
   children:
     | ReactNode
     | ((opt: { user: User | null; missing_role: string[] }) => ReactNode);
   role?: Role | Role[] | "any";
   onLoad?: (opt: { user: null | User }) => void | Promise<void>;
-  fallback?: (opt: { missing_role: string[] }) => ReactNode;
+  fallback?: (opt: { missing_role: Role[] }) => ReactNode;
   fallbackUrl?: string | null;
 }> = ({ children, role, fallback, onLoad, fallbackUrl }) => {
   const params = new URLSearchParams(location.search);
@@ -39,7 +33,7 @@ export const Protected: FC<{
     {
       loading: true,
       loaded: false,
-      missing_role: [] as string[],
+      missing_role: [] as Role[],
     },
     async () => {
       current.iframe = document.getElementById(

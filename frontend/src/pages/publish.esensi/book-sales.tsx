@@ -21,8 +21,7 @@ import {
 } from "@/components/ui/table";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
-import { navigate } from "@/lib/router";
-import type { Book, TSalesLine } from "backend/api/types";
+import { Role, type Book, type TSalesLine } from "backend/api/types";
 
 export default () => {
   const local = useLocal(
@@ -185,14 +184,13 @@ export default () => {
 
   return (
     <Protected
-      role={["publisher", "author"]}
+      role={[Role.AUTHOR, Role.PUBLISHER]}
       onLoad={async ({ user }) => {
         if (user && !user.idAuthor) await api.register_user({ user });
       }}
       // fallback={({ missing_role }) => {
       //   if (
-      //     missing_role.includes("publisher") ||
-      //     missing_role.includes("author")
+      //     missing_role.some((x) => x === Role.AUTHOR || x === Role.PUBLISHER)
       //   ) {
       //     navigate("/onboarding");
       //     return <AppLoading />;

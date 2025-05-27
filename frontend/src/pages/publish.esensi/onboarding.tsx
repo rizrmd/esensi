@@ -18,6 +18,7 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { getMimeType } from "@/lib/utils";
+import { Role } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import type { FormEvent } from "react";
 
@@ -29,7 +30,11 @@ export default () => {
   const local = useLocal(
     {
       submitting: false,
-      role: "author", // Default to author
+      roles: {
+        publisher: false,
+        author: true,
+      },
+      role: Role.AUTHOR, // Default to author
       files: [] as File[],
       formData: {
         publisher: {
@@ -76,6 +81,8 @@ export default () => {
         local.files = [file];
       } catch (error) {
         console.error("Error fetching profile image:", error);
+      } finally {
+        local.render();
       }
     }
   }
@@ -90,7 +97,7 @@ export default () => {
     local.render();
 
     try {
-      if (local.role === "publisher") {
+      if (local.role === Role.PUBLISHER) {
         const publisherData = local.formData.publisher;
 
         if (!publisherData.name) {
@@ -113,23 +120,19 @@ export default () => {
         }
 
         const result = await api.onboarding({
-          role: "publisher",
+          role: Role.PUBLISHER,
           user: current.user!,
         });
 
         if (result.success) {
-          // If we need to handle file uploads, we'd need to create another API endpoint
-          // for handling file uploads specifically
-
           local.success = "Profil penerbit berhasil dibuat";
-          // Redirect to dashboard after successful onboarding
           setTimeout(() => {
             navigate("/dashboard");
           }, 2000);
         } else {
           local.error = result.message || "Gagal membuat profil penerbit";
         }
-      } else {
+      } else if (local.role === Role.AUTHOR) {
         const authorData = local.formData.author;
 
         if (!authorData.name) {
@@ -152,15 +155,12 @@ export default () => {
         }
 
         const result = await api.onboarding({
-          role: "author",
+          role: Role.AUTHOR,
           user: current.user!,
         });
 
         if (result.success) {
-          // If we need to handle file uploads, we'd need to create another API endpoint
-
           local.success = "Profil penulis berhasil dibuat";
-          // Redirect to dashboard after successful onboarding
           setTimeout(() => {
             navigate("/dashboard");
           }, 2000);
@@ -175,42 +175,6 @@ export default () => {
       local.submitting = false;
       local.render();
     }
-  };
-
-  const handleImageUpload = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: "logo" | "avatar"
-  ) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    // Validate file type
-    if (!file.type.startsWith("image/")) {
-      local.error = "File harus berupa gambar (JPG, PNG, etc.)";
-      local.render();
-      return;
-    }
-
-    // Validate file size (max 2MB)
-    if (file.size > 2 * 1024 * 1024) {
-      local.error = "Ukuran gambar tidak boleh melebihi 2MB";
-      local.render();
-      return;
-    }
-
-    // Create a preview URL
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (type === "logo") {
-        local.formData.publisher.logo = file;
-        local.formData.publisher.logoPreview = reader.result as string;
-      } else {
-        local.formData.author.avatar = file;
-        local.formData.author.avatarPreview = reader.result as string;
-      }
-      local.render();
-    };
-    reader.readAsDataURL(file);
   };
 
   return (
@@ -240,15 +204,23 @@ export default () => {
               <CardContent>
                 <Tabs
                   value={local.role}
-                  onValueChange={(value) => {
+                  onValueChange={(value: Role) => {
                     local.role = value;
                     local.render();
                   }}
                   className="w-full"
                 >
                   <TabsList className="grid grid-cols-2 mb-8">
-                    <TabsTrigger value="publisher">Saya Penerbit</TabsTrigger>
-                    <TabsTrigger value="author">Saya Penulis</TabsTrigger>
+                    {local.roles.publisher && (
+                      <TabsTrigger value={Role.PUBLISHER}>
+                        Saya Penerbit
+                      </TabsTrigger>
+                    )}
+                    {local.roles.author && (
+                      <TabsTrigger value={Role.AUTHOR}>
+                        Saya Penulis
+                      </TabsTrigger>
+                    )}
                   </TabsList>
 
                   {local.error && (
@@ -263,7 +235,7 @@ export default () => {
                     </div>
                   )}
 
-                  <TabsContent value="publisher">
+                  <TabsContent value={Role.PUBLISHER}>
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid md:grid-cols-[1fr_auto] gap-6">
                         <div className="space-y-4">
@@ -388,7 +360,7 @@ export default () => {
                     </form>
                   </TabsContent>
 
-                  <TabsContent value="author">
+                  <TabsContent value={Role.AUTHOR}>
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid md:grid-cols-[1fr_auto] gap-6">
                         <div className="space-y-4">

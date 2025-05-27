@@ -1,6 +1,7 @@
 import { Protected } from "@/components/app/protected";
 import { InternalMenuBar } from "@/components/internal/menu-bar";
 import { useLocal } from "@/lib/hooks/use-local";
+import { Role } from "backend/api/types";
 
 export default () => {
   const local = useLocal({
@@ -8,7 +9,7 @@ export default () => {
   });
 
   return (
-    <Protected role={["internal"]}>
+    <Protected role={[Role.INTERNAL]}>
       <div className="flex min-h-svh flex-col bg-gray-50">
         <InternalMenuBar />
         <main className="flex-1">

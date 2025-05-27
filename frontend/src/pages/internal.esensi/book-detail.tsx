@@ -7,9 +7,10 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type {
-  Book,
-  BookChangesLog as BookChangesLogType,
+import {
+  Role,
+  type Book,
+  type BookChangesLog as BookChangesLogType,
 } from "backend/api/types";
 import { ChevronRight } from "lucide-react";
 
@@ -45,7 +46,7 @@ export default function BookDetailPage() {
   if (local.loading) return <AppLoading />;
 
   return (
-    <Protected role={["internal"]}>
+    <Protected role={[Role.INTERNAL]}>
       <div className="flex min-h-svh flex-col bg-gray-50">
         <InternalMenuBar />
 

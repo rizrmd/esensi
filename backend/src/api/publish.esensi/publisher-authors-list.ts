@@ -1,12 +1,12 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { PublisherAuthor } from "../types";
+import type { PublisherAuthor, Role } from "../types";
 
 export default defineAPI({
   name: "publisher_author_list",
   url: "/api/publish/publisher-author/list",
   async handler(arg: {
-    field: "publisher" | "author";
+    field: Role.AUTHOR | Role.PUBLISHER;
     id: string;
     page?: number;
     limit?: number;
@@ -20,6 +20,8 @@ export default defineAPI({
       const total = await db.publisher_author.count({ where });
       const pa = await db.publisher_author.findMany({
         where,
+        skip,
+        take: limit,
         include: {
           author: {
             include: {
