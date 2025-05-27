@@ -1,8 +1,9 @@
 import { current } from "@/components/app/protected";
 import { baseUrl } from "@/lib/gen/base-url";
+import type { User } from "backend/lib/better-auth";
 import { createAuthClient } from "better-auth/client";
 import { twoFactorClient } from "better-auth/client/plugins";
-import type { User as AuthUser, Session } from "better-auth/types";
+import type { Session } from "better-auth/types";
 
 type FetchOptions = {
   onRequest?: (ctx: any) => void;
@@ -38,18 +39,6 @@ type error = {
   statusText: string;
 } | null;
 
-export type User = AuthUser &
-  Partial<{
-    username?: string | null;
-    displayUsername?: string | null;
-    idCustomer?: string | null;
-    idAuthor?: string | null;
-    idAffiliate?: string | null;
-    idInternal?: string | null;
-    idPublisher?: string | null;
-    twoFactorEnabled?: boolean | null;
-  }>;
-
 export type AuthClientGetSessionAPIResponse = {
   data: { user: User; session: Session } | null;
   error: error;
@@ -61,9 +50,6 @@ const authClient = createAuthClient({
 });
 
 export const betterAuth = {
-  homeUrl: (user: User) => {
-    return "/dashboard";
-  },
   signUp: async ({
     username,
     password,
@@ -174,12 +160,8 @@ export const betterAuth = {
       if (data.user["idAffiliate"] === "null") data.user["idAffiliate"] = null;
       if (data.user["idAuthor"] === "null") data.user["idAuthor"] = null;
       if (data.user["idCustomer"] === "null") data.user["idCustomer"] = null;
-      if (data.user["idManagement"] === "null")
-        data.user["idManagement"] = null;
+      if (data.user["idInternal"] === "null") data.user["idInternal"] = null;
       if (data.user["idPublisher"] === "null") data.user["idPublisher"] = null;
-      if (data.user["idSalesAndMarketing"] === "null")
-        data.user["idSalesAndMarketing"] = null;
-      if (data.user["idSupport"] === "null") data.user["idSupport"] = null;
     }
     return { data, error };
   },

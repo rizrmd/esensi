@@ -8,7 +8,6 @@ import { Alert } from "@/components/ui/global-alert";
 import {
   betterAuth,
   type AuthClientGetSessionAPIResponse,
-  type User,
 } from "@/lib/better-auth";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api as api2 } from "@/lib/gen/internal.esensi";
@@ -22,6 +21,7 @@ import {
   type Book,
   type BookApproval,
 } from "backend/api/types";
+import type { User } from "backend/lib/better-auth";
 import {
   CalendarIcon,
   ChevronRight,

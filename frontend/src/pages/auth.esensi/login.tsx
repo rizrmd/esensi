@@ -8,7 +8,6 @@ import { Label } from "@/components/ui/label";
 import {
   betterAuth,
   type AuthClientGetSessionAPIResponse,
-  type User,
 } from "@/lib/better-auth";
 import { baseUrl } from "@/lib/gen/base-url";
 import { useLocal } from "@/lib/hooks/use-local";
@@ -73,8 +72,7 @@ export default () => {
         toast.error(`Verifikasi gagal: ${error.message}`);
       } else if (data?.user) {
         toast.success("Verifikasi berhasil!");
-        const redirectUrl =
-          callbackURL || betterAuth.homeUrl(data.user as User);
+        const redirectUrl = callbackURL || "/dashboard";
         window.location.replace(redirectUrl);
       }
 

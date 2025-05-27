@@ -5,13 +5,14 @@ import { PublishMenuBar } from "@/components/publish/menu-bar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataPagination } from "@/components/ui/data-pagination";
-import { betterAuth, type User } from "@/lib/better-auth";
+import { betterAuth } from "@/lib/better-auth";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { ItemLayout } from "@/lib/utils";
 import { Role, type Book } from "backend/api/types";
+import type { User } from "backend/lib/better-auth";
 import { ChevronRight, PlusCircle } from "lucide-react";
 
 export const current = {
@@ -68,18 +69,15 @@ export default function BookListPage() {
   return (
     <Protected
       role={[Role.AUTHOR, Role.PUBLISHER]}
-      onLoad={async ({ user }) => {
-        if (user && !user.idAuthor) await api.register_user({ user });
+      fallback={({ missing_role }) => {
+        if (
+          missing_role.some((x) => x === Role.AUTHOR || x === Role.PUBLISHER)
+        ) {
+          navigate("/onboarding");
+          return <AppLoading />;
+        }
+        return null;
       }}
-      // fallback={({ missing_role }) => {
-      //   if (
-      //     missing_role.some((x) => x === Role.AUTHOR || x === Role.PUBLISHER)
-      //   ) {
-      //     navigate("/onboarding");
-      //     return <AppLoading />;
-      //   }
-      //   return null;
-      // }}
     >
       <div className="flex min-h-svh flex-col bg-gray-50">
         <PublishMenuBar />

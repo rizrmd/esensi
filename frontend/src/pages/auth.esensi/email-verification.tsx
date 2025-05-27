@@ -1,12 +1,13 @@
 import { SideForm } from "@/components/ext/side-form";
-import { baseUrl } from "@/lib/gen/base-url";
 import { Button } from "@/components/ui/button";
-import { navigate } from "@/lib/router";
 import { Alert } from "@/components/ui/global-alert";
 import { betterAuth } from "@/lib/better-auth";
-import { useLocal } from "@/lib/hooks/use-local";
 import { api } from "@/lib/gen/auth.esensi";
+import { baseUrl } from "@/lib/gen/base-url";
+import { useLocal } from "@/lib/hooks/use-local";
+import { navigate } from "@/lib/router";
 import { getRedirectURL } from "@/lib/utils";
+import type { auth_user } from "shared/models";
 
 export default () => {
   const params = new URLSearchParams(location.search);
@@ -16,14 +17,15 @@ export default () => {
   const redirectURL = getRedirectURL(params.get("callbackURL"));
   const local = useLocal(
     {
-      authUser: null as any,
+      authUser: null as auth_user | null,
     },
     async () => {
       const res = await api.auth_user({ username: username! });
-      if (!res || res.email_verified) window.location.replace(redirectURL);
-      else if (res.error) Alert.info(res.error.message);
+      if (!res || res.data?.email_verified)
+        window.location.replace(redirectURL);
+      else if (!res.success) Alert.info(res.message);
       else {
-        local.authUser = res;
+        local.authUser = res.data!;
         local.render();
       }
     }
@@ -45,7 +47,7 @@ export default () => {
         <div className="text-center">
           <h1 className="text-2xl font-semibold">Verifikasi Email</h1>
           <p className="text-muted-foreground mt-2">
-            {local.authUser?.is_verified
+            {local.authUser?.email_verified
               ? "Email anda sudah terverifikasi. Silakan login."
               : "Silakan verifikasi email anda untuk melanjutkan."}
           </p>

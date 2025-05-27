@@ -1,9 +1,10 @@
-import { betterAuth, type User } from "@/lib/better-auth";
+import { betterAuth } from "@/lib/better-auth";
 import { baseUrl } from "@/lib/gen/base-url";
 import { useLocal } from "@/lib/hooks/use-local";
 import { Link, navigate } from "@/lib/router";
 import { snakeToCamel } from "@/lib/utils";
 import type { Role } from "backend/api/types";
+import type { User } from "backend/lib/better-auth";
 import { css } from "goober";
 import type { FC, ReactNode } from "react";
 import { Button } from "../ui/button";

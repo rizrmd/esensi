@@ -48,17 +48,14 @@ export default function BookDetailPage() {
   return (
     <Protected
       role={[Role.AUTHOR, Role.PUBLISHER]}
-      onLoad={async ({ user }) => {
-        if (user && !user.idAuthor) await api.register_user({ user });
+      fallback={({ missing_role }) => {
+        if (
+          missing_role.some((x) => x === Role.AUTHOR || x === Role.PUBLISHER)
+        ) {
+          navigate("/onboarding");
+          return <AppLoading />;
+        }
       }}
-      // fallback={({ missing_role }) => {
-      //   if (
-      //     missing_role.some((x) => x === Role.AUTHOR || x === Role.PUBLISHER)
-      //   ) {
-      //     navigate("/onboarding");
-      //     return <AppLoading />;
-      //   }
-      // }}
     >
       <div className="flex min-h-svh flex-col bg-gray-50">
         <PublishMenuBar />

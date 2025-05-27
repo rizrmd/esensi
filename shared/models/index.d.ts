@@ -12602,18 +12602,27 @@ export namespace Prisma {
     id: string | null
     name: string | null
     id_account: string | null
+    biography: string | null
+    social_media: string | null
+    avatar: string | null
   }
 
   export type AuthorMaxAggregateOutputType = {
     id: string | null
     name: string | null
     id_account: string | null
+    biography: string | null
+    social_media: string | null
+    avatar: string | null
   }
 
   export type AuthorCountAggregateOutputType = {
     id: number
     name: number
     id_account: number
+    biography: number
+    social_media: number
+    avatar: number
     _all: number
   }
 
@@ -12622,18 +12631,27 @@ export namespace Prisma {
     id?: true
     name?: true
     id_account?: true
+    biography?: true
+    social_media?: true
+    avatar?: true
   }
 
   export type AuthorMaxAggregateInputType = {
     id?: true
     name?: true
     id_account?: true
+    biography?: true
+    social_media?: true
+    avatar?: true
   }
 
   export type AuthorCountAggregateInputType = {
     id?: true
     name?: true
     id_account?: true
+    biography?: true
+    social_media?: true
+    avatar?: true
     _all?: true
   }
 
@@ -12713,6 +12731,9 @@ export namespace Prisma {
     id: string
     name: string
     id_account: string | null
+    biography: string | null
+    social_media: string | null
+    avatar: string | null
     _count: AuthorCountAggregateOutputType | null
     _min: AuthorMinAggregateOutputType | null
     _max: AuthorMaxAggregateOutputType | null
@@ -12736,6 +12757,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     id_account?: boolean
+    biography?: boolean
+    social_media?: boolean
+    avatar?: boolean
     auth_user?: boolean | author$auth_userArgs<ExtArgs>
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
     book?: boolean | author$bookArgs<ExtArgs>
@@ -12748,6 +12772,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     id_account?: boolean
+    biography?: boolean
+    social_media?: boolean
+    avatar?: boolean
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["author"]>
 
@@ -12755,6 +12782,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     id_account?: boolean
+    biography?: boolean
+    social_media?: boolean
+    avatar?: boolean
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["author"]>
 
@@ -12762,9 +12792,12 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     id_account?: boolean
+    biography?: boolean
+    social_media?: boolean
+    avatar?: boolean
   }
 
-  export type authorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_account", ExtArgs["result"]["author"]>
+  export type authorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_account" | "biography" | "social_media" | "avatar", ExtArgs["result"]["author"]>
   export type authorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_user?: boolean | author$auth_userArgs<ExtArgs>
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
@@ -12793,6 +12826,9 @@ export namespace Prisma {
       id: string
       name: string
       id_account: string | null
+      biography: string | null
+      social_media: string | null
+      avatar: string | null
     }, ExtArgs["result"]["author"]>
     composites: {}
   }
@@ -13224,6 +13260,9 @@ export namespace Prisma {
     readonly id: FieldRef<"author", 'String'>
     readonly name: FieldRef<"author", 'String'>
     readonly id_account: FieldRef<"author", 'String'>
+    readonly biography: FieldRef<"author", 'String'>
+    readonly social_media: FieldRef<"author", 'String'>
+    readonly avatar: FieldRef<"author", 'String'>
   }
     
 
@@ -40118,18 +40157,30 @@ export namespace Prisma {
     id: string | null
     id_account: string | null
     name: string | null
+    description: string | null
+    website: string | null
+    address: string | null
+    logo: string | null
   }
 
   export type PublisherMaxAggregateOutputType = {
     id: string | null
     id_account: string | null
     name: string | null
+    description: string | null
+    website: string | null
+    address: string | null
+    logo: string | null
   }
 
   export type PublisherCountAggregateOutputType = {
     id: number
     id_account: number
     name: number
+    description: number
+    website: number
+    address: number
+    logo: number
     _all: number
   }
 
@@ -40138,18 +40189,30 @@ export namespace Prisma {
     id?: true
     id_account?: true
     name?: true
+    description?: true
+    website?: true
+    address?: true
+    logo?: true
   }
 
   export type PublisherMaxAggregateInputType = {
     id?: true
     id_account?: true
     name?: true
+    description?: true
+    website?: true
+    address?: true
+    logo?: true
   }
 
   export type PublisherCountAggregateInputType = {
     id?: true
     id_account?: true
     name?: true
+    description?: true
+    website?: true
+    address?: true
+    logo?: true
     _all?: true
   }
 
@@ -40229,6 +40292,10 @@ export namespace Prisma {
     id: string
     id_account: string | null
     name: string
+    description: string | null
+    website: string | null
+    address: string | null
+    logo: string | null
     _count: PublisherCountAggregateOutputType | null
     _min: PublisherMinAggregateOutputType | null
     _max: PublisherMaxAggregateOutputType | null
@@ -40252,6 +40319,10 @@ export namespace Prisma {
     id?: boolean
     id_account?: boolean
     name?: boolean
+    description?: boolean
+    website?: boolean
+    address?: boolean
+    logo?: boolean
     auth_user?: boolean | publisher$auth_userArgs<ExtArgs>
     promo_code?: boolean | publisher$promo_codeArgs<ExtArgs>
     auth_account?: boolean | publisher$auth_accountArgs<ExtArgs>
@@ -40266,6 +40337,10 @@ export namespace Prisma {
     id?: boolean
     id_account?: boolean
     name?: boolean
+    description?: boolean
+    website?: boolean
+    address?: boolean
+    logo?: boolean
     auth_account?: boolean | publisher$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["publisher"]>
 
@@ -40273,6 +40348,10 @@ export namespace Prisma {
     id?: boolean
     id_account?: boolean
     name?: boolean
+    description?: boolean
+    website?: boolean
+    address?: boolean
+    logo?: boolean
     auth_account?: boolean | publisher$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["publisher"]>
 
@@ -40280,9 +40359,13 @@ export namespace Prisma {
     id?: boolean
     id_account?: boolean
     name?: boolean
+    description?: boolean
+    website?: boolean
+    address?: boolean
+    logo?: boolean
   }
 
-  export type publisherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_account" | "name", ExtArgs["result"]["publisher"]>
+  export type publisherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_account" | "name" | "description" | "website" | "address" | "logo", ExtArgs["result"]["publisher"]>
   export type publisherInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_user?: boolean | publisher$auth_userArgs<ExtArgs>
     promo_code?: boolean | publisher$promo_codeArgs<ExtArgs>
@@ -40315,6 +40398,10 @@ export namespace Prisma {
       id: string
       id_account: string | null
       name: string
+      description: string | null
+      website: string | null
+      address: string | null
+      logo: string | null
     }, ExtArgs["result"]["publisher"]>
     composites: {}
   }
@@ -40748,6 +40835,10 @@ export namespace Prisma {
     readonly id: FieldRef<"publisher", 'String'>
     readonly id_account: FieldRef<"publisher", 'String'>
     readonly name: FieldRef<"publisher", 'String'>
+    readonly description: FieldRef<"publisher", 'String'>
+    readonly website: FieldRef<"publisher", 'String'>
+    readonly address: FieldRef<"publisher", 'String'>
+    readonly logo: FieldRef<"publisher", 'String'>
   }
     
 
@@ -54719,7 +54810,10 @@ export namespace Prisma {
   export const AuthorScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    id_account: 'id_account'
+    id_account: 'id_account',
+    biography: 'biography',
+    social_media: 'social_media',
+    avatar: 'avatar'
   };
 
   export type AuthorScalarFieldEnum = (typeof AuthorScalarFieldEnum)[keyof typeof AuthorScalarFieldEnum]
@@ -55032,7 +55126,11 @@ export namespace Prisma {
   export const PublisherScalarFieldEnum: {
     id: 'id',
     id_account: 'id_account',
-    name: 'name'
+    name: 'name',
+    description: 'description',
+    website: 'website',
+    address: 'address',
+    logo: 'logo'
   };
 
   export type PublisherScalarFieldEnum = (typeof PublisherScalarFieldEnum)[keyof typeof PublisherScalarFieldEnum]
@@ -55800,6 +55898,9 @@ export namespace Prisma {
     id?: UuidFilter<"author"> | string
     name?: StringFilter<"author"> | string
     id_account?: UuidNullableFilter<"author"> | string | null
+    biography?: StringNullableFilter<"author"> | string | null
+    social_media?: StringNullableFilter<"author"> | string | null
+    avatar?: StringNullableFilter<"author"> | string | null
     auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
     book?: BookListRelationFilter
@@ -55811,6 +55912,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     id_account?: SortOrderInput | SortOrder
+    biography?: SortOrderInput | SortOrder
+    social_media?: SortOrderInput | SortOrder
+    avatar?: SortOrderInput | SortOrder
     auth_user?: auth_userOrderByRelationAggregateInput
     auth_account?: auth_accountOrderByWithRelationInput
     book?: bookOrderByRelationAggregateInput
@@ -55825,6 +55929,9 @@ export namespace Prisma {
     NOT?: authorWhereInput | authorWhereInput[]
     name?: StringFilter<"author"> | string
     id_account?: UuidNullableFilter<"author"> | string | null
+    biography?: StringNullableFilter<"author"> | string | null
+    social_media?: StringNullableFilter<"author"> | string | null
+    avatar?: StringNullableFilter<"author"> | string | null
     auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
     book?: BookListRelationFilter
@@ -55836,6 +55943,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     id_account?: SortOrderInput | SortOrder
+    biography?: SortOrderInput | SortOrder
+    social_media?: SortOrderInput | SortOrder
+    avatar?: SortOrderInput | SortOrder
     _count?: authorCountOrderByAggregateInput
     _max?: authorMaxOrderByAggregateInput
     _min?: authorMinOrderByAggregateInput
@@ -55848,6 +55958,9 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"author"> | string
     name?: StringWithAggregatesFilter<"author"> | string
     id_account?: UuidNullableWithAggregatesFilter<"author"> | string | null
+    biography?: StringNullableWithAggregatesFilter<"author"> | string | null
+    social_media?: StringNullableWithAggregatesFilter<"author"> | string | null
+    avatar?: StringNullableWithAggregatesFilter<"author"> | string | null
   }
 
   export type bannerWhereInput = {
@@ -57508,6 +57621,10 @@ export namespace Prisma {
     id?: UuidFilter<"publisher"> | string
     id_account?: UuidNullableFilter<"publisher"> | string | null
     name?: StringFilter<"publisher"> | string
+    description?: StringNullableFilter<"publisher"> | string | null
+    website?: StringNullableFilter<"publisher"> | string | null
+    address?: StringNullableFilter<"publisher"> | string | null
+    logo?: StringNullableFilter<"publisher"> | string | null
     auth_user?: Auth_userListRelationFilter
     promo_code?: Promo_codeListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
@@ -57521,6 +57638,10 @@ export namespace Prisma {
     id?: SortOrder
     id_account?: SortOrderInput | SortOrder
     name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    logo?: SortOrderInput | SortOrder
     auth_user?: auth_userOrderByRelationAggregateInput
     promo_code?: promo_codeOrderByRelationAggregateInput
     auth_account?: auth_accountOrderByWithRelationInput
@@ -57537,6 +57658,10 @@ export namespace Prisma {
     NOT?: publisherWhereInput | publisherWhereInput[]
     id_account?: UuidNullableFilter<"publisher"> | string | null
     name?: StringFilter<"publisher"> | string
+    description?: StringNullableFilter<"publisher"> | string | null
+    website?: StringNullableFilter<"publisher"> | string | null
+    address?: StringNullableFilter<"publisher"> | string | null
+    logo?: StringNullableFilter<"publisher"> | string | null
     auth_user?: Auth_userListRelationFilter
     promo_code?: Promo_codeListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
@@ -57550,6 +57675,10 @@ export namespace Prisma {
     id?: SortOrder
     id_account?: SortOrderInput | SortOrder
     name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    logo?: SortOrderInput | SortOrder
     _count?: publisherCountOrderByAggregateInput
     _max?: publisherMaxOrderByAggregateInput
     _min?: publisherMinOrderByAggregateInput
@@ -57562,6 +57691,10 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"publisher"> | string
     id_account?: UuidNullableWithAggregatesFilter<"publisher"> | string | null
     name?: StringWithAggregatesFilter<"publisher"> | string
+    description?: StringNullableWithAggregatesFilter<"publisher"> | string | null
+    website?: StringNullableWithAggregatesFilter<"publisher"> | string | null
+    address?: StringNullableWithAggregatesFilter<"publisher"> | string | null
+    logo?: StringNullableWithAggregatesFilter<"publisher"> | string | null
   }
 
   export type publisher_authorWhereInput = {
@@ -58824,6 +58957,9 @@ export namespace Prisma {
   export type authorCreateInput = {
     id?: string
     name: string
+    biography?: string | null
+    social_media?: string | null
+    avatar?: string | null
     auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
     book?: bookCreateNestedManyWithoutAuthorInput
@@ -58835,6 +58971,9 @@ export namespace Prisma {
     id?: string
     name: string
     id_account?: string | null
+    biography?: string | null
+    social_media?: string | null
+    avatar?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
     book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
@@ -58844,6 +58983,9 @@ export namespace Prisma {
   export type authorUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    biography?: NullableStringFieldUpdateOperationsInput | string | null
+    social_media?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
     book?: bookUpdateManyWithoutAuthorNestedInput
@@ -58855,6 +58997,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
+    biography?: NullableStringFieldUpdateOperationsInput | string | null
+    social_media?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
     book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
@@ -58865,17 +59010,26 @@ export namespace Prisma {
     id?: string
     name: string
     id_account?: string | null
+    biography?: string | null
+    social_media?: string | null
+    avatar?: string | null
   }
 
   export type authorUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    biography?: NullableStringFieldUpdateOperationsInput | string | null
+    social_media?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type authorUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
+    biography?: NullableStringFieldUpdateOperationsInput | string | null
+    social_media?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type bannerCreateInput = {
@@ -60622,6 +60776,10 @@ export namespace Prisma {
   export type publisherCreateInput = {
     id?: string
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     auth_user?: auth_userCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeCreateNestedManyWithoutPublisherInput
     auth_account?: auth_accountCreateNestedOneWithoutPublisherInput
@@ -60635,6 +60793,10 @@ export namespace Prisma {
     id?: string
     id_account?: string | null
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
@@ -60646,6 +60808,10 @@ export namespace Prisma {
   export type publisherUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUpdateManyWithoutPublisherNestedInput
     auth_account?: auth_accountUpdateOneWithoutPublisherNestedInput
@@ -60659,6 +60825,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
@@ -60671,17 +60841,29 @@ export namespace Prisma {
     id?: string
     id_account?: string | null
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
   }
 
   export type publisherUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type publisherUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type publisher_authorCreateInput = {
@@ -62007,18 +62189,27 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     id_account?: SortOrder
+    biography?: SortOrder
+    social_media?: SortOrder
+    avatar?: SortOrder
   }
 
   export type authorMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     id_account?: SortOrder
+    biography?: SortOrder
+    social_media?: SortOrder
+    avatar?: SortOrder
   }
 
   export type authorMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     id_account?: SortOrder
+    biography?: SortOrder
+    social_media?: SortOrder
+    avatar?: SortOrder
   }
 
   export type bannerCountOrderByAggregateInput = {
@@ -63312,18 +63503,30 @@ export namespace Prisma {
     id?: SortOrder
     id_account?: SortOrder
     name?: SortOrder
+    description?: SortOrder
+    website?: SortOrder
+    address?: SortOrder
+    logo?: SortOrder
   }
 
   export type publisherMaxOrderByAggregateInput = {
     id?: SortOrder
     id_account?: SortOrder
     name?: SortOrder
+    description?: SortOrder
+    website?: SortOrder
+    address?: SortOrder
+    logo?: SortOrder
   }
 
   export type publisherMinOrderByAggregateInput = {
     id?: SortOrder
     id_account?: SortOrder
     name?: SortOrder
+    description?: SortOrder
+    website?: SortOrder
+    address?: SortOrder
+    logo?: SortOrder
   }
 
   export type AuthorScalarRelationFilter = {
@@ -67663,6 +67866,9 @@ export namespace Prisma {
   export type authorCreateWithoutAuth_accountInput = {
     id?: string
     name: string
+    biography?: string | null
+    social_media?: string | null
+    avatar?: string | null
     auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     book?: bookCreateNestedManyWithoutAuthorInput
     product?: productCreateNestedManyWithoutAuthorInput
@@ -67672,6 +67878,9 @@ export namespace Prisma {
   export type authorUncheckedCreateWithoutAuth_accountInput = {
     id?: string
     name: string
+    biography?: string | null
+    social_media?: string | null
+    avatar?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
     book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
@@ -67761,6 +67970,10 @@ export namespace Prisma {
   export type publisherCreateWithoutAuth_accountInput = {
     id?: string
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     auth_user?: auth_userCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorCreateNestedManyWithoutPublisherInput
@@ -67772,6 +67985,10 @@ export namespace Prisma {
   export type publisherUncheckedCreateWithoutAuth_accountInput = {
     id?: string
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
@@ -67893,6 +68110,9 @@ export namespace Prisma {
     id?: UuidFilter<"author"> | string
     name?: StringFilter<"author"> | string
     id_account?: UuidNullableFilter<"author"> | string | null
+    biography?: StringNullableFilter<"author"> | string | null
+    social_media?: StringNullableFilter<"author"> | string | null
+    avatar?: StringNullableFilter<"author"> | string | null
   }
 
   export type customerUpsertWithWhereUniqueWithoutAuth_accountInput = {
@@ -67976,6 +68196,10 @@ export namespace Prisma {
     id?: UuidFilter<"publisher"> | string
     id_account?: UuidNullableFilter<"publisher"> | string | null
     name?: StringFilter<"publisher"> | string
+    description?: StringNullableFilter<"publisher"> | string | null
+    website?: StringNullableFilter<"publisher"> | string | null
+    address?: StringNullableFilter<"publisher"> | string | null
+    logo?: StringNullableFilter<"publisher"> | string | null
   }
 
   export type auth_userCreateWithoutAuth_sessionInput = {
@@ -68308,6 +68532,9 @@ export namespace Prisma {
   export type authorCreateWithoutAuth_userInput = {
     id?: string
     name: string
+    biography?: string | null
+    social_media?: string | null
+    avatar?: string | null
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
     book?: bookCreateNestedManyWithoutAuthorInput
     product?: productCreateNestedManyWithoutAuthorInput
@@ -68318,6 +68545,9 @@ export namespace Prisma {
     id?: string
     name: string
     id_account?: string | null
+    biography?: string | null
+    social_media?: string | null
+    avatar?: string | null
     book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
@@ -68391,6 +68621,10 @@ export namespace Prisma {
   export type publisherCreateWithoutAuth_userInput = {
     id?: string
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     promo_code?: promo_codeCreateNestedManyWithoutPublisherInput
     auth_account?: auth_accountCreateNestedOneWithoutPublisherInput
     publisher_author?: publisher_authorCreateNestedManyWithoutPublisherInput
@@ -68403,6 +68637,10 @@ export namespace Prisma {
     id?: string
     id_account?: string | null
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
     t_ai_credit?: t_ai_creditUncheckedCreateNestedManyWithoutPublisherInput
@@ -68595,6 +68833,9 @@ export namespace Prisma {
   export type authorUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    biography?: NullableStringFieldUpdateOperationsInput | string | null
+    social_media?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
     book?: bookUpdateManyWithoutAuthorNestedInput
     product?: productUpdateManyWithoutAuthorNestedInput
@@ -68605,6 +68846,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
+    biography?: NullableStringFieldUpdateOperationsInput | string | null
+    social_media?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
@@ -68696,6 +68940,10 @@ export namespace Prisma {
   export type publisherUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     promo_code?: promo_codeUpdateManyWithoutPublisherNestedInput
     auth_account?: auth_accountUpdateOneWithoutPublisherNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutPublisherNestedInput
@@ -68708,6 +68956,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUncheckedUpdateManyWithoutPublisherNestedInput
@@ -69218,6 +69470,9 @@ export namespace Prisma {
   export type authorCreateWithoutBookInput = {
     id?: string
     name: string
+    biography?: string | null
+    social_media?: string | null
+    avatar?: string | null
     auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
     product?: productCreateNestedManyWithoutAuthorInput
@@ -69228,6 +69483,9 @@ export namespace Prisma {
     id?: string
     name: string
     id_account?: string | null
+    biography?: string | null
+    social_media?: string | null
+    avatar?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
@@ -69483,6 +69741,9 @@ export namespace Prisma {
   export type authorUpdateWithoutBookInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    biography?: NullableStringFieldUpdateOperationsInput | string | null
+    social_media?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
     product?: productUpdateManyWithoutAuthorNestedInput
@@ -69493,6 +69754,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
+    biography?: NullableStringFieldUpdateOperationsInput | string | null
+    social_media?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
@@ -72971,6 +73235,9 @@ export namespace Prisma {
   export type authorCreateWithoutProductInput = {
     id?: string
     name: string
+    biography?: string | null
+    social_media?: string | null
+    avatar?: string | null
     auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
     book?: bookCreateNestedManyWithoutAuthorInput
@@ -72981,6 +73248,9 @@ export namespace Prisma {
     id?: string
     name: string
     id_account?: string | null
+    biography?: string | null
+    social_media?: string | null
+    avatar?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
     book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
@@ -73171,6 +73441,9 @@ export namespace Prisma {
   export type authorUpdateWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    biography?: NullableStringFieldUpdateOperationsInput | string | null
+    social_media?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
     book?: bookUpdateManyWithoutAuthorNestedInput
@@ -73181,6 +73454,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
+    biography?: NullableStringFieldUpdateOperationsInput | string | null
+    social_media?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
     book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
@@ -73441,6 +73717,10 @@ export namespace Prisma {
   export type publisherCreateWithoutPromo_codeInput = {
     id?: string
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     auth_user?: auth_userCreateNestedManyWithoutPublisherInput
     auth_account?: auth_accountCreateNestedOneWithoutPublisherInput
     publisher_author?: publisher_authorCreateNestedManyWithoutPublisherInput
@@ -73453,6 +73733,10 @@ export namespace Prisma {
     id?: string
     id_account?: string | null
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
     t_ai_credit?: t_ai_creditUncheckedCreateNestedManyWithoutPublisherInput
@@ -73479,6 +73763,10 @@ export namespace Prisma {
   export type publisherUpdateWithoutPromo_codeInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUpdateManyWithoutPublisherNestedInput
     auth_account?: auth_accountUpdateOneWithoutPublisherNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutPublisherNestedInput
@@ -73491,6 +73779,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUncheckedUpdateManyWithoutPublisherNestedInput
@@ -73927,6 +74219,9 @@ export namespace Prisma {
   export type authorCreateWithoutPublisher_authorInput = {
     id?: string
     name: string
+    biography?: string | null
+    social_media?: string | null
+    avatar?: string | null
     auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
     book?: bookCreateNestedManyWithoutAuthorInput
@@ -73937,6 +74232,9 @@ export namespace Prisma {
     id?: string
     name: string
     id_account?: string | null
+    biography?: string | null
+    social_media?: string | null
+    avatar?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
     book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
@@ -73950,6 +74248,10 @@ export namespace Prisma {
   export type publisherCreateWithoutPublisher_authorInput = {
     id?: string
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     auth_user?: auth_userCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeCreateNestedManyWithoutPublisherInput
     auth_account?: auth_accountCreateNestedOneWithoutPublisherInput
@@ -73962,6 +74264,10 @@ export namespace Prisma {
     id?: string
     id_account?: string | null
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
     t_ai_credit?: t_ai_creditUncheckedCreateNestedManyWithoutPublisherInput
@@ -73988,6 +74294,9 @@ export namespace Prisma {
   export type authorUpdateWithoutPublisher_authorInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    biography?: NullableStringFieldUpdateOperationsInput | string | null
+    social_media?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
     book?: bookUpdateManyWithoutAuthorNestedInput
@@ -73998,6 +74307,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
+    biography?: NullableStringFieldUpdateOperationsInput | string | null
+    social_media?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
     book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
@@ -74017,6 +74329,10 @@ export namespace Prisma {
   export type publisherUpdateWithoutPublisher_authorInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUpdateManyWithoutPublisherNestedInput
     auth_account?: auth_accountUpdateOneWithoutPublisherNestedInput
@@ -74029,6 +74345,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUncheckedUpdateManyWithoutPublisherNestedInput
@@ -74623,6 +74943,10 @@ export namespace Prisma {
   export type publisherCreateWithoutT_ai_creditInput = {
     id?: string
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     auth_user?: auth_userCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeCreateNestedManyWithoutPublisherInput
     auth_account?: auth_accountCreateNestedOneWithoutPublisherInput
@@ -74635,6 +74959,10 @@ export namespace Prisma {
     id?: string
     id_account?: string | null
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
@@ -74685,6 +75013,10 @@ export namespace Prisma {
   export type publisherUpdateWithoutT_ai_creditInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUpdateManyWithoutPublisherNestedInput
     auth_account?: auth_accountUpdateOneWithoutPublisherNestedInput
@@ -74697,6 +75029,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
@@ -75572,6 +75908,10 @@ export namespace Prisma {
   export type publisherCreateWithoutTransactionInput = {
     id?: string
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     auth_user?: auth_userCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeCreateNestedManyWithoutPublisherInput
     auth_account?: auth_accountCreateNestedOneWithoutPublisherInput
@@ -75584,6 +75924,10 @@ export namespace Prisma {
     id?: string
     id_account?: string | null
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
@@ -75610,6 +75954,10 @@ export namespace Prisma {
   export type publisherUpdateWithoutTransactionInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUpdateManyWithoutPublisherNestedInput
     auth_account?: auth_accountUpdateOneWithoutPublisherNestedInput
@@ -75622,6 +75970,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
@@ -75632,6 +75984,10 @@ export namespace Prisma {
   export type publisherCreateWithoutWithdrawalInput = {
     id?: string
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     auth_user?: auth_userCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeCreateNestedManyWithoutPublisherInput
     auth_account?: auth_accountCreateNestedOneWithoutPublisherInput
@@ -75644,6 +76000,10 @@ export namespace Prisma {
     id?: string
     id_account?: string | null
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
     auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
@@ -75670,6 +76030,10 @@ export namespace Prisma {
   export type publisherUpdateWithoutWithdrawalInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUpdateManyWithoutPublisherNestedInput
     auth_account?: auth_accountUpdateOneWithoutPublisherNestedInput
@@ -75682,6 +76046,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
@@ -75775,6 +76143,9 @@ export namespace Prisma {
   export type authorCreateManyAuth_accountInput = {
     id?: string
     name: string
+    biography?: string | null
+    social_media?: string | null
+    avatar?: string | null
   }
 
   export type customerCreateManyAuth_accountInput = {
@@ -75798,6 +76169,10 @@ export namespace Prisma {
   export type publisherCreateManyAuth_accountInput = {
     id?: string
     name: string
+    description?: string | null
+    website?: string | null
+    address?: string | null
+    logo?: string | null
   }
 
   export type affiliateUpdateWithoutAuth_accountInput = {
@@ -75820,6 +76195,9 @@ export namespace Prisma {
   export type authorUpdateWithoutAuth_accountInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    biography?: NullableStringFieldUpdateOperationsInput | string | null
+    social_media?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     book?: bookUpdateManyWithoutAuthorNestedInput
     product?: productUpdateManyWithoutAuthorNestedInput
@@ -75829,6 +76207,9 @@ export namespace Prisma {
   export type authorUncheckedUpdateWithoutAuth_accountInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    biography?: NullableStringFieldUpdateOperationsInput | string | null
+    social_media?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
     book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
@@ -75838,6 +76219,9 @@ export namespace Prisma {
   export type authorUncheckedUpdateManyWithoutAuth_accountInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    biography?: NullableStringFieldUpdateOperationsInput | string | null
+    social_media?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type customerUpdateWithoutAuth_accountInput = {
@@ -75911,6 +76295,10 @@ export namespace Prisma {
   export type publisherUpdateWithoutAuth_accountInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutPublisherNestedInput
@@ -75922,6 +76310,10 @@ export namespace Prisma {
   export type publisherUncheckedUpdateWithoutAuth_accountInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
@@ -75933,6 +76325,10 @@ export namespace Prisma {
   export type publisherUncheckedUpdateManyWithoutAuth_accountInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type auth_accountCreateManyAuth_userInput = {

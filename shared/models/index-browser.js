@@ -190,7 +190,10 @@ exports.Prisma.Auth_verificationScalarFieldEnum = {
 exports.Prisma.AuthorScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  id_account: 'id_account'
+  id_account: 'id_account',
+  biography: 'biography',
+  social_media: 'social_media',
+  avatar: 'avatar'
 };
 
 exports.Prisma.BannerScalarFieldEnum = {
@@ -431,7 +434,11 @@ exports.Prisma.Promo_codeScalarFieldEnum = {
 exports.Prisma.PublisherScalarFieldEnum = {
   id: 'id',
   id_account: 'id_account',
-  name: 'name'
+  name: 'name',
+  description: 'description',
+  website: 'website',
+  address: 'address',
+  logo: 'logo'
 };
 
 exports.Prisma.Publisher_authorScalarFieldEnum = {

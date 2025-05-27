@@ -1,11 +1,11 @@
-import { baseUrl } from "@/lib/gen/base-url";
 import { EForm } from "@/components/ext/eform/EForm";
 import { SideForm } from "@/components/ext/side-form";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/global-alert";
 import { betterAuth } from "@/lib/better-auth";
-import { navigate } from "@/lib/router";
+import { baseUrl } from "@/lib/gen/base-url";
 import { useLocal } from "@/lib/hooks/use-local";
+import { navigate } from "@/lib/router";
 
 export default () => {
   const u = baseUrl;
@@ -144,7 +144,8 @@ export default () => {
                           window.location.replace(u.main_esensi);
                         else
                           navigate(
-                            "/login?callbackURL=" + encodeURIComponent(callbackURL)
+                            "/login?callbackURL=" +
+                              encodeURIComponent(callbackURL)
                           );
                       }, 2000);
                     }

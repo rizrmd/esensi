@@ -1,32 +1,58 @@
-import type { User } from "backend/lib/better-auth";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import { Role, type Onboarding } from "../types";
+
+export type author = {
+  name: string;
+  biography: string;
+  social_media: string;
+  avatar: string | null;
+};
+
+export type publisher = {
+  name: string;
+  description: string;
+  website: string;
+  address: string;
+  logo: string | null;
+};
 
 export default defineAPI({
   name: "onboarding",
   url: "/api/publish/onboarding",
   async handler(arg: {
     role: Role.AUTHOR | Role.PUBLISHER;
-    user: Partial<User>;
+    userId: string;
+    data: author | publisher;
   }): Promise<ApiResponse<Onboarding>> {
-    const { role, user } = arg;
+    const { role, userId, data } = arg;
     try {
       const account = await db.auth_account.findFirst({
-        where: { id_user: user.id },
+        where: { id_user: userId },
       });
       if (!account) {
         return { success: false, message: "Akun tidak ditemukan" };
       }
 
       if (role === Role.AUTHOR) {
+        const author = data as author;
         const newAuthor = await db.author.create({
-          data: { name: user.name!, id_account: account.id },
+          data: {
+            name: author.name!,
+            id_account: account.id,
+            avatar: author.avatar,
+            biography: author.biography,
+            social_media: author.social_media,
+          },
         });
 
         await db.auth_user.update({
-          where: { id: user.id },
-          data: { id_author: newAuthor.id },
+          where: { id: userId },
+          data: {
+            id_author: newAuthor.id,
+            name: author.name,
+            image: author.avatar,
+          },
         });
 
         return {
@@ -35,13 +61,25 @@ export default defineAPI({
           data: { author: newAuthor },
         };
       } else if (role === Role.PUBLISHER) {
+        const publisher = data as publisher;
         const newPublisher = await db.publisher.create({
-          data: { name: user.name!, id_account: account.id },
+          data: {
+            name: publisher.name!,
+            id_account: account.id,
+            description: publisher.description,
+            website: publisher.website,
+            address: publisher.address,
+            logo: publisher.logo,
+          },
         });
 
         await db.auth_user.update({
-          where: { id: user.id },
-          data: { id_publisher: newPublisher.id },
+          where: { id: userId },
+          data: {
+            id_publisher: newPublisher.id,
+            name: publisher.name,
+            image: publisher.logo,
+          },
         });
 
         return {
@@ -49,11 +87,9 @@ export default defineAPI({
           message: "Berhasil onboarding sebagai penerbit",
           data: { publisher: newPublisher },
         };
-      } else {
-        return { success: false, message: "Role tidak valid" };
-      }
+      } else return { success: false, message: "Role tidak valid" };
     } catch (error) {
-      console.error("Error on onboarding:", error);
+      console.error("Error on user onboarding:", error);
       return {
         success: false,
         message: "Terjadi kesalahan saat onboarding",

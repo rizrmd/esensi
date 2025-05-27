@@ -99,6 +99,9 @@ model author {
   id               String             @id(map: "author_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name             String
   id_account       String?            @db.Uuid
+  biography        String?
+  social_media     String?            @db.VarChar
+  avatar           String?            @db.VarChar
   auth_user        auth_user[]
   auth_account     auth_account?      @relation(fields: [id_account], references: [id], map: "author_id_user_fkey")
   book             book[]
@@ -409,6 +412,10 @@ model publisher {
   id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   id_account       String?            @db.Uuid
   name             String
+  description      String?
+  website          String?            @db.VarChar
+  address          String?
+  logo             String?
   auth_user        auth_user[]
   promo_code       promo_code[]
   auth_account     auth_account?      @relation(fields: [id_account], references: [id], map: "publisher_id_user_fkey")

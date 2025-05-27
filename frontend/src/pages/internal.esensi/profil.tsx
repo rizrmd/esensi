@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { betterAuth, type User } from "@/lib/better-auth";
+import { betterAuth } from "@/lib/better-auth";
 import { api as authApi } from "@/lib/gen/auth.esensi";
 import { baseUrl } from "@/lib/gen/base-url";
 import { useLocal } from "@/lib/hooks/use-local";
@@ -20,6 +20,7 @@ import { navigate } from "@/lib/router";
 import { getMimeType } from "@/lib/utils";
 import { Role } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
+import type { User } from "backend/lib/better-auth";
 import { ChevronRight } from "lucide-react";
 
 export const current = {

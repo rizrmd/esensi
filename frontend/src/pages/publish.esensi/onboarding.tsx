@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { betterAuth, type User } from "@/lib/better-auth";
+import { betterAuth } from "@/lib/better-auth";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
@@ -20,6 +20,7 @@ import { navigate } from "@/lib/router";
 import { getMimeType } from "@/lib/utils";
 import { Role } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
+import type { User } from "backend/lib/better-auth";
 import type { FormEvent } from "react";
 
 export const current = {
@@ -31,7 +32,7 @@ export default () => {
     {
       submitting: false,
       roles: {
-        publisher: false,
+        publisher: true,
         author: true,
       },
       role: Role.AUTHOR, // Default to author
@@ -42,15 +43,17 @@ export default () => {
           description: "",
           website: "",
           address: "",
-          logo: null as File | null,
-          logoPreview: "",
+          logo: null as string | null,
         },
         author: {
           name: "",
-          bio: "",
-          socmed: "",
-          avatar: null as File | null,
-          avatarPreview: "",
+          biography: "",
+          social_media: "",
+          avatar: null as string | null,
+        },
+        files: {
+          publisher: [] as File[],
+          author: [] as File[],
         },
       },
       error: "",
@@ -59,6 +62,10 @@ export default () => {
     async () => {
       const res = await betterAuth.getSession();
       current.user = res.data?.user;
+      local.formData.publisher.name = current.user?.name!;
+      local.formData.author.name = current.user?.name!;
+      local.formData.publisher.logo = current.user?.image || null;
+      local.formData.author.avatar = current.user?.image || null;
       await loadData();
     }
   );
@@ -78,7 +85,8 @@ export default () => {
           type: mimeType,
           lastModified: new Date().getTime(),
         });
-        local.files = [file];
+        local.formData.files.author = [file];
+        local.formData.files.publisher = [file];
       } catch (error) {
         console.error("Error fetching profile image:", error);
       } finally {
@@ -107,8 +115,8 @@ export default () => {
           return;
         }
 
-        if (local.files.length > 0) {
-          const file = local.files[0];
+        if (local.formData.files.publisher.length > 0) {
+          const file = local.formData.files.publisher[0];
           const formData = new FormData();
           formData.append("file", file);
           const res = await fetch(`${baseUrl.auth_esensi}/api/upload`, {
@@ -116,12 +124,13 @@ export default () => {
             body: formData,
           });
           const uploaded: UploadAPIResponse = await res.json();
-          if (uploaded.name) current.user!.image = uploaded.name;
+          if (uploaded.name) local.formData.publisher.logo = uploaded.name;
         }
 
         const result = await api.onboarding({
           role: Role.PUBLISHER,
-          user: current.user!,
+          userId: current.user!.id,
+          data: local.formData.publisher,
         });
 
         if (result.success) {
@@ -129,9 +138,7 @@ export default () => {
           setTimeout(() => {
             navigate("/dashboard");
           }, 2000);
-        } else {
-          local.error = result.message || "Gagal membuat profil penerbit";
-        }
+        } else local.error = result.message || "Gagal membuat profil penerbit";
       } else if (local.role === Role.AUTHOR) {
         const authorData = local.formData.author;
 
@@ -142,8 +149,8 @@ export default () => {
           return;
         }
 
-        if (local.files.length > 0) {
-          const file = local.files[0];
+        if (local.formData.files.author.length > 0) {
+          const file = local.formData.files.author[0];
           const formData = new FormData();
           formData.append("file", file);
           const res = await fetch(`${baseUrl.auth_esensi}/api/upload`, {
@@ -151,12 +158,13 @@ export default () => {
             body: formData,
           });
           const uploaded: UploadAPIResponse = await res.json();
-          if (uploaded.name) current.user!.image = uploaded.name;
+          if (uploaded.name) local.formData.author.avatar = uploaded.name;
         }
 
         const result = await api.onboarding({
           role: Role.AUTHOR,
-          user: current.user!,
+          userId: current.user!.id,
+          data: local.formData.author,
         });
 
         if (result.success) {
@@ -164,9 +172,7 @@ export default () => {
           setTimeout(() => {
             navigate("/dashboard");
           }, 2000);
-        } else {
-          local.error = result.message || "Gagal membuat profil penulis";
-        }
+        } else local.error = result.message || "Gagal membuat profil penulis";
       }
     } catch (error) {
       console.error("Error in onboarding:", error);
@@ -305,13 +311,16 @@ export default () => {
                         <div>
                           <Label>Logo Penerbit</Label>
                           <div className="mt-2 flex items-center gap-4">
-                            {current.user?.image || local.files.length > 0 ? (
+                            {local.formData.publisher.logo ||
+                            local.formData.files.publisher.length > 0 ? (
                               <div className="relative w-20 h-20 rounded-full overflow-hidden border bg-gray-100">
                                 <img
                                   src={
-                                    local.files.length > 0
-                                      ? URL.createObjectURL(local.files[0])
-                                      : `${baseUrl.auth_esensi}/${current.user?.image}`
+                                    local.formData.files.publisher.length > 0
+                                      ? URL.createObjectURL(
+                                          local.formData.files.publisher[0]
+                                        )
+                                      : `${baseUrl.auth_esensi}/${local.formData.publisher.logo}`
                                   }
                                   alt="Foto Profil"
                                   className="w-full h-full object-cover"
@@ -334,7 +343,9 @@ export default () => {
                                     e.target.files &&
                                     e.target.files.length > 0
                                   ) {
-                                    local.files = [e.target.files[0]];
+                                    local.formData.files.publisher = [
+                                      e.target.files[0],
+                                    ];
                                     local.render();
                                   }
                                 }}
@@ -383,9 +394,10 @@ export default () => {
                             <Label htmlFor="author-bio">Biografi</Label>
                             <textarea
                               id="author-bio"
-                              value={local.formData.author.bio}
+                              value={local.formData.author.biography}
                               onChange={(e) => {
-                                local.formData.author.bio = e.target.value;
+                                local.formData.author.biography =
+                                  e.target.value;
                                 local.render();
                               }}
                               placeholder="Ceritakan tentang diri Anda sebagai penulis"
@@ -398,9 +410,10 @@ export default () => {
                             <Label htmlFor="author-socmed">Media Sosial</Label>
                             <Input
                               id="author-socmed"
-                              value={local.formData.author.socmed}
+                              value={local.formData.author.social_media}
                               onChange={(e) => {
-                                local.formData.author.socmed = e.target.value;
+                                local.formData.author.social_media =
+                                  e.target.value;
                                 local.render();
                               }}
                               placeholder="Instagram, Twitter, atau website pribadi"
@@ -412,13 +425,16 @@ export default () => {
                         <div>
                           <Label>Foto Profil</Label>
                           <div className="mt-2 flex items-center gap-4">
-                            {current.user?.image || local.files.length > 0 ? (
+                            {local.formData.author.avatar ||
+                            local.formData.files.author.length > 0 ? (
                               <div className="relative w-20 h-20 rounded-full overflow-hidden border bg-gray-100">
                                 <img
                                   src={
-                                    local.files.length > 0
-                                      ? URL.createObjectURL(local.files[0])
-                                      : `${baseUrl.auth_esensi}/${current.user?.image}`
+                                    local.formData.files.author.length > 0
+                                      ? URL.createObjectURL(
+                                          local.formData.files.author[0]
+                                        )
+                                      : `${baseUrl.auth_esensi}/${local.formData.author.avatar}`
                                   }
                                   alt="Foto Profil"
                                   className="w-full h-full object-cover"
@@ -441,7 +457,9 @@ export default () => {
                                     e.target.files &&
                                     e.target.files.length > 0
                                   ) {
-                                    local.files = [e.target.files[0]];
+                                    local.formData.files.author = [
+                                      e.target.files[0],
+                                    ];
                                     local.render();
                                   }
                                 }}

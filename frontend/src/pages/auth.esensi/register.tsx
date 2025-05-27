@@ -8,6 +8,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import type { author } from "backend/api/publish.esensi/onboarding";
 import { Role } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 
@@ -89,7 +90,13 @@ export default () => {
                   // Call API to save author profile
                   await api.onboarding({
                     role: Role.AUTHOR,
-                    user: res.data!.user,
+                    userId: res.data.user.id,
+                    data: {
+                      name: read.name,
+                      biography: "",
+                      social_media: "",
+                      avatar: write.image,
+                    } as author,
                   });
                 }
 
