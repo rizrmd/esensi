@@ -32,7 +32,7 @@ export default () => {
     {
       submitting: false,
       roles: {
-        publisher: true,
+        publisher: false,
         author: true,
       },
       role: Role.AUTHOR, // Default to author
@@ -216,7 +216,7 @@ export default () => {
                   }}
                   className="w-full"
                 >
-                  <TabsList className="grid grid-cols-2 mb-8">
+                  {/* <TabsList className="grid grid-cols-2 mb-8">
                     {local.roles.publisher && (
                       <TabsTrigger value={Role.PUBLISHER}>
                         Saya Penerbit
@@ -227,7 +227,7 @@ export default () => {
                         Saya Penulis
                       </TabsTrigger>
                     )}
-                  </TabsList>
+                  </TabsList> */}
 
                   {local.error && (
                     <div className="bg-red-50 text-red-700 p-3 rounded-md mb-6">

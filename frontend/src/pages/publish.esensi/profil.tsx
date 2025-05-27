@@ -12,19 +12,24 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { betterAuth } from "@/lib/better-auth";
 import { api as authApi } from "@/lib/gen/auth.esensi";
 import { baseUrl } from "@/lib/gen/base-url";
+import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { getMimeType } from "@/lib/utils";
-import { Role } from "backend/api/types";
+import type { author } from "backend/api/publish.esensi/onboarding";
+import { Role, type Author } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import type { User } from "backend/lib/better-auth";
 import { ChevronRight } from "lucide-react";
 
 export const current = {
   user: undefined as User | undefined,
+  author: undefined as Author | undefined,
+  formData: null as (author & { email: string; username: string }) | null,
 };
 
 export default () => {
@@ -44,11 +49,32 @@ export default () => {
   );
 
   async function loadData() {
+    local.loading = true;
+    local.render();
+
+    const res = await api.author_detail({
+      id: current.user?.idAuthor!,
+    });
+    if (res.success && res.data) {
+      current.author = res.data;
+    } else {
+      local.error = res.message || "Gagal memuat data penulis.";
+      console.error("Error loading author data:", local.error);
+      local.render();
+      return;
+    }
+
+    current.formData = {
+      name: current.user?.name || "",
+      email: current.user?.email || "",
+      username: current.user?.username || "",
+      biography: current.author.biography || "",
+      social_media: current.author.social_media || "",
+      avatar: current.author.avatar || "",
+    };
+
     if (current.user?.image) {
       try {
-        local.loading = true;
-        local.render();
-
         const imageUrl = `${baseUrl.auth_esensi}/${current.user.image}`;
         const response = await fetch(imageUrl);
         const blob = await response.blob();
@@ -100,10 +126,26 @@ export default () => {
 
       const res = await authApi.user_update({
         id: current.user.id,
-        data: current.user,
+        data: {
+          ...current.user,
+          name: current.formData?.name!,
+          email: current.formData?.email!,
+          username: current.formData?.username,
+          image: current.formData?.avatar,
+        },
       });
 
       if (res.success && res.data) {
+        await api.author_update({
+          id: current.user.idAuthor!,
+          data: {
+            name: current.formData?.name,
+            biography: current.formData?.biography,
+            social_media: current.formData?.social_media,
+            avatar: current.formData?.avatar,
+          },
+        });
+
         local.success = "Profil berhasil diperbarui!";
         setTimeout(() => {
           local.success = "";
@@ -125,9 +167,13 @@ export default () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    current.user = {
-      ...current.user!,
-      [name]: value.trim() === "" && name === "username" ? null : value!,
+    current.formData = {
+      ...current.formData!,
+      [name]:
+        value.trim() === "" &&
+        ["username", "biography", "social_media"].some((x) => name === x)
+          ? null
+          : value!,
     };
     local.render();
   };
@@ -197,7 +243,7 @@ export default () => {
                         <Input
                           id="name"
                           name="name"
-                          value={current.user?.name || ""}
+                          value={current.formData?.name || ""}
                           onChange={handleChange}
                           placeholder="Nama lengkap Anda"
                           className="mt-1"
@@ -208,7 +254,7 @@ export default () => {
                         <Input
                           id="email"
                           name="email"
-                          value={current.user?.email || ""}
+                          value={current.formData?.email || ""}
                           onChange={handleChange}
                           placeholder="Email Anda"
                           className="mt-1"
@@ -222,7 +268,7 @@ export default () => {
                       <Input
                         id="username"
                         name="username"
-                        value={current.user?.username || ""}
+                        value={current.formData?.username || ""}
                         onChange={handleChange}
                         placeholder="Username Anda"
                         className="mt-1"
@@ -230,15 +276,48 @@ export default () => {
                     </div>
 
                     <div>
+                      <Label htmlFor="biography">Biografi</Label>
+                      <Textarea
+                        id="biography"
+                        name="biography"
+                        value={current.formData?.biography || ""}
+                        onChange={handleChange}
+                        placeholder="Ceritakan tentang diri Anda"
+                        className="mt-1"
+                        rows={4}
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        Tulis biografi singkat tentang diri Anda sebagai
+                        penulis.
+                      </p>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="social_media">Media Sosial</Label>
+                      <Input
+                        id="social_media"
+                        name="social_media"
+                        value={current.formData?.social_media || ""}
+                        onChange={handleChange}
+                        placeholder="Tautan media sosial (Instagram, Twitter, dll)"
+                        className="mt-1"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        Masukkan alamat media sosial utama Anda. Contoh:
+                        https://instagram.com/username
+                      </p>
+                    </div>
+
+                    <div>
                       <Label>Foto Profil</Label>
                       <div className="mt-2 flex items-center gap-4">
-                        {current.user?.image || local.files.length > 0 ? (
+                        {current.formData?.avatar || local.files.length > 0 ? (
                           <div className="relative w-20 h-20 rounded-full overflow-hidden border bg-gray-100">
                             <img
                               src={
                                 local.files.length > 0
                                   ? URL.createObjectURL(local.files[0])
-                                  : `${baseUrl.auth_esensi}/${current.user?.image}`
+                                  : `${baseUrl.auth_esensi}/${current.formData?.avatar}`
                               }
                               alt="Foto Profil"
                               className="w-full h-full object-cover"
