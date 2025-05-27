@@ -295,8 +295,10 @@ exports.Prisma.CategoryScalarFieldEnum = {
 exports.Prisma.ChapterScalarFieldEnum = {
   id: 'id',
   id_product: 'id_product',
+  id_book: 'id_book',
   number: 'number',
-  name: 'name'
+  name: 'name',
+  content: 'content'
 };
 
 exports.Prisma.CustomerScalarFieldEnum = {

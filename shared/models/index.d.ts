@@ -4918,6 +4918,7 @@ export namespace Prisma {
     book_changes_log: number
     book_genre: number
     book_tags: number
+    chapter: number
     ranking: number
     reviews: number
   }
@@ -4927,6 +4928,7 @@ export namespace Prisma {
     book_changes_log?: boolean | BookCountOutputTypeCountBook_changes_logArgs
     book_genre?: boolean | BookCountOutputTypeCountBook_genreArgs
     book_tags?: boolean | BookCountOutputTypeCountBook_tagsArgs
+    chapter?: boolean | BookCountOutputTypeCountChapterArgs
     ranking?: boolean | BookCountOutputTypeCountRankingArgs
     reviews?: boolean | BookCountOutputTypeCountReviewsArgs
   }
@@ -4968,6 +4970,13 @@ export namespace Prisma {
    */
   export type BookCountOutputTypeCountBook_tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: book_tagsWhereInput
+  }
+
+  /**
+   * BookCountOutputType without action
+   */
+  export type BookCountOutputTypeCountChapterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: chapterWhereInput
   }
 
   /**
@@ -15088,6 +15097,7 @@ export namespace Prisma {
     book_changes_log?: boolean | book$book_changes_logArgs<ExtArgs>
     book_genre?: boolean | book$book_genreArgs<ExtArgs>
     book_tags?: boolean | book$book_tagsArgs<ExtArgs>
+    chapter?: boolean | book$chapterArgs<ExtArgs>
     ranking?: boolean | book$rankingArgs<ExtArgs>
     reviews?: boolean | book$reviewsArgs<ExtArgs>
     _count?: boolean | BookCountOutputTypeDefaultArgs<ExtArgs>
@@ -15180,6 +15190,7 @@ export namespace Prisma {
     book_changes_log?: boolean | book$book_changes_logArgs<ExtArgs>
     book_genre?: boolean | book$book_genreArgs<ExtArgs>
     book_tags?: boolean | book$book_tagsArgs<ExtArgs>
+    chapter?: boolean | book$chapterArgs<ExtArgs>
     ranking?: boolean | book$rankingArgs<ExtArgs>
     reviews?: boolean | book$reviewsArgs<ExtArgs>
     _count?: boolean | BookCountOutputTypeDefaultArgs<ExtArgs>
@@ -15202,6 +15213,7 @@ export namespace Prisma {
       book_changes_log: Prisma.$book_changes_logPayload<ExtArgs>[]
       book_genre: Prisma.$book_genrePayload<ExtArgs>[]
       book_tags: Prisma.$book_tagsPayload<ExtArgs>[]
+      chapter: Prisma.$chapterPayload<ExtArgs>[]
       ranking: Prisma.$rankingPayload<ExtArgs>[]
       reviews: Prisma.$reviewsPayload<ExtArgs>[]
     }
@@ -15628,6 +15640,7 @@ export namespace Prisma {
     book_changes_log<T extends book$book_changes_logArgs<ExtArgs> = {}>(args?: Subset<T, book$book_changes_logArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_changes_logPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     book_genre<T extends book$book_genreArgs<ExtArgs> = {}>(args?: Subset<T, book$book_genreArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_genrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     book_tags<T extends book$book_tagsArgs<ExtArgs> = {}>(args?: Subset<T, book$book_tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_tagsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    chapter<T extends book$chapterArgs<ExtArgs> = {}>(args?: Subset<T, book$chapterArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chapterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ranking<T extends book$rankingArgs<ExtArgs> = {}>(args?: Subset<T, book$rankingArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$rankingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviews<T extends book$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, book$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -16208,6 +16221,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Book_tagsScalarFieldEnum | Book_tagsScalarFieldEnum[]
+  }
+
+  /**
+   * book.chapter
+   */
+  export type book$chapterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chapter
+     */
+    select?: chapterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chapter
+     */
+    omit?: chapterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chapterInclude<ExtArgs> | null
+    where?: chapterWhereInput
+    orderBy?: chapterOrderByWithRelationInput | chapterOrderByWithRelationInput[]
+    cursor?: chapterWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChapterScalarFieldEnum | ChapterScalarFieldEnum[]
   }
 
   /**
@@ -25069,22 +25106,28 @@ export namespace Prisma {
   export type ChapterMinAggregateOutputType = {
     id: string | null
     id_product: string | null
+    id_book: string | null
     number: number | null
     name: string | null
+    content: string | null
   }
 
   export type ChapterMaxAggregateOutputType = {
     id: string | null
     id_product: string | null
+    id_book: string | null
     number: number | null
     name: string | null
+    content: string | null
   }
 
   export type ChapterCountAggregateOutputType = {
     id: number
     id_product: number
+    id_book: number
     number: number
     name: number
+    content: number
     _all: number
   }
 
@@ -25100,22 +25143,28 @@ export namespace Prisma {
   export type ChapterMinAggregateInputType = {
     id?: true
     id_product?: true
+    id_book?: true
     number?: true
     name?: true
+    content?: true
   }
 
   export type ChapterMaxAggregateInputType = {
     id?: true
     id_product?: true
+    id_book?: true
     number?: true
     name?: true
+    content?: true
   }
 
   export type ChapterCountAggregateInputType = {
     id?: true
     id_product?: true
+    id_book?: true
     number?: true
     name?: true
+    content?: true
     _all?: true
   }
 
@@ -25207,9 +25256,11 @@ export namespace Prisma {
 
   export type ChapterGroupByOutputType = {
     id: string
-    id_product: string
+    id_product: string | null
+    id_book: string | null
     number: number
     name: string
+    content: string
     _count: ChapterCountAggregateOutputType | null
     _avg: ChapterAvgAggregateOutputType | null
     _sum: ChapterSumAggregateOutputType | null
@@ -25234,55 +25285,72 @@ export namespace Prisma {
   export type chapterSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     id_product?: boolean
+    id_book?: boolean
     number?: boolean
     name?: boolean
-    product?: boolean | productDefaultArgs<ExtArgs>
+    content?: boolean
+    book?: boolean | chapter$bookArgs<ExtArgs>
+    product?: boolean | chapter$productArgs<ExtArgs>
   }, ExtArgs["result"]["chapter"]>
 
   export type chapterSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     id_product?: boolean
+    id_book?: boolean
     number?: boolean
     name?: boolean
-    product?: boolean | productDefaultArgs<ExtArgs>
+    content?: boolean
+    book?: boolean | chapter$bookArgs<ExtArgs>
+    product?: boolean | chapter$productArgs<ExtArgs>
   }, ExtArgs["result"]["chapter"]>
 
   export type chapterSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     id_product?: boolean
+    id_book?: boolean
     number?: boolean
     name?: boolean
-    product?: boolean | productDefaultArgs<ExtArgs>
+    content?: boolean
+    book?: boolean | chapter$bookArgs<ExtArgs>
+    product?: boolean | chapter$productArgs<ExtArgs>
   }, ExtArgs["result"]["chapter"]>
 
   export type chapterSelectScalar = {
     id?: boolean
     id_product?: boolean
+    id_book?: boolean
     number?: boolean
     name?: boolean
+    content?: boolean
   }
 
-  export type chapterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_product" | "number" | "name", ExtArgs["result"]["chapter"]>
+  export type chapterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_product" | "id_book" | "number" | "name" | "content", ExtArgs["result"]["chapter"]>
   export type chapterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    product?: boolean | productDefaultArgs<ExtArgs>
+    book?: boolean | chapter$bookArgs<ExtArgs>
+    product?: boolean | chapter$productArgs<ExtArgs>
   }
   export type chapterIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    product?: boolean | productDefaultArgs<ExtArgs>
+    book?: boolean | chapter$bookArgs<ExtArgs>
+    product?: boolean | chapter$productArgs<ExtArgs>
   }
   export type chapterIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    product?: boolean | productDefaultArgs<ExtArgs>
+    book?: boolean | chapter$bookArgs<ExtArgs>
+    product?: boolean | chapter$productArgs<ExtArgs>
   }
 
   export type $chapterPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "chapter"
     objects: {
-      product: Prisma.$productPayload<ExtArgs>
+      book: Prisma.$bookPayload<ExtArgs> | null
+      product: Prisma.$productPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      id_product: string
+      id_product: string | null
+      id_book: string | null
       number: number
       name: string
+      content: string
     }, ExtArgs["result"]["chapter"]>
     composites: {}
   }
@@ -25677,7 +25745,8 @@ export namespace Prisma {
    */
   export interface Prisma__chapterClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    product<T extends productDefaultArgs<ExtArgs> = {}>(args?: Subset<T, productDefaultArgs<ExtArgs>>): Prisma__productClient<$Result.GetResult<Prisma.$productPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    book<T extends chapter$bookArgs<ExtArgs> = {}>(args?: Subset<T, chapter$bookArgs<ExtArgs>>): Prisma__bookClient<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    product<T extends chapter$productArgs<ExtArgs> = {}>(args?: Subset<T, chapter$productArgs<ExtArgs>>): Prisma__productClient<$Result.GetResult<Prisma.$productPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -25709,8 +25778,10 @@ export namespace Prisma {
   interface chapterFieldRefs {
     readonly id: FieldRef<"chapter", 'String'>
     readonly id_product: FieldRef<"chapter", 'String'>
+    readonly id_book: FieldRef<"chapter", 'String'>
     readonly number: FieldRef<"chapter", 'Int'>
     readonly name: FieldRef<"chapter", 'String'>
+    readonly content: FieldRef<"chapter", 'String'>
   }
     
 
@@ -26104,6 +26175,44 @@ export namespace Prisma {
      * Limit how many chapters to delete.
      */
     limit?: number
+  }
+
+  /**
+   * chapter.book
+   */
+  export type chapter$bookArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the book
+     */
+    select?: bookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the book
+     */
+    omit?: bookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: bookInclude<ExtArgs> | null
+    where?: bookWhereInput
+  }
+
+  /**
+   * chapter.product
+   */
+  export type chapter$productArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the product
+     */
+    select?: productSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the product
+     */
+    omit?: productOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: productInclude<ExtArgs> | null
+    where?: productWhereInput
   }
 
   /**
@@ -54748,8 +54857,10 @@ export namespace Prisma {
   export const ChapterScalarFieldEnum: {
     id: 'id',
     id_product: 'id_product',
+    id_book: 'id_book',
     number: 'number',
-    name: 'name'
+    name: 'name',
+    content: 'content'
   };
 
   export type ChapterScalarFieldEnum = (typeof ChapterScalarFieldEnum)[keyof typeof ChapterScalarFieldEnum]
@@ -55828,6 +55939,7 @@ export namespace Prisma {
     book_changes_log?: Book_changes_logListRelationFilter
     book_genre?: Book_genreListRelationFilter
     book_tags?: Book_tagsListRelationFilter
+    chapter?: ChapterListRelationFilter
     ranking?: RankingListRelationFilter
     reviews?: ReviewsListRelationFilter
   }
@@ -55861,6 +55973,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logOrderByRelationAggregateInput
     book_genre?: book_genreOrderByRelationAggregateInput
     book_tags?: book_tagsOrderByRelationAggregateInput
+    chapter?: chapterOrderByRelationAggregateInput
     ranking?: rankingOrderByRelationAggregateInput
     reviews?: reviewsOrderByRelationAggregateInput
   }
@@ -55897,6 +56010,7 @@ export namespace Prisma {
     book_changes_log?: Book_changes_logListRelationFilter
     book_genre?: Book_genreListRelationFilter
     book_tags?: Book_tagsListRelationFilter
+    chapter?: ChapterListRelationFilter
     ranking?: RankingListRelationFilter
     reviews?: ReviewsListRelationFilter
   }, "id">
@@ -56444,17 +56558,23 @@ export namespace Prisma {
     OR?: chapterWhereInput[]
     NOT?: chapterWhereInput | chapterWhereInput[]
     id?: UuidFilter<"chapter"> | string
-    id_product?: UuidFilter<"chapter"> | string
+    id_product?: UuidNullableFilter<"chapter"> | string | null
+    id_book?: UuidNullableFilter<"chapter"> | string | null
     number?: IntFilter<"chapter"> | number
     name?: StringFilter<"chapter"> | string
-    product?: XOR<ProductScalarRelationFilter, productWhereInput>
+    content?: StringFilter<"chapter"> | string
+    book?: XOR<BookNullableScalarRelationFilter, bookWhereInput> | null
+    product?: XOR<ProductNullableScalarRelationFilter, productWhereInput> | null
   }
 
   export type chapterOrderByWithRelationInput = {
     id?: SortOrder
-    id_product?: SortOrder
+    id_product?: SortOrderInput | SortOrder
+    id_book?: SortOrderInput | SortOrder
     number?: SortOrder
     name?: SortOrder
+    content?: SortOrder
+    book?: bookOrderByWithRelationInput
     product?: productOrderByWithRelationInput
   }
 
@@ -56463,17 +56583,22 @@ export namespace Prisma {
     AND?: chapterWhereInput | chapterWhereInput[]
     OR?: chapterWhereInput[]
     NOT?: chapterWhereInput | chapterWhereInput[]
-    id_product?: UuidFilter<"chapter"> | string
+    id_product?: UuidNullableFilter<"chapter"> | string | null
+    id_book?: UuidNullableFilter<"chapter"> | string | null
     number?: IntFilter<"chapter"> | number
     name?: StringFilter<"chapter"> | string
-    product?: XOR<ProductScalarRelationFilter, productWhereInput>
+    content?: StringFilter<"chapter"> | string
+    book?: XOR<BookNullableScalarRelationFilter, bookWhereInput> | null
+    product?: XOR<ProductNullableScalarRelationFilter, productWhereInput> | null
   }, "id">
 
   export type chapterOrderByWithAggregationInput = {
     id?: SortOrder
-    id_product?: SortOrder
+    id_product?: SortOrderInput | SortOrder
+    id_book?: SortOrderInput | SortOrder
     number?: SortOrder
     name?: SortOrder
+    content?: SortOrder
     _count?: chapterCountOrderByAggregateInput
     _avg?: chapterAvgOrderByAggregateInput
     _max?: chapterMaxOrderByAggregateInput
@@ -56486,9 +56611,11 @@ export namespace Prisma {
     OR?: chapterScalarWhereWithAggregatesInput[]
     NOT?: chapterScalarWhereWithAggregatesInput | chapterScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"chapter"> | string
-    id_product?: UuidWithAggregatesFilter<"chapter"> | string
+    id_product?: UuidNullableWithAggregatesFilter<"chapter"> | string | null
+    id_book?: UuidNullableWithAggregatesFilter<"chapter"> | string | null
     number?: IntWithAggregatesFilter<"chapter"> | number
     name?: StringWithAggregatesFilter<"chapter"> | string
+    content?: StringWithAggregatesFilter<"chapter"> | string
   }
 
   export type customerWhereInput = {
@@ -58841,6 +58968,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logCreateNestedManyWithoutBookInput
     book_genre?: book_genreCreateNestedManyWithoutBookInput
     book_tags?: book_tagsCreateNestedManyWithoutBookInput
+    chapter?: chapterCreateNestedManyWithoutBookInput
     ranking?: rankingCreateNestedManyWithoutBookInput
     reviews?: reviewsCreateNestedManyWithoutBookInput
   }
@@ -58872,6 +59000,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
     book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutBookInput
     ranking?: rankingUncheckedCreateNestedManyWithoutBookInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookInput
   }
@@ -58903,6 +59032,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUpdateManyWithoutBookNestedInput
+    chapter?: chapterUpdateManyWithoutBookNestedInput
     ranking?: rankingUpdateManyWithoutBookNestedInput
     reviews?: reviewsUpdateManyWithoutBookNestedInput
   }
@@ -58934,6 +59064,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutBookNestedInput
     ranking?: rankingUncheckedUpdateManyWithoutBookNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutBookNestedInput
   }
@@ -59482,48 +59613,61 @@ export namespace Prisma {
     id?: string
     number: number
     name: string
-    product: productCreateNestedOneWithoutChapterInput
+    content: string
+    book?: bookCreateNestedOneWithoutChapterInput
+    product?: productCreateNestedOneWithoutChapterInput
   }
 
   export type chapterUncheckedCreateInput = {
     id?: string
-    id_product: string
+    id_product?: string | null
+    id_book?: string | null
     number: number
     name: string
+    content: string
   }
 
   export type chapterUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    product?: productUpdateOneRequiredWithoutChapterNestedInput
+    content?: StringFieldUpdateOperationsInput | string
+    book?: bookUpdateOneWithoutChapterNestedInput
+    product?: productUpdateOneWithoutChapterNestedInput
   }
 
   export type chapterUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    id_product?: StringFieldUpdateOperationsInput | string
+    id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    id_book?: NullableStringFieldUpdateOperationsInput | string | null
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
   }
 
   export type chapterCreateManyInput = {
     id?: string
-    id_product: string
+    id_product?: string | null
+    id_book?: string | null
     number: number
     name: string
+    content: string
   }
 
   export type chapterUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
   }
 
   export type chapterUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    id_product?: StringFieldUpdateOperationsInput | string
+    id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    id_book?: NullableStringFieldUpdateOperationsInput | string | null
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
   }
 
   export type customerCreateInput = {
@@ -62001,6 +62145,12 @@ export namespace Prisma {
     none?: book_tagsWhereInput
   }
 
+  export type ChapterListRelationFilter = {
+    every?: chapterWhereInput
+    some?: chapterWhereInput
+    none?: chapterWhereInput
+  }
+
   export type RankingListRelationFilter = {
     every?: rankingWhereInput
     some?: rankingWhereInput
@@ -62020,6 +62170,10 @@ export namespace Prisma {
   }
 
   export type book_tagsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type chapterOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -62527,11 +62681,18 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type BookNullableScalarRelationFilter = {
+    is?: bookWhereInput | null
+    isNot?: bookWhereInput | null
+  }
+
   export type chapterCountOrderByAggregateInput = {
     id?: SortOrder
     id_product?: SortOrder
+    id_book?: SortOrder
     number?: SortOrder
     name?: SortOrder
+    content?: SortOrder
   }
 
   export type chapterAvgOrderByAggregateInput = {
@@ -62541,15 +62702,19 @@ export namespace Prisma {
   export type chapterMaxOrderByAggregateInput = {
     id?: SortOrder
     id_product?: SortOrder
+    id_book?: SortOrder
     number?: SortOrder
     name?: SortOrder
+    content?: SortOrder
   }
 
   export type chapterMinOrderByAggregateInput = {
     id?: SortOrder
     id_product?: SortOrder
+    id_book?: SortOrder
     number?: SortOrder
     name?: SortOrder
+    content?: SortOrder
   }
 
   export type chapterSumOrderByAggregateInput = {
@@ -62936,20 +63101,10 @@ export namespace Prisma {
     current_qty?: SortOrder
   }
 
-  export type ChapterListRelationFilter = {
-    every?: chapterWhereInput
-    some?: chapterWhereInput
-    none?: chapterWhereInput
-  }
-
   export type PreorderListRelationFilter = {
     every?: preorderWhereInput
     some?: preorderWhereInput
     none?: preorderWhereInput
-  }
-
-  export type chapterOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type preorderOrderByRelationAggregateInput = {
@@ -64441,6 +64596,13 @@ export namespace Prisma {
     connect?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
   }
 
+  export type chapterCreateNestedManyWithoutBookInput = {
+    create?: XOR<chapterCreateWithoutBookInput, chapterUncheckedCreateWithoutBookInput> | chapterCreateWithoutBookInput[] | chapterUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: chapterCreateOrConnectWithoutBookInput | chapterCreateOrConnectWithoutBookInput[]
+    createMany?: chapterCreateManyBookInputEnvelope
+    connect?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+  }
+
   export type rankingCreateNestedManyWithoutBookInput = {
     create?: XOR<rankingCreateWithoutBookInput, rankingUncheckedCreateWithoutBookInput> | rankingCreateWithoutBookInput[] | rankingUncheckedCreateWithoutBookInput[]
     connectOrCreate?: rankingCreateOrConnectWithoutBookInput | rankingCreateOrConnectWithoutBookInput[]
@@ -64481,6 +64643,13 @@ export namespace Prisma {
     connectOrCreate?: book_tagsCreateOrConnectWithoutBookInput | book_tagsCreateOrConnectWithoutBookInput[]
     createMany?: book_tagsCreateManyBookInputEnvelope
     connect?: book_tagsWhereUniqueInput | book_tagsWhereUniqueInput[]
+  }
+
+  export type chapterUncheckedCreateNestedManyWithoutBookInput = {
+    create?: XOR<chapterCreateWithoutBookInput, chapterUncheckedCreateWithoutBookInput> | chapterCreateWithoutBookInput[] | chapterUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: chapterCreateOrConnectWithoutBookInput | chapterCreateOrConnectWithoutBookInput[]
+    createMany?: chapterCreateManyBookInputEnvelope
+    connect?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
   }
 
   export type rankingUncheckedCreateNestedManyWithoutBookInput = {
@@ -64589,6 +64758,20 @@ export namespace Prisma {
     deleteMany?: book_tagsScalarWhereInput | book_tagsScalarWhereInput[]
   }
 
+  export type chapterUpdateManyWithoutBookNestedInput = {
+    create?: XOR<chapterCreateWithoutBookInput, chapterUncheckedCreateWithoutBookInput> | chapterCreateWithoutBookInput[] | chapterUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: chapterCreateOrConnectWithoutBookInput | chapterCreateOrConnectWithoutBookInput[]
+    upsert?: chapterUpsertWithWhereUniqueWithoutBookInput | chapterUpsertWithWhereUniqueWithoutBookInput[]
+    createMany?: chapterCreateManyBookInputEnvelope
+    set?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    disconnect?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    delete?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    connect?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    update?: chapterUpdateWithWhereUniqueWithoutBookInput | chapterUpdateWithWhereUniqueWithoutBookInput[]
+    updateMany?: chapterUpdateManyWithWhereWithoutBookInput | chapterUpdateManyWithWhereWithoutBookInput[]
+    deleteMany?: chapterScalarWhereInput | chapterScalarWhereInput[]
+  }
+
   export type rankingUpdateManyWithoutBookNestedInput = {
     create?: XOR<rankingCreateWithoutBookInput, rankingUncheckedCreateWithoutBookInput> | rankingCreateWithoutBookInput[] | rankingUncheckedCreateWithoutBookInput[]
     connectOrCreate?: rankingCreateOrConnectWithoutBookInput | rankingCreateOrConnectWithoutBookInput[]
@@ -64671,6 +64854,20 @@ export namespace Prisma {
     update?: book_tagsUpdateWithWhereUniqueWithoutBookInput | book_tagsUpdateWithWhereUniqueWithoutBookInput[]
     updateMany?: book_tagsUpdateManyWithWhereWithoutBookInput | book_tagsUpdateManyWithWhereWithoutBookInput[]
     deleteMany?: book_tagsScalarWhereInput | book_tagsScalarWhereInput[]
+  }
+
+  export type chapterUncheckedUpdateManyWithoutBookNestedInput = {
+    create?: XOR<chapterCreateWithoutBookInput, chapterUncheckedCreateWithoutBookInput> | chapterCreateWithoutBookInput[] | chapterUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: chapterCreateOrConnectWithoutBookInput | chapterCreateOrConnectWithoutBookInput[]
+    upsert?: chapterUpsertWithWhereUniqueWithoutBookInput | chapterUpsertWithWhereUniqueWithoutBookInput[]
+    createMany?: chapterCreateManyBookInputEnvelope
+    set?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    disconnect?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    delete?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    connect?: chapterWhereUniqueInput | chapterWhereUniqueInput[]
+    update?: chapterUpdateWithWhereUniqueWithoutBookInput | chapterUpdateWithWhereUniqueWithoutBookInput[]
+    updateMany?: chapterUpdateManyWithWhereWithoutBookInput | chapterUpdateManyWithWhereWithoutBookInput[]
+    deleteMany?: chapterScalarWhereInput | chapterScalarWhereInput[]
   }
 
   export type rankingUncheckedUpdateManyWithoutBookNestedInput = {
@@ -65133,6 +65330,12 @@ export namespace Prisma {
     deleteMany?: product_categoryScalarWhereInput | product_categoryScalarWhereInput[]
   }
 
+  export type bookCreateNestedOneWithoutChapterInput = {
+    create?: XOR<bookCreateWithoutChapterInput, bookUncheckedCreateWithoutChapterInput>
+    connectOrCreate?: bookCreateOrConnectWithoutChapterInput
+    connect?: bookWhereUniqueInput
+  }
+
   export type productCreateNestedOneWithoutChapterInput = {
     create?: XOR<productCreateWithoutChapterInput, productUncheckedCreateWithoutChapterInput>
     connectOrCreate?: productCreateOrConnectWithoutChapterInput
@@ -65147,10 +65350,22 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type productUpdateOneRequiredWithoutChapterNestedInput = {
+  export type bookUpdateOneWithoutChapterNestedInput = {
+    create?: XOR<bookCreateWithoutChapterInput, bookUncheckedCreateWithoutChapterInput>
+    connectOrCreate?: bookCreateOrConnectWithoutChapterInput
+    upsert?: bookUpsertWithoutChapterInput
+    disconnect?: bookWhereInput | boolean
+    delete?: bookWhereInput | boolean
+    connect?: bookWhereUniqueInput
+    update?: XOR<XOR<bookUpdateToOneWithWhereWithoutChapterInput, bookUpdateWithoutChapterInput>, bookUncheckedUpdateWithoutChapterInput>
+  }
+
+  export type productUpdateOneWithoutChapterNestedInput = {
     create?: XOR<productCreateWithoutChapterInput, productUncheckedCreateWithoutChapterInput>
     connectOrCreate?: productCreateOrConnectWithoutChapterInput
     upsert?: productUpsertWithoutChapterInput
+    disconnect?: productWhereInput | boolean
+    delete?: productWhereInput | boolean
     connect?: productWhereUniqueInput
     update?: XOR<XOR<productUpdateToOneWithWhereWithoutChapterInput, productUpdateWithoutChapterInput>, productUncheckedUpdateWithoutChapterInput>
   }
@@ -68680,6 +68895,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logCreateNestedManyWithoutBookInput
     book_genre?: book_genreCreateNestedManyWithoutBookInput
     book_tags?: book_tagsCreateNestedManyWithoutBookInput
+    chapter?: chapterCreateNestedManyWithoutBookInput
     ranking?: rankingCreateNestedManyWithoutBookInput
     reviews?: reviewsCreateNestedManyWithoutBookInput
   }
@@ -68710,6 +68926,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
     book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutBookInput
     ranking?: rankingUncheckedCreateNestedManyWithoutBookInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookInput
   }
@@ -69176,6 +69393,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type chapterCreateWithoutBookInput = {
+    id?: string
+    number: number
+    name: string
+    content: string
+    product?: productCreateNestedOneWithoutChapterInput
+  }
+
+  export type chapterUncheckedCreateWithoutBookInput = {
+    id?: string
+    id_product?: string | null
+    number: number
+    name: string
+    content: string
+  }
+
+  export type chapterCreateOrConnectWithoutBookInput = {
+    where: chapterWhereUniqueInput
+    create: XOR<chapterCreateWithoutBookInput, chapterUncheckedCreateWithoutBookInput>
+  }
+
+  export type chapterCreateManyBookInputEnvelope = {
+    data: chapterCreateManyBookInput | chapterCreateManyBookInput[]
+    skipDuplicates?: boolean
+  }
+
   export type rankingCreateWithoutBookInput = {
     id?: string
   }
@@ -69433,6 +69676,34 @@ export namespace Prisma {
     id_book?: UuidFilter<"book_tags"> | string
   }
 
+  export type chapterUpsertWithWhereUniqueWithoutBookInput = {
+    where: chapterWhereUniqueInput
+    update: XOR<chapterUpdateWithoutBookInput, chapterUncheckedUpdateWithoutBookInput>
+    create: XOR<chapterCreateWithoutBookInput, chapterUncheckedCreateWithoutBookInput>
+  }
+
+  export type chapterUpdateWithWhereUniqueWithoutBookInput = {
+    where: chapterWhereUniqueInput
+    data: XOR<chapterUpdateWithoutBookInput, chapterUncheckedUpdateWithoutBookInput>
+  }
+
+  export type chapterUpdateManyWithWhereWithoutBookInput = {
+    where: chapterScalarWhereInput
+    data: XOR<chapterUpdateManyMutationInput, chapterUncheckedUpdateManyWithoutBookInput>
+  }
+
+  export type chapterScalarWhereInput = {
+    AND?: chapterScalarWhereInput | chapterScalarWhereInput[]
+    OR?: chapterScalarWhereInput[]
+    NOT?: chapterScalarWhereInput | chapterScalarWhereInput[]
+    id?: UuidFilter<"chapter"> | string
+    id_product?: UuidNullableFilter<"chapter"> | string | null
+    id_book?: UuidNullableFilter<"chapter"> | string | null
+    number?: IntFilter<"chapter"> | number
+    name?: StringFilter<"chapter"> | string
+    content?: StringFilter<"chapter"> | string
+  }
+
   export type rankingUpsertWithWhereUniqueWithoutBookInput = {
     where: rankingWhereUniqueInput
     update: XOR<rankingUpdateWithoutBookInput, rankingUncheckedUpdateWithoutBookInput>
@@ -69499,6 +69770,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logCreateNestedManyWithoutBookInput
     book_genre?: book_genreCreateNestedManyWithoutBookInput
     book_tags?: book_tagsCreateNestedManyWithoutBookInput
+    chapter?: chapterCreateNestedManyWithoutBookInput
     ranking?: rankingCreateNestedManyWithoutBookInput
     reviews?: reviewsCreateNestedManyWithoutBookInput
   }
@@ -69529,6 +69801,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
     book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutBookInput
     ranking?: rankingUncheckedCreateNestedManyWithoutBookInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookInput
   }
@@ -69602,6 +69875,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUpdateManyWithoutBookNestedInput
+    chapter?: chapterUpdateManyWithoutBookNestedInput
     ranking?: rankingUpdateManyWithoutBookNestedInput
     reviews?: reviewsUpdateManyWithoutBookNestedInput
   }
@@ -69632,6 +69906,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutBookNestedInput
     ranking?: rankingUncheckedUpdateManyWithoutBookNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutBookNestedInput
   }
@@ -69695,6 +69970,7 @@ export namespace Prisma {
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
     book_genre?: book_genreCreateNestedManyWithoutBookInput
     book_tags?: book_tagsCreateNestedManyWithoutBookInput
+    chapter?: chapterCreateNestedManyWithoutBookInput
     ranking?: rankingCreateNestedManyWithoutBookInput
     reviews?: reviewsCreateNestedManyWithoutBookInput
   }
@@ -69725,6 +70001,7 @@ export namespace Prisma {
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
     book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutBookInput
     ranking?: rankingUncheckedCreateNestedManyWithoutBookInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookInput
   }
@@ -69771,6 +70048,7 @@ export namespace Prisma {
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUpdateManyWithoutBookNestedInput
+    chapter?: chapterUpdateManyWithoutBookNestedInput
     ranking?: rankingUpdateManyWithoutBookNestedInput
     reviews?: reviewsUpdateManyWithoutBookNestedInput
   }
@@ -69801,6 +70079,7 @@ export namespace Prisma {
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutBookNestedInput
     ranking?: rankingUncheckedUpdateManyWithoutBookNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutBookNestedInput
   }
@@ -69831,6 +70110,7 @@ export namespace Prisma {
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logCreateNestedManyWithoutBookInput
     book_tags?: book_tagsCreateNestedManyWithoutBookInput
+    chapter?: chapterCreateNestedManyWithoutBookInput
     ranking?: rankingCreateNestedManyWithoutBookInput
     reviews?: reviewsCreateNestedManyWithoutBookInput
   }
@@ -69861,6 +70141,7 @@ export namespace Prisma {
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutBookInput
     ranking?: rankingUncheckedCreateNestedManyWithoutBookInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookInput
   }
@@ -69932,6 +70213,7 @@ export namespace Prisma {
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUpdateManyWithoutBookNestedInput
+    chapter?: chapterUpdateManyWithoutBookNestedInput
     ranking?: rankingUpdateManyWithoutBookNestedInput
     reviews?: reviewsUpdateManyWithoutBookNestedInput
   }
@@ -69962,6 +70244,7 @@ export namespace Prisma {
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutBookNestedInput
     ranking?: rankingUncheckedUpdateManyWithoutBookNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutBookNestedInput
   }
@@ -70023,6 +70306,7 @@ export namespace Prisma {
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logCreateNestedManyWithoutBookInput
     book_genre?: book_genreCreateNestedManyWithoutBookInput
+    chapter?: chapterCreateNestedManyWithoutBookInput
     ranking?: rankingCreateNestedManyWithoutBookInput
     reviews?: reviewsCreateNestedManyWithoutBookInput
   }
@@ -70053,6 +70337,7 @@ export namespace Prisma {
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutBookInput
     ranking?: rankingUncheckedCreateNestedManyWithoutBookInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookInput
   }
@@ -70124,6 +70409,7 @@ export namespace Prisma {
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUpdateManyWithoutBookNestedInput
+    chapter?: chapterUpdateManyWithoutBookNestedInput
     ranking?: rankingUpdateManyWithoutBookNestedInput
     reviews?: reviewsUpdateManyWithoutBookNestedInput
   }
@@ -70154,6 +70440,7 @@ export namespace Prisma {
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutBookNestedInput
     ranking?: rankingUncheckedUpdateManyWithoutBookNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutBookNestedInput
   }
@@ -70920,6 +71207,73 @@ export namespace Prisma {
     id?: UuidFilter<"product_category"> | string
   }
 
+  export type bookCreateWithoutChapterInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    submitted_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+    is_chapter?: boolean
+    author?: authorCreateNestedOneWithoutBookInput
+    product?: productCreateNestedOneWithoutBookInput
+    book_approval?: book_approvalCreateNestedManyWithoutBookInput
+    book_changes_log?: book_changes_logCreateNestedManyWithoutBookInput
+    book_genre?: book_genreCreateNestedManyWithoutBookInput
+    book_tags?: book_tagsCreateNestedManyWithoutBookInput
+    ranking?: rankingCreateNestedManyWithoutBookInput
+    reviews?: reviewsCreateNestedManyWithoutBookInput
+  }
+
+  export type bookUncheckedCreateWithoutChapterInput = {
+    id?: string
+    name: string
+    slug: string
+    alias?: string
+    submitted_price: Decimal | DecimalJsLike | number | string
+    desc?: string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: string
+    currency?: string
+    deleted_at?: Date | string | null
+    img_file?: string
+    cover?: string
+    product_file?: string
+    sku?: string
+    id_author?: string | null
+    published_date?: Date | string
+    is_physical?: boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: number | null
+    content_type?: string | null
+    is_chapter?: boolean
+    id_product?: string | null
+    book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
+    book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
+    book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
+    book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
+    ranking?: rankingUncheckedCreateNestedManyWithoutBookInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutBookInput
+  }
+
+  export type bookCreateOrConnectWithoutChapterInput = {
+    where: bookWhereUniqueInput
+    create: XOR<bookCreateWithoutChapterInput, bookUncheckedCreateWithoutChapterInput>
+  }
+
   export type productCreateWithoutChapterInput = {
     id?: string
     name: string
@@ -70987,6 +71341,79 @@ export namespace Prisma {
   export type productCreateOrConnectWithoutChapterInput = {
     where: productWhereUniqueInput
     create: XOR<productCreateWithoutChapterInput, productUncheckedCreateWithoutChapterInput>
+  }
+
+  export type bookUpsertWithoutChapterInput = {
+    update: XOR<bookUpdateWithoutChapterInput, bookUncheckedUpdateWithoutChapterInput>
+    create: XOR<bookCreateWithoutChapterInput, bookUncheckedCreateWithoutChapterInput>
+    where?: bookWhereInput
+  }
+
+  export type bookUpdateToOneWithWhereWithoutChapterInput = {
+    where?: bookWhereInput
+    data: XOR<bookUpdateWithoutChapterInput, bookUncheckedUpdateWithoutChapterInput>
+  }
+
+  export type bookUpdateWithoutChapterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    author?: authorUpdateOneWithoutBookNestedInput
+    product?: productUpdateOneWithoutBookNestedInput
+    book_approval?: book_approvalUpdateManyWithoutBookNestedInput
+    book_changes_log?: book_changes_logUpdateManyWithoutBookNestedInput
+    book_genre?: book_genreUpdateManyWithoutBookNestedInput
+    book_tags?: book_tagsUpdateManyWithoutBookNestedInput
+    ranking?: rankingUpdateManyWithoutBookNestedInput
+    reviews?: reviewsUpdateManyWithoutBookNestedInput
+  }
+
+  export type bookUncheckedUpdateWithoutChapterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    alias?: StringFieldUpdateOperationsInput | string
+    submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    desc?: StringFieldUpdateOperationsInput | string
+    info?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    img_file?: StringFieldUpdateOperationsInput | string
+    cover?: StringFieldUpdateOperationsInput | string
+    product_file?: StringFieldUpdateOperationsInput | string
+    sku?: StringFieldUpdateOperationsInput | string
+    id_author?: NullableStringFieldUpdateOperationsInput | string | null
+    published_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_physical?: BoolFieldUpdateOperationsInput | boolean
+    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
+    preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
+    content_type?: NullableStringFieldUpdateOperationsInput | string | null
+    is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
+    book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
+    book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
+    book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
+    ranking?: rankingUncheckedUpdateManyWithoutBookNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutBookNestedInput
   }
 
   export type productUpsertWithoutChapterInput = {
@@ -72397,6 +72824,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logCreateNestedManyWithoutBookInput
     book_genre?: book_genreCreateNestedManyWithoutBookInput
     book_tags?: book_tagsCreateNestedManyWithoutBookInput
+    chapter?: chapterCreateNestedManyWithoutBookInput
     ranking?: rankingCreateNestedManyWithoutBookInput
     reviews?: reviewsCreateNestedManyWithoutBookInput
   }
@@ -72427,6 +72855,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
     book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutBookInput
     ranking?: rankingUncheckedCreateNestedManyWithoutBookInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookInput
   }
@@ -72467,12 +72896,16 @@ export namespace Prisma {
     id?: string
     number: number
     name: string
+    content: string
+    book?: bookCreateNestedOneWithoutChapterInput
   }
 
   export type chapterUncheckedCreateWithoutProductInput = {
     id?: string
+    id_book?: string | null
     number: number
     name: string
+    content: string
   }
 
   export type chapterCreateOrConnectWithoutProductInput = {
@@ -72678,16 +73111,6 @@ export namespace Prisma {
   export type chapterUpdateManyWithWhereWithoutProductInput = {
     where: chapterScalarWhereInput
     data: XOR<chapterUpdateManyMutationInput, chapterUncheckedUpdateManyWithoutProductInput>
-  }
-
-  export type chapterScalarWhereInput = {
-    AND?: chapterScalarWhereInput | chapterScalarWhereInput[]
-    OR?: chapterScalarWhereInput[]
-    NOT?: chapterScalarWhereInput | chapterScalarWhereInput[]
-    id?: UuidFilter<"chapter"> | string
-    id_product?: UuidFilter<"chapter"> | string
-    number?: IntFilter<"chapter"> | number
-    name?: StringFilter<"chapter"> | string
   }
 
   export type customer_readerUpsertWithWhereUniqueWithoutProductInput = {
@@ -73640,6 +74063,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logCreateNestedManyWithoutBookInput
     book_genre?: book_genreCreateNestedManyWithoutBookInput
     book_tags?: book_tagsCreateNestedManyWithoutBookInput
+    chapter?: chapterCreateNestedManyWithoutBookInput
     reviews?: reviewsCreateNestedManyWithoutBookInput
   }
 
@@ -73670,6 +74094,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
     book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutBookInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutBookInput
   }
 
@@ -73716,6 +74141,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUpdateManyWithoutBookNestedInput
+    chapter?: chapterUpdateManyWithoutBookNestedInput
     reviews?: reviewsUpdateManyWithoutBookNestedInput
   }
 
@@ -73746,6 +74172,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutBookNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutBookNestedInput
   }
 
@@ -73776,6 +74203,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logCreateNestedManyWithoutBookInput
     book_genre?: book_genreCreateNestedManyWithoutBookInput
     book_tags?: book_tagsCreateNestedManyWithoutBookInput
+    chapter?: chapterCreateNestedManyWithoutBookInput
     ranking?: rankingCreateNestedManyWithoutBookInput
   }
 
@@ -73806,6 +74234,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
     book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
+    chapter?: chapterUncheckedCreateNestedManyWithoutBookInput
     ranking?: rankingUncheckedCreateNestedManyWithoutBookInput
   }
 
@@ -73921,6 +74350,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUpdateManyWithoutBookNestedInput
+    chapter?: chapterUpdateManyWithoutBookNestedInput
     ranking?: rankingUpdateManyWithoutBookNestedInput
   }
 
@@ -73951,6 +74381,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutBookNestedInput
     ranking?: rankingUncheckedUpdateManyWithoutBookNestedInput
   }
 
@@ -75857,6 +76288,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUpdateManyWithoutBookNestedInput
+    chapter?: chapterUpdateManyWithoutBookNestedInput
     ranking?: rankingUpdateManyWithoutBookNestedInput
     reviews?: reviewsUpdateManyWithoutBookNestedInput
   }
@@ -75887,6 +76319,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutBookNestedInput
     ranking?: rankingUncheckedUpdateManyWithoutBookNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutBookNestedInput
   }
@@ -76041,6 +76474,14 @@ export namespace Prisma {
     id_tags: string
   }
 
+  export type chapterCreateManyBookInput = {
+    id?: string
+    id_product?: string | null
+    number: number
+    name: string
+    content: string
+  }
+
   export type rankingCreateManyBookInput = {
     id?: string
   }
@@ -76122,6 +76563,30 @@ export namespace Prisma {
   export type book_tagsUncheckedUpdateManyWithoutBookInput = {
     id?: StringFieldUpdateOperationsInput | string
     id_tags?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type chapterUpdateWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    product?: productUpdateOneWithoutChapterNestedInput
+  }
+
+  export type chapterUncheckedUpdateWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    number?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type chapterUncheckedUpdateManyWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    number?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
   }
 
   export type rankingUpdateWithoutBookInput = {
@@ -76800,8 +77265,10 @@ export namespace Prisma {
 
   export type chapterCreateManyProductInput = {
     id?: string
+    id_book?: string | null
     number: number
     name: string
+    content: string
   }
 
   export type customer_readerCreateManyProductInput = {
@@ -76867,6 +77334,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUpdateManyWithoutBookNestedInput
+    chapter?: chapterUpdateManyWithoutBookNestedInput
     ranking?: rankingUpdateManyWithoutBookNestedInput
     reviews?: reviewsUpdateManyWithoutBookNestedInput
   }
@@ -76897,6 +77365,7 @@ export namespace Prisma {
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
+    chapter?: chapterUncheckedUpdateManyWithoutBookNestedInput
     ranking?: rankingUncheckedUpdateManyWithoutBookNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutBookNestedInput
   }
@@ -76947,18 +77416,24 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    book?: bookUpdateOneWithoutChapterNestedInput
   }
 
   export type chapterUncheckedUpdateWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
+    id_book?: NullableStringFieldUpdateOperationsInput | string | null
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
   }
 
   export type chapterUncheckedUpdateManyWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
+    id_book?: NullableStringFieldUpdateOperationsInput | string | null
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
   }
 
   export type customer_readerUpdateWithoutProductInput = {

@@ -21,7 +21,9 @@ import {
 } from "@/components/ui/table";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
+import { navigate } from "@/lib/router";
 import { Role, type Book, type TSalesLine } from "backend/api/types";
+import { ChevronRight } from "lucide-react";
 
 export default () => {
   const local = useLocal(
@@ -199,9 +201,40 @@ export default () => {
                 {/* Book details */}
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-2xl">
-                      Data Penjualan Buku
-                    </CardTitle>
+                    {/* Breadcrumb Navigation */}
+                    <nav className="flex items-center text-sm text-gray-600 mb-4">
+                      <button
+                        onClick={() => navigate("/dashboard")}
+                        className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
+                      >
+                        Beranda
+                      </button>
+                      <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+                      <button
+                        onClick={() => navigate("/manage-book")}
+                        className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
+                      >
+                        Daftar Buku
+                      </button>
+                      <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+                      <button
+                        onClick={() =>
+                          navigate("/book-step?id=" + local.bookId)
+                        }
+                        className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
+                      >
+                        Proses Buku
+                      </button>
+                      <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+                      <span className="text-gray-800 font-medium">
+                        Penjualan Buku
+                      </span>
+                    </nav>
+
+                    {/* Divider line */}
+                    <div className="border-b border-gray-200 mb-6"></div>
+
+                    <CardTitle className="text-2xl">Penjualan Buku</CardTitle>
                     <CardDescription>{local.book?.name}</CardDescription>
                   </CardHeader>
                   <CardContent>

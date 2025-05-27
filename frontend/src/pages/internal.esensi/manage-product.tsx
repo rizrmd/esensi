@@ -56,16 +56,7 @@ export default function ProductListPage() {
   if (local.loading) return <AppLoading />;
 
   return (
-    <Protected
-      role={[Role.INTERNAL]}
-      onLoad={async ({ user }) => {
-        if (user) {
-          if (!user.idAuthor) await api.register_user({ user });
-          await loadData();
-          local.render();
-        }
-      }}
-    >
+    <Protected role={[Role.INTERNAL]}>
       <div className="flex min-h-svh flex-col bg-gray-50">
         <InternalMenuBar />
 

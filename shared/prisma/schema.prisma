@@ -144,6 +144,7 @@ model book {
   book_changes_log     book_changes_log[]
   book_genre           book_genre[]
   book_tags            book_tags[]
+  chapter              chapter[]
   ranking              ranking[]
   reviews              reviews[]
 }
@@ -234,11 +235,14 @@ model category {
 }
 
 model chapter {
-  id         String  @id(map: "chapter_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_product String  @db.Uuid
+  id         String   @id(map: "chapter_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_product String?  @db.Uuid
+  id_book    String?  @db.Uuid
   number     Int
   name       String
-  product    product @relation(fields: [id_product], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  content    String
+  book       book?    @relation(fields: [id_book], references: [id], onDelete: Restrict, map: "chapter_fk_id_book")
+  product    product? @relation(fields: [id_product], references: [id], onDelete: Restrict, map: "chapter_fk_id_product")
 }
 
 model customer {
