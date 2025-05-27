@@ -189,16 +189,16 @@ export default () => {
       onLoad={async ({ user }) => {
         if (user && !user.idAuthor) await api.register_user({ user });
       }}
-      fallback={({ missing_role }) => {
-        if (
-          missing_role.includes("publisher") ||
-          missing_role.includes("author")
-        ) {
-          navigate("/onboarding");
-          return <AppLoading />;
-        }
-        return null;
-      }}
+      // fallback={({ missing_role }) => {
+      //   if (
+      //     missing_role.includes("publisher") ||
+      //     missing_role.includes("author")
+      //   ) {
+      //     navigate("/onboarding");
+      //     return <AppLoading />;
+      //   }
+      //   return null;
+      // }}
     >
       <div className="flex min-h-svh flex-col bg-gray-50">
         <PublishMenuBar />
