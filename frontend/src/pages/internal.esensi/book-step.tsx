@@ -26,6 +26,7 @@ export default function BookStepPag() {
       const params = new URLSearchParams(location.search);
       const bookId = params.get("id");
       const bookIdQueryString = bookId ? `?id=${bookId}` : "";
+
       if (!!bookId) {
         try {
           const res = await api.book_detail({ id: bookId });

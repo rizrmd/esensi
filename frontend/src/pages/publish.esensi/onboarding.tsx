@@ -13,9 +13,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { betterAuth, type User } from "@/lib/better-auth";
+import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import { getMimeType } from "@/lib/utils";
+import type { UploadAPIResponse } from "backend/api/upload";
 import type { FormEvent } from "react";
 
 export const current = {
@@ -27,6 +30,7 @@ export default () => {
     {
       submitting: false,
       role: "author", // Default to author
+      files: [] as File[],
       formData: {
         publisher: {
           name: "",
@@ -50,8 +54,31 @@ export default () => {
     async () => {
       const res = await betterAuth.getSession();
       current.user = res.data?.user;
+      await loadData();
     }
   );
+
+  async function loadData() {
+    if (current.user?.image) {
+      try {
+        const imageUrl = `${baseUrl.auth_esensi}/${current.user.image}`;
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+
+        const fileName = current.user.image.split("/").pop() || "profile.jpg";
+        const extension = fileName.split(".").pop()?.toLowerCase();
+        const mimeType = getMimeType(extension);
+
+        const file = new File([blob], fileName, {
+          type: mimeType,
+          lastModified: new Date().getTime(),
+        });
+        local.files = [file];
+      } catch (error) {
+        console.error("Error fetching profile image:", error);
+      }
+    }
+  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -73,7 +100,18 @@ export default () => {
           return;
         }
 
-        // First save the basic profile information
+        if (local.files.length > 0) {
+          const file = local.files[0];
+          const formData = new FormData();
+          formData.append("file", file);
+          const res = await fetch(`${baseUrl.auth_esensi}/api/upload`, {
+            method: "POST",
+            body: formData,
+          });
+          const uploaded: UploadAPIResponse = await res.json();
+          if (uploaded.name) current.user!.image = uploaded.name;
+        }
+
         const result = await api.onboarding({
           role: "publisher",
           user: current.user!,
@@ -101,7 +139,18 @@ export default () => {
           return;
         }
 
-        // Call API to save author profile
+        if (local.files.length > 0) {
+          const file = local.files[0];
+          const formData = new FormData();
+          formData.append("file", file);
+          const res = await fetch(`${baseUrl.auth_esensi}/api/upload`, {
+            method: "POST",
+            body: formData,
+          });
+          const uploaded: UploadAPIResponse = await res.json();
+          if (uploaded.name) current.user!.image = uploaded.name;
+        }
+
         const result = await api.onboarding({
           role: "author",
           user: current.user!,
@@ -282,54 +331,47 @@ export default () => {
                         </div>
 
                         <div>
-                          <Label htmlFor="publisher-logo">Logo Penerbit</Label>
-                          <div className="mt-1 border rounded-lg overflow-hidden bg-muted/50 w-40 h-40 flex items-center justify-center relative">
-                            {local.formData.publisher.logoPreview ? (
-                              <>
+                          <Label>Logo Penerbit</Label>
+                          <div className="mt-2 flex items-center gap-4">
+                            {current.user?.image || local.files.length > 0 ? (
+                              <div className="relative w-20 h-20 rounded-full overflow-hidden border bg-gray-100">
                                 <img
-                                  src={local.formData.publisher.logoPreview}
-                                  alt="Logo Preview"
-                                  className="w-full h-full object-contain"
+                                  src={
+                                    local.files.length > 0
+                                      ? URL.createObjectURL(local.files[0])
+                                      : `${baseUrl.auth_esensi}/${current.user?.image}`
+                                  }
+                                  alt="Foto Profil"
+                                  className="w-full h-full object-cover"
                                 />
-                                <Button
-                                  type="button"
-                                  variant="destructive"
-                                  size="sm"
-                                  className="absolute top-2 right-2"
-                                  onClick={() => {
-                                    local.formData.publisher.logo = null;
-                                    local.formData.publisher.logoPreview = "";
-                                    local.render();
-                                  }}
-                                >
-                                  Hapus
-                                </Button>
-                              </>
+                              </div>
                             ) : (
-                              <div className="text-center p-4">
-                                <div className="text-3xl mb-2">🏢</div>
-                                <p className="text-muted-foreground text-sm mb-4">
-                                  Unggah logo
-                                </p>
-                                <Label
-                                  htmlFor="logoUpload"
-                                  className="cursor-pointer"
-                                >
-                                  <span className="bg-primary text-primary-foreground px-3 py-2 rounded-md text-sm">
-                                    Pilih Gambar
-                                  </span>
-                                  <Input
-                                    id="logoUpload"
-                                    type="file"
-                                    accept="image/*"
-                                    className="hidden"
-                                    onChange={(e) =>
-                                      handleImageUpload(e, "logo")
-                                    }
-                                  />
-                                </Label>
+                              <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center">
+                                <span className="text-gray-500 text-xs">
+                                  Tidak ada foto
+                                </span>
                               </div>
                             )}
+                            <div>
+                              <Input
+                                id="profile-image"
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                  if (
+                                    e.target.files &&
+                                    e.target.files.length > 0
+                                  ) {
+                                    local.files = [e.target.files[0]];
+                                    local.render();
+                                  }
+                                }}
+                                className="max-w-sm"
+                              />
+                              <p className="text-xs text-gray-500 mt-1">
+                                Upload gambar berformat JPG, PNG, atau GIF.
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -396,54 +438,47 @@ export default () => {
                         </div>
 
                         <div>
-                          <Label htmlFor="author-avatar">Foto Profil</Label>
-                          <div className="mt-1 border rounded-lg overflow-hidden bg-muted/50 w-40 h-40 flex items-center justify-center relative">
-                            {local.formData.author.avatarPreview ? (
-                              <>
+                          <Label>Foto Profil</Label>
+                          <div className="mt-2 flex items-center gap-4">
+                            {current.user?.image || local.files.length > 0 ? (
+                              <div className="relative w-20 h-20 rounded-full overflow-hidden border bg-gray-100">
                                 <img
-                                  src={local.formData.author.avatarPreview}
-                                  alt="Avatar Preview"
+                                  src={
+                                    local.files.length > 0
+                                      ? URL.createObjectURL(local.files[0])
+                                      : `${baseUrl.auth_esensi}/${current.user?.image}`
+                                  }
+                                  alt="Foto Profil"
                                   className="w-full h-full object-cover"
                                 />
-                                <Button
-                                  type="button"
-                                  variant="destructive"
-                                  size="sm"
-                                  className="absolute top-2 right-2"
-                                  onClick={() => {
-                                    local.formData.author.avatar = null;
-                                    local.formData.author.avatarPreview = "";
-                                    local.render();
-                                  }}
-                                >
-                                  Hapus
-                                </Button>
-                              </>
+                              </div>
                             ) : (
-                              <div className="text-center p-4">
-                                <div className="text-3xl mb-2">👤</div>
-                                <p className="text-muted-foreground text-sm mb-4">
-                                  Unggah foto
-                                </p>
-                                <Label
-                                  htmlFor="avatarUpload"
-                                  className="cursor-pointer"
-                                >
-                                  <span className="bg-primary text-primary-foreground px-3 py-2 rounded-md text-sm">
-                                    Pilih Gambar
-                                  </span>
-                                  <Input
-                                    id="avatarUpload"
-                                    type="file"
-                                    accept="image/*"
-                                    className="hidden"
-                                    onChange={(e) =>
-                                      handleImageUpload(e, "avatar")
-                                    }
-                                  />
-                                </Label>
+                              <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center">
+                                <span className="text-gray-500 text-xs">
+                                  Tidak ada foto
+                                </span>
                               </div>
                             )}
+                            <div>
+                              <Input
+                                id="profile-image"
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                  if (
+                                    e.target.files &&
+                                    e.target.files.length > 0
+                                  ) {
+                                    local.files = [e.target.files[0]];
+                                    local.render();
+                                  }
+                                }}
+                                className="max-w-sm"
+                              />
+                              <p className="text-xs text-gray-500 mt-1">
+                                Upload gambar berformat JPG, PNG, atau GIF.
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>

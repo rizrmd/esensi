@@ -14,7 +14,7 @@ export default () => {
     <Protected
       role={["publisher", "author"]}
       onLoad={async ({ user }) => {
-        if (user && !user.idAuthor) await api.register_user({ user });
+        // if (user && !user.idAuthor) await api.register_user({ user });
       }}
       fallback={({ missing_role }) => {
         if (

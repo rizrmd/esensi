@@ -23,7 +23,35 @@ export default function BookStepPag() {
       const bookId = params.get("id");
       const bookIdQueryString = bookId ? `?id=${bookId}` : "";
 
-      if (!!bookId) {
+      if (!bookId) {
+        local.steps = [
+          {
+            title: "Formulir Informasi Buku",
+            description:
+              "Penulis bisa menambah dan memperbarui data informasi buku.",
+            link:
+              (local.step > 0 || local.book?.status === BookStatus.REJECTED
+                ? "book-detail"
+                : bookId
+                ? "book-update"
+                : "book-create") + bookIdQueryString,
+          },
+          {
+            title: "Persetujuan Buku",
+            description:
+              "Penulis bisa berkomunikasi dengan internal untuk memeriksa kelayakan buku untuk terbit.",
+            link: "book-approval" + bookIdQueryString,
+          },
+          {
+            title: "Penjualan Buku",
+            description:
+              "Penulis bisa melihat laporan penjualan buku yang sudah terbit.",
+            link: "book-sales" + bookIdQueryString,
+          },
+        ];
+        local.loading = false;
+        local.render();
+      } else {
         try {
           const res = await api.book_detail({ id: bookId });
           if (!res.data) local.error = "Buku tidak ditemukan.";
