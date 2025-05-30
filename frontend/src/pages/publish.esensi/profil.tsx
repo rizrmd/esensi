@@ -1,6 +1,6 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
-import { PublishMenuBar } from "@/components/publish/menu-bar";
+import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -194,7 +194,7 @@ export default () => {
       }}
     >
       <div className="flex min-h-svh flex-col bg-gray-50">
-        <PublishMenuBar title="Profil" />
+        <MenuBarPublish title="Profil" />
 
         <main className="flex-1">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">

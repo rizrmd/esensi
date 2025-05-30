@@ -9,7 +9,7 @@ import {
   SidebarMenuButton,
   SidebarInput,
 } from "@/components/ui/sidebar";
-import { AppLogo } from "./logo";
+import { AppLogo } from "../app/logo";
 import {
   Home,
   BookOpenText,
@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import type { StoreCategoryItem } from "../esensi/store-categories";
+import type { StoreCategoryItem } from "./store-categories";
 
 export function AppSidebar() {
   const local = useLocal({

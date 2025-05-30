@@ -1,4 +1,4 @@
-import { MainEsensiLayout } from "@/components/app/main-esensi-layout";
+import { MainEsensiLayout } from "@/components/esensi/layout";
 
 export default () => {
   return (

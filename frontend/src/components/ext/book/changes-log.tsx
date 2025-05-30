@@ -4,7 +4,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { cn } from "@/lib/utils";
-import type { Book, BookChangesLog } from "backend/api/types";
+import type { BookChangesLog as BCL, Book } from "backend/api/types";
 import {
   ArrowDownZA,
   ArrowUpAZ,
@@ -13,6 +13,7 @@ import {
   History,
   RefreshCw,
 } from "lucide-react";
+import type { FC } from "react";
 
 function ChangesLogItem({
   book,
@@ -91,15 +92,11 @@ function ChangesLogItem({
   );
 }
 
-export function BookChangesLog({
-  className,
-  book,
-  onReloadData,
-}: {
+export const BookChangesLog: FC<{
   className?: string;
   book: Book | null;
-  onReloadData?: (log: BookChangesLog[] | undefined) => void;
-}) {
+  onReloadData?: (log: BCL[] | undefined) => void;
+}> = ({ className, book, onReloadData }) => {
   const local = useLocal(
     {
       expandedLogs: {} as Record<string, boolean>,
@@ -108,7 +105,7 @@ export function BookChangesLog({
       limit: 10,
       total: 0,
       totalPages: 0,
-      loadedLogs: [] as BookChangesLog[],
+      loadedLogs: [] as BCL[],
     },
     async () => {
       // Initialize pagination from URL parameters
@@ -195,7 +192,7 @@ export function BookChangesLog({
         </div>
       </div>
 
-      {displayLogs.map((log: BookChangesLog) => (
+      {displayLogs.map((log: BCL) => (
         <Card
           key={log.hash_value}
           className="mb-4 overflow-hidden border border-gray-200"
@@ -294,4 +291,4 @@ export function BookChangesLog({
       )}
     </div>
   );
-}
+};

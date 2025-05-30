@@ -1,5 +1,5 @@
 import { useParams } from "@/lib/hooks/use-router";
-import { MainEsensiLayout } from "@/components/app/main-esensi-layout";
+import { MainEsensiLayout } from "@/components/esensi/layout";
 import { useLocal } from "@/lib/hooks/use-local";
 import { api } from "@/lib/gen/main.esensi";
 import { BookDetail } from "@/components/esensi/book-detail";

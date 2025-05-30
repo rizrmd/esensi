@@ -8,6 +8,7 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { useRoot } from "@/lib/hooks/use-router";
 import { navigate } from "@/lib/router";
 import { isAuthor, isPublisher } from "@/lib/utils";
+import type { FC } from "react";
 
 const menu = [
   { label: "Beranda", href: "/dashboard" },
@@ -17,7 +18,7 @@ const menu = [
   { label: "Keluar", action: "signout" },
 ];
 
-export const InternalMenuBar = ({ title }: { title?: string } = {}) => {
+export const MenuBarInternal: FC<{ title?: string }> = ({ title } = {}) => {
   const { currentPath } = useRoot();
   const local = useLocal(
     {

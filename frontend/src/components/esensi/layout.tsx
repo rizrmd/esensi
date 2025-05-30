@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from "react";
-import { PageHeader } from "../esensi/page-header";
-import { PageFooter } from "../esensi/page-footer";
+import { PageHeader } from "./page-header";
+import { PageFooter } from "./page-footer";
 import { SidebarProvider } from "../ui/sidebar";
 import { AppSidebar } from "./sidebar";
 

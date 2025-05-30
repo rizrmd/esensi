@@ -1,6 +1,6 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
-import { PublishMenuBar } from "@/components/publish/menu-bar";
+import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
@@ -55,7 +55,7 @@ export default function ProductDetailPage() {
       }}
     >
       <div className="flex min-h-svh flex-col bg-gray-50">
-        <PublishMenuBar />
+        <MenuBarPublish />
 
         <main className="flex-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">

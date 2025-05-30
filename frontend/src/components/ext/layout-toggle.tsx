@@ -1,13 +1,17 @@
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import type { ItemLayout } from "@/lib/utils";
 import { Grid, LayoutGrid, List } from "lucide-react";
+import type { FC } from "react";
 
-export interface LayoutToggleProps {
+export type LayoutToggleProps = {
   layout: ItemLayout;
   onLayoutChange: (value: ItemLayout) => void;
-}
+};
 
-export function LayoutToggle({ layout, onLayoutChange }: LayoutToggleProps) {
+export const LayoutToggle: FC<LayoutToggleProps> = ({
+  layout,
+  onLayoutChange,
+}) => {
   return (
     <ToggleGroup
       type="single"
@@ -40,4 +44,4 @@ export function LayoutToggle({ layout, onLayoutChange }: LayoutToggleProps) {
       </ToggleGroupItem>
     </ToggleGroup>
   );
-}
+};

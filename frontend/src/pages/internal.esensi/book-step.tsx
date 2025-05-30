@@ -1,6 +1,6 @@
 import { Protected } from "@/components/app/protected";
-import { InternalMenuBar } from "@/components/internal/menu-bar";
-import { BookStepItem } from "@/components/publish/book-step-item";
+import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
+import { BookStepItem } from "@/components/ext/book/step-item";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
@@ -71,7 +71,7 @@ export default function BookStepPag() {
   return (
     <Protected role={[Role.INTERNAL]}>
       <div className="flex min-h-svh flex-col bg-gray-50">
-        <InternalMenuBar />
+        <MenuBarInternal />
 
         <main className="flex-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">

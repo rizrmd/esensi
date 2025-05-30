@@ -1,5 +1,5 @@
 import { Protected } from "@/components/app/protected";
-import { InternalMenuBar } from "@/components/internal/menu-bar";
+import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
 import { useLocal } from "@/lib/hooks/use-local";
 import { Role } from "backend/api/types";
 
@@ -11,7 +11,7 @@ export default () => {
   return (
     <Protected role={[Role.INTERNAL]}>
       <div className="flex min-h-svh flex-col bg-gray-50">
-        <InternalMenuBar />
+        <MenuBarInternal />
         <main className="flex-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
             {local.error ? (

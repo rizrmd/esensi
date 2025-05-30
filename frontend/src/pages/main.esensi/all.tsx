@@ -1,7 +1,7 @@
 import { useLocal } from "@/lib/hooks/use-local";
 import { BookCard } from "@/components/esensi/book-card";
 import { api } from "@/lib/gen/main.esensi";
-import { MainEsensiLayout } from "@/components/app/main-esensi-layout";
+import { MainEsensiLayout } from "@/components/esensi/layout";
 import type { ReactNode } from "react";
 
 type Book = {

@@ -53,7 +53,7 @@ export function BookStepItem({
               className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
                 currentStep > index
                   ? "bg-green-100 text-green-800"
-                  : currentStep === index && !book?.book_approval.length
+                  : currentStep === index
                   ? "bg-blue-100 text-blue-800"
                   : index === 1 &&
                     !!book?.book_approval.length &&
@@ -68,7 +68,7 @@ export function BookStepItem({
             >
               {currentStep > index
                 ? "Sudah"
-                : currentStep === index && !book?.book_approval.length
+                : currentStep === index
                 ? "Belum"
                 : index === 1 &&
                   !!book?.book_approval.length &&

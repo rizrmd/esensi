@@ -1,6 +1,6 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
-import { PublishMenuBar } from "@/components/publish/menu-bar";
+import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DataPagination } from "@/components/ui/data-pagination";
@@ -172,7 +172,7 @@ export default () => {
       }}
     >
       <div className="flex min-h-svh flex-col bg-gray-50">
-        <PublishMenuBar />
+        <MenuBarPublish />
 
         <main className="flex-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
@@ -248,6 +248,16 @@ export default () => {
                           ? "Diajukan"
                           : "Draft"}
                       </span>
+                      {local.book.status === BookStatus.DRAFT && (
+                        <button
+                          className="bg-yellow-700 rounded-full text-white cursor-pointer p-1 hover:bg-yellow-800"
+                          onClick={() =>
+                            navigate("/book-update?id=" + local.bookId)
+                          }
+                        >
+                          Revisi Buku
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>
@@ -338,6 +348,27 @@ export default () => {
                 {/* Approval Timeline */}
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-semibold">Riwayat Persetujuan</h2>
+                  {/* Top Pagination */}
+                  <div className="flex justify-end mt-6">
+                    <DataPagination
+                      total={local.total}
+                      page={local.page}
+                      limit={local.limit}
+                      totalPages={local.totalPages}
+                      onReload={reloadRiwayatPersetujuan}
+                      onPageChange={async (newPage) => {
+                        local.page = newPage;
+                        await loadApprovalList();
+                        local.render();
+                      }}
+                      onLimitChange={async (newLimit) => {
+                        local.limit = newLimit;
+                        local.page = 1;
+                        await loadApprovalList();
+                        local.render();
+                      }}
+                    />
+                  </div>
                 </div>
 
                 {local.book_approval.length === 0 ? (
@@ -431,28 +462,26 @@ export default () => {
                 )}
 
                 {/* Bottom Pagination */}
-                {local.total > local.limit && (
-                  <div className="flex justify-center mt-6">
-                    <DataPagination
-                      total={local.total}
-                      page={local.page}
-                      limit={local.limit}
-                      totalPages={local.totalPages}
-                      onReload={reloadRiwayatPersetujuan}
-                      onPageChange={async (newPage) => {
-                        local.page = newPage;
-                        await loadApprovalList();
-                        local.render();
-                      }}
-                      onLimitChange={async (newLimit) => {
-                        local.limit = newLimit;
-                        local.page = 1;
-                        await loadApprovalList();
-                        local.render();
-                      }}
-                    />
-                  </div>
-                )}
+                <div className="flex justify-end mt-6">
+                  <DataPagination
+                    total={local.total}
+                    page={local.page}
+                    limit={local.limit}
+                    totalPages={local.totalPages}
+                    onReload={reloadRiwayatPersetujuan}
+                    onPageChange={async (newPage) => {
+                      local.page = newPage;
+                      await loadApprovalList();
+                      local.render();
+                    }}
+                    onLimitChange={async (newLimit) => {
+                      local.limit = newLimit;
+                      local.page = 1;
+                      await loadApprovalList();
+                      local.render();
+                    }}
+                  />
+                </div>
 
                 {/* Add comment/response section */}
                 <div className="mt-10 pt-6 border-t border-gray-200">

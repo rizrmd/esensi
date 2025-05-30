@@ -1,8 +1,8 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { MyFileUpload } from "@/components/ext/my-file-upload";
-import { BookChangesLog } from "@/components/publish/book-changes-log";
-import { PublishMenuBar } from "@/components/publish/menu-bar";
+import { BookChangesLog } from "@/components/ext/book/changes-log";
+import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -238,7 +238,7 @@ export default function BookUpdatePage() {
       }}
     >
       <div className="flex min-h-svh flex-col bg-gray-50">
-        <PublishMenuBar />
+        <MenuBarPublish />
         <main className="flex-1">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
             {local.error ? (

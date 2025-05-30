@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/file-upload";
 import { useLocal } from "@/lib/hooks/use-local";
 import { Upload, X } from "lucide-react";
+import type { FC } from "react";
 
 export type MyFileUploadProps = {
   title: string;
@@ -21,7 +22,7 @@ export type MyFileUploadProps = {
   accept?: string;
 };
 
-export const MyFileUpload = ({
+export const MyFileUpload: FC<MyFileUploadProps> = ({
   title,
   files = [],
   onImageChange,
@@ -29,14 +30,11 @@ export const MyFileUpload = ({
   maxFiles = 1,
   initialImage,
   accept,
-}: MyFileUploadProps) => {
-  const local = useLocal(
-    {
-      files: files,
-      initialImage: initialImage || "",
-    },
-    () => {}
-  );
+}) => {
+  const local = useLocal({
+    files: files,
+    initialImage: initialImage || "",
+  });
 
   return (
     <FileUpload

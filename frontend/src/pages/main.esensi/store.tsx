@@ -4,7 +4,7 @@ import { FeaturedBooks } from "@/components/esensi/featured-books";
 import { BooksByCategory } from "@/components/esensi/books-by-category";
 import { useLocal } from "@/lib/hooks/use-local";
 import { api } from "@/lib/gen/main.esensi";
-import { MainEsensiLayout } from "@/components/app/main-esensi-layout";
+import { MainEsensiLayout } from "@/components/esensi/layout";
 
 export default () => {
   const local = useLocal(

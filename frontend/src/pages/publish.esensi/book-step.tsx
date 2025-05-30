@@ -1,7 +1,7 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
-import { BookStepItem } from "@/components/publish/book-step-item";
-import { PublishMenuBar } from "@/components/publish/menu-bar";
+import { BookStepItem } from "@/components/ext/book/step-item";
+import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
@@ -111,7 +111,7 @@ export default function BookStepPag() {
       }}
     >
       <div className="flex min-h-svh flex-col bg-gray-50">
-        <PublishMenuBar />
+        <MenuBarPublish />
 
         <main className="flex-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
