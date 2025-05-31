@@ -1,5 +1,7 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
+import { Breadcrumb } from "@/components/ext/book/breadcrumb/approval";
+import { Error } from "@/components/ext/error";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -24,7 +26,6 @@ import {
 import type { User } from "backend/lib/better-auth";
 import {
   CalendarIcon,
-  ChevronRight,
   MessageCircle,
   ThumbsDown,
   ThumbsUp,
@@ -181,15 +182,9 @@ export default () => {
     <Protected role={[Role.INTERNAL]}>
       <div className="flex min-h-svh flex-col bg-gray-50">
         <MenuBarPublish />
-
         <main className="flex-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-            {local.error ? (
-              <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-8 shadow-sm">
-                {local.error}
-              </div>
-            ) : null}
-
+            <Error msg={local.error} />
             {local.success ? (
               <div className="bg-green-50 border border-green-200 text-green-700 p-4 rounded-lg mb-8 shadow-sm">
                 {local.success}
@@ -198,37 +193,7 @@ export default () => {
 
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
               <div className="p-6">
-                {/* Breadcrumb Navigation */}
-                <nav className="flex items-center text-sm text-gray-600 mb-4">
-                  <button
-                    onClick={() => navigate("/dashboard")}
-                    className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
-                  >
-                    Beranda
-                  </button>
-                  <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                  <button
-                    onClick={() => navigate("/manage-book")}
-                    className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
-                  >
-                    Daftar Buku
-                  </button>
-                  <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                  <button
-                    onClick={() => navigate("/book-step?id=" + local.bookId)}
-                    className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
-                  >
-                    Proses Buku
-                  </button>
-                  <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                  <span className="text-gray-800 font-medium">
-                    Persetujuan Buku
-                  </span>
-                </nav>
-
-                {/* Divider line */}
-                <div className="border-b border-gray-200 mb-6"></div>
-
+                <Breadcrumb id={local.bookId!} />
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex items-center gap-4">
                     <h1 className="text-2xl font-bold">Persetujuan Buku</h1>
@@ -254,7 +219,7 @@ export default () => {
                           ? "Ditolak"
                           : local.book.status === BookStatus.SUBMITTED
                           ? "Diajukan"
-                          : "Draft"}
+                          : "Butuh Revisi Penulis ❗"}
                       </span>
                     </div>
                   )}
@@ -393,7 +358,7 @@ export default () => {
                                 </span>
                                 {approval.internal?.name ||
                                   local.book?.author?.name}
-                                {approval.id_internal && (
+                                {index === local.book_approval.length - 1 && (
                                   <span
                                     className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
                                       approval.status === BookStatus.PUBLISHED
@@ -401,7 +366,7 @@ export default () => {
                                         : approval.status ===
                                           BookStatus.REJECTED
                                         ? "bg-red-100 text-red-800"
-                                        : "bg-blue-100 text-blue-800"
+                                        : "bg-blue-100 text-blue-800 hover:bg-blue-200 cursor-pointer"
                                     }`}
                                   >
                                     {approval.status === BookStatus.PUBLISHED
@@ -409,8 +374,8 @@ export default () => {
                                       : approval.status === BookStatus.REJECTED
                                       ? "Ditolak"
                                       : approval.status === BookStatus.DRAFT
-                                      ? "Butuh Revisi Penulis"
-                                      : "Komentar"}
+                                      ? "Butuh Revisi Penulis ❗"
+                                      : ""}
                                   </span>
                                 )}
                               </div>

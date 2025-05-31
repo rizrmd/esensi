@@ -12,14 +12,6 @@ export default defineAPI({
         data: arg.data as any,
       });
 
-      await db.book_changes_log.create({
-        data: {
-          id_book: _created.id,
-          created_at: new Date(),
-          changes: JSON.stringify(arg.data),
-        },
-      });
-
       const created = await db.book.findUnique({
         where: { id: _created.id },
         include: {

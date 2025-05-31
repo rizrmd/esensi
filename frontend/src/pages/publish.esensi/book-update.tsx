@@ -1,8 +1,11 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
-import { MyFileUpload } from "@/components/ext/my-file-upload";
+import { Breadcrumb } from "@/components/ext/book/breadcrumb/update";
 import { BookChangesLog } from "@/components/ext/book/changes-log";
+import { Error } from "@/components/ext/error";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
+import { MyFileUpload } from "@/components/ext/my-file-upload";
+import { PublishFallback } from "@/components/ext/publish-fallback";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,7 +28,6 @@ import { getMimeType, isTwoFilesArrayTheSame } from "@/lib/utils";
 import type { BookChangesLog as BookChangesLogType } from "backend/api/types";
 import { BookStatus, Currency, Role, type Book } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
-import { ChevronRight } from "lucide-react";
 import type { author, book, book_approval } from "shared/models";
 
 export default function BookUpdatePage() {
@@ -225,28 +227,12 @@ export default function BookUpdatePage() {
   if (local.loading) return <AppLoading />;
 
   return (
-    <Protected
-      role={[Role.AUTHOR, Role.PUBLISHER]}
-      fallback={({ missing_role }) => {
-        if (
-          missing_role.some((x) => x === Role.AUTHOR || x === Role.PUBLISHER)
-        ) {
-          navigate("/onboarding");
-          return <AppLoading />;
-        }
-        return null;
-      }}
-    >
+    <Protected role={[Role.AUTHOR, Role.PUBLISHER]} fallback={PublishFallback}>
       <div className="flex min-h-svh flex-col bg-gray-50">
         <MenuBarPublish />
         <main className="flex-1">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
-            {local.error ? (
-              <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-8 shadow-sm">
-                {local.error}
-              </div>
-            ) : null}
-
+            <Error msg={local.error} />
             {local.success ? (
               <div className="bg-green-50 border border-green-200 text-green-700 p-4 rounded-lg mb-8 shadow-sm">
                 {local.success}
@@ -254,40 +240,8 @@ export default function BookUpdatePage() {
             ) : null}
 
             <Card className="shadow-md border border-gray-200">
-              {/* Breadcrumb Navigation */}
-              <div className="px-6 pt-6">
-                <nav className="flex items-center text-sm text-gray-600 mb-4">
-                  <button
-                    onClick={() => navigate("/dashboard")}
-                    className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
-                  >
-                    Beranda
-                  </button>
-                  <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                  <button
-                    onClick={() => navigate("/manage-book")}
-                    className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
-                  >
-                    Daftar Buku
-                  </button>
-                  <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                  <button
-                    onClick={() => navigate(`/book-step?id=${bookId}`)}
-                    className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
-                  >
-                    Proses Buku
-                  </button>
-                  <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                  <span className="text-gray-800 font-medium">
-                    Perbarui Buku
-                  </span>
-                </nav>
-
-                {/* Divider line */}
-                <div className="border-b border-gray-200"></div>
-              </div>
-
               <CardHeader>
+                <Breadcrumb id={local.book?.id!} />
                 <CardTitle className="text-xl font-bold">
                   Perbarui Buku
                 </CardTitle>

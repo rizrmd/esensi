@@ -1,5 +1,5 @@
-import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
+import { Error } from "@/components/ext/error";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -190,13 +190,7 @@ export default () => {
         <MenuBarPublish />
         <main className="flex-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-            {local.loading ? (
-              <AppLoading />
-            ) : local.error ? (
-              <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-8 shadow-sm">
-                {local.error}
-              </div>
-            ) : (
+            <Error msg={local.error} loading={local.loading}>
               <div className="space-y-6">
                 {/* Book details */}
                 <Card>
@@ -394,7 +388,7 @@ export default () => {
                   </CardContent>
                 </Card>
               </div>
-            )}
+            </Error>
           </div>
         </main>
       </div>

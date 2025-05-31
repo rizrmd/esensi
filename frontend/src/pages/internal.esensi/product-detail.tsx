@@ -1,5 +1,6 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
+import { Error } from "@/components/ext/error";
 import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { baseUrl } from "@/lib/gen/base-url";
@@ -45,15 +46,8 @@ export default function ProductDetailPage() {
     <Protected role={[Role.INTERNAL]}>
       <div className="flex min-h-svh flex-col bg-gray-50">
         <MenuBarInternal />
-
         <main className="flex-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-            {local.error ? (
-              <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-8 shadow-sm">
-                {local.error}
-              </div>
-            ) : null}
-
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
               <div className="p-6">
                 {/* Breadcrumb Navigation */}
@@ -85,149 +79,149 @@ export default function ProductDetailPage() {
                     <h1 className="text-2xl font-bold">Detil Produk</h1>
                   </div>
                 </div>
-                {local.error ? (
-                  <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-8 shadow-sm">
-                    {local.error}
-                  </div>
-                ) : local.product ? (
-                  <Card className="shadow-md border border-gray-200">
-                    <div className="w-full bg-gray-100 flex items-center justify-center overflow-hidden rounded-t-xl">
-                      {local.product.cover ? (
-                        <img
-                          src={
-                            baseUrl.internal_esensi + "/" + local.product.cover
-                          }
-                          alt={local.product.name}
-                          className="mx-auto object-cover"
-                        />
-                      ) : (
-                        <div className="text-gray-400 text-sm">
-                          Tidak ada gambar
-                        </div>
-                      )}
-                    </div>
-                    <CardHeader>
-                      <CardTitle className="text-xl font-bold mb-2">
-                        {local.product.name}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="mb-2 text-sm text-gray-600">
-                        ID Produk:{" "}
-                        <span className="font-medium text-gray-900">
-                          {local.product.id}
-                        </span>
-                      </div>
-                      <div className="mb-2 text-sm text-gray-600">
-                        Nama:{" "}
-                        <span className="font-medium text-gray-900">
-                          {local.product.name}
-                        </span>
-                      </div>
-                      <div className="mb-2 text-sm text-gray-600">
-                        Slug:{" "}
-                        <span className="font-medium text-gray-900">
-                          {local.product.slug}
-                        </span>
-                      </div>
-                      <div className="mb-2 text-sm text-gray-600">
-                        Alias:{" "}
-                        <span className="font-medium text-gray-900">
-                          {local.product.alias ?? "-"}
-                        </span>
-                      </div>
-                      <div className="mb-2 text-sm text-gray-600">
-                        Harga Coret:{" "}
-                        <span className="font-medium text-gray-900">
-                          {local.product.strike_price
-                            ? `Rp${local.product.strike_price.toLocaleString()}`
-                            : "-"}
-                        </span>
-                      </div>
-                      <div className="mb-2 text-sm text-gray-600">
-                        Harga:{" "}
-                        <span className="font-medium text-gray-900">
-                          {local.product.real_price
-                            ? `Rp${local.product.real_price.toLocaleString()}`
-                            : "-"}
-                        </span>
-                      </div>
-                      <div className="mb-2 text-sm text-gray-600">
-                        Penulis:{" "}
-                        <span className="font-medium text-gray-900">
-                          {local.product.author?.name ?? "-"}
-                        </span>
-                      </div>
-                      <div className="mb-2 text-sm text-gray-600">
-                        Status:{" "}
-                        <span className="font-medium text-gray-900">
-                          {local.product.status}
-                        </span>
-                      </div>
-                      <div className="mb-2 text-sm text-gray-600">
-                        Mata Uang:{" "}
-                        <span className="font-medium text-gray-900">
-                          {local.product.currency}
-                        </span>
-                      </div>
-                      <div className="mb-2 text-sm text-gray-600">
-                        SKU:{" "}
-                        <span className="font-medium text-gray-900">
-                          {local.product.sku ?? "-"}
-                        </span>
-                      </div>
-                      <div className="mb-2 text-sm text-gray-600">
-                        Tanggal Terbit:{" "}
-                        <span className="font-medium text-gray-900">
-                          {local.product.published_date
-                            ? new Date(
-                                local.product.published_date
-                              ).toLocaleDateString("id-ID")
-                            : "-"}
-                        </span>
-                      </div>
-                      <div className="mb-2 text-sm text-gray-600">
-                        Fisik:{" "}
-                        <span className="font-medium text-gray-900">
-                          {local.product.is_physical ? "Ya" : "Tidak"}
-                        </span>
-                      </div>
-                      <div className="mb-2 text-sm text-gray-600">
-                        Minimal Preorder:{" "}
-                        <span className="font-medium text-gray-900">
-                          {local.product.preorder_min_qty ?? "-"}
-                        </span>
-                      </div>
-                      <div className="mb-2 text-sm text-gray-600">
-                        Tipe Konten:{" "}
-                        <span className="font-medium text-gray-900">
-                          {local.product.content_type ?? "-"}
-                        </span>
-                      </div>
-                      <div className="mb-2 text-sm text-gray-600">
-                        Deskripsi:{" "}
-                        {local.product.desc ? (
-                          <div
-                            className="font-medium text-gray-900 mt-2 p-3 border border-gray-100 rounded-md"
-                            dangerouslySetInnerHTML={{
-                              __html: local.product.desc,
-                            }}
+                <Error msg={local.error}>
+                  {local.product && (
+                    <Card className="shadow-md border border-gray-200">
+                      <div className="w-full bg-gray-100 flex items-center justify-center overflow-hidden rounded-t-xl">
+                        {local.product.cover ? (
+                          <img
+                            src={
+                              baseUrl.internal_esensi +
+                              "/" +
+                              local.product.cover
+                            }
+                            alt={local.product.name}
+                            className="mx-auto object-cover"
                           />
                         ) : (
-                          <span className="font-medium text-gray-900">-</span>
+                          <div className="text-gray-400 text-sm">
+                            Tidak ada gambar
+                          </div>
                         )}
                       </div>
-                      <div className="mb-2 text-sm text-gray-600">
-                        Info Tambahan:{" "}
-                        <span className="font-medium text-gray-900">
-                          {local.product.info
-                            ? JSON.stringify(local.product.info)
-                            : "-"}
-                        </span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ) : null}
+                      <CardHeader>
+                        <CardTitle className="text-xl font-bold mb-2">
+                          {local.product.name}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="mb-2 text-sm text-gray-600">
+                          ID Produk:{" "}
+                          <span className="font-medium text-gray-900">
+                            {local.product.id}
+                          </span>
+                        </div>
+                        <div className="mb-2 text-sm text-gray-600">
+                          Nama:{" "}
+                          <span className="font-medium text-gray-900">
+                            {local.product.name}
+                          </span>
+                        </div>
+                        <div className="mb-2 text-sm text-gray-600">
+                          Slug:{" "}
+                          <span className="font-medium text-gray-900">
+                            {local.product.slug}
+                          </span>
+                        </div>
+                        <div className="mb-2 text-sm text-gray-600">
+                          Alias:{" "}
+                          <span className="font-medium text-gray-900">
+                            {local.product.alias ?? "-"}
+                          </span>
+                        </div>
+                        <div className="mb-2 text-sm text-gray-600">
+                          Harga Coret:{" "}
+                          <span className="font-medium text-gray-900">
+                            {local.product.strike_price
+                              ? `Rp${local.product.strike_price.toLocaleString()}`
+                              : "-"}
+                          </span>
+                        </div>
+                        <div className="mb-2 text-sm text-gray-600">
+                          Harga:{" "}
+                          <span className="font-medium text-gray-900">
+                            {local.product.real_price
+                              ? `Rp${local.product.real_price.toLocaleString()}`
+                              : "-"}
+                          </span>
+                        </div>
+                        <div className="mb-2 text-sm text-gray-600">
+                          Penulis:{" "}
+                          <span className="font-medium text-gray-900">
+                            {local.product.author?.name ?? "-"}
+                          </span>
+                        </div>
+                        <div className="mb-2 text-sm text-gray-600">
+                          Status:{" "}
+                          <span className="font-medium text-gray-900">
+                            {local.product.status}
+                          </span>
+                        </div>
+                        <div className="mb-2 text-sm text-gray-600">
+                          Mata Uang:{" "}
+                          <span className="font-medium text-gray-900">
+                            {local.product.currency}
+                          </span>
+                        </div>
+                        <div className="mb-2 text-sm text-gray-600">
+                          SKU:{" "}
+                          <span className="font-medium text-gray-900">
+                            {local.product.sku ?? "-"}
+                          </span>
+                        </div>
+                        <div className="mb-2 text-sm text-gray-600">
+                          Tanggal Terbit:{" "}
+                          <span className="font-medium text-gray-900">
+                            {local.product.published_date
+                              ? new Date(
+                                  local.product.published_date
+                                ).toLocaleDateString("id-ID")
+                              : "-"}
+                          </span>
+                        </div>
+                        <div className="mb-2 text-sm text-gray-600">
+                          Fisik:{" "}
+                          <span className="font-medium text-gray-900">
+                            {local.product.is_physical ? "Ya" : "Tidak"}
+                          </span>
+                        </div>
+                        <div className="mb-2 text-sm text-gray-600">
+                          Minimal Preorder:{" "}
+                          <span className="font-medium text-gray-900">
+                            {local.product.preorder_min_qty ?? "-"}
+                          </span>
+                        </div>
+                        <div className="mb-2 text-sm text-gray-600">
+                          Tipe Konten:{" "}
+                          <span className="font-medium text-gray-900">
+                            {local.product.content_type ?? "-"}
+                          </span>
+                        </div>
+                        <div className="mb-2 text-sm text-gray-600">
+                          Deskripsi:{" "}
+                          {local.product.desc ? (
+                            <div
+                              className="font-medium text-gray-900 mt-2 p-3 border border-gray-100 rounded-md"
+                              dangerouslySetInnerHTML={{
+                                __html: local.product.desc,
+                              }}
+                            />
+                          ) : (
+                            <span className="font-medium text-gray-900">-</span>
+                          )}
+                        </div>
+                        <div className="mb-2 text-sm text-gray-600">
+                          Info Tambahan:{" "}
+                          <span className="font-medium text-gray-900">
+                            {local.product.info
+                              ? JSON.stringify(local.product.info)
+                              : "-"}
+                          </span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+                </Error>
               </div>
             </div>
           </div>

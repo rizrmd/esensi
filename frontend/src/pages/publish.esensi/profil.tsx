@@ -1,6 +1,8 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
+import { Error } from "@/components/ext/error";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
+import { PublishFallback } from "@/components/ext/publish-fallback";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -181,29 +183,13 @@ export default () => {
   if (local.loading) return <AppLoading />;
 
   return (
-    <Protected
-      role={[Role.AUTHOR, Role.PUBLISHER]}
-      fallback={({ missing_role }) => {
-        if (
-          missing_role.some((x) => x === Role.AUTHOR || x === Role.PUBLISHER)
-        ) {
-          navigate("/onboarding");
-          return <AppLoading />;
-        }
-        return null;
-      }}
-    >
+    <Protected role={[Role.AUTHOR, Role.PUBLISHER]} fallback={PublishFallback}>
       <div className="flex min-h-svh flex-col bg-gray-50">
         <MenuBarPublish title="Profil" />
 
         <main className="flex-1">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
-            {local.error ? (
-              <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-8 shadow-sm">
-                {local.error}
-              </div>
-            ) : null}
-
+            <Error msg={local.error} />
             {local.success ? (
               <div className="bg-green-50 border border-green-200 text-green-700 p-4 rounded-lg mb-8 shadow-sm">
                 {local.success}

@@ -1,4 +1,5 @@
 import { baseUrl } from "@/lib/gen/base-url";
+import { Role } from "backend/api/types";
 import type { User } from "backend/lib/better-auth";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";

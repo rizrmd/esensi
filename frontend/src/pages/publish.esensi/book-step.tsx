@@ -1,13 +1,13 @@
-import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
+import { Breadcrumb } from "@/components/ext/book/breadcrumb/step";
 import { BookStepItem } from "@/components/ext/book/step-item";
+import { Error } from "@/components/ext/error";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
+import { PublishFallback } from "@/components/ext/publish-fallback";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
-import { navigate } from "@/lib/router";
 import type { BookStep } from "@/lib/utils";
 import { BookStatus, Role, type Book } from "backend/api/types";
-import { ChevronRight } from "lucide-react";
 
 export default function BookStepPag() {
   const local = useLocal(
@@ -98,69 +98,26 @@ export default function BookStepPag() {
   );
 
   return (
-    <Protected
-      role={[Role.AUTHOR, Role.PUBLISHER]}
-      fallback={({ missing_role }) => {
-        if (
-          missing_role.some((x) => x === Role.AUTHOR || x === Role.PUBLISHER)
-        ) {
-          navigate("/onboarding");
-          return <AppLoading />;
-        }
-        return null;
-      }}
-    >
+    <Protected role={[Role.AUTHOR, Role.PUBLISHER]} fallback={PublishFallback}>
       <div className="flex min-h-svh flex-col bg-gray-50">
         <MenuBarPublish />
-
         <main className="flex-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-            {local.error ? (
-              <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-8 shadow-sm">
-                {local.error}
-              </div>
-            ) : null}
-
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
               <div className="p-6">
-                {/* Breadcrumb Navigation */}
-                <nav className="flex items-center text-sm text-gray-600 mb-4">
-                  <button
-                    onClick={() => navigate("/dashboard")}
-                    className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
-                  >
-                    Beranda
-                  </button>
-                  <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                  <button
-                    onClick={() => navigate("/manage-book")}
-                    className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
-                  >
-                    Daftar Buku
-                  </button>
-                  <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                  <span className="text-gray-800 font-medium">Proses Buku</span>
-                </nav>
-
-                {/* Divider line */}
-                <div className="border-b border-gray-200 mb-6"></div>
-
+                <Breadcrumb />
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex flex-col gap-4">
                     <h1 className="text-2xl font-bold">Proses Buku</h1>
                     <span className="text-gray-500 text-sm md:text-base">
-                      Untuk menerbitkan buku, penulis harus melakukan semua 3
-                      proses di bawah ini secara bertahap.
+                      Berikut adalah langkah-langkah yang harus dilakukan untuk
+                      menerbitkan buku. Silakan klik pada setiap langkah untuk
+                      melihat detailnya.
                     </span>
                   </div>
                 </div>
-
-                {local.error ? (
-                  <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-8 shadow-sm">
-                    {local.error}
-                  </div>
-                ) : (
-                  local.steps.map((step, index) => (
+                <Error msg={local.error}>
+                  {local.steps.map((step, index) => (
                     <BookStepItem
                       key={index}
                       step={step}
@@ -168,8 +125,8 @@ export default function BookStepPag() {
                       currentStep={local.step}
                       book={local.book}
                     />
-                  ))
-                )}
+                  ))}
+                </Error>
               </div>
             </div>
           </div>
