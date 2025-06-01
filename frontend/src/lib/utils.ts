@@ -1,7 +1,7 @@
 import { baseUrl } from "@/lib/gen/base-url";
-import { Role } from "backend/api/types";
 import type { User } from "backend/lib/better-auth";
 import { type ClassValue, clsx } from "clsx";
+import type { Decimal } from "shared/models/runtime/library";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -51,13 +51,16 @@ export function formatDateObject(date: Date) {
   }).format(date);
 }
 
-export function formatCurrency(amount: number) {
+export function formatCurrency(
+  amount?: number | Decimal | null,
+  currency?: string
+) {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
-    currency: "IDR",
+    currency: currency || "IDR",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(amount);
+  }).format(Number(amount || 0));
 }
 
 export function getMimeType(ext: string | undefined) {
@@ -123,7 +126,7 @@ export const getImageUrl = (url: string, width?: number, height?: number) => {
   return `${url}?${params.toString()}`;
 };
 
-export enum ItemLayout {
+export enum ItemLayoutEnum {
   GRID = "grid",
   LIST = "list",
   COMPACT = "compact",

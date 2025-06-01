@@ -1,7 +1,9 @@
 import { Protected } from "@/components/app/protected";
+import { Breadcrumb } from "@/components/ext/book/breadcrumb/sales";
+import { Items, book as tf } from "@/components/ext/book/item-sales";
 import { Error } from "@/components/ext/error";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
-import { Badge } from "@/components/ui/badge";
+import { MyBadge } from "@/components/ext/status-badge";
 import {
   Card,
   CardContent,
@@ -21,9 +23,14 @@ import {
 } from "@/components/ui/table";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
-import { navigate } from "@/lib/router";
-import { Role, type Book, type TSalesLine } from "backend/api/types";
-import { ChevronRight } from "lucide-react";
+import { formatCurrency, formatDate } from "@/lib/utils";
+import {
+  BadgeStatus,
+  Role,
+  type Book,
+  type Product,
+  type TSalesLine,
+} from "backend/api/types";
 
 export default () => {
   const local = useLocal(
@@ -31,7 +38,7 @@ export default () => {
       bookId: null as string | null,
       book: null as Book | null,
       productId: null as string | null,
-      product: null as any,
+      product: null as Partial<Product | null>,
       tSalesLine: [] as TSalesLine[],
       loading: true,
       error: "",
@@ -92,9 +99,7 @@ export default () => {
             local.totalPages = res.pagination?.totalPages || 0;
             calculateTotals();
           }
-        } else {
-          local.error = "Produk tidak ditemukan untuk buku ini.";
-        }
+        } else local.error = "Produk tidak ditemukan untuk buku ini.";
         local.render();
       }
     } catch (error) {
@@ -110,78 +115,21 @@ export default () => {
   const calculateTotals = () => {
     let totalSales = 0;
     let totalItems = 0;
-
     local.tSalesLine.forEach((line) => {
-      if (line.t_sales.status === "paid") {
+      if (line.t_sales.status === BadgeStatus.PAID) {
         // Convert Decimal to number safely
         let totalPrice = 0;
         if (typeof line.total_price === "object" && line.total_price !== null) {
-          if (typeof line.total_price.toNumber === "function") {
+          if (typeof line.total_price.toNumber === "function")
             totalPrice = line.total_price.toNumber();
-          } else {
-            totalPrice = Number(line.total_price);
-          }
-        } else {
-          totalPrice = Number(line.total_price);
-        }
-
+          else totalPrice = Number(line.total_price);
+        } else totalPrice = Number(line.total_price);
         totalSales += totalPrice;
         totalItems += line.qty;
       }
     });
-
     local.totalSales = totalSales;
     local.totalItems = totalItems;
-  };
-
-  // Function to format currency
-  const formatCurrency = (amount: any) => {
-    let numAmount = 0;
-    if (amount === null || amount === undefined) {
-      numAmount = 0;
-    } else if (typeof amount === "object") {
-      if (typeof amount.toNumber === "function") {
-        numAmount = amount.toNumber();
-      } else {
-        numAmount = Number(amount);
-      }
-    } else {
-      numAmount = Number(amount);
-    }
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      maximumFractionDigits: 0,
-    }).format(numAmount);
-  };
-
-  // Function to format date
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("id-ID", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
-  // Function to get status badge
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "paid":
-        return <Badge className="bg-green-500">Lunas</Badge>;
-      case "pending":
-        return <Badge className="bg-yellow-500">Menunggu Pembayaran</Badge>;
-      case "cart":
-        return <Badge className="bg-blue-500">Keranjang</Badge>;
-      case "canceled":
-        return <Badge className="bg-red-500">Dibatalkan</Badge>;
-      case "expired":
-        return <Badge className="bg-gray-500">Kadaluarsa</Badge>;
-      default:
-        return <Badge>{status}</Badge>;
-    }
   };
 
   return (
@@ -195,66 +143,13 @@ export default () => {
                 {/* Book details */}
                 <Card>
                   <CardHeader>
-                    {/* Breadcrumb Navigation */}
-                    <nav className="flex items-center text-sm text-gray-600 mb-4">
-                      <button
-                        onClick={() => navigate("/dashboard")}
-                        className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
-                      >
-                        Beranda
-                      </button>
-                      <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                      <button
-                        onClick={() => navigate("/manage-book")}
-                        className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
-                      >
-                        Daftar Buku
-                      </button>
-                      <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                      <button
-                        onClick={() =>
-                          navigate("/book-step?id=" + local.bookId)
-                        }
-                        className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
-                      >
-                        Proses Buku
-                      </button>
-                      <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                      <span className="text-gray-800 font-medium">
-                        Penjualan Buku
-                      </span>
-                    </nav>
-
-                    {/* Divider line */}
-                    <div className="border-b border-gray-200 mb-6"></div>
-
+                    <Breadcrumb id={local.bookId!} />
                     <CardTitle className="text-2xl">Penjualan Buku</CardTitle>
                     <CardDescription>{local.book?.name}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                      <div className="flex flex-col space-y-2">
-                        <span className="text-sm text-gray-500">Judul</span>
-                        <span className="font-medium">{local.book?.name}</span>
-                      </div>
-                      <div className="flex flex-col space-y-2">
-                        <span className="text-sm text-gray-500">Penulis</span>
-                        <span className="font-medium">
-                          {local.book?.author?.name}
-                        </span>
-                      </div>
-                      <div className="flex flex-col space-y-2">
-                        <span className="text-sm text-gray-500">Harga</span>
-                        <span className="font-medium">
-                          {formatCurrency(local.product?.real_price || 0)}
-                        </span>
-                      </div>
-                      <div className="flex flex-col space-y-2">
-                        <span className="text-sm text-gray-500">Status</span>
-                        <span className="font-medium">
-                          {local.book?.status}
-                        </span>
-                      </div>
+                      <Items item={tf(local.book!)} />
                     </div>
                   </CardContent>
                 </Card>
@@ -350,7 +245,9 @@ export default () => {
                                   {formatCurrency(line.total_price)}
                                 </TableCell>
                                 <TableCell>
-                                  {getStatusBadge(line.t_sales.status)}
+                                  <MyBadge
+                                    status={line.t_sales.status as BadgeStatus}
+                                  />
                                 </TableCell>
                               </TableRow>
                             ))}

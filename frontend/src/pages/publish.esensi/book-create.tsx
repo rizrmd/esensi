@@ -5,6 +5,7 @@ import { Error } from "@/components/ext/error";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { MyFileUpload } from "@/components/ext/my-file-upload";
 import { PublishFallback } from "@/components/ext/publish-fallback";
+import { Success } from "@/components/ext/success";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -169,16 +170,11 @@ export default function BookCreatePage() {
         <main className="flex-1">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
             <Error msg={local.error} />
-            {local.success ? (
-              <div className="bg-green-50 border border-green-200 text-green-700 p-4 rounded-lg mb-8 shadow-sm">
-                {local.success}
-              </div>
-            ) : null}
-
+            <Success msg={local.success} />
             <Card className="shadow-md border border-gray-200">
               <CardHeader>
                 <Breadcrumb />
-                <CardTitle className="text-xl font-bold">Tambah Buku</CardTitle>
+                <CardTitle className="text-2xl">Tambah Buku</CardTitle>
                 <CardDescription>
                   Silahkan isi formulir di bawah untuk menambahkan buku baru.
                 </CardDescription>

@@ -2,7 +2,9 @@ import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { Breadcrumb } from "@/components/ext/book/breadcrumb/approval";
 import { Error } from "@/components/ext/error";
+import { Img } from "@/components/ext/img/approval";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
+import { Success } from "@/components/ext/success";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DataPagination } from "@/components/ui/data-pagination";
@@ -16,7 +18,7 @@ import { api as api2 } from "@/lib/gen/internal.esensi";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { formatDateObject } from "@/lib/utils";
+import { formatCurrency, formatDateObject } from "@/lib/utils";
 import {
   BookStatus,
   Role,
@@ -185,20 +187,12 @@ export default () => {
         <main className="flex-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
             <Error msg={local.error} />
-            {local.success ? (
-              <div className="bg-green-50 border border-green-200 text-green-700 p-4 rounded-lg mb-8 shadow-sm">
-                {local.success}
-              </div>
-            ) : null}
-
+            <Success msg={local.success} />
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
               <div className="p-6">
                 <Breadcrumb id={local.bookId!} />
                 <div className="flex justify-between items-center mb-6">
-                  <div className="flex items-center gap-4">
-                    <h1 className="text-2xl font-bold">Persetujuan Buku</h1>
-                  </div>
-
+                  <h1 className=" text-2xl font-bold">Persetujuan Buku</h1>
                   {local.book && (
                     <div className="flex items-center gap-2">
                       <span className="text-sm text-gray-500">
@@ -230,26 +224,16 @@ export default () => {
                   <Card className="mb-8">
                     <CardContent className="p-6">
                       <div className="flex flex-col md:flex-row gap-6">
-                        <div className="w-full md:w-1/4">
-                          <div className="aspect-[3/4] w-full bg-gray-100 flex items-center justify-center rounded-lg overflow-hidden">
-                            {local.book.cover ? (
-                              <img
-                                src={
-                                  baseUrl.publish_esensi +
-                                  "/" +
-                                  local.book.cover +
-                                  "?w=350"
-                                }
-                                alt={local.book.name}
-                                className="object-cover w-full h-full"
-                              />
-                            ) : (
-                              <div className="text-gray-400 text-sm flex items-center justify-center w-full h-full">
-                                Tidak ada gambar
-                              </div>
-                            )}
-                          </div>
-                        </div>
+                        <Img
+                          check={!!local.book.cover}
+                          src={
+                            baseUrl.internal_esensi +
+                            "/" +
+                            local.book.cover +
+                            "?w=350"
+                          }
+                          alt={local.book.name}
+                        />
                         <div className="w-full md:w-3/4">
                           <h2 className="text-xl font-bold text-gray-800 mb-4">
                             {local.book.name}
@@ -268,9 +252,10 @@ export default () => {
                                 Harga
                               </p>
                               <p className="font-medium">
-                                Rp{" "}
-                                {local.book.submitted_price?.toLocaleString() ||
-                                  "-"}
+                                {formatCurrency(
+                                  local.book.submitted_price,
+                                  local.book.currency
+                                )}
                               </p>
                             </div>
                             <div>

@@ -2,7 +2,9 @@ import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { Error } from "@/components/ext/error";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
+import { Breadcrumb } from "@/components/ext/profil/breadcrumb";
 import { PublishFallback } from "@/components/ext/publish-fallback";
+import { Success } from "@/components/ext/success";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -26,7 +28,6 @@ import type { author } from "backend/api/publish.esensi/onboarding";
 import { Role, type Author } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import type { User } from "backend/lib/better-auth";
-import { ChevronRight } from "lucide-react";
 
 export const current = {
   user: undefined as User | undefined,
@@ -190,30 +191,11 @@ export default () => {
         <main className="flex-1">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
             <Error msg={local.error} />
-            {local.success ? (
-              <div className="bg-green-50 border border-green-200 text-green-700 p-4 rounded-lg mb-8 shadow-sm">
-                {local.success}
-              </div>
-            ) : null}
-
+            <Success msg={local.success} />
             <Card className="shadow-md border border-gray-200">
+              <Breadcrumb />
               <CardHeader>
-                {/* Breadcrumb Navigation */}
-                <nav className="flex items-center text-sm text-gray-600 mb-4">
-                  <button
-                    onClick={() => navigate("/dashboard")}
-                    className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
-                  >
-                    Beranda
-                  </button>
-                  <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                  <span className="text-gray-800 font-medium">Profil</span>
-                </nav>
-
-                {/* Divider line */}
-                <div className="border-b border-gray-200 mb-6"></div>
-
-                <CardTitle className="text-xl font-bold">
+                <CardTitle className="text-2xl font-bold">
                   Perbarui Profil
                 </CardTitle>
                 <CardDescription>

@@ -10,15 +10,13 @@ export const SimpleTooltip: FC<{
   content: ReactNode;
   children: ReactNode;
   delay?: number;
-}> = ({ content, children, delay }) => {
-  return (
-    <TooltipProvider>
-      <Tooltip delayDuration={delay || 1000}>
-        <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent sideOffset={0} alignOffset={0}>
-          {content}
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  );
-};
+}> = ({ content, children, delay }) => (
+  <TooltipProvider>
+    <Tooltip delayDuration={delay || 1000}>
+      <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <TooltipContent sideOffset={0} alignOffset={0}>
+        {content}
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
+);

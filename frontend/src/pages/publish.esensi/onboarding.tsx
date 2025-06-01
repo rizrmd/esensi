@@ -1,5 +1,7 @@
 import { Protected } from "@/components/app/protected";
+import { Error } from "@/components/ext/error";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
+import { Success } from "@/components/ext/success";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { betterAuth } from "@/lib/better-auth";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
@@ -196,7 +198,6 @@ export default () => {
     >
       <div className="flex min-h-svh flex-col">
         <MenuBarPublish />
-
         <div className="flex-1 container py-6 md:py-10">
           <div className="max-w-3xl mx-auto">
             <Card>
@@ -208,6 +209,8 @@ export default () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
+                <Error msg={local.error} />
+                <Success msg={local.success} />
                 <Tabs
                   value={local.role}
                   onValueChange={(value: Role) => {
@@ -228,19 +231,6 @@ export default () => {
                       </TabsTrigger>
                     )}
                   </TabsList> */}
-
-                  {local.error && (
-                    <div className="bg-red-50 text-red-700 p-3 rounded-md mb-6">
-                      {local.error}
-                    </div>
-                  )}
-
-                  {local.success && (
-                    <div className="bg-green-50 text-green-700 p-3 rounded-md mb-6">
-                      {local.success}
-                    </div>
-                  )}
-
                   <TabsContent value={Role.PUBLISHER}>
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid md:grid-cols-[1fr_auto] gap-6">

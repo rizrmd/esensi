@@ -1,6 +1,6 @@
 import { Protected } from "@/components/app/protected";
 import { Breadcrumb } from "@/components/ext/book/breadcrumb/step";
-import { BookStepItem } from "@/components/ext/book/step-item";
+import { BookStepItem } from "@/components/ext/book/item-step";
 import { Error } from "@/components/ext/error";
 import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
 import { api } from "@/lib/gen/publish.esensi";

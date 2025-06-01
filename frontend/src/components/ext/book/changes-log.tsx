@@ -108,14 +108,10 @@ export const BookChangesLog: FC<{
       loadedLogs: [] as BCL[],
     },
     async () => {
-      // Initialize pagination from URL parameters
       const params = new URLSearchParams(location.search);
       local.page = parseInt(params.get("page") || "1");
       local.limit = parseInt(params.get("limit") || "10");
-
-      if (book?.id) {
-        await reloadData(book.id);
-      }
+      if (book?.id) await reloadData(book.id);
       local.render();
     }
   );
@@ -132,7 +128,6 @@ export const BookChangesLog: FC<{
 
     if (list.data) {
       local.loadedLogs = list.data;
-      // Keep the logs in the book object for compatibility
       book!.book_changes_log = list.data;
     }
 
@@ -235,7 +230,12 @@ export const BookChangesLog: FC<{
                   </h3>
                   {Object.entries(log.changes!["oldFields"]).map(
                     ([key, value]) => (
-                      <ChangesLogItem book={book} key2={key} value={value} />
+                      <ChangesLogItem
+                        book={book}
+                        key={key}
+                        key2={key}
+                        value={value}
+                      />
                     )
                   )}
                   {Object.keys(log.changes!["oldFields"]).length === 0 && (
@@ -251,7 +251,7 @@ export const BookChangesLog: FC<{
                   </h3>
                   {Object.entries(log.changes!["newFields"]).map(
                     ([key, value]) => (
-                      <ChangesLogItem book={book} key2={key} value={value} />
+                      <ChangesLogItem book={book} key={key} key2={key} value={value} />
                     )
                   )}
                   {Object.keys(log.changes!["newFields"]).length === 0 && (

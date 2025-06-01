@@ -49,7 +49,7 @@ export type Book = book & {
   author: author | null;
   book_approval: book_approval[];
   book_changes_log: BookChangesLog[];
-  product: product | null;
+  product: Partial<Product | null>;
 };
 
 export type BookApproval = book_approval & {
@@ -127,13 +127,13 @@ export enum BookStatus {
   SUBMITTED = "submitted",
   PUBLISHED = "published",
   REJECTED = "rejected",
-};
+}
 
 export enum ProductStatus {
   PUBLISHED = "published",
   PAUSED = "paused",
   DISCONTINUED = "DISCONTINUED",
-};
+}
 
 export enum Currency {
   IDR = "IDR",
@@ -141,7 +141,7 @@ export enum Currency {
   EUR = "EUR",
   JPY = "JPY",
   GBP = "GBP",
-};
+}
 
 export type TSalesLine = t_sales_line & {
   t_sales: t_sales;
@@ -155,4 +155,14 @@ export enum Role {
   CUSTOMER = "customer",
   INTERNAL = "internal",
   PUBLISHER = "publisher",
+}
+
+export enum BadgeStatus {
+  CART = "cart",
+  PENDING = "pending",
+  PAID = "paid",
+  CANCELED = "canceled",
+  EXPIRED = "expired",
+  FRAUD = "fraud",
+  REFUNDED = "refunded",
 }
