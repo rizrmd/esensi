@@ -57,6 +57,9 @@ export default defineAPI({
             },
           },
           product: true,
+          chapter: {
+            take: 10,
+          },
         },
       });
 

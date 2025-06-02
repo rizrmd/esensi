@@ -8,6 +8,7 @@ import type {
   book_changes_log,
   bundle,
   category,
+  chapter,
   customer,
   internal,
   product,
@@ -50,6 +51,7 @@ export type Book = book & {
   book_approval: book_approval[];
   book_changes_log: BookChangesLog[];
   product: Partial<Product | null>;
+  chapter: chapter[];
 };
 
 export type BookApproval = book_approval & {
