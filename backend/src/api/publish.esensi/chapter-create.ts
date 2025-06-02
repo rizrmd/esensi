@@ -7,7 +7,7 @@ export default defineAPI({
   url: "/api/publish/chapter/create",
   async handler(arg: { data: chapter[] }): Promise<ApiResponse<number>> {
     try {
-      const _created = await db.chapter.createMany({
+      const created = await db.chapter.createMany({
         data: arg.data.map((item) => ({
           id_book: item.id_book,
           number: item.number,
@@ -18,7 +18,7 @@ export default defineAPI({
 
       return {
         success: true,
-        data: _created.count,
+        data: created.count,
         message: "Chapter berhasil ditambahkan",
       };
     } catch (error) {

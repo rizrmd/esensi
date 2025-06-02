@@ -142,20 +142,13 @@ export default function BookCreatePage() {
             local.render();
             return;
           }
-          local.success = "Chapter berhasil ditambahkan!";
-          setTimeout(() => {
-            navigate(`/book-step?id=${res.data?.id}`);
-          }, 1500);
-          return;
         }
 
         local.success = "Buku berhasil ditambahkan!";
         setTimeout(() => {
           navigate(`/book-step?id=${res.data?.id}`);
         }, 1500);
-      } else {
-        local.error = res.message || "Gagal menambahkan buku.";
-      }
+      } else local.error = res.message || "Gagal menambahkan buku.";
     } catch (err) {
       local.error = "Terjadi kesalahan saat menghubungi server.";
       console.error(err);
@@ -173,11 +166,9 @@ export default function BookCreatePage() {
     const { name, value, type } = e.target;
     let processedValue: string | number | boolean | Date = value;
 
-    if (type === "number") {
-      processedValue = parseFloat(value) || 0;
-    } else if (type === "datetime-local") {
+    if (type === "number") processedValue = parseFloat(value) || 0;
+    else if (type === "datetime-local")
       processedValue = value ? new Date(value) : new Date();
-    }
 
     local.book = {
       ...local.book,
@@ -219,6 +210,7 @@ export default function BookCreatePage() {
         Alert.info("Nomor chapter sudah ada.");
         return;
       }
+
       index = local.chapter.findIndex(
         (ch) => ch.name === local.newChapter.name
       );
@@ -226,6 +218,7 @@ export default function BookCreatePage() {
         Alert.info("Nama chapter sudah ada.");
         return;
       }
+
       if (local.activeChapterIndex >= 0) {
         local.chapter[local.activeChapterIndex] = {
           ...local.chapter[local.activeChapterIndex],
@@ -241,15 +234,17 @@ export default function BookCreatePage() {
         Alert.info("Nomor chapter sudah ada.");
         return;
       }
+      
       if (local.chapter.some((ch) => ch.name === local.newChapter.name)) {
         Alert.info("Nama chapter sudah ada.");
         return;
       }
+
       local.chapter.push({
         id: "",
         id_product: null,
         id_book: null,
-        number: local.newChapter.number,
+        number: Number(local.newChapter.number),
         name: local.newChapter.name,
         content: local.newChapter.content,
       });
@@ -257,17 +252,6 @@ export default function BookCreatePage() {
 
     local.newChapter = { number: 1, name: "", content: "" };
     local.success = "Chapter berhasil ditambahkan!";
-    local.render();
-  };
-
-  const editChapter = (index: number) => {
-    local.activeChapterIndex = index;
-    local.newChapter = {
-      number: local.chapter[index].number,
-      name: local.chapter[index].name,
-      content: local.chapter[index].content,
-    };
-    local.isEditingChapter = true;
     local.render();
   };
 
@@ -327,10 +311,9 @@ export default function BookCreatePage() {
                           <RadioGroupItem
                             value="chapter"
                             id="chapter"
-                            onClick={() => {
-                              local.book.is_chapter = true;
-                              local.render();
-                            }}
+                            onClick={() =>
+                              handleCheckboxChange("is_chapter", true)
+                            }
                           />
                           <Label htmlFor="chapter">Chapter</Label>
                         </div>
@@ -338,10 +321,9 @@ export default function BookCreatePage() {
                           <RadioGroupItem
                             value="non-chapter"
                             id="non-chapter"
-                            onClick={() => {
-                              local.book.is_chapter = false;
-                              local.render();
-                            }}
+                            onClick={() =>
+                              handleCheckboxChange("is_chapter", false)
+                            }
                           />
                           <Label htmlFor="non-chapter">Bukan Chapter</Label>
                         </div>
