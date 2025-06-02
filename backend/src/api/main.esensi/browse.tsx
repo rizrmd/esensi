@@ -37,7 +37,7 @@ export default defineAPI({
           status: ProductStatus.PUBLISHED,
           deleted_at: null,
         },
-      })) / books_per_page
+      })) / books_per_page,
     );
 
     const data = {
