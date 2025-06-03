@@ -138,7 +138,7 @@ export const PageHeader = ({
               <NavigationMenuItem key={index}>
                 {item.submenu ? (
                   <>
-                    <NavigationMenuTrigger className="text-black data-[state=open]:text-[#3B2C93] data-[state=open]:bg-transparent hover:bg-transparent cursor-pointer">
+                    <NavigationMenuTrigger className="text-black data-[state=open]:text-[#3B2C93] active:text-[#3B2C93] focus:text-[#3B2C93] data-[state=open]:bg-transparent hover:bg-transparent focus:bg-transparent cursor-pointer">
                       {item.label}
                     </NavigationMenuTrigger>
                     <NavigationMenuContent className="py-1 min-w-[16rem]">
@@ -172,10 +172,10 @@ export const PageHeader = ({
 
         {/* Right side icons */}
         <div className="flex items-center pr-2">
-          <Button variant="ghost" onClick={() => navigate("/cart")}>
+          <Button variant="ghost" onClick={() => navigate("/cart")} className="rounded-full p-2 aspect-square">
             <ShoppingCart color="#3B2C93" strokeWidth={2.25} className="size-5" />
           </Button>
-          <Button variant="ghost" onClick={() => navigate("/profile")}>
+          <Button variant="ghost" onClick={() => navigate("/profile")} className="rounded-full p-2 aspect-square">
             <User color="#3B2C93" strokeWidth={2.25} className="size-5" />
           </Button>
         </div>
