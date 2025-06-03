@@ -138,7 +138,7 @@ export const PageHeader = ({
               <NavigationMenuItem key={index}>
                 {item.submenu ? (
                   <>
-                    <NavigationMenuTrigger className="text-black">
+                    <NavigationMenuTrigger className="text-black data-[state=open]:text-[#3B2C93] data-[state=open]:bg-transparent hover:bg-transparent cursor-pointer">
                       {item.label}
                     </NavigationMenuTrigger>
                     <NavigationMenuContent className="py-1 min-w-[16rem]">
@@ -158,7 +158,7 @@ export const PageHeader = ({
                 ) : (
                   <NavigationMenuLink
                     className={cn(
-                      "text-sm font-medium text-black cursor-pointer px-4 py-2 hover:text-primary"
+                      "text-sm font-medium text-black cursor-pointer px-4 py-2 hover:text-[#3B2C93]"
                     )}
                     onClick={() => navigate(item.url)}
                   >
