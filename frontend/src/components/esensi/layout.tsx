@@ -20,22 +20,15 @@ export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
   showSearch = true,
 }) => {
   return (
-    <div className="flex flex-1 flex-col gap-0 w-screen h-screen fixed p-0 m-0 overflow-hidden text-[color:#020817]">
-      <SidebarProvider>
-        <AppSidebar />
-        <div className="flex-1 flex flex-col min-h-0 max-w-screen md:max-w-[calc(100%-var(\-\-sidebar\-width))]">
-          <PageHeader 
-            title={title}
-            back={showBack}
-            logo={showLogo}
-            search={showSearch}
-          />
-          <div className="flex-1 min-h-0 overflow-y-auto lg:py-10">
-            {children}
-          </div>
-          <PageFooter />
-        </div>
-      </SidebarProvider>
+    <div className="flex flex-1 flex-col gap-0 p-0 m-0 text-[color:#020817]">
+      <PageHeader
+        title={title}
+        back={showBack}
+        logo={showLogo}
+        search={showSearch}
+      />
+      <div className="flex-1 lg:py-10">{children}</div>
+      <PageFooter />
     </div>
   );
 };
