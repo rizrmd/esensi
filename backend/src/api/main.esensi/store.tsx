@@ -35,6 +35,8 @@ export default defineAPI({
 
     const data = {
       title: `Esensi Online`,
+      categories: categories,
+      allbooks: allbooks,
       content: {},
     };
 

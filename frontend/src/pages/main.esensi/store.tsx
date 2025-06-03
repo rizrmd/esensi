@@ -16,7 +16,7 @@ export default () => {
     },
     async () => {
       const res = await api.store();
-      local.cats_list = res.categories.map((c) => {
+      local.cats_list = res.data.categories.map((c) => {
         return {
           ...c,
           image: `/img/categories/${c.image}`,
@@ -24,7 +24,7 @@ export default () => {
       });
       local.cats_loading = false;
 
-      local.allbooks_list = res.allbooks;
+      local.allbooks_list = res.data.allbooks;
       local.allbooks_loading = false;
       local.render();
     }
