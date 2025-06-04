@@ -20,6 +20,7 @@ export const StoreBooksCard: FC<{
   const renderBooks = list.map((book, idx) => {
     return <BookCard data={book} key={`store_books_${idx}`} />;
   });
+
   return (
     <div className="flex flex-col justify-center items-start gap-5">
       <div className="flex flex-row justify-center items-stretch flex-wrap">

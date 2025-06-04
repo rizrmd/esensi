@@ -5,8 +5,36 @@ import { ProductStatus } from "../types";
 export default defineAPI({
   name: "store",
   url: "/store",
-  async handler() {
+  async handler( arg: { allbooks_cat: string | null } ) {
     const req = this.req!;
+
+    let allbooks_where;
+
+    if ( arg?.allbooks_cat !== null) {
+      const cat = await db.category.findFirst({
+        where: {
+          slug: arg?.allbooks_cat,
+          deleted_at: null,
+        },
+        include: {
+          product_category: true,
+        },
+      });
+
+      allbooks_where = {
+        deleted_at: null,
+        status: "published",
+        id: {
+          in: cat?.product_category?.map((x) => x.id_product),
+        },
+      };
+    } else {
+      allbooks_where = {
+        deleted_at: null,
+        status: "published",
+      };
+    }
+
     const allbooks = await db.product.findMany({
       select: {
         name: true,
@@ -16,10 +44,7 @@ export default defineAPI({
         cover: true,
         slug: true,
       },
-      where: {
-        deleted_at: null,
-        status: ProductStatus.PUBLISHED,
-      },
+      where: allbooks_where,
       take: 12,
       orderBy: {
         published_date: "desc",
@@ -28,7 +53,13 @@ export default defineAPI({
 
     // Get all categories
     const categories = await db.category.findMany({
+      select: {
+        name: true,
+        slug: true,
+        img: true,
+      },
       where: {
+        id_parent: null,
         deleted_at: null,
       },
     });
