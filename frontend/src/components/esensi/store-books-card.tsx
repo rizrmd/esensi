@@ -16,22 +16,33 @@ export type StoreBooksCardItem = {
 export const StoreBooksCard: FC<{
   loading: boolean;
   list: StoreBooksCardItem[];
-}> = ({ loading, list }) => {
+  category: string;
+}> = ({ loading, list, category }) => {
   const renderBooks = list.map((book, idx) => {
     return <BookCard data={book} key={`store_books_${idx}`} />;
   });
 
+  const button_link = category === "all" ? "/all" : `/category/${category}`;
+  const button = loading && list.length > 0 ? (
+    <></>
+  ) : (
+    <>
+      <Button variant="outline" asChild>
+        <Link href={button_link} className="w-full">
+          Semua e-book <ArrowRight />
+        </Link>
+      </Button>
+    </>
+  );
+
+
   return (
     <div className="flex flex-col justify-center items-start gap-5">
-      <div className="flex flex-row justify-center items-stretch flex-wrap">
-        {renderBooks}
+      <div className="flex flex-row justify-center items-stretch flex-wrap gap-y-4">
+        {loading ? "Loading..." : renderBooks}
       </div>
       <div className="flex justify-center items-center w-full">
-        <Button variant="outline" asChild>
-          <Link href="/all" className="w-full">
-            Semua e-book <ArrowRight />
-          </Link>
-        </Button>
+        {button}
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import { BooksByCategory } from "@/components/esensi/books-by-category";
 import { useLocal } from "@/lib/hooks/use-local";
 import { api } from "@/lib/gen/main.esensi";
 import { MainEsensiLayout } from "@/components/esensi/layout";
+import { dbClient } from "rlib/client";
 
 export default () => {
   const local = useLocal(
@@ -39,11 +40,11 @@ export default () => {
   );
 
   const changeStoreCategory = async (cat: string | null) => {
-    local.cats.loading = true;
+    local.allbooks.loading = true;
     local.render();
-    // const res = await api.category({})
     local.cats.selected = cat || "";
-    local.cats.loading = false;
+    local.allbooks.list = await api.store({ allbooks_cat: cat || "" }).then(res => res.data.allbooks);
+    local.allbooks.loading = false;
     local.render();
   };
 
@@ -60,6 +61,7 @@ export default () => {
           <StoreBooksCard
             loading={local.allbooks.loading}
             list={local.allbooks.list}
+            category={local.cats.selected}
           />
           <BooksByCategory
             category="parenting"

@@ -15,7 +15,7 @@ export const BookCard = ({ data }) => {
       ) +
       "%";
     discount = (
-      <div className="flex justify-center items-center bg-[#d0011b] text-[color:#fff] text-[size:12px] leading-0 p-3 font-bold rounded-[3px] w-auto absolute top-0 left-0 z-10 -translate-1/6">
+      <div className="flex justify-center items-center bg-[#d0011b] text-[color:#fff] text-[size:13px] leading-0 p-3 font-bold rounded-full w-auto absolute top-0 left-0 z-10">
         {discval}
       </div>
     );
@@ -29,7 +29,7 @@ export const BookCard = ({ data }) => {
   return (
     <Link
       href={`/product/${data.slug}`}
-      className="w-auto flex flex-col flex-1/2 sm:flex-1/4 md:flex-1/6 justify-center items-center gap-2 relative p-5 cursor-pointer border border-[color:#d4d4d426] box-border"
+      className="w-auto flex flex-col flex-1/2 sm:flex-1/4 md:flex-1/6 justify-center items-center gap-2 py-2 px-4 relative cursor-pointer box-border"
     >
       <div className="relative max-w-[80%] overflow-visible">
         {discount}
@@ -39,10 +39,10 @@ export const BookCard = ({ data }) => {
           className="aspect-3/4 object-cover object-center rounded-[4px]"
         />
       </div>
-      <h3 className="flex flex-1 text-[12px] text-center">{data!.name}</h3>
-      <div className="flex flex-row justify-between items-center w-full gap-3 text-nowrap">
+      <h3 className="flex flex-1 text-[13px] text-center text-[#383D64] leading-none">{data!.name}</h3>
+      <div className="flex flex-row justify-end items-center w-full gap-3 text-nowrap">
         {strikePrice}
-        <div className="w-auto text-[color:#d0011b] font-bold">
+        <div className={`w-auto font-bold ${data.strike_price !== null && data.strike_price !== "" && data.strike_price > data.real_price ? "text-[#C6011B]" : "text-[#000]"}`}>
           {formatMoney(data.real_price, data.currency)}
         </div>
       </div>

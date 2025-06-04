@@ -1,4 +1,5 @@
 import { Link } from "@/lib/router";
+import { Button } from "../ui/button";
 
 export type StoreCategoryItem = {
   name: string,
@@ -11,15 +12,15 @@ export const StoreCategories = ({ action, loading, list, selected }) => {
 
   const category_list = list.map((cat, idx) => {
     return (
-      <Link href={`/category/${cat.slug}`} key={`home_categories_${idx}`}>
+      <Link onClick={(e)=>{e.preventDefault(); action(cat.slug);  }} href={`/category/${cat.slug}`}  key={`home_categories_${idx}`} className={`${selected === cat.slug ? "border-b-[2px] border-b-[#1A2BC3] text-[#393B69]" : "text-[#BABEDE]"} hover:text-[#393B69] h-8 px-3 font-medium`}>
         {cat.name}
       </Link>
     );
   });
 
   return (
-    <div className="flex w-full overflow-x-auto border-b-[1px] border-b-[color:#D3d3d3]">
-      <div className="flex flex-nowrap flex-row items-center gap-6 px-6 max-w-max h-15 text-nowrap">
+    <div className="flex w-full overflow-x-auto">
+      <div className="flex flex-nowrap flex-row items-center gap-0 px-6 max-w-max h-15 text-nowrap">
         {loading ? "Loading..." : category_list}
       </div>
     </div>
