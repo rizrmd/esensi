@@ -1,7 +1,6 @@
-import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
-import { Breadcrumb } from "@/components/ext/book/breadcrumb/update";
-import { BookChangesLog } from "@/components/ext/book/changes-log";
+import { Breadcrumb } from "@/components/ext/book/breadcrumb/create";
+import { EForm } from "@/components/ext/eform/EForm";
 import { Error } from "@/components/ext/error";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { MyFileUpload } from "@/components/ext/my-file-upload";
@@ -16,96 +15,62 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Alert } from "@/components/ui/global-alert";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Textarea } from "@/components/ui/textarea";
+import { betterAuth } from "@/lib/better-auth";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { getMimeType, isTwoFilesArrayTheSame } from "@/lib/utils";
-import type { BookChangesLog as BookChangesLogType } from "backend/api/types";
-import { BookStatus, Currency, Role, type Book } from "backend/api/types";
+import { getMimeType, isTwoFilesArrayTheSame, validate } from "@/lib/utils";
+import {
+  BookStatus,
+  BookTypes,
+  Currency,
+  Role,
+  type Book,
+} from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
-import { Edit, Plus, Save, Trash2 } from "lucide-react";
-import type { author, book, book_approval, chapter } from "shared/models";
+import type { book } from "shared/models";
 
-export default function BookUpdatePage() {
-  const params = new URLSearchParams(location.search);
-  const bookId = params.get("id") as string;
-
+export default function BookCreatePage() {
   const local = useLocal(
     {
-      bookId: "",
-      book: {
-        name: "",
-        slug: "",
-        alias: "",
-        desc: "",
-        cover: "",
-        submitted_price: 0,
-        currency: "IDR",
-        sku: "",
-        status: BookStatus.DRAFT,
-        published_date: new Date(),
-        is_physical: false,
-        is_chapter: true,
-        preorder_min_qty: 0,
-        content_type: "text",
-        info: {},
-      } as unknown as book & {
-        author: author | null;
-        book_approval: book_approval[];
-        book_changes_log: BookChangesLogType[];
-      },
-      activeChapterIndex: -1,
-      newChapter: {
-        number: 1,
-        name: "",
-        content: "",
-      },
-      isEditingChapter: false,
-      chapter: [] as chapter[],
-      updatedChaptersID: [] as string[],
-      deletedChaptersID: [] as string[],
-      loading: true,
-      error: "",
-      success: "",
-      isSubmitting: false,
+      id_book: "",
+      id_author: "",
+      book: undefined as Book | undefined,
       files: {
         old: [] as File[],
         new: [] as File[],
       },
+      loading: false,
+      error: "",
+      success: "",
+      isSubmitting: false,
     },
     async () => {
-      if (!bookId || bookId === "") {
-        local.error = "ID buku tidak ditemukan";
-        local.loading = false;
-        local.render();
+      const session = await betterAuth.getSession();
+      local.id_author = session.data!.user.idAuthor!;
+
+      const params = new URLSearchParams(location.search);
+      local.id_book = params.get("id") as string;
+      if (
+        validate(
+          !local.id_book || local.id_book === "",
+          local,
+          "ID buku tidak ditemukan."
+        )
+      ) {
+        navigate("/manage-book");
         return;
       }
 
       try {
-        const res = await api.book_detail({ id: bookId });
+        const res = await api.book_detail({ id: local.id_book });
         if (res && res.data) {
-          local.bookId = bookId;
-          local.book = res.data;
-          local.chapter = res.data.chapter.map((ch) => ({
-            id: ch.id,
-            id_product: ch.id_product,
-            id_book: ch.id_book,
-            number: ch.number,
-            name: ch.name,
-            content: ch.content,
-          }));
-
-          if (local.book.status !== BookStatus.DRAFT) {
-            navigate(`/book-step?id=${bookId}`);
+          if (res.data.status !== BookStatus.DRAFT) {
+            navigate(`/book-step?id=${local.id_book}`);
             return;
           }
+          local.book = res.data;
 
           if (res.data.cover) {
             const fetchImage = async () => {
@@ -132,7 +97,10 @@ export default function BookUpdatePage() {
             };
             await fetchImage();
           }
-        } else local.error = "Buku tidak ditemukan";
+        } else {
+          navigate(`/book-step?id=${local.id_book}`);
+          return;
+        }
       } catch (err) {
         local.error = "Terjadi kesalahan saat mengambil data buku";
         console.error(err);
@@ -142,245 +110,6 @@ export default function BookUpdatePage() {
       }
     }
   );
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
-
-  const submitBook = async (
-    status: BookStatus.DRAFT | BookStatus.SUBMITTED
-  ) => {
-    if (!local.book.name) {
-      Alert.info("Nama buku tidak boleh kosong.");
-      local.error = "Nama buku tidak boleh kosong.";
-      local.render();
-      return;
-    }
-
-    if (!local.book.submitted_price) {
-      Alert.info("Harga buku tidak boleh kosong.");
-      local.error = "Harga buku tidak boleh kosong.";
-      local.render();
-      return;
-    }
-
-    if (!local.files.new.length) {
-      Alert.info("Cover buku harus diunggah.");
-      local.error = "Cover buku harus diunggah.";
-      local.render();
-      return;
-    }
-
-    local.book.status = status;
-    local.isSubmitting = true;
-    local.error = "";
-    local.success = "";
-    local.render();
-
-    try {
-      // Upload cover image if available and new
-      if (
-        local.files.new.length > 0 &&
-        !isTwoFilesArrayTheSame(local.files.new, local.files.old)
-      ) {
-        const file = local.files.new[0];
-        const formData = new FormData();
-        formData.append("file", file);
-        const res = await fetch(`${baseUrl.auth_esensi}/api/upload`, {
-          method: "POST",
-          body: formData,
-        });
-        const uploaded: UploadAPIResponse = await res.json();
-        if (uploaded.name) local.book.cover = uploaded.name;
-      }
-
-      const res = await api.book_update({
-        id: bookId,
-        data: local.book,
-      });
-
-      if (res.success && res.data) {
-        // deal with chapters data, no matter if the book is chapter or not
-        let chapterRes = await api.chapter_create({
-          data: local.chapter
-            .filter((ch) => !ch.id)
-            .map((ch) => ({
-              id: "",
-              id_product: null,
-              id_book: res.data?.id!,
-              number: ch.number,
-              name: ch.name,
-              content: ch.content,
-            })),
-        });
-        if (!chapterRes.success) {
-          local.error = chapterRes.message || "Gagal menambahkan chapter.";
-          local.isSubmitting = false;
-          local.render();
-          return;
-        }
-
-        chapterRes = await api.chapter_update({
-          data: local.chapter
-            .filter((ch) => !!ch.id && local.updatedChaptersID.includes(ch.id))
-            .map((ch) => ({
-              id: ch.id,
-              id_product: null,
-              id_book: res.data?.id!,
-              number: ch.number,
-              name: ch.name,
-              content: ch.content,
-            })),
-        });
-        if (!chapterRes.success) {
-          local.error = chapterRes.message || "Gagal memperbarui chapter.";
-          local.isSubmitting = false;
-          local.render();
-          return;
-        }
-
-        if (local.deletedChaptersID.length > 0) {
-          const chapterRes = await api.chapter_delete({
-            ids: local.deletedChaptersID,
-          });
-          if (!chapterRes.success) {
-            local.error = chapterRes.message || "Gagal menghapus chapter.";
-            local.isSubmitting = false;
-            local.render();
-            return;
-          }
-        }
-
-        local.success = "Buku berhasil diperbarui!";
-        setTimeout(() => {
-          navigate(`/book-step?id=${res.data?.id}`);
-        }, 1500);
-      } else local.error = res.message || "Gagal memperbarui buku.";
-    } catch (err) {
-      local.error = "Terjadi kesalahan saat menghubungi server.";
-      console.error(err);
-    } finally {
-      local.isSubmitting = false;
-      local.render();
-    }
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    const { name, value, type } = e.target;
-    let processedValue: string | number | boolean | Date = value;
-
-    if (type === "number") processedValue = parseFloat(value) || 0;
-    else if (type === "datetime-local")
-      processedValue = value ? new Date(value) : new Date();
-
-    local.book = {
-      ...local.book,
-      [name]: processedValue,
-    };
-    local.render();
-  };
-
-  const handleCheckboxChange = (name: string, checked: boolean) => {
-    local.book = {
-      ...local.book,
-      [name]: checked,
-    };
-    local.render();
-  };
-
-  const handleChapterChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    const { name, value } = e.target;
-    local.newChapter = {
-      ...local.newChapter,
-      [name]: value,
-    };
-    local.render();
-  };
-
-  const saveChapter = () => {
-    if (!local.newChapter.name) {
-      Alert.info("Nama chapter tidak boleh kosong.");
-      return;
-    }
-
-    if (local.isEditingChapter) {
-      let index = local.chapter.findIndex(
-        (ch) => ch.number === Number(local.newChapter.number)
-      );
-      if (index > -1 && index !== local.activeChapterIndex) {
-        Alert.info("Nomor chapter sudah ada.");
-        return;
-      }
-
-      index = local.chapter.findIndex(
-        (ch) => ch.name === local.newChapter.name
-      );
-      if (index > -1 && index !== local.activeChapterIndex) {
-        Alert.info("Nama chapter sudah ada.");
-        return;
-      }
-
-      if (
-        local.chapter[local.activeChapterIndex].name !==
-          local.newChapter.name ||
-        local.chapter[local.activeChapterIndex].number !==
-          local.newChapter.number ||
-        local.chapter[local.activeChapterIndex].content !==
-          local.newChapter.content
-      ) {
-        if (local.activeChapterIndex >= 0) {
-          local.chapter[local.activeChapterIndex] = {
-            ...local.chapter[local.activeChapterIndex],
-            number: local.newChapter.number,
-            name: local.newChapter.name,
-            content: local.newChapter.content,
-          };
-
-          if (local.chapter[local.activeChapterIndex].id)
-            local.updatedChaptersID = [
-              ...new Set([
-                ...local.updatedChaptersID,
-                local.chapter[local.activeChapterIndex].id,
-              ]),
-            ];
-        }
-      }
-
-      local.isEditingChapter = false;
-      local.activeChapterIndex = -1;
-    } else {
-      if (local.chapter.some((ch) => ch.number === local.newChapter.number)) {
-        Alert.info("Nomor chapter sudah ada.");
-        return;
-      }
-
-      if (local.chapter.some((ch) => ch.name === local.newChapter.name)) {
-        Alert.info("Nama chapter sudah ada.");
-        return;
-      }
-
-      local.chapter.push({
-        id: "",
-        id_product: null,
-        id_book: null,
-        number: Number(local.newChapter.number),
-        name: local.newChapter.name,
-        content: local.newChapter.content,
-      });
-    }
-
-    local.newChapter = { number: 1, name: "", content: "" };
-    local.success = "Chapter berhasil ditambahkan!";
-    local.render();
-  };
-
-  if (local.loading) return <AppLoading />;
 
   return (
     <Protected role={[Role.AUTHOR, Role.PUBLISHER]} fallback={PublishFallback}>
@@ -392,457 +121,278 @@ export default function BookUpdatePage() {
             <Success msg={local.success} />
             <Card className="shadow-md border border-gray-200">
               <CardHeader>
-                <Breadcrumb id={local.book?.id!} />
-                <CardTitle className="text-2xl">Perbarui Buku</CardTitle>
+                <Breadcrumb />
+                <CardTitle className="text-2xl">Tambah Buku</CardTitle>
                 <CardDescription>
-                  Silahkan edit formulir di bawah untuk memperbarui buku.
+                  Isi informasi buku dan chapter (jika ada) di bawah ini.
                 </CardDescription>
               </CardHeader>
-              <form onSubmit={handleSubmit}>
-                <CardContent className="space-y-6">
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="name">Nama Buku</Label>
-                      <Input
-                        id="name"
-                        name="name"
-                        value={local.book.name}
-                        onChange={handleChange}
-                        placeholder="Masukkan nama buku"
-                        required
-                        className="mt-1"
-                      />
-                    </div>
 
-                    <div>
-                      <Label htmlFor="slug">Slug</Label>
-                      <Input
-                        id="slug"
-                        name="slug"
-                        value={local.book.slug}
-                        onChange={handleChange}
-                        placeholder="contoh-nama-buku"
-                        required
-                        className="mt-1"
-                      />
-                      <p className="text-xs text-gray-500 mt-1">
-                        Slug akan digunakan untuk URL buku
-                      </p>
-                    </div>
+              {local.book && (
+                <EForm
+                  data={{
+                    name: local.book?.name,
+                    slug: local.book?.slug,
+                    is_chapter: local.book?.is_chapter ? "chapter" : "book",
+                    is_physical: local.book?.is_physical,
+                    alias: local.book?.alias,
+                    desc: local.book?.desc,
+                    cover: local.book?.cover,
+                    submitted_price: local.book?.submitted_price,
+                    currency: local.book?.currency,
+                    published_date: new Date(local.book!.published_date)
+                      .toISOString()
+                      .slice(0, 10),
+                    sku: local.book?.sku,
+                    content_type: local.book?.content_type,
+                    preorder_min_qty: local.book?.preorder_min_qty,
+                    info: local.book?.info,
+                    status: BookStatus.DRAFT,
+                  }}
+                  onSubmit={async ({ write, read }) => {
+                    if (
+                      validate(
+                        !read.name,
+                        local,
+                        "Nama buku tidak boleh kosong."
+                      )
+                    )
+                      return;
+                    if (
+                      validate(
+                        !read.desc,
+                        local,
+                        "Deskripsi buku tidak boleh kosong."
+                      )
+                    )
+                      return;
+                    if (
+                      validate(
+                        !local.files.new.length,
+                        local,
+                        "Cover buku harus diunggah."
+                      )
+                    )
+                      return;
+                    if (
+                      validate(
+                        !read.submitted_price,
+                        local,
+                        "Harga buku tidak boleh kosong."
+                      )
+                    )
+                      return;
+                    if (
+                      validate(
+                        !read.sku,
+                        local,
+                        "Stock keeping unit tidak boleh kosong."
+                      )
+                    )
+                      return;
+                    local.isSubmitting = true;
+                    local.error = "";
+                    local.success = "";
+                    local.render();
 
-                    <div className="flex flex-col space-y-4 py-2">
-                      <Label htmlFor="is_chapter">Tipe Buku</Label>
-                      <RadioGroup defaultValue="chapter">
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem
-                            value="chapter"
-                            checked={local.book.is_chapter}
-                            id="chapter"
-                            onClick={() =>
-                              handleCheckboxChange("is_chapter", true)
-                            }
+                    try {
+                      let cover = "";
+                      if (
+                        local.files.new.length > 0 &&
+                        !isTwoFilesArrayTheSame(
+                          local.files.new,
+                          local.files.old
+                        )
+                      ) {
+                        const file = local.files.new[0];
+                        const formData = new FormData();
+                        formData.append("file", file);
+                        const res = await fetch(
+                          `${baseUrl.auth_esensi}/api/upload`,
+                          {
+                            method: "POST",
+                            body: formData,
+                          }
+                        );
+                        const uploaded: UploadAPIResponse = await res.json();
+                        if (uploaded.name) write.cover = uploaded.name!;
+                      }
+
+                      const res = await api.book_update({
+                        id: local.id_book,
+                        data: {
+                          ...read,
+                          id_author: local.id_author,
+                          is_chapter: read.is_chapter === "chapter",
+                          cover: write.cover,
+                          published_date: new Date(read.published_date),
+                        } as unknown as book,
+                      });
+
+                      if (res.success && res.data) {
+                        local.success = "Buku berhasil ditambahkan!";
+
+                        setTimeout(() => {
+                          navigate(
+                            `/${
+                              read.is_chapter === "chapter"
+                                ? "manage-chapter"
+                                : "book-step"
+                            }?id=${res.data?.id}`
+                          );
+                        }, 1500);
+                      } else
+                        local.error = res.message || "Gagal menambahkan buku.";
+                    } catch (err) {
+                      local.error =
+                        "Terjadi kesalahan saat menghubungi server.";
+                      console.error(err);
+                    } finally {
+                      local.isSubmitting = false;
+                      local.render();
+                    }
+                  }}
+                >
+                  {({ Field, read, write, submit }) => {
+                    return (
+                      <>
+                        <CardContent className="space-y-6">
+                          <Field
+                            name="name"
+                            disabled={local.loading}
+                            input={{ placeholder: "Masukkan nama buku" }}
+                            label="Nama Buku"
                           />
-                          <Label htmlFor="chapter">Chapter</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem
-                            value="non-chapter"
-                            checked={!local.book.is_chapter}
-                            id="non-chapter"
-                            onClick={() =>
-                              handleCheckboxChange("is_chapter", false)
-                            }
+                          <Field
+                            name="slug"
+                            disabled={local.loading}
+                            input={{ placeholder: "contoh-nama-buku" }}
+                            label="Slug"
+                            optional
                           />
-                          <Label htmlFor="non-chapter">Bukan Chapter</Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-
-                    {local.book.is_chapter && (
-                      <div className="border rounded-md p-4 bg-gray-50">
-                        <h3
-                          className="text-lg font-medium mb-4"
-                          onClick={() => {
-                            console.log(local.updatedChaptersID);
-                            console.log(local.isEditingChapter);
-                          }}
-                        >
-                          Manajemen Chapter
-                        </h3>
-
-                        <div className="space-y-4 mb-6">
-                          <div>
-                            <Label htmlFor="chapter-number">
-                              Nomor Chapter
-                            </Label>
-                            <Input
-                              id="chapter-number"
-                              name="number"
-                              type="number"
-                              value={Number(local.newChapter.number)}
-                              onChange={handleChapterChange}
-                              placeholder="1"
-                              className="mt-1"
-                            />
-                          </div>
-
-                          <div>
-                            <Label htmlFor="chapter-name">Nama Chapter</Label>
-                            <Input
-                              id="chapter-name"
-                              name="name"
-                              value={local.newChapter.name}
-                              onChange={handleChapterChange}
-                              placeholder="Judul chapter"
-                              className="mt-1"
-                            />
-                          </div>
-
-                          <div>
-                            <Label htmlFor="chapter-content">
-                              Konten Chapter
-                            </Label>
-                            <Textarea
-                              id="chapter-content"
-                              name="content"
-                              value={local.newChapter.content}
-                              onChange={handleChapterChange}
-                              placeholder="Konten chapter"
-                              className="mt-1"
-                              rows={6}
-                            />
-                          </div>
-
-                          <div className="flex justify-end gap-3">
+                          <Field
+                            name="is_chapter"
+                            type="select"
+                            disabled={local.loading}
+                            options={BookTypes}
+                            label="Tipe Buku"
+                          />
+                          <Field
+                            name="is_physical"
+                            type="checkbox"
+                            disabled={local.loading}
+                            label="Apakah buku fisik?"
+                          />
+                          <Field
+                            name="alias"
+                            disabled={local.loading}
+                            input={{ placeholder: "Alias buku" }}
+                            label="Alias"
+                            optional
+                          />
+                          <Field
+                            name="desc"
+                            type="textarea"
+                            disabled={local.loading}
+                            input={{ placeholder: "Deskripsi buku" }}
+                            label="Deskripsi"
+                          />
+                          <MyFileUpload
+                            title="Cover Buku"
+                            files={local.files.new}
+                            accept="image/*"
+                            onImageChange={(files) => {
+                              local.files.new = files;
+                              local.render();
+                            }}
+                          />
+                          <Field
+                            name="submitted_price"
+                            type="number"
+                            disabled={local.loading}
+                            input={{ placeholder: "0", step: "0.01" }}
+                            label="Harga Buku"
+                          />
+                          <Field
+                            name="currency"
+                            type="select"
+                            disabled={local.loading}
+                            label="Mata Uang"
+                            options={Object.values(Currency).map((c) => ({
+                              label: c,
+                              key: c,
+                            }))}
+                          />
+                          <Field
+                            name="published_date"
+                            type="date"
+                            disabled={local.loading}
+                            label="Tanggal Terbit"
+                          />
+                          <Field
+                            name="sku"
+                            disabled={local.loading}
+                            input={{ placeholder: "SKU" }}
+                            label="Stock Keeping Unit"
+                          />
+                          <Field
+                            name="content_type"
+                            disabled={local.loading}
+                            label="Tipe Konten"
+                            optional
+                          />
+                          <Field
+                            name="preorder_min_qty"
+                            type="number"
+                            disabled={local.loading}
+                            input={{ placeholder: "0" }}
+                            label="Minimal Preorder"
+                          />
+                        </CardContent>
+                        <CardFooter className="flex justify-between">
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => navigate("/book-step")}
+                          >
+                            Batal
+                          </Button>
+                          <div className="flex space-x-3">
                             <Button
                               type="button"
-                              onClick={saveChapter}
-                              className="flex items-center"
+                              onClick={() => {
+                                write.status = BookStatus.DRAFT;
+                                submit();
+                              }}
+                              disabled={local.isSubmitting}
                             >
-                              {local.isEditingChapter ? (
-                                <>
-                                  <Save className="h-4 w-4 mr-2" /> Perbarui
-                                  Chapter
-                                </>
+                              {local.isSubmitting ? (
+                                <span>Menyimpan...</span>
                               ) : (
-                                <>
-                                  <Plus className="h-4 w-4 mr-2" /> Tambah
-                                  Chapter
-                                </>
+                                <span>Simpan Sebagai Draft</span>
                               )}
                             </Button>
-                            {local.isEditingChapter && (
-                              <Button
-                                type="button"
-                                variant="outline"
-                                onClick={() => {
-                                  local.isEditingChapter = false;
-                                  local.activeChapterIndex = -1;
-                                  local.newChapter = {
-                                    number: 1,
-                                    name: "",
-                                    content: "",
-                                  };
-                                  local.render();
-                                }}
-                              >
-                                Batal
-                              </Button>
-                            )}
+                            <Button
+                              type="button"
+                              onClick={() => {
+                                write.status = BookStatus.SUBMITTED;
+                                submit();
+                              }}
+                              disabled={local.isSubmitting}
+                            >
+                              {local.isSubmitting ? (
+                                <span>Menyimpan...</span>
+                              ) : (
+                                <span>Simpan dan Ajukan</span>
+                              )}
+                            </Button>
                           </div>
-                        </div>
-
-                        {local.chapter.length > 0 && (
-                          <div className="space-y-4">
-                            <h4 className="font-medium">Daftar Chapter</h4>
-                            <div className="border rounded-md overflow-hidden">
-                              <table className="w-full">
-                                <thead className="bg-gray-100">
-                                  <tr>
-                                    <th className="py-2 px-4 text-left">
-                                      Nomor
-                                    </th>
-                                    <th className="py-2 px-4 text-left">
-                                      Nama
-                                    </th>
-                                    <th className="py-2 px-4 text-left">
-                                      Aksi
-                                    </th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  {local.chapter.map((ch, index) => (
-                                    <tr key={index} className="border-t">
-                                      <td className="py-2 px-4">{ch.number}</td>
-                                      <td className="py-2 px-4">{ch.name}</td>
-                                      <td className="py-2 px-4 flex space-x-2">
-                                        <Button
-                                          variant="outline"
-                                          size="sm"
-                                          onClick={() => {
-                                            local.isEditingChapter =
-                                              local.activeChapterIndex === index
-                                                ? !local.isEditingChapter
-                                                : true;
-                                            if (local.isEditingChapter) {
-                                              local.activeChapterIndex = index;
-                                              local.newChapter = {
-                                                number: ch.number,
-                                                name: ch.name,
-                                                content: ch.content,
-                                              };
-                                            } else {
-                                              local.activeChapterIndex = -1;
-                                              local.newChapter = {
-                                                number: 1,
-                                                name: "",
-                                                content: "",
-                                              };
-                                            }
-                                            local.render();
-                                          }}
-                                        >
-                                          <Edit className="h-4 w-4" />
-                                        </Button>
-                                        <Button
-                                          variant="outline"
-                                          size="sm"
-                                          onClick={() => {
-                                            local.chapter =
-                                              local.chapter.filter((ch, i) => {
-                                                const x = i !== index;
-                                                if (!x && ch.id)
-                                                  local.deletedChaptersID.push(
-                                                    ch.id
-                                                  );
-                                                return x;
-                                              });
-                                            local.render();
-                                          }}
-                                        >
-                                          <Trash2 className="h-4 w-4" />
-                                        </Button>
-                                      </td>
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    <div>
-                      <Label htmlFor="alias">Alias (Opsional)</Label>
-                      <Input
-                        id="alias"
-                        name="alias"
-                        value={local.book.alias || ""}
-                        onChange={handleChange}
-                        placeholder="Alias buku"
-                        className="mt-1"
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="desc">Deskripsi</Label>
-                      <Textarea
-                        id="desc"
-                        name="desc"
-                        value={local.book.desc || ""}
-                        onChange={handleChange}
-                        placeholder="Deskripsi buku"
-                        className="mt-1"
-                        rows={4}
-                      />
-                    </div>
-
-                    <div>
-                      <MyFileUpload
-                        title="Cover Buku"
-                        files={local.files.new}
-                        accept="image/*"
-                        onImageChange={(files) => {
-                          local.files.new = files;
-                          local.render();
-                        }}
-                        initialImage={
-                          local.book.cover
-                            ? `${baseUrl.auth_esensi}/${local.book.cover}`
-                            : undefined
-                        }
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="submitted_price">Harga</Label>
-                        <Input
-                          id="submitted_price"
-                          name="submitted_price"
-                          type="number"
-                          value={
-                            local.book.submitted_price
-                              ? Number(local.book.submitted_price)
-                              : 0
-                          }
-                          onChange={handleChange}
-                          placeholder="0"
-                          className="mt-1"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="currency">Mata Uang</Label>
-                        <select
-                          id="currency"
-                          name="currency"
-                          value={local.book.currency}
-                          onChange={handleChange}
-                          className="mt-1 w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                        >
-                          {Object.values(Currency).map((currency) => (
-                            <option key={currency} value={currency}>
-                              {currency}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="published_date">Tanggal Terbit</Label>
-                      <Input
-                        id="published_date"
-                        name="published_date"
-                        type="datetime-local"
-                        value={
-                          local.book.published_date
-                            ? new Date(local.book.published_date)
-                                .toISOString()
-                                .slice(0, 16)
-                            : new Date().toISOString().slice(0, 16)
-                        }
-                        onChange={handleChange}
-                        className="mt-1"
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="sku">SKU (Opsional)</Label>
-                      <Input
-                        id="sku"
-                        name="sku"
-                        value={local.book.sku || ""}
-                        onChange={handleChange}
-                        placeholder="Stock Keeping Unit"
-                        className="mt-1"
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="content_type">Tipe Konten</Label>
-                      <Input
-                        id="content_type"
-                        name="content_type"
-                        value={local.book.content_type || ""}
-                        onChange={handleChange}
-                        placeholder="Contoh: ebook, video, audio"
-                        className="mt-1"
-                      />
-                    </div>
-
-                    <div className="flex space-x-5">
-                      <div className="flex items-center space-x-2">
-                        <Checkbox
-                          id="is_physical"
-                          checked={local.book.is_physical}
-                          onCheckedChange={(checked) =>
-                            handleCheckboxChange(
-                              "is_physical",
-                              checked === true
-                            )
-                          }
-                        />
-                        <Label htmlFor="is_physical">Buku Fisik?</Label>
-                      </div>
-                    </div>
-
-                    {local.book.is_physical && (
-                      <div>
-                        <Label htmlFor="preorder_min_qty">
-                          Minimal Preorder
-                        </Label>
-                        <Input
-                          id="preorder_min_qty"
-                          name="preorder_min_qty"
-                          type="number"
-                          value={
-                            local.book.preorder_min_qty
-                              ? Number(local.book.preorder_min_qty)
-                              : 0
-                          }
-                          onChange={handleChange}
-                          placeholder="0"
-                          className="mt-1"
-                        />
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
-                <CardFooter className="flex justify-between">
-                  <div className="flex items-center gap-2">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => navigate(`/book-step?id=${bookId}`)}
-                    >
-                      Batal
-                    </Button>
-                  </div>
-                  {bookId && local.bookId && (
-                    <div className="flex space-x-3">
-                      {local.book.status === BookStatus.DRAFT && (
-                        <Button
-                          type="button"
-                          onClick={() => submitBook(BookStatus.DRAFT)}
-                          disabled={local.isSubmitting}
-                        >
-                          {local.isSubmitting ? (
-                            <span>Menyimpan...</span>
-                          ) : (
-                            <span>Simpan Sebagai Draft</span>
-                          )}
-                        </Button>
-                      )}
-                      <Button
-                        type="button"
-                        onClick={() => submitBook(BookStatus.SUBMITTED)}
-                        disabled={local.isSubmitting}
-                      >
-                        {local.isSubmitting ? (
-                          <span>Menyimpan...</span>
-                        ) : (
-                          <span>Simpan dan Ajukan</span>
-                        )}
-                      </Button>
-                    </div>
-                  )}
-                </CardFooter>
-              </form>
-
-              {/* Changes Log Section */}
-              <BookChangesLog
-                className="px-6"
-                book={local.book as Book}
-                onReloadData={(log: BookChangesLogType[] | undefined) => {
-                  local.book.book_changes_log = log!;
-                  local.render();
-                }}
-              />
+                        </CardFooter>
+                      </>
+                    );
+                  }}
+                </EForm>
+              )}
             </Card>
           </div>
         </main>

@@ -1,6 +1,7 @@
 import { formatCurrency, ItemLayoutEnum } from "@/lib/utils";
 import type { Book, Product } from "backend/api/types";
 import type { FC } from "react";
+import type { chapter } from "shared/models";
 
 const Grid: FC<{ label: string; value: string }> = ({ label, value }) => (
   <div className="mb-1 text-sm text-gray-600">
@@ -32,11 +33,19 @@ export const Item: FC<{
     )
   );
 
+export function chapter(chapter: chapter): Record<string, string> {
+  return {
+    Nomor: chapter.number + "",
+    Nama: chapter.name ?? "-",
+  };
+}
+
 export function book(book: Book): Record<string, string> {
   return {
     Penulis: book.author?.name ?? "-",
     Harga: formatCurrency(book.submitted_price, book.currency),
-    Status: book.status ?? "-",
+    Status: book.status,
+    Chapter: book.is_chapter ? "✅" : "❎",
   };
 }
 
@@ -45,6 +54,7 @@ export function product(product: Product): Record<string, string> {
     Penulis: product.author?.name ?? "-",
     "Harga Coret": formatCurrency(product.strike_price, product.currency),
     Harga: formatCurrency(product.real_price, product.currency),
-    Status: product.status ?? "-",
+    Status: product.status,
+    Chapter: product.is_chapter ? "✅" : "❎",
   };
 }

@@ -1,3 +1,4 @@
+import { Alert } from "@/components/ui/global-alert";
 import { baseUrl } from "@/lib/gen/base-url";
 import type { User } from "backend/lib/better-auth";
 import { type ClassValue, clsx } from "clsx";
@@ -137,3 +138,17 @@ export type BookStep = {
   description: string;
   link: string;
 };
+
+export function validate(
+  failCondition: boolean,
+  local: { error: string; render: () => void },
+  message: string
+): any {
+  if (failCondition) {
+    console.error(message);
+    Alert.info(message);
+    local.error = message;
+    local.render();
+    return true;
+  }
+}
