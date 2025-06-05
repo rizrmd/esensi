@@ -43,7 +43,9 @@ export default () => {
     local.allbooks.loading = true;
     local.render();
     local.cats.selected = cat || "";
-    local.allbooks.list = await api.store({ allbooks_cat: cat || "" }).then(res => res.data.allbooks);
+    local.allbooks.list = await api
+      .store({ allbooks_cat: cat || "" })
+      .then((res) => res.data.allbooks);
     local.allbooks.loading = false;
     local.render();
   };
@@ -51,18 +53,22 @@ export default () => {
   return (
     <MainEsensiLayout title="Toko Buku">
       <div className="w-full flex flex-col justify-center gap-10">
-        <StoreCategories
-          action={changeStoreCategory}
-          loading={local.cats.loading}
-          list={local.cats.list}
-          selected={local.cats.selected}
-        />
-        <div className="w-full flex flex-col justify-center gap-10 md:gap-20 lg:px-16 lg:pb-8">
-          <StoreBooksCard
-            loading={local.allbooks.loading}
-            list={local.allbooks.list}
-            category={local.cats.selected}
+        <div className="w-full flex flex-col justify-center lg:hidden">
+          <StoreCategories
+            action={changeStoreCategory}
+            loading={local.cats.loading}
+            list={local.cats.list}
+            selected={local.cats.selected}
           />
+        </div>
+        <div className="w-full flex flex-col justify-center gap-10 md:gap-20 lg:px-16 lg:pb-8">
+          <div className="w-full flex flex-col justify-center lg:hidden">
+            <StoreBooksCard
+              loading={local.allbooks.loading}
+              list={local.allbooks.list}
+              category={local.cats.selected}
+            />
+          </div>
           <BooksByCategory
             category="parenting"
             title="Parenting"
