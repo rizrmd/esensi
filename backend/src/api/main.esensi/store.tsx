@@ -10,7 +10,7 @@ export default defineAPI({
 
     let allbooks_where;
 
-    if ( arg?.allbooks_cat !== null) {
+    if ( arg?.allbooks_cat !== "" && arg?.allbooks_cat !== null) {
       const cat = await db.category.findFirst({
         where: {
           slug: arg?.allbooks_cat,

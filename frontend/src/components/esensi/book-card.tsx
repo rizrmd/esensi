@@ -29,7 +29,7 @@ export const BookCard = ({ data }) => {
   return (
     <Link
       href={`/product/${data.slug}`}
-      className="w-auto flex flex-col flex-1/2 sm:flex-1/4 md:flex-1/6 justify-center items-center gap-2 py-2 px-4 relative cursor-pointer box-border"
+      className="flex flex-col justify-center items-center gap-3 py-4 relative cursor-pointer box-border w-1/2 md:w-1/3 lg:w-1/4"
     >
       <div className="relative max-w-[80%] overflow-visible">
         {discount}
@@ -39,8 +39,8 @@ export const BookCard = ({ data }) => {
           className="aspect-3/4 object-cover object-center rounded-[4px]"
         />
       </div>
-      <h3 className="flex flex-1 text-[13px] text-center text-[#383D64] leading-none">{data!.name}</h3>
-      <div className="flex flex-row justify-end items-center w-full gap-3 text-nowrap">
+      <h3 className="flex flex-1 text-[15px] text-center text-[#383D64] font-semibold leading-[1.3] px-4">{data!.name}</h3>
+      <div className="flex flex-row justify-end items-center w-full gap-3 px-4 text-nowrap">
         {strikePrice}
         <div className={`w-auto font-bold ${data.strike_price !== null && data.strike_price !== "" && data.strike_price > data.real_price ? "text-[#C6011B]" : "text-[#000]"}`}>
           {formatMoney(data.real_price, data.currency)}
