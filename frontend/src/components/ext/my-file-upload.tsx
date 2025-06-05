@@ -13,7 +13,7 @@ import { Upload, X } from "lucide-react";
 import type { FC } from "react";
 
 export type MyFileUploadProps = {
-  title: string;
+  title?: string;
   files?: File[];
   onImageChange?: (files: File[]) => void;
   maxSize?: number;
@@ -49,7 +49,7 @@ export const MyFileUpload: FC<MyFileUploadProps> = ({
       }}
       accept={accept}
     >
-      <span className="font-medium text-sm">{title}</span>
+      {!!title && <span className="font-medium text-sm">{title}</span>}
       {local.files.length === 0 && (
         <FileUploadDropzone>
           <div className="flex flex-col items-center gap-1 text-center">

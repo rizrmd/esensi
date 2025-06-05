@@ -168,3 +168,8 @@ export enum BadgeStatus {
   FRAUD = "fraud",
   REFUNDED = "refunded",
 }
+
+export const BookTypes = [
+  { label: "Buku Utuh", key: "utuh" },
+  { label: "Buku Chapter", key: "chapter" },
+];
