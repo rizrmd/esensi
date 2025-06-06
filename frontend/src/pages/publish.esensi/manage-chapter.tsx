@@ -14,7 +14,7 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { ItemLayoutEnum, validate } from "@/lib/utils";
-import { Role } from "backend/api/types";
+import { BookStatus, Role, type Book } from "backend/api/types";
 import type { User } from "backend/lib/better-auth";
 import { PlusCircle, Trash2 } from "lucide-react";
 import type { chapter } from "shared/models";
@@ -23,10 +23,11 @@ export const current = {
   user: undefined as User | undefined,
 };
 
-export default function BookListPage() {
+export default () => {
   const local = useLocal(
     {
       bookId: undefined as string | undefined,
+      book: undefined as Book | undefined,
       chapters: [] as chapter[],
       loading: false,
       total: 0,
@@ -55,6 +56,21 @@ export default function BookListPage() {
   async function loadData() {
     local.loading = true;
     local.render();
+
+    try {
+      const res = await api.book_detail({ id: local.bookId! });
+      if (validate(!res.data, local, "Buku tidak ditemukan.")) {
+        navigate("/manage-book");
+        return;
+      } else local.book = res.data;
+    } catch (error) {
+      local.error = "Terjadi kesalahan saat memuat data buku.";
+    } finally {
+      local.loading = false;
+      local.render();
+      console.log("Book loaded:", local.book);
+    }
+
     try {
       const res = await api.chapter_list({
         page: local.page,
@@ -83,7 +99,13 @@ export default function BookListPage() {
       await loadData();
       return;
     }
-    navigate(`chapter-update?id=${item.id}&bookId=${local.bookId}`);
+    navigate(
+      `${
+        local.book?.status === BookStatus.DRAFT
+          ? "chapter-update"
+          : "chapter-detail"
+      }?id=${item.id}&bookId=${local.bookId}`
+    );
   }
 
   if (local.loading) return <AppLoading />;
@@ -110,7 +132,11 @@ export default function BookListPage() {
                                 (local.bookId ? `?bookId=${local.bookId}` : "")
                             )
                           }
-                          disabled={local.loading || !!local.error}
+                          disabled={
+                            local.loading ||
+                            !!local.error ||
+                            local.book?.status !== BookStatus.DRAFT
+                          }
                           className="flex items-center gap-2"
                           variant="default"
                         >
@@ -167,7 +193,9 @@ export default function BookListPage() {
                                 <CardTitle className="text-lg font-semibold line-clamp-2 mb-2">
                                   {item.name}
                                 </CardTitle>
-                                <Trash2 className="h-4 w-4 self-end absolute hover:text-red-500" />
+                                {local.book?.status === BookStatus.DRAFT && (
+                                  <Trash2 className="h-4 w-4 self-end absolute hover:text-red-500" />
+                                )}
                               </CardHeader>
                               <CardContent className="pb-4">
                                 <Item type={local.layout} item={tf(item)} />
@@ -239,4 +267,4 @@ export default function BookListPage() {
       </div>
     </Protected>
   );
-}
+};

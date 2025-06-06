@@ -27,7 +27,6 @@ export default function ChapterCreatePage() {
   const local = useLocal(
     {
       bookId: undefined as string | undefined,
-      files: [] as File[],
       loading: true,
       error: "",
       success: "",

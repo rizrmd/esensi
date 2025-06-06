@@ -31,7 +31,7 @@ import {
 import type { UploadAPIResponse } from "backend/api/upload";
 import type { book } from "shared/models";
 
-export default function BookCreatePage() {
+export default function BookUpdatePage() {
   const local = useLocal(
     {
       authorId: undefined as string | undefined | null,
@@ -59,14 +59,15 @@ export default function BookCreatePage() {
 
       try {
         const res = await api.book_detail({ id: local.bookId });
-        if (res && res.data) {
+        if (validate(!res.data, local, "Buku tidak ditemukan.")) {
+          navigate("/manage-book");
+          return;
+        } else if (res && res.data) {
           if (res.data.status !== BookStatus.DRAFT) {
             navigate(`/book-step?id=${local.bookId}`);
             return;
           }
           local.book = res.data;
-          console.log("Book data:", res.data);
-
           if (res.data.cover) {
             const fetchImage = async () => {
               try {

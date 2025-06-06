@@ -1,5 +1,6 @@
 import { Alert } from "@/components/ui/global-alert";
 import { baseUrl } from "@/lib/gen/base-url";
+import type { OutputData } from "@editorjs/editorjs";
 import type { User } from "backend/lib/better-auth";
 import { type ClassValue, clsx } from "clsx";
 import type { Decimal } from "shared/models/runtime/library";
@@ -146,10 +147,24 @@ export function validate(
   message: string
 ): any {
   if (failCondition) {
-    console.error(message);
     Alert.info(message);
     local.error = message;
     local.render();
     return true;
   }
+}
+
+export function isValidEditorData(data: any): data is OutputData {
+  // Basic validation
+  if (!data || typeof data !== "object") return false;
+  if (!Array.isArray(data.blocks)) return false;
+
+  // Check each block has required properties
+  return data.blocks.every((block: any) => {
+    return (
+      typeof block === "object" &&
+      typeof block.type === "string" &&
+      block.data !== undefined
+    );
+  });
 }

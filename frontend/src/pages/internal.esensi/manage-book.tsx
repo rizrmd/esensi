@@ -15,7 +15,7 @@ import { navigate } from "@/lib/router";
 import { ItemLayoutEnum } from "@/lib/utils";
 import { Role, type Book } from "backend/api/types";
 
-export default function BookListPage() {
+export default () => {
   const local = useLocal(
     {
       books: [] as Book[],

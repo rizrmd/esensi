@@ -25,7 +25,7 @@ import { BookStatus, BookTypes, Currency, Role } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import type { book } from "shared/models";
 
-export default function BookCreatePage() {
+export default () => {
   const local = useLocal(
     {
       authorId: undefined as string | undefined | null,

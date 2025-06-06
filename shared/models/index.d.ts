@@ -59827,7 +59827,7 @@ export namespace Prisma {
     id?: string
     number: number
     name: string
-    content: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string | null
     book?: bookCreateNestedOneWithoutChapterInput
@@ -59840,7 +59840,7 @@ export namespace Prisma {
     id_book?: string | null
     number: number
     name: string
-    content: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string | null
   }
@@ -59873,7 +59873,7 @@ export namespace Prisma {
     id_book?: string | null
     number: number
     name: string
-    content: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string | null
   }
@@ -69739,7 +69739,7 @@ export namespace Prisma {
     id?: string
     number: number
     name: string
-    content: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string | null
     product?: productCreateNestedOneWithoutChapterInput
@@ -69750,7 +69750,7 @@ export namespace Prisma {
     id_product?: string | null
     number: number
     name: string
-    content: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string | null
   }
@@ -73272,7 +73272,7 @@ export namespace Prisma {
     id?: string
     number: number
     name: string
-    content: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string | null
     book?: bookCreateNestedOneWithoutChapterInput
@@ -73283,7 +73283,7 @@ export namespace Prisma {
     id_book?: string | null
     number: number
     name: string
-    content: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string | null
   }
@@ -77003,7 +77003,7 @@ export namespace Prisma {
     id_product?: string | null
     number: number
     name: string
-    content: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string | null
   }
@@ -77801,7 +77801,7 @@ export namespace Prisma {
     id_book?: string | null
     number: number
     name: string
-    content: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string | null
   }

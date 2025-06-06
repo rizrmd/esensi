@@ -1,5 +1,5 @@
 import { Protected } from "@/components/app/protected";
-import { Breadcrumb } from "@/components/ext/chapter/breadcrumb/update";
+import { Breadcrumb } from "@/components/ext/chapter/breadcrumb/detail";
 import MyEditorJS from "@/components/ext/editor.js";
 import { EForm } from "@/components/ext/eform/EForm";
 import { Error } from "@/components/ext/error";
@@ -23,7 +23,7 @@ import type { OutputData } from "@editorjs/editorjs";
 import { Role } from "backend/api/types";
 import type { chapter } from "shared/models";
 
-export default function ChapterUpdatePage() {
+export default () => {
   const local = useLocal(
     {
       bookId: undefined as string | undefined,
@@ -91,9 +91,9 @@ export default function ChapterUpdatePage() {
             <Card className="shadow-md border border-gray-200">
               <CardHeader>
                 <Breadcrumb bookId={local.bookId!} />
-                <CardTitle className="text-2xl">Perbarui Chapter</CardTitle>
+                <CardTitle className="text-2xl">Detil Chapter</CardTitle>
                 <CardDescription>
-                  Isi informasi chapter di bawah ini.
+                  Anda tidak dapat mengubah informasi chapter ini.
                 </CardDescription>
               </CardHeader>
 
@@ -108,65 +108,8 @@ export default function ChapterUpdatePage() {
                       version: local.chapter.content!["version"],
                     } as OutputData,
                   }}
-                  onSubmit={async ({ write, read }) => {
-                    if (
-                      validate(
-                        !read.number,
-                        local,
-                        "Nomor chapter tidak boleh kosong."
-                      )
-                    )
-                      return;
-                    if (
-                      validate(
-                        !read.name,
-                        local,
-                        "Nama chapter tidak boleh kosong."
-                      )
-                    )
-                      return;
-                    if (
-                      validate(
-                        !read.content,
-                        local,
-                        "Konten chapter tidak boleh kosong."
-                      )
-                    )
-                      return;
-                    local.isSubmitting = true;
-                    local.error = "";
-                    local.success = "";
-                    local.render();
-
-                    try {
-                      const res = await api.chapter_update({
-                        id: local.id!,
-                        data: {
-                          ...read,
-                          id_book: local.bookId!,
-                        } as unknown as chapter,
-                      });
-
-                      if (res.success && res.data) {
-                        local.success = "Chapter berhasil diperbarui!";
-
-                        setTimeout(() => {
-                          navigate(`/manage-chapter?bookId=${local.bookId}`);
-                        }, 1500);
-                      } else
-                        local.error =
-                          res.message || "Gagal memperbarui chapter.";
-                    } catch (err) {
-                      local.error =
-                        "Terjadi kesalahan saat menghubungi server.";
-                      console.error(err);
-                    } finally {
-                      local.isSubmitting = false;
-                      local.render();
-                    }
-                  }}
                 >
-                  {({ Field, read, write, submit }) => {
+                  {({ Field, write }) => {
                     return (
                       <>
                         <CardContent className="space-y-6">
@@ -174,21 +117,18 @@ export default function ChapterUpdatePage() {
                             name="number"
                             type="number"
                             disabled={local.loading}
+                            readOnly={true}
                             input={{ placeholder: "Masukkan nomor chapter" }}
                             label="Nomor Chapter"
                           />
                           <Field
                             name="name"
                             disabled={local.loading}
+                            readOnly={true}
                             input={{ placeholder: "Masukkan nama chapter" }}
                             label="Nama Chapter"
                           />
-                          <MyEditorJS
-                            data={write.content}
-                            onChange={(data: OutputData) =>
-                              (write.content = data)
-                            }
-                          />
+                          <MyEditorJS data={write.content} readOnly={true} />
                         </CardContent>
                         <CardFooter className="flex justify-between">
                           <Button
@@ -198,18 +138,6 @@ export default function ChapterUpdatePage() {
                           >
                             Batal
                           </Button>
-                          <div className="flex space-x-3">
-                            <Button
-                              type="submit"
-                              disabled={local.isSubmitting || !local.bookId}
-                            >
-                              {local.isSubmitting ? (
-                                <span>Menyimpan...</span>
-                              ) : (
-                                <span>Simpan</span>
-                              )}
-                            </Button>
-                          </div>
                         </CardFooter>
                       </>
                     );
@@ -222,4 +150,4 @@ export default function ChapterUpdatePage() {
       </div>
     </Protected>
   );
-}
+};

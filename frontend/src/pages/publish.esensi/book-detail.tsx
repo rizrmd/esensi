@@ -19,7 +19,7 @@ import {
   type BookChangesLog as BookChangesLogType,
 } from "backend/api/types";
 
-export default function BookDetailPage() {
+export default () => {
   const local = useLocal(
     {
       book: undefined as Book | undefined,

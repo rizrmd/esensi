@@ -8,7 +8,7 @@ import { useLocal } from "@/lib/hooks/use-local";
 import type { BookStep } from "@/lib/utils";
 import { BookStatus, Role, type Book } from "backend/api/types";
 
-export default function BookStepPag() {
+export default () => {
   const local = useLocal(
     {
       book: null as Book | null,

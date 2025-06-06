@@ -24,7 +24,7 @@ export const current = {
   user: undefined as User | undefined,
 };
 
-export default function BookListPage() {
+export default () => {
   const local = useLocal(
     {
       books: [] as Book[],

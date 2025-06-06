@@ -6,10 +6,10 @@ import type { Chapter } from "../types";
 export default defineAPI({
   name: "chapter_update",
   url: "/api/publish/chapter/update",
-  async handler(arg: { data: chapter }): Promise<ApiResponse<Chapter>> {
+  async handler(arg: { id: string; data: chapter }): Promise<ApiResponse<Chapter>> {
     try {
       const updated = await db.chapter.update({
-        where: { id: arg.data.id },
+        where: { id: arg.id },
         data: {
           number: arg.data.number,
           name: arg.data.name,
