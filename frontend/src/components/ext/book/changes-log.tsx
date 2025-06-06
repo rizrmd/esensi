@@ -94,7 +94,7 @@ function ChangesLogItem({
 
 export const BookChangesLog: FC<{
   className?: string;
-  book: Book | null;
+  book: Book | undefined;
   onReloadData?: (log: BCL[] | undefined) => void;
 }> = ({ className, book, onReloadData }) => {
   const local = useLocal(
@@ -251,7 +251,12 @@ export const BookChangesLog: FC<{
                   </h3>
                   {Object.entries(log.changes!["newFields"]).map(
                     ([key, value]) => (
-                      <ChangesLogItem book={book} key={key} key2={key} value={value} />
+                      <ChangesLogItem
+                        book={book}
+                        key={key}
+                        key2={key}
+                        value={value}
+                      />
                     )
                   )}
                   {Object.keys(log.changes!["newFields"]).length === 0 && (

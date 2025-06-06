@@ -134,6 +134,7 @@ export enum ItemLayoutEnum {
 }
 
 export type BookStep = {
+  step: number;
   title: string;
   description: string;
   link: string;

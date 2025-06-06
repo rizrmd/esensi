@@ -36,26 +36,37 @@ export default function BookStepPag() {
         } catch (error) {
           local.error = "Terjadi kesalahan saat memuat data buku.";
         } finally {
+          const chapter = {
+            step: 0,
+            title: "Formulir Daftar Informasi Chapter",
+            description:
+              "Internal bisa melihat daftar informasi chapter yang diisi penulis.",
+            link: "manage-chapter?bookId=" + bookId,
+          };
           local.steps = [
             {
+              step: 0,
               title: "Formulir Informasi Buku",
               description:
-                "Internal bisa melihat data informasi buku yang diisi penulis.",
+                "Internal bisa melihat informasi buku yang diisi penulis.",
               link: "book-detail" + bookIdQueryString,
             },
             {
+              step: 1,
               title: "Persetujuan Buku",
               description:
                 "Internal bisa berkomunikasi dengan penulis untuk memeriksa kelayakan buku untuk terbit.",
               link: "book-approval" + bookIdQueryString,
             },
             {
+              step: 2,
               title: "Penjualan Buku",
               description:
                 "Internal bisa melihat laporan penjualan buku yang sudah terbit.",
               link: "book-sales" + bookIdQueryString,
             },
           ];
+          if (local.book?.is_chapter) local.steps.splice(1, 0, chapter);
           local.loading = false;
           local.render();
         }

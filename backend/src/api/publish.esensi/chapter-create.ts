@@ -1,24 +1,30 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import type { chapter } from "shared/models";
+import type { Chapter } from "../types";
 
 export default defineAPI({
   name: "chapter_create",
   url: "/api/publish/chapter/create",
-  async handler(arg: { data: chapter[] }): Promise<ApiResponse<number>> {
+  async handler(arg: { data: chapter }): Promise<ApiResponse<Chapter>> {
     try {
-      const created = await db.chapter.createMany({
-        data: arg.data.map((item) => ({
-          id_book: item.id_book,
-          number: item.number,
-          name: item.name,
-          content: item.content,
-        })),
+      const created = await db.chapter.create({
+        data: {
+          id_book: arg.data.id_book,
+          id_product: arg.data.id_product,
+          number: arg.data.number,
+          name: arg.data.name,
+          content: arg.data.content!,
+        },
+        include: {
+          book: true,
+          product: true,
+        },
       });
 
       return {
         success: true,
-        data: created.count,
+        data: created,
         message: "Chapter berhasil ditambahkan",
       };
     } catch (error) {

@@ -14843,6 +14843,7 @@ export namespace Prisma {
     content_type: string | null
     is_chapter: boolean | null
     id_product: string | null
+    created_at: Date | null
   }
 
   export type BookMaxAggregateOutputType = {
@@ -14866,6 +14867,7 @@ export namespace Prisma {
     content_type: string | null
     is_chapter: boolean | null
     id_product: string | null
+    created_at: Date | null
   }
 
   export type BookCountAggregateOutputType = {
@@ -14891,6 +14893,7 @@ export namespace Prisma {
     content_type: number
     is_chapter: number
     id_product: number
+    created_at: number
     _all: number
   }
 
@@ -14926,6 +14929,7 @@ export namespace Prisma {
     content_type?: true
     is_chapter?: true
     id_product?: true
+    created_at?: true
   }
 
   export type BookMaxAggregateInputType = {
@@ -14949,6 +14953,7 @@ export namespace Prisma {
     content_type?: true
     is_chapter?: true
     id_product?: true
+    created_at?: true
   }
 
   export type BookCountAggregateInputType = {
@@ -14974,6 +14979,7 @@ export namespace Prisma {
     content_type?: true
     is_chapter?: true
     id_product?: true
+    created_at?: true
     _all?: true
   }
 
@@ -15086,6 +15092,7 @@ export namespace Prisma {
     content_type: string | null
     is_chapter: boolean
     id_product: string | null
+    created_at: Date
     _count: BookCountAggregateOutputType | null
     _avg: BookAvgAggregateOutputType | null
     _sum: BookSumAggregateOutputType | null
@@ -15130,6 +15137,7 @@ export namespace Prisma {
     content_type?: boolean
     is_chapter?: boolean
     id_product?: boolean
+    created_at?: boolean
     author?: boolean | book$authorArgs<ExtArgs>
     product?: boolean | book$productArgs<ExtArgs>
     book_approval?: boolean | book$book_approvalArgs<ExtArgs>
@@ -15165,6 +15173,7 @@ export namespace Prisma {
     content_type?: boolean
     is_chapter?: boolean
     id_product?: boolean
+    created_at?: boolean
     author?: boolean | book$authorArgs<ExtArgs>
     product?: boolean | book$productArgs<ExtArgs>
   }, ExtArgs["result"]["book"]>
@@ -15192,6 +15201,7 @@ export namespace Prisma {
     content_type?: boolean
     is_chapter?: boolean
     id_product?: boolean
+    created_at?: boolean
     author?: boolean | book$authorArgs<ExtArgs>
     product?: boolean | book$productArgs<ExtArgs>
   }, ExtArgs["result"]["book"]>
@@ -15219,9 +15229,10 @@ export namespace Prisma {
     content_type?: boolean
     is_chapter?: boolean
     id_product?: boolean
+    created_at?: boolean
   }
 
-  export type bookOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "alias" | "submitted_price" | "desc" | "info" | "status" | "currency" | "deleted_at" | "img_file" | "cover" | "product_file" | "sku" | "id_author" | "published_date" | "is_physical" | "ai_suggested_content" | "preorder_min_qty" | "content_type" | "is_chapter" | "id_product", ExtArgs["result"]["book"]>
+  export type bookOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "alias" | "submitted_price" | "desc" | "info" | "status" | "currency" | "deleted_at" | "img_file" | "cover" | "product_file" | "sku" | "id_author" | "published_date" | "is_physical" | "ai_suggested_content" | "preorder_min_qty" | "content_type" | "is_chapter" | "id_product" | "created_at", ExtArgs["result"]["book"]>
   export type bookInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | book$authorArgs<ExtArgs>
     product?: boolean | book$productArgs<ExtArgs>
@@ -15279,6 +15290,7 @@ export namespace Prisma {
       content_type: string | null
       is_chapter: boolean
       id_product: string | null
+      created_at: Date
     }, ExtArgs["result"]["book"]>
     composites: {}
   }
@@ -15733,6 +15745,7 @@ export namespace Prisma {
     readonly content_type: FieldRef<"book", 'String'>
     readonly is_chapter: FieldRef<"book", 'Boolean'>
     readonly id_product: FieldRef<"book", 'String'>
+    readonly created_at: FieldRef<"book", 'DateTime'>
   }
     
 
@@ -25148,7 +25161,8 @@ export namespace Prisma {
     id_book: string | null
     number: number | null
     name: string | null
-    content: string | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type ChapterMaxAggregateOutputType = {
@@ -25157,7 +25171,8 @@ export namespace Prisma {
     id_book: string | null
     number: number | null
     name: string | null
-    content: string | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type ChapterCountAggregateOutputType = {
@@ -25167,6 +25182,8 @@ export namespace Prisma {
     number: number
     name: number
     content: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
@@ -25185,7 +25202,8 @@ export namespace Prisma {
     id_book?: true
     number?: true
     name?: true
-    content?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type ChapterMaxAggregateInputType = {
@@ -25194,7 +25212,8 @@ export namespace Prisma {
     id_book?: true
     number?: true
     name?: true
-    content?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type ChapterCountAggregateInputType = {
@@ -25204,6 +25223,8 @@ export namespace Prisma {
     number?: true
     name?: true
     content?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -25299,7 +25320,9 @@ export namespace Prisma {
     id_book: string | null
     number: number
     name: string
-    content: string
+    content: JsonValue
+    created_at: Date
+    updated_at: Date | null
     _count: ChapterCountAggregateOutputType | null
     _avg: ChapterAvgAggregateOutputType | null
     _sum: ChapterSumAggregateOutputType | null
@@ -25328,6 +25351,8 @@ export namespace Prisma {
     number?: boolean
     name?: boolean
     content?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     book?: boolean | chapter$bookArgs<ExtArgs>
     product?: boolean | chapter$productArgs<ExtArgs>
   }, ExtArgs["result"]["chapter"]>
@@ -25339,6 +25364,8 @@ export namespace Prisma {
     number?: boolean
     name?: boolean
     content?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     book?: boolean | chapter$bookArgs<ExtArgs>
     product?: boolean | chapter$productArgs<ExtArgs>
   }, ExtArgs["result"]["chapter"]>
@@ -25350,6 +25377,8 @@ export namespace Prisma {
     number?: boolean
     name?: boolean
     content?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     book?: boolean | chapter$bookArgs<ExtArgs>
     product?: boolean | chapter$productArgs<ExtArgs>
   }, ExtArgs["result"]["chapter"]>
@@ -25361,9 +25390,11 @@ export namespace Prisma {
     number?: boolean
     name?: boolean
     content?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
-  export type chapterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_product" | "id_book" | "number" | "name" | "content", ExtArgs["result"]["chapter"]>
+  export type chapterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_product" | "id_book" | "number" | "name" | "content" | "created_at" | "updated_at", ExtArgs["result"]["chapter"]>
   export type chapterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     book?: boolean | chapter$bookArgs<ExtArgs>
     product?: boolean | chapter$productArgs<ExtArgs>
@@ -25389,7 +25420,9 @@ export namespace Prisma {
       id_book: string | null
       number: number
       name: string
-      content: string
+      content: Prisma.JsonValue
+      created_at: Date
+      updated_at: Date | null
     }, ExtArgs["result"]["chapter"]>
     composites: {}
   }
@@ -25820,7 +25853,9 @@ export namespace Prisma {
     readonly id_book: FieldRef<"chapter", 'String'>
     readonly number: FieldRef<"chapter", 'Int'>
     readonly name: FieldRef<"chapter", 'String'>
-    readonly content: FieldRef<"chapter", 'String'>
+    readonly content: FieldRef<"chapter", 'Json'>
+    readonly created_at: FieldRef<"chapter", 'DateTime'>
+    readonly updated_at: FieldRef<"chapter", 'DateTime'>
   }
     
 
@@ -54853,7 +54888,8 @@ export namespace Prisma {
     preorder_min_qty: 'preorder_min_qty',
     content_type: 'content_type',
     is_chapter: 'is_chapter',
-    id_product: 'id_product'
+    id_product: 'id_product',
+    created_at: 'created_at'
   };
 
   export type BookScalarFieldEnum = (typeof BookScalarFieldEnum)[keyof typeof BookScalarFieldEnum]
@@ -54954,7 +54990,9 @@ export namespace Prisma {
     id_book: 'id_book',
     number: 'number',
     name: 'name',
-    content: 'content'
+    content: 'content',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type ChapterScalarFieldEnum = (typeof ChapterScalarFieldEnum)[keyof typeof ChapterScalarFieldEnum]
@@ -56046,6 +56084,7 @@ export namespace Prisma {
     content_type?: StringNullableFilter<"book"> | string | null
     is_chapter?: BoolFilter<"book"> | boolean
     id_product?: UuidNullableFilter<"book"> | string | null
+    created_at?: DateTimeFilter<"book"> | Date | string
     author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
     product?: XOR<ProductNullableScalarRelationFilter, productWhereInput> | null
     book_approval?: Book_approvalListRelationFilter
@@ -56080,6 +56119,7 @@ export namespace Prisma {
     content_type?: SortOrderInput | SortOrder
     is_chapter?: SortOrder
     id_product?: SortOrderInput | SortOrder
+    created_at?: SortOrder
     author?: authorOrderByWithRelationInput
     product?: productOrderByWithRelationInput
     book_approval?: book_approvalOrderByRelationAggregateInput
@@ -56117,6 +56157,7 @@ export namespace Prisma {
     content_type?: StringNullableFilter<"book"> | string | null
     is_chapter?: BoolFilter<"book"> | boolean
     id_product?: UuidNullableFilter<"book"> | string | null
+    created_at?: DateTimeFilter<"book"> | Date | string
     author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
     product?: XOR<ProductNullableScalarRelationFilter, productWhereInput> | null
     book_approval?: Book_approvalListRelationFilter
@@ -56151,6 +56192,7 @@ export namespace Prisma {
     content_type?: SortOrderInput | SortOrder
     is_chapter?: SortOrder
     id_product?: SortOrderInput | SortOrder
+    created_at?: SortOrder
     _count?: bookCountOrderByAggregateInput
     _avg?: bookAvgOrderByAggregateInput
     _max?: bookMaxOrderByAggregateInput
@@ -56184,6 +56226,7 @@ export namespace Prisma {
     content_type?: StringNullableWithAggregatesFilter<"book"> | string | null
     is_chapter?: BoolWithAggregatesFilter<"book"> | boolean
     id_product?: UuidNullableWithAggregatesFilter<"book"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"book"> | Date | string
   }
 
   export type book_approvalWhereInput = {
@@ -56675,7 +56718,9 @@ export namespace Prisma {
     id_book?: UuidNullableFilter<"chapter"> | string | null
     number?: IntFilter<"chapter"> | number
     name?: StringFilter<"chapter"> | string
-    content?: StringFilter<"chapter"> | string
+    content?: JsonFilter<"chapter">
+    created_at?: DateTimeFilter<"chapter"> | Date | string
+    updated_at?: DateTimeNullableFilter<"chapter"> | Date | string | null
     book?: XOR<BookNullableScalarRelationFilter, bookWhereInput> | null
     product?: XOR<ProductNullableScalarRelationFilter, productWhereInput> | null
   }
@@ -56687,6 +56732,8 @@ export namespace Prisma {
     number?: SortOrder
     name?: SortOrder
     content?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrderInput | SortOrder
     book?: bookOrderByWithRelationInput
     product?: productOrderByWithRelationInput
   }
@@ -56700,7 +56747,9 @@ export namespace Prisma {
     id_book?: UuidNullableFilter<"chapter"> | string | null
     number?: IntFilter<"chapter"> | number
     name?: StringFilter<"chapter"> | string
-    content?: StringFilter<"chapter"> | string
+    content?: JsonFilter<"chapter">
+    created_at?: DateTimeFilter<"chapter"> | Date | string
+    updated_at?: DateTimeNullableFilter<"chapter"> | Date | string | null
     book?: XOR<BookNullableScalarRelationFilter, bookWhereInput> | null
     product?: XOR<ProductNullableScalarRelationFilter, productWhereInput> | null
   }, "id">
@@ -56712,6 +56761,8 @@ export namespace Prisma {
     number?: SortOrder
     name?: SortOrder
     content?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrderInput | SortOrder
     _count?: chapterCountOrderByAggregateInput
     _avg?: chapterAvgOrderByAggregateInput
     _max?: chapterMaxOrderByAggregateInput
@@ -56728,7 +56779,9 @@ export namespace Prisma {
     id_book?: UuidNullableWithAggregatesFilter<"chapter"> | string | null
     number?: IntWithAggregatesFilter<"chapter"> | number
     name?: StringWithAggregatesFilter<"chapter"> | string
-    content?: StringWithAggregatesFilter<"chapter"> | string
+    content?: JsonWithAggregatesFilter<"chapter">
+    created_at?: DateTimeWithAggregatesFilter<"chapter"> | Date | string
+    updated_at?: DateTimeNullableWithAggregatesFilter<"chapter"> | Date | string | null
   }
 
   export type customerWhereInput = {
@@ -59116,6 +59169,7 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    created_at?: Date | string
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
@@ -59150,6 +59204,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     id_product?: string | null
+    created_at?: Date | string
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
@@ -59180,6 +59235,7 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
@@ -59214,6 +59270,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
@@ -59246,6 +59303,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     id_product?: string | null
+    created_at?: Date | string
   }
 
   export type bookUpdateManyMutationInput = {
@@ -59269,6 +59327,7 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type bookUncheckedUpdateManyInput = {
@@ -59294,6 +59353,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type book_approvalCreateInput = {
@@ -59767,7 +59827,9 @@ export namespace Prisma {
     id?: string
     number: number
     name: string
-    content: string
+    content: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string | null
     book?: bookCreateNestedOneWithoutChapterInput
     product?: productCreateNestedOneWithoutChapterInput
   }
@@ -59778,14 +59840,18 @@ export namespace Prisma {
     id_book?: string | null
     number: number
     name: string
-    content: string
+    content: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string | null
   }
 
   export type chapterUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     book?: bookUpdateOneWithoutChapterNestedInput
     product?: productUpdateOneWithoutChapterNestedInput
   }
@@ -59796,7 +59862,9 @@ export namespace Prisma {
     id_book?: NullableStringFieldUpdateOperationsInput | string | null
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type chapterCreateManyInput = {
@@ -59805,14 +59873,18 @@ export namespace Prisma {
     id_book?: string | null
     number: number
     name: string
-    content: string
+    content: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string | null
   }
 
   export type chapterUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type chapterUncheckedUpdateManyInput = {
@@ -59821,7 +59893,9 @@ export namespace Prisma {
     id_book?: NullableStringFieldUpdateOperationsInput | string | null
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type customerCreateInput = {
@@ -62395,6 +62469,7 @@ export namespace Prisma {
     content_type?: SortOrder
     is_chapter?: SortOrder
     id_product?: SortOrder
+    created_at?: SortOrder
   }
 
   export type bookAvgOrderByAggregateInput = {
@@ -62423,6 +62498,7 @@ export namespace Prisma {
     content_type?: SortOrder
     is_chapter?: SortOrder
     id_product?: SortOrder
+    created_at?: SortOrder
   }
 
   export type bookMinOrderByAggregateInput = {
@@ -62446,6 +62522,7 @@ export namespace Prisma {
     content_type?: SortOrder
     is_chapter?: SortOrder
     id_product?: SortOrder
+    created_at?: SortOrder
   }
 
   export type bookSumOrderByAggregateInput = {
@@ -62884,6 +62961,8 @@ export namespace Prisma {
     number?: SortOrder
     name?: SortOrder
     content?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type chapterAvgOrderByAggregateInput = {
@@ -62896,7 +62975,8 @@ export namespace Prisma {
     id_book?: SortOrder
     number?: SortOrder
     name?: SortOrder
-    content?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type chapterMinOrderByAggregateInput = {
@@ -62905,7 +62985,8 @@ export namespace Prisma {
     id_book?: SortOrder
     number?: SortOrder
     name?: SortOrder
-    content?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type chapterSumOrderByAggregateInput = {
@@ -69142,6 +69223,7 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    created_at?: Date | string
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logCreateNestedManyWithoutBookInput
@@ -69174,6 +69256,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     id_product?: string | null
+    created_at?: Date | string
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
@@ -69396,6 +69479,7 @@ export namespace Prisma {
     content_type?: StringNullableFilter<"book"> | string | null
     is_chapter?: BoolFilter<"book"> | boolean
     id_product?: UuidNullableFilter<"book"> | string | null
+    created_at?: DateTimeFilter<"book"> | Date | string
   }
 
   export type productUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -69655,7 +69739,9 @@ export namespace Prisma {
     id?: string
     number: number
     name: string
-    content: string
+    content: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string | null
     product?: productCreateNestedOneWithoutChapterInput
   }
 
@@ -69664,7 +69750,9 @@ export namespace Prisma {
     id_product?: string | null
     number: number
     name: string
-    content: string
+    content: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string | null
   }
 
   export type chapterCreateOrConnectWithoutBookInput = {
@@ -69965,7 +70053,9 @@ export namespace Prisma {
     id_book?: UuidNullableFilter<"chapter"> | string | null
     number?: IntFilter<"chapter"> | number
     name?: StringFilter<"chapter"> | string
-    content?: StringFilter<"chapter"> | string
+    content?: JsonFilter<"chapter">
+    created_at?: DateTimeFilter<"chapter"> | Date | string
+    updated_at?: DateTimeNullableFilter<"chapter"> | Date | string | null
   }
 
   export type rankingUpsertWithWhereUniqueWithoutBookInput = {
@@ -70029,6 +70119,7 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    created_at?: Date | string
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_changes_log?: book_changes_logCreateNestedManyWithoutBookInput
@@ -70062,6 +70153,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     id_product?: string | null
+    created_at?: Date | string
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
     book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
@@ -70134,6 +70226,7 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_changes_log?: book_changes_logUpdateManyWithoutBookNestedInput
@@ -70167,6 +70260,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
@@ -70229,6 +70323,7 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    created_at?: Date | string
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
@@ -70262,6 +70357,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     id_product?: string | null
+    created_at?: Date | string
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
     book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
@@ -70307,6 +70403,7 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
@@ -70340,6 +70437,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
@@ -70369,6 +70467,7 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    created_at?: Date | string
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
@@ -70402,6 +70501,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     id_product?: string | null
+    created_at?: Date | string
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
@@ -70472,6 +70572,7 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
@@ -70505,6 +70606,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
@@ -70565,6 +70667,7 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    created_at?: Date | string
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
@@ -70598,6 +70701,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     id_product?: string | null
+    created_at?: Date | string
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
@@ -70668,6 +70772,7 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
@@ -70701,6 +70806,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
@@ -71492,6 +71598,7 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    created_at?: Date | string
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
@@ -71525,6 +71632,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     id_product?: string | null
+    created_at?: Date | string
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
@@ -71639,6 +71747,7 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
@@ -71672,6 +71781,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
@@ -73083,6 +73193,7 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    created_at?: Date | string
     author?: authorCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logCreateNestedManyWithoutBookInput
@@ -73115,6 +73226,7 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    created_at?: Date | string
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
@@ -73160,7 +73272,9 @@ export namespace Prisma {
     id?: string
     number: number
     name: string
-    content: string
+    content: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string | null
     book?: bookCreateNestedOneWithoutChapterInput
   }
 
@@ -73169,7 +73283,9 @@ export namespace Prisma {
     id_book?: string | null
     number: number
     name: string
-    content: string
+    content: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string | null
   }
 
   export type chapterCreateOrConnectWithoutProductInput = {
@@ -74377,6 +74493,7 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    created_at?: Date | string
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
@@ -74410,6 +74527,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     id_product?: string | null
+    created_at?: Date | string
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
@@ -74455,6 +74573,7 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
@@ -74488,6 +74607,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
@@ -74517,6 +74637,7 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    created_at?: Date | string
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
@@ -74550,6 +74671,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     id_product?: string | null
+    created_at?: Date | string
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
@@ -74664,6 +74786,7 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
@@ -74697,6 +74820,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
@@ -76566,6 +76690,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     id_product?: string | null
+    created_at?: Date | string
   }
 
   export type productCreateManyAuthorInput = {
@@ -76679,6 +76804,7 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUpdateManyWithoutBookNestedInput
@@ -76711,6 +76837,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
@@ -76742,6 +76869,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type productUpdateWithoutAuthorInput = {
@@ -76875,7 +77003,9 @@ export namespace Prisma {
     id_product?: string | null
     number: number
     name: string
-    content: string
+    content: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string | null
   }
 
   export type rankingCreateManyBookInput = {
@@ -76965,7 +77095,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     product?: productUpdateOneWithoutChapterNestedInput
   }
 
@@ -76974,7 +77106,9 @@ export namespace Prisma {
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type chapterUncheckedUpdateManyWithoutBookInput = {
@@ -76982,7 +77116,9 @@ export namespace Prisma {
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type rankingUpdateWithoutBookInput = {
@@ -77651,6 +77787,7 @@ export namespace Prisma {
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
+    created_at?: Date | string
   }
 
   export type bundle_productCreateManyProductInput = {
@@ -77664,7 +77801,9 @@ export namespace Prisma {
     id_book?: string | null
     number: number
     name: string
-    content: string
+    content: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string | null
   }
 
   export type customer_readerCreateManyProductInput = {
@@ -77725,6 +77864,7 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: authorUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUpdateManyWithoutBookNestedInput
@@ -77757,6 +77897,7 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
@@ -77788,6 +77929,7 @@ export namespace Prisma {
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type bundle_productUpdateWithoutProductInput = {
@@ -77812,7 +77954,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     book?: bookUpdateOneWithoutChapterNestedInput
   }
 
@@ -77821,7 +77965,9 @@ export namespace Prisma {
     id_book?: NullableStringFieldUpdateOperationsInput | string | null
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type chapterUncheckedUpdateManyWithoutProductInput = {
@@ -77829,7 +77975,9 @@ export namespace Prisma {
     id_book?: NullableStringFieldUpdateOperationsInput | string | null
     number?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type customer_readerUpdateWithoutProductInput = {

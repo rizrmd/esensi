@@ -227,7 +227,8 @@ exports.Prisma.BookScalarFieldEnum = {
   preorder_min_qty: 'preorder_min_qty',
   content_type: 'content_type',
   is_chapter: 'is_chapter',
-  id_product: 'id_product'
+  id_product: 'id_product',
+  created_at: 'created_at'
 };
 
 exports.Prisma.Book_approvalScalarFieldEnum = {
@@ -301,7 +302,9 @@ exports.Prisma.ChapterScalarFieldEnum = {
   id_book: 'id_book',
   number: 'number',
   name: 'name',
-  content: 'content'
+  content: 'content',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.CustomerScalarFieldEnum = {
