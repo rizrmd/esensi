@@ -47,7 +47,7 @@ export const StoreBooksCard: FC<{
 
   const renderBooksLoading = Array.from({ length: 8 }, (_, idx) => {
     return <BookCardLoading key={`store_books_loading_${idx}`} />;
-  });
+  }); 
   return (
     <div className="flex flex-col justify-center items-start gap-5">
       <div className="flex flex-row justify-start items-stretch flex-wrap gap-y-4 w-full [&>a]:w-1/2 [&>a]:md:w-1/4 [&>a]:lg:w-1/6">
