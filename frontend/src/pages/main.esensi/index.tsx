@@ -12,6 +12,7 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { api } from "@/lib/gen/main.esensi";
 import { MainEsensiLayout } from "@/components/esensi/layout";
 import { dbClient } from "rlib/client";
+import { StoreHeaderBanner } from "@/components/esensi/store-header-banner";
 
 export default () => {
   const local = useLocal(
@@ -30,6 +31,13 @@ export default () => {
         selected: "",
         list: [] as StoreBooksCardItem[],
       },
+      headerBanner: {
+        img: "",
+        title: "",
+        subtitle: "",
+        btnlabel: "",
+        btnurl: "",
+      },
     },
     async () => {
       const res = await api.index({
@@ -42,6 +50,12 @@ export default () => {
 
       local.allbooks.list = res.data.allbooks;
       local.allbooks.loading = false;
+
+      local.headerBanner.img = "";
+      local.headerBanner.title = "Dunia Baru Dimulai Dari Satu Halaman";
+      local.headerBanner.subtitle = "Lorem ipsum dolor sit amet.";
+      local.headerBanner.btnlabel = "Find out";
+      local.headerBanner.btnurl = "#";
 
       local.render();
       changeByCategory(res.data.categories[0].slug);
@@ -81,6 +95,7 @@ export default () => {
             selected={local.cats.selected}
           />
         </div>
+        <StoreHeaderBanner img={local.headerBanner.img} title={local.headerBanner.title} subtitle={local.headerBanner.subtitle} btnlabel={local.headerBanner.btnlabel} btnurl={local.headerBanner.btnurl} />
         <div className="w-full flex flex-col justify-center gap-10 md:gap-20 lg:px-16 lg:pb-8">
           <div className="w-full flex flex-col justify-center lg:hidden">
             <StoreBooksCard

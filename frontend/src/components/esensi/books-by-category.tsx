@@ -69,7 +69,7 @@ export const BooksByCategory = ({
   });
 
   return (
-    <div className="w-full flex flex-col justify-center gap-2 md:gap-20 lg:px-16 lg:pb-8">
+    <div className="w-full flex lg:hidden flex-col justify-center gap-2 md:gap-20 lg:px-16 lg:pb-8">
       <div className="w-full flex justify-between items-center gap-4 px-4 text-[#1a2bc3]">
         <span className="text-lg font-semibold">Berdasarkan Genre</span>
         <ChevronRight size={28} />
