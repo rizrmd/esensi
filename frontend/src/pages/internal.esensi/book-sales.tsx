@@ -49,6 +49,15 @@ export default () => {
       limit: 10,
       totalPages: 0,
       total: 0,
+      productStats: undefined as
+        | {
+            views: number;
+            in_cart: number;
+            favorite: number;
+            sold_bundle: number;
+            sold_standalone: number;
+          }
+        | undefined,
     },
     async () => {
       const params = new URLSearchParams(location.search);
@@ -78,6 +87,14 @@ export default () => {
         local.product = local.book.product || null;
 
         if (local.productId) {
+          // Fetch product stats
+          const statsRes = await api.product_stats({ id: local.productId });
+          if (statsRes.success) {
+            local.productStats = statsRes.data;
+          } else {
+            local.productStats = undefined;
+          }
+
           const res = await api.t_sales_line_list({
             id_product: local.productId,
             page: local.page,
@@ -174,6 +191,30 @@ export default () => {
                         </p>
                       </div>
                     </div>
+                    {local.productStats && (
+                      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6">
+                        <div className="bg-gray-50 p-4 rounded-lg border text-center">
+                          <div className="text-xs text-gray-500 mb-1">Dilihat</div>
+                          <div className="text-lg font-semibold">{local.productStats.views}</div>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg border text-center">
+                          <div className="text-xs text-gray-500 mb-1">Di Keranjang</div>
+                          <div className="text-lg font-semibold">{local.productStats.in_cart}</div>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg border text-center">
+                          <div className="text-xs text-gray-500 mb-1">Favorit</div>
+                          <div className="text-lg font-semibold">{local.productStats.favorite}</div>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg border text-center">
+                          <div className="text-xs text-gray-500 mb-1">Terjual Bundle</div>
+                          <div className="text-lg font-semibold">{local.productStats.sold_bundle}</div>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg border text-center">
+                          <div className="text-xs text-gray-500 mb-1">Terjual Satuan</div>
+                          <div className="text-lg font-semibold">{local.productStats.sold_standalone}</div>
+                        </div>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
 
