@@ -132,7 +132,7 @@ export default function ChapterCreatePage() {
                   }
                 }}
               >
-                {({ Field, read, write, submit }) => {
+                {({ Field, write }) => {
                   return (
                     <>
                       <CardContent className="space-y-6">

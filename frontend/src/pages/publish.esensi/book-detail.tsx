@@ -56,45 +56,41 @@ export default () => {
         <MenuBarPublish />
         <main className="flex-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="p-6">
-                <Breadcrumb id={local.book?.id!} />
-                <h1 className="mb-6 text-2xl font-bold">Detil Buku</h1>
-                <Error msg={local.error}>
-                  {local.book && (
-                    <>
-                      <Card className="shadow-md border border-gray-200">
-                        <Img
-                          check={!!local.book.cover}
-                          src={baseUrl.publish_esensi + "/" + local.book.cover}
-                          alt={local.book.name}
-                        />
-                        <CardHeader>
-                          <CardTitle className="text-xl font-bold mb-2">
-                            {local.book.name}
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <ItemDetails list={book(local.book)} />
-                        </CardContent>
-                      </Card>
-                      <BookChangesLog
-                        book={local.book}
-                        onReloadData={(
-                          log: BookChangesLogType[] | undefined
-                        ) => {
-                          local.book!.book_changes_log = log!;
-                          local.render();
-                        }}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-6">
+              <Breadcrumb id={local.book?.id!} />
+              <h1 className="mb-6 text-2xl font-bold">Detil Buku</h1>
+              <Error msg={local.error}>
+                {local.book && (
+                  <>
+                    <Card className="shadow-md border border-gray-200">
+                      <Img
+                        check={!!local.book.cover}
+                        src={baseUrl.publish_esensi + "/" + local.book.cover}
+                        alt={local.book.name}
                       />
-                    </>
-                  )}
-                </Error>
-              </div>
+                      <CardHeader>
+                        <CardTitle className="text-xl font-bold mb-2">
+                          {local.book.name}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <ItemDetails list={book(local.book)} />
+                      </CardContent>
+                    </Card>
+                    <BookChangesLog
+                      book={local.book}
+                      onReloadData={(log: BookChangesLogType[] | undefined) => {
+                        local.book!.book_changes_log = log!;
+                        local.render();
+                      }}
+                    />
+                  </>
+                )}
+              </Error>
             </div>
           </div>
         </main>
       </div>
     </Protected>
   );
-}
+};

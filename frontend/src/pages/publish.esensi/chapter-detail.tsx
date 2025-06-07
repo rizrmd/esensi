@@ -1,20 +1,11 @@
 import { Protected } from "@/components/app/protected";
+import { ItemDetails, chapter as tf } from "@/components/ext/book/item-detail";
 import { Breadcrumb } from "@/components/ext/chapter/breadcrumb/detail";
 import MyEditorJS from "@/components/ext/editor.js";
-import { EForm } from "@/components/ext/eform/EForm";
 import { Error } from "@/components/ext/error";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { PublishFallback } from "@/components/ext/publish-fallback";
-import { Success } from "@/components/ext/success";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
@@ -86,65 +77,34 @@ export default () => {
         <MenuBarPublish />
         <main className="flex-1">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
-            <Error msg={local.error} />
-            <Success msg={local.success} />
-            <Card className="shadow-md border border-gray-200">
-              <CardHeader>
-                <Breadcrumb bookId={local.bookId!} />
-                <CardTitle className="text-2xl">Detil Chapter</CardTitle>
-                <CardDescription>
-                  Anda tidak dapat mengubah informasi chapter ini.
-                </CardDescription>
-              </CardHeader>
-
-              {local.chapter && (
-                <EForm
-                  data={{
-                    number: local.chapter.number,
-                    name: local.chapter.name,
-                    content: {
-                      time: local.chapter.content!["time"],
-                      blocks: local.chapter.content!["blocks"],
-                      version: local.chapter.content!["version"],
-                    } as OutputData,
-                  }}
-                >
-                  {({ Field, write }) => {
-                    return (
-                      <>
-                        <CardContent className="space-y-6">
-                          <Field
-                            name="number"
-                            type="number"
-                            disabled={local.loading}
-                            readOnly={true}
-                            input={{ placeholder: "Masukkan nomor chapter" }}
-                            label="Nomor Chapter"
-                          />
-                          <Field
-                            name="name"
-                            disabled={local.loading}
-                            readOnly={true}
-                            input={{ placeholder: "Masukkan nama chapter" }}
-                            label="Nama Chapter"
-                          />
-                          <MyEditorJS data={write.content} readOnly={true} />
-                        </CardContent>
-                        <CardFooter className="flex justify-between">
-                          <Button
-                            type="button"
-                            variant="outline"
-                            onClick={() => navigate("/book-step")}
-                          >
-                            Batal
-                          </Button>
-                        </CardFooter>
-                      </>
-                    );
-                  }}
-                </EForm>
-              )}
-            </Card>
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-6">
+              <Breadcrumb bookId={local.bookId!} />
+              <h1 className="mb-6 text-2xl font-bold">Detil Chapter</h1>
+              <Error msg={local.error}>
+                {local.chapter && (
+                  <Card className="shadow-md border border-gray-200">
+                    <CardHeader>
+                      <CardTitle className="text-xl font-bold mb-2">
+                        {local.chapter.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ItemDetails list={tf(local.chapter)} />
+                      <MyEditorJS
+                        data={
+                          {
+                            time: local.chapter.content!["time"],
+                            blocks: local.chapter.content!["blocks"],
+                            version: local.chapter.content!["version"],
+                          } as OutputData
+                        }
+                        readOnly={true}
+                      />
+                    </CardContent>
+                  </Card>
+                )}
+              </Error>
+            </div>
           </div>
         </main>
       </div>

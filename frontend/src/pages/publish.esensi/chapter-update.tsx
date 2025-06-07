@@ -166,7 +166,7 @@ export default function ChapterUpdatePage() {
                     }
                   }}
                 >
-                  {({ Field, read, write, submit }) => {
+                  {({ Field, write }) => {
                     return (
                       <>
                         <CardContent className="space-y-6">

@@ -1,6 +1,7 @@
 import { formatCurrency } from "@/lib/utils";
 import type { Book, Product } from "backend/api/types";
 import type { FC, ReactNode } from "react";
+import type { chapter as chapterModel } from "shared/models";
 
 const ItemDetail: FC<{
   label: string;
@@ -85,4 +86,12 @@ export const product = (product: Product | null) => {
       : "-";
   }
   return detail;
+};
+
+export const chapter = (chapter: chapterModel | null) => {
+  return {
+    Nomor: chapter?.number,
+    Nama: chapter?.name,
+    "Dibuat pada": new Date(chapter!.created_at).toLocaleDateString("id-ID"),
+  };
 };
