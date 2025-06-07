@@ -1,5 +1,5 @@
 import { Protected } from "@/components/app/protected";
-import { Breadcrumb } from "@/components/ext/book/breadcrumb/create";
+import { Breadcrumb } from "@/components/ext/book/breadcrumb/update";
 import { EForm } from "@/components/ext/eform/EForm";
 import { Error } from "@/components/ext/error";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
@@ -31,11 +31,11 @@ import {
 import type { UploadAPIResponse } from "backend/api/upload";
 import type { book } from "shared/models";
 
-export default function BookCreatePage() {
+export default function BookUpdatePage() {
   const local = useLocal(
     {
-      id_book: "",
-      id_author: "",
+      authorId: undefined as string | undefined | null,
+      bookId: undefined as string | undefined,
       book: undefined as Book | undefined,
       files: {
         old: [] as File[],
@@ -48,30 +48,26 @@ export default function BookCreatePage() {
     },
     async () => {
       const session = await betterAuth.getSession();
-      local.id_author = session.data!.user.idAuthor!;
+      local.authorId = session.data!.user.idAuthor;
 
       const params = new URLSearchParams(location.search);
-      local.id_book = params.get("id") as string;
-      if (
-        validate(
-          !local.id_book || local.id_book === "",
-          local,
-          "ID buku tidak ditemukan."
-        )
-      ) {
+      local.bookId = params.get("id") as string;
+      if (validate(!local.bookId, local, "ID buku tidak ditemukan.")) {
         navigate("/manage-book");
         return;
       }
 
       try {
-        const res = await api.book_detail({ id: local.id_book });
-        if (res && res.data) {
+        const res = await api.book_detail({ id: local.bookId });
+        if (validate(!res.data, local, "Buku tidak ditemukan.")) {
+          navigate("/manage-book");
+          return;
+        } else if (res && res.data) {
           if (res.data.status !== BookStatus.DRAFT) {
-            navigate(`/book-step?id=${local.id_book}`);
+            navigate(`/book-step?id=${local.bookId}`);
             return;
           }
           local.book = res.data;
-
           if (res.data.cover) {
             const fetchImage = async () => {
               try {
@@ -98,7 +94,7 @@ export default function BookCreatePage() {
             await fetchImage();
           }
         } else {
-          navigate(`/book-step?id=${local.id_book}`);
+          navigate(`/book-step?id=${local.bookId}`);
           return;
         }
       } catch (err) {
@@ -121,10 +117,10 @@ export default function BookCreatePage() {
             <Success msg={local.success} />
             <Card className="shadow-md border border-gray-200">
               <CardHeader>
-                <Breadcrumb />
-                <CardTitle className="text-2xl">Tambah Buku</CardTitle>
+                <Breadcrumb id={local.bookId!} />
+                <CardTitle className="text-2xl">Perbarui Buku</CardTitle>
                 <CardDescription>
-                  Isi informasi buku dan chapter (jika ada) di bawah ini.
+                  Isi informasi buku di bawah ini.
                 </CardDescription>
               </CardHeader>
 
@@ -219,10 +215,10 @@ export default function BookCreatePage() {
                       }
 
                       const res = await api.book_update({
-                        id: local.id_book,
+                        id: local.bookId!,
                         data: {
                           ...read,
-                          id_author: local.id_author,
+                          id_author: local.authorId!,
                           is_chapter: read.is_chapter === "chapter",
                           cover: write.cover,
                           published_date: new Date(read.published_date),
@@ -230,15 +226,15 @@ export default function BookCreatePage() {
                       });
 
                       if (res.success && res.data) {
-                        local.success = "Buku berhasil ditambahkan!";
+                        local.success = "Buku berhasil diperbarui!";
 
                         setTimeout(() => {
                           navigate(
                             `/${
                               read.is_chapter === "chapter"
-                                ? "manage-chapter"
-                                : "book-step"
-                            }?id=${res.data?.id}`
+                                ? "manage-chapter?bookId="
+                                : "book-step?id="
+                            }${res.data?.id}`
                           );
                         }, 1500);
                       } else

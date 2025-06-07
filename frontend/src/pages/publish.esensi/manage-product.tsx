@@ -22,7 +22,7 @@ export const current = {
   user: undefined as User | undefined,
 };
 
-export default function ProductListPage() {
+export default () => {
   const local = useLocal(
     {
       products: [] as Product[],

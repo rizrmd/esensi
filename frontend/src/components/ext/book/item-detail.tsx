@@ -44,6 +44,7 @@ export const book = (book: Book | null) => {
     ) : (
       <span className="font-medium text-gray-900">-</span>
     ),
+    "Dibuat pada": new Date(book!.created_at).toLocaleDateString("id-ID"),
   };
   if (Object.keys(book?.info as Record<string, any>).length > 0) {
     detail["Info Tambahan"] = book?.info ? JSON.stringify(book?.info) : "-";

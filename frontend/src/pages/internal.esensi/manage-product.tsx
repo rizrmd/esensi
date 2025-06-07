@@ -15,7 +15,7 @@ import { navigate } from "@/lib/router";
 import { ItemLayoutEnum } from "@/lib/utils";
 import { Role, type Product } from "backend/api/types";
 
-export default function ProductListPage() {
+export default () => {
   const local = useLocal(
     {
       products: [] as Product[],

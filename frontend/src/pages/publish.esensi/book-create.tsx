@@ -25,10 +25,10 @@ import { BookStatus, BookTypes, Currency, Role } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import type { book } from "shared/models";
 
-export default function BookCreatePage() {
+export default () => {
   const local = useLocal(
     {
-      id_author: "",
+      authorId: undefined as string | undefined | null,
       files: [] as File[],
       loading: false,
       error: "",
@@ -37,7 +37,7 @@ export default function BookCreatePage() {
     },
     async () => {
       const session = await betterAuth.getSession();
-      local.id_author = session.data!.user.idAuthor!;
+      local.authorId = session.data!.user.idAuthor;
     }
   );
 
@@ -54,7 +54,7 @@ export default function BookCreatePage() {
                 <Breadcrumb />
                 <CardTitle className="text-2xl">Tambah Buku</CardTitle>
                 <CardDescription>
-                  Isi informasi buku dan chapter (jika ada) di bawah ini.
+                  Isi informasi buku di bawah ini.
                 </CardDescription>
               </CardHeader>
 
@@ -138,7 +138,7 @@ export default function BookCreatePage() {
                     const res = await api.book_create({
                       data: {
                         ...read,
-                        id_author: local.id_author,
+                        id_author: local.authorId!,
                         is_chapter: read.is_chapter === "chapter",
                         cover: write.cover,
                         published_date: new Date(read.published_date),
@@ -152,9 +152,9 @@ export default function BookCreatePage() {
                         navigate(
                           `/${
                             read.is_chapter === "chapter"
-                              ? "manage-chapter"
-                              : "book-step"
-                          }?id=${res.data?.id}`
+                              ? "manage-chapter?bookId="
+                              : "book-step?id="
+                          }${res.data?.id}`
                         );
                       }, 1500);
                     } else

@@ -24,7 +24,8 @@ import {
 } from "@/components/ui/table";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
-import { formatCurrency, formatDate } from "@/lib/utils";
+import { navigate } from "@/lib/router";
+import { formatCurrency, formatDate, validate } from "@/lib/utils";
 import {
   BadgeStatus,
   Role,
@@ -37,7 +38,7 @@ export default () => {
   const local = useLocal(
     {
       bookId: null as string | null,
-      book: null as Book | null,
+      book: undefined as Book | undefined,
       productId: null as string | null,
       product: null as Partial<Product | null>,
       tSalesLine: [] as TSalesLine[],
@@ -55,11 +56,8 @@ export default () => {
       local.bookId = params.get("id");
       local.page = parseInt(params.get("page") || "1") as number;
       local.limit = parseInt(params.get("limit") || "10") as number;
-      if (!local.bookId) {
-        local.error = "Buku tidak ditemukan.";
-        Alert.info("Buku tidak ditemukan.");
-        local.loading = false;
-        local.render();
+      if (validate(!local.bookId, local, "ID buku tidak ditemukan.")) {
+        navigate("/manage-book");
         return;
       }
       await loadData();
@@ -70,14 +68,14 @@ export default () => {
     local.loading = true;
     local.render();
     try {
-      const bookRes = await api.book_detail({ id: local.bookId! });
-      if (!bookRes.data) {
-        local.error = "Buku tidak ditemukan.";
-        Alert.info("Buku tidak ditemukan.");
+      const res = await api.book_detail({ id: local.bookId! });
+      if (validate(!res.data, local, "Buku tidak ditemukan.")) {
+        navigate("/manage-book");
+        return;
       } else {
-        local.book = bookRes.data;
-        local.productId = local.book?.id_product || null;
-        local.product = bookRes.data.product || null;
+        local.book = res.data!;
+        local.productId = local.book.id_product || null;
+        local.product = local.book.product || null;
 
         if (local.productId) {
           const res = await api.t_sales_line_list({

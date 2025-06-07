@@ -1,12 +1,9 @@
 import { navigate } from "@/lib/router";
+import type { BookStep } from "@/lib/utils";
 import type { Book } from "backend/api/types";
 
 type BookStepItemProps = {
-  step: {
-    title: string;
-    description: string;
-    link: string;
-  };
+  step: BookStep;
   index: number;
   currentStep: number;
   book: Book | null;
@@ -19,7 +16,7 @@ export function BookStepItem({
   book,
 }: BookStepItemProps) {
   const isActiveOrHasApproval =
-    currentStep >= index || (index === 1 && !!book?.book_approval.length);
+    currentStep >= step.step || (step.step === 1 && !!book?.book_approval.length);
   const isRejected = book?.status === "rejected";
 
   const handleClick = () => {
@@ -51,26 +48,26 @@ export function BookStepItem({
             {step.title}
             <span
               className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
-                currentStep > index
+                currentStep > step.step
                   ? "bg-green-100 text-green-800"
-                  : index === 0 &&
+                  : step.step === 0 &&
                     !!book?.book_approval.length &&
                     book.status === "draft"
                   ? "bg-yellow-100 text-yellow-800"
-                  : index === 1 &&
+                  : step.step === 1 &&
                     !!book?.book_approval.length &&
                     book.status === "rejected"
                   ? "bg-red-100 text-red-800"
                   : ""
               }`}
             >
-              {currentStep > index
+              {currentStep > step.step
                 ? "Sudah ✅"
-                : index === 0 &&
+                : step.step === 0 &&
                   !!book?.book_approval.length &&
                   book.status === "draft"
                 ? "Butuh Revisi ❗"
-                : index === 1 &&
+                : step.step === 1 &&
                   !!book?.book_approval.length &&
                   book.status === "rejected"
                 ? "Ditolak"

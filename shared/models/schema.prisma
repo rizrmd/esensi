@@ -141,6 +141,7 @@ model book {
   content_type         String?            @db.VarChar(20)
   is_chapter           Boolean            @default(false)
   id_product           String?            @db.Uuid
+  created_at           DateTime           @default(now()) @db.Timestamptz(6)
   author               author?            @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "book_fk_id_author")
   product              product?           @relation(fields: [id_product], references: [id], map: "book_fk_id_product")
   book_approval        book_approval[]
@@ -238,14 +239,16 @@ model category {
 }
 
 model chapter {
-  id         String   @id(map: "chapter_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_product String?  @db.Uuid
-  id_book    String?  @db.Uuid
+  id         String    @id(map: "chapter_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_product String?   @db.Uuid
+  id_book    String?   @db.Uuid
   number     Int
   name       String
-  content    String
-  book       book?    @relation(fields: [id_book], references: [id], onDelete: Restrict, map: "chapter_fk_id_book")
-  product    product? @relation(fields: [id_product], references: [id], onDelete: Restrict, map: "chapter_fk_id_product")
+  content    Json      @default("{\"blocks\": []}")
+  created_at DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at DateTime? @db.Timestamptz(6)
+  book       book?     @relation(fields: [id_book], references: [id], onDelete: Restrict, map: "chapter_fk_id_book")
+  product    product?  @relation(fields: [id_product], references: [id], onDelete: Restrict, map: "chapter_fk_id_product")
 }
 
 model customer {

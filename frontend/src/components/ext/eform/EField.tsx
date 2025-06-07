@@ -27,6 +27,7 @@ export const EField = function <
     className,
     input,
     disabled,
+    readOnly,
     optional,
     options,
   }: {
@@ -35,6 +36,7 @@ export const EField = function <
     type?: EFieldType;
     className?: string;
     disabled?: boolean;
+    readOnly?: boolean;
     optional?: boolean;
     input?:
       | React.ComponentProps<"input">
@@ -66,6 +68,7 @@ export const EField = function <
           spellCheck={false}
           value={(read as any)[name]}
           disabled={disabled}
+          readOnly={readOnly}
           className={cn(disabled && "bg-muted")}
           onChange={(e) => (write[name] = e.currentTarget.value)}
           {...(input as React.ComponentProps<"input">)}
@@ -77,7 +80,8 @@ export const EField = function <
           type="number"
           value={(read as any)[name]}
           disabled={disabled}
-          className={cn(disabled && "bg-muted")}
+          readOnly={readOnly}
+          className={cn(disabled && readOnly && "bg-muted")}
           onChange={(e) => (write[name] = Number(e.currentTarget.value))}
           {...(input as React.ComponentProps<"input">)}
         />
@@ -88,6 +92,7 @@ export const EField = function <
           spellCheck={false}
           value={(read as any)[name]}
           disabled={disabled}
+          readOnly={readOnly}
           className={cn(disabled && "bg-muted")}
           onChange={(e) => (write[name] = e.currentTarget.value)}
           {...(input as React.ComponentProps<"textarea">)}
@@ -108,7 +113,7 @@ export const EField = function <
             {...(input as React.ComponentProps<"select">)}
           >
             {(options || []).map((option: { key: any; label: string }) => (
-              <option key={option.key} value={option.key} className="text-sm">
+              <option key={option.key} value={option.key} className="text-sm" disabled={disabled}>
                 {option.label || option.key}
               </option>
             ))}
@@ -122,6 +127,7 @@ export const EField = function <
             name={name}
             checked={(read as any)[name]}
             disabled={disabled}
+            readOnly={readOnly}
             className="mr-2"
             onChange={(e) => (write[name] = e.currentTarget.checked)}
           />
@@ -141,6 +147,7 @@ export const EField = function <
                 value={option.key}
                 checked={(read as any)[name] === option.key}
                 disabled={disabled}
+                readOnly={readOnly}
                 className="mr-2"
                 onChange={() => (write[name] = option.key)}
               />
@@ -155,6 +162,7 @@ export const EField = function <
           type={type}
           value={(read as any)[name]}
           disabled={disabled}
+          readOnly={readOnly}
           className={cn(disabled && "bg-muted")}
           onChange={(e) => (write[name] = e.currentTarget.value)}
           {...(input as React.ComponentProps<"input">)}

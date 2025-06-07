@@ -2,41 +2,42 @@ import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { Breadcrumb } from "@/components/ext/book/breadcrumb/detail";
 import { BookChangesLog } from "@/components/ext/book/changes-log";
+import { book, ItemDetails } from "@/components/ext/book/item-detail";
 import { Error } from "@/components/ext/error";
 import { Img } from "@/components/ext/img/detail";
-import { book, ItemDetails } from "@/components/ext/book/item-detail";
 import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
+import { navigate } from "@/lib/router";
+import { validate } from "@/lib/utils";
 import {
   Role,
   type Book,
   type BookChangesLog as BookChangesLogType,
 } from "backend/api/types";
-import type { ReactNode } from "react";
 
-export default function BookDetailPage() {
+export default () => {
   const local = useLocal(
     {
-      book: null as Book | null,
+      book: undefined as Book | undefined,
       loading: true,
       error: "",
     },
     async () => {
       const params = new URLSearchParams(location.search);
       const id = params.get("id");
-      if (!id) {
-        local.error = "Buku tidak ditemukan.";
-        local.loading = false;
-        local.render();
+      if (validate(!id, local, "ID buku tidak ditemukan.")) {
+        navigate("/manage-book");
         return;
       }
       try {
-        const res = await api.book_detail({ id });
-        if (!res.data) local.error = "Buku tidak ditemukan.";
-        else local.book = res.data;
+        const res = await api.book_detail({ id: id! });
+        if (validate(!res.data, local, "Buku tidak ditemukan.")) {
+          navigate("/manage-book");
+          return;
+        } else local.book = res.data;
       } catch (error) {
         local.error = "Terjadi kesalahan saat memuat data buku.";
       } finally {

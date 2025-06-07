@@ -173,3 +173,8 @@ export const BookTypes = [
   { label: "Buku Utuh", key: "utuh" },
   { label: "Buku Chapter", key: "chapter" },
 ];
+
+export type Chapter = chapter & {
+  book: book | null;
+  product: product | null;
+};

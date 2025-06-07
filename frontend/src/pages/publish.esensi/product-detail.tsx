@@ -12,7 +12,7 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { Role, type Product } from "backend/api/types";
 
-export default function ProductDetailPage() {
+export default () => {
   const local = useLocal(
     {
       product: null as Product | null,
