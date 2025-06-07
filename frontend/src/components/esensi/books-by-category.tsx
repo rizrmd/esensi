@@ -1,194 +1,89 @@
 import { Link } from "@/lib/router";
-import { ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { ChevronRight, Frown } from "lucide-react";
+import { useState, type FC } from "react";
 import { Button } from "../ui/button";
 import { BookCardAlt } from "./book-card-alt";
+import { BookCardLoading } from "./book-card-loading";
+import { BookCard } from "./book-card";
+
+export type BooksCardItem = {
+  name: string;
+  real_price: BigInt;
+  strike_price: BigInt;
+  currency: string;
+  cover: string;
+  slug: string;
+};
+
+export type BooksCategories = {
+  name: string;
+  slug: string;
+};
 
 export const BooksByCategory = ({
-  category = "",
-  title = "",
-  subtitle = "",
-  max = 10,
-  link = true,
+  action,
+  loading,
+  categories,
+  selected,
+  list,
 }) => {
-  const [theTitle, setTheTitle] = useState(title);
-  const [theSubtitle, setTheSubtitle] = useState(subtitle);
-  const [theCategory, setTheCategory] = useState(category);
-  const [theMax, setTheMax] = useState(max);
-  const [showLink, setShowLink] = useState(link);
+  const retreiveBooks = list.map((book, idx) => {
+    return <BookCard data={book} key={`store_books_${idx}`} />;
+  });
 
-  const the_title =
-    theTitle !== "" ? (
-      <div className="flex flex-1 justify-start text-sm md:text-lg">
-        {theTitle}
-      </div>
-    ) : (
-      ""
-    );
-  const the_subtitle =
-    theSubtitle !== "" ? (
-      <div className="flex flex-1 justify-start text-[11px] md:text-sm text-[color:#555]">
-        {theSubtitle}
-      </div>
-    ) : (
-      ""
-    );
-
-  const link_button = showLink ? (
-    <Button variant="ghost" className="h-full w-auto aspect-square flex h-full w-auto aspect-square justify-center items-center">
-      <ChevronRight size={48} strokeWidth={1.5} />
-    </Button>
-  ) : ("");
-  const heading = showLink ? (
-    <Link
-      href={`/category/${theCategory}`}
-      className="flex flex-1 flex-row justify-between w-full h-12"
-    >
-      <div className="flex flex-1 flex-col w-full h-full items-start justify-between">
-        {the_title} {the_subtitle}
-      </div>
-      {link_button}
-    </Link>
-  ) : (
-    <div className="flex flex-1 flex-row justify-between w-full h-12">
-      <div className="flex flex-1 flex-col w-full h-full items-start justify-between">
-        {the_title} {the_subtitle}
+  const noBooks = (
+    <div className="flex flex-col justify-center items-center gap-4 w-full h-auto py-10 px-4">
+      <Frown size={48} />
+      <strong className="text-[#383D64] text-center text-2xl font-semibold">
+        Tidak ada buku yang ditemukan
+      </strong>
+      <div className="text-[#383D64] text-center text-sm font-normal">
+        Coba cari kategori yang lain
       </div>
     </div>
   );
+  const renderBooks = list.length > 0 ? retreiveBooks : noBooks;
 
-  // Fetch book data by slug, misal hasilnya dummy ini
-  const book_data = [
-    {
-      name: "GTM No Worries! : Solusi Jitu Anak Doyan Makan Lagi",
-      real_price: "49000",
-      strike_price: "59000",
-      currency: "Rp.",
-      cover:
-        "_file/upload/2025-3/11/1744361915917-rev cover ebook mpasi-gtm-03.jpg",
-      slug: "gtm-no-worries-solusi-jitu-anak-doyan-makan-lagi",
-    },
-    {
-      name: "MPASI Anti Drama : Bikin Makanan Pertama Buah Hati Jadi Seru!",
-      real_price: "49000",
-      strike_price: "59000",
-      currency: "Rp.",
-      cover:
-        "_file/upload/2025-3/12/1744462103509-revisi-cover ebook mpasi-01-01-01.jpg",
-      slug: "mpasi-anti-drama-bikin-makanan-pertama-buah-hati-jadi-seru",
-    },
-    {
-      name: "Bermain sambil Belajar: Rahasia Mendidik Anak dengan Cara yang Seru",
-      real_price: "39000",
-      strike_price: "49000",
-      currency: "Rp.",
-      cover:
-        "_file/upload/2025-1/10/1739167867345-2025 - cover ebook ramadhan-13.jpg",
-      slug: "bermain-sambil-belajar-rahasia-mendidik-anak-dengan-cara-yang-seru",
-    },
-    {
-      name: "Menyemai Akhlak Mulia: Rahasia Menanamkan Nilai Moral dan Agama Sejak Dini",
-      real_price: "39000",
-      strike_price: "49000",
-      currency: "Rp.",
-      cover:
-        "_file/upload/2025-1/10/1739167765542-2025 - cover ebook ramadhan-02.jpg",
-      slug: "menyemai-akhlak-mulia-rahasia-menanamkan-nilai-moral-dan-agama-sejak-dini",
-    },
-    {
-      name: "Ramadhan Ceria Bersama Anak: 30 Aktivitas Kreatif Selama Bulan Suci",
-      real_price: "39000",
-      strike_price: "49000",
-      currency: "Rp.",
-      cover:
-        "_file/upload/2025-1/10/1739167536994-2025 - cover ebook ramadhan-10.jpg",
-      slug: "ramadhan-ceria-bersama-anak-30-aktivitas-kreatif-selama-bulan-suci",
-    },
-    {
-      name: "Anti Bosan di Bulan Mulia: Ide Aktivitas Ramadhan Bersama Keluarga",
-      real_price: "39000",
-      strike_price: "49000",
-      currency: "Rp.",
-      cover:
-        "_file/upload/2025-1/10/1739167154664-2025 - cover ebook ramadhan-06.jpg",
-      slug: "anti-bosan-di-bulan-mulia-ide-aktivitas-ramadhan-bersama-keluarga",
-    },
-    {
-      name: "Dongeng Anak Islami: Kumpulan Kisah Berkarakter Penuh Hikmah",
-      real_price: "39000",
-      strike_price: "49000",
-      currency: "Rp.",
-      cover:
-        "_file/upload/2025-1/10/1739166601865-2025 - cover ebook ramadhan-09.jpg",
-      slug: "dongeng-anak-islami-kumpulan-kisah-berkarakter-penuh-hikmah",
-    },
-    {
-      name: "Cinta dalam Islam: Seni Merawat Fitrah Cinta dalam Keluarga",
-      real_price: "39000",
-      strike_price: "49000",
-      currency: "Rp.",
-      cover:
-        "_file/upload/2025-1/10/1739166332740-2025 - cover ebook ramadhan-04.jpg",
-      slug: "cinta-dalam-islam-seni-merawat-fitrah-cinta-dalam-keluarga",
-    },
-    {
-      name: "Ngobrol Asyik dengan Anak: Kunci Membangun Komunikasi yang Efektif",
-      real_price: "39000",
-      strike_price: "49000",
-      currency: "Rp.",
-      cover:
-        "_file/upload/2025-1/10/1739166124875-2025 - cover ebook ramadhan-12.jpg",
-      slug: "ngobrol-asyik-dengan-anak-kunci-membangun-komunikasi-yang-efektif",
-    },
-    {
-      name: "Fun and Faith: Cara Menyenangkan Kenalkan Ibadah pada Anak",
-      real_price: "39000",
-      strike_price: "49000",
-      currency: "Rp.",
-      cover:
-        "_file/upload/2025-1/10/1739165691713-2025 - cover ebook ramadhan-11.jpg",
-      slug: "fun-and-faith-cara-menyenangkan-kenalkan-ibadah-pada-anak",
-    },
-    {
-      name: "Anak Hebat, Iman Kuat: Panduan Praktis Stimulasi Anak berdasarkan Nilai Keislaman",
-      real_price: "39000",
-      strike_price: "49000",
-      currency: "Rp.",
-      cover:
-        "_file/upload/2025-1/10/1739165466259-2025 - cover ebook ramadhan-03.jpg",
-      slug: "anak-hebat-iman-kuat-panduan-praktis-stimulasi-anak-berdasarkan-nilai-keislaman",
-    },
-    {
-      name: "Belajar, Bermain, dan Berpahala: Aktivitas Islami untuk Tumbuh Kembang Anak",
-      real_price: "39000",
-      strike_price: "49000",
-      currency: "Rp.",
-      cover:
-        "_file/upload/2025-1/10/1739165216561-2025 - cover ebook ramadhan-05.jpg",
-      slug: "belajar-bermain-dan-berpahala-aktivitas-islami-untuk-tumbuh-kembang-anak",
-    },
-  ];
+  const renderBooksLoading = Array.from({ length: 8 }, (_, idx) => {
+    return <BookCardLoading key={`store_books_loading_${idx}`} />;
+  });
 
-  const book_empty = <>Tidak ada buku</>;
-
-  const the_content =
-    book_data.length > 0
-      ? book_data.map((book, idx) => {
-        return (
-          <BookCardAlt
-            data={book}
-            key={`home_categories_books_${theCategory}_${idx}`}
-          />
-        );
-      })
-      : book_empty;
+  const tabs = categories.map((cat, idx) => {
+    return (
+      <Link
+        key={`books_by_category_tab_${idx}`}
+        href={`/category/${cat.slug}`}
+        onClick={(e) => {
+          e.preventDefault();
+          if (selected !== cat.slug) {
+            action(cat.slug);
+          }
+        }}
+        className={`flex items-center justify-center px-5 w-auto h-8 rounded-[6px] cursor-pointer font-medium ${
+          selected === cat.slug ? "bg-white text-[#3b2c93]" : "text-white"
+        }`}
+      >
+        {cat.name}
+      </Link>
+    );
+  });
 
   return (
-    <div className="flex flex-col w-full justify-stretch items-start gap-3 md:gap-5 px-5">
-      {heading}
-      <div className="flex w-full overflow-x-auto items-start pb-1 lg:pb-2.5">
-        <div className="flex flex-nowrap flex-row items-stretch gap-5 max-w-max h-max text-nowrap">
-          {the_content}
+    <div className="w-full flex flex-col justify-center gap-2 md:gap-20 lg:px-16 lg:pb-8">
+      <div className="w-full flex justify-between items-center gap-4 px-4 text-[#1a2bc3]">
+        <span className="text-lg font-semibold">Berdasarkan Genre</span>
+        <ChevronRight size={28} />
+      </div>
+      <div className="w-full flex px-4">
+        <div className="flex w-full overflow-x-auto bg-[#3b2c93] whitespace-nowrap rounded-[10px]">
+          <div className="w-auto flex justify-start items-center gap-2 p-[6px]">
+            {tabs}
+          </div>
+        </div>
+      </div>
+      <div className="flex w-full overflow-x-auto">
+        <div className="flex flex-row justify-start items-stretch gap-y-4 w-auto [&>a,&>.esensi-book-loading]:w-[165px] [&>div:not(.esensi-book-loading)]:mx-4">
+          {loading ? renderBooksLoading : renderBooks}
         </div>
       </div>
     </div>

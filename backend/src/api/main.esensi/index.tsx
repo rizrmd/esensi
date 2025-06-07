@@ -5,10 +5,12 @@ import { ProductStatus } from "../types";
 export default defineAPI({
   name: "index",
   url: "/",
-  async handler( arg: { allbooks_cat: string | null } ) {
+  async handler( arg: { allbooks_cat: string | null, limit: number | null } ) {
     const req = this.req!;
 
     let allbooks_where;
+
+    const books_limit = arg?.limit !== null ? arg?.limit : 12;
 
     if ( arg?.allbooks_cat !== "" && arg?.allbooks_cat !== null) {
       const cat = await db.category.findFirst({
@@ -45,7 +47,7 @@ export default defineAPI({
         slug: true,
       },
       where: allbooks_where,
-      take: 12,
+      take: books_limit,
       orderBy: {
         published_date: "desc",
       },

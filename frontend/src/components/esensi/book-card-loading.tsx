@@ -1,7 +1,7 @@
 export const BookCardLoading = () => {
   return (
     <div
-      className="flex flex-col justify-center items-center gap-3 py-4 relative cursor-pointer box-border w-1/2 md:w-1/3 lg:w-1/4 animate-pulse duration-900"
+      className="esensi-book-loading flex flex-col justify-center items-center gap-3 py-4 relative cursor-pointer box-border w-1/2 md:w-1/3 lg:w-1/4 animate-pulse duration-900"
     >
       <div className="relative max-w-[80%] aspect-3/4 w-full h-auto rounded-[4px] bg-gray-200 overflow-hidden">
       </div>

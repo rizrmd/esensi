@@ -37,7 +37,7 @@ export const StoreBooksCard: FC<{
     <></>
   ) : (
     <div className="flex justify-center items-center w-full px-6">
-      <Button asChild className="w-full bg-[#383D64] text-white">
+      <Button asChild className="w-full bg-[#3b2c93] text-white">
         <Link href={button_link}>
           See all e-books <ArrowRight />
         </Link>
@@ -50,7 +50,7 @@ export const StoreBooksCard: FC<{
   });
   return (
     <div className="flex flex-col justify-center items-start gap-5">
-      <div className="flex flex-row justify-center items-stretch flex-wrap gap-y-4 w-full">
+      <div className="flex flex-row justify-start items-stretch flex-wrap gap-y-4 w-full [&>a]:w-1/2 [&>a]:md:w-1/4 [&>a]:lg:w-1/6">
         {loading ? renderBooksLoading : renderBooks}
       </div>
       <div className="flex justify-center items-center w-full">

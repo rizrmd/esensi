@@ -29,7 +29,7 @@ export const BookCard = ({ data }) => {
   return (
     <Link
       href={`/product/${data.slug}`}
-      className="flex flex-col justify-center items-center gap-3 py-4 relative cursor-pointer box-border w-1/2 md:w-1/4 lg:w-1/6"
+      className="flex flex-col justify-center items-center gap-3 py-4 relative cursor-pointer box-border w-full"
     >
       <div className="relative max-w-[80%] overflow-visible">
         {discount}

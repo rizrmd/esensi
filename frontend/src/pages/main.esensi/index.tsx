@@ -25,9 +25,17 @@ export default () => {
         loading: true,
         list: [] as StoreBooksCardItem[],
       },
+      booksByCategory: {
+        loading: true,
+        selected: "",
+        list: [] as StoreBooksCardItem[],
+      },
     },
     async () => {
-      const res = await api.index({ allbooks_cat: local.cats.selected });
+      const res = await api.index({
+        allbooks_cat: local.cats.selected,
+        limit: 12,
+      });
 
       local.cats.list = res.data.categories;
       local.cats.loading = false;
@@ -36,6 +44,7 @@ export default () => {
       local.allbooks.loading = false;
 
       local.render();
+      changeByCategory(res.data.categories[0].slug);
     }
   );
 
@@ -44,9 +53,20 @@ export default () => {
     local.render();
     local.cats.selected = cat || "";
     local.allbooks.list = await api
-      .index({ allbooks_cat: cat || "" })
+      .index({ allbooks_cat: cat || "", limit: 12 })
       .then((res) => res.data.allbooks);
     local.allbooks.loading = false;
+    local.render();
+  };
+
+  const changeByCategory = async (cat: string | null) => {
+    local.booksByCategory.loading = true;
+    local.render();
+    local.booksByCategory.selected = cat || "";
+    local.booksByCategory.list = await api
+      .index({ allbooks_cat: cat || "", limit: 10 })
+      .then((res) => res.data.allbooks);
+    local.booksByCategory.loading = false;
     local.render();
   };
 
@@ -70,17 +90,14 @@ export default () => {
             />
           </div>
           <BooksByCategory
-            category="parenting"
-            title="Parenting"
-            subtitle="Buku tentang parenting"
+            loading={local.booksByCategory.loading}
+            action={changeByCategory}
+            categories={local.cats.list}
+            selected={local.booksByCategory.selected}
+            list={local.booksByCategory.list}
           />
 
           <FeaturedBooks />
-          <BooksByCategory
-            category="parenting"
-            title="Parenting"
-            subtitle="Buku tentang parenting"
-          />
         </div>
       </div>
     </MainEsensiLayout>
