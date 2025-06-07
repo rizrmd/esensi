@@ -4,7 +4,6 @@ import { useState, type FC } from "react";
 import { Button } from "../ui/button";
 import { BookCardAlt } from "./book-card-alt";
 import { BookCardLoading } from "./book-card-loading";
-import { BookCard } from "./book-card";
 
 export type BooksCardItem = {
   name: string;
@@ -28,7 +27,7 @@ export const BooksByCategory = ({
   list,
 }) => {
   const retreiveBooks = list.map((book, idx) => {
-    return <BookCard data={book} key={`store_books_${idx}`} />;
+    return <BookCardAlt data={book} key={`store_books_${idx}`} />;
   });
 
   const noBooks = (

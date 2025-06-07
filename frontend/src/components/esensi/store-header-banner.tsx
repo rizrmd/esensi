@@ -21,8 +21,8 @@ export const StoreHeaderBanner = ({
           className="absolute top-0 left-0 w-full h-full object-cover object-center"
         />
         <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-end items-start gap-2 py-8 px-6 text-white">
-          <h3 className="text-xl font-medium">{title}</h3>
-          <p className="text-md">{subtitle}</p>
+          <h3 className="text-2xl font-medium max-w-[50%]">{title}</h3>
+          <p className="text-lg">{subtitle}</p>
         </div>
       </Link>
 
@@ -31,8 +31,8 @@ export const StoreHeaderBanner = ({
           src={bannerImage}
           className="absolute top-0 left-0 w-full h-full object-cover object-center"
         />
-        <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-end items-start gap-6 py-15 px-25 text-white">
-          <h3 className="text-5xl font-normal">{title}</h3>
+        <div className="absolute top-0 left-0 w-full max-w-[50%] h-full flex flex-col justify-end items-start gap-6 py-15 px-25 text-white">
+          <h3 className="text-5xl font-semibold leading-[1.5]">{title}</h3>
           <p className="text-2xl">{subtitle}</p>
           <Button variant="outline" asChild>
             <Link
