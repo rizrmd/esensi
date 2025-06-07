@@ -50,7 +50,7 @@ export const StoreBooksCard: FC<{
   }); 
   return (
     <div className="flex flex-col justify-center items-start gap-5">
-      <div className="flex flex-row justify-start items-stretch flex-wrap gap-y-4 w-full [&>a]:w-1/2 [&>a]:md:w-1/4 [&>a]:lg:w-1/6">
+      <div className="flex flex-row justify-start items-stretch flex-wrap gap-y-4 w-full [&>a]:w-1/2 [&>a]:md:w-1/4">
         {loading ? renderBooksLoading : renderBooks}
       </div>
       <div className="flex justify-center items-center w-full">

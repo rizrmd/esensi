@@ -66,11 +66,19 @@ export default defineAPI({
       },
     });
 
+    const bundling = await db.product.findMany({
+      select: {
+        name: true,
+        real_price: true,
+        strike_price: true,
+      },
+    });
+
     const data = {
       title: `Esensi Online`,
       categories: categories,
       allbooks: allbooks,
-      content: {},
+      bundling: bundling,
     };
 
     const seo_data = {

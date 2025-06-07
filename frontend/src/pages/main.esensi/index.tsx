@@ -13,6 +13,8 @@ import { api } from "@/lib/gen/main.esensi";
 import { MainEsensiLayout } from "@/components/esensi/layout";
 import { dbClient } from "rlib/client";
 import { StoreHeaderBanner } from "@/components/esensi/store-header-banner";
+import { SectionTitle } from "@/components/esensi/section-title";
+import { StoreBundling } from "@/components/esensi/store-bundling";
 
 export default () => {
   const local = useLocal(
@@ -37,6 +39,12 @@ export default () => {
         subtitle: "",
         btnlabel: "",
         btnurl: "",
+      },
+      bundling:{
+        img: "",
+        desktopImg: "",
+        url: "",
+        list: [] as StoreBooksCardItem[],
       },
     },
     async () => {
@@ -86,8 +94,24 @@ export default () => {
 
   return (
     <MainEsensiLayout title="Toko Buku">
-      <div className="w-full flex flex-col justify-center gap-10">
-        <div className="w-full flex flex-col justify-center lg:hidden">
+      <div className="w-full flex flex-col justify-center gap-4">
+        <div className="order-1 lg:order-none">
+          <StoreHeaderBanner
+            img={local.headerBanner.img}
+            title={local.headerBanner.title}
+            subtitle={local.headerBanner.subtitle}
+            btnlabel={local.headerBanner.btnlabel}
+            btnurl={local.headerBanner.btnurl}
+          />
+        </div>
+        <div className="hidden lg:flex w-full">
+          <SectionTitle title="Featured Books"  url="/browse" />
+        </div>
+
+        <div className="hidden lg:flex w-full">
+          <SectionTitle title="Berdasarkan Genre"  url="/browse" />
+        </div>
+        <div className="order-0 lg:order-none">
           <StoreCategories
             action={changeStoreCategory}
             loading={local.cats.loading}
@@ -95,15 +119,14 @@ export default () => {
             selected={local.cats.selected}
           />
         </div>
-        <StoreHeaderBanner img={local.headerBanner.img} title={local.headerBanner.title} subtitle={local.headerBanner.subtitle} btnlabel={local.headerBanner.btnlabel} btnurl={local.headerBanner.btnurl} />
-        <div className="w-full flex flex-col justify-center gap-10 md:gap-20 lg:px-16 lg:pb-8">
-          <div className="w-full flex flex-col justify-center lg:hidden">
-            <StoreBooksCard
-              loading={local.allbooks.loading}
-              list={local.allbooks.list}
-              category={local.cats.selected}
-            />
-          </div>
+        <div className="order-2 lg:order-none">
+          <StoreBooksCard
+            loading={local.allbooks.loading}
+            list={local.allbooks.list}
+            category={local.cats.selected}
+          />
+        </div>
+        <div className="order-3 lg:order-none">
           <BooksByCategory
             loading={local.booksByCategory.loading}
             action={changeByCategory}
@@ -111,8 +134,12 @@ export default () => {
             selected={local.booksByCategory.selected}
             list={local.booksByCategory.list}
           />
-
-          <FeaturedBooks />
+        </div>
+        <div className="hidden lg:flex w-full">
+          <SectionTitle title="Bundling of the Week"  url="#" />
+        </div>
+        <div className="hidden lg:flex">
+          <StoreBundling img={local.bundling.img} desktopImg={local.bundling.desktopImg} url={local.bundling.url} list={local.bundling.list} />
         </div>
       </div>
     </MainEsensiLayout>
