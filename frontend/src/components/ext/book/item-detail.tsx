@@ -47,7 +47,7 @@ export const book = (book: Book | null) => {
     ),
     "Dibuat pada": new Date(book!.created_at).toLocaleDateString("id-ID"),
   };
-  if (Object.keys(book?.info as Record<string, any>).length > 0) {
+  if (book?.info && Object.keys(book?.info as Record<string, any>).length > 0) {
     detail["Info Tambahan"] = book?.info ? JSON.stringify(book?.info) : "-";
   }
   return detail;
@@ -80,7 +80,7 @@ export const product = (product: Product | null) => {
       <span className="font-medium text-gray-900">-</span>
     ),
   };
-  if (Object.keys(product?.info as Record<string, any>).length > 0) {
+  if (product?.info && Object.keys(product?.info as Record<string, any>).length > 0) {
     detail["Info Tambahan"] = product?.info
       ? JSON.stringify(product?.info)
       : "-";
