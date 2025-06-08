@@ -60,16 +60,11 @@ export default function ChapterUpdatePage() {
             navigate(`/manage-chapter?bookId=${local.bookId}`);
             return;
           }
-          if (
-            validate(
-              !isValidEditorData(local.chapter!.content),
-              local,
-              "Konten chapter tidak valid."
-            )
-          ) {
-            navigate(`/manage-chapter?bookId=${local.bookId}`);
-            return;
-          }
+          validate(
+            !isValidEditorData(local.chapter!.content),
+            local,
+            "Konten chapter tidak valid."
+          );
         }
       } catch (error) {
         local.error = "Terjadi kesalahan saat memuat data buku.";
