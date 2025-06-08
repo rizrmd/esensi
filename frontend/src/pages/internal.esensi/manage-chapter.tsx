@@ -6,7 +6,6 @@ import { Error } from "@/components/ext/error";
 import { LayoutToggle } from "@/components/ext/layout-toggle";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { PublishFallback } from "@/components/ext/publish-fallback";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataPagination } from "@/components/ui/data-pagination";
 import { betterAuth } from "@/lib/better-auth";
@@ -14,9 +13,8 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { ItemLayoutEnum, validate } from "@/lib/utils";
-import { BookStatus, Role, type Book } from "backend/api/types";
+import { Role, type Book } from "backend/api/types";
 import type { User } from "backend/lib/better-auth";
-import { PlusCircle, Trash2 } from "lucide-react";
 import type { chapter } from "shared/models";
 
 export const current = {
@@ -90,22 +88,8 @@ export default () => {
     }
   }
 
-  async function handleClick(
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    item: chapter
-  ) {
-    if ((e.target as HTMLElement).closest("svg")) {
-      await api.chapter_deletes({ ids: [item.id] });
-      await loadData();
-      return;
-    }
-    navigate(
-      `${
-        local.book?.status === BookStatus.DRAFT
-          ? "chapter-update"
-          : "chapter-detail"
-      }?id=${item.id}&bookId=${local.bookId}`
-    );
+  async function handleClick(item: chapter) {
+    navigate(`chapter-detail?id=${item.id}&bookId=${local.bookId}`);
   }
 
   if (local.loading) return <AppLoading />;
@@ -125,24 +109,6 @@ export default () => {
                   <div className="flex flex-col gap-3 items-end">
                     <div className="flex items-center gap-4">
                       <div className="flex gap-2">
-                        <Button
-                          onClick={() =>
-                            navigate(
-                              "/chapter-create" +
-                                (local.bookId ? `?bookId=${local.bookId}` : "")
-                            )
-                          }
-                          disabled={
-                            local.loading ||
-                            !!local.error ||
-                            local.book?.status !== BookStatus.DRAFT
-                          }
-                          className="flex items-center gap-2"
-                          variant="default"
-                        >
-                          <PlusCircle className="h-5 w-5" />
-                          <span>Tambah Chapter</span>
-                        </Button>
                         <LayoutToggle
                           layout={local.layout}
                           onLayoutChange={(value) => {
@@ -186,16 +152,13 @@ export default () => {
                           <div
                             key={item.id}
                             className="cursor-pointer"
-                            onClick={(e) => handleClick(e, item)}
+                            onClick={() => handleClick(item)}
                           >
                             <Card className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
-                              <CardHeader className="flex-1 relative">
-                                <CardTitle className="text-lg font-semibold line-clamp-2 mb-2 pr-8">
+                              <CardHeader className="flex-1">
+                                <CardTitle className="text-lg font-semibold line-clamp-2 mb-2">
                                   {item.name}
                                 </CardTitle>
-                                {local.book?.status === BookStatus.DRAFT && (
-                                  <Trash2 className="h-4 w-4 absolute top-4 right-4 hover:text-red-500" />
-                                )}
                               </CardHeader>
                               <CardContent className="pb-4">
                                 <Item type={local.layout} item={tf(item)} />
@@ -212,18 +175,13 @@ export default () => {
                           <Card
                             key={item.id}
                             className="cursor-pointer hover:shadow-md transition-shadow"
-                            onClick={(e) => handleClick(e, item)}
+                            onClick={() => handleClick(item)}
                           >
                             <div className="flex">
-                              <div className="flex-1 p-4 relative">
-                                <div className="flex justify-between items-start">
-                                  <h3 className="text-lg font-semibold mb-2 pr-8">
-                                    {item.name}
-                                  </h3>
-                                  {local.book?.status === BookStatus.DRAFT && (
-                                    <Trash2 className="h-4 w-4 hover:text-red-500 flex-shrink-0" />
-                                  )}
-                                </div>
+                              <div className="flex-1 p-4">
+                                <h3 className="text-lg font-semibold mb-2">
+                                  {item.name}
+                                </h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                   <Item type={local.layout} item={tf(item)} />
                                 </div>
@@ -245,11 +203,6 @@ export default () => {
                               <th className="p-2 text-left text-xs font-medium text-gray-600">
                                 Nama
                               </th>
-                              {local.book?.status === BookStatus.DRAFT && (
-                                <th className="p-2 text-right text-xs font-medium text-gray-600 w-12">
-                                  Aksi
-                                </th>
-                              )}
                             </tr>
                           </thead>
                           <tbody>
@@ -259,14 +212,9 @@ export default () => {
                                 className={`border-b hover:bg-muted/50 cursor-pointer ${
                                   index % 2 === 0 ? "bg-white" : "bg-gray-50"
                                 }`}
-                                onClick={(e) => handleClick(e, item)}
+                                onClick={() => handleClick(item)}
                               >
                                 <Item type={local.layout} item={tf(item)} />
-                                {local.book?.status === BookStatus.DRAFT && (
-                                  <td className="p-2 text-right">
-                                    <Trash2 className="h-4 w-4 hover:text-red-500 inline-block" />
-                                  </td>
-                                )}
                               </tr>
                             ))}
                           </tbody>
