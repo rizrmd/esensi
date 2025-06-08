@@ -1,5 +1,4 @@
 import { baseUrl } from "@/lib/gen/base-url";
-import { cn } from "@/lib/utils";
 import Checklist from "@editorjs/checklist";
 import EditorJS, {
   type EditorConfig,
@@ -7,12 +6,10 @@ import EditorJS, {
 } from "@editorjs/editorjs";
 import Embed from "@editorjs/embed";
 import Header from "@editorjs/header";
-// import Image from "@editorjs/image";
 import List from "@editorjs/list";
 import Paragraph from "@editorjs/paragraph";
 import Quote from "@editorjs/quote";
 import SimpleImage from "@editorjs/simple-image";
-import { Label } from "@radix-ui/react-label";
 import React, { useEffect, useRef } from "react";
 
 interface EditorComponentProps {
@@ -23,25 +20,6 @@ interface EditorComponentProps {
   placeholder?: string;
   optional?: boolean;
 }
-
-// class SimpleImage {
-//   static get toolbox() {
-//     return {
-//       title: "Image",
-//       icon: '<svg width="17" height="15" viewBox="0 0 336 276" xmlns="http://www.w3.org/2000/svg"><path d="M291 150V79c0-19-15-34-34-34H79c-19 0-34 15-34 34v42l67-44 81 72 56-29 42 30zm0 52l-43-30-56 30-81-67-66 39v23c0 19 15 34 34 34h178c17 0 31-13 34-29zM79 0h178c44 0 79 35 79 79v118c0 44-35 79-79 79H79c-44 0-79-35-79-79V79C0 35 35 0 79 0z"/></svg>',
-//     };
-//   }
-
-//   render() {
-//     return document.createElement("input");
-//   }
-
-//   save(blockContent) {
-//     return {
-//       url: blockContent.value,
-//     };
-//   }
-// }
 
 const EDITOR_JS_TOOLS = {
   checklist: {
@@ -59,32 +37,16 @@ const EDITOR_JS_TOOLS = {
       defaultLevel: 1,
     },
   },
-  list: List,
+  list: {
+    class: List,
+    inlineToolbar: true,
+    config: {
+      defaultStyle: "unordered",
+    },
+    shortcut: "CMD+SHIFT+L",
+  },
   paragraph: Paragraph,
   quote: Quote,
-  // list: {
-  //   class: List,
-  //   inlineToolbar: true,
-  //   config: {
-  //     placeholder: "Masukkan item daftar",
-  //   },
-  // },
-  // image: {
-  //   class: Image,
-  //   inlineToolbar: true,
-  //   config: {
-  //     endpoints: {
-  //       byFile: `${baseUrl.auth_esensi}/api/upload`, // Your backend file uploader endpoint
-  //       byUrl: `${baseUrl.auth_esensi}/api/upload`, // Your endpoint that provides uploading by Url
-  //     },
-  //     field: "file", // The name of the file field in your backend
-  //     additionalRequestData: {
-  //       // You can add additional data to be sent with the file upload request
-  //       // For example, you can send the book ID or any other relevant data
-  //       bookId: "your-book-id", // Replace with actual book ID or other data
-  //     },
-  //   },
-  // },
   image: {
     class: SimpleImage,
     inlineToolbar: true,
@@ -98,6 +60,63 @@ const EDITOR_JS_TOOLS = {
   embed: Embed,
 };
 
+// Data transformation utility to ensure List block compatibility
+const transformEditorData = (data: OutputData): OutputData => {
+  if (!data || !data.blocks) return data;
+
+  const transformedBlocks = data.blocks.map((block) => {
+    if (block.type === "list") {
+      // Ensure list data has correct format
+      const listData = block.data;
+
+      // Handle different possible formats
+      if (listData && typeof listData === "object") {
+        // Ensure items is always an array
+        if (!Array.isArray(listData.items)) listData.items = [];
+
+        // Ensure each item is a string (not an object)
+        listData.items = listData.items.map((item, itemIndex) => {
+          if (typeof item === "string") return item;
+          else if (item && typeof item === "object") {
+            // Handle case where item is {content: "text", items: []} (nested lists)
+            if (item.content) return item.content;
+            // Handle case where item is {text: "text"}
+            else if (item.text) return item.text;
+            // Handle case where item might have other properties
+            else if (item.value) return item.value;
+            // Fallback to JSON stringify for complex objects
+            else return JSON.stringify(item);
+          } else return String(item);
+        });
+
+        // Ensure style is properly set
+        if (
+          !listData.style ||
+          (listData.style !== "ordered" && listData.style !== "unordered")
+        )
+          listData.style = "unordered";
+      }
+    }
+    return block;
+  });
+
+  return {
+    ...data,
+    blocks: transformedBlocks,
+  };
+};
+
+// Test function to validate list data format
+const validateListData = (data: any): boolean => {
+  if (!data || typeof data !== "object") return false;
+  if (!data.style || (data.style !== "ordered" && data.style !== "unordered"))
+    return false;
+  if (!Array.isArray(data.items)) return false;
+
+  // Ensure all items are strings
+  return data.items.every((item: any) => typeof item === "string");
+};
+
 const MyEditorJS: React.FC<EditorComponentProps> = ({
   label,
   data,
@@ -109,28 +128,68 @@ const MyEditorJS: React.FC<EditorComponentProps> = ({
   const editorRef = useRef<EditorJS | null>(null);
   const holderRef = useRef<HTMLDivElement>(null);
 
+  // Effect to handle data updates
+  useEffect(() => {
+    if (editorRef.current && data) {
+      // Transform data to ensure compatibility
+      const transformedData = transformEditorData(data);
+      editorRef.current
+        .render(transformedData)
+        .catch((error) =>
+          console.error("Error rendering editor:", error, "on data:", data)
+        );
+    }
+  }, [data]);
+
   useEffect(() => {
     if (editorRef.current) return;
     if (!holderRef.current) return;
 
+    const testData = {
+      time: Date.now(),
+      blocks: [
+        {
+          id: "test-paragraph",
+          type: "paragraph",
+          data: {
+            text: "This is a test paragraph.",
+          },
+        },
+        {
+          id: "test-list",
+          type: "list",
+          data: {
+            style: "unordered",
+            items: ["First list item", "Second list item", "Third list item"],
+          },
+        },
+      ],
+      version: "2.28.2",
+    };
+
     const editorConfig: EditorConfig = {
       holder: holderRef.current,
       tools: EDITOR_JS_TOOLS,
-      data: data || { blocks: [] },
+      data: data ? transformEditorData(data) : testData,
       readOnly,
       placeholder,
-      onChange: async () => {
+      onReady: () => {},
+      onChange: async (api, event) => {
         if (onChange) {
-          const outputData = await editorRef.current?.save();
-          if (outputData) {
-            onChange(outputData);
+          try {
+            const outputData = await editorRef.current?.save();
+            if (outputData) {
+              // Apply transformation to saved data as well to ensure consistency
+              const transformedOutputData = transformEditorData(outputData);
+              onChange(transformedOutputData);
+            }
+          } catch (error) {
+            console.error("Stack:", (error as Error).stack);
           }
         }
       },
-      onReady: () => {},
       autofocus: !readOnly,
     };
-
     const editor = new EditorJS(editorConfig);
     editorRef.current = editor;
 

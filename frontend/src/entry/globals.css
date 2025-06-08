@@ -193,3 +193,59 @@
   font-size: 1.25rem;
   font-weight: 600;
 }
+
+/* List styles for Editor.js */
+.ce-list {
+  margin: 1rem 0;
+}
+
+.ce-list__item {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+/* Unordered list styles */
+.ce-list--unordered .ce-list__item {
+  list-style: disc;
+  margin-left: 1.5rem;
+  display: list-item;
+}
+
+/* Ordered list styles */
+.ce-list--ordered .ce-list__item {
+  list-style: decimal;
+  margin-left: 1.5rem;
+  display: list-item;
+}
+
+/* Nested list styles */
+.ce-list .ce-list {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.ce-list .ce-list .ce-list__item {
+  margin-left: 1rem;
+}
+
+/* Fix for list item content */
+.ce-list__item-content {
+  outline: none;
+}
+
+/* Ensure proper display in read-only mode */
+.codex-editor--readonly .ce-list__item {
+  pointer-events: none;
+}
+
+.codex-editor--readonly .ce-list--unordered .ce-list__item {
+  list-style: disc;
+  margin-left: 1.5rem;
+  display: list-item;
+}
+
+.codex-editor--readonly .ce-list--ordered .ce-list__item {
+  list-style: decimal;
+  margin-left: 1.5rem;
+  display: list-item;
+}
