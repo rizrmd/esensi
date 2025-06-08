@@ -1,9 +1,9 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { Breadcrumb } from "@/components/ext/book/breadcrumb/list";
+import { Item, book } from "@/components/ext/book/item-manage";
 import { Error } from "@/components/ext/error";
 import { Img } from "@/components/ext/img/list";
-import { Item, book } from "@/components/ext/book/item-manage";
 import { LayoutToggle } from "@/components/ext/layout-toggle";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { PublishFallback } from "@/components/ext/publish-fallback";
@@ -157,10 +157,7 @@ export default () => {
                                 </CardTitle>
                               </CardHeader>
                               <CardContent className="pb-4">
-                                <Item
-                                  type={local.layout}
-                                  item={book(item)}
-                                />
+                                <Item type={local.layout} item={book(item)} />
                               </CardContent>
                             </Card>
                           </div>
@@ -193,10 +190,7 @@ export default () => {
                                   {item.name}
                                 </h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                  <Item
-                                    type={local.layout}
-                                    item={book(item)}
-                                  />
+                                  <Item type={local.layout} item={book(item)} />
                                 </div>
                               </div>
                             </div>
@@ -248,10 +242,7 @@ export default () => {
                                     alt={item.name}
                                   />
                                 </td>
-                                <Item
-                                  type={local.layout}
-                                  item={book(item)}
-                                />
+                                <Item type={local.layout} item={book(item)} />
                               </tr>
                             ))}
                           </tbody>
@@ -267,4 +258,4 @@ export default () => {
       </div>
     </Protected>
   );
-}
+};

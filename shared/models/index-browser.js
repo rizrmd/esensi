@@ -223,7 +223,6 @@ exports.Prisma.BookScalarFieldEnum = {
   id_author: 'id_author',
   published_date: 'published_date',
   is_physical: 'is_physical',
-  ai_suggested_content: 'ai_suggested_content',
   preorder_min_qty: 'preorder_min_qty',
   content_type: 'content_type',
   is_chapter: 'is_chapter',
@@ -409,7 +408,6 @@ exports.Prisma.ProductScalarFieldEnum = {
   id_author: 'id_author',
   published_date: 'published_date',
   is_physical: 'is_physical',
-  ai_suggested_content: 'ai_suggested_content',
   preorder_min_qty: 'preorder_min_qty',
   content_type: 'content_type',
   is_chapter: 'is_chapter'
@@ -554,12 +552,12 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.JsonNullValueInput = {
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 
-exports.Prisma.NullableJsonNullValueInput = {
-  DbNull: Prisma.DbNull,
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 

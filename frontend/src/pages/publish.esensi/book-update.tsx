@@ -142,7 +142,6 @@ export default function BookUpdatePage() {
                     sku: local.book?.sku,
                     content_type: local.book?.content_type,
                     preorder_min_qty: local.book?.preorder_min_qty,
-                    info: local.book?.info,
                     status: BookStatus.DRAFT,
                   }}
                   onSubmit={async ({ write, read }) => {
@@ -229,13 +228,7 @@ export default function BookUpdatePage() {
                         local.success = "Buku berhasil diperbarui!";
 
                         setTimeout(() => {
-                          navigate(
-                            `/${
-                              read.is_chapter === "chapter"
-                                ? "manage-chapter?bookId="
-                                : "book-step?id="
-                            }${res.data?.id}`
-                          );
+                          navigate(`/book-step?id=${res.data?.id}`);
                         }, 1500);
                       } else
                         local.error = res.message || "Gagal menambahkan buku.";

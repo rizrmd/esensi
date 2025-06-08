@@ -179,6 +179,7 @@ export default function ChapterUpdatePage() {
                             label="Nama Chapter"
                           />
                           <MyEditorJS
+                            label="Konten Chapter"
                             data={write.content}
                             onChange={(data: OutputData) =>
                               (write.content = data)

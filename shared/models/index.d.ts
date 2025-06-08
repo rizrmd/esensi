@@ -14888,7 +14888,6 @@ export namespace Prisma {
     id_author: number
     published_date: number
     is_physical: number
-    ai_suggested_content: number
     preorder_min_qty: number
     content_type: number
     is_chapter: number
@@ -14974,7 +14973,6 @@ export namespace Prisma {
     id_author?: true
     published_date?: true
     is_physical?: true
-    ai_suggested_content?: true
     preorder_min_qty?: true
     content_type?: true
     is_chapter?: true
@@ -15076,7 +15074,7 @@ export namespace Prisma {
     alias: string
     submitted_price: Decimal
     desc: string
-    info: JsonValue
+    info: JsonValue | null
     status: string
     currency: string
     deleted_at: Date | null
@@ -15087,7 +15085,6 @@ export namespace Prisma {
     id_author: string | null
     published_date: Date
     is_physical: boolean
-    ai_suggested_content: JsonValue | null
     preorder_min_qty: number | null
     content_type: string | null
     is_chapter: boolean
@@ -15132,7 +15129,6 @@ export namespace Prisma {
     id_author?: boolean
     published_date?: boolean
     is_physical?: boolean
-    ai_suggested_content?: boolean
     preorder_min_qty?: boolean
     content_type?: boolean
     is_chapter?: boolean
@@ -15168,7 +15164,6 @@ export namespace Prisma {
     id_author?: boolean
     published_date?: boolean
     is_physical?: boolean
-    ai_suggested_content?: boolean
     preorder_min_qty?: boolean
     content_type?: boolean
     is_chapter?: boolean
@@ -15196,7 +15191,6 @@ export namespace Prisma {
     id_author?: boolean
     published_date?: boolean
     is_physical?: boolean
-    ai_suggested_content?: boolean
     preorder_min_qty?: boolean
     content_type?: boolean
     is_chapter?: boolean
@@ -15224,7 +15218,6 @@ export namespace Prisma {
     id_author?: boolean
     published_date?: boolean
     is_physical?: boolean
-    ai_suggested_content?: boolean
     preorder_min_qty?: boolean
     content_type?: boolean
     is_chapter?: boolean
@@ -15232,7 +15225,7 @@ export namespace Prisma {
     created_at?: boolean
   }
 
-  export type bookOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "alias" | "submitted_price" | "desc" | "info" | "status" | "currency" | "deleted_at" | "img_file" | "cover" | "product_file" | "sku" | "id_author" | "published_date" | "is_physical" | "ai_suggested_content" | "preorder_min_qty" | "content_type" | "is_chapter" | "id_product" | "created_at", ExtArgs["result"]["book"]>
+  export type bookOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "alias" | "submitted_price" | "desc" | "info" | "status" | "currency" | "deleted_at" | "img_file" | "cover" | "product_file" | "sku" | "id_author" | "published_date" | "is_physical" | "preorder_min_qty" | "content_type" | "is_chapter" | "id_product" | "created_at", ExtArgs["result"]["book"]>
   export type bookInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | book$authorArgs<ExtArgs>
     product?: boolean | book$productArgs<ExtArgs>
@@ -15274,7 +15267,7 @@ export namespace Prisma {
       alias: string
       submitted_price: Prisma.Decimal
       desc: string
-      info: Prisma.JsonValue
+      info: Prisma.JsonValue | null
       status: string
       currency: string
       deleted_at: Date | null
@@ -15285,7 +15278,6 @@ export namespace Prisma {
       id_author: string | null
       published_date: Date
       is_physical: boolean
-      ai_suggested_content: Prisma.JsonValue | null
       preorder_min_qty: number | null
       content_type: string | null
       is_chapter: boolean
@@ -15740,7 +15732,6 @@ export namespace Prisma {
     readonly id_author: FieldRef<"book", 'String'>
     readonly published_date: FieldRef<"book", 'DateTime'>
     readonly is_physical: FieldRef<"book", 'Boolean'>
-    readonly ai_suggested_content: FieldRef<"book", 'Json'>
     readonly preorder_min_qty: FieldRef<"book", 'Int'>
     readonly content_type: FieldRef<"book", 'String'>
     readonly is_chapter: FieldRef<"book", 'Boolean'>
@@ -36504,7 +36495,6 @@ export namespace Prisma {
     id_author: number
     published_date: number
     is_physical: number
-    ai_suggested_content: number
     preorder_min_qty: number
     content_type: number
     is_chapter: number
@@ -36589,7 +36579,6 @@ export namespace Prisma {
     id_author?: true
     published_date?: true
     is_physical?: true
-    ai_suggested_content?: true
     preorder_min_qty?: true
     content_type?: true
     is_chapter?: true
@@ -36690,7 +36679,7 @@ export namespace Prisma {
     strike_price: Decimal | null
     real_price: Decimal
     desc: string
-    info: JsonValue
+    info: JsonValue | null
     status: string
     currency: string
     deleted_at: Date | null
@@ -36701,7 +36690,6 @@ export namespace Prisma {
     id_author: string | null
     published_date: Date
     is_physical: boolean
-    ai_suggested_content: JsonValue | null
     preorder_min_qty: number | null
     content_type: string | null
     is_chapter: boolean
@@ -36745,7 +36733,6 @@ export namespace Prisma {
     id_author?: boolean
     published_date?: boolean
     is_physical?: boolean
-    ai_suggested_content?: boolean
     preorder_min_qty?: boolean
     content_type?: boolean
     is_chapter?: boolean
@@ -36780,7 +36767,6 @@ export namespace Prisma {
     id_author?: boolean
     published_date?: boolean
     is_physical?: boolean
-    ai_suggested_content?: boolean
     preorder_min_qty?: boolean
     content_type?: boolean
     is_chapter?: boolean
@@ -36806,7 +36792,6 @@ export namespace Prisma {
     id_author?: boolean
     published_date?: boolean
     is_physical?: boolean
-    ai_suggested_content?: boolean
     preorder_min_qty?: boolean
     content_type?: boolean
     is_chapter?: boolean
@@ -36832,13 +36817,12 @@ export namespace Prisma {
     id_author?: boolean
     published_date?: boolean
     is_physical?: boolean
-    ai_suggested_content?: boolean
     preorder_min_qty?: boolean
     content_type?: boolean
     is_chapter?: boolean
   }
 
-  export type productOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "alias" | "strike_price" | "real_price" | "desc" | "info" | "status" | "currency" | "deleted_at" | "img_file" | "cover" | "product_file" | "sku" | "id_author" | "published_date" | "is_physical" | "ai_suggested_content" | "preorder_min_qty" | "content_type" | "is_chapter", ExtArgs["result"]["product"]>
+  export type productOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "alias" | "strike_price" | "real_price" | "desc" | "info" | "status" | "currency" | "deleted_at" | "img_file" | "cover" | "product_file" | "sku" | "id_author" | "published_date" | "is_physical" | "preorder_min_qty" | "content_type" | "is_chapter", ExtArgs["result"]["product"]>
   export type productInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     book?: boolean | product$bookArgs<ExtArgs>
     bundle_product?: boolean | product$bundle_productArgs<ExtArgs>
@@ -36879,7 +36863,7 @@ export namespace Prisma {
       strike_price: Prisma.Decimal | null
       real_price: Prisma.Decimal
       desc: string
-      info: Prisma.JsonValue
+      info: Prisma.JsonValue | null
       status: string
       currency: string
       deleted_at: Date | null
@@ -36890,7 +36874,6 @@ export namespace Prisma {
       id_author: string | null
       published_date: Date
       is_physical: boolean
-      ai_suggested_content: Prisma.JsonValue | null
       preorder_min_qty: number | null
       content_type: string | null
       is_chapter: boolean
@@ -37344,7 +37327,6 @@ export namespace Prisma {
     readonly id_author: FieldRef<"product", 'String'>
     readonly published_date: FieldRef<"product", 'DateTime'>
     readonly is_physical: FieldRef<"product", 'Boolean'>
-    readonly ai_suggested_content: FieldRef<"product", 'Json'>
     readonly preorder_min_qty: FieldRef<"product", 'Int'>
     readonly content_type: FieldRef<"product", 'String'>
     readonly is_chapter: FieldRef<"product", 'Boolean'>
@@ -54884,7 +54866,6 @@ export namespace Prisma {
     id_author: 'id_author',
     published_date: 'published_date',
     is_physical: 'is_physical',
-    ai_suggested_content: 'ai_suggested_content',
     preorder_min_qty: 'preorder_min_qty',
     content_type: 'content_type',
     is_chapter: 'is_chapter',
@@ -55127,7 +55108,6 @@ export namespace Prisma {
     id_author: 'id_author',
     published_date: 'published_date',
     is_physical: 'is_physical',
-    ai_suggested_content: 'ai_suggested_content',
     preorder_min_qty: 'preorder_min_qty',
     content_type: 'content_type',
     is_chapter: 'is_chapter'
@@ -55323,19 +55303,19 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const JsonNullValueInput: {
-    JsonNull: typeof JsonNull
-  };
-
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
   export const NullableJsonNullValueInput: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -56068,7 +56048,7 @@ export namespace Prisma {
     alias?: StringFilter<"book"> | string
     submitted_price?: DecimalFilter<"book"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"book"> | string
-    info?: JsonFilter<"book">
+    info?: JsonNullableFilter<"book">
     status?: StringFilter<"book"> | string
     currency?: StringFilter<"book"> | string
     deleted_at?: DateTimeNullableFilter<"book"> | Date | string | null
@@ -56079,7 +56059,6 @@ export namespace Prisma {
     id_author?: UuidNullableFilter<"book"> | string | null
     published_date?: DateTimeFilter<"book"> | Date | string
     is_physical?: BoolFilter<"book"> | boolean
-    ai_suggested_content?: JsonNullableFilter<"book">
     preorder_min_qty?: IntNullableFilter<"book"> | number | null
     content_type?: StringNullableFilter<"book"> | string | null
     is_chapter?: BoolFilter<"book"> | boolean
@@ -56103,7 +56082,7 @@ export namespace Prisma {
     alias?: SortOrder
     submitted_price?: SortOrder
     desc?: SortOrder
-    info?: SortOrder
+    info?: SortOrderInput | SortOrder
     status?: SortOrder
     currency?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
@@ -56114,7 +56093,6 @@ export namespace Prisma {
     id_author?: SortOrderInput | SortOrder
     published_date?: SortOrder
     is_physical?: SortOrder
-    ai_suggested_content?: SortOrderInput | SortOrder
     preorder_min_qty?: SortOrderInput | SortOrder
     content_type?: SortOrderInput | SortOrder
     is_chapter?: SortOrder
@@ -56141,7 +56119,7 @@ export namespace Prisma {
     alias?: StringFilter<"book"> | string
     submitted_price?: DecimalFilter<"book"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"book"> | string
-    info?: JsonFilter<"book">
+    info?: JsonNullableFilter<"book">
     status?: StringFilter<"book"> | string
     currency?: StringFilter<"book"> | string
     deleted_at?: DateTimeNullableFilter<"book"> | Date | string | null
@@ -56152,7 +56130,6 @@ export namespace Prisma {
     id_author?: UuidNullableFilter<"book"> | string | null
     published_date?: DateTimeFilter<"book"> | Date | string
     is_physical?: BoolFilter<"book"> | boolean
-    ai_suggested_content?: JsonNullableFilter<"book">
     preorder_min_qty?: IntNullableFilter<"book"> | number | null
     content_type?: StringNullableFilter<"book"> | string | null
     is_chapter?: BoolFilter<"book"> | boolean
@@ -56176,7 +56153,7 @@ export namespace Prisma {
     alias?: SortOrder
     submitted_price?: SortOrder
     desc?: SortOrder
-    info?: SortOrder
+    info?: SortOrderInput | SortOrder
     status?: SortOrder
     currency?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
@@ -56187,7 +56164,6 @@ export namespace Prisma {
     id_author?: SortOrderInput | SortOrder
     published_date?: SortOrder
     is_physical?: SortOrder
-    ai_suggested_content?: SortOrderInput | SortOrder
     preorder_min_qty?: SortOrderInput | SortOrder
     content_type?: SortOrderInput | SortOrder
     is_chapter?: SortOrder
@@ -56210,7 +56186,7 @@ export namespace Prisma {
     alias?: StringWithAggregatesFilter<"book"> | string
     submitted_price?: DecimalWithAggregatesFilter<"book"> | Decimal | DecimalJsLike | number | string
     desc?: StringWithAggregatesFilter<"book"> | string
-    info?: JsonWithAggregatesFilter<"book">
+    info?: JsonNullableWithAggregatesFilter<"book">
     status?: StringWithAggregatesFilter<"book"> | string
     currency?: StringWithAggregatesFilter<"book"> | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"book"> | Date | string | null
@@ -56221,7 +56197,6 @@ export namespace Prisma {
     id_author?: UuidNullableWithAggregatesFilter<"book"> | string | null
     published_date?: DateTimeWithAggregatesFilter<"book"> | Date | string
     is_physical?: BoolWithAggregatesFilter<"book"> | boolean
-    ai_suggested_content?: JsonNullableWithAggregatesFilter<"book">
     preorder_min_qty?: IntNullableWithAggregatesFilter<"book"> | number | null
     content_type?: StringNullableWithAggregatesFilter<"book"> | string | null
     is_chapter?: BoolWithAggregatesFilter<"book"> | boolean
@@ -57382,7 +57357,7 @@ export namespace Prisma {
     strike_price?: DecimalNullableFilter<"product"> | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFilter<"product"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"product"> | string
-    info?: JsonFilter<"product">
+    info?: JsonNullableFilter<"product">
     status?: StringFilter<"product"> | string
     currency?: StringFilter<"product"> | string
     deleted_at?: DateTimeNullableFilter<"product"> | Date | string | null
@@ -57393,7 +57368,6 @@ export namespace Prisma {
     id_author?: UuidNullableFilter<"product"> | string | null
     published_date?: DateTimeFilter<"product"> | Date | string
     is_physical?: BoolFilter<"product"> | boolean
-    ai_suggested_content?: JsonNullableFilter<"product">
     preorder_min_qty?: IntNullableFilter<"product"> | number | null
     content_type?: StringNullableFilter<"product"> | string | null
     is_chapter?: BoolFilter<"product"> | boolean
@@ -57416,7 +57390,7 @@ export namespace Prisma {
     strike_price?: SortOrderInput | SortOrder
     real_price?: SortOrder
     desc?: SortOrder
-    info?: SortOrder
+    info?: SortOrderInput | SortOrder
     status?: SortOrder
     currency?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
@@ -57427,7 +57401,6 @@ export namespace Prisma {
     id_author?: SortOrderInput | SortOrder
     published_date?: SortOrder
     is_physical?: SortOrder
-    ai_suggested_content?: SortOrderInput | SortOrder
     preorder_min_qty?: SortOrderInput | SortOrder
     content_type?: SortOrderInput | SortOrder
     is_chapter?: SortOrder
@@ -57453,7 +57426,7 @@ export namespace Prisma {
     strike_price?: DecimalNullableFilter<"product"> | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFilter<"product"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"product"> | string
-    info?: JsonFilter<"product">
+    info?: JsonNullableFilter<"product">
     status?: StringFilter<"product"> | string
     currency?: StringFilter<"product"> | string
     deleted_at?: DateTimeNullableFilter<"product"> | Date | string | null
@@ -57464,7 +57437,6 @@ export namespace Prisma {
     id_author?: UuidNullableFilter<"product"> | string | null
     published_date?: DateTimeFilter<"product"> | Date | string
     is_physical?: BoolFilter<"product"> | boolean
-    ai_suggested_content?: JsonNullableFilter<"product">
     preorder_min_qty?: IntNullableFilter<"product"> | number | null
     content_type?: StringNullableFilter<"product"> | string | null
     is_chapter?: BoolFilter<"product"> | boolean
@@ -57487,7 +57459,7 @@ export namespace Prisma {
     strike_price?: SortOrderInput | SortOrder
     real_price?: SortOrder
     desc?: SortOrder
-    info?: SortOrder
+    info?: SortOrderInput | SortOrder
     status?: SortOrder
     currency?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
@@ -57498,7 +57470,6 @@ export namespace Prisma {
     id_author?: SortOrderInput | SortOrder
     published_date?: SortOrder
     is_physical?: SortOrder
-    ai_suggested_content?: SortOrderInput | SortOrder
     preorder_min_qty?: SortOrderInput | SortOrder
     content_type?: SortOrderInput | SortOrder
     is_chapter?: SortOrder
@@ -57520,7 +57491,7 @@ export namespace Prisma {
     strike_price?: DecimalNullableWithAggregatesFilter<"product"> | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalWithAggregatesFilter<"product"> | Decimal | DecimalJsLike | number | string
     desc?: StringWithAggregatesFilter<"product"> | string
-    info?: JsonWithAggregatesFilter<"product">
+    info?: JsonNullableWithAggregatesFilter<"product">
     status?: StringWithAggregatesFilter<"product"> | string
     currency?: StringWithAggregatesFilter<"product"> | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"product"> | Date | string | null
@@ -57531,7 +57502,6 @@ export namespace Prisma {
     id_author?: UuidNullableWithAggregatesFilter<"product"> | string | null
     published_date?: DateTimeWithAggregatesFilter<"product"> | Date | string
     is_physical?: BoolWithAggregatesFilter<"product"> | boolean
-    ai_suggested_content?: JsonNullableWithAggregatesFilter<"product">
     preorder_min_qty?: IntNullableWithAggregatesFilter<"product"> | number | null
     content_type?: StringNullableWithAggregatesFilter<"product"> | string | null
     is_chapter?: BoolWithAggregatesFilter<"product"> | boolean
@@ -59155,7 +59125,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -59165,7 +59135,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -59188,7 +59157,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -59199,7 +59168,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -59221,7 +59189,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -59231,7 +59199,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -59254,7 +59221,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -59265,7 +59232,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -59287,7 +59253,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -59298,7 +59264,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -59313,7 +59278,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -59323,7 +59288,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -59337,7 +59301,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -59348,7 +59312,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -60519,7 +60482,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -60529,7 +60492,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -60552,7 +60514,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -60563,7 +60525,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -60585,7 +60546,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -60595,7 +60556,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -60618,7 +60578,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -60629,7 +60589,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -60651,7 +60610,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -60662,7 +60621,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -60676,7 +60634,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -60686,7 +60644,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -60700,7 +60657,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -60711,7 +60668,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -62323,29 +62279,6 @@ export namespace Prisma {
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
-  export type JsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -62464,7 +62397,6 @@ export namespace Prisma {
     id_author?: SortOrder
     published_date?: SortOrder
     is_physical?: SortOrder
-    ai_suggested_content?: SortOrder
     preorder_min_qty?: SortOrder
     content_type?: SortOrder
     is_chapter?: SortOrder
@@ -62544,32 +62476,6 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
-  }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
   }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -62721,6 +62627,29 @@ export namespace Prisma {
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type Bundle_categoryListRelationFilter = {
     every?: bundle_categoryWhereInput
@@ -62822,6 +62751,32 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type BundleScalarRelationFilter = {
@@ -63402,7 +63357,6 @@ export namespace Prisma {
     id_author?: SortOrder
     published_date?: SortOrder
     is_physical?: SortOrder
-    ai_suggested_content?: SortOrder
     preorder_min_qty?: SortOrder
     content_type?: SortOrder
     is_chapter?: SortOrder
@@ -67558,29 +67512,6 @@ export namespace Prisma {
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
   }
-  export type NestedJsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
   export type NestedJsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -67657,6 +67588,29 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -69209,7 +69163,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69219,7 +69173,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -69241,7 +69194,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69251,7 +69204,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -69284,7 +69236,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69294,7 +69246,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -69316,7 +69267,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69326,7 +69277,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -69463,7 +69413,7 @@ export namespace Prisma {
     alias?: StringFilter<"book"> | string
     submitted_price?: DecimalFilter<"book"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"book"> | string
-    info?: JsonFilter<"book">
+    info?: JsonNullableFilter<"book">
     status?: StringFilter<"book"> | string
     currency?: StringFilter<"book"> | string
     deleted_at?: DateTimeNullableFilter<"book"> | Date | string | null
@@ -69474,7 +69424,6 @@ export namespace Prisma {
     id_author?: UuidNullableFilter<"book"> | string | null
     published_date?: DateTimeFilter<"book"> | Date | string
     is_physical?: BoolFilter<"book"> | boolean
-    ai_suggested_content?: JsonNullableFilter<"book">
     preorder_min_qty?: IntNullableFilter<"book"> | number | null
     content_type?: StringNullableFilter<"book"> | string | null
     is_chapter?: BoolFilter<"book"> | boolean
@@ -69509,7 +69458,7 @@ export namespace Prisma {
     strike_price?: DecimalNullableFilter<"product"> | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFilter<"product"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"product"> | string
-    info?: JsonFilter<"product">
+    info?: JsonNullableFilter<"product">
     status?: StringFilter<"product"> | string
     currency?: StringFilter<"product"> | string
     deleted_at?: DateTimeNullableFilter<"product"> | Date | string | null
@@ -69520,7 +69469,6 @@ export namespace Prisma {
     id_author?: UuidNullableFilter<"product"> | string | null
     published_date?: DateTimeFilter<"product"> | Date | string
     is_physical?: BoolFilter<"product"> | boolean
-    ai_suggested_content?: JsonNullableFilter<"product">
     preorder_min_qty?: IntNullableFilter<"product"> | number | null
     content_type?: StringNullableFilter<"product"> | string | null
     is_chapter?: BoolFilter<"product"> | boolean
@@ -69588,7 +69536,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69598,7 +69546,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -69620,7 +69567,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69631,7 +69578,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -69869,7 +69815,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -69879,7 +69825,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -69901,7 +69846,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -69912,7 +69857,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -70105,7 +70049,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70115,7 +70059,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -70137,7 +70080,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70148,7 +70091,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -70212,7 +70154,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70222,7 +70164,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -70244,7 +70185,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70255,7 +70196,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -70309,7 +70249,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70319,7 +70259,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -70341,7 +70280,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70352,7 +70291,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -70389,7 +70327,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70399,7 +70337,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -70421,7 +70358,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70432,7 +70369,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -70453,7 +70389,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70463,7 +70399,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -70485,7 +70420,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70496,7 +70431,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -70558,7 +70492,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70568,7 +70502,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -70590,7 +70523,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70601,7 +70534,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -70653,7 +70585,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70663,7 +70595,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -70685,7 +70616,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70696,7 +70627,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -70758,7 +70688,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70768,7 +70698,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -70790,7 +70719,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70801,7 +70730,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -71193,7 +71121,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71203,7 +71131,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -71225,7 +71152,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71236,7 +71163,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -71320,7 +71246,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71330,7 +71256,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -71352,7 +71277,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71363,7 +71288,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -71584,7 +71508,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71594,7 +71518,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -71616,7 +71539,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71627,7 +71550,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -71654,7 +71576,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71664,7 +71586,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -71686,7 +71607,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71697,7 +71618,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -71733,7 +71653,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71743,7 +71663,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -71765,7 +71684,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71776,7 +71695,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -71809,7 +71727,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71819,7 +71737,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -71841,7 +71758,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71852,7 +71769,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -72311,7 +72227,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -72321,7 +72237,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -72343,7 +72258,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -72354,7 +72269,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -72430,7 +72344,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -72440,7 +72354,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -72462,7 +72375,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -72473,7 +72386,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -73036,7 +72948,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73046,7 +72958,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -73068,7 +72979,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73079,7 +72990,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -73116,7 +73026,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -73126,7 +73036,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -73148,7 +73057,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -73159,7 +73068,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -73179,7 +73087,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73189,7 +73097,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -73211,7 +73118,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73222,7 +73129,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -73661,7 +73567,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73671,7 +73577,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -73693,7 +73598,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73704,7 +73609,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -73774,7 +73678,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -73784,7 +73688,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -73806,7 +73709,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -73817,7 +73720,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -74479,7 +74381,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -74489,7 +74391,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -74511,7 +74412,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -74522,7 +74423,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -74559,7 +74459,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -74569,7 +74469,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -74591,7 +74490,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -74602,7 +74501,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -74623,7 +74521,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -74633,7 +74531,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -74655,7 +74552,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -74666,7 +74563,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -74772,7 +74668,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -74782,7 +74678,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -74804,7 +74699,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -74815,7 +74710,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -75392,7 +75286,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -75402,7 +75296,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -75424,7 +75317,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -75435,7 +75328,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -75511,7 +75403,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -75521,7 +75413,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -75543,7 +75434,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -75554,7 +75445,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -75616,7 +75506,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -75626,7 +75516,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -75648,7 +75537,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -75659,7 +75548,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -75780,7 +75668,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -75790,7 +75678,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -75812,7 +75699,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -75823,7 +75710,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -76675,7 +76561,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -76685,7 +76571,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -76701,7 +76586,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -76711,7 +76596,6 @@ export namespace Prisma {
     sku?: string
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -76790,7 +76674,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76800,7 +76684,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -76822,7 +76705,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76832,7 +76715,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -76854,7 +76736,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76864,7 +76746,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -76880,7 +76761,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76890,7 +76771,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -76912,7 +76792,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76922,7 +76802,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -76944,7 +76823,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76954,7 +76833,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -77772,7 +77650,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -77783,7 +77661,6 @@ export namespace Prisma {
     id_author?: string | null
     published_date?: Date | string
     is_physical?: boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: number | null
     content_type?: string | null
     is_chapter?: boolean
@@ -77850,7 +77727,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -77860,7 +77737,6 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -77882,7 +77758,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -77893,7 +77769,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
@@ -77914,7 +77789,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -77925,7 +77800,6 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     published_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_physical?: BoolFieldUpdateOperationsInput | boolean
-    ai_suggested_content?: NullableJsonNullValueInput | InputJsonValue
     preorder_min_qty?: NullableIntFieldUpdateOperationsInput | number | null
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean

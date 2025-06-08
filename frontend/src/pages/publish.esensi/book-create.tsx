@@ -66,6 +66,7 @@ export default () => {
                   is_physical: false,
                   alias: "",
                   desc: "",
+                  info: {},
                   cover: "",
                   submitted_price: 0,
                   currency: Currency.IDR,
@@ -73,7 +74,6 @@ export default () => {
                   sku: "",
                   content_type: "text",
                   preorder_min_qty: 0,
-                  info: {},
                   status: BookStatus.DRAFT,
                 }}
                 onSubmit={async ({ write, read }) => {
@@ -149,13 +149,7 @@ export default () => {
                       local.success = "Buku berhasil ditambahkan!";
 
                       setTimeout(() => {
-                        navigate(
-                          `/${
-                            read.is_chapter === "chapter"
-                              ? "manage-chapter?bookId="
-                              : "book-step?id="
-                          }${res.data?.id}`
-                        );
+                        navigate(`/book-step?id=${res.data?.id}`);
                       }, 1500);
                     } else
                       local.error = res.message || "Gagal menambahkan buku.";
@@ -312,4 +306,4 @@ export default () => {
       </div>
     </Protected>
   );
-}
+};

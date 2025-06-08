@@ -119,38 +119,37 @@ model banner {
 }
 
 model book {
-  id                   String             @id(map: "book_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name                 String
-  slug                 String
-  alias                String             @default("")
-  submitted_price      Decimal            @db.Decimal(18, 2)
-  desc                 String             @default("")
-  info                 Json               @default("{}")
-  status               String             @default("draft") @db.VarChar(10)
-  currency             String             @default("Rp.") @db.VarChar(3)
-  deleted_at           DateTime?
-  img_file             String             @default("")
-  cover                String             @default("")
-  product_file         String             @default("[]")
-  sku                  String             @default("")
-  id_author            String?            @db.Uuid
-  published_date       DateTime           @default(now())
-  is_physical          Boolean            @default(false)
-  ai_suggested_content Json?              @default("{}")
-  preorder_min_qty     Int?
-  content_type         String?            @db.VarChar(20)
-  is_chapter           Boolean            @default(false)
-  id_product           String?            @db.Uuid
-  created_at           DateTime           @default(now()) @db.Timestamptz(6)
-  author               author?            @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "book_fk_id_author")
-  product              product?           @relation(fields: [id_product], references: [id], map: "book_fk_id_product")
-  book_approval        book_approval[]
-  book_changes_log     book_changes_log[]
-  book_genre           book_genre[]
-  book_tags            book_tags[]
-  chapter              chapter[]
-  ranking              ranking[]
-  reviews              reviews[]
+  id               String             @id(map: "book_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name             String
+  slug             String
+  alias            String             @default("")
+  submitted_price  Decimal            @db.Decimal(18, 2)
+  desc             String             @default("")
+  info             Json?              @default("{}")
+  status           String             @default("draft") @db.VarChar(10)
+  currency         String             @default("Rp.") @db.VarChar(3)
+  deleted_at       DateTime?
+  img_file         String             @default("")
+  cover            String             @default("")
+  product_file     String             @default("[]")
+  sku              String             @default("")
+  id_author        String?            @db.Uuid
+  published_date   DateTime           @default(now())
+  is_physical      Boolean            @default(false)
+  preorder_min_qty Int?
+  content_type     String?            @db.VarChar(20)
+  is_chapter       Boolean            @default(false)
+  id_product       String?            @db.Uuid
+  created_at       DateTime           @default(now()) @db.Timestamptz(6)
+  author           author?            @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "book_fk_id_author")
+  product          product?           @relation(fields: [id_product], references: [id], map: "book_fk_id_product")
+  book_approval    book_approval[]
+  book_changes_log book_changes_log[]
+  book_genre       book_genre[]
+  book_tags        book_tags[]
+  chapter          chapter[]
+  ranking          ranking[]
+  reviews          reviews[]
 }
 
 model book_approval {
@@ -356,37 +355,36 @@ model preorder {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model product {
-  id                   String             @id(map: "product_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name                 String
-  slug                 String
-  alias                String             @default("")
-  strike_price         Decimal?           @db.Decimal(18, 2)
-  real_price           Decimal            @db.Decimal(18, 2)
-  desc                 String             @default("")
-  info                 Json               @default("{}")
-  status               String             @default("draft") @db.VarChar(10)
-  currency             String             @default("Rp.") @db.VarChar(3)
-  deleted_at           DateTime?
-  img_file             String             @default("")
-  cover                String             @default("")
-  product_file         String             @default("[]")
-  sku                  String             @default("")
-  id_author            String?            @db.Uuid
-  published_date       DateTime           @default(now())
-  is_physical          Boolean            @default(false)
-  ai_suggested_content Json?              @default("{}")
-  preorder_min_qty     Int?
-  content_type         String?            @db.VarChar(20)
-  is_chapter           Boolean            @default(false)
-  book                 book[]
-  bundle_product       bundle_product[]
-  chapter              chapter[]
-  customer_reader      customer_reader[]
-  preorder             preorder[]
-  author               author?            @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  product_category     product_category[]
-  t_sales_download     t_sales_download[]
-  t_sales_line         t_sales_line[]
+  id               String             @id(map: "product_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name             String
+  slug             String
+  alias            String             @default("")
+  strike_price     Decimal?           @db.Decimal(18, 2)
+  real_price       Decimal            @db.Decimal(18, 2)
+  desc             String             @default("")
+  info             Json?              @default("{}")
+  status           String             @default("draft") @db.VarChar(10)
+  currency         String             @default("Rp.") @db.VarChar(3)
+  deleted_at       DateTime?
+  img_file         String             @default("")
+  cover            String             @default("")
+  product_file     String             @default("[]")
+  sku              String             @default("")
+  id_author        String?            @db.Uuid
+  published_date   DateTime           @default(now())
+  is_physical      Boolean            @default(false)
+  preorder_min_qty Int?
+  content_type     String?            @db.VarChar(20)
+  is_chapter       Boolean            @default(false)
+  book             book[]
+  bundle_product   bundle_product[]
+  chapter          chapter[]
+  customer_reader  customer_reader[]
+  preorder         preorder[]
+  author           author?            @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  product_category product_category[]
+  t_sales_download t_sales_download[]
+  t_sales_line     t_sales_line[]
 }
 
 model product_category {
