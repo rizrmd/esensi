@@ -15,7 +15,7 @@ export const BookCard = ({ data }) => {
       ) +
       "%";
     discount = (
-      <div className="flex justify-center items-center bg-[#d0011b] text-[color:#fff] text-[size:13px] leading-0 p-3 font-bold rounded-full w-auto absolute top-0 left-0 z-10">
+      <div className="flex justify-center items-center bg-[#d0011b] text-[color:#fff] text-[size:13px] leading-0 p-3 font-bold rounded-full w-auto absolute top-0 left-0 z-10 lg:hidden">
         {discval}
       </div>
     );
@@ -41,7 +41,7 @@ export const BookCard = ({ data }) => {
       </div>
       <h3 className="flex flex-1 text-[15px] text-center text-[#383D64] font-semibold leading-[1.3]">{data!.name}</h3>
       <div className="flex flex-col justify-end items-start w-full text-nowrap">
-        <div className={`text-lg w-auto font-bold ${data.strike_price !== null && data.strike_price !== "" && data.strike_price > data.real_price ? "text-[#C6011B]" : "text-[#000]"}`}>
+        <div className={`text-lg w-auto font-bold ${data.strike_price !== null && data.strike_price !== "" && data.strike_price > data.real_price ? "text-[#C6011B] lg:text-[#E3330A]" : "text-[#000]"}`}>
           {formatMoney(data.real_price, data.currency)}
         </div>
         {strikePrice}

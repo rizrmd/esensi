@@ -41,9 +41,9 @@ export default () => {
         btnurl: "",
       },
       bundling:{
-        img: "",
-        desktopImg: "",
-        url: "",
+        slug: "" as any | null,
+        imgMobile: "" as any | null,
+        imgDesktop: "" as any | null,
         list: [] as StoreBooksCardItem[],
       },
     },
@@ -51,6 +51,7 @@ export default () => {
       const res = await api.index({
         allbooks_cat: local.cats.selected,
         limit: 12,
+        bundling_slug: null,
       });
 
       local.cats.list = res.data.categories;
@@ -67,6 +68,7 @@ export default () => {
 
       local.render();
       changeByCategory(res.data.categories[0].slug);
+      changeFeaturedBundle("bundling-montessori-di-rumah");
     }
   );
 
@@ -75,7 +77,7 @@ export default () => {
     local.render();
     local.cats.selected = cat || "";
     local.allbooks.list = await api
-      .index({ allbooks_cat: cat || "", limit: 12 })
+      .index({ allbooks_cat: cat || "", limit: 12, bundling_slug: null })
       .then((res) => res.data.allbooks);
     local.allbooks.loading = false;
     local.render();
@@ -86,16 +88,24 @@ export default () => {
     local.render();
     local.booksByCategory.selected = cat || "";
     local.booksByCategory.list = await api
-      .index({ allbooks_cat: cat || "", limit: 10 })
+      .index({ allbooks_cat: cat || "", limit: 10, bundling_slug: null })
       .then((res) => res.data.allbooks);
     local.booksByCategory.loading = false;
+    local.render();
+  };
+
+  const changeFeaturedBundle = async (cat: string | null) => {
+    local.bundling = await api
+      .index({ allbooks_cat: null, limit: 10, bundling_slug: null })
+      .then((res) => res.data.bundling);
+    local.bundling.slug = cat;
     local.render();
   };
 
   return (
     <MainEsensiLayout title="Toko Buku">
       <div className="w-full flex flex-col justify-center items-center gap-4 lg:[&>div:not(.esensi-banner)]:max-w-[1200px]">
-        <div className="esensi-banner lg:order-0 w-full">
+        <div className="esensi-banner lg:order-0 lg:-mt-10 w-full">
           <StoreHeaderBanner
             img={local.headerBanner.img}
             title={local.headerBanner.title}
@@ -107,7 +117,6 @@ export default () => {
         <div className="hidden lg:flex w-full">
           <SectionTitle title="Featured Books"  url="/browse" />
         </div>
-
         <div className="hidden lg:flex w-full">
           <SectionTitle title="Berdasarkan Genre"  url="/browse" />
         </div>
@@ -136,10 +145,10 @@ export default () => {
           />
         </div>
         <div className="hidden lg:flex w-full">
-          <SectionTitle title="Bundling of the Week"  url="#" />
+          <SectionTitle title="Bundling of the Week"  url={`${local.bundling.slug !== "" && local.bundling.slug !== null ? `/bundle/${local.bundling.slug}`:"#"}`} />
         </div>
         <div className="hidden lg:flex w-full">
-          <StoreBundling img={local.bundling.img} desktopImg={local.bundling.desktopImg} url={local.bundling.url} list={local.bundling.list} />
+          <StoreBundling slug={local.bundling.slug} img={local.bundling.imgDesktop} list={local.bundling.list} />
         </div>
       </div>
     </MainEsensiLayout>
