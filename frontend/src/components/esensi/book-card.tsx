@@ -20,7 +20,7 @@ export const BookCard = ({ data }) => {
       </div>
     );
     strikePrice = (
-      <div className="w-full line-through text-[11px] text-[#a9a9a9]">
+      <div className="w-full line-through text-[#a9a9a9]">
         {formatMoney(data.strike_price, data.currency)}
       </div>
     );
@@ -29,9 +29,9 @@ export const BookCard = ({ data }) => {
   return (
     <Link
       href={`/product/${data.slug}`}
-      className="flex flex-col justify-center items-center gap-3 py-4 relative cursor-pointer box-border w-full"
+      className="flex flex-col justify-center items-center gap-3 py-4 px-2 relative cursor-pointer box-border w-full"
     >
-      <div className="relative max-w-[80%] overflow-visible">
+      <div className="relative w-full h-auto overflow-visible">
         {discount}
         <img
           src={`https://esensi.online/${data.cover.replace("_file/", "_img/")}?w=200`}
@@ -39,12 +39,12 @@ export const BookCard = ({ data }) => {
           className="aspect-3/4 object-cover object-center rounded-[4px]"
         />
       </div>
-      <h3 className="flex flex-1 text-[15px] text-center text-[#383D64] font-semibold leading-[1.3] px-4">{data!.name}</h3>
-      <div className="flex flex-row justify-end items-center w-full gap-3 px-4 text-nowrap">
-        {strikePrice}
-        <div className={`w-auto font-bold ${data.strike_price !== null && data.strike_price !== "" && data.strike_price > data.real_price ? "text-[#C6011B]" : "text-[#000]"}`}>
+      <h3 className="flex flex-1 text-[15px] text-center text-[#383D64] font-semibold leading-[1.3]">{data!.name}</h3>
+      <div className="flex flex-col justify-end items-start w-full text-nowrap">
+        <div className={`text-lg w-auto font-bold ${data.strike_price !== null && data.strike_price !== "" && data.strike_price > data.real_price ? "text-[#C6011B]" : "text-[#000]"}`}>
           {formatMoney(data.real_price, data.currency)}
         </div>
+        {strikePrice}
       </div>
     </Link>
   );

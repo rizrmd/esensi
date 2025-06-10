@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 
 export const SectionTitle = ({ title, url }) => {
   return (
-    <div className="flex flex-row justify-between items-center w-full gap-6 px-10 whitespace-nowrap">
+    <div className="flex flex-row justify-between items-center w-full gap-6 px-14 whitespace-nowrap">
       <div className="flex flex-col justify-center items-start w-auto">
         <h2 className="text-2xl font-bold">{title}</h2>
       </div>

@@ -15074,7 +15074,7 @@ export namespace Prisma {
     alias: string
     submitted_price: Decimal
     desc: string
-    info: JsonValue | null
+    info: JsonValue
     status: string
     currency: string
     deleted_at: Date | null
@@ -15267,7 +15267,7 @@ export namespace Prisma {
       alias: string
       submitted_price: Prisma.Decimal
       desc: string
-      info: Prisma.JsonValue | null
+      info: Prisma.JsonValue
       status: string
       currency: string
       deleted_at: Date | null
@@ -36679,7 +36679,7 @@ export namespace Prisma {
     strike_price: Decimal | null
     real_price: Decimal
     desc: string
-    info: JsonValue | null
+    info: JsonValue
     status: string
     currency: string
     deleted_at: Date | null
@@ -36863,7 +36863,7 @@ export namespace Prisma {
       strike_price: Prisma.Decimal | null
       real_price: Prisma.Decimal
       desc: string
-      info: Prisma.JsonValue | null
+      info: Prisma.JsonValue
       status: string
       currency: string
       deleted_at: Date | null
@@ -55303,19 +55303,19 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
   export const NullableJsonNullValueInput: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
-
-
-  export const JsonNullValueInput: {
-    JsonNull: typeof JsonNull
-  };
-
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -56048,7 +56048,7 @@ export namespace Prisma {
     alias?: StringFilter<"book"> | string
     submitted_price?: DecimalFilter<"book"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"book"> | string
-    info?: JsonNullableFilter<"book">
+    info?: JsonFilter<"book">
     status?: StringFilter<"book"> | string
     currency?: StringFilter<"book"> | string
     deleted_at?: DateTimeNullableFilter<"book"> | Date | string | null
@@ -56082,7 +56082,7 @@ export namespace Prisma {
     alias?: SortOrder
     submitted_price?: SortOrder
     desc?: SortOrder
-    info?: SortOrderInput | SortOrder
+    info?: SortOrder
     status?: SortOrder
     currency?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
@@ -56119,7 +56119,7 @@ export namespace Prisma {
     alias?: StringFilter<"book"> | string
     submitted_price?: DecimalFilter<"book"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"book"> | string
-    info?: JsonNullableFilter<"book">
+    info?: JsonFilter<"book">
     status?: StringFilter<"book"> | string
     currency?: StringFilter<"book"> | string
     deleted_at?: DateTimeNullableFilter<"book"> | Date | string | null
@@ -56153,7 +56153,7 @@ export namespace Prisma {
     alias?: SortOrder
     submitted_price?: SortOrder
     desc?: SortOrder
-    info?: SortOrderInput | SortOrder
+    info?: SortOrder
     status?: SortOrder
     currency?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
@@ -56186,7 +56186,7 @@ export namespace Prisma {
     alias?: StringWithAggregatesFilter<"book"> | string
     submitted_price?: DecimalWithAggregatesFilter<"book"> | Decimal | DecimalJsLike | number | string
     desc?: StringWithAggregatesFilter<"book"> | string
-    info?: JsonNullableWithAggregatesFilter<"book">
+    info?: JsonWithAggregatesFilter<"book">
     status?: StringWithAggregatesFilter<"book"> | string
     currency?: StringWithAggregatesFilter<"book"> | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"book"> | Date | string | null
@@ -57357,7 +57357,7 @@ export namespace Prisma {
     strike_price?: DecimalNullableFilter<"product"> | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFilter<"product"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"product"> | string
-    info?: JsonNullableFilter<"product">
+    info?: JsonFilter<"product">
     status?: StringFilter<"product"> | string
     currency?: StringFilter<"product"> | string
     deleted_at?: DateTimeNullableFilter<"product"> | Date | string | null
@@ -57390,7 +57390,7 @@ export namespace Prisma {
     strike_price?: SortOrderInput | SortOrder
     real_price?: SortOrder
     desc?: SortOrder
-    info?: SortOrderInput | SortOrder
+    info?: SortOrder
     status?: SortOrder
     currency?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
@@ -57426,7 +57426,7 @@ export namespace Prisma {
     strike_price?: DecimalNullableFilter<"product"> | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFilter<"product"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"product"> | string
-    info?: JsonNullableFilter<"product">
+    info?: JsonFilter<"product">
     status?: StringFilter<"product"> | string
     currency?: StringFilter<"product"> | string
     deleted_at?: DateTimeNullableFilter<"product"> | Date | string | null
@@ -57459,7 +57459,7 @@ export namespace Prisma {
     strike_price?: SortOrderInput | SortOrder
     real_price?: SortOrder
     desc?: SortOrder
-    info?: SortOrderInput | SortOrder
+    info?: SortOrder
     status?: SortOrder
     currency?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
@@ -57491,7 +57491,7 @@ export namespace Prisma {
     strike_price?: DecimalNullableWithAggregatesFilter<"product"> | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalWithAggregatesFilter<"product"> | Decimal | DecimalJsLike | number | string
     desc?: StringWithAggregatesFilter<"product"> | string
-    info?: JsonNullableWithAggregatesFilter<"product">
+    info?: JsonWithAggregatesFilter<"product">
     status?: StringWithAggregatesFilter<"product"> | string
     currency?: StringWithAggregatesFilter<"product"> | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"product"> | Date | string | null
@@ -59125,7 +59125,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -59157,7 +59157,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -59189,7 +59189,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -59221,7 +59221,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -59253,7 +59253,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -59278,7 +59278,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -59301,7 +59301,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -60482,7 +60482,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -60514,7 +60514,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -60546,7 +60546,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -60578,7 +60578,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -60610,7 +60610,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -60634,7 +60634,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -60657,7 +60657,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -62279,14 +62279,14 @@ export namespace Prisma {
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
-  export type JsonNullableFilter<$PrismaModel = never> =
+  export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
+  export type JsonFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
@@ -62477,14 +62477,14 @@ export namespace Prisma {
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
   }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
@@ -62499,9 +62499,9 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -62518,6 +62518,29 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type BookScalarRelationFilter = {
@@ -62548,6 +62571,32 @@ export namespace Prisma {
     id_internal?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type book_changes_logId_bookCreated_atCompoundUniqueInput = {
@@ -62626,29 +62675,6 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-  }
-  export type JsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type Bundle_categoryListRelationFilter = {
@@ -62751,32 +62777,6 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
-  }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type BundleScalarRelationFilter = {
@@ -67512,14 +67512,14 @@ export namespace Prisma {
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
   }
-  export type NestedJsonNullableFilter<$PrismaModel = never> =
+  export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
 
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
@@ -67562,6 +67562,29 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedDecimalNullableFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
@@ -67588,29 +67611,6 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
-  }
-  export type NestedJsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -69163,7 +69163,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69194,7 +69194,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69236,7 +69236,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69267,7 +69267,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69413,7 +69413,7 @@ export namespace Prisma {
     alias?: StringFilter<"book"> | string
     submitted_price?: DecimalFilter<"book"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"book"> | string
-    info?: JsonNullableFilter<"book">
+    info?: JsonFilter<"book">
     status?: StringFilter<"book"> | string
     currency?: StringFilter<"book"> | string
     deleted_at?: DateTimeNullableFilter<"book"> | Date | string | null
@@ -69458,7 +69458,7 @@ export namespace Prisma {
     strike_price?: DecimalNullableFilter<"product"> | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFilter<"product"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"product"> | string
-    info?: JsonNullableFilter<"product">
+    info?: JsonFilter<"product">
     status?: StringFilter<"product"> | string
     currency?: StringFilter<"product"> | string
     deleted_at?: DateTimeNullableFilter<"product"> | Date | string | null
@@ -69536,7 +69536,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69567,7 +69567,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69815,7 +69815,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -69846,7 +69846,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70049,7 +70049,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70080,7 +70080,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70154,7 +70154,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70185,7 +70185,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70249,7 +70249,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70280,7 +70280,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70327,7 +70327,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70358,7 +70358,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70389,7 +70389,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70420,7 +70420,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70492,7 +70492,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70523,7 +70523,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70585,7 +70585,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70616,7 +70616,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70688,7 +70688,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70719,7 +70719,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71121,7 +71121,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71152,7 +71152,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71246,7 +71246,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71277,7 +71277,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71508,7 +71508,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71539,7 +71539,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71576,7 +71576,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71607,7 +71607,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71653,7 +71653,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71684,7 +71684,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71727,7 +71727,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71758,7 +71758,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -72227,7 +72227,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -72258,7 +72258,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -72344,7 +72344,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -72375,7 +72375,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -72948,7 +72948,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -72979,7 +72979,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73026,7 +73026,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -73057,7 +73057,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -73087,7 +73087,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73118,7 +73118,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73567,7 +73567,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73598,7 +73598,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73678,7 +73678,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -73709,7 +73709,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -74381,7 +74381,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -74412,7 +74412,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -74459,7 +74459,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -74490,7 +74490,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -74521,7 +74521,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -74552,7 +74552,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -74668,7 +74668,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -74699,7 +74699,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -75286,7 +75286,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -75317,7 +75317,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -75403,7 +75403,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -75434,7 +75434,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -75506,7 +75506,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -75537,7 +75537,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -75668,7 +75668,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -75699,7 +75699,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76561,7 +76561,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -76586,7 +76586,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -76674,7 +76674,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76705,7 +76705,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76736,7 +76736,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76761,7 +76761,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76792,7 +76792,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76823,7 +76823,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -77650,7 +77650,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -77727,7 +77727,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -77758,7 +77758,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -77789,7 +77789,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: NullableJsonNullValueInput | InputJsonValue
+    info?: JsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

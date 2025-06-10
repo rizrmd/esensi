@@ -36,7 +36,7 @@ export const StoreBooksCard: FC<{
   const button = loading || list.length == 0 ? (
     <></>
   ) : (
-    <div className="flex justify-center items-center w-full px-6">
+    <div className="flex justify-center items-center w-full px-2">
       <Button asChild className="w-full bg-[#3b2c93] text-white">
         <Link href={button_link}>
           See all e-books <ArrowRight />
@@ -49,7 +49,7 @@ export const StoreBooksCard: FC<{
     return <BookCardLoading key={`store_books_loading_${idx}`} />;
   }); 
   return (
-    <div className="flex flex-col justify-center items-start gap-5">
+    <div className="flex flex-col justify-center items-start gap-5 px-4">
       <div className="flex flex-row justify-start items-stretch flex-wrap gap-y-4 w-full [&>a]:w-1/2 [&>a]:md:w-1/4">
         {loading ? renderBooksLoading : renderBooks}
       </div>

@@ -125,7 +125,7 @@ model book {
   alias            String             @default("")
   submitted_price  Decimal            @db.Decimal(18, 2)
   desc             String             @default("")
-  info             Json?              @default("{}")
+  info             Json               @default("{}")
   status           String             @default("draft") @db.VarChar(10)
   currency         String             @default("Rp.") @db.VarChar(3)
   deleted_at       DateTime?
@@ -166,7 +166,7 @@ model book_approval {
 model book_changes_log {
   id_book    String   @db.Uuid
   created_at DateTime @default(now())
-  changes    Json?
+  changes    Json?    @default("{\"blocks\": []}")
   book       book     @relation(fields: [id_book], references: [id], onDelete: Cascade, map: "book_changes_log_fk_id_book")
 
   @@id([id_book, created_at], map: "book_changes_log_pk")
@@ -362,7 +362,7 @@ model product {
   strike_price     Decimal?           @db.Decimal(18, 2)
   real_price       Decimal            @db.Decimal(18, 2)
   desc             String             @default("")
-  info             Json?              @default("{}")
+  info             Json               @default("{}")
   status           String             @default("draft") @db.VarChar(10)
   currency         String             @default("Rp.") @db.VarChar(3)
   deleted_at       DateTime?

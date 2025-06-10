@@ -1,7 +1,5 @@
 import { Link } from "@/lib/router";
 import { ChevronRight, Frown } from "lucide-react";
-import { useState, type FC } from "react";
-import { Button } from "../ui/button";
 import { BookCardAlt } from "./book-card-alt";
 import { BookCardLoading } from "./book-card-loading";
 
@@ -69,18 +67,18 @@ export const BooksByCategory = ({
 
   return (
     <div className="w-full flex lg:hidden flex-col justify-center gap-2 md:gap-20 lg:px-16 lg:pb-8">
-      <div className="w-full flex justify-between items-center gap-4 px-4 text-[#1a2bc3]">
+      <div className="w-full flex justify-between items-center gap-4 px-6 text-[#1a2bc3]">
         <span className="text-lg font-semibold">Berdasarkan Genre</span>
         <ChevronRight size={28} />
       </div>
-      <div className="w-full flex px-4">
+      <div className="w-full flex px-6">
         <div className="flex w-full overflow-x-auto bg-[#3b2c93] whitespace-nowrap rounded-[10px]">
           <div className="w-auto flex justify-start items-center gap-2 p-[6px]">
             {tabs}
           </div>
         </div>
       </div>
-      <div className="flex w-full overflow-x-auto">
+      <div className="flex w-full overflow-x-auto px-4">
         <div className="flex flex-row justify-start items-stretch gap-y-4 w-auto [&>a,&>.esensi-book-loading]:w-[165px] [&>div:not(.esensi-book-loading)]:mx-4">
           {loading ? renderBooksLoading : renderBooks}
         </div>
