@@ -94,8 +94,8 @@ export default () => {
 
   return (
     <MainEsensiLayout title="Toko Buku">
-      <div className="w-full flex flex-col justify-center gap-4">
-        <div className="order-1 lg:order-none">
+      <div className="w-full flex flex-col justify-center items-center gap-4 lg:[&>div:not(.esensi-banner)]:max-w-[1200px]">
+        <div className="esensi-banner lg:order-0 w-full">
           <StoreHeaderBanner
             img={local.headerBanner.img}
             title={local.headerBanner.title}
@@ -111,7 +111,7 @@ export default () => {
         <div className="hidden lg:flex w-full">
           <SectionTitle title="Berdasarkan Genre"  url="/browse" />
         </div>
-        <div className="order-0 lg:order-none">
+        <div className="order-0 lg:order-none w-full">
           <StoreCategories
             action={changeStoreCategory}
             loading={local.cats.loading}
@@ -119,14 +119,14 @@ export default () => {
             selected={local.cats.selected}
           />
         </div>
-        <div className="order-2 lg:order-none">
+        <div className="order-2 lg:order-none w-full">
           <StoreBooksCard
             loading={local.allbooks.loading}
             list={local.allbooks.list}
             category={local.cats.selected}
           />
         </div>
-        <div className="order-3 lg:order-none">
+        <div className="order-3 lg:order-none w-full">
           <BooksByCategory
             loading={local.booksByCategory.loading}
             action={changeByCategory}
@@ -138,7 +138,7 @@ export default () => {
         <div className="hidden lg:flex w-full">
           <SectionTitle title="Bundling of the Week"  url="#" />
         </div>
-        <div className="hidden lg:flex">
+        <div className="hidden lg:flex w-full">
           <StoreBundling img={local.bundling.img} desktopImg={local.bundling.desktopImg} url={local.bundling.url} list={local.bundling.list} />
         </div>
       </div>

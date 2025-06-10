@@ -29,7 +29,7 @@ export const BooksByCategory = ({
   });
 
   const noBooks = (
-    <div className="flex flex-col justify-center items-center gap-4 w-full h-auto py-10 px-4">
+    <div className="flex flex-col justify-center items-center gap-4 w-full h-auto py-10 px-4 relative">
       <Frown size={48} />
       <strong className="text-[#383D64] text-center text-2xl font-semibold">
         Tidak ada buku yang ditemukan

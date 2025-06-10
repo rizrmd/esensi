@@ -18,13 +18,13 @@ export const BookCardAlt = ({ data }) => {
   return (
     <Link
       href={`/product/${data.slug}`}
-      className="flex flex-col justify-center items-center gap-3 py-4 px-2 relative cursor-pointer box-border w-full"
+      className="flex flex-col justify-center items-center gap-3 py-4 px-2 lg:px-4 relative cursor-pointer box-border w-full"
     >
       <div className="relative w-full h-auto overflow-visible">
         <img
-          src={`https://esensi.online/${data.cover.replace("_file/", "_img/")}?w=200`}
+          src={`https://esensi.online/${data.cover.replace("_file/", "_img/")}?w=320`}
           alt={data!.name.replace("'", "").replace('"', "")}
-          className="aspect-3/4 object-cover object-center rounded-[4px]"
+          className="w-full h-auto aspect-3/4 object-cover object-center rounded-[4px]"
         />
       </div>
       <h3 className="flex flex-1 text-[15px] text-left text-[#383D64] font-semibold leading-[1.3]">{data!.name}</h3>
