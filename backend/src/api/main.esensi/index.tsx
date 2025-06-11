@@ -104,7 +104,7 @@ export default defineAPI({
       });
     }
       */
-    bundling = allbooks.slice(0,4);
+    bundling = allbooks.slice(0, 4);
 
     const featured = await db.product.findMany({
       select: {
@@ -132,9 +132,7 @@ export default defineAPI({
       featured: featured,
       bundling: {
         slug: arg?.bundling_slug,
-        imgMobile: "",
-        imgDesktop:
-          "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8LDs1PB_FuxsL-EUHP99aM4unr41aIFRdoO_FolO4GpD3f4VkSADO39hoVe5QsiBZuk-gkTfceeu43MyLbzXwKOte07e1MkaQfoKn7h4rK4v0zAcjRLIzQzs7dByjOzu9ZsnYT-hz6_XoqE0-jgZHlJa7_MhgOkccmaEsS9dRueTueshO1zQu-xV7kSk/s1600/bundle-desktop.png",
+        img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8LDs1PB_FuxsL-EUHP99aM4unr41aIFRdoO_FolO4GpD3f4VkSADO39hoVe5QsiBZuk-gkTfceeu43MyLbzXwKOte07e1MkaQfoKn7h4rK4v0zAcjRLIzQzs7dByjOzu9ZsnYT-hz6_XoqE0-jgZHlJa7_MhgOkccmaEsS9dRueTueshO1zQu-xV7kSk/s1600/bundle-desktop.png",
         list: bundling,
       },
     };

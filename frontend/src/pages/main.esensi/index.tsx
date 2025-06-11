@@ -50,8 +50,7 @@ export default () => {
       },
       bundling: {
         slug: "" as any | null,
-        imgMobile: "" as any | null,
-        imgDesktop: "" as any | null,
+        img: "" as any | null,
         list: [] as StoreBooksCardItem[],
       },
     },
@@ -82,7 +81,7 @@ export default () => {
       local.render();
       changeByCategory(res.data.categories[0].slug);
       changeFeaturedBundle("bundling-montessori-di-rumah");
-    }
+    },
   );
 
   const changeStoreCategory = async (cat: string | null) => {
@@ -121,10 +120,10 @@ export default () => {
     } else {
       num = -1;
     }
-    
+
     const pos = local.featured.offset + num;
 
-    if (pos > (local.featured.list.length * 2)) {
+    if (pos > local.featured.list.length * 2) {
       local.featured.animateClass = false;
       local.render();
       local.featured.offset = local.featured.list.length - 2;
@@ -146,7 +145,7 @@ export default () => {
 
   return (
     <MainEsensiLayout title="Toko Buku">
-      <div className="w-full flex flex-col justify-center items-center gap-4 lg:[&>div:not(.esensi-banner)]:max-w-[1200px]">
+      <div className="w-full flex flex-col justify-center items-center gap-10 lg:[&>div:not(.esensi-banner)]:max-w-[1200px]">
         <div className="esensi-banner lg:order-0 lg:-mt-10 w-full">
           <StoreHeaderBanner
             img={local.headerBanner.img}
@@ -156,8 +155,10 @@ export default () => {
             btnurl={local.headerBanner.btnurl}
           />
         </div>
-        <div className="hidden lg:flex flex-col gap-10 w-full">
-          <SectionTitle title="Featured Books" url="/browse" />
+        <div className="hidden lg:flex flex-col gap-6 px-6 w-full">
+          <div className="hidden lg:flex w-full">
+            <SectionTitle title="Featured Books" url="/browse" />
+          </div>
           <StoreFeaturedProducts
             data={local.featured.list}
             loading={local.featured.loading}
@@ -166,10 +167,11 @@ export default () => {
             offset={local.featured.offset}
           />
         </div>
-        <div className="hidden lg:flex w-full">
-          <SectionTitle title="Berdasarkan Genre" url="/browse" />
-        </div>
-        <div className="order-0 lg:order-none w-full">
+
+        <div className="flex flex-col gap-6 order-0 lg:order-none w-full">
+          <div className="hidden lg:flex w-full">
+            <SectionTitle title="Berdasarkan Genre" url="/browse" />
+          </div>
           <StoreCategories
             action={changeStoreCategory}
             loading={local.cats.loading}
@@ -177,11 +179,28 @@ export default () => {
             selected={local.cats.selected}
           />
         </div>
-        <div className="order-2 lg:order-none w-full">
+        <div className="flex order-2 lg:order-none w-full lg:-mt-10">
           <StoreBooksCard
             loading={local.allbooks.loading}
             list={local.allbooks.list}
             category={local.cats.selected}
+          />
+        </div>
+        <div className="flex flex-col gap-6 w-full order-3 lg:order-none">
+          <div className="hidden lg:flex w-full">
+            <SectionTitle
+              title="Bundling of the Week"
+              url={`${
+                local.bundling.slug !== "" && local.bundling.slug !== null
+                  ? `/bundle/${local.bundling.slug}`
+                  : "#"
+              }`}
+            />
+          </div>
+          <StoreBundling
+            slug={local.bundling.slug}
+            img={local.bundling.img}
+            list={local.bundling.list}
           />
         </div>
         <div className="order-3 lg:order-none w-full">
@@ -191,23 +210,6 @@ export default () => {
             categories={local.cats.list}
             selected={local.booksByCategory.selected}
             list={local.booksByCategory.list}
-          />
-        </div>
-        <div className="hidden lg:flex w-full">
-          <SectionTitle
-            title="Bundling of the Week"
-            url={`${
-              local.bundling.slug !== "" && local.bundling.slug !== null
-                ? `/bundle/${local.bundling.slug}`
-                : "#"
-            }`}
-          />
-        </div>
-        <div className="hidden lg:flex w-full">
-          <StoreBundling
-            slug={local.bundling.slug}
-            img={local.bundling.imgDesktop}
-            list={local.bundling.list}
           />
         </div>
       </div>

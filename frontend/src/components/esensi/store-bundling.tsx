@@ -10,21 +10,21 @@ export const StoreBundling = ({ slug, img, list }) => {
   });
 
   return (
-    <div className="flex flex-row w-full px-6 gap-5 items-stretch">
-      <div className="flex w-1/4 flex-row shrink-0">
+    <div className="flex flex-row w-full lg:px-6 gap-5 justify-center items-stretch">
+      <div className="flex w-auto lg:w-1/4 flex-row shrink-0">
         <Link href={`/bundle/${slug}`}>
           <img
             src={img}
             alt="Special bundle"
-            className="w-full h-auto aspect-1/1 object-fill position-center rounded-sm"
+            className="w-stretch h-auto aspect-1/1 object-fill position-center rounded-sm"
           />
         </Link>
       </div>
 
-      <div className="flex w-auto grow-0 flex-row relative overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="hidden lg:flex w-auto grow-0 flex-row relative overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="flex w-auto gap-4 [&>a]:w-[auto]">{renderBooks}</div>
       </div>
-      <div className="flex w-auto justify-center items-center">
+      <div className="hidden lg:flex w-auto justify-center items-center">
         <Link href={`/bundle/${slug}`} className="flex text-[#383D64]">
           <CircleArrowRight size={50} strokeWidth={1.5} />
         </Link>
