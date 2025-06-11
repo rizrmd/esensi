@@ -19,8 +19,6 @@ export const StoreFeaturedProducts = ({loading, data, action, offset, animated})
             width: 200,
         },
     };
-
-    alert(offset);
     
     const bookslen = data.length;
     const bookdumm = data.concat(data, data);

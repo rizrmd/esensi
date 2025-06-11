@@ -123,7 +123,6 @@ export default () => {
     }
     
     const pos = local.featured.offset + num;
-    alert(`From ${local.featured.offset} to ${pos}`);
 
     if (pos > (local.featured.list.length * 2)) {
       local.featured.animateClass = false;
