@@ -80,7 +80,9 @@ export const StoreBooksCard: FC<{
       <div className="flex flex-row justify-start items-stretch flex-wrap gap-y-4 w-full [&>a,&>.esensi-book-loading]:w-1/2 [&>a,&>.esensi-book-loading]:md:w-1/4 lg:[&>a:nth-child(8),&>a:nth-child(9)]:hidden">
         {loading ? renderBooksLoading : renderBooks}
       </div>
-      <div className="flex justify-center items-center w-full">{button}</div>
+      <div className="flex justify-center items-center w-full lg:hidden">
+        {button}
+      </div>
     </div>
   );
 };

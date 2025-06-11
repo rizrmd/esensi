@@ -3,6 +3,7 @@ import { PageHeader } from "./page-header";
 import { PageFooter } from "./page-footer";
 import { SidebarProvider } from "../ui/sidebar";
 import { AppSidebar } from "./sidebar";
+import { MobileNavbar } from "./mobile-navbar";
 
 type MainEsensiLayoutProps = {
   children: ReactNode;
@@ -20,7 +21,7 @@ export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
   showSearch = true,
 }) => {
   return (
-    <div className="flex flex-1 flex-col gap-0 p-0 m-0 text-[color:#020817]">
+    <div className="flex flex-1 flex-col gap-0 pb-25 lg:p-0 m-0 text-[color:#020817]">
       <PageHeader
         title={title}
         back={showBack}
@@ -29,6 +30,7 @@ export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
       />
       <div className="flex-1 lg:py-10">{children}</div>
       <PageFooter />
+      <MobileNavbar />
     </div>
   );
 };

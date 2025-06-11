@@ -146,7 +146,7 @@ export default () => {
   return (
     <MainEsensiLayout title="Toko Buku">
       <div className="w-full flex flex-col justify-center items-center gap-10 lg:[&>div:not(.esensi-banner)]:max-w-[1200px]">
-        <div className="esensi-banner lg:order-0 lg:-mt-10 w-full">
+        <div className="esensi-banner order-1 lg:order-0 -mt-10 lg:mt-0 w-full">
           <StoreHeaderBanner
             img={local.headerBanner.img}
             title={local.headerBanner.title}
