@@ -15,10 +15,18 @@ import { dbClient } from "rlib/client";
 import { StoreHeaderBanner } from "@/components/esensi/store-header-banner";
 import { SectionTitle } from "@/components/esensi/section-title";
 import { StoreBundling } from "@/components/esensi/store-bundling";
+import { StoreFeaturedProducts } from "@/components/esensi/store-featured-products";
 
 export default () => {
   const local = useLocal(
     {
+      featured: {
+        loading: true,
+        list: [] as StoreCategoryItem[],
+        length: 0,
+        offset: 0,
+        animateClass: true,
+      },
       cats: {
         loading: true,
         list: [] as StoreCategoryItem[],
@@ -40,7 +48,7 @@ export default () => {
         btnlabel: "",
         btnurl: "",
       },
-      bundling:{
+      bundling: {
         slug: "" as any | null,
         imgMobile: "" as any | null,
         imgDesktop: "" as any | null,
@@ -53,6 +61,11 @@ export default () => {
         limit: 12,
         bundling_slug: null,
       });
+
+      local.featured.list = res.data.featured;
+      local.featured.length = res.data.featured.length;
+      local.featured.offset = res.data.featured.length;
+      local.featured.loading = false;
 
       local.cats.list = res.data.categories;
       local.cats.loading = false;
@@ -102,6 +115,36 @@ export default () => {
     local.render();
   };
 
+  const changeFeaturedOffset = (num: number | null) => {
+    if (num === null || num >= 0) {
+      num = 1;
+    } else {
+      num = -1;
+    }
+    
+    const pos = local.featured.offset + num;
+    alert(`From ${local.featured.offset} to ${pos}`);
+
+    if (pos > (local.featured.list.length * 2)) {
+      local.featured.animateClass = false;
+      local.render();
+      local.featured.offset = local.featured.list.length - 2;
+      local.featured.animateClass = true;
+      local.render();
+      local.featured.offset = local.featured.list.length - 1;
+    } else if (pos < local.featured.list.length) {
+      local.featured.animateClass = false;
+      local.render();
+      local.featured.offset = local.featured.list.length + 2;
+      local.featured.animateClass = true;
+      local.render();
+      local.featured.offset = local.featured.list.length + 1;
+    } else {
+      local.featured.offset = pos;
+    }
+    local.render();
+  };
+
   return (
     <MainEsensiLayout title="Toko Buku">
       <div className="w-full flex flex-col justify-center items-center gap-4 lg:[&>div:not(.esensi-banner)]:max-w-[1200px]">
@@ -114,11 +157,18 @@ export default () => {
             btnurl={local.headerBanner.btnurl}
           />
         </div>
-        <div className="hidden lg:flex w-full">
-          <SectionTitle title="Featured Books"  url="/browse" />
+        <div className="hidden lg:flex flex-col gap-10 w-full">
+          <SectionTitle title="Featured Books" url="/browse" />
+          <StoreFeaturedProducts
+            data={local.featured.list}
+            loading={local.featured.loading}
+            action={changeFeaturedOffset}
+            animated={local.featured.animateClass}
+            offset={local.featured.offset}
+          />
         </div>
         <div className="hidden lg:flex w-full">
-          <SectionTitle title="Berdasarkan Genre"  url="/browse" />
+          <SectionTitle title="Berdasarkan Genre" url="/browse" />
         </div>
         <div className="order-0 lg:order-none w-full">
           <StoreCategories
@@ -145,10 +195,21 @@ export default () => {
           />
         </div>
         <div className="hidden lg:flex w-full">
-          <SectionTitle title="Bundling of the Week"  url={`${local.bundling.slug !== "" && local.bundling.slug !== null ? `/bundle/${local.bundling.slug}`:"#"}`} />
+          <SectionTitle
+            title="Bundling of the Week"
+            url={`${
+              local.bundling.slug !== "" && local.bundling.slug !== null
+                ? `/bundle/${local.bundling.slug}`
+                : "#"
+            }`}
+          />
         </div>
         <div className="hidden lg:flex w-full">
-          <StoreBundling slug={local.bundling.slug} img={local.bundling.imgDesktop} list={local.bundling.list} />
+          <StoreBundling
+            slug={local.bundling.slug}
+            img={local.bundling.imgDesktop}
+            list={local.bundling.list}
+          />
         </div>
       </div>
     </MainEsensiLayout>

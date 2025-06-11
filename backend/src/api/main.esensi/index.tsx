@@ -106,10 +106,30 @@ export default defineAPI({
       */
     bundling = allbooks.slice(0,4);
 
+    const featured = await db.product.findMany({
+      select: {
+        name: true,
+        real_price: true,
+        strike_price: true,
+        currency: true,
+        cover: true,
+        slug: true,
+      },
+      where: {
+        deleted_at: null,
+        status: "published",
+      },
+      take: 10,
+      orderBy: {
+        published_date: "desc",
+      },
+    });
+
     const data = {
       title: `Esensi Online`,
       categories: categories,
       allbooks: allbooks,
+      featured: featured,
       bundling: {
         slug: arg?.bundling_slug,
         imgMobile: "",

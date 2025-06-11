@@ -1,7 +1,6 @@
 import { Link } from "@/lib/router";
 import { StoreBundlingCard } from "./store-bundling-card";
-import { Button } from "../ui/button";
-import { CircleArrowRight, Ghost } from "lucide-react";
+import { CircleArrowRight } from "lucide-react";
 
 export const StoreBundling = ({ slug, img, list }) => {
   const renderBooks = list.map((book, idx) => {
@@ -26,12 +25,9 @@ export const StoreBundling = ({ slug, img, list }) => {
         <div className="flex w-auto gap-4 [&>a]:w-[auto]">{renderBooks}</div>
       </div>
       <div className="flex w-auto justify-center items-center">
-          <Link
-            href={`/bundle/${slug}`}
-            className="flex text-[#383D64]"
-          >
-            <CircleArrowRight size={50}  strokeWidth={1.5} />
-          </Link>
+        <Link href={`/bundle/${slug}`} className="flex text-[#383D64]">
+          <CircleArrowRight size={50} strokeWidth={1.5} />
+        </Link>
       </div>
     </div>
   );
