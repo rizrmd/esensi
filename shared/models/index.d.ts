@@ -144,6 +144,11 @@ export type landing_items = $Result.DefaultSelection<Prisma.$landing_itemsPayloa
  */
 export type midtrx = $Result.DefaultSelection<Prisma.$midtrxPayload>
 /**
+ * Model notif
+ * 
+ */
+export type notif = $Result.DefaultSelection<Prisma.$notifPayload>
+/**
  * Model preorder
  * 
  */
@@ -613,6 +618,16 @@ export class PrismaClient<
     * ```
     */
   get midtrx(): Prisma.midtrxDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.notif`: Exposes CRUD operations for the **notif** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Notifs
+    * const notifs = await prisma.notif.findMany()
+    * ```
+    */
+  get notif(): Prisma.notifDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.preorder`: Exposes CRUD operations for the **preorder** model.
@@ -1249,6 +1264,7 @@ export namespace Prisma {
     landing: 'landing',
     landing_items: 'landing_items',
     midtrx: 'midtrx',
+    notif: 'notif',
     preorder: 'preorder',
     product: 'product',
     product_category: 'product_category',
@@ -1284,7 +1300,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "affiliate" | "auth_account" | "auth_session" | "auth_two_factor" | "auth_user" | "auth_verification" | "author" | "banner" | "book" | "book_approval" | "book_changes_log" | "book_genre" | "book_tags" | "bundle" | "bundle_category" | "bundle_product" | "category" | "chapter" | "customer" | "customer_reader" | "customer_track" | "genre" | "internal" | "landing" | "landing_items" | "midtrx" | "preorder" | "product" | "product_category" | "promo_code" | "publisher" | "publisher_author" | "ranking" | "reviews" | "reviews_likes" | "t_ai_credit" | "t_ai_credit_topup" | "t_sales" | "t_sales_download" | "t_sales_line" | "tags" | "transaction" | "withdrawal"
+      modelProps: "affiliate" | "auth_account" | "auth_session" | "auth_two_factor" | "auth_user" | "auth_verification" | "author" | "banner" | "book" | "book_approval" | "book_changes_log" | "book_genre" | "book_tags" | "bundle" | "bundle_category" | "bundle_product" | "category" | "chapter" | "customer" | "customer_reader" | "customer_track" | "genre" | "internal" | "landing" | "landing_items" | "midtrx" | "notif" | "preorder" | "product" | "product_category" | "promo_code" | "publisher" | "publisher_author" | "ranking" | "reviews" | "reviews_likes" | "t_ai_credit" | "t_ai_credit_topup" | "t_sales" | "t_sales_download" | "t_sales_line" | "tags" | "transaction" | "withdrawal"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3212,6 +3228,80 @@ export namespace Prisma {
           }
         }
       }
+      notif: {
+        payload: Prisma.$notifPayload<ExtArgs>
+        fields: Prisma.notifFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.notifFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notifPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.notifFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notifPayload>
+          }
+          findFirst: {
+            args: Prisma.notifFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notifPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.notifFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notifPayload>
+          }
+          findMany: {
+            args: Prisma.notifFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notifPayload>[]
+          }
+          create: {
+            args: Prisma.notifCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notifPayload>
+          }
+          createMany: {
+            args: Prisma.notifCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.notifCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notifPayload>[]
+          }
+          delete: {
+            args: Prisma.notifDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notifPayload>
+          }
+          update: {
+            args: Prisma.notifUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notifPayload>
+          }
+          deleteMany: {
+            args: Prisma.notifDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.notifUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.notifUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notifPayload>[]
+          }
+          upsert: {
+            args: Prisma.notifUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notifPayload>
+          }
+          aggregate: {
+            args: Prisma.NotifAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNotif>
+          }
+          groupBy: {
+            args: Prisma.notifGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NotifGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.notifCountArgs<ExtArgs>
+            result: $Utils.Optional<NotifCountAggregateOutputType> | number
+          }
+        }
+      }
       preorder: {
         payload: Prisma.$preorderPayload<ExtArgs>
         fields: Prisma.preorderFieldRefs
@@ -4580,6 +4670,7 @@ export namespace Prisma {
     landing?: landingOmit
     landing_items?: landing_itemsOmit
     midtrx?: midtrxOmit
+    notif?: notifOmit
     preorder?: preorderOmit
     product?: productOmit
     product_category?: product_categoryOmit
@@ -4792,6 +4883,7 @@ export namespace Prisma {
     auth_account: number
     auth_session: number
     auth_two_factor: number
+    notif: number
     reviews: number
     reviews_likes: number
   }
@@ -4800,6 +4892,7 @@ export namespace Prisma {
     auth_account?: boolean | Auth_userCountOutputTypeCountAuth_accountArgs
     auth_session?: boolean | Auth_userCountOutputTypeCountAuth_sessionArgs
     auth_two_factor?: boolean | Auth_userCountOutputTypeCountAuth_two_factorArgs
+    notif?: boolean | Auth_userCountOutputTypeCountNotifArgs
     reviews?: boolean | Auth_userCountOutputTypeCountReviewsArgs
     reviews_likes?: boolean | Auth_userCountOutputTypeCountReviews_likesArgs
   }
@@ -4834,6 +4927,13 @@ export namespace Prisma {
    */
   export type Auth_userCountOutputTypeCountAuth_two_factorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: auth_two_factorWhereInput
+  }
+
+  /**
+   * Auth_userCountOutputType without action
+   */
+  export type Auth_userCountOutputTypeCountNotifArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: notifWhereInput
   }
 
   /**
@@ -10375,6 +10475,7 @@ export namespace Prisma {
     customer?: boolean | auth_user$customerArgs<ExtArgs>
     internal?: boolean | auth_user$internalArgs<ExtArgs>
     publisher?: boolean | auth_user$publisherArgs<ExtArgs>
+    notif?: boolean | auth_user$notifArgs<ExtArgs>
     reviews?: boolean | auth_user$reviewsArgs<ExtArgs>
     reviews_likes?: boolean | auth_user$reviews_likesArgs<ExtArgs>
     _count?: boolean | Auth_userCountOutputTypeDefaultArgs<ExtArgs>
@@ -10454,6 +10555,7 @@ export namespace Prisma {
     customer?: boolean | auth_user$customerArgs<ExtArgs>
     internal?: boolean | auth_user$internalArgs<ExtArgs>
     publisher?: boolean | auth_user$publisherArgs<ExtArgs>
+    notif?: boolean | auth_user$notifArgs<ExtArgs>
     reviews?: boolean | auth_user$reviewsArgs<ExtArgs>
     reviews_likes?: boolean | auth_user$reviews_likesArgs<ExtArgs>
     _count?: boolean | Auth_userCountOutputTypeDefaultArgs<ExtArgs>
@@ -10484,6 +10586,7 @@ export namespace Prisma {
       customer: Prisma.$customerPayload<ExtArgs> | null
       internal: Prisma.$internalPayload<ExtArgs> | null
       publisher: Prisma.$publisherPayload<ExtArgs> | null
+      notif: Prisma.$notifPayload<ExtArgs>[]
       reviews: Prisma.$reviewsPayload<ExtArgs>[]
       reviews_likes: Prisma.$reviews_likesPayload<ExtArgs>[]
     }
@@ -10905,6 +11008,7 @@ export namespace Prisma {
     customer<T extends auth_user$customerArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$customerArgs<ExtArgs>>): Prisma__customerClient<$Result.GetResult<Prisma.$customerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     internal<T extends auth_user$internalArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$internalArgs<ExtArgs>>): Prisma__internalClient<$Result.GetResult<Prisma.$internalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     publisher<T extends auth_user$publisherArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$publisherArgs<ExtArgs>>): Prisma__publisherClient<$Result.GetResult<Prisma.$publisherPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    notif<T extends auth_user$notifArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$notifArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$notifPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviews<T extends auth_user$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviews_likes<T extends auth_user$reviews_likesArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$reviews_likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviews_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -11511,6 +11615,30 @@ export namespace Prisma {
      */
     include?: publisherInclude<ExtArgs> | null
     where?: publisherWhereInput
+  }
+
+  /**
+   * auth_user.notif
+   */
+  export type auth_user$notifArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notif
+     */
+    select?: notifSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notif
+     */
+    omit?: notifOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notifInclude<ExtArgs> | null
+    where?: notifWhereInput
+    orderBy?: notifOrderByWithRelationInput | notifOrderByWithRelationInput[]
+    cursor?: notifWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotifScalarFieldEnum | NotifScalarFieldEnum[]
   }
 
   /**
@@ -15074,7 +15202,7 @@ export namespace Prisma {
     alias: string
     submitted_price: Decimal
     desc: string
-    info: JsonValue
+    info: JsonValue | null
     status: string
     currency: string
     deleted_at: Date | null
@@ -15267,7 +15395,7 @@ export namespace Prisma {
       alias: string
       submitted_price: Prisma.Decimal
       desc: string
-      info: Prisma.JsonValue
+      info: Prisma.JsonValue | null
       status: string
       currency: string
       deleted_at: Date | null
@@ -35298,6 +35426,1082 @@ export namespace Prisma {
 
 
   /**
+   * Model notif
+   */
+
+  export type AggregateNotif = {
+    _count: NotifCountAggregateOutputType | null
+    _min: NotifMinAggregateOutputType | null
+    _max: NotifMaxAggregateOutputType | null
+  }
+
+  export type NotifMinAggregateOutputType = {
+    id_user: string | null
+    created_at: Date | null
+    type: string | null
+    status: string | null
+    url: string | null
+  }
+
+  export type NotifMaxAggregateOutputType = {
+    id_user: string | null
+    created_at: Date | null
+    type: string | null
+    status: string | null
+    url: string | null
+  }
+
+  export type NotifCountAggregateOutputType = {
+    id_user: number
+    created_at: number
+    message: number
+    type: number
+    status: number
+    url: number
+    data: number
+    _all: number
+  }
+
+
+  export type NotifMinAggregateInputType = {
+    id_user?: true
+    created_at?: true
+    type?: true
+    status?: true
+    url?: true
+  }
+
+  export type NotifMaxAggregateInputType = {
+    id_user?: true
+    created_at?: true
+    type?: true
+    status?: true
+    url?: true
+  }
+
+  export type NotifCountAggregateInputType = {
+    id_user?: true
+    created_at?: true
+    message?: true
+    type?: true
+    status?: true
+    url?: true
+    data?: true
+    _all?: true
+  }
+
+  export type NotifAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which notif to aggregate.
+     */
+    where?: notifWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of notifs to fetch.
+     */
+    orderBy?: notifOrderByWithRelationInput | notifOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: notifWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` notifs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` notifs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned notifs
+    **/
+    _count?: true | NotifCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NotifMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NotifMaxAggregateInputType
+  }
+
+  export type GetNotifAggregateType<T extends NotifAggregateArgs> = {
+        [P in keyof T & keyof AggregateNotif]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNotif[P]>
+      : GetScalarType<T[P], AggregateNotif[P]>
+  }
+
+
+
+
+  export type notifGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: notifWhereInput
+    orderBy?: notifOrderByWithAggregationInput | notifOrderByWithAggregationInput[]
+    by: NotifScalarFieldEnum[] | NotifScalarFieldEnum
+    having?: notifScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NotifCountAggregateInputType | true
+    _min?: NotifMinAggregateInputType
+    _max?: NotifMaxAggregateInputType
+  }
+
+  export type NotifGroupByOutputType = {
+    id_user: string
+    created_at: Date
+    message: JsonValue
+    type: string
+    status: string
+    url: string | null
+    data: JsonValue | null
+    _count: NotifCountAggregateOutputType | null
+    _min: NotifMinAggregateOutputType | null
+    _max: NotifMaxAggregateOutputType | null
+  }
+
+  type GetNotifGroupByPayload<T extends notifGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NotifGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NotifGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NotifGroupByOutputType[P]>
+            : GetScalarType<T[P], NotifGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type notifSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_user?: boolean
+    created_at?: boolean
+    message?: boolean
+    type?: boolean
+    status?: boolean
+    url?: boolean
+    data?: boolean
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notif"]>
+
+  export type notifSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_user?: boolean
+    created_at?: boolean
+    message?: boolean
+    type?: boolean
+    status?: boolean
+    url?: boolean
+    data?: boolean
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notif"]>
+
+  export type notifSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_user?: boolean
+    created_at?: boolean
+    message?: boolean
+    type?: boolean
+    status?: boolean
+    url?: boolean
+    data?: boolean
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notif"]>
+
+  export type notifSelectScalar = {
+    id_user?: boolean
+    created_at?: boolean
+    message?: boolean
+    type?: boolean
+    status?: boolean
+    url?: boolean
+    data?: boolean
+  }
+
+  export type notifOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_user" | "created_at" | "message" | "type" | "status" | "url" | "data", ExtArgs["result"]["notif"]>
+  export type notifInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }
+  export type notifIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }
+  export type notifIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
+  }
+
+  export type $notifPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "notif"
+    objects: {
+      auth_user: Prisma.$auth_userPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id_user: string
+      created_at: Date
+      message: Prisma.JsonValue
+      type: string
+      status: string
+      url: string | null
+      data: Prisma.JsonValue | null
+    }, ExtArgs["result"]["notif"]>
+    composites: {}
+  }
+
+  type notifGetPayload<S extends boolean | null | undefined | notifDefaultArgs> = $Result.GetResult<Prisma.$notifPayload, S>
+
+  type notifCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<notifFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NotifCountAggregateInputType | true
+    }
+
+  export interface notifDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['notif'], meta: { name: 'notif' } }
+    /**
+     * Find zero or one Notif that matches the filter.
+     * @param {notifFindUniqueArgs} args - Arguments to find a Notif
+     * @example
+     * // Get one Notif
+     * const notif = await prisma.notif.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends notifFindUniqueArgs>(args: SelectSubset<T, notifFindUniqueArgs<ExtArgs>>): Prisma__notifClient<$Result.GetResult<Prisma.$notifPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Notif that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {notifFindUniqueOrThrowArgs} args - Arguments to find a Notif
+     * @example
+     * // Get one Notif
+     * const notif = await prisma.notif.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends notifFindUniqueOrThrowArgs>(args: SelectSubset<T, notifFindUniqueOrThrowArgs<ExtArgs>>): Prisma__notifClient<$Result.GetResult<Prisma.$notifPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Notif that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notifFindFirstArgs} args - Arguments to find a Notif
+     * @example
+     * // Get one Notif
+     * const notif = await prisma.notif.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends notifFindFirstArgs>(args?: SelectSubset<T, notifFindFirstArgs<ExtArgs>>): Prisma__notifClient<$Result.GetResult<Prisma.$notifPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Notif that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notifFindFirstOrThrowArgs} args - Arguments to find a Notif
+     * @example
+     * // Get one Notif
+     * const notif = await prisma.notif.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends notifFindFirstOrThrowArgs>(args?: SelectSubset<T, notifFindFirstOrThrowArgs<ExtArgs>>): Prisma__notifClient<$Result.GetResult<Prisma.$notifPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Notifs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notifFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Notifs
+     * const notifs = await prisma.notif.findMany()
+     * 
+     * // Get first 10 Notifs
+     * const notifs = await prisma.notif.findMany({ take: 10 })
+     * 
+     * // Only select the `id_user`
+     * const notifWithId_userOnly = await prisma.notif.findMany({ select: { id_user: true } })
+     * 
+     */
+    findMany<T extends notifFindManyArgs>(args?: SelectSubset<T, notifFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$notifPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Notif.
+     * @param {notifCreateArgs} args - Arguments to create a Notif.
+     * @example
+     * // Create one Notif
+     * const Notif = await prisma.notif.create({
+     *   data: {
+     *     // ... data to create a Notif
+     *   }
+     * })
+     * 
+     */
+    create<T extends notifCreateArgs>(args: SelectSubset<T, notifCreateArgs<ExtArgs>>): Prisma__notifClient<$Result.GetResult<Prisma.$notifPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Notifs.
+     * @param {notifCreateManyArgs} args - Arguments to create many Notifs.
+     * @example
+     * // Create many Notifs
+     * const notif = await prisma.notif.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends notifCreateManyArgs>(args?: SelectSubset<T, notifCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Notifs and returns the data saved in the database.
+     * @param {notifCreateManyAndReturnArgs} args - Arguments to create many Notifs.
+     * @example
+     * // Create many Notifs
+     * const notif = await prisma.notif.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Notifs and only return the `id_user`
+     * const notifWithId_userOnly = await prisma.notif.createManyAndReturn({
+     *   select: { id_user: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends notifCreateManyAndReturnArgs>(args?: SelectSubset<T, notifCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$notifPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Notif.
+     * @param {notifDeleteArgs} args - Arguments to delete one Notif.
+     * @example
+     * // Delete one Notif
+     * const Notif = await prisma.notif.delete({
+     *   where: {
+     *     // ... filter to delete one Notif
+     *   }
+     * })
+     * 
+     */
+    delete<T extends notifDeleteArgs>(args: SelectSubset<T, notifDeleteArgs<ExtArgs>>): Prisma__notifClient<$Result.GetResult<Prisma.$notifPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Notif.
+     * @param {notifUpdateArgs} args - Arguments to update one Notif.
+     * @example
+     * // Update one Notif
+     * const notif = await prisma.notif.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends notifUpdateArgs>(args: SelectSubset<T, notifUpdateArgs<ExtArgs>>): Prisma__notifClient<$Result.GetResult<Prisma.$notifPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Notifs.
+     * @param {notifDeleteManyArgs} args - Arguments to filter Notifs to delete.
+     * @example
+     * // Delete a few Notifs
+     * const { count } = await prisma.notif.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends notifDeleteManyArgs>(args?: SelectSubset<T, notifDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Notifs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notifUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Notifs
+     * const notif = await prisma.notif.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends notifUpdateManyArgs>(args: SelectSubset<T, notifUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Notifs and returns the data updated in the database.
+     * @param {notifUpdateManyAndReturnArgs} args - Arguments to update many Notifs.
+     * @example
+     * // Update many Notifs
+     * const notif = await prisma.notif.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Notifs and only return the `id_user`
+     * const notifWithId_userOnly = await prisma.notif.updateManyAndReturn({
+     *   select: { id_user: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends notifUpdateManyAndReturnArgs>(args: SelectSubset<T, notifUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$notifPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Notif.
+     * @param {notifUpsertArgs} args - Arguments to update or create a Notif.
+     * @example
+     * // Update or create a Notif
+     * const notif = await prisma.notif.upsert({
+     *   create: {
+     *     // ... data to create a Notif
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Notif we want to update
+     *   }
+     * })
+     */
+    upsert<T extends notifUpsertArgs>(args: SelectSubset<T, notifUpsertArgs<ExtArgs>>): Prisma__notifClient<$Result.GetResult<Prisma.$notifPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Notifs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notifCountArgs} args - Arguments to filter Notifs to count.
+     * @example
+     * // Count the number of Notifs
+     * const count = await prisma.notif.count({
+     *   where: {
+     *     // ... the filter for the Notifs we want to count
+     *   }
+     * })
+    **/
+    count<T extends notifCountArgs>(
+      args?: Subset<T, notifCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NotifCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Notif.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotifAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NotifAggregateArgs>(args: Subset<T, NotifAggregateArgs>): Prisma.PrismaPromise<GetNotifAggregateType<T>>
+
+    /**
+     * Group by Notif.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notifGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends notifGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: notifGroupByArgs['orderBy'] }
+        : { orderBy?: notifGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, notifGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNotifGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the notif model
+   */
+  readonly fields: notifFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for notif.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__notifClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    auth_user<T extends auth_userDefaultArgs<ExtArgs> = {}>(args?: Subset<T, auth_userDefaultArgs<ExtArgs>>): Prisma__auth_userClient<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the notif model
+   */
+  interface notifFieldRefs {
+    readonly id_user: FieldRef<"notif", 'String'>
+    readonly created_at: FieldRef<"notif", 'DateTime'>
+    readonly message: FieldRef<"notif", 'Json'>
+    readonly type: FieldRef<"notif", 'String'>
+    readonly status: FieldRef<"notif", 'String'>
+    readonly url: FieldRef<"notif", 'String'>
+    readonly data: FieldRef<"notif", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * notif findUnique
+   */
+  export type notifFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notif
+     */
+    select?: notifSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notif
+     */
+    omit?: notifOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notifInclude<ExtArgs> | null
+    /**
+     * Filter, which notif to fetch.
+     */
+    where: notifWhereUniqueInput
+  }
+
+  /**
+   * notif findUniqueOrThrow
+   */
+  export type notifFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notif
+     */
+    select?: notifSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notif
+     */
+    omit?: notifOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notifInclude<ExtArgs> | null
+    /**
+     * Filter, which notif to fetch.
+     */
+    where: notifWhereUniqueInput
+  }
+
+  /**
+   * notif findFirst
+   */
+  export type notifFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notif
+     */
+    select?: notifSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notif
+     */
+    omit?: notifOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notifInclude<ExtArgs> | null
+    /**
+     * Filter, which notif to fetch.
+     */
+    where?: notifWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of notifs to fetch.
+     */
+    orderBy?: notifOrderByWithRelationInput | notifOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for notifs.
+     */
+    cursor?: notifWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` notifs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` notifs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of notifs.
+     */
+    distinct?: NotifScalarFieldEnum | NotifScalarFieldEnum[]
+  }
+
+  /**
+   * notif findFirstOrThrow
+   */
+  export type notifFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notif
+     */
+    select?: notifSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notif
+     */
+    omit?: notifOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notifInclude<ExtArgs> | null
+    /**
+     * Filter, which notif to fetch.
+     */
+    where?: notifWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of notifs to fetch.
+     */
+    orderBy?: notifOrderByWithRelationInput | notifOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for notifs.
+     */
+    cursor?: notifWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` notifs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` notifs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of notifs.
+     */
+    distinct?: NotifScalarFieldEnum | NotifScalarFieldEnum[]
+  }
+
+  /**
+   * notif findMany
+   */
+  export type notifFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notif
+     */
+    select?: notifSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notif
+     */
+    omit?: notifOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notifInclude<ExtArgs> | null
+    /**
+     * Filter, which notifs to fetch.
+     */
+    where?: notifWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of notifs to fetch.
+     */
+    orderBy?: notifOrderByWithRelationInput | notifOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing notifs.
+     */
+    cursor?: notifWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` notifs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` notifs.
+     */
+    skip?: number
+    distinct?: NotifScalarFieldEnum | NotifScalarFieldEnum[]
+  }
+
+  /**
+   * notif create
+   */
+  export type notifCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notif
+     */
+    select?: notifSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notif
+     */
+    omit?: notifOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notifInclude<ExtArgs> | null
+    /**
+     * The data needed to create a notif.
+     */
+    data: XOR<notifCreateInput, notifUncheckedCreateInput>
+  }
+
+  /**
+   * notif createMany
+   */
+  export type notifCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many notifs.
+     */
+    data: notifCreateManyInput | notifCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * notif createManyAndReturn
+   */
+  export type notifCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notif
+     */
+    select?: notifSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the notif
+     */
+    omit?: notifOmit<ExtArgs> | null
+    /**
+     * The data used to create many notifs.
+     */
+    data: notifCreateManyInput | notifCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notifIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * notif update
+   */
+  export type notifUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notif
+     */
+    select?: notifSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notif
+     */
+    omit?: notifOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notifInclude<ExtArgs> | null
+    /**
+     * The data needed to update a notif.
+     */
+    data: XOR<notifUpdateInput, notifUncheckedUpdateInput>
+    /**
+     * Choose, which notif to update.
+     */
+    where: notifWhereUniqueInput
+  }
+
+  /**
+   * notif updateMany
+   */
+  export type notifUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update notifs.
+     */
+    data: XOR<notifUpdateManyMutationInput, notifUncheckedUpdateManyInput>
+    /**
+     * Filter which notifs to update
+     */
+    where?: notifWhereInput
+    /**
+     * Limit how many notifs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * notif updateManyAndReturn
+   */
+  export type notifUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notif
+     */
+    select?: notifSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the notif
+     */
+    omit?: notifOmit<ExtArgs> | null
+    /**
+     * The data used to update notifs.
+     */
+    data: XOR<notifUpdateManyMutationInput, notifUncheckedUpdateManyInput>
+    /**
+     * Filter which notifs to update
+     */
+    where?: notifWhereInput
+    /**
+     * Limit how many notifs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notifIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * notif upsert
+   */
+  export type notifUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notif
+     */
+    select?: notifSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notif
+     */
+    omit?: notifOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notifInclude<ExtArgs> | null
+    /**
+     * The filter to search for the notif to update in case it exists.
+     */
+    where: notifWhereUniqueInput
+    /**
+     * In case the notif found by the `where` argument doesn't exist, create a new notif with this data.
+     */
+    create: XOR<notifCreateInput, notifUncheckedCreateInput>
+    /**
+     * In case the notif was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<notifUpdateInput, notifUncheckedUpdateInput>
+  }
+
+  /**
+   * notif delete
+   */
+  export type notifDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notif
+     */
+    select?: notifSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notif
+     */
+    omit?: notifOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notifInclude<ExtArgs> | null
+    /**
+     * Filter which notif to delete.
+     */
+    where: notifWhereUniqueInput
+  }
+
+  /**
+   * notif deleteMany
+   */
+  export type notifDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which notifs to delete
+     */
+    where?: notifWhereInput
+    /**
+     * Limit how many notifs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * notif without action
+   */
+  export type notifDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notif
+     */
+    select?: notifSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notif
+     */
+    omit?: notifOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notifInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model preorder
    */
 
@@ -36679,7 +37883,7 @@ export namespace Prisma {
     strike_price: Decimal | null
     real_price: Decimal
     desc: string
-    info: JsonValue
+    info: JsonValue | null
     status: string
     currency: string
     deleted_at: Date | null
@@ -36863,7 +38067,7 @@ export namespace Prisma {
       strike_price: Prisma.Decimal | null
       real_price: Prisma.Decimal
       desc: string
-      info: Prisma.JsonValue
+      info: Prisma.JsonValue | null
       status: string
       currency: string
       deleted_at: Date | null
@@ -55077,6 +56281,19 @@ export namespace Prisma {
   export type MidtrxScalarFieldEnum = (typeof MidtrxScalarFieldEnum)[keyof typeof MidtrxScalarFieldEnum]
 
 
+  export const NotifScalarFieldEnum: {
+    id_user: 'id_user',
+    created_at: 'created_at',
+    message: 'message',
+    type: 'type',
+    status: 'status',
+    url: 'url',
+    data: 'data'
+  };
+
+  export type NotifScalarFieldEnum = (typeof NotifScalarFieldEnum)[keyof typeof NotifScalarFieldEnum]
+
+
   export const PreorderScalarFieldEnum: {
     id: 'id',
     id_product: 'id_product',
@@ -55303,19 +56520,19 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const JsonNullValueInput: {
-    JsonNull: typeof JsonNull
-  };
-
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
   export const NullableJsonNullValueInput: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -55747,6 +56964,7 @@ export namespace Prisma {
     customer?: XOR<CustomerNullableScalarRelationFilter, customerWhereInput> | null
     internal?: XOR<InternalNullableScalarRelationFilter, internalWhereInput> | null
     publisher?: XOR<PublisherNullableScalarRelationFilter, publisherWhereInput> | null
+    notif?: NotifListRelationFilter
     reviews?: ReviewsListRelationFilter
     reviews_likes?: Reviews_likesListRelationFilter
   }
@@ -55775,6 +56993,7 @@ export namespace Prisma {
     customer?: customerOrderByWithRelationInput
     internal?: internalOrderByWithRelationInput
     publisher?: publisherOrderByWithRelationInput
+    notif?: notifOrderByRelationAggregateInput
     reviews?: reviewsOrderByRelationAggregateInput
     reviews_likes?: reviews_likesOrderByRelationAggregateInput
   }
@@ -55806,6 +57025,7 @@ export namespace Prisma {
     customer?: XOR<CustomerNullableScalarRelationFilter, customerWhereInput> | null
     internal?: XOR<InternalNullableScalarRelationFilter, internalWhereInput> | null
     publisher?: XOR<PublisherNullableScalarRelationFilter, publisherWhereInput> | null
+    notif?: NotifListRelationFilter
     reviews?: ReviewsListRelationFilter
     reviews_likes?: Reviews_likesListRelationFilter
   }, "id" | "email">
@@ -56048,7 +57268,7 @@ export namespace Prisma {
     alias?: StringFilter<"book"> | string
     submitted_price?: DecimalFilter<"book"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"book"> | string
-    info?: JsonFilter<"book">
+    info?: JsonNullableFilter<"book">
     status?: StringFilter<"book"> | string
     currency?: StringFilter<"book"> | string
     deleted_at?: DateTimeNullableFilter<"book"> | Date | string | null
@@ -56082,7 +57302,7 @@ export namespace Prisma {
     alias?: SortOrder
     submitted_price?: SortOrder
     desc?: SortOrder
-    info?: SortOrder
+    info?: SortOrderInput | SortOrder
     status?: SortOrder
     currency?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
@@ -56119,7 +57339,7 @@ export namespace Prisma {
     alias?: StringFilter<"book"> | string
     submitted_price?: DecimalFilter<"book"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"book"> | string
-    info?: JsonFilter<"book">
+    info?: JsonNullableFilter<"book">
     status?: StringFilter<"book"> | string
     currency?: StringFilter<"book"> | string
     deleted_at?: DateTimeNullableFilter<"book"> | Date | string | null
@@ -56153,7 +57373,7 @@ export namespace Prisma {
     alias?: SortOrder
     submitted_price?: SortOrder
     desc?: SortOrder
-    info?: SortOrder
+    info?: SortOrderInput | SortOrder
     status?: SortOrder
     currency?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
@@ -56186,7 +57406,7 @@ export namespace Prisma {
     alias?: StringWithAggregatesFilter<"book"> | string
     submitted_price?: DecimalWithAggregatesFilter<"book"> | Decimal | DecimalJsLike | number | string
     desc?: StringWithAggregatesFilter<"book"> | string
-    info?: JsonWithAggregatesFilter<"book">
+    info?: JsonNullableWithAggregatesFilter<"book">
     status?: StringWithAggregatesFilter<"book"> | string
     currency?: StringWithAggregatesFilter<"book"> | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"book"> | Date | string | null
@@ -57284,6 +58504,72 @@ export namespace Prisma {
     payload?: JsonWithAggregatesFilter<"midtrx">
   }
 
+  export type notifWhereInput = {
+    AND?: notifWhereInput | notifWhereInput[]
+    OR?: notifWhereInput[]
+    NOT?: notifWhereInput | notifWhereInput[]
+    id_user?: UuidFilter<"notif"> | string
+    created_at?: DateTimeFilter<"notif"> | Date | string
+    message?: JsonFilter<"notif">
+    type?: StringFilter<"notif"> | string
+    status?: StringFilter<"notif"> | string
+    url?: StringNullableFilter<"notif"> | string | null
+    data?: JsonNullableFilter<"notif">
+    auth_user?: XOR<Auth_userScalarRelationFilter, auth_userWhereInput>
+  }
+
+  export type notifOrderByWithRelationInput = {
+    id_user?: SortOrder
+    created_at?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    url?: SortOrderInput | SortOrder
+    data?: SortOrderInput | SortOrder
+    auth_user?: auth_userOrderByWithRelationInput
+  }
+
+  export type notifWhereUniqueInput = Prisma.AtLeast<{
+    id_user_created_at?: notifId_userCreated_atCompoundUniqueInput
+    AND?: notifWhereInput | notifWhereInput[]
+    OR?: notifWhereInput[]
+    NOT?: notifWhereInput | notifWhereInput[]
+    id_user?: UuidFilter<"notif"> | string
+    created_at?: DateTimeFilter<"notif"> | Date | string
+    message?: JsonFilter<"notif">
+    type?: StringFilter<"notif"> | string
+    status?: StringFilter<"notif"> | string
+    url?: StringNullableFilter<"notif"> | string | null
+    data?: JsonNullableFilter<"notif">
+    auth_user?: XOR<Auth_userScalarRelationFilter, auth_userWhereInput>
+  }, "id_user_created_at">
+
+  export type notifOrderByWithAggregationInput = {
+    id_user?: SortOrder
+    created_at?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    url?: SortOrderInput | SortOrder
+    data?: SortOrderInput | SortOrder
+    _count?: notifCountOrderByAggregateInput
+    _max?: notifMaxOrderByAggregateInput
+    _min?: notifMinOrderByAggregateInput
+  }
+
+  export type notifScalarWhereWithAggregatesInput = {
+    AND?: notifScalarWhereWithAggregatesInput | notifScalarWhereWithAggregatesInput[]
+    OR?: notifScalarWhereWithAggregatesInput[]
+    NOT?: notifScalarWhereWithAggregatesInput | notifScalarWhereWithAggregatesInput[]
+    id_user?: UuidWithAggregatesFilter<"notif"> | string
+    created_at?: DateTimeWithAggregatesFilter<"notif"> | Date | string
+    message?: JsonWithAggregatesFilter<"notif">
+    type?: StringWithAggregatesFilter<"notif"> | string
+    status?: StringWithAggregatesFilter<"notif"> | string
+    url?: StringNullableWithAggregatesFilter<"notif"> | string | null
+    data?: JsonNullableWithAggregatesFilter<"notif">
+  }
+
   export type preorderWhereInput = {
     AND?: preorderWhereInput | preorderWhereInput[]
     OR?: preorderWhereInput[]
@@ -57357,7 +58643,7 @@ export namespace Prisma {
     strike_price?: DecimalNullableFilter<"product"> | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFilter<"product"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"product"> | string
-    info?: JsonFilter<"product">
+    info?: JsonNullableFilter<"product">
     status?: StringFilter<"product"> | string
     currency?: StringFilter<"product"> | string
     deleted_at?: DateTimeNullableFilter<"product"> | Date | string | null
@@ -57390,7 +58676,7 @@ export namespace Prisma {
     strike_price?: SortOrderInput | SortOrder
     real_price?: SortOrder
     desc?: SortOrder
-    info?: SortOrder
+    info?: SortOrderInput | SortOrder
     status?: SortOrder
     currency?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
@@ -57426,7 +58712,7 @@ export namespace Prisma {
     strike_price?: DecimalNullableFilter<"product"> | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFilter<"product"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"product"> | string
-    info?: JsonFilter<"product">
+    info?: JsonNullableFilter<"product">
     status?: StringFilter<"product"> | string
     currency?: StringFilter<"product"> | string
     deleted_at?: DateTimeNullableFilter<"product"> | Date | string | null
@@ -57459,7 +58745,7 @@ export namespace Prisma {
     strike_price?: SortOrderInput | SortOrder
     real_price?: SortOrder
     desc?: SortOrder
-    info?: SortOrder
+    info?: SortOrderInput | SortOrder
     status?: SortOrder
     currency?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
@@ -57491,7 +58777,7 @@ export namespace Prisma {
     strike_price?: DecimalNullableWithAggregatesFilter<"product"> | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalWithAggregatesFilter<"product"> | Decimal | DecimalJsLike | number | string
     desc?: StringWithAggregatesFilter<"product"> | string
-    info?: JsonWithAggregatesFilter<"product">
+    info?: JsonNullableWithAggregatesFilter<"product">
     status?: StringWithAggregatesFilter<"product"> | string
     currency?: StringWithAggregatesFilter<"product"> | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"product"> | Date | string | null
@@ -58792,6 +60078,7 @@ export namespace Prisma {
     customer?: customerCreateNestedOneWithoutAuth_userInput
     internal?: internalCreateNestedOneWithoutAuth_userInput
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
+    notif?: notifCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
@@ -58815,6 +60102,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
@@ -58838,6 +60126,7 @@ export namespace Prisma {
     customer?: customerUpdateOneWithoutAuth_userNestedInput
     internal?: internalUpdateOneWithoutAuth_userNestedInput
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
+    notif?: notifUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
@@ -58861,6 +60150,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
@@ -59125,7 +60415,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -59157,7 +60447,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -59189,7 +60479,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -59221,7 +60511,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -59253,7 +60543,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -59278,7 +60568,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -59301,7 +60591,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -60412,6 +61702,75 @@ export namespace Prisma {
     payload?: JsonNullValueInput | InputJsonValue
   }
 
+  export type notifCreateInput = {
+    created_at?: Date | string
+    message: JsonNullValueInput | InputJsonValue
+    type: string
+    status: string
+    url?: string | null
+    data?: NullableJsonNullValueInput | InputJsonValue
+    auth_user: auth_userCreateNestedOneWithoutNotifInput
+  }
+
+  export type notifUncheckedCreateInput = {
+    id_user: string
+    created_at?: Date | string
+    message: JsonNullValueInput | InputJsonValue
+    type: string
+    status: string
+    url?: string | null
+    data?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type notifUpdateInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    message?: JsonNullValueInput | InputJsonValue
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: NullableJsonNullValueInput | InputJsonValue
+    auth_user?: auth_userUpdateOneRequiredWithoutNotifNestedInput
+  }
+
+  export type notifUncheckedUpdateInput = {
+    id_user?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    message?: JsonNullValueInput | InputJsonValue
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type notifCreateManyInput = {
+    id_user: string
+    created_at?: Date | string
+    message: JsonNullValueInput | InputJsonValue
+    type: string
+    status: string
+    url?: string | null
+    data?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type notifUpdateManyMutationInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    message?: JsonNullValueInput | InputJsonValue
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type notifUncheckedUpdateManyInput = {
+    id_user?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    message?: JsonNullValueInput | InputJsonValue
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type preorderCreateInput = {
     id?: string
     min_qty: number
@@ -60482,7 +61841,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -60514,7 +61873,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -60546,7 +61905,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -60578,7 +61937,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -60610,7 +61969,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -60634,7 +61993,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -60657,7 +62016,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -62056,6 +63415,12 @@ export namespace Prisma {
     isNot?: publisherWhereInput | null
   }
 
+  export type NotifListRelationFilter = {
+    every?: notifWhereInput
+    some?: notifWhereInput
+    none?: notifWhereInput
+  }
+
   export type ReviewsListRelationFilter = {
     every?: reviewsWhereInput
     some?: reviewsWhereInput
@@ -62077,6 +63442,10 @@ export namespace Prisma {
   }
 
   export type auth_two_factorOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type notifOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -62279,14 +63648,14 @@ export namespace Prisma {
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
-  export type JsonFilter<$PrismaModel = never> =
+  export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonFilterBase<$PrismaModel = never> = {
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
@@ -62477,14 +63846,14 @@ export namespace Prisma {
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
   }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
@@ -62499,9 +63868,9 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -62518,29 +63887,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-  export type JsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type BookScalarRelationFilter = {
@@ -62571,32 +63917,6 @@ export namespace Prisma {
     id_internal?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
-  }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type book_changes_logId_bookCreated_atCompoundUniqueInput = {
@@ -62675,6 +63995,29 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type Bundle_categoryListRelationFilter = {
@@ -62777,6 +64120,32 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type BundleScalarRelationFilter = {
@@ -63289,6 +64658,37 @@ export namespace Prisma {
     id?: SortOrder
     tz?: SortOrder
     type?: SortOrder
+  }
+
+  export type notifId_userCreated_atCompoundUniqueInput = {
+    id_user: string
+    created_at: Date | string
+  }
+
+  export type notifCountOrderByAggregateInput = {
+    id_user?: SortOrder
+    created_at?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    url?: SortOrder
+    data?: SortOrder
+  }
+
+  export type notifMaxOrderByAggregateInput = {
+    id_user?: SortOrder
+    created_at?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    url?: SortOrder
+  }
+
+  export type notifMinOrderByAggregateInput = {
+    id_user?: SortOrder
+    created_at?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    url?: SortOrder
   }
 
   export type preorderCountOrderByAggregateInput = {
@@ -64363,6 +65763,13 @@ export namespace Prisma {
     connect?: publisherWhereUniqueInput
   }
 
+  export type notifCreateNestedManyWithoutAuth_userInput = {
+    create?: XOR<notifCreateWithoutAuth_userInput, notifUncheckedCreateWithoutAuth_userInput> | notifCreateWithoutAuth_userInput[] | notifUncheckedCreateWithoutAuth_userInput[]
+    connectOrCreate?: notifCreateOrConnectWithoutAuth_userInput | notifCreateOrConnectWithoutAuth_userInput[]
+    createMany?: notifCreateManyAuth_userInputEnvelope
+    connect?: notifWhereUniqueInput | notifWhereUniqueInput[]
+  }
+
   export type reviewsCreateNestedManyWithoutAuth_userInput = {
     create?: XOR<reviewsCreateWithoutAuth_userInput, reviewsUncheckedCreateWithoutAuth_userInput> | reviewsCreateWithoutAuth_userInput[] | reviewsUncheckedCreateWithoutAuth_userInput[]
     connectOrCreate?: reviewsCreateOrConnectWithoutAuth_userInput | reviewsCreateOrConnectWithoutAuth_userInput[]
@@ -64396,6 +65803,13 @@ export namespace Prisma {
     connectOrCreate?: auth_two_factorCreateOrConnectWithoutAuth_userInput | auth_two_factorCreateOrConnectWithoutAuth_userInput[]
     createMany?: auth_two_factorCreateManyAuth_userInputEnvelope
     connect?: auth_two_factorWhereUniqueInput | auth_two_factorWhereUniqueInput[]
+  }
+
+  export type notifUncheckedCreateNestedManyWithoutAuth_userInput = {
+    create?: XOR<notifCreateWithoutAuth_userInput, notifUncheckedCreateWithoutAuth_userInput> | notifCreateWithoutAuth_userInput[] | notifUncheckedCreateWithoutAuth_userInput[]
+    connectOrCreate?: notifCreateOrConnectWithoutAuth_userInput | notifCreateOrConnectWithoutAuth_userInput[]
+    createMany?: notifCreateManyAuth_userInputEnvelope
+    connect?: notifWhereUniqueInput | notifWhereUniqueInput[]
   }
 
   export type reviewsUncheckedCreateNestedManyWithoutAuth_userInput = {
@@ -64512,6 +65926,20 @@ export namespace Prisma {
     update?: XOR<XOR<publisherUpdateToOneWithWhereWithoutAuth_userInput, publisherUpdateWithoutAuth_userInput>, publisherUncheckedUpdateWithoutAuth_userInput>
   }
 
+  export type notifUpdateManyWithoutAuth_userNestedInput = {
+    create?: XOR<notifCreateWithoutAuth_userInput, notifUncheckedCreateWithoutAuth_userInput> | notifCreateWithoutAuth_userInput[] | notifUncheckedCreateWithoutAuth_userInput[]
+    connectOrCreate?: notifCreateOrConnectWithoutAuth_userInput | notifCreateOrConnectWithoutAuth_userInput[]
+    upsert?: notifUpsertWithWhereUniqueWithoutAuth_userInput | notifUpsertWithWhereUniqueWithoutAuth_userInput[]
+    createMany?: notifCreateManyAuth_userInputEnvelope
+    set?: notifWhereUniqueInput | notifWhereUniqueInput[]
+    disconnect?: notifWhereUniqueInput | notifWhereUniqueInput[]
+    delete?: notifWhereUniqueInput | notifWhereUniqueInput[]
+    connect?: notifWhereUniqueInput | notifWhereUniqueInput[]
+    update?: notifUpdateWithWhereUniqueWithoutAuth_userInput | notifUpdateWithWhereUniqueWithoutAuth_userInput[]
+    updateMany?: notifUpdateManyWithWhereWithoutAuth_userInput | notifUpdateManyWithWhereWithoutAuth_userInput[]
+    deleteMany?: notifScalarWhereInput | notifScalarWhereInput[]
+  }
+
   export type reviewsUpdateManyWithoutAuth_userNestedInput = {
     create?: XOR<reviewsCreateWithoutAuth_userInput, reviewsUncheckedCreateWithoutAuth_userInput> | reviewsCreateWithoutAuth_userInput[] | reviewsUncheckedCreateWithoutAuth_userInput[]
     connectOrCreate?: reviewsCreateOrConnectWithoutAuth_userInput | reviewsCreateOrConnectWithoutAuth_userInput[]
@@ -64580,6 +66008,20 @@ export namespace Prisma {
     update?: auth_two_factorUpdateWithWhereUniqueWithoutAuth_userInput | auth_two_factorUpdateWithWhereUniqueWithoutAuth_userInput[]
     updateMany?: auth_two_factorUpdateManyWithWhereWithoutAuth_userInput | auth_two_factorUpdateManyWithWhereWithoutAuth_userInput[]
     deleteMany?: auth_two_factorScalarWhereInput | auth_two_factorScalarWhereInput[]
+  }
+
+  export type notifUncheckedUpdateManyWithoutAuth_userNestedInput = {
+    create?: XOR<notifCreateWithoutAuth_userInput, notifUncheckedCreateWithoutAuth_userInput> | notifCreateWithoutAuth_userInput[] | notifUncheckedCreateWithoutAuth_userInput[]
+    connectOrCreate?: notifCreateOrConnectWithoutAuth_userInput | notifCreateOrConnectWithoutAuth_userInput[]
+    upsert?: notifUpsertWithWhereUniqueWithoutAuth_userInput | notifUpsertWithWhereUniqueWithoutAuth_userInput[]
+    createMany?: notifCreateManyAuth_userInputEnvelope
+    set?: notifWhereUniqueInput | notifWhereUniqueInput[]
+    disconnect?: notifWhereUniqueInput | notifWhereUniqueInput[]
+    delete?: notifWhereUniqueInput | notifWhereUniqueInput[]
+    connect?: notifWhereUniqueInput | notifWhereUniqueInput[]
+    update?: notifUpdateWithWhereUniqueWithoutAuth_userInput | notifUpdateWithWhereUniqueWithoutAuth_userInput[]
+    updateMany?: notifUpdateManyWithWhereWithoutAuth_userInput | notifUpdateManyWithWhereWithoutAuth_userInput[]
+    deleteMany?: notifScalarWhereInput | notifScalarWhereInput[]
   }
 
   export type reviewsUncheckedUpdateManyWithoutAuth_userNestedInput = {
@@ -66132,6 +67574,20 @@ export namespace Prisma {
     update?: XOR<XOR<landingUpdateToOneWithWhereWithoutLanding_itemsInput, landingUpdateWithoutLanding_itemsInput>, landingUncheckedUpdateWithoutLanding_itemsInput>
   }
 
+  export type auth_userCreateNestedOneWithoutNotifInput = {
+    create?: XOR<auth_userCreateWithoutNotifInput, auth_userUncheckedCreateWithoutNotifInput>
+    connectOrCreate?: auth_userCreateOrConnectWithoutNotifInput
+    connect?: auth_userWhereUniqueInput
+  }
+
+  export type auth_userUpdateOneRequiredWithoutNotifNestedInput = {
+    create?: XOR<auth_userCreateWithoutNotifInput, auth_userUncheckedCreateWithoutNotifInput>
+    connectOrCreate?: auth_userCreateOrConnectWithoutNotifInput
+    upsert?: auth_userUpsertWithoutNotifInput
+    connect?: auth_userWhereUniqueInput
+    update?: XOR<XOR<auth_userUpdateToOneWithWhereWithoutNotifInput, auth_userUpdateWithoutNotifInput>, auth_userUncheckedUpdateWithoutNotifInput>
+  }
+
   export type productCreateNestedOneWithoutPreorderInput = {
     create?: XOR<productCreateWithoutPreorderInput, productUncheckedCreateWithoutPreorderInput>
     connectOrCreate?: productCreateOrConnectWithoutPreorderInput
@@ -67512,14 +68968,14 @@ export namespace Prisma {
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
   }
-  export type NestedJsonFilter<$PrismaModel = never> =
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
-        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonFilterBase<$PrismaModel>>
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
@@ -67562,29 +69018,6 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
-  export type NestedJsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type NestedDecimalNullableFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
@@ -67611,6 +69044,29 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -67703,6 +69159,7 @@ export namespace Prisma {
     customer?: customerCreateNestedOneWithoutAuth_userInput
     internal?: internalCreateNestedOneWithoutAuth_userInput
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
+    notif?: notifCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
@@ -67725,6 +69182,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
@@ -67867,6 +69325,7 @@ export namespace Prisma {
     customer?: customerCreateNestedOneWithoutAuth_userInput
     internal?: internalCreateNestedOneWithoutAuth_userInput
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
+    notif?: notifCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
@@ -67889,6 +69348,7 @@ export namespace Prisma {
     id_internal?: string | null
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
@@ -68096,6 +69556,7 @@ export namespace Prisma {
     customer?: customerUpdateOneWithoutAuth_userNestedInput
     internal?: internalUpdateOneWithoutAuth_userNestedInput
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
+    notif?: notifUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
@@ -68118,6 +69579,7 @@ export namespace Prisma {
     id_internal?: NullableStringFieldUpdateOperationsInput | string | null
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
@@ -68255,6 +69717,7 @@ export namespace Prisma {
     customer?: customerCreateNestedOneWithoutAuth_userInput
     internal?: internalCreateNestedOneWithoutAuth_userInput
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
+    notif?: notifCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
@@ -68277,6 +69740,7 @@ export namespace Prisma {
     id_internal?: string | null
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
@@ -68315,6 +69779,7 @@ export namespace Prisma {
     customer?: customerUpdateOneWithoutAuth_userNestedInput
     internal?: internalUpdateOneWithoutAuth_userNestedInput
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
+    notif?: notifUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
@@ -68337,6 +69802,7 @@ export namespace Prisma {
     id_internal?: NullableStringFieldUpdateOperationsInput | string | null
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
@@ -68359,6 +69825,7 @@ export namespace Prisma {
     customer?: customerCreateNestedOneWithoutAuth_userInput
     internal?: internalCreateNestedOneWithoutAuth_userInput
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
+    notif?: notifCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
@@ -68381,6 +69848,7 @@ export namespace Prisma {
     id_internal?: string | null
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
+    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
@@ -68419,6 +69887,7 @@ export namespace Prisma {
     customer?: customerUpdateOneWithoutAuth_userNestedInput
     internal?: internalUpdateOneWithoutAuth_userNestedInput
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
+    notif?: notifUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
@@ -68441,6 +69910,7 @@ export namespace Prisma {
     id_internal?: NullableStringFieldUpdateOperationsInput | string | null
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
+    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
@@ -68686,6 +70156,34 @@ export namespace Prisma {
   export type publisherCreateOrConnectWithoutAuth_userInput = {
     where: publisherWhereUniqueInput
     create: XOR<publisherCreateWithoutAuth_userInput, publisherUncheckedCreateWithoutAuth_userInput>
+  }
+
+  export type notifCreateWithoutAuth_userInput = {
+    created_at?: Date | string
+    message: JsonNullValueInput | InputJsonValue
+    type: string
+    status: string
+    url?: string | null
+    data?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type notifUncheckedCreateWithoutAuth_userInput = {
+    created_at?: Date | string
+    message: JsonNullValueInput | InputJsonValue
+    type: string
+    status: string
+    url?: string | null
+    data?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type notifCreateOrConnectWithoutAuth_userInput = {
+    where: notifWhereUniqueInput
+    create: XOR<notifCreateWithoutAuth_userInput, notifUncheckedCreateWithoutAuth_userInput>
+  }
+
+  export type notifCreateManyAuth_userInputEnvelope = {
+    data: notifCreateManyAuth_userInput | notifCreateManyAuth_userInput[]
+    skipDuplicates?: boolean
   }
 
   export type reviewsCreateWithoutAuth_userInput = {
@@ -69002,6 +70500,35 @@ export namespace Prisma {
     withdrawal?: withdrawalUncheckedUpdateManyWithoutPublisherNestedInput
   }
 
+  export type notifUpsertWithWhereUniqueWithoutAuth_userInput = {
+    where: notifWhereUniqueInput
+    update: XOR<notifUpdateWithoutAuth_userInput, notifUncheckedUpdateWithoutAuth_userInput>
+    create: XOR<notifCreateWithoutAuth_userInput, notifUncheckedCreateWithoutAuth_userInput>
+  }
+
+  export type notifUpdateWithWhereUniqueWithoutAuth_userInput = {
+    where: notifWhereUniqueInput
+    data: XOR<notifUpdateWithoutAuth_userInput, notifUncheckedUpdateWithoutAuth_userInput>
+  }
+
+  export type notifUpdateManyWithWhereWithoutAuth_userInput = {
+    where: notifScalarWhereInput
+    data: XOR<notifUpdateManyMutationInput, notifUncheckedUpdateManyWithoutAuth_userInput>
+  }
+
+  export type notifScalarWhereInput = {
+    AND?: notifScalarWhereInput | notifScalarWhereInput[]
+    OR?: notifScalarWhereInput[]
+    NOT?: notifScalarWhereInput | notifScalarWhereInput[]
+    id_user?: UuidFilter<"notif"> | string
+    created_at?: DateTimeFilter<"notif"> | Date | string
+    message?: JsonFilter<"notif">
+    type?: StringFilter<"notif"> | string
+    status?: StringFilter<"notif"> | string
+    url?: StringNullableFilter<"notif"> | string | null
+    data?: JsonNullableFilter<"notif">
+  }
+
   export type reviewsUpsertWithWhereUniqueWithoutAuth_userInput = {
     where: reviewsWhereUniqueInput
     update: XOR<reviewsUpdateWithoutAuth_userInput, reviewsUncheckedUpdateWithoutAuth_userInput>
@@ -69075,6 +70602,7 @@ export namespace Prisma {
     customer?: customerCreateNestedOneWithoutAuth_userInput
     internal?: internalCreateNestedOneWithoutAuth_userInput
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
+    notif?: notifCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
@@ -69097,6 +70625,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
@@ -69163,7 +70692,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69194,7 +70723,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69236,7 +70765,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69267,7 +70796,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69413,7 +70942,7 @@ export namespace Prisma {
     alias?: StringFilter<"book"> | string
     submitted_price?: DecimalFilter<"book"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"book"> | string
-    info?: JsonFilter<"book">
+    info?: JsonNullableFilter<"book">
     status?: StringFilter<"book"> | string
     currency?: StringFilter<"book"> | string
     deleted_at?: DateTimeNullableFilter<"book"> | Date | string | null
@@ -69458,7 +70987,7 @@ export namespace Prisma {
     strike_price?: DecimalNullableFilter<"product"> | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFilter<"product"> | Decimal | DecimalJsLike | number | string
     desc?: StringFilter<"product"> | string
-    info?: JsonFilter<"product">
+    info?: JsonNullableFilter<"product">
     status?: StringFilter<"product"> | string
     currency?: StringFilter<"product"> | string
     deleted_at?: DateTimeNullableFilter<"product"> | Date | string | null
@@ -69536,7 +71065,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69567,7 +71096,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -69815,7 +71344,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -69846,7 +71375,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70049,7 +71578,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70080,7 +71609,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70154,7 +71683,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70185,7 +71714,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70249,7 +71778,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70280,7 +71809,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70327,7 +71856,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70358,7 +71887,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70389,7 +71918,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70420,7 +71949,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70492,7 +72021,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70523,7 +72052,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70585,7 +72114,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70616,7 +72145,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -70688,7 +72217,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70719,7 +72248,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71121,7 +72650,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71152,7 +72681,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71246,7 +72775,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71277,7 +72806,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71508,7 +73037,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71539,7 +73068,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71576,7 +73105,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71607,7 +73136,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -71653,7 +73182,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71684,7 +73213,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71727,7 +73256,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71758,7 +73287,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71799,6 +73328,7 @@ export namespace Prisma {
     author?: authorCreateNestedOneWithoutAuth_userInput
     internal?: internalCreateNestedOneWithoutAuth_userInput
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
+    notif?: notifCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
@@ -71821,6 +73351,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
@@ -72227,7 +73758,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -72258,7 +73789,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -72344,7 +73875,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -72375,7 +73906,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -72638,6 +74169,7 @@ export namespace Prisma {
     author?: authorCreateNestedOneWithoutAuth_userInput
     customer?: customerCreateNestedOneWithoutAuth_userInput
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
+    notif?: notifCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
@@ -72660,6 +74192,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
@@ -72940,6 +74473,114 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
   }
 
+  export type auth_userCreateWithoutNotifInput = {
+    id?: string
+    name: string
+    email: string
+    email_verified?: boolean
+    image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string | null
+    username?: string | null
+    display_username?: string | null
+    two_factor_enabled?: boolean | null
+    auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
+    auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
+    auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
+    affiliate?: affiliateCreateNestedOneWithoutAuth_userInput
+    author?: authorCreateNestedOneWithoutAuth_userInput
+    customer?: customerCreateNestedOneWithoutAuth_userInput
+    internal?: internalCreateNestedOneWithoutAuth_userInput
+    publisher?: publisherCreateNestedOneWithoutAuth_userInput
+    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
+  }
+
+  export type auth_userUncheckedCreateWithoutNotifInput = {
+    id?: string
+    name: string
+    email: string
+    email_verified?: boolean
+    image?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string | null
+    username?: string | null
+    display_username?: string | null
+    two_factor_enabled?: boolean | null
+    id_customer?: string | null
+    id_author?: string | null
+    id_affiliate?: string | null
+    id_publisher?: string | null
+    id_internal?: string | null
+    auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
+    auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
+    auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
+    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
+  }
+
+  export type auth_userCreateOrConnectWithoutNotifInput = {
+    where: auth_userWhereUniqueInput
+    create: XOR<auth_userCreateWithoutNotifInput, auth_userUncheckedCreateWithoutNotifInput>
+  }
+
+  export type auth_userUpsertWithoutNotifInput = {
+    update: XOR<auth_userUpdateWithoutNotifInput, auth_userUncheckedUpdateWithoutNotifInput>
+    create: XOR<auth_userCreateWithoutNotifInput, auth_userUncheckedCreateWithoutNotifInput>
+    where?: auth_userWhereInput
+  }
+
+  export type auth_userUpdateToOneWithWhereWithoutNotifInput = {
+    where?: auth_userWhereInput
+    data: XOR<auth_userUpdateWithoutNotifInput, auth_userUncheckedUpdateWithoutNotifInput>
+  }
+
+  export type auth_userUpdateWithoutNotifInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    display_username?: NullableStringFieldUpdateOperationsInput | string | null
+    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
+    auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
+    auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
+    affiliate?: affiliateUpdateOneWithoutAuth_userNestedInput
+    author?: authorUpdateOneWithoutAuth_userNestedInput
+    customer?: customerUpdateOneWithoutAuth_userNestedInput
+    internal?: internalUpdateOneWithoutAuth_userNestedInput
+    publisher?: publisherUpdateOneWithoutAuth_userNestedInput
+    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
+  }
+
+  export type auth_userUncheckedUpdateWithoutNotifInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    display_username?: NullableStringFieldUpdateOperationsInput | string | null
+    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    id_customer?: NullableStringFieldUpdateOperationsInput | string | null
+    id_author?: NullableStringFieldUpdateOperationsInput | string | null
+    id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
+    id_internal?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
+    auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
+    auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
+    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
+  }
+
   export type productCreateWithoutPreorderInput = {
     id?: string
     name: string
@@ -72948,7 +74589,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -72979,7 +74620,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73026,7 +74667,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -73057,7 +74698,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -73087,7 +74728,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73118,7 +74759,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73567,7 +75208,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73598,7 +75239,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -73678,7 +75319,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -73709,7 +75350,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -73826,6 +75467,7 @@ export namespace Prisma {
     author?: authorCreateNestedOneWithoutAuth_userInput
     customer?: customerCreateNestedOneWithoutAuth_userInput
     internal?: internalCreateNestedOneWithoutAuth_userInput
+    notif?: notifCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
@@ -73848,6 +75490,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
@@ -74381,7 +76024,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -74412,7 +76055,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -74459,7 +76102,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -74490,7 +76133,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -74521,7 +76164,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -74552,7 +76195,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -74600,6 +76243,7 @@ export namespace Prisma {
     customer?: customerCreateNestedOneWithoutAuth_userInput
     internal?: internalCreateNestedOneWithoutAuth_userInput
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
+    notif?: notifCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
@@ -74622,6 +76266,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
@@ -74668,7 +76313,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -74699,7 +76344,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -74753,6 +76398,7 @@ export namespace Prisma {
     customer?: customerUpdateOneWithoutAuth_userNestedInput
     internal?: internalUpdateOneWithoutAuth_userNestedInput
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
+    notif?: notifUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
@@ -74775,6 +76421,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
@@ -74840,6 +76487,7 @@ export namespace Prisma {
     customer?: customerCreateNestedOneWithoutAuth_userInput
     internal?: internalCreateNestedOneWithoutAuth_userInput
     publisher?: publisherCreateNestedOneWithoutAuth_userInput
+    notif?: notifCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
   }
 
@@ -74862,6 +76510,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
+    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
@@ -74933,6 +76582,7 @@ export namespace Prisma {
     customer?: customerUpdateOneWithoutAuth_userNestedInput
     internal?: internalUpdateOneWithoutAuth_userNestedInput
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
+    notif?: notifUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
   }
 
@@ -74955,6 +76605,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
@@ -75286,7 +76937,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -75317,7 +76968,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -75403,7 +77054,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -75434,7 +77085,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -75506,7 +77157,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -75537,7 +77188,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -75668,7 +77319,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -75699,7 +77350,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76102,6 +77753,7 @@ export namespace Prisma {
     customer?: customerUpdateOneWithoutAuth_userNestedInput
     internal?: internalUpdateOneWithoutAuth_userNestedInput
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
+    notif?: notifUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
@@ -76124,6 +77776,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
@@ -76372,6 +78025,15 @@ export namespace Prisma {
     backup_codes?: string | null
   }
 
+  export type notifCreateManyAuth_userInput = {
+    created_at?: Date | string
+    message: JsonNullValueInput | InputJsonValue
+    type: string
+    status: string
+    url?: string | null
+    data?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type reviewsCreateManyAuth_userInput = {
     id?: string
     id_book: string
@@ -76490,6 +78152,33 @@ export namespace Prisma {
     backup_codes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type notifUpdateWithoutAuth_userInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    message?: JsonNullValueInput | InputJsonValue
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type notifUncheckedUpdateWithoutAuth_userInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    message?: JsonNullValueInput | InputJsonValue
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type notifUncheckedUpdateManyWithoutAuth_userInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    message?: JsonNullValueInput | InputJsonValue
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type reviewsUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     comments?: StringFieldUpdateOperationsInput | string
@@ -76561,7 +78250,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -76586,7 +78275,7 @@ export namespace Prisma {
     strike_price?: Decimal | DecimalJsLike | number | string | null
     real_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -76624,6 +78313,7 @@ export namespace Prisma {
     customer?: customerUpdateOneWithoutAuth_userNestedInput
     internal?: internalUpdateOneWithoutAuth_userNestedInput
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
+    notif?: notifUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
@@ -76646,6 +78336,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
@@ -76674,7 +78365,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76705,7 +78396,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76736,7 +78427,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76761,7 +78452,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76792,7 +78483,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76823,7 +78514,7 @@ export namespace Prisma {
     strike_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     real_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -77275,6 +78966,7 @@ export namespace Prisma {
     author?: authorUpdateOneWithoutAuth_userNestedInput
     internal?: internalUpdateOneWithoutAuth_userNestedInput
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
+    notif?: notifUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
@@ -77297,6 +78989,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
@@ -77536,6 +79229,7 @@ export namespace Prisma {
     author?: authorUpdateOneWithoutAuth_userNestedInput
     customer?: customerUpdateOneWithoutAuth_userNestedInput
     publisher?: publisherUpdateOneWithoutAuth_userNestedInput
+    notif?: notifUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
@@ -77558,6 +79252,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
@@ -77650,7 +79345,7 @@ export namespace Prisma {
     alias?: string
     submitted_price: Decimal | DecimalJsLike | number | string
     desc?: string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     currency?: string
     deleted_at?: Date | string | null
@@ -77727,7 +79422,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -77758,7 +79453,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -77789,7 +79484,7 @@ export namespace Prisma {
     alias?: StringFieldUpdateOperationsInput | string
     submitted_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     desc?: StringFieldUpdateOperationsInput | string
-    info?: JsonNullValueInput | InputJsonValue
+    info?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     currency?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -78039,6 +79734,7 @@ export namespace Prisma {
     author?: authorUpdateOneWithoutAuth_userNestedInput
     customer?: customerUpdateOneWithoutAuth_userNestedInput
     internal?: internalUpdateOneWithoutAuth_userNestedInput
+    notif?: notifUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
@@ -78061,6 +79757,7 @@ export namespace Prisma {
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
+    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }

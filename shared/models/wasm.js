@@ -380,6 +380,16 @@ exports.Prisma.MidtrxScalarFieldEnum = {
   payload: 'payload'
 };
 
+exports.Prisma.NotifScalarFieldEnum = {
+  id_user: 'id_user',
+  created_at: 'created_at',
+  message: 'message',
+  type: 'type',
+  status: 'status',
+  url: 'url',
+  data: 'data'
+};
+
 exports.Prisma.PreorderScalarFieldEnum = {
   id: 'id',
   id_product: 'id_product',
@@ -552,12 +562,12 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.JsonNullValueInput = {
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 
-exports.Prisma.NullableJsonNullValueInput = {
-  DbNull: Prisma.DbNull,
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
@@ -605,6 +615,7 @@ exports.Prisma.ModelName = {
   landing: 'landing',
   landing_items: 'landing_items',
   midtrx: 'midtrx',
+  notif: 'notif',
   preorder: 'preorder',
   product: 'product',
   product_category: 'product_category',

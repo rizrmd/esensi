@@ -82,6 +82,7 @@ model auth_user {
   customer           customer?         @relation(fields: [id_customer], references: [id], onDelete: Cascade, map: "user_id_customer_fkey")
   internal           internal?         @relation(fields: [id_internal], references: [id], onDelete: Cascade, map: "user_id_internal_fkey")
   publisher          publisher?        @relation(fields: [id_publisher], references: [id], onDelete: Cascade, map: "user_id_publisher_fkey")
+  notif              notif[]
   reviews            reviews[]
   reviews_likes      reviews_likes[]
 }
@@ -125,7 +126,7 @@ model book {
   alias            String             @default("")
   submitted_price  Decimal            @db.Decimal(18, 2)
   desc             String             @default("")
-  info             Json               @default("{}")
+  info             Json?              @default("{}")
   status           String             @default("draft") @db.VarChar(10)
   currency         String             @default("Rp.") @db.VarChar(3)
   deleted_at       DateTime?
@@ -166,7 +167,7 @@ model book_approval {
 model book_changes_log {
   id_book    String   @db.Uuid
   created_at DateTime @default(now())
-  changes    Json?    @default("{\"blocks\": []}")
+  changes    Json?
   book       book     @relation(fields: [id_book], references: [id], onDelete: Cascade, map: "book_changes_log_fk_id_book")
 
   @@id([id_book, created_at], map: "book_changes_log_pk")
@@ -343,6 +344,19 @@ model midtrx {
   payload Json
 }
 
+model notif {
+  id_user    String    @db.Uuid
+  created_at DateTime  @default(now())
+  message    Json
+  type       String    @db.VarChar
+  status     String    @db.VarChar
+  url        String?   @db.VarChar
+  data       Json?
+  auth_user  auth_user @relation(fields: [id_user], references: [id], onDelete: Cascade, map: "notif_fk_id_user")
+
+  @@id([id_user, created_at], map: "notif_pk")
+}
+
 model preorder {
   id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   id_product  String   @db.Uuid
@@ -362,7 +376,7 @@ model product {
   strike_price     Decimal?           @db.Decimal(18, 2)
   real_price       Decimal            @db.Decimal(18, 2)
   desc             String             @default("")
-  info             Json               @default("{}")
+  info             Json?              @default("{}")
   status           String             @default("draft") @db.VarChar(10)
   currency         String             @default("Rp.") @db.VarChar(3)
   deleted_at       DateTime?
