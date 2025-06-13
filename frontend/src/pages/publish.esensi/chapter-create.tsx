@@ -77,7 +77,7 @@ export default function ChapterCreatePage() {
                   name: "",
                   content: undefined as OutputData | undefined,
                 }}
-                onSubmit={async ({ write, read }) => {
+                onSubmit={async ({ read }) => {
                   if (
                     validate(
                       !read.number,

@@ -20,8 +20,14 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { validate } from "@/lib/utils";
-import { BookStatus, BookTypes, Currency, Role } from "backend/api/types";
+import { validateBatch } from "@/lib/utils";
+import {
+  BookStatus,
+  BookTypeKey,
+  BookTypes,
+  Currency,
+  Role,
+} from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import type { book } from "shared/models";
 
@@ -62,7 +68,7 @@ export default () => {
                 data={{
                   name: "",
                   slug: "",
-                  is_chapter: "chapter",
+                  is_chapter: BookTypeKey.CHAPTER,
                   is_physical: false,
                   alias: "",
                   desc: "",
@@ -78,39 +84,28 @@ export default () => {
                 }}
                 onSubmit={async ({ write, read }) => {
                   if (
-                    validate(!read.name, local, "Nama buku tidak boleh kosong.")
-                  )
-                    return;
-                  if (
-                    validate(
-                      !read.desc,
-                      local,
-                      "Deskripsi buku tidak boleh kosong."
-                    )
-                  )
-                    return;
-                  if (
-                    validate(
-                      !local.files.length,
-                      local,
-                      "Cover buku harus diunggah."
-                    )
-                  )
-                    return;
-                  if (
-                    validate(
-                      !read.submitted_price,
-                      local,
-                      "Harga buku tidak boleh kosong."
-                    )
-                  )
-                    return;
-                  if (
-                    validate(
-                      !read.sku,
-                      local,
-                      "Stock keeping unit tidak boleh kosong."
-                    )
+                    validateBatch(local, [
+                      {
+                        failCondition: !read.name,
+                        message: "Nama buku tidak boleh kosong.",
+                      },
+                      {
+                        failCondition: !read.desc,
+                        message: "Deskripsi buku tidak boleh kosong.",
+                      },
+                      {
+                        failCondition: !local.files.length,
+                        message: "Cover buku harus diunggah.",
+                      },
+                      {
+                        failCondition: !read.submitted_price,
+                        message: "Harga buku tidak boleh kosong.",
+                      },
+                      {
+                        failCondition: !read.sku,
+                        message: "Stock keeping unit tidak boleh kosong.",
+                      },
+                    ])
                   )
                     return;
                   local.isSubmitting = true;
@@ -119,7 +114,6 @@ export default () => {
                   local.render();
 
                   try {
-                    let cover = "";
                     if (local.files.length > 0) {
                       const file = local.files[0];
                       const formData = new FormData();
@@ -139,7 +133,7 @@ export default () => {
                       data: {
                         ...read,
                         id_author: local.authorId!,
-                        is_chapter: read.is_chapter === "chapter",
+                        is_chapter: read.is_chapter === BookTypeKey.CHAPTER,
                         cover: write.cover,
                         published_date: new Date(read.published_date),
                       } as unknown as book,

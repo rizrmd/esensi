@@ -20,9 +20,15 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { getMimeType, isTwoFilesArrayTheSame, validate } from "@/lib/utils";
+import {
+  getMimeType,
+  isTwoFilesArrayTheSame,
+  validate,
+  validateBatch,
+} from "@/lib/utils";
 import {
   BookStatus,
+  BookTypeKey,
   BookTypes,
   Currency,
   Role,
@@ -129,7 +135,9 @@ export default function BookUpdatePage() {
                   data={{
                     name: local.book?.name,
                     slug: local.book?.slug,
-                    is_chapter: local.book?.is_chapter ? "chapter" : "book",
+                    is_chapter: local.book?.is_chapter
+                      ? BookTypeKey.CHAPTER
+                      : BookTypeKey.UTUH,
                     is_physical: local.book?.is_physical,
                     alias: local.book?.alias,
                     desc: local.book?.desc,
@@ -146,43 +154,28 @@ export default function BookUpdatePage() {
                   }}
                   onSubmit={async ({ write, read }) => {
                     if (
-                      validate(
-                        !read.name,
-                        local,
-                        "Nama buku tidak boleh kosong."
-                      )
-                    )
-                      return;
-                    if (
-                      validate(
-                        !read.desc,
-                        local,
-                        "Deskripsi buku tidak boleh kosong."
-                      )
-                    )
-                      return;
-                    if (
-                      validate(
-                        !local.files.new.length,
-                        local,
-                        "Cover buku harus diunggah."
-                      )
-                    )
-                      return;
-                    if (
-                      validate(
-                        !read.submitted_price,
-                        local,
-                        "Harga buku tidak boleh kosong."
-                      )
-                    )
-                      return;
-                    if (
-                      validate(
-                        !read.sku,
-                        local,
-                        "Stock keeping unit tidak boleh kosong."
-                      )
+                      validateBatch(local, [
+                        {
+                          failCondition: !read.name,
+                          message: "Nama buku tidak boleh kosong.",
+                        },
+                        {
+                          failCondition: !read.desc,
+                          message: "Deskripsi buku tidak boleh kosong.",
+                        },
+                        {
+                          failCondition: !local.files.new.length,
+                          message: "Cover buku harus diunggah.",
+                        },
+                        {
+                          failCondition: !read.submitted_price,
+                          message: "Harga buku tidak boleh kosong.",
+                        },
+                        {
+                          failCondition: !read.sku,
+                          message: "Stock keeping unit tidak boleh kosong.",
+                        },
+                      ])
                     )
                       return;
                     local.isSubmitting = true;
@@ -191,7 +184,6 @@ export default function BookUpdatePage() {
                     local.render();
 
                     try {
-                      let cover = "";
                       if (
                         local.files.new.length > 0 &&
                         !isTwoFilesArrayTheSame(
@@ -218,7 +210,7 @@ export default function BookUpdatePage() {
                         data: {
                           ...read,
                           id_author: local.authorId!,
-                          is_chapter: read.is_chapter === "chapter",
+                          is_chapter: read.is_chapter === BookTypeKey.CHAPTER,
                           cover: write.cover,
                           published_date: new Date(read.published_date),
                         } as unknown as book,

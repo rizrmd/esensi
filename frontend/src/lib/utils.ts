@@ -152,6 +152,22 @@ export function validate(
     local.render();
     return true;
   }
+  return false;
+}
+
+export function validateBatch(
+  local: { error: string; render: () => void },
+  options: {
+    failCondition: boolean;
+    message: string;
+  }[]
+) {
+  for (const option of options) {
+    if (validate(option.failCondition, local, option.message)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 export function isValidEditorData(data: any): data is OutputData {
