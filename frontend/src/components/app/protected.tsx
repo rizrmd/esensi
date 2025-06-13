@@ -1,6 +1,7 @@
 import { betterAuth } from "@/lib/better-auth";
 import { baseUrl } from "@/lib/gen/base-url";
 import { useLocal } from "@/lib/hooks/use-local";
+import { notif } from "@/lib/notif";
 import { Link, navigate } from "@/lib/router";
 import { snakeToCamel } from "@/lib/utils";
 import type { Role } from "backend/api/types";
@@ -60,6 +61,8 @@ export const Protected: FC<{
           current.user = e.data.user;
           if (!current.user) navigate("/");
           else {
+            notif.init(current.user.id);
+
             if (current.user["idAffiliate"] === "null")
               current.user["idAffiliate"] = null;
             if (current.user["idAuthor"] === "null")
