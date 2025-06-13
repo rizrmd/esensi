@@ -1,6 +1,16 @@
 import { $ } from "bun";
-import config from "../.././config.json";
 import { join } from "path";
+import config from "../.././config.json";
+
+import {
+  initDev,
+  initEnv,
+  initProd,
+  type onFetch,
+  type SiteConfig,
+} from "rlib/server";
+import { auth } from "./lib/better-auth";
+import { wsNotif } from "./lib/notif";
 
 if (config?.db?.orm === "prisma") {
   if (
@@ -12,15 +22,6 @@ if (config?.db?.orm === "prisma") {
     await $`bun prisma generate`.cwd(join(process.cwd(), "shared")).quiet();
   }
 }
-
-import {
-  initDev,
-  initEnv,
-  initProd,
-  type onFetch,
-  type SiteConfig,
-} from "rlib/server";
-import { auth } from "./lib/better-auth";
 
 const { isDev } = initEnv();
 
@@ -41,12 +42,15 @@ const onFetch: onFetch = async ({ url, req }) => {
 };
 const index = (await import("frontend/entry/index.html")).default;
 
+const ws = { notif: wsNotif };
+
 if (isDev) {
   initDev({
     index,
     loadApi,
     loadModels,
     onFetch,
+    ws,
   });
 } else {
   const config = (await import("../../config.json")) as SiteConfig;
@@ -56,5 +60,6 @@ if (isDev) {
     loadModels,
     onFetch,
     config,
+    ws,
   });
 }

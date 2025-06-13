@@ -35438,17 +35438,21 @@ export namespace Prisma {
   export type NotifMinAggregateOutputType = {
     id_user: string | null
     created_at: Date | null
+    message: string | null
     type: string | null
     status: string | null
     url: string | null
+    thumbnail: string | null
   }
 
   export type NotifMaxAggregateOutputType = {
     id_user: string | null
     created_at: Date | null
+    message: string | null
     type: string | null
     status: string | null
     url: string | null
+    thumbnail: string | null
   }
 
   export type NotifCountAggregateOutputType = {
@@ -35459,6 +35463,7 @@ export namespace Prisma {
     status: number
     url: number
     data: number
+    thumbnail: number
     _all: number
   }
 
@@ -35466,17 +35471,21 @@ export namespace Prisma {
   export type NotifMinAggregateInputType = {
     id_user?: true
     created_at?: true
+    message?: true
     type?: true
     status?: true
     url?: true
+    thumbnail?: true
   }
 
   export type NotifMaxAggregateInputType = {
     id_user?: true
     created_at?: true
+    message?: true
     type?: true
     status?: true
     url?: true
+    thumbnail?: true
   }
 
   export type NotifCountAggregateInputType = {
@@ -35487,6 +35496,7 @@ export namespace Prisma {
     status?: true
     url?: true
     data?: true
+    thumbnail?: true
     _all?: true
   }
 
@@ -35565,11 +35575,12 @@ export namespace Prisma {
   export type NotifGroupByOutputType = {
     id_user: string
     created_at: Date
-    message: JsonValue
+    message: string
     type: string
     status: string
     url: string | null
     data: JsonValue | null
+    thumbnail: string | null
     _count: NotifCountAggregateOutputType | null
     _min: NotifMinAggregateOutputType | null
     _max: NotifMaxAggregateOutputType | null
@@ -35597,6 +35608,7 @@ export namespace Prisma {
     status?: boolean
     url?: boolean
     data?: boolean
+    thumbnail?: boolean
     auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notif"]>
 
@@ -35608,6 +35620,7 @@ export namespace Prisma {
     status?: boolean
     url?: boolean
     data?: boolean
+    thumbnail?: boolean
     auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notif"]>
 
@@ -35619,6 +35632,7 @@ export namespace Prisma {
     status?: boolean
     url?: boolean
     data?: boolean
+    thumbnail?: boolean
     auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notif"]>
 
@@ -35630,9 +35644,10 @@ export namespace Prisma {
     status?: boolean
     url?: boolean
     data?: boolean
+    thumbnail?: boolean
   }
 
-  export type notifOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_user" | "created_at" | "message" | "type" | "status" | "url" | "data", ExtArgs["result"]["notif"]>
+  export type notifOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_user" | "created_at" | "message" | "type" | "status" | "url" | "data" | "thumbnail", ExtArgs["result"]["notif"]>
   export type notifInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_user?: boolean | auth_userDefaultArgs<ExtArgs>
   }
@@ -35651,11 +35666,12 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id_user: string
       created_at: Date
-      message: Prisma.JsonValue
+      message: string
       type: string
       status: string
       url: string | null
       data: Prisma.JsonValue | null
+      thumbnail: string | null
     }, ExtArgs["result"]["notif"]>
     composites: {}
   }
@@ -36082,11 +36098,12 @@ export namespace Prisma {
   interface notifFieldRefs {
     readonly id_user: FieldRef<"notif", 'String'>
     readonly created_at: FieldRef<"notif", 'DateTime'>
-    readonly message: FieldRef<"notif", 'Json'>
+    readonly message: FieldRef<"notif", 'String'>
     readonly type: FieldRef<"notif", 'String'>
     readonly status: FieldRef<"notif", 'String'>
     readonly url: FieldRef<"notif", 'String'>
     readonly data: FieldRef<"notif", 'Json'>
+    readonly thumbnail: FieldRef<"notif", 'String'>
   }
     
 
@@ -56288,7 +56305,8 @@ export namespace Prisma {
     type: 'type',
     status: 'status',
     url: 'url',
-    data: 'data'
+    data: 'data',
+    thumbnail: 'thumbnail'
   };
 
   export type NotifScalarFieldEnum = (typeof NotifScalarFieldEnum)[keyof typeof NotifScalarFieldEnum]
@@ -58510,11 +58528,12 @@ export namespace Prisma {
     NOT?: notifWhereInput | notifWhereInput[]
     id_user?: UuidFilter<"notif"> | string
     created_at?: DateTimeFilter<"notif"> | Date | string
-    message?: JsonFilter<"notif">
+    message?: StringFilter<"notif"> | string
     type?: StringFilter<"notif"> | string
     status?: StringFilter<"notif"> | string
     url?: StringNullableFilter<"notif"> | string | null
     data?: JsonNullableFilter<"notif">
+    thumbnail?: StringNullableFilter<"notif"> | string | null
     auth_user?: XOR<Auth_userScalarRelationFilter, auth_userWhereInput>
   }
 
@@ -58526,6 +58545,7 @@ export namespace Prisma {
     status?: SortOrder
     url?: SortOrderInput | SortOrder
     data?: SortOrderInput | SortOrder
+    thumbnail?: SortOrderInput | SortOrder
     auth_user?: auth_userOrderByWithRelationInput
   }
 
@@ -58536,11 +58556,12 @@ export namespace Prisma {
     NOT?: notifWhereInput | notifWhereInput[]
     id_user?: UuidFilter<"notif"> | string
     created_at?: DateTimeFilter<"notif"> | Date | string
-    message?: JsonFilter<"notif">
+    message?: StringFilter<"notif"> | string
     type?: StringFilter<"notif"> | string
     status?: StringFilter<"notif"> | string
     url?: StringNullableFilter<"notif"> | string | null
     data?: JsonNullableFilter<"notif">
+    thumbnail?: StringNullableFilter<"notif"> | string | null
     auth_user?: XOR<Auth_userScalarRelationFilter, auth_userWhereInput>
   }, "id_user_created_at">
 
@@ -58552,6 +58573,7 @@ export namespace Prisma {
     status?: SortOrder
     url?: SortOrderInput | SortOrder
     data?: SortOrderInput | SortOrder
+    thumbnail?: SortOrderInput | SortOrder
     _count?: notifCountOrderByAggregateInput
     _max?: notifMaxOrderByAggregateInput
     _min?: notifMinOrderByAggregateInput
@@ -58563,11 +58585,12 @@ export namespace Prisma {
     NOT?: notifScalarWhereWithAggregatesInput | notifScalarWhereWithAggregatesInput[]
     id_user?: UuidWithAggregatesFilter<"notif"> | string
     created_at?: DateTimeWithAggregatesFilter<"notif"> | Date | string
-    message?: JsonWithAggregatesFilter<"notif">
+    message?: StringWithAggregatesFilter<"notif"> | string
     type?: StringWithAggregatesFilter<"notif"> | string
     status?: StringWithAggregatesFilter<"notif"> | string
     url?: StringNullableWithAggregatesFilter<"notif"> | string | null
     data?: JsonNullableWithAggregatesFilter<"notif">
+    thumbnail?: StringNullableWithAggregatesFilter<"notif"> | string | null
   }
 
   export type preorderWhereInput = {
@@ -61704,71 +61727,78 @@ export namespace Prisma {
 
   export type notifCreateInput = {
     created_at?: Date | string
-    message: JsonNullValueInput | InputJsonValue
+    message: string
     type: string
     status: string
     url?: string | null
     data?: NullableJsonNullValueInput | InputJsonValue
+    thumbnail?: string | null
     auth_user: auth_userCreateNestedOneWithoutNotifInput
   }
 
   export type notifUncheckedCreateInput = {
     id_user: string
     created_at?: Date | string
-    message: JsonNullValueInput | InputJsonValue
+    message: string
     type: string
     status: string
     url?: string | null
     data?: NullableJsonNullValueInput | InputJsonValue
+    thumbnail?: string | null
   }
 
   export type notifUpdateInput = {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    message?: JsonNullValueInput | InputJsonValue
+    message?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     url?: NullableStringFieldUpdateOperationsInput | string | null
     data?: NullableJsonNullValueInput | InputJsonValue
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     auth_user?: auth_userUpdateOneRequiredWithoutNotifNestedInput
   }
 
   export type notifUncheckedUpdateInput = {
     id_user?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    message?: JsonNullValueInput | InputJsonValue
+    message?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     url?: NullableStringFieldUpdateOperationsInput | string | null
     data?: NullableJsonNullValueInput | InputJsonValue
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type notifCreateManyInput = {
     id_user: string
     created_at?: Date | string
-    message: JsonNullValueInput | InputJsonValue
+    message: string
     type: string
     status: string
     url?: string | null
     data?: NullableJsonNullValueInput | InputJsonValue
+    thumbnail?: string | null
   }
 
   export type notifUpdateManyMutationInput = {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    message?: JsonNullValueInput | InputJsonValue
+    message?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     url?: NullableStringFieldUpdateOperationsInput | string | null
     data?: NullableJsonNullValueInput | InputJsonValue
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type notifUncheckedUpdateManyInput = {
     id_user?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    message?: JsonNullValueInput | InputJsonValue
+    message?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     url?: NullableStringFieldUpdateOperationsInput | string | null
     data?: NullableJsonNullValueInput | InputJsonValue
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type preorderCreateInput = {
@@ -64673,22 +64703,27 @@ export namespace Prisma {
     status?: SortOrder
     url?: SortOrder
     data?: SortOrder
+    thumbnail?: SortOrder
   }
 
   export type notifMaxOrderByAggregateInput = {
     id_user?: SortOrder
     created_at?: SortOrder
+    message?: SortOrder
     type?: SortOrder
     status?: SortOrder
     url?: SortOrder
+    thumbnail?: SortOrder
   }
 
   export type notifMinOrderByAggregateInput = {
     id_user?: SortOrder
     created_at?: SortOrder
+    message?: SortOrder
     type?: SortOrder
     status?: SortOrder
     url?: SortOrder
+    thumbnail?: SortOrder
   }
 
   export type preorderCountOrderByAggregateInput = {
@@ -70160,20 +70195,22 @@ export namespace Prisma {
 
   export type notifCreateWithoutAuth_userInput = {
     created_at?: Date | string
-    message: JsonNullValueInput | InputJsonValue
+    message: string
     type: string
     status: string
     url?: string | null
     data?: NullableJsonNullValueInput | InputJsonValue
+    thumbnail?: string | null
   }
 
   export type notifUncheckedCreateWithoutAuth_userInput = {
     created_at?: Date | string
-    message: JsonNullValueInput | InputJsonValue
+    message: string
     type: string
     status: string
     url?: string | null
     data?: NullableJsonNullValueInput | InputJsonValue
+    thumbnail?: string | null
   }
 
   export type notifCreateOrConnectWithoutAuth_userInput = {
@@ -70522,11 +70559,12 @@ export namespace Prisma {
     NOT?: notifScalarWhereInput | notifScalarWhereInput[]
     id_user?: UuidFilter<"notif"> | string
     created_at?: DateTimeFilter<"notif"> | Date | string
-    message?: JsonFilter<"notif">
+    message?: StringFilter<"notif"> | string
     type?: StringFilter<"notif"> | string
     status?: StringFilter<"notif"> | string
     url?: StringNullableFilter<"notif"> | string | null
     data?: JsonNullableFilter<"notif">
+    thumbnail?: StringNullableFilter<"notif"> | string | null
   }
 
   export type reviewsUpsertWithWhereUniqueWithoutAuth_userInput = {
@@ -78027,11 +78065,12 @@ export namespace Prisma {
 
   export type notifCreateManyAuth_userInput = {
     created_at?: Date | string
-    message: JsonNullValueInput | InputJsonValue
+    message: string
     type: string
     status: string
     url?: string | null
     data?: NullableJsonNullValueInput | InputJsonValue
+    thumbnail?: string | null
   }
 
   export type reviewsCreateManyAuth_userInput = {
@@ -78154,29 +78193,32 @@ export namespace Prisma {
 
   export type notifUpdateWithoutAuth_userInput = {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    message?: JsonNullValueInput | InputJsonValue
+    message?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     url?: NullableStringFieldUpdateOperationsInput | string | null
     data?: NullableJsonNullValueInput | InputJsonValue
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type notifUncheckedUpdateWithoutAuth_userInput = {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    message?: JsonNullValueInput | InputJsonValue
+    message?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     url?: NullableStringFieldUpdateOperationsInput | string | null
     data?: NullableJsonNullValueInput | InputJsonValue
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type notifUncheckedUpdateManyWithoutAuth_userInput = {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    message?: JsonNullValueInput | InputJsonValue
+    message?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     url?: NullableStringFieldUpdateOperationsInput | string | null
     data?: NullableJsonNullValueInput | InputJsonValue
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type reviewsUpdateWithoutAuth_userInput = {

@@ -387,7 +387,8 @@ exports.Prisma.NotifScalarFieldEnum = {
   type: 'type',
   status: 'status',
   url: 'url',
-  data: 'data'
+  data: 'data',
+  thumbnail: 'thumbnail'
 };
 
 exports.Prisma.PreorderScalarFieldEnum = {
