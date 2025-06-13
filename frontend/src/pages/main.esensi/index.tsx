@@ -20,6 +20,15 @@ import { StoreFeaturedProducts } from "@/components/esensi/store-featured-produc
 export default () => {
   const local = useLocal(
     {
+      header_config: {
+        enable: true,
+        logo: true,
+        back: false,
+        search: true,
+        title: null,
+        cart: true,
+        profile: true,
+      },
       featured: {
         loading: true,
         list: [] as StoreCategoryItem[],
@@ -144,7 +153,7 @@ export default () => {
   };
 
   return (
-    <MainEsensiLayout title="Toko Buku">
+    <MainEsensiLayout header_config={local.header_config}>
       <div className="w-full flex flex-col justify-center items-center gap-10 lg:[&>div:not(.esensi-banner)]:max-w-[1200px]">
         <div className="esensi-banner order-1 lg:order-0 -mt-10 lg:mt-0 w-full">
           <StoreHeaderBanner

@@ -4,7 +4,6 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { api } from "@/lib/gen/main.esensi";
 import { BookDetail } from "@/components/esensi/book-detail";
 
-
 export default () => {
   const { params } = useParams();
   const local = useLocal(
@@ -13,11 +12,11 @@ export default () => {
       data: {} as any,
     },
     async () => {
-      const res = await api.product({ slug: params.id });
-      local.data = res.product;
+      const res = await api.product();
+      local.data = res.data.product;
       console.log(local.data);
       local.render();
-    }
+    },
   );
 
   return (

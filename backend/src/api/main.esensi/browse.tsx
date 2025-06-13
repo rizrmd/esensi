@@ -8,7 +8,7 @@ export default defineAPI({
   async handler() {
     const req = this.req!;
     const page = req.params?.page ? parseInt(req.params.page) : 1;
-    const books_per_page = 20;
+    const books_per_page = 24;
     const skip_books = page > 1 ? (page - 1) * books_per_page : 0;
 
     const products = await db.product.findMany({
@@ -42,9 +42,9 @@ export default defineAPI({
 
     const data = {
       title: `Lihat Semua Ebook`,
-      products: products,
+      list: products,
       page: page,
-      pages: total_pages,
+      total_pages: total_pages,
     };
 
     const seo_data = {
