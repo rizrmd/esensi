@@ -11,6 +11,7 @@ import type {
   chapter,
   customer,
   internal,
+  notif,
   product,
   promo_code,
   publisher,
@@ -169,12 +170,21 @@ export enum BadgeStatus {
   REFUNDED = "refunded",
 }
 
+export enum BookTypeKey {
+  UTUH = "utuh",
+  CHAPTER = "chapter",
+}
+
 export const BookTypes = [
-  { label: "Buku Utuh", key: "utuh" },
-  { label: "Buku Chapter", key: "chapter" },
+  { label: "Buku Utuh", key: BookTypeKey.UTUH },
+  { label: "Buku Chapter", key: BookTypeKey.CHAPTER },
 ];
 
 export type Chapter = chapter & {
   book: book | null;
   product: product | null;
+};
+
+export type Notif = notif & {
+  auth_user: auth_user;
 };
