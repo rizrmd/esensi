@@ -46,7 +46,6 @@ export default defineAPI({
     });
 
     const data = {
-      title: `Detil Ebook`,
       product: product,
       categories: categories,
     };

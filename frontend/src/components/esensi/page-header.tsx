@@ -1,5 +1,5 @@
 import { Button } from "../ui/button";
-import { navigate } from "@/lib/router";
+import { Link, navigate } from "@/lib/router";
 import {
   ArrowLeft,
   ChevronLeft,
@@ -135,40 +135,46 @@ export const PageHeader = ({
         )}
 
         {/* Logo */}
-        {local.logo && (
+        <Link
+          href="/"
+          className={`w-auto h-auto ${local.logo ? "flex" : "hidden lg:flex"}`}
+        >
           <img
             src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhOUKb6M5yGcRNhuM1NHSBaAvbNYSFAibMX-1xCI8gI8jl-h566LB-SNs4PW7s2hyphenhyphenj9WNdyhCtn8LFqX9V2j-ABFZoN-nw34q0l4Hf3a13EMffqv6edTQAzK7O-8RXpOIA69rTg6g60hv0eME6yDgJpUZEFIastMfEW-6Pjpq6LFXoGdKExm7L-Hu9PYy8/s1600/esensi-online-logo.png"
             alt="Esensi Online"
             className="h-8 w-auto lg:h-16"
           />
-        )}
+        </Link>
 
         {/* Title Bar */}
         {local.title !== null && local.title !== "" && (
-          <div className="flex lg:hidden justify-content items-center color-[#3B2C93]">
-            {local.title}
+          <div className="flex flex-1 lg:hidden justify-content items-center color-[#3B2C93]">
+            <span className="flex w-full justify-center items-center">
+              {local.title}
+            </span>
           </div>
         )}
 
         {/* Search Bar */}
-        {local.search && (
-          <div className="flex-1 mx-4 lg:ml-12 lg:mr-4">
-            <div className="relative">
-              <Search className="absolute left-2 lg:left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                type="text"
-                placeholder="Cari buku..."
-                className="w-full pl-8 lg:pl-10 bg-[#F6F6F6] text-[#000] rounded-full text-sm border-none focus:border-none focus:ring-0"
-                value={local.searchQuery}
-                onChange={(e) => {
-                  local.searchQuery = e.target.value;
-                  local.render();
-                }}
-                onKeyUp={handleSearch}
-              />
-            </div>
+
+        <div
+          className={`${local.search ? "flex" : "hidden lg:flex"} flex-1 mx-4 lg:ml-12 lg:mr-4`}
+        >
+          <div className="flex w-full relative">
+            <Search className="absolute left-2 lg:left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Cari buku..."
+              className="w-full pl-8 lg:pl-10 bg-[#F6F6F6] text-[#000] rounded-full text-sm border-none focus:border-none focus:ring-0"
+              value={local.searchQuery}
+              onChange={(e) => {
+                local.searchQuery = e.target.value;
+                local.render();
+              }}
+              onKeyUp={handleSearch}
+            />
           </div>
-        )}
+        </div>
 
         {/* Navigation Menu */}
         <NavigationMenu className="hidden lg:flex ml-4 lg:mx-8">
@@ -211,29 +217,25 @@ export const PageHeader = ({
 
         {/* Right side icons */}
         <div className="flex items-center -mx-4">
-          {local.cart && (
-            <Button
-              variant="ghost"
-              onClick={() => navigate("/cart")}
-              className="rounded-full p-2 aspect-square"
-            >
-              <ShoppingCart
-                color="#3B2C93"
-                strokeWidth={2.25}
-                className="size-5"
-              />
-            </Button>
-          )}
+          <Button
+            variant="ghost"
+            onClick={() => navigate("/cart")}
+            className={`${local.cart ? "flex" : "hidden lg:flex"} rounded-full p-2 aspect-square`}
+          >
+            <ShoppingCart
+              color="#3B2C93"
+              strokeWidth={2.25}
+              className="size-5"
+            />
+          </Button>
 
-          {local.profile && (
-            <Button
-              variant="ghost"
-              onClick={() => navigate("/profile")}
-              className="rounded-full p-2 aspect-square"
-            >
-              <User color="#3B2C93" strokeWidth={2.25} className="size-5" />
-            </Button>
-          )}
+          <Button
+            variant="ghost"
+            onClick={() => navigate("/profile")}
+            className={`${local.profile ? "flex" : "hidden lg:flex"} rounded-full p-2 aspect-square`}
+          >
+            <User color="#3B2C93" strokeWidth={2.25} className="size-5" />
+          </Button>
         </div>
       </div>
     </header>
