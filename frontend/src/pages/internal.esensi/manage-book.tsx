@@ -1,9 +1,9 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { Breadcrumb } from "@/components/ext/book/breadcrumb/list";
+import { book, Item } from "@/components/ext/book/item-manage";
 import { Error } from "@/components/ext/error";
 import { Img } from "@/components/ext/img/list";
-import { book, Item } from "@/components/ext/book/item-manage";
 import { LayoutToggle } from "@/components/ext/layout-toggle";
 import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,7 +13,7 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { ItemLayoutEnum } from "@/lib/utils";
-import { Role, type Book } from "backend/api/types";
+import { Role, type Book } from "backend/lib/types";
 
 export default () => {
   const local = useLocal(
@@ -137,10 +137,7 @@ export default () => {
                                 </CardTitle>
                               </CardHeader>
                               <CardContent className="pb-4">
-                                <Item
-                                  type={local.layout}
-                                  item={book(item)}
-                                />
+                                <Item type={local.layout} item={book(item)} />
                               </CardContent>
                             </Card>
                           </div>
@@ -173,10 +170,7 @@ export default () => {
                                   {item.name}
                                 </h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                  <Item
-                                    type={local.layout}
-                                    item={book(item)}
-                                  />
+                                  <Item type={local.layout} item={book(item)} />
                                 </div>
                               </div>
                             </div>
@@ -228,10 +222,7 @@ export default () => {
                                     alt={item.name}
                                   />
                                 </td>
-                                <Item
-                                  type={local.layout}
-                                  item={book(item)}
-                                />
+                                <Item type={local.layout} item={book(item)} />
                               </tr>
                             ))}
                           </tbody>
@@ -247,4 +238,4 @@ export default () => {
       </div>
     </Protected>
   );
-}
+};

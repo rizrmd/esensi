@@ -2,7 +2,7 @@ import { Protected } from "@/components/app/protected";
 import { Error } from "@/components/ext/error";
 import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
 import { useLocal } from "@/lib/hooks/use-local";
-import { Role } from "backend/api/types";
+import { Role } from "backend/lib/types";
 
 export default () => {
   const local = useLocal({

@@ -20,7 +20,7 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { validate, validateBatch } from "@/lib/utils";
 import type { OutputData } from "@editorjs/editorjs";
-import { Role } from "backend/api/types";
+import { Role } from "backend/lib/types";
 import type { chapter } from "shared/models";
 
 export default function ChapterCreatePage() {

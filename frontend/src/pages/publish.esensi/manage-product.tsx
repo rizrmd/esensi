@@ -15,8 +15,8 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { ItemLayoutEnum } from "@/lib/utils";
-import { Role, type Product } from "backend/api/types";
 import type { User } from "backend/lib/better-auth";
+import { Role, type Product } from "backend/lib/types";
 
 export const current = {
   user: undefined as User | undefined,
@@ -259,4 +259,4 @@ export default () => {
       </div>
     </Protected>
   );
-}
+};

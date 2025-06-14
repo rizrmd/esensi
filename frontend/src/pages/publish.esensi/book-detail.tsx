@@ -17,7 +17,7 @@ import {
   Role,
   type Book,
   type BookChangesLog as BookChangesLogType,
-} from "backend/api/types";
+} from "backend/lib/types";
 
 export default () => {
   const local = useLocal(

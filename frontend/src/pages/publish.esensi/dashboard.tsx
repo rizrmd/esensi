@@ -3,7 +3,7 @@ import { Error } from "@/components/ext/error";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { PublishFallback } from "@/components/ext/publish-fallback";
 import { useLocal } from "@/lib/hooks/use-local";
-import { Role } from "backend/api/types";
+import { Role } from "backend/lib/types";
 
 export default () => {
   const local = useLocal({

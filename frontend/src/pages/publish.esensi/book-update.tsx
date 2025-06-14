@@ -26,6 +26,7 @@ import {
   validate,
   validateBatch,
 } from "@/lib/utils";
+import type { UploadAPIResponse } from "backend/api/upload";
 import {
   BookStatus,
   BookTypeKey,
@@ -33,8 +34,7 @@ import {
   Currency,
   Role,
   type Book,
-} from "backend/api/types";
-import type { UploadAPIResponse } from "backend/api/upload";
+} from "backend/lib/types";
 import type { book } from "shared/models";
 
 export default function BookUpdatePage() {

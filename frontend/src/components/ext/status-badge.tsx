@@ -1,4 +1,4 @@
-import { BadgeStatus } from "backend/api/types";
+import { BadgeStatus } from "backend/lib/types";
 import type { FC } from "react";
 import { Badge } from "../ui/badge";
 

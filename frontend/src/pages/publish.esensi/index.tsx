@@ -3,7 +3,7 @@ import { SideForm } from "@/components/ext/side-form";
 import { Button } from "@/components/ui/button";
 import { baseUrl } from "@/lib/gen/base-url";
 import { navigate } from "@/lib/router";
-import { Role } from "backend/api/types";
+import { Role } from "backend/lib/types";
 
 export default () => {
   const content = (

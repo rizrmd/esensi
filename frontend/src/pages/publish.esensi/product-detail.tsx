@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
-import { Role, type Product } from "backend/api/types";
+import { Role, type Product } from "backend/lib/types";
 
 export default () => {
   const local = useLocal(

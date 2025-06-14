@@ -9,8 +9,8 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import type { author } from "backend/api/publish.esensi/onboarding";
-import { Role } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
+import { Role } from "backend/lib/types";
 
 export default () => {
   const local = useLocal(

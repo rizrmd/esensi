@@ -1,5 +1,5 @@
 import { navigate } from "@/lib/router";
-import { Role } from "backend/api/types";
+import { Role } from "backend/lib/types";
 import { AppLoading } from "../app/loading";
 
 export const PublishFallback = (opt: { missing_role: Role[] }) => {

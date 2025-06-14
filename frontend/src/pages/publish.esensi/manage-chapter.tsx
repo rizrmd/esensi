@@ -14,8 +14,8 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { ItemLayoutEnum, validate } from "@/lib/utils";
-import { BookStatus, Role, type Book } from "backend/api/types";
 import type { User } from "backend/lib/better-auth";
+import { BookStatus, Role, type Book } from "backend/lib/types";
 import { PlusCircle, Trash2 } from "lucide-react";
 import type { chapter } from "shared/models";
 

@@ -21,7 +21,7 @@ import {
   Role,
   type Book,
   type BookApproval,
-} from "backend/api/types";
+} from "backend/lib/types";
 import {
   CalendarIcon,
   MessageCircle,

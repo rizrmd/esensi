@@ -19,13 +19,13 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { formatCurrency, formatDateObject, validate } from "@/lib/utils";
+import type { User } from "backend/lib/better-auth";
 import {
   BookStatus,
   Role,
   type Book,
   type BookApproval,
-} from "backend/api/types";
-import type { User } from "backend/lib/better-auth";
+} from "backend/lib/types";
 import {
   CalendarIcon,
   MessageCircle,

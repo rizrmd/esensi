@@ -7,7 +7,7 @@ import { PublishFallback } from "@/components/ext/publish-fallback";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import type { BookStep } from "@/lib/utils";
-import { BookStatus, Role, type Book } from "backend/api/types";
+import { BookStatus, Role, type Book } from "backend/lib/types";
 
 export default () => {
   const local = useLocal(
@@ -148,4 +148,4 @@ export default () => {
       </div>
     </Protected>
   );
-}
+};

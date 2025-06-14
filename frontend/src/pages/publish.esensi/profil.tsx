@@ -25,9 +25,9 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { getMimeType } from "@/lib/utils";
 import type { author } from "backend/api/publish.esensi/onboarding";
-import { Role, type Author } from "backend/api/types";
 import type { UploadAPIResponse } from "backend/api/upload";
 import type { User } from "backend/lib/better-auth";
+import { Role, type Author } from "backend/lib/types";
 
 export const current = {
   user: undefined as User | undefined,

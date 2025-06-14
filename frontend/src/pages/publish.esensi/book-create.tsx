@@ -21,14 +21,14 @@ import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { validateBatch } from "@/lib/utils";
+import type { UploadAPIResponse } from "backend/api/upload";
 import {
   BookStatus,
   BookTypeKey,
   BookTypes,
   Currency,
   Role,
-} from "backend/api/types";
-import type { UploadAPIResponse } from "backend/api/upload";
+} from "backend/lib/types";
 import type { book } from "shared/models";
 
 export default () => {
