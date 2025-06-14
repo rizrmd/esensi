@@ -33,6 +33,12 @@ export default defineAPI({
       },
     });
 
+    const author = await db.author.findFirst({
+      select: {
+        name: true,
+      },
+    });
+
     let cats = "";
     product?.product_category.map((cat) => {
       cats = cats + ", " + cat.category.name;
@@ -45,9 +51,30 @@ export default defineAPI({
       };
     });
 
+    const dummy = await db.product.findFirst({
+      where: {
+        slug: "gtm-no-worries-solusi-jitu-anak-doyan-makan-lagi",
+        status: "published",
+        deleted_at: null,
+      },
+    });
+    const dummycat = [
+      {
+        name: "tes 1",
+        slug: "#",
+      },
+      {
+        name: "tes 1",
+        slug: "#",
+      },
+    ];
+
     const data = {
       product: product,
       categories: categories,
+      author: author,
+      dummy: dummy,
+      dummycat: dummycat,
     };
 
     const seo_data = {
