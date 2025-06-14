@@ -20,12 +20,16 @@ function AppRoot() {
   const isAuthDomain =
     window.location.hostname === "localhost" && window.location.port === "7500";
 
+  const init_data = (window as any).__data || {};
+
   if (isAuthPath || isAuthDomain) {
     return (
       <>
         {Page ? (
           <ParamsContext.Provider value={params}>
-            <AppLayout>{Page ? <Page /> : <div>Page not found</div>}</AppLayout>
+            <AppLayout>
+              {Page ? <Page {...init_data} /> : <div>Page not found</div>}
+            </AppLayout>
           </ParamsContext.Provider>
         ) : (
           <div>Page not found</div>
@@ -36,7 +40,9 @@ function AppRoot() {
 
   return (
     <ParamsContext.Provider value={params}>
-      <AppLayout>{Page ? <Page /> : <div>Page not found</div>}</AppLayout>
+      <AppLayout>
+        {Page ? <Page {...init_data} /> : <div>Page not found</div>}
+      </AppLayout>
     </ParamsContext.Provider>
   );
 }

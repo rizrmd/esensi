@@ -1,14 +1,12 @@
-import { useLocal } from "@/lib/hooks/use-local";
-import { api } from "@/lib/gen/main.esensi";
 import { MainEsensiLayout } from "@/components/esensi/layout";
 import {
   LayoutBookList,
   type BooksCardType,
 } from "@/components/esensi/layout-book-list";
-import { useParams } from "@/lib/hooks/use-router";
+import { api } from "@/lib/gen/main.esensi";
+import { useLocal } from "@/lib/hooks/use-local";
 
-export default () => {
-  const params = useParams();
+export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
   const header_config = {
     enable: true,
     logo: true,
@@ -18,6 +16,7 @@ export default () => {
     cart: true,
     profile: true,
   };
+
   const local = useLocal(
     {
       title: "" as string,
@@ -35,12 +34,11 @@ export default () => {
       },
     },
     async () => {
-      const res = await api.browse();
-      local.list = res.data.list;
-      local.page = res.data.page;
-      local.total_pages = res.data.total_pages;
+      local.list = data.list;
+      local.page = data.page;
+      local.total_pages = data.total_pages;
       local.title = `Dunia Baru Dimulai dari Satu Halaman${
-        res.data.page > 1 ? ` | Page #${res.data.page}` : ""
+        data.page > 1 ? ` | Page #${data.page}` : ""
       }`;
       local.loading = false;
       local.render();
@@ -49,7 +47,6 @@ export default () => {
 
   return (
     <MainEsensiLayout header_config={header_config}>
-      {JSON.stringify(params)}
       <LayoutBookList
         title={local.title}
         loading={local.loading}

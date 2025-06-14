@@ -5,6 +5,7 @@ import { Frown, ListFilter } from "lucide-react";
 import { FilterItem } from "./filter-item";
 import { BookCardLoading } from "./book-card-loading";
 import { BookCard } from "./book-card";
+import { Fragment } from "react/jsx-runtime";
 
 export type BooksCardType = {
   name: string;
@@ -102,7 +103,7 @@ export const LayoutBookList = ({ title, loading, list, page, total_pages }) => {
         ],
       },
     },
-    async () => {},
+    async () => {}
   );
 
   const handlePage = (page: number) => {
@@ -117,7 +118,7 @@ export const LayoutBookList = ({ title, loading, list, page, total_pages }) => {
 
   const handleFilterItem = (
     name = "" as string | null,
-    value = null as string | null,
+    value = null as string | null
   ) => {
     if (name !== "" && name !== null) {
       const the_value = value !== "" ? value : null;
@@ -140,7 +141,7 @@ export const LayoutBookList = ({ title, loading, list, page, total_pages }) => {
   };
 
   const buildFilters = local.filters.list.map((flt, idx) => {
-    let filterSection = <></>;
+    let filterSection = <Fragment key={idx}></Fragment>;
     if (flt.options.length > 0) {
       let filterTitle = <strong className="flex font-bold">{flt.label}</strong>;
       let filterOptions = flt.options.map((o, oidx) => {
@@ -242,14 +243,20 @@ export const LayoutBookList = ({ title, loading, list, page, total_pages }) => {
       </div>
 
       <div
-        className={`${local.filters.open ? "flex" : "hidden"} w-[100vw] h-[100vh] fixed bg-[#00000066] z-[60] top-0 left-0`}
+        className={`${
+          local.filters.open ? "flex" : "hidden"
+        } w-[100vw] h-[100vh] fixed bg-[#00000066] z-[60] top-0 left-0`}
         onClick={(e) => {
           e.preventDefault();
           handleFilterPopup();
         }}
       ></div>
       <div
-        className={`flex flex-col fixed w-full h-auto max-h-1/2 lg:max-w-sm lg:w-auto lg:min-w-2xs lg:h-full lg:max-h-none gap-8 lg:gap-5 p-4 bottom-0 left-0 lg:top-0 rounded-t-3xl lg:rounded-t-none bg-white z-[65] transition-transform ${local.filters.open ? "translate-y-0 lg:translate-x-0" : "translate-y-full translate-x-0 lg:translate-y-0 lg:-translate-x-full"}`}
+        className={`flex flex-col fixed w-full h-auto max-h-1/2 lg:max-w-sm lg:w-auto lg:min-w-2xs lg:h-full lg:max-h-none gap-8 lg:gap-5 p-4 bottom-0 left-0 lg:top-0 rounded-t-3xl lg:rounded-t-none bg-white z-[65] transition-transform ${
+          local.filters.open
+            ? "translate-y-0 lg:translate-x-0"
+            : "translate-y-full translate-x-0 lg:translate-y-0 lg:-translate-x-full"
+        }`}
       >
         <div className="flex flex-col w-full items-center gap-2 -mt-1">
           <hr className="h-1 w-10 rounded-full border-4 border-[#3030C1] lg:hidden" />
