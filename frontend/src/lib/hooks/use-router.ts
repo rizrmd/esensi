@@ -129,24 +129,13 @@ export function useRoot() {
       let matchedParams = {};
 
       if (!pageLoader) {
-        if (!domainKey) {
-          for (const [pattern, loader] of Object.entries(pageModules)) {
-            const routePattern = parsePattern(pattern);
-            const params = matchRoute(path, routePattern);
-            if (params) {
-              pageLoader = loader;
-              matchedParams = params;
-              break;
-            }
-          }
-        } else {
-          // Try to match with domain-specific route
-          const domainPageLoader = pageModules[path];
-
-          if (domainPageLoader) {
-            // We found a match for domain-specific path
-            pageLoader = domainPageLoader;
-            matchedParams = {};
+        for (const [pattern, loader] of Object.entries(pageModules)) {
+          const routePattern = parsePattern(pattern);
+          const params = matchRoute(path, routePattern);
+          if (params) {
+            pageLoader = loader;
+            matchedParams = params;
+            break;
           }
         }
       }

@@ -33,11 +33,7 @@ export default () => {
 
   return (
     <MainEsensiLayout header_config={local.header_config}>
-      <LayoutBookList
-        list={local.list}
-        page={local.page}
-        total_pages={local.total_pages}
-      />
+      adsa
     </MainEsensiLayout>
   );
 };
