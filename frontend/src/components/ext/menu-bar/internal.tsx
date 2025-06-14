@@ -13,7 +13,6 @@ import type { FC } from "react";
 const menu = [
   { label: "Beranda", href: "/dashboard" },
   { label: "Buku", href: "/manage-book" },
-  { label: "Produk", href: "/manage-product" },
   { label: "Profil", href: "/profil" },
   { label: "Keluar", action: "signout" },
 ];

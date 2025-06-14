@@ -1,7 +1,14 @@
+import { baseUrl } from "backend/gen/base-url";
+import {
+  NotifStatus,
+  NotifType,
+  sendNotif,
+  WSMessageAction,
+} from "backend/lib/notif";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import type { book } from "shared/models";
-import type { Book } from "../../lib/types";
+import { BookStatus, type Book } from "../../lib/types";
 
 export default defineAPI({
   name: "book_update",
@@ -11,7 +18,10 @@ export default defineAPI({
     data: Partial<book>;
   }): Promise<ApiResponse<Book>> {
     try {
-      const book = await db.book.findUnique({ where: { id: arg.id } });
+      const book = await db.book.findUnique({
+        where: { id: arg.id },
+        include: { author: true },
+      });
       if (!book) {
         return { success: false, message: "Buku tidak ditemukan" };
       }
@@ -104,6 +114,36 @@ export default defineAPI({
       if (book.content_type !== _updated.content_type) {
         oldFields.content_type = book.content_type;
         newFields.content_type = _updated.content_type;
+      }
+
+      if (
+        book.status === BookStatus.DRAFT &&
+        _updated.status === BookStatus.SUBMITTED
+      ) {
+        const notif = {
+          id_user: arg.data.id_author!,
+          data: {
+            bookId: arg.id,
+            submitterId: arg.data.id_author!,
+          },
+          url: baseUrl.internal_esensi + "/book-detail/" + arg.id,
+          status: NotifStatus.UNREAD,
+          timestamp: new Date().getTime(),
+          thumbnail: arg.data.cover,
+        };
+        sendNotif(arg.data.id_author!, {
+          action: WSMessageAction.NEW_NOTIF,
+          notif: {
+            message:
+              "Penulis " +
+              book.author?.name +
+              " mengajukan buku baru, " +
+              _updated.name +
+              ", untuk diterbitkan",
+            type: NotifType.BOOK_SUBMIT,
+            ...notif,
+          },
+        });
       }
 
       if (Object.keys(newFields).length > 0) {

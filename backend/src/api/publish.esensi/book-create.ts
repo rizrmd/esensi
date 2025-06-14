@@ -1,7 +1,14 @@
+import { baseUrl } from "backend/gen/base-url";
+import {
+  NotifStatus,
+  NotifType,
+  sendNotif,
+  WSMessageAction,
+} from "backend/lib/notif";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import type { book } from "shared/models";
-import type { Book } from "../../lib/types";
+import { BookStatus, type Book } from "../../lib/types";
 
 export default defineAPI({
   name: "book_create",
@@ -39,6 +46,33 @@ export default defineAPI({
           ...log,
           hash_value: `${log.id_book}_${log.created_at.getTime()}`,
         }));
+
+        if (arg.data.status === BookStatus.SUBMITTED) {
+          const notif = {
+            id_user: arg.data.id_author!,
+            data: {
+              bookId: created.id,
+              submitterId: arg.data.id_author!,
+            },
+            url: baseUrl.internal_esensi + "/book-detail/" + created.id,
+            status: NotifStatus.UNREAD,
+            timestamp: new Date().getTime(),
+            thumbnail: arg.data.cover,
+          };
+          sendNotif(arg.data.id_author!, {
+            action: WSMessageAction.NEW_NOTIF,
+            notif: {
+              message:
+                "Penulis " +
+                created.author?.name +
+                " mengajukan buku baru, " +
+                created.name +
+                ", untuk diterbitkan",
+              type: NotifType.BOOK_SUBMIT,
+              ...notif,
+            },
+          });
+        }
       }
 
       return {

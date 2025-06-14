@@ -3,7 +3,7 @@ import { defineAPI } from "rlib/server";
 
 export default defineAPI({
   name: "notif_delete",
-  url: "/api/publish/notif/delete",
+  url: "/api/internal/notif/delete",
   async handler(arg: {
     id_user: string;
     created_at: Date;

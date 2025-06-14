@@ -4,7 +4,7 @@ import type { Notif } from "../../lib/types";
 
 export default defineAPI({
   name: "notif_list",
-  url: "/api/publish/notif/list",
+  url: "/api/internal/notif/list",
   async handler(arg: {
     page?: number;
     limit?: number;
