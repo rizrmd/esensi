@@ -57,6 +57,7 @@ export function formatCurrency(
   amount?: number | Decimal | null,
   currency?: string
 ) {
+  if (currency === "Rp.") currency = "IDR";
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: currency || "IDR",
@@ -152,6 +153,22 @@ export function validate(
     local.render();
     return true;
   }
+  return false;
+}
+
+export function validateBatch(
+  local: { error: string; render: () => void },
+  options: {
+    failCondition: boolean;
+    message: string;
+  }[]
+) {
+  for (const option of options) {
+    if (validate(option.failCondition, local, option.message)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 export function isValidEditorData(data: any): data is OutputData {

@@ -107,13 +107,9 @@ export default () => {
 
       if (res.success && res.data) {
         local.success = "Profil berhasil diperbarui!";
-        setTimeout(() => {
-          local.success = "";
-          local.render();
-        }, 3000);
-      } else {
-        local.error = res.message || "Gagal memperbarui profil.";
-      }
+        local.success = "";
+        local.render();
+      } else local.error = res.message || "Gagal memperbarui profil.";
     } catch (err) {
       local.error = "Terjadi kesalahan saat menghubungi server.";
       console.error(err);

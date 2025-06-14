@@ -117,7 +117,7 @@ export default () => {
                           <div
                             key={item.id}
                             className="cursor-pointer"
-                            onClick={() => navigate(`book-step?id=${item.id}`)}
+                            onClick={() => navigate(`/book-step?id=${item.id}`)}
                           >
                             <Card className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
                               <Img
@@ -154,7 +154,7 @@ export default () => {
                           <Card
                             key={item.id}
                             className="cursor-pointer hover:shadow-md transition-shadow"
-                            onClick={() => navigate(`book-step?id=${item.id}`)}
+                            onClick={() => navigate(`/book-step?id=${item.id}`)}
                           >
                             <div className="flex">
                               <Img
@@ -212,7 +212,7 @@ export default () => {
                                   index % 2 === 0 ? "bg-white" : "bg-gray-50"
                                 }`}
                                 onClick={() =>
-                                  navigate(`book-step?id=${item.id}`)
+                                  navigate(`/book-step?id=${item.id}`)
                                 }
                               >
                                 <td className="p-2">

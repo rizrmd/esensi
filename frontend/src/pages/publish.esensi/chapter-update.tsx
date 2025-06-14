@@ -18,7 +18,7 @@ import {
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { isValidEditorData, validate } from "@/lib/utils";
+import { isValidEditorData, validate, validateBatch } from "@/lib/utils";
 import type { OutputData } from "@editorjs/editorjs";
 import { Role } from "backend/api/types";
 import type { chapter } from "shared/models";
@@ -105,27 +105,20 @@ export default function ChapterUpdatePage() {
                   }}
                   onSubmit={async ({ write, read }) => {
                     if (
-                      validate(
-                        !read.number,
-                        local,
-                        "Nomor chapter tidak boleh kosong."
-                      )
-                    )
-                      return;
-                    if (
-                      validate(
-                        !read.name,
-                        local,
-                        "Nama chapter tidak boleh kosong."
-                      )
-                    )
-                      return;
-                    if (
-                      validate(
-                        !read.content,
-                        local,
-                        "Konten chapter tidak boleh kosong."
-                      )
+                      validateBatch(local, [
+                        {
+                          failCondition: !read.number,
+                          message: "Nomor chapter tidak boleh kosong.",
+                        },
+                        {
+                          failCondition: !read.name,
+                          message: "Nama chapter tidak boleh kosong.",
+                        },
+                        {
+                          failCondition: !read.content,
+                          message: "Konten chapter tidak boleh kosong.",
+                        },
+                      ])
                     )
                       return;
                     local.isSubmitting = true;
@@ -144,10 +137,7 @@ export default function ChapterUpdatePage() {
 
                       if (res.success && res.data) {
                         local.success = "Chapter berhasil diperbarui!";
-
-                        setTimeout(() => {
-                          navigate(`/manage-chapter?bookId=${local.bookId}`);
-                        }, 1500);
+                        navigate(`/manage-chapter?bookId=${local.bookId}`);
                       } else
                         local.error =
                           res.message || "Gagal memperbarui chapter.";

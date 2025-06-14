@@ -347,11 +347,12 @@ model midtrx {
 model notif {
   id_user    String    @db.Uuid
   created_at DateTime  @default(now())
-  message    Json
+  message    String    @db.VarChar
   type       String    @db.VarChar
   status     String    @db.VarChar
   url        String?   @db.VarChar
   data       Json?
+  thumbnail  String?   @db.VarChar
   auth_user  auth_user @relation(fields: [id_user], references: [id], onDelete: Cascade, map: "notif_fk_id_user")
 
   @@id([id_user, created_at], map: "notif_pk")
@@ -453,7 +454,7 @@ model publisher_author {
 model ranking {
   id      String @id(map: "ranking_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   id_book String @db.Uuid
-  book    book   @relation(fields: [id_book], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ranking_relation_1")
+  book    book   @relation(fields: [id_book], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model reviews {

@@ -89,7 +89,7 @@ export default () => {
   }
 
   async function handleClick(item: chapter) {
-    navigate(`chapter-detail?id=${item.id}&bookId=${local.bookId}`);
+    navigate(`/chapter-detail?id=${item.id}&bookId=${local.bookId}`);
   }
 
   if (local.loading) return <AppLoading />;

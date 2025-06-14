@@ -102,10 +102,30 @@ export default () => {
     navigate(
       `${
         local.book?.status === BookStatus.DRAFT
-          ? "chapter-update"
-          : "chapter-detail"
+          ? "/chapter-update"
+          : "/chapter-detail"
       }?id=${item.id}&bookId=${local.bookId}`
     );
+  }
+
+  async function submitBook() {
+    if (!local.bookId) return;
+
+    local.loading = true;
+    local.render();
+
+    try {
+      await api.book_update({
+        id: local.bookId!,
+        data: { ...local.book!, status: BookStatus.SUBMITTED },
+      });
+      navigate("/book-step?id=" + local.bookId);
+    } catch (error) {
+      local.error = "Terjadi kesalahan saat mengajukan buku.";
+    } finally {
+      local.loading = false;
+      local.render();
+    }
   }
 
   if (local.loading) return <AppLoading />;
@@ -142,6 +162,19 @@ export default () => {
                         >
                           <PlusCircle className="h-5 w-5" />
                           <span>Tambah Chapter</span>
+                        </Button>
+                        <Button
+                          onClick={() => submitBook()}
+                          disabled={
+                            local.loading ||
+                            !!local.error ||
+                            local.book?.status !== BookStatus.DRAFT
+                          }
+                          className="flex items-center gap-2"
+                          variant="default"
+                        >
+                          <PlusCircle className="h-5 w-5" />
+                          <span>Ajukan Buku</span>
                         </Button>
                         <LayoutToggle
                           layout={local.layout}

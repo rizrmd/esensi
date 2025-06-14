@@ -68,7 +68,7 @@ function ChangesLogItem({
         />
       ) : null}
       {key2 === "info" ? (
-        <span className="text-gray-900">{JSON.stringify(value)}</span>
+        <span className="text-gray-900">{JSON.stringify(value, null, 2)}</span>
       ) : null}
       {key2 !== "cover" &&
         key2 !== "product_file" &&
