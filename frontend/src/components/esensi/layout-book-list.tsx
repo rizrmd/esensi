@@ -2,7 +2,7 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { Link } from "@/lib/router";
 import { Button } from "../ui/button";
 import { Frown, ListFilter } from "lucide-react";
-import { FilterSelected } from "./filter-selected";
+import { FilterItem } from "./filter-item";
 import { BookCardLoading } from "./book-card-loading";
 import { BookCard } from "./book-card";
 
@@ -21,15 +21,64 @@ export const LayoutBookList = ({ title, loading, list, page, total_pages }) => {
       title: "" as any | null,
       filters: {
         open: false as boolean,
-        category: null as any,
-        author: null as any,
-        discounted: false as boolean,
-        ratings: null as any | number,
-        availability: "available" as any | null,
-      },
-      filters_options: {
-        category: [],
-        author: [],
+        list: [
+          {
+            name: "sort" as string,
+            label: "Urutkan" as string,
+            options: [] as any,
+            selected: "" as string,
+          },
+          {
+            name: "cat" as string,
+            label: "Kategori" as string,
+            options: [] as any,
+            selected: "" as string,
+          },
+          {
+            name: "author" as string,
+            label: "Penulis" as string,
+            options: [] as any,
+            selected: "" as string,
+          },
+          {
+            name: "discount" as string,
+            label: "Diskon" as string,
+            options: [
+              {
+                label: "Buku yang sedang diskon",
+                value: "discounted",
+              },
+            ] as any,
+            selected: "" as string,
+          },
+          {
+            name: "ratings" as string,
+            label: "Ratings" as string,
+            options: [
+              {
+                label: "1 ke atas",
+                value: "1",
+              },
+              {
+                label: "2 ke atas",
+                value: "2",
+              },
+              {
+                label: "3 ke atas",
+                value: "3",
+              },
+              {
+                label: "4 ke atas",
+                value: "4",
+              },
+              {
+                label: "5 bintang",
+                value: "5",
+              },
+            ] as any,
+            selected: "" as string,
+          },
+        ],
       },
       sort: "terbaru" as any,
       paging: {
@@ -61,33 +110,57 @@ export const LayoutBookList = ({ title, loading, list, page, total_pages }) => {
     local.render();
   };
 
-  const handleRemoveFilter = () => {
-    local.render();
+  const handleFilterItem = (
+    name = "" as string | null,
+    value = "" as string | null,
+  ) => {
+    if (name !== "" && name !== null && value !== "" && value !== null) {
+      if (local.filters.list[name].selected == value) {
+        local.filters.list[name].selected = "";
+      } else {
+        local.filters.list[name].selected = value;
+      }
+      local.render();
+    }
   };
 
-  const filterCategory = local.filters.category !== null && (
-    <FilterSelected
-      label={
-        local.filters.category?.slug
-          ? local.filters.category?.slug
-          : local.filters.category
-      }
-      action={handleRemoveFilter}
-    />
-  );
+  const handleApplyFilter = () => {};
 
-  const filterSort = local.sort !== null && (
-    <FilterSelected
-      label={local.sort?.slug ? local.sort?.slug : local.sort}
-      action={handleRemoveFilter}
-    />
-  );
+  const buildFilters = local.filters.list.map((flt, idx) => {
+    let filterSection = <></>;
+    if (flt.options.length > 0) {
+      let filterTitle = <strong className="flex font-bold">{flt.label}</strong>;
+      let filterOptions = flt.options.map((o, oidx) => {
+        return (
+          <FilterItem
+            name={idx}
+            label={o?.label}
+            value={o?.value}
+            action={handleFilterItem}
+            selected={local.filters.list[idx].selected}
+            key={`esensi_book_filter_${flt.name}__${oidx}`}
+          />
+        );
+      });
+
+      filterSection = (
+        <div
+          className="flex flex-col items-start w-full gap-2.5"
+          key={`esensi_book_filter_${flt.name}_${idx}`}
+        >
+          {filterTitle}
+          <div className="flex gap-1 flex-wrap">{filterOptions}</div>
+        </div>
+      );
+    }
+    return filterSection;
+  });
 
   const filternav = (
-    <div className="flex justify-start items-center gap-3">
+    <div className="flex justify-start items-center w-full gap-3">
       <Button
         variant="link"
-        className="flex items-center justify-center gap-2 bg-[#EFEFEF] rounded-full px-4"
+        className="flex items-center justify-center gap-2 bg-[#EFEFEF] rounded-full pl-4 pr-4"
         onClick={(e) => {
           e.preventDefault();
           handleFilterPopup();
@@ -97,11 +170,10 @@ export const LayoutBookList = ({ title, loading, list, page, total_pages }) => {
         <span className="flex text-[#383D64]">Filter</span>
       </Button>
       <div className="flex w-px h-[80%] bg-[#383D64]"></div>
-      {filterCategory} {filterSort}
     </div>
   );
   const pagination = (
-    <ul className="flex justify-center">
+    <ul className="flex justify-center lg:container">
       <li>
         <Link
           href="/adad"
@@ -116,8 +188,8 @@ export const LayoutBookList = ({ title, loading, list, page, total_pages }) => {
   );
 
   const renderTitle = title !== "" && title !== null && (
-    <div className="flex px-6 py-4 justify-start items-center">
-      <h2 className="color-white text-3xl">{title}</h2>
+    <div className="flex w-full min-h-40 h-auto px-6 py-4 justify-start items-center bg-[url(https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgU1yo1WjoGn3ORo8MQjhX5pIzlnkk_8a55xGT0b9Ap3rX2osccVQQIyMRnqIE6bXw7PZEUkjFK4Rq9UmZr2547ratdgsWKljHWk0cxo36IXpU59FaL-HsWTIyrBrAhA82yIfN-GlRZPguxeuuQjtIWn5E59tQ1y6Y7aJ_hRSwj4WkudbMFyaJSDiQY_aw/s1600/header-banner.png)] bg-center bg-cover bg-no-repeat bg-scroll">
+      <h2 className="text-white text-2xl font-semibold max-w-3/4">{title}</h2>
     </div>
   );
 
@@ -142,9 +214,9 @@ export const LayoutBookList = ({ title, loading, list, page, total_pages }) => {
   });
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full gap-8 items-center">
       {renderTitle}
-      <div className="flex flex-col px-6 justify-center">
+      <div className="flex flex-col gap-4 px-6 justify-center lg:container">
         <div className="flex">{filternav}</div>
         <div className="flex flex-row justify-start items-stretch flex-wrap gap-y-4 w-full [&>a,&>.esensi-book-loading]:w-1/2 [&>a,&>.esensi-book-loading]:md:w-1/6">
           {loading ? renderLoading : renderBooks}
@@ -160,9 +232,15 @@ export const LayoutBookList = ({ title, loading, list, page, total_pages }) => {
         }}
       ></div>
       <div
-        className={`flex flex-col fixed w-full h-auto p-4 bottom-0 left-0 bg-white z-[65] transition-transform ${local.filters.open ? "translate-y-0" : "translate-y-full"}`}
+        className={`flex flex-col fixed w-full h-auto max-h-1/2 lg:w-auto lg:min-w-2xs lg:h-full lg:max-h-none gap-8 p-4 bottom-0 left-0 lg:top-0 rounded-t-3xl bg-white z-[65] transition-transform ${local.filters.open ? "translate-y-0 lg:translate-x-0" : "translate-y-full translate-x-0 lg:translate-y-0 lg:-translate-x-full"}`}
       >
-        ini contoh filternya
+        <div className="flex flex-col w-full items-center gap-2 -mt-1">
+          <hr className="h-1 w-10 rounded-full border-4 border-[#3030C1]" />
+          <strong className="flex font-semibold text-2xl">Filter</strong>
+        </div>
+        <div className="flex flex-col w-full gap-5 overflow-y-auto lg:grow-1">
+          {buildFilters}
+        </div>
         <div className="flex w-full">
           <Button className="bg-[#3B2C93] text-white flex justify-center items-center w-full">
             Apply filter

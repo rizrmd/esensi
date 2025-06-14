@@ -45,6 +45,8 @@ export default defineAPI({
       list: products,
       page: page,
       total_pages: total_pages,
+      skip_books: skip_books,
+      res_page: req.params?.page,
     };
 
     const seo_data = {

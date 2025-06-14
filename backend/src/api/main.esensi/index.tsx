@@ -138,7 +138,7 @@ export default defineAPI({
     };
 
     const seo_data = {
-      slug: `/store`,
+      slug: `/`,
       meta_title: `Belanja Ebook Online | Temukan Ribuan Judul Ebook | Esensi Online`,
       meta_description: `Jelajahi koleksi eBook terbaik Indonesia. Temukan bacaan favorit Anda dan beli eBook berkualitas dengan harga terjangkau hanya di toko kami.`,
       image: ``,
