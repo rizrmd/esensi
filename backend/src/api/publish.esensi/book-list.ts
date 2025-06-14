@@ -1,6 +1,6 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { Book } from "../types";
+import type { Book } from "../../lib/types";
 
 export default defineAPI({
   name: "book_list",

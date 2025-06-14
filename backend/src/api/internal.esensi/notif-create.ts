@@ -1,7 +1,7 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import type { notif } from "shared/models";
-import type { Notif } from "../types";
+import type { Notif } from "../../lib/types";
 
 export default defineAPI({
   name: "notif_create",

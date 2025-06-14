@@ -7,7 +7,7 @@ import {
 } from "backend/lib/notif";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import { BookStatus, type BookApproval } from "../types";
+import { BookStatus, type BookApproval } from "../../lib/types";
 
 export default defineAPI({
   name: "book_approval_create",

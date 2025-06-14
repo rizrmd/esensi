@@ -1,7 +1,7 @@
 import type { User } from "backend/lib/better-auth";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { Withdrawal } from "../types";
+import type { Withdrawal } from "../../lib/types";
 
 export default defineAPI({
   name: "withdrawal",

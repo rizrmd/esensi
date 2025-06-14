@@ -1,6 +1,6 @@
 import { SeoTemplate } from "backend/components/SeoTemplate";
 import { defineAPI } from "rlib/server";
-import { ProductStatus } from "../types";
+import { ProductStatus } from "../../lib/types";
 
 export default defineAPI({
   name: "index",

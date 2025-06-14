@@ -1,6 +1,6 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { TSalesLine } from "../types";
+import type { TSalesLine } from "../../lib/types";
 
 export default defineAPI({
   name: "t_sales_line_list",

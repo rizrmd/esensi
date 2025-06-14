@@ -1,7 +1,7 @@
 import type { User } from "backend/lib/better-auth";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { AuthUser } from "../types";
+import type { AuthUser } from "../../lib/types";
 
 export default defineAPI({
   name: "user_update",

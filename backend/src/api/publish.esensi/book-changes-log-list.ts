@@ -1,6 +1,6 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { BookChangesLog } from "../types";
+import type { BookChangesLog } from "../../lib/types";
 
 export default defineAPI({
   name: "book_changes_log_list",

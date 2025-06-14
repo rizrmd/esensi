@@ -1,6 +1,6 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { Author } from "../types";
+import type { Author } from "../../lib/types";
 
 export default defineAPI({
   name: "author_detail",

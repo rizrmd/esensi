@@ -1,6 +1,6 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import { Role, type Onboarding } from "../types";
+import { Role, type Onboarding } from "../../lib/types";
 
 export type author = {
   name: string;

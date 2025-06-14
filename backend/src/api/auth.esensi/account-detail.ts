@@ -1,6 +1,6 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { Account } from "../types";
+import type { Account } from "../../lib/types";
 
 export default defineAPI({
   name: "account_detail",

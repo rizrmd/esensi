@@ -1,6 +1,6 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { BookApproval } from "../types";
+import type { BookApproval } from "../../lib/types";
 
 export default defineAPI({
   name: "book_approval_list",

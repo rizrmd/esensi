@@ -1,6 +1,6 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { PublisherAuthor, Role } from "../types";
+import type { PublisherAuthor, Role } from "../../lib/types";
 
 export default defineAPI({
   name: "publisher_author_list",

@@ -1,7 +1,7 @@
 import type { User } from "backend/lib/better-auth";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import type { Book, Product } from "../types";
+import type { Book, Product } from "../../lib/types";
 
 export default defineAPI({
   name: "product_create",

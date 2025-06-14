@@ -1,7 +1,7 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import type { chapter } from "shared/models";
-import type { Chapter } from "../types";
+import type { Chapter } from "../../lib/types";
 
 export default defineAPI({
   name: "chapter_create",

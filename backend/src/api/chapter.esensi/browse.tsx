@@ -1,6 +1,6 @@
 import { SeoTemplate } from "backend/components/SeoTemplate";
 import { defineAPI } from "rlib/server";
-import { BookStatus } from "../types";
+import { BookStatus } from "../../lib/types";
 
 export default defineAPI({
   name: "browse",

@@ -1,7 +1,7 @@
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import type { auth_user } from "shared/models";
-import type { AuthUser } from "../types";
+import type { AuthUser } from "../../lib/types";
 
 export default defineAPI({
   name: "user_detail",
