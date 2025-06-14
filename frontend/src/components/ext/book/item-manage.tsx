@@ -53,7 +53,7 @@ export function product(product: Product): Record<string, string> {
   return {
     Penulis: product.author?.name ?? "-",
     "Harga Coret": formatCurrency(product.strike_price, product.currency),
-    Harga: formatCurrency(product.real_price, product.currency),
+    "Harga Pajangan": formatCurrency(product.real_price, product.currency),
     Status: product.status,
     Chapter: product.is_chapter ? "✅" : "❎",
   };

@@ -61,7 +61,7 @@ export const product = (product: Product | null) => {
     Slug: product?.slug,
     Alias: product?.alias ?? "-",
     "Harga Coret": formatCurrency(product?.strike_price, product?.currency),
-    Harga: formatCurrency(product?.real_price, product?.currency),
+    "Harga Pajangan": formatCurrency(product?.real_price, product?.currency),
     Status: product?.status,
     "Mata Uang": product?.currency,
     SKU: !product?.sku ? "-" : product?.sku,

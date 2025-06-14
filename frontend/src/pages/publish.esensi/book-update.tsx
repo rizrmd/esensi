@@ -218,10 +218,7 @@ export default function BookUpdatePage() {
 
                       if (res.success && res.data) {
                         local.success = "Buku berhasil diperbarui!";
-
-                        setTimeout(() => {
-                          navigate(`/book-step?id=${res.data?.id}`);
-                        }, 1500);
+                        navigate(`/book-step?id=${res.data?.id}`);
                       } else
                         local.error = res.message || "Gagal menambahkan buku.";
                     } catch (err) {
@@ -334,7 +331,9 @@ export default function BookUpdatePage() {
                           <Button
                             type="button"
                             variant="outline"
-                            onClick={() => navigate("/book-step")}
+                            onClick={() =>
+                              navigate("/book-step?id=" + local.bookId!)
+                            }
                           >
                             Batal
                           </Button>
@@ -345,7 +344,7 @@ export default function BookUpdatePage() {
                                 write.status = BookStatus.DRAFT;
                                 submit();
                               }}
-                              disabled={local.isSubmitting}
+                              disabled={local.loading || local.isSubmitting}
                             >
                               {local.isSubmitting ? (
                                 <span>Menyimpan...</span>
@@ -353,20 +352,22 @@ export default function BookUpdatePage() {
                                 <span>Simpan Sebagai Draft</span>
                               )}
                             </Button>
-                            <Button
-                              type="button"
-                              onClick={() => {
-                                write.status = BookStatus.SUBMITTED;
-                                submit();
-                              }}
-                              disabled={local.isSubmitting}
-                            >
-                              {local.isSubmitting ? (
-                                <span>Menyimpan...</span>
-                              ) : (
-                                <span>Simpan dan Ajukan</span>
-                              )}
-                            </Button>
+                            {read.is_chapter === BookTypeKey.UTUH && (
+                              <Button
+                                type="button"
+                                onClick={() => {
+                                  write.status = BookStatus.SUBMITTED;
+                                  submit();
+                                }}
+                                disabled={local.loading || local.isSubmitting}
+                              >
+                                {local.isSubmitting ? (
+                                  <span>Menyimpan...</span>
+                                ) : (
+                                  <span>Simpan dan Ajukan</span>
+                                )}
+                              </Button>
+                            )}
                           </div>
                         </CardFooter>
                       </>

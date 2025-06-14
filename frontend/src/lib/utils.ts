@@ -57,6 +57,7 @@ export function formatCurrency(
   amount?: number | Decimal | null,
   currency?: string
 ) {
+  if (currency === "Rp.") currency = "IDR";
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: currency || "IDR",
