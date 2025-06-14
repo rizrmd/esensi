@@ -11,7 +11,7 @@ import { BookStatus, type BookApproval } from "../../lib/types";
 
 export default defineAPI({
   name: "book_approval_create",
-  url: "/api/publish/book-approval/create",
+  url: "/api/internal/book-approval/create",
   async handler(arg: {
     id_book: string;
     comment: string;
@@ -57,7 +57,6 @@ export default defineAPI({
 
       const uid = created.book.author?.auth_user[0]?.id;
       if (uid) {
-        let type: NotifType | null = null;
         const notif = {
           id_user: uid,
           data: {

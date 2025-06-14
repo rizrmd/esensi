@@ -5,7 +5,7 @@ import type { Notif } from "../../lib/types";
 
 export default defineAPI({
   name: "notif_create",
-  url: "/api/publish/notif/create",
+  url: "/api/internal/notif/create",
   async handler(arg: { data: Partial<notif> }): Promise<ApiResponse<Notif>> {
     try {
       const _created = await db.notif.create({

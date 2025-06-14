@@ -68,7 +68,6 @@ export default () => {
     } finally {
       local.loading = false;
       local.render();
-      console.log("Book loaded:", local.book);
     }
 
     try {
