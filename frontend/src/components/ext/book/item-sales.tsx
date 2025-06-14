@@ -1,5 +1,5 @@
 import { formatCurrency } from "@/lib/utils";
-import type { Book } from "backend/api/types";
+import type { Book } from "backend/lib/types";
 import type { FC } from "react";
 
 const Item: FC<{
