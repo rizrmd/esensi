@@ -4,7 +4,7 @@ import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { cn } from "@/lib/utils";
-import type { BookChangesLog as BCL, Book } from "backend/api/types";
+import type { BookChangesLog as BCL, Book } from "backend/lib/types";
 import {
   ArrowDownZA,
   ArrowUpAZ,

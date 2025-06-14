@@ -1,6 +1,6 @@
 import { navigate } from "@/lib/router";
 import type { BookStep } from "@/lib/utils";
-import type { Book } from "backend/api/types";
+import type { Book } from "backend/lib/types";
 
 type BookStepItemProps = {
   step: BookStep;
@@ -16,7 +16,8 @@ export function BookStepItem({
   book,
 }: BookStepItemProps) {
   const isActiveOrHasApproval =
-    currentStep >= step.step || (step.step === 1 && !!book?.book_approval.length);
+    currentStep >= step.step ||
+    (step.step === 1 && !!book?.book_approval.length);
   const isRejected = book?.status === "rejected";
 
   const handleClick = () => {

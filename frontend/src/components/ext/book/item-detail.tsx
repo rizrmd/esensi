@@ -1,5 +1,5 @@
 import { formatCurrency } from "@/lib/utils";
-import type { Book, Product } from "backend/api/types";
+import type { Book, Product } from "backend/lib/types";
 import type { FC, ReactNode } from "react";
 import type { chapter as chapterModel } from "shared/models";
 
