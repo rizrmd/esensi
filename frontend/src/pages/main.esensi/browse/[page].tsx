@@ -5,8 +5,10 @@ import {
   LayoutBookList,
   type BooksCardType,
 } from "@/components/esensi/layout-book-list";
+import { useParams } from "@/lib/hooks/use-router";
 
 export default () => {
+  const params = useParams();
   const header_config = {
     enable: true,
     logo: true,
@@ -37,14 +39,17 @@ export default () => {
       local.list = res.data.list;
       local.page = res.data.page;
       local.total_pages = res.data.total_pages;
-      local.title = `Dunia Baru Dimulai dari Satu Halaman${res.data.page > 1 ? ` | Page #${res.data.page}` : ""}`;
+      local.title = `Dunia Baru Dimulai dari Satu Halaman${
+        res.data.page > 1 ? ` | Page #${res.data.page}` : ""
+      }`;
       local.loading = false;
       local.render();
-    },
+    }
   );
 
   return (
     <MainEsensiLayout header_config={header_config}>
+      {JSON.stringify(params)}
       <LayoutBookList
         title={local.title}
         loading={local.loading}
