@@ -3,12 +3,16 @@ import { CircleUser, House, Info, LibraryBig } from "lucide-react";
 import { MobileNavbarItem } from "./mobile-navbar-item";
 import { navigate } from "@/lib/router";
 
-export const MobileNavbar = () => {
+export const MobileNavbar = (enable: boolean) => {
   const local = useLocal(
     {
-      menuActive: 0,
+      enable: true as boolean,
+      menuActive: 0 as number,
     },
-    async () => {},
+    async () => {
+      local.enable = enable;
+      local.render();
+    },
   );
 
   const list = [
@@ -57,9 +61,13 @@ export const MobileNavbar = () => {
       />
     );
   });
-  return (
+
+  const renderNav = local.enable ? (
     <nav className="flex justify-evenly items-center lg:hidden fixed left-0 bottom-0 w-full h-20 py-3 bg-[#3B2C93] z-50 rounded-tl-3xl rounded-tr-3xl [&_span]:text-sm [&_svg]:h-7">
       {renderItems}
     </nav>
+  ) : (
+    <></>
   );
+  return <>{renderNav}</>;
 };

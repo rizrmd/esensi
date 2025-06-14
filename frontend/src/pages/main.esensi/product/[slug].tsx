@@ -33,49 +33,51 @@ export default () => {
     },
     async () => {
       const res = await api.product();
-      local.product = res.data.dummy;
-      local.categories = res.data.dummycat;
+      local.product = res.data.product;
+      local.categories = res.data.categories;
       local.loading = false;
       local.render();
     },
   );
-  const bookCover = local.loading ? (
-    <></>
-  ) : (
-    <img
-      src={`https://esensi.online/${local.product.cover.replace("_file/", "_img/")}?w=320`}
-      alt={`${local.product?.name.replace(`'`, ``).replace(`"`, ``)}`}
-      className="flex max-w-1/2 aspect-3/4 object-center object-cover rounded-xs"
-    />
-  );
 
-  const bookTitle = local.loading ? (
-    <></>
-  ) : (
-    <h2 className="flex text-[#3B2C93] text-lg font-semibold">
-      {local.product.name}
-    </h2>
-  );
-  const bookAuthor = local.loading ? (
-    <></>
-  ) : local.author !== "" && local.author !== null ? (
-    <Link href={`#`} className="flex">
-      Author
-    </Link>
-  ) : (
-    <></>
-  );
-
-  const bookCats = local.categories.map((c, idx) => {
-    return (
-      <Link href={c.slug} key={`esensi_product_cats_${c.slug}`}>
-        {c.name}
-      </Link>
+  let productWrapper = <></>;
+  if (local.product !== null) {
+    const bookCover = local.loading ? (
+      <></>
+    ) : (
+      <img
+        src={`https://esensi.online/${local.product.cover.replace("_file/", "_img/")}?w=320`}
+        alt={`${local.product?.name.replace(`'`, ``).replace(`"`, ``)}`}
+        className="flex max-w-1/2 aspect-3/4 object-center object-cover rounded-xs"
+      />
     );
-  });
 
-  return (
-    <MainEsensiLayout header_config={header_config}>
+    const bookTitle = local.loading ? (
+      <></>
+    ) : (
+      <h2 className="flex text-[#3B2C93] text-lg font-semibold">
+        {local.product.name}
+      </h2>
+    );
+    const bookAuthor = local.loading ? (
+      <></>
+    ) : local.author !== "" && local.author !== null ? (
+      <Link href={`#`} className="flex">
+        Author
+      </Link>
+    ) : (
+      <></>
+    );
+
+    const bookCats = local.categories.map((c, idx) => {
+      return (
+        <Link href={c.slug} key={`esensi_product_cats_${c.slug}`}>
+          {c.name}
+        </Link>
+      );
+    });
+
+    productWrapper = (
       <div className="flex flex-col items-center justify-start">
         <div className="flex flex-col container items-center justify-start gap-5 px-6">
           <div className="flex justify-center">{bookCover}</div>
@@ -101,6 +103,14 @@ export default () => {
         </div>
         <div className="flex">related</div>
       </div>
+    );
+  } else {
+    productWrapper = <div>TIDAK ADA PRODUK</div>;
+  }
+
+  return (
+    <MainEsensiLayout header_config={header_config} mobile_menu={false}>
+      {productWrapper}
     </MainEsensiLayout>
   );
 };

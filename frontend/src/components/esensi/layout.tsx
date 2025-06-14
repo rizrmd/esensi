@@ -13,6 +13,8 @@ type MainEsensiLayoutProps = {
   showLogo?: boolean;
   showSearch?: boolean;
   header_config?: any;
+  mobile_menu?: boolean;
+  footer?: boolean;
 };
 
 export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
@@ -27,6 +29,8 @@ export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
     cart: true,
     profile: true,
   },
+  mobile_menu = true,
+  footer = true,
 }) => {
   const local = useLocal({ searchQuery: "" }, async () => {});
   return (
@@ -43,7 +47,7 @@ export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
       />
       <div className="flex-1 lg:py-10">{children}</div>
       <PageFooter />
-      <MobileNavbar />
+      <MobileNavbar enable={mobile_menu} />
     </div>
   );
 };
