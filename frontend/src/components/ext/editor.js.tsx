@@ -127,10 +127,11 @@ const MyEditorJS: React.FC<EditorComponentProps> = ({
 }) => {
   const editorRef = useRef<EditorJS | null>(null);
   const holderRef = useRef<HTMLDivElement>(null);
+  const isUpdatingFromEditor = useRef(false);
 
-  // Effect to handle data updates
+  // Effect to handle data updates from external sources only
   useEffect(() => {
-    if (editorRef.current && data) {
+    if (editorRef.current && data && !isUpdatingFromEditor.current) {
       // Transform data to ensure compatibility
       const transformedData = transformEditorData(data);
       editorRef.current
@@ -177,6 +178,7 @@ const MyEditorJS: React.FC<EditorComponentProps> = ({
       onChange: async (api, event) => {
         if (onChange) {
           try {
+            isUpdatingFromEditor.current = true;
             const outputData = await editorRef.current?.save();
             if (outputData) {
               // Apply transformation to saved data as well to ensure consistency
@@ -185,6 +187,11 @@ const MyEditorJS: React.FC<EditorComponentProps> = ({
             }
           } catch (error) {
             console.error("Stack:", (error as Error).stack);
+          } finally {
+            // Reset the flag after a short delay to allow parent component to update
+            setTimeout(() => {
+              isUpdatingFromEditor.current = false;
+            }, 100);
           }
         }
       },

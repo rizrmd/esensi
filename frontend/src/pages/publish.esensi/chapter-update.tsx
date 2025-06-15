@@ -29,6 +29,15 @@ export default function ChapterUpdatePage() {
       bookId: undefined as string | undefined,
       id: undefined as string | undefined,
       chapter: undefined as chapter | undefined,
+      formData: {
+        number: 0,
+        name: "",
+        content: {
+          time: Date.now(),
+          blocks: [],
+          version: "2.28.2",
+        } as OutputData,
+      },
       loading: false,
       error: "",
       success: "",
@@ -65,6 +74,17 @@ export default function ChapterUpdatePage() {
             local,
             "Konten chapter tidak valid."
           );
+          
+          // Initialize form data with chapter data
+          local.formData = {
+            number: local.chapter!.number,
+            name: local.chapter!.name,
+            content: {
+              time: local.chapter!.content!["time"],
+              blocks: local.chapter!.content!["blocks"],
+              version: local.chapter!.content!["version"],
+            } as OutputData,
+          };
         }
       } catch (error) {
         local.error = "Terjadi kesalahan saat memuat data buku.";
@@ -94,15 +114,7 @@ export default function ChapterUpdatePage() {
 
               {local.chapter && (
                 <EForm
-                  data={{
-                    number: local.chapter.number,
-                    name: local.chapter.name,
-                    content: {
-                      time: local.chapter.content!["time"],
-                      blocks: local.chapter.content!["blocks"],
-                      version: local.chapter.content!["version"],
-                    } as OutputData,
-                  }}
+                  data={local.formData}
                   onSubmit={async ({ write, read }) => {
                     if (
                       validateBatch(local, [

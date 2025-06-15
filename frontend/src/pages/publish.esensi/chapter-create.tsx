@@ -27,6 +27,11 @@ export default function ChapterCreatePage() {
   const local = useLocal(
     {
       bookId: undefined as string | undefined,
+      formData: {
+        number: 0,
+        name: "",
+        content: undefined as OutputData | undefined,
+      },
       loading: true,
       error: "",
       success: "",
@@ -72,11 +77,7 @@ export default function ChapterCreatePage() {
               </CardHeader>
 
               <EForm
-                data={{
-                  number: 0,
-                  name: "",
-                  content: undefined as OutputData | undefined,
-                }}
+                data={local.formData}
                 onSubmit={async ({ read }) => {
                   if (
                     validateBatch(local, [
