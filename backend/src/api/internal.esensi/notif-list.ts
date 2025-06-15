@@ -16,7 +16,7 @@ export default defineAPI({
       const page = arg.page || 1;
       const limit = arg.limit || 10;
       const skip = (page - 1) * limit;
-      const where: any = { deleted_at: null };
+      const where: any = {};
 
       if (arg.id_user) {
         where.id_user = arg.id_user;

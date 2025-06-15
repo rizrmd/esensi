@@ -123,7 +123,8 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.AffiliateScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  id_account: 'id_account'
+  id_account: 'id_account',
+  id_user: 'id_user'
 };
 
 exports.Prisma.Auth_accountScalarFieldEnum = {
@@ -193,7 +194,8 @@ exports.Prisma.AuthorScalarFieldEnum = {
   id_account: 'id_account',
   biography: 'biography',
   social_media: 'social_media',
-  avatar: 'avatar'
+  avatar: 'avatar',
+  id_user: 'id_user'
 };
 
 exports.Prisma.BannerScalarFieldEnum = {
@@ -313,7 +315,8 @@ exports.Prisma.CustomerScalarFieldEnum = {
   otp: 'otp',
   id_account: 'id_account',
   name: 'name',
-  email: 'email'
+  email: 'email',
+  id_user: 'id_user'
 };
 
 exports.Prisma.Customer_readerScalarFieldEnum = {
@@ -350,7 +353,8 @@ exports.Prisma.InternalScalarFieldEnum = {
   is_sales_and_marketing: 'is_sales_and_marketing',
   is_support: 'is_support',
   is_management: 'is_management',
-  is_it: 'is_it'
+  is_it: 'is_it',
+  id_user: 'id_user'
 };
 
 exports.Prisma.LandingScalarFieldEnum = {
@@ -450,7 +454,8 @@ exports.Prisma.PublisherScalarFieldEnum = {
   description: 'description',
   website: 'website',
   address: 'address',
-  logo: 'logo'
+  logo: 'logo',
+  id_user: 'id_user'
 };
 
 exports.Prisma.Publisher_authorScalarFieldEnum = {

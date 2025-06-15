@@ -8,17 +8,8 @@ export default defineAPI({
   url: "/api/internal/notif/create",
   async handler(arg: { data: Partial<notif> }): Promise<ApiResponse<Notif>> {
     try {
-      const _created = await db.notif.create({
+      const created = await db.notif.create({
         data: arg.data as any,
-      });
-
-      const created = await db.notif.findUnique({
-        where: {
-          id_user_created_at: {
-            id_user: _created.id_user,
-            created_at: _created.created_at,
-          },
-        },
         include: { auth_user: true },
       });
 

@@ -55,7 +55,8 @@ export default defineAPI({
         });
       }
 
-      const uid = created.book.author?.auth_user[0]?.id;
+      const uid =
+        created.book.author?.id_user || created.book.author?.auth_user[0]?.id;
       if (uid) {
         const notif = {
           id_user: uid,
@@ -63,26 +64,29 @@ export default defineAPI({
             bookId: created.id_book,
             approverId: arg.id_internal!,
           },
-          url: baseUrl.publish_esensi + "/book-detail/" + arg.id_book,
           status: NotifStatus.UNREAD,
           timestamp: created.created_at.getTime(),
           thumbnail: created.book.cover,
         };
         if (arg.status === BookStatus.PUBLISHED) {
-          sendNotif(uid, {
+          const url = baseUrl.publish_esensi + "/book-sales?id=" + arg.id_book;
+          await sendNotif(uid, {
             action: WSMessageAction.NEW_NOTIF,
             notif: {
               message: "Buku anda telah disetujui untuk terbit",
               type: NotifType.BOOK_PUBLISH,
+              url,
               ...notif,
             },
           });
         } else if (arg.status === BookStatus.REJECTED) {
-          sendNotif(uid, {
+          const url = baseUrl.publish_esensi + "/book-detail?id=" + arg.id_book;
+          await sendNotif(uid, {
             action: WSMessageAction.NEW_NOTIF,
             notif: {
               message: "Buku anda telah ditolak",
               type: NotifType.BOOK_REJECT,
+              url,
               ...notif,
             },
           });
@@ -90,11 +94,13 @@ export default defineAPI({
           book.status === BookStatus.SUBMITTED &&
           arg.status === BookStatus.DRAFT
         ) {
-          sendNotif(uid, {
+          const url = baseUrl.publish_esensi + "/book-update?id=" + arg.id_book;
+          await sendNotif(uid, {
             action: WSMessageAction.NEW_NOTIF,
             notif: {
               message: "Buku anda harus direvisi",
               type: NotifType.BOOK_REVISE,
+              url,
               ...notif,
             },
           });

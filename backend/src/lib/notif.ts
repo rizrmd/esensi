@@ -80,7 +80,7 @@ export const wsNotif: WSNotif = {
         thumbnail: !notif.thumbnail ? undefined : notif.thumbnail,
       }));
 
-      sendNotif(msg.uid, {
+      await sendNotif(msg.uid, {
         action: WSMessageAction.CONNECTED,
         notifList: conn.notifList,
       });
@@ -95,11 +95,11 @@ export const wsNotif: WSNotif = {
   },
 };
 
-export const sendNotif = (uid: string, message: WSMessage) => {
+export const sendNotif = async (uid: string, message: WSMessage) => {
   const wsClients = conns[uid]?.wsClients;
   if (wsClients) {
     if (message.action === WSMessageAction.NEW_NOTIF) {
-      db.notif.create({
+      const notif = await db.notif.create({
         data: {
           id_user: uid,
           type: message.notif.type,
@@ -115,13 +115,5 @@ export const sendNotif = (uid: string, message: WSMessage) => {
     wsClients.forEach((ws: WSType) => {
       ws.send(JSON.stringify(message));
     });
-  }
-};
-
-export const addNotif = (uid: string, notif: NotifItem) => {
-  const conn = conns[uid];
-  if (conn) {
-    conn.notifList.push(notif);
-    sendNotif(uid, { action: WSMessageAction.NEW_NOTIF, notif });
   }
 };

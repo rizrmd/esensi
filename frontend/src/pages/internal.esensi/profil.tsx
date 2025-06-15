@@ -1,5 +1,6 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
+import { EForm } from "@/components/ext/eform/EForm";
 import { Error } from "@/components/ext/error";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { Breadcrumb } from "@/components/ext/profil/breadcrumb";
@@ -14,19 +15,20 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { betterAuth } from "@/lib/better-auth";
 import { api as authApi } from "@/lib/gen/auth.esensi";
 import { baseUrl } from "@/lib/gen/base-url";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { getMimeType } from "@/lib/utils";
+import { getMimeType, validateBatch } from "@/lib/utils";
+import { Label } from "@radix-ui/react-label";
 import type { UploadAPIResponse } from "backend/api/upload";
 import type { User } from "backend/lib/better-auth";
 import { Role } from "backend/lib/types";
 
 export const current = {
   user: undefined as User | undefined,
+  formData: null as { name: string; email: string; username: string } | null,
 };
 
 export default () => {
@@ -36,7 +38,10 @@ export default () => {
       error: "",
       success: "",
       isSubmitting: false,
-      files: [] as File[],
+      files: {
+        old: [] as File[],
+        new: [] as File[],
+      },
     },
     async () => {
       const res = await betterAuth.getSession();
@@ -63,72 +68,25 @@ export default () => {
           type: mimeType,
           lastModified: new Date().getTime(),
         });
-        local.files = [file];
+        local.files.old = [file];
+        local.files.new = [file];
       } catch (error) {
         console.error("Error fetching profile image:", error);
       } finally {
         local.loading = false;
         local.render();
       }
-    }
-  }
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    local.isSubmitting = true;
-    local.error = "";
-    local.success = "";
-    local.render();
-
-    try {
-      if (!current.user?.id) {
-        local.error = "ID pengguna tidak ditemukan";
-        local.isSubmitting = false;
-        local.render();
-        return;
-      }
-
-      if (local.files.length > 0) {
-        const file = local.files[0];
-        const formData = new FormData();
-        formData.append("file", file);
-        const res = await fetch(`${baseUrl.auth_esensi}/api/upload`, {
-          method: "POST",
-          body: formData,
-        });
-        const uploaded: UploadAPIResponse = await res.json();
-        if (uploaded.name) current.user.image = uploaded.name;
-      }
-
-      const res = await authApi.user_update({
-        id: current.user.id,
-        data: current.user,
-      });
-
-      if (res.success && res.data) {
-        local.success = "Profil berhasil diperbarui!";
-        local.success = "";
-        local.render();
-      } else local.error = res.message || "Gagal memperbarui profil.";
-    } catch (err) {
-      local.error = "Terjadi kesalahan saat menghubungi server.";
-      console.error(err);
-    } finally {
-      local.isSubmitting = false;
+    } else {
+      local.loading = false;
       local.render();
     }
-  };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    current.user = {
-      ...current.user!,
-      [name]: value.trim() === "" && name === "username" ? null : value!,
+    current.formData = {
+      name: current.user?.name || "",
+      email: current.user?.email || "",
+      username: current.user?.username || "",
     };
-    local.render();
-  };
+  }
 
   if (local.loading) return <AppLoading />;
 
@@ -150,103 +108,172 @@ export default () => {
                   Silahkan edit formulir di bawah untuk memperbarui profil Anda.
                 </CardDescription>
               </CardHeader>
-              <form onSubmit={handleSubmit}>
-                <CardContent className="space-y-6">
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="name">Nama Lengkap</Label>
-                        <Input
-                          id="name"
-                          name="name"
-                          value={current.user?.name || ""}
-                          onChange={handleChange}
-                          placeholder="Nama lengkap Anda"
-                          className="mt-1"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="email">Email</Label>
-                        <Input
-                          id="email"
-                          name="email"
-                          value={current.user?.email || ""}
-                          onChange={handleChange}
-                          placeholder="Email Anda"
-                          className="mt-1"
-                          disabled
-                        />
-                      </div>
-                    </div>
+              <EForm
+                data={{
+                  name: current.formData?.name || "",
+                  email: current.formData?.email || "",
+                  username: current.formData?.username || "",
+                }}
+                onSubmit={async ({ read }) => {
+                  if (
+                    validateBatch(local, [
+                      {
+                        failCondition: !read.name,
+                        message: "Nama lengkap tidak boleh kosong.",
+                      },
+                      {
+                        failCondition: !read.email,
+                        message: "Email tidak boleh kosong.",
+                      },
+                    ])
+                  )
+                    return;
 
-                    <div>
-                      <Label htmlFor="username">Username</Label>
-                      <Input
-                        id="username"
-                        name="username"
-                        value={current.user?.username || ""}
-                        onChange={handleChange}
-                        placeholder="Username Anda"
-                        className="mt-1"
-                      />
-                    </div>
+                  local.isSubmitting = true;
+                  local.error = "";
+                  local.success = "";
+                  local.render();
 
-                    <div>
-                      <Label>Foto Profil</Label>
-                      <div className="mt-2 flex items-center gap-4">
-                        {current.user?.image || local.files.length > 0 ? (
-                          <div className="relative w-20 h-20 rounded-full overflow-hidden border bg-gray-100">
-                            <img
-                              src={
-                                local.files.length > 0
-                                  ? URL.createObjectURL(local.files[0])
-                                  : `${baseUrl.auth_esensi}/${current.user?.image}`
-                              }
-                              alt="Foto Profil"
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                        ) : (
-                          <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center">
-                            <span className="text-gray-500 text-xs">
-                              Tidak ada foto
-                            </span>
-                          </div>
-                        )}
-                        <div>
-                          <Input
-                            id="profile-image"
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => {
-                              if (e.target.files && e.target.files.length > 0) {
-                                local.files = [e.target.files[0]];
-                                local.render();
-                              }
-                            }}
-                            className="max-w-sm"
+                  try {
+                    if (!current.user?.id) {
+                      local.error = "ID pengguna tidak ditemukan";
+                      local.isSubmitting = false;
+                      local.render();
+                      return;
+                    }
+
+                    if (local.files.new.length > 0) {
+                      const file = local.files.new[0];
+                      const formData = new FormData();
+                      formData.append("file", file);
+                      const res = await fetch(
+                        `${baseUrl.auth_esensi}/api/upload`,
+                        {
+                          method: "POST",
+                          body: formData,
+                        }
+                      );
+                      const uploaded: UploadAPIResponse = await res.json();
+                      if (uploaded.name) current.user.image = uploaded.name;
+                    }
+
+                    const res = await authApi.user_update({
+                      id: current.user.id,
+                      data: {
+                        ...current.user,
+                        name: read.name,
+                        email: read.email,
+                        username: read.username,
+                        image: current.user.image,
+                      },
+                    });
+
+                    if (res.success && res.data) {
+                      local.success = "Profil berhasil diperbarui!";
+                      setTimeout(() => {
+                        local.success = "";
+                        local.render();
+                      }, 3000);
+                    } else
+                      local.error = res.message || "Gagal memperbarui profil.";
+                  } catch (err) {
+                    local.error = "Terjadi kesalahan saat menghubungi server.";
+                    console.error(err);
+                  } finally {
+                    local.isSubmitting = false;
+                    local.render();
+                  }
+                }}
+              >
+                {({ Field }) => {
+                  return (
+                    <>
+                      <CardContent className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <Field
+                            name="name"
+                            disabled={local.loading}
+                            input={{ placeholder: "Nama lengkap Anda" }}
+                            label="Nama Lengkap"
                           />
-                          <p className="text-xs text-gray-500 mt-1">
-                            Upload gambar berformat JPG, PNG, atau GIF.
-                          </p>
+                          <Field
+                            name="email"
+                            disabled={true}
+                            input={{ placeholder: "Email Anda" }}
+                            label="Email"
+                          />
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-                <CardFooter className="flex justify-end space-x-4">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => navigate("/dashboard")}
-                  >
-                    Batal
-                  </Button>
-                  <Button type="submit" disabled={local.isSubmitting}>
-                    {local.isSubmitting ? "Menyimpan..." : "Simpan Perubahan"}
-                  </Button>
-                </CardFooter>
-              </form>
+                        <Field
+                          name="username"
+                          disabled={local.loading}
+                          input={{ placeholder: "Username Anda" }}
+                          label="Username"
+                          optional
+                        />
+                        <div>
+                          <Label className="text-sm">Foto Profil</Label>
+                          <div className="mt-2 flex items-center gap-4">
+                            {current.user?.image ||
+                            local.files.new.length > 0 ? (
+                              <div className="relative w-20 h-20 rounded-full overflow-hidden border bg-gray-100">
+                                <img
+                                  src={
+                                    local.files.new.length > 0
+                                      ? URL.createObjectURL(local.files.new[0])
+                                      : `${baseUrl.auth_esensi}/${current.user?.image}`
+                                  }
+                                  alt="Foto Profil"
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            ) : (
+                              <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center">
+                                <span className="text-gray-500 text-xs">
+                                  Tidak ada foto
+                                </span>
+                              </div>
+                            )}
+                            <div>
+                              <Input
+                                id="profile-image"
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                  if (
+                                    e.target.files &&
+                                    e.target.files.length > 0
+                                  ) {
+                                    local.files.new = [e.target.files[0]];
+                                    local.render();
+                                  }
+                                }}
+                                className="max-w-sm"
+                              />
+                              <p className="text-xs text-gray-500 mt-1">
+                                Upload gambar berformat JPG, PNG, atau GIF.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                      <CardFooter className="flex justify-end space-x-4">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => navigate("/dashboard")}
+                        >
+                          Batal
+                        </Button>
+                        <Button type="submit" disabled={local.isSubmitting}>
+                          {local.isSubmitting
+                            ? "Menyimpan..."
+                            : "Simpan Perubahan"}
+                        </Button>
+                      </CardFooter>
+                    </>
+                  );
+                }}
+              </EForm>
             </Card>
           </div>
         </main>

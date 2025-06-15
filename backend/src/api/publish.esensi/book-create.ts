@@ -48,30 +48,37 @@ export default defineAPI({
         }));
 
         if (arg.data.status === BookStatus.SUBMITTED) {
-          const notif = {
-            id_user: arg.data.id_author!,
-            data: {
-              bookId: created.id,
-              submitterId: arg.data.id_author!,
-            },
-            url: baseUrl.internal_esensi + "/book-detail/" + created.id,
-            status: NotifStatus.UNREAD,
-            timestamp: new Date().getTime(),
-            thumbnail: arg.data.cover,
-          };
-          sendNotif(arg.data.id_author!, {
-            action: WSMessageAction.NEW_NOTIF,
-            notif: {
-              message:
-                "Penulis " +
-                created.author?.name +
-                " mengajukan buku baru, " +
-                created.name +
-                ", untuk diterbitkan",
-              type: NotifType.BOOK_SUBMIT,
-              ...notif,
-            },
+          const list = await db.auth_user.findMany({
+            where: { id_internal: { not: null } },
+            select: { id: true },
           });
+          const internals = new Set(list.flatMap((x) => x.id));
+
+          for (const id_user of internals) {
+            const notif = {
+              id_user,
+              data: {
+                bookId: created.id,
+                submitterId: arg.data.id_author!,
+              },
+              url: baseUrl.internal_esensi + "/book-approval?id=" + created.id,
+              status: NotifStatus.UNREAD,
+              timestamp: new Date().getTime(),
+              thumbnail: arg.data.cover,
+            };
+            await sendNotif(id_user!, {
+              action: WSMessageAction.NEW_NOTIF,
+              notif: {
+                message:
+                  created.author?.name +
+                  " mengajukan buku " +
+                  created.name +
+                  ", untuk dusetujui",
+                type: NotifType.BOOK_SUBMIT,
+                ...notif,
+              },
+            });
+          }
         }
       }
 

@@ -27,6 +27,8 @@ export default defineAPI({
           name: arg.data.name,
           image: arg.data.image,
           email: arg.data.email,
+          username: arg.data.username,
+          display_username: arg.data.displayUsername,
           email_verified: arg.data.emailVerified,
         },
         include: {

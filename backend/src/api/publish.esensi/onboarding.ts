@@ -40,6 +40,7 @@ export default defineAPI({
           data: {
             name: author.name!,
             id_account: account.id,
+            id_user: userId,
             avatar: author.avatar,
             biography: author.biography,
             social_media: author.social_media,
@@ -66,6 +67,7 @@ export default defineAPI({
           data: {
             name: publisher.name!,
             id_account: account.id,
+            id_user: userId,
             description: publisher.description,
             website: publisher.website,
             address: publisher.address,

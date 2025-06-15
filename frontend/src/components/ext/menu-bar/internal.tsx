@@ -1,4 +1,5 @@
 import { AppLogo } from "@/components/app/logo";
+import { NotificationDropdown } from "@/components/ext/notification-dropdown";
 import { Button } from "@/components/ui/button";
 import {
   betterAuth,
@@ -8,6 +9,7 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { useRoot } from "@/lib/hooks/use-router";
 import { navigate } from "@/lib/router";
 import { isAuthor, isPublisher } from "@/lib/utils";
+import type { User } from "backend/lib/better-auth";
 import type { FC } from "react";
 
 const menu = [
@@ -22,12 +24,14 @@ export const MenuBarInternal: FC<{ title?: string }> = ({ title } = {}) => {
   const local = useLocal(
     {
       menu: [] as typeof menu,
+      user: null as User | null,
     },
     async () => {
       const session: AuthClientGetSessionAPIResponse =
         await betterAuth.getSession();
       if (session) {
         const user = session.data?.user;
+        local.user = user || null;
         if (!!user && isPublisher(user)) {
           local.menu = menu.filter((x) => x.href !== "/manage-book");
           local.render();
@@ -55,7 +59,8 @@ export const MenuBarInternal: FC<{ title?: string }> = ({ title } = {}) => {
             {title}
           </span>
         </div>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
+          {local.user && <NotificationDropdown user={local.user} />}
           {local.menu
             .filter(
               (item) =>
