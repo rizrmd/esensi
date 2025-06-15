@@ -1,5 +1,5 @@
 import { AppLogo } from "@/components/app/logo";
-import { NotificationDropdown } from "@/components/ext/notification-dropdown";
+import { NotifDropdown } from "@/components/ext/notification-dropdown";
 import { Button } from "@/components/ui/button";
 import {
   betterAuth,
@@ -60,7 +60,7 @@ export const MenuBarPublish: FC<{ title?: string }> = ({ title } = {}) => {
           </span>
         </div>
         <div className="flex items-center gap-2">
-          {local.user && <NotificationDropdown user={local.user} />}
+          {local.user && <NotifDropdown user={local.user} />}
           {local.menu
             .filter(
               (item) =>

@@ -7,17 +7,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Alert } from "@/components/ui/global-alert";
+import { api } from "@/lib/gen/internal.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { notif } from "@/lib/notif";
 import { navigate } from "@/lib/router";
 import { formatDateObject } from "@/lib/utils";
 import type { User } from "backend/lib/better-auth";
-import { NotifType } from "backend/lib/notif";
+import { NotifStatus, NotifType } from "backend/lib/notif";
 import type { Notif } from "backend/lib/types";
 import { Bell, ExternalLink, Eye, MessageSquare } from "lucide-react";
 import { useSnapshot } from "valtio";
 
-export const NotificationDropdown = ({ user }: { user: User }) => {
+export const NotifDropdown = ({ user }: { user: User }) => {
   const notifList = useSnapshot(notif.list);
 
   const local = useLocal(
@@ -35,7 +37,7 @@ export const NotificationDropdown = ({ user }: { user: User }) => {
   );
 
   // Use real-time notifications from WebSocket, fallback to API data
-  const displayNotifications =
+  const displayNotifs =
     notifList.length > 0
       ? (notifList.slice(0, 10).map((item) => ({
           id_user: user.id,
@@ -49,7 +51,7 @@ export const NotificationDropdown = ({ user }: { user: User }) => {
         })) as Notif[])
       : local.notifications.slice(0, 10);
 
-  const getNotificationIcon = (type: NotifType, thumbnail?: string) => {
+  const getNotifIcon = (type: NotifType, thumbnail?: string) => {
     if (thumbnail) {
       return (
         <img
@@ -76,9 +78,28 @@ export const NotificationDropdown = ({ user }: { user: User }) => {
     }
   };
 
-  const unreadCount = displayNotifications.filter(
-    (n) => n.status === "unread"
-  ).length;
+  async function lihatDetail(notif: Notif) {
+    // update status to "read"
+    try {
+      await api.notif_update({
+        id_user: notif.id_user,
+        created_at: notif.created_at,
+        data: {
+          status: NotifStatus.READ,
+        },
+      });
+    } catch (error) {
+      console.error("Gagal memperbarui status notifikasi:", error);
+    }
+
+    if (notif.url) {
+      window.open(notif.url, "_blank", "noopener,noreferrer");
+    } else {
+      Alert.info("Tidak ada detail yang tersedia untuk notifikasi ini.");
+    }
+  }
+
+  const unreadCount = displayNotifs.filter((n) => n.status === "unread").length;
 
   return (
     <DropdownMenu
@@ -117,45 +138,43 @@ export const NotificationDropdown = ({ user }: { user: User }) => {
           )}
         </div>
 
-        {displayNotifications.length === 0 ? (
+        {displayNotifs.length === 0 ? (
           <div className="px-3 py-4 text-center text-sm text-muted-foreground">
             Belum ada notifikasi
           </div>
         ) : (
           <>
-            {displayNotifications.map((notification, index) => (
+            {displayNotifs.map((notif, index) => (
               <DropdownMenuItem
-                key={`${notification.id_user}-${notification.created_at}-${index}`}
+                key={`${notif.id_user}-${notif.created_at}-${index}`}
                 className="p-0 cursor-pointer"
                 onClick={(e) => {
                   e.preventDefault();
-                  if (notification.url) {
-                    window.open(notification.url, "_blank");
-                  }
+                  lihatDetail(notif);
                 }}
               >
                 <div className="flex items-start gap-3 p-3 w-full">
                   <div className="flex-shrink-0 mt-0.5">
-                    {getNotificationIcon(
-                      notification.type as NotifType,
-                      notification.thumbnail || undefined
+                    {getNotifIcon(
+                      notif.type as NotifType,
+                      notif.thumbnail || undefined
                     )}
                   </div>
                   <div className="flex-1 min-w-0 space-y-1">
                     <p
                       className={`text-sm ${
-                        notification.status === "unread"
+                        notif.status === "unread"
                           ? "font-medium"
                           : "font-normal"
                       }`}
                     >
-                      {notification.message}
+                      {notif.message}
                     </p>
                     <div className="flex items-center justify-between">
                       <p className="text-xs text-muted-foreground">
-                        {formatDateObject(new Date(notification.created_at))}
+                        {formatDateObject(new Date(notif.created_at))}
                       </p>
-                      {notification.status === "unread" && (
+                      {notif.status === "unread" && (
                         <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                       )}
                     </div>
