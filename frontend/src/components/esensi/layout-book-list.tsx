@@ -243,7 +243,7 @@ export const LayoutBookList = ({
     return <BookCardLoading key={`browse_books_loading_${idx}`} />;
   });
 
-  const columnsClasses = bundling ? "flex-col [&>a,&>.esensi-book-loading]:w-full [&>a,&>.esensi-book-loading]:md:w-1/3" : "items-stretch flex-wrap [&>a,&>.esensi-book-loading]:w-1/2 [&>a,&>.esensi-book-loading]:md:w-1/6";
+  const columnsClasses = bundling ? "flex-col lg:flex-row lg:flex-wrap lg:item-stretch lg:gap-y-14 [&>a,&>.esensi-book-loading]:w-full [&>a,&>.esensi-book-loading]:md:w-1/3" : "items-stretch flex-wrap [&>a,&>.esensi-book-loading]:w-1/2 [&>a,&>.esensi-book-loading]:md:w-1/6";
 
   return (
     <div className="flex flex-col w-full gap-8 items-center">

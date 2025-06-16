@@ -40,7 +40,7 @@ export const BundlingCard = ({ data }) => {
   return (
     <Link
       href={`/bundle/${data.slug}`}
-      className="flex justify-center items-stretch gap-4 py-2 px-2 lg:px-4 relative cursor-pointer box-border w-full"
+      className="flex justify-center items-stretch lg:items-start gap-4 py-2 px-2 lg:px-4 relative cursor-pointer box-border w-full"
     >
       <div className="relative w-auto h-auto max-w-1/3 overflow-visible">
         <img
@@ -52,9 +52,9 @@ export const BundlingCard = ({ data }) => {
           className="w-full h-auto aspect-3/4 object-cover object-center rounded-[4px]"
         />
       </div>
-      <div className="flex flex-col grow-1 justify-start items-start gap-1">
+      <div className="flex flex-col grow-1 lg:min-h-full justify-start items-start gap-1">
         {discount}
-        <h3 className="flex flex-1 text-lg lg:text-center text-[#3B2C93] font-bold leading-[1.3]">
+        <h3 className="flex flex-1 text-lg text-[#3B2C93] font-bold leading-[1.3]">
           {data!.name}
         </h3>
 
