@@ -150,6 +150,7 @@ export function useRoot() {
           if (typeof apiSeoPattern[matchedPattern] === "undefined") {
             if (Object.keys(apiSeoPattern).length === 0) {
               apiSeoPattern[matchedPattern] = !!(window as any).__data;
+              seoData = (window as any).__data || null;
             } else {
               const res = await fetch(location.pathname);
               const text = await res.text();
@@ -161,15 +162,20 @@ export function useRoot() {
               }
             }
           }
+
           if (apiSeoPattern[matchedPattern]) {
             if (!seoData) {
-              const res = await fetch(location.pathname);
-              const text = await res.text();
-              if (text.includes("<script>window.__data =")) {
-                seoData = await extractWindowData(text);
-              }
+              (async () => {
+                const res = await fetch(location.pathname);
+                const text = await res.text();
+                if (text.includes("<script>window.__data =")) {
+                  seoData = await extractWindowData(text);
+                }
+                (window as any).__data = seoData;
+                local.render();
+              })();
             }
-            (window as any).__data = seoData;
+            (window as any).__data = seoData || {};
           }
 
           const module = await pageLoader();
