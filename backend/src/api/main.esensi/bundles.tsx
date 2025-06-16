@@ -55,9 +55,9 @@ export default defineAPI({
 
     const data = {
       title: `Lihat Semua Bundle`,
-      products: products,
+      list: products,
       page: page,
-      pages: total_pages,
+      total_pages: total_pages,
     };
 
     const seo_data = {

@@ -7,6 +7,7 @@ import { BookCardLoading } from "./book-card-loading";
 import { BookCard } from "./book-card";
 import { Fragment } from "react/jsx-runtime";
 import { PaginationNumber } from "./pagination";
+import { BundlingCard } from "./bundling-card";
 
 export type BooksCardType = {
   name: string;
@@ -19,11 +20,12 @@ export type BooksCardType = {
 
 export const LayoutBookList = ({
   title,
-  loading,
-  list,
-  page,
-  total_pages,
+  loading = true as boolean,
+  list = [] as BooksCardType[],
+  page = 1 as number,
+  total_pages = 1 as number,
   page_url,
+  bundling = false as boolean,
 }) => {
   const local = useLocal(
     {
@@ -222,7 +224,7 @@ export const LayoutBookList = ({
   );
 
   const retreiveBooks = list.map((book, idx) => {
-    return <BookCard data={book} key={`browse_books_${idx}`} />;
+    return bundling ? <BundlingCard data={book} key={`browse_books_${idx}`} /> : <BookCard data={book} key={`browse_books_${idx}`} />;
   });
   const noBooks = (
     <div className="flex flex-col justify-center items-center gap-4 w-full h-auto py-10 px-4">
