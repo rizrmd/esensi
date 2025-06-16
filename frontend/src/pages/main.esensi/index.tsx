@@ -206,11 +206,8 @@ export default () => {
           <div className="hidden lg:flex w-full">
             <SectionTitle
               title="Bundling of the Week"
-              url={`${
-                local.bundling.slug !== "" && local.bundling.slug !== null
-                  ? `/bundle/${local.bundling.slug}`
-                  : "#"
-              }`}
+              url="/bundles"
+              btn_label="View All Bundles"
             />
           </div>
           <StoreBundling

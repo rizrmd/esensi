@@ -21,13 +21,8 @@ export const StoreBundling = ({ slug, img, list }) => {
         </Link>
       </div>
 
-      <div className="hidden lg:flex w-auto grow-0 flex-row relative overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="hidden lg:flex flex-nowrap w-auto grow-0 flex-row relative overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="flex w-auto gap-4 [&>a]:w-[auto]">{renderBooks}</div>
-      </div>
-      <div className="hidden lg:flex w-auto justify-center items-center">
-        <Link href={`/bundle/${slug}`} className="flex text-[#383D64]">
-          <CircleArrowRight size={50} strokeWidth={1.5} />
-        </Link>
       </div>
     </div>
   );
