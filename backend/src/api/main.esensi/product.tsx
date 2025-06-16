@@ -51,30 +51,11 @@ export default defineAPI({
       };
     });
 
-    const dummy = await db.product.findFirst({
-      where: {
-        slug: "gtm-no-worries-solusi-jitu-anak-doyan-makan-lagi",
-        status: "published",
-        deleted_at: null,
-      },
-    });
-    const dummycat = [
-      {
-        name: "tes 1",
-        slug: "#",
-      },
-      {
-        name: "tes 1",
-        slug: "#",
-      },
-    ];
-
     const data = {
       product: product,
       categories: categories,
       author: author,
-      dummy: dummy,
-      dummycat: dummycat,
+      related: [],
     };
 
     const seo_data = {
