@@ -41,27 +41,30 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
     async () => {
       local.product = data.product;
       local.categories = data.categories;
-      local.product.info.map((inf, idx) => {
-        let txt = inf[0];
-        txt = txt.toLowerCase();
-        switch (txt) {
-          case "penulis":
-            local.author = inf[1];
-            break;
-          case "format":
-            local.format = inf[1];
-            break;
-          case "jumlah halaman":
-            local.pages = inf[1];
-            break;
-          case "bahasa":
-            local.lang = inf[1];
-            break;
-        }
-      });
-      local.loading = false;
+      if (Array.isArray(data.product.info)) {
+        local.product.info.map((inf, idx) => {
+          let txt = inf[0];
+          txt = txt.toLowerCase();
+          switch (txt) {
+            case "penulis":
+              local.author = inf[1];
+              break;
+            case "format":
+              local.format = inf[1];
+              break;
+            case "jumlah halaman":
+              local.pages = inf[1];
+              break;
+            case "bahasa":
+              local.lang = inf[1];
+              break;
+          }
+        });
+        local.loading = false;
+      }
+
       local.render();
-    },
+    }
   );
 
   let productWrapper = <></>;
@@ -70,7 +73,10 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
       <></>
     ) : (
       <img
-        src={`https://esensi.online/${local.product.cover.replace("_file/", "_img/")}?w=320`}
+        src={`https://esensi.online/${local.product.cover.replace(
+          "_file/",
+          "_img/"
+        )}?w=320`}
         alt={`${local.product?.name.replace(`'`, ``).replace(`"`, ``)}`}
         className="flex max-w-1/2 lg:max-w-[280px] aspect-3/4 object-center object-cover rounded-sm"
       />
@@ -133,7 +139,9 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
     const bookInfo = bookInfoData.map((inf, idx) => {
       return (
         <div
-          className={`flex flex-col flex-1 flex-grow text-center gap-1 w-auto py-2 px-4 lg:px-8 justify-center items-center relative${idx > 0 ? " esensi-with-separator" : ""}`}
+          className={`flex flex-col flex-1 flex-grow text-center gap-1 w-auto py-2 px-4 lg:px-8 justify-center items-center relative${
+            idx > 0 ? " esensi-with-separator" : ""
+          }`}
         >
           <label className="flex justify-center items-center font-light leading-[1.2] text-[10px] text-[#383D64]">
             {inf.label}
@@ -190,7 +198,7 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
                 <span className="flex justify-start w-auto text-[#C6011B] text-left font-bold text-3xl">
                   {formatMoney(
                     local.product.real_price,
-                    local.product.currency,
+                    local.product.currency
                   )}
                 </span>
               </div>
