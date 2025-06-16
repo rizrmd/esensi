@@ -10,6 +10,7 @@ import {
 import { useContext, useEffect } from "react";
 import raw_config from "../../../../config.json";
 import { useLocal } from "../hooks/use-local";
+import { api } from "../gen/main.esensi";
 
 interface SiteConfig {
   domains?: string[];
@@ -22,6 +23,8 @@ interface Config {
 }
 
 const config = raw_config as Config;
+
+export const apiSeoPattern = {} as Record<string, boolean>;
 
 // Get domain key from hostname (for non-localhost environments)
 function getDomainKeyByHostname(hostname: string): string | null {
@@ -121,11 +124,11 @@ export function useRoot() {
         // For non-localhost, use hostname to determine domain
         domainKey = getDomainKeyByHostname(hostname);
       }
+      let matchedPattern = domainKey
+        ? `/${domainKey}${path === "/" ? "" : path}`
+        : path;
 
-      let pageLoader =
-        pageModules[
-          domainKey ? `/${domainKey}${path === "/" ? "" : path}` : path
-        ];
+      let pageLoader = pageModules[matchedPattern];
       let matchedParams = {};
 
       if (!pageLoader) {
@@ -133,6 +136,7 @@ export function useRoot() {
           const routePattern = parsePattern(pattern);
           const params = matchRoute(path, routePattern);
           if (params) {
+            matchedPattern = pattern;
             pageLoader = loader;
             matchedParams = params;
             break;
@@ -142,6 +146,32 @@ export function useRoot() {
 
       if (pageLoader) {
         try {
+          let seoData = null;
+          if (typeof apiSeoPattern[matchedPattern] === "undefined") {
+            if (Object.keys(apiSeoPattern).length === 0) {
+              apiSeoPattern[matchedPattern] = !!(window as any).__data;
+            } else {
+              const res = await fetch(location.pathname);
+              const text = await res.text();
+              if (text.includes("<script>window.__data =")) {
+                apiSeoPattern[matchedPattern] = true;
+                seoData = await extractWindowData(text);
+              } else {
+                apiSeoPattern[matchedPattern] = false;
+              }
+            }
+          }
+          if (apiSeoPattern[matchedPattern]) {
+            if (!seoData) {
+              const res = await fetch(location.pathname);
+              const text = await res.text();
+              if (text.includes("<script>window.__data =")) {
+                seoData = await extractWindowData(text);
+              }
+            }
+            (window as any).__data = seoData;
+          }
+
           const module = await pageLoader();
           local.routePath = path;
           local.Page = module.default;
@@ -200,4 +230,54 @@ export function useParams<T extends Record<string, string>>() {
     params: useContext(ParamsContext) as T,
     hash: router.hash,
   };
+}
+
+export function extractWindowData(htmlString: string): Promise<any> {
+  return new Promise((resolve, reject) => {
+    // Create an iframe element
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    iframe.style.position = "absolute";
+    iframe.style.left = "-9999px";
+
+    // Add iframe to document
+    document.body.appendChild(iframe);
+
+    try {
+      // Get iframe's document
+      const iframeDoc =
+        iframe.contentDocument || iframe.contentWindow?.document;
+
+      if (!iframeDoc) {
+        throw new Error("Tidak dapat mengakses iframe document");
+      }
+
+      // Write HTML content to iframe
+      iframeDoc.open();
+      iframeDoc.write(htmlString);
+      iframeDoc.close();
+
+      // Wait for scripts to execute and extract window.__data
+      setTimeout(() => {
+        try {
+          const windowData = (iframe.contentWindow as any)?.__data;
+
+          if (windowData) {
+            resolve(windowData);
+          } else {
+            reject(new Error("window.__data tidak ditemukan"));
+          }
+        } catch (error) {
+          reject(error);
+        } finally {
+          // Clean up: remove iframe
+          document.body.removeChild(iframe);
+        }
+      }, 100); // Small delay to ensure scripts execute
+    } catch (error) {
+      // Clean up on error
+      document.body.removeChild(iframe);
+      reject(error);
+    }
+  });
 }
