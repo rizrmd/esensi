@@ -33,7 +33,7 @@ export default (data: Awaited<ReturnType<typeof api.bundles>>["data"]) => {
         ],
       },
       page_url: {
-        prefix: "/bundles/",
+        prefix: "/bundles",
       },
     },
     async () => {

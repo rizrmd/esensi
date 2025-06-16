@@ -60,8 +60,9 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
               break;
           }
         });
-        local.loading = false;
+        
       }
+      local.loading = false;
 
       local.render();
     }

@@ -21,7 +21,7 @@ export type BooksCardType = {
 export const LayoutBookList = ({
   title,
   loading = true as boolean,
-  list = [] as BooksCardType[],
+  list = [] as any[],
   page = 1 as number,
   total_pages = 1 as number,
   page_url,
@@ -243,12 +243,14 @@ export const LayoutBookList = ({
     return <BookCardLoading key={`browse_books_loading_${idx}`} />;
   });
 
+  const columnsClasses = bundling ? "flex-col [&>a,&>.esensi-book-loading]:w-full [&>a,&>.esensi-book-loading]:md:w-1/3" : "items-stretch flex-wrap [&>a,&>.esensi-book-loading]:w-1/2 [&>a,&>.esensi-book-loading]:md:w-1/6";
+
   return (
     <div className="flex flex-col w-full gap-8 items-center">
       {renderTitle}
       <div className="flex flex-col gap-4 px-6 justify-center lg:container">
         <div className="flex">{filternav}</div>
-        <div className="flex flex-row justify-start items-stretch flex-wrap gap-y-4 w-full [&>a,&>.esensi-book-loading]:w-1/2 [&>a,&>.esensi-book-loading]:md:w-1/6">
+        <div className={`flex justify-start gap-y-4 w-full ${columnsClasses}`}>
           {loading ? renderLoading : renderBooks}
         </div>
         {pagination}
