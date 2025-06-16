@@ -10,6 +10,7 @@ import {
 import { useContext, useEffect } from "react";
 import raw_config from "../../../../config.json";
 import { useLocal } from "../hooks/use-local";
+import { api } from "../gen/main.esensi";
 
 interface SiteConfig {
   domains?: string[];
@@ -145,6 +146,7 @@ export function useRoot() {
 
       if (pageLoader) {
         try {
+          let seoData = null;
           if (typeof apiSeoPattern[matchedPattern] === "undefined") {
             if (Object.keys(apiSeoPattern).length === 0) {
               apiSeoPattern[matchedPattern] = !!(window as any).__data;
@@ -152,10 +154,22 @@ export function useRoot() {
               const res = await fetch(location.pathname);
               const text = await res.text();
               if (text.includes("<script>window.__data =")) {
-                const data = await extractWindowData(text);
-                (window as any).__data = data;
+                apiSeoPattern[matchedPattern] = true;
+                seoData = await extractWindowData(text);
+              } else {
+                apiSeoPattern[matchedPattern] = false;
               }
             }
+          }
+          if (apiSeoPattern[matchedPattern]) {
+            if (!seoData) {
+              const res = await fetch(location.pathname);
+              const text = await res.text();
+              if (text.includes("<script>window.__data =")) {
+                seoData = await extractWindowData(text);
+              }
+            }
+            (window as any).__data = seoData;
           }
 
           const module = await pageLoader();
