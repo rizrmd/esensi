@@ -3,7 +3,7 @@ import { CircleUser, House, Info, LibraryBig } from "lucide-react";
 import { MobileNavbarItem } from "./mobile-navbar-item";
 import { navigate } from "@/lib/router";
 
-export const MobileNavbar = (enable: boolean | any) => {
+export const MobileNavbar = ({ enable = true as boolean }) => {
   const local = useLocal(
     {
       enable: true as boolean,
