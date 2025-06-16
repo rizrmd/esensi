@@ -57,14 +57,14 @@ export default defineAPI({
           status: ProductStatus.PUBLISHED,
           deleted_at: null,
         },
-      })) / books_per_page
+      })) / books_per_page,
     );
 
     const data = {
       title: `Ebook tentang ${cat?.name}`,
-      products: products,
+      list: products,
       page: page,
-      pages: total_pages,
+      total_pages: total_pages,
     };
 
     const seo_data = {

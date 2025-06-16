@@ -179,7 +179,14 @@ export default () => {
 
         <div className="flex flex-col gap-6 order-0 lg:order-none w-full">
           <div className="hidden lg:flex w-full">
-            <SectionTitle title="Berdasarkan Genre" url="/browse" />
+            <SectionTitle
+              title="Berdasarkan Genre"
+              url={
+                local.cats.selected !== ""
+                  ? `/category/${local.cats.selected}`
+                  : `/browse`
+              }
+            />
           </div>
           <StoreCategories
             action={changeStoreCategory}

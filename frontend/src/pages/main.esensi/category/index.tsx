@@ -6,7 +6,7 @@ import {
 import { api } from "@/lib/gen/main.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 
-export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
+export default (data: Awaited<ReturnType<typeof api.category>>["data"]) => {
   const header_config = {
     enable: true,
     logo: true,

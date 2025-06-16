@@ -1,12 +1,12 @@
-import { useLocal } from "@/lib/hooks/use-local";
-import { api } from "@/lib/gen/main.esensi";
 import { MainEsensiLayout } from "@/components/esensi/layout";
 import {
   LayoutBookList,
   type BooksCardType,
 } from "@/components/esensi/layout-book-list";
+import { api } from "@/lib/gen/main.esensi";
+import { useLocal } from "@/lib/hooks/use-local";
 
-export default () => {
+export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
   const header_config = {
     enable: true,
     logo: true,
@@ -16,6 +16,7 @@ export default () => {
     cart: true,
     profile: true,
   };
+
   const local = useLocal(
     {
       title: "" as string,
@@ -31,12 +32,17 @@ export default () => {
           },
         ],
       },
+      page_url: {
+        prefix: "/browse/",
+      },
     },
     async () => {
-      const res = await api.browse();
-      local.list = res.data.list;
-      local.page = res.data.page;
-      local.total_pages = res.data.total_pages;
+      local.list = data.list;
+      local.page = data.page;
+      local.total_pages = data.total_pages;
+      local.title = `Dunia Baru Dimulai dari Satu Halaman${
+        data.page > 1 ? ` | Page #${data.page}` : ""
+      }`;
       local.loading = false;
       local.render();
     },
@@ -50,6 +56,7 @@ export default () => {
         list={local.list}
         page={local.page}
         total_pages={local.total_pages}
+        page_url={local.page_url}
       />
     </MainEsensiLayout>
   );

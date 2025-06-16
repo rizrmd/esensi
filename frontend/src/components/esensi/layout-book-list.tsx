@@ -6,6 +6,7 @@ import { FilterItem } from "./filter-item";
 import { BookCardLoading } from "./book-card-loading";
 import { BookCard } from "./book-card";
 import { Fragment } from "react/jsx-runtime";
+import { PaginationNumber } from "./pagination";
 
 export type BooksCardType = {
   name: string;
@@ -16,7 +17,14 @@ export type BooksCardType = {
   slug: string;
 };
 
-export const LayoutBookList = ({ title, loading, list, page, total_pages }) => {
+export const LayoutBookList = ({
+  title,
+  loading,
+  list,
+  page,
+  total_pages,
+  page_url,
+}) => {
   const local = useLocal(
     {
       title: "" as any | null,
@@ -89,21 +97,29 @@ export const LayoutBookList = ({ title, loading, list, page, total_pages }) => {
       sort: "terbaru" as any,
       paging: {
         current: 1 as number,
-        total: 1 as number,
+        total_pages: 1 as number,
         books_per_page: 20 as number,
-        list: [
-          {
-            label: "prev",
-            page: 0,
-          },
-          {
-            label: "next",
-            page: 1,
-          },
-        ],
+        url: {
+          prefix: "" as string,
+          suffix: "" as string,
+        },
       },
     },
-    async () => {}
+    async () => {
+      local.paging.current = page;
+      local.paging.total_pages = total_pages;
+      if (typeof page_url === "string") {
+        local.paging.url.prefix = page_url;
+      } else {
+        if (page_url?.prefix) {
+          local.paging.url.prefix = page_url.prefix;
+        }
+        if (page_url?.suffix) {
+          local.paging.url.suffix = page_url.suffix;
+        }
+      }
+      local.render();
+    },
   );
 
   const handlePage = (page: number) => {
@@ -118,7 +134,7 @@ export const LayoutBookList = ({ title, loading, list, page, total_pages }) => {
 
   const handleFilterItem = (
     name = "" as string | null,
-    value = null as string | null
+    value = null as string | null,
   ) => {
     if (name !== "" && name !== null) {
       const the_value = value !== "" ? value : null;
@@ -187,18 +203,12 @@ export const LayoutBookList = ({ title, loading, list, page, total_pages }) => {
     </div>
   );
   const pagination = (
-    <ul className="flex justify-center lg:container">
-      <li>
-        <Link
-          href="/adad"
-          onClick={(e) => {
-            e.preventDefault();
-          }}
-        >
-          1
-        </Link>
-      </li>
-    </ul>
+    <PaginationNumber
+      items_per_page={local.paging.books_per_page}
+      current={local.paging.current}
+      total_pages={local.paging.total_pages}
+      url={local.paging.url}
+    />
   );
 
   const renderTitle = title !== "" && title !== null && (
