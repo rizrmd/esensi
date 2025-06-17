@@ -109,7 +109,7 @@ export const PageHeader = ({
       local.cart = cart;
       local.profile = profile;
       local.render();
-    },
+    }
   );
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -121,17 +121,21 @@ export const PageHeader = ({
 
   return (
     <header
-      className={`sticky top-0 z-50 px-4 lg:static ${local.enable ? "flex" : "hidden lg:flex"} flex-row justify-center items-center w-full bg-background lg:h-36`}
+      className={`sticky top-0 z-50 lg:static ${
+        local.enable ? "flex" : "hidden lg:flex"
+      } flex-row justify-between items-center w-full bg-background h-12 lg:h-36`}
     >
-      <div className="container flex h-14 items-center">
+      <div className="flex w-full justify-center items-center aspect-1/1 w-auto h-full lg:hidden">
         {/* Back Button */}
         {local.back && (
-          <button
-            className="flex justify-center items-center aspect-1/1 w-auto h-full lg:hidden mr-2 -ml-4 [&>svg]:stroke-[#3B2C93] cursor-pointer"
-            onClick={() => history.back()}
-          >
-            <ArrowLeft size={25} strokeWidth={1.75} />
-          </button>
+          <div className="flex h-full justify-start items-center flex-1 grow-1 lg:hidden">
+            <button
+              className="flex h-full aspect-1/1 justify-center items-center [&>svg]:stroke-[#3B2C93] cursor-pointer"
+              onClick={() => history.back()}
+            >
+              <ArrowLeft size={25} strokeWidth={1.75} />
+            </button>
+          </div>
         )}
 
         {/* Logo */}
@@ -148,7 +152,7 @@ export const PageHeader = ({
 
         {/* Title Bar */}
         {local.title !== null && local.title !== "" && (
-          <div className="flex flex-1 lg:hidden justify-content items-center color-[#3B2C93]">
+          <div className="flex flex-1 lg:hidden justify-content items-center color-[#3B2C93] whitespace-nowrap">
             <span className="flex w-full justify-center items-center">
               {local.title}
             </span>
@@ -158,7 +162,9 @@ export const PageHeader = ({
         {/* Search Bar */}
 
         <div
-          className={`${local.search ? "flex" : "hidden lg:flex"} flex-1 mx-4 lg:ml-12 lg:mr-4`}
+          className={`${
+            local.search ? "flex" : "hidden lg:flex"
+          } flex-1 mx-4 lg:ml-12 lg:mr-4`}
         >
           <div className="flex w-full relative">
             <Search className="absolute left-2 lg:left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -203,7 +209,7 @@ export const PageHeader = ({
                 ) : (
                   <NavigationMenuLink
                     className={cn(
-                      "text-sm font-medium text-black cursor-pointer px-4 py-2 hover:text-[#3B2C93]",
+                      "text-sm font-medium text-black cursor-pointer px-4 py-2 hover:text-[#3B2C93]"
                     )}
                     onClick={() => navigate(item.url)}
                   >
@@ -216,11 +222,13 @@ export const PageHeader = ({
         </NavigationMenu>
 
         {/* Right side icons */}
-        <div className="flex items-center -mx-4">
+        <div className="flex justify-end items-center grow-1 lg:grow-0">
           <Button
             variant="ghost"
             onClick={() => navigate("/cart")}
-            className={`${local.cart ? "flex" : "hidden lg:flex"} rounded-full p-2 aspect-square`}
+            className={`${
+              local.cart ? "flex" : "hidden lg:flex"
+            } rounded-full p-2 aspect-square`}
           >
             <ShoppingCart
               color="#3B2C93"
@@ -232,7 +240,9 @@ export const PageHeader = ({
           <Button
             variant="ghost"
             onClick={() => navigate("/profile")}
-            className={`${local.profile ? "flex" : "hidden lg:flex"} rounded-full p-2 aspect-square`}
+            className={`${
+              local.profile ? "flex" : "hidden lg:flex"
+            } rounded-full p-2 aspect-square`}
           >
             <User color="#3B2C93" strokeWidth={2.25} className="size-5" />
           </Button>
