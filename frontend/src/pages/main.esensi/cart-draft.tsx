@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { api } from "@/lib/gen/main.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { Trash2 } from "lucide-react";
+import { ChevronUp, Trash2 } from "lucide-react";
 
 export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
   const header_config = {
@@ -147,6 +147,10 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
         },
       ] as any[],
       checked: [] as any[],
+      subtotal: 0 as number,
+      discount: 0 as number,
+      total: 0 as number,
+      breakdown: false as boolean,
     },
     async () => {
       local.loading = false;
@@ -174,6 +178,32 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
     }
   };
 
+  const recountCart = () => {
+    let the_subtotal = 0;
+    let the_discount = 0;
+    let the_total = 0;
+    if (local.checked.length > 0) {
+      local.list.map((item) => {
+        if (local.checked.includes(item.id)) {
+          the_subtotal += parseFloat(item.real_price);
+          the_discount +=
+            item.strike_price !== null &&
+            item.strike_price !== "" &&
+            item.strike_price > item.real_price
+              ? parseFloat(item.strike_price) - parseFloat(item.real_price)
+              : 0;
+          the_total += parseFloat(item.real_price);
+        }
+      });
+    }else{
+      local.breakdown = false;
+    }
+    local.subtotal = the_subtotal;
+    local.discount = the_discount;
+    local.total = the_total;
+    local.render();
+  };
+
   const handleCheck = (event: any, id: number) => {
     const isChecked = event.target.checked;
     if (isChecked) {
@@ -184,6 +214,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
       local.checked = local.checked.filter((item) => item !== id);
     }
     local.render();
+    recountCart();
   };
 
   const handleCheckAll = (event: any) => {
@@ -194,6 +225,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
       local.checked = [];
     }
     local.render();
+    recountCart();
   };
 
   const handleDeleteItem = (id: number) => {
@@ -205,6 +237,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
       local.list = local.list.filter((item) => item.id !== id);
       local.checked = local.checked.filter((item) => item !== id);
       local.render();
+      recountCart();
     }
   };
 
@@ -223,7 +256,14 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
       );
       local.checked = [];
       local.render();
+      recountCart();
     }
+  };
+
+  const handleBreakdown = (event: any) => {
+    event.preventDefault();
+    local.breakdown = !local.breakdown;
+    local.render();
   };
 
   const cartDeleteChecked = local.checked.length > 0 && (
@@ -362,7 +402,68 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
   );
   const renderCart = local.list.length > 0 ? cartItems : cartEmpty;
 
-  const renderBreakdown = <></>;
+  const breakdownList = (
+    label: string,
+    value: any,
+    currency: string,
+    color: string | null
+  ) => {
+    currency = currency || "Rp.";
+    return (
+      <div className="flex justify-between">
+        <span>{label}</span>
+        <span className="">{formatMoney(value, currency)}</span>
+      </div>
+    );
+  };
+
+  const checkoutButton = local.checked.length > 0 && (
+    <div className="flex h-full items-center py-1">
+      <Button className="flex items-center justify-center gap-2 bg-[#C6011B] text-white px-10 h-full rounded-lg">
+        Checkout
+      </Button>
+    </div>
+  );
+  const renderBreakdown = (
+    <div>
+      <div
+        className={`flex flex-col w-full h-auto fixed bottom-0 left-0 right-0 bg-white pt-2 pb-16 px-4 gap-3 shadow-[0_-4px_30px_1px_rgba(0,0,0,0.15)] transition-transform duration-300 ${
+          local.breakdown ? "translate-y-0" : "translate-y-full"
+        }`}
+      >
+        <span className="font-bold text-[#3B2C93]">Ringkasan keranjang</span>
+        <div className="flex flex-col w-full [&>div]:flex [&>div]:justify-between">
+          <div>
+            <span>Total harga ({local.checked.length} Barang)</span>
+            <span>{formatMoney(local.subtotal, "Rp.")}</span>
+          </div>
+          <div>
+            <span>Diskon Belanja</span>
+            <strong className="text-[#C6011B]">
+              -{formatMoney(local.discount, "Rp.")}
+            </strong>
+          </div>
+        </div>
+        <hr />
+      </div>
+
+      <div className="flex w-full justify-between items-center h-14 py-1 px-4 fixed bottom-0 left-0 right-0 bg-white">
+        <div
+          className="flex flex-col items-start py-1 cursor-pointer"
+          onClick={handleBreakdown}
+        >
+          <span className="text-[#B0B0B0] font-medium text-xs">Subtotal</span>
+          <div className="flex gap-2 items-center text-[#3B2C93]">
+            <strong className="font-bold text-lg">
+              {formatMoney(local.total, "Rp.")}
+            </strong>
+            <ChevronUp strokeWidth={1.75} />
+          </div>
+        </div>
+        {checkoutButton}
+      </div>
+    </div>
+  );
 
   const renderLoading = (
     <div className="flex justify-center items-center w-full h-64">
@@ -371,7 +472,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
   );
 
   return (
-    <MainEsensiLayout header_config={header_config}>
+    <MainEsensiLayout header_config={header_config} mobile_menu={false}>
       <div className="flex flex-col w-full h-auto gap-4 bg-[#E1E5EF]">
         <div className="flex flex-col w-full h-auto gap-4 [&_input[type=checkbox]]:w-5 [&_input[type=checkbox]]:h-5 [&_input[type=checkbox]]:border-0.5 [&_input[type=checkbox]]:border-[#3B2C93] [&_input[type=checkbox]]:rounded-xs">
           {local.loading ? renderLoading : renderCart}
@@ -380,6 +481,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
           Recommendation
         </div>
       </div>
+      {!local.loading && renderBreakdown}
     </MainEsensiLayout>
   );
 };

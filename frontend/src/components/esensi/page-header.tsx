@@ -153,7 +153,7 @@ export const PageHeader = ({
         {/* Title Bar */}
         {local.title !== null && local.title !== "" && (
           <div className="flex flex-1 lg:hidden justify-content items-center color-[#3B2C93] whitespace-nowrap">
-            <span className="flex w-full justify-center items-center">
+            <span className="flex w-full justify-center items-center text-[#3B2C93] font-bold">
               {local.title}
             </span>
           </div>
