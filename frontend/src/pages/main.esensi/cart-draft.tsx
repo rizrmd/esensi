@@ -195,7 +195,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
           the_total += parseFloat(item.real_price);
         }
       });
-    }else{
+    } else {
       local.breakdown = false;
     }
     local.subtotal = the_subtotal;
@@ -280,9 +280,9 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
   );
 
   const cartCheckAll = (
-    <div className="flex justify-between items-stretch w-full gap-3 h-12 px-2 w-8 bg-white">
+    <div className="flex justify-between items-stretch w-full gap-3 h-12 px-2 w-8 bg-white lg:rounded-md">
       <div className="flex w-auto py-1 justify-center items-center shrink-0">
-        <label className="flex items-center gap-4 px-1.5">
+        <label className="flex items-center gap-4 px-1.5 cursor-pointer">
           <input
             type="checkbox"
             onChange={handleCheckAll}
@@ -333,12 +333,12 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
       );
     return (
       <div
-        className={`flex justify-between items-start w-full gap-3 py-4 px-2 ${
-          local.checked.includes(ci.id) ? "bg-[#f5f8ff]" : ""
+        className={`flex justify-between items-start w-full gap-3 py-4 px-2 lg:gap-5 ${
+          local.checked.includes(ci.id) ? "bg-[#f5f8ff]" : "lg:bg-white"
         }`}
         key={`esensi_cart_item_${idx}`}
       >
-        <div className="flex w-8 py-1 justify-center items-start shrink-0">
+        <div className="flex w-8 py-1 justify-center items-start shrink-0 lg:h-full lg:items-center">
           <input
             type="checkbox"
             className=""
@@ -348,7 +348,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
             checked={local.checked.includes(ci.id)}
           />
         </div>
-        <div className="flex w-1/4 shrink-0">
+        <div className="flex w-1/4 lg:w-20 shrink-0">
           <img
             src={`https://esensi.online/${ci.cover.replace(
               "_file/",
@@ -358,9 +358,9 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
             className="w-full h-full aspect-3/4 object-center object-cover"
           />
         </div>
-        <div className="flex flex-col w-auto grow-1 gap-3">
-          <h5 className="text-[#3B2C93] leading-[1.2] font-bold">{ci.name}</h5>
-          <div className="flex flex-col grow-1 justify-end">
+        <div className="flex flex-col w-auto grow-1 gap-3 lg:flex-row lg:items-center lg:h-full lg:py-1 lg:gap-4">
+          <h5 className="text-[#3B2C93] leading-[1.2] font-semibold">{ci.name}</h5>
+          <div className="flex flex-col grow-1 justify-end lg:flex-row lg:items-center lg:justify-end lg:gap-2 lg:w-auto lg:whitespace-nowrap">
             <span className="line-through text-[#a9a9a9] text-xs h-4">
               {striked}
             </span>
@@ -377,7 +377,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
             </strong>
           </div>
         </div>
-        <div className="flex w-auto items-end self-stretch shrink-0">
+        <div className="flex w-auto items-end self-stretch shrink-0 lg:items-center">
           <Button
             variant={"ghost"}
             className="text-[#3B2C93]"
@@ -395,7 +395,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
   const cartItems = (
     <>
       {cartCheckAll}
-      <div className="flex flex-col w-full h-auto gap-1 bg-white">
+      <div className="flex flex-col w-full h-auto gap-1 lg:gap-px bg-white lg:bg-transparent lg:rounded-md lg:overflow-hidden">
         {cartItemsList}
       </div>
     </>
@@ -417,24 +417,17 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
     );
   };
 
-  const checkoutButton = local.checked.length > 0 && (
-    <div className="flex h-full items-center py-1">
-      <Button className="flex items-center justify-center gap-2 bg-[#C6011B] text-white px-10 h-full rounded-lg">
-        Checkout
-      </Button>
-    </div>
-  );
   const renderBreakdown = (
-    <div>
+    <div className={`w-full ${local.checked.length > 0 ? "flex":"hidden lg:flex"} flex-col lg:rounded-sm lg:overflow-hidden`}>
       <div
-        className={`flex flex-col w-full h-auto fixed bottom-0 left-0 right-0 bg-white pt-2 pb-16 px-4 gap-3 shadow-[0_-4px_30px_1px_rgba(0,0,0,0.15)] transition-transform duration-300 ${
-          local.breakdown ? "translate-y-0" : "translate-y-full"
-        }`}
+        className={`flex flex-col w-full h-fit fixed bottom-0 left-0 bg-white pt-2 pb-16 px-4 gap-3 lg:relative lg:bottom-none lg:left-none lg:py-6 lg:px-6 lg:pb-0 lg:gap-4 shadow-[0_-4px_30px_1px_rgba(0,0,0,0.15)] transition-transform duration-300 ${
+          local.breakdown ? "translate-y-0" : "translate-y-full lg:translate-y-0"
+        } lg:relative lg:bottom-none lg:left-none lg:shadow-none lg:h-auto`}
       >
         <span className="font-bold text-[#3B2C93]">Ringkasan keranjang</span>
-        <div className="flex flex-col w-full [&>div]:flex [&>div]:justify-between">
+        <div className="flex flex-col w-full lg:gap-2 [&>div]:flex [&>div]:justify-between">
           <div>
-            <span>Total harga ({local.checked.length} Barang)</span>
+            <span>Subtotal harga ({local.checked.length} Barang)</span>
             <span>{formatMoney(local.subtotal, "Rp.")}</span>
           </div>
           <div>
@@ -447,20 +440,25 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
         <hr />
       </div>
 
-      <div className="flex w-full justify-between items-center h-14 py-1 px-4 fixed bottom-0 left-0 right-0 bg-white">
+      <div className={`flex w-full justify-between items-center h-14 py-1 px-4 fixed bottom-0 left-0 bg-white lg:relative lg:bottom-none lg:left-none lg:py-6 lg:px-6 lg:h-fit ${local.breakdown ? "" : "shadow-[0_-4px_30px_1px_rgba(0,0,0,0.15)]"} lg:shadow-none`}>
         <div
-          className="flex flex-col items-start py-1 cursor-pointer"
+          className="flex flex-col items-start py-1 cursor-pointer lg:cursor-default lg:py-0"
           onClick={handleBreakdown}
         >
-          <span className="text-[#B0B0B0] font-medium text-xs">Subtotal</span>
-          <div className="flex gap-2 items-center text-[#3B2C93]">
-            <strong className="font-bold text-lg">
+          <span className="text-[#B0B0B0] font-medium text-sm lg:text-md">Total</span>
+          <div className="flex gap-2 items-center text-[#3B2C93] lg:[&>svg]:hidden">
+            <strong className="font-bold text-lg lg:text-2xl">
               {formatMoney(local.total, "Rp.")}
             </strong>
             <ChevronUp strokeWidth={1.75} />
           </div>
         </div>
-        {checkoutButton}
+
+        <div className={`h-full items-center py-1 ${local.checked.length > 0 ? "flex" : "hidden"}`}>
+          <Button className="flex items-center justify-center gap-2 bg-[#C6011B] text-white px-10 h-full rounded-lg">
+            Checkout
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -473,15 +471,17 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
 
   return (
     <MainEsensiLayout header_config={header_config} mobile_menu={false}>
-      <div className="flex flex-col w-full h-auto gap-4 bg-[#E1E5EF]">
-        <div className="flex flex-col w-full h-auto gap-4 [&_input[type=checkbox]]:w-5 [&_input[type=checkbox]]:h-5 [&_input[type=checkbox]]:border-0.5 [&_input[type=checkbox]]:border-[#3B2C93] [&_input[type=checkbox]]:rounded-xs">
-          {local.loading ? renderLoading : renderCart}
+      <div className="flex flex-col w-full h-auto gap-4 bg-[#E1E5EF] items-center lg:py-10 lg:gap-15">
+        <div className="flex flex-col w-full h-auto lg:auto lg:flex-row lg:gap-6 max-w-[1200px]">
+          <div className="flex flex-col lg:grow-1 w-full h-auto gap-4 [&_input[type=checkbox]]:w-5 [&_input[type=checkbox]]:h-5 [&_input[type=checkbox]]:border-0.5 [&_input[type=checkbox]]:border-[#3B2C93] [&_input[type=checkbox]]:rounded-xs">
+            {local.loading ? renderLoading : renderCart}
+          </div>
+          <div className="flex w-full lg:w-1/3 shrink-0">{!local.loading && renderBreakdown}</div>
         </div>
-        <div className="flex flex-col w-full h-auto bg-white p-6 bg-white">
-          Recommendation
+        <div className="flex flex-col w-full h-auto bg-white p-6 bg-white lg:-mb-10 lg:pb-10">
+          <div className="max-w-[1200px]">{/* Recommendation */}</div>
         </div>
       </div>
-      {!local.loading && renderBreakdown}
     </MainEsensiLayout>
   );
 };
