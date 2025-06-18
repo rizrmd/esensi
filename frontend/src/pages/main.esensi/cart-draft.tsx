@@ -154,6 +154,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
     },
     async () => {
       local.loading = false;
+      recountCart();
       local.render();
     }
   );
@@ -182,19 +183,18 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
     let the_subtotal = 0;
     let the_discount = 0;
     let the_total = 0;
-    if (local.checked.length > 0) {
+    if (local.list.length > 0) {
       local.list.map((item) => {
-        if (local.checked.includes(item.id)) {
-          the_subtotal += parseFloat(item.real_price);
-          the_discount +=
-            item.strike_price !== null &&
-            item.strike_price !== "" &&
-            item.strike_price > item.real_price
-              ? parseFloat(item.strike_price) - parseFloat(item.real_price)
-              : 0;
-          the_total += parseFloat(item.real_price);
-        }
+        the_subtotal += parseFloat(item.real_price);
+        the_discount +=
+          item.strike_price !== null &&
+          item.strike_price !== "" &&
+          item.strike_price > item.real_price
+            ? parseFloat(item.strike_price) - parseFloat(item.real_price)
+            : 0;
+        the_total += parseFloat(item.real_price);
       });
+      local.breakdown = true;
     } else {
       local.breakdown = false;
     }
@@ -264,6 +264,11 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
     event.preventDefault();
     local.breakdown = !local.breakdown;
     local.render();
+  };
+
+  const handleCheckout = (event: any) => {
+    event.preventDefault();
+    alert("Lanjutkan proses checkout, edit script-nya");
   };
 
   const cartDeleteChecked = local.checked.length > 0 && (
@@ -359,7 +364,9 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
           />
         </div>
         <div className="flex flex-col w-auto grow-1 gap-3 lg:flex-row lg:items-center lg:h-full lg:py-1 lg:gap-4">
-          <h5 className="text-[#3B2C93] leading-[1.2] font-semibold">{ci.name}</h5>
+          <h5 className="text-[#3B2C93] leading-[1.2] font-semibold">
+            {ci.name}
+          </h5>
           <div className="flex flex-col grow-1 justify-end lg:flex-row lg:items-center lg:justify-end lg:gap-2 lg:w-auto lg:whitespace-nowrap">
             <span className="line-through text-[#a9a9a9] text-xs h-4">
               {striked}
@@ -418,34 +425,46 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
   };
 
   const renderBreakdown = (
-    <div className={`w-full ${local.checked.length > 0 ? "flex":"hidden lg:flex"} flex-col lg:rounded-sm lg:overflow-hidden`}>
+    <div
+      className={`w-full ${
+        local.list.length > 0 ? "flex" : "hidden lg:flex"
+      } flex-col lg:rounded-sm lg:overflow-hidden`}
+    >
       <div
         className={`flex flex-col w-full h-fit fixed bottom-0 left-0 bg-white pt-2 pb-16 px-4 gap-3 lg:relative lg:bottom-none lg:left-none lg:py-6 lg:px-6 lg:pb-0 lg:gap-4 shadow-[0_-4px_30px_1px_rgba(0,0,0,0.15)] transition-transform duration-300 ${
-          local.breakdown ? "translate-y-0" : "translate-y-full lg:translate-y-0"
+          local.breakdown
+            ? "translate-y-0"
+            : "translate-y-full lg:translate-y-0"
         } lg:relative lg:bottom-none lg:left-none lg:shadow-none lg:h-auto`}
       >
         <span className="font-bold text-[#3B2C93]">Ringkasan keranjang</span>
         <div className="flex flex-col w-full lg:gap-2 [&>div]:flex [&>div]:justify-between">
           <div>
-            <span>Subtotal harga ({local.checked.length} Barang)</span>
+            <span>Subtotal harga ({local.list.length} Barang)</span>
             <span>{formatMoney(local.subtotal, "Rp.")}</span>
           </div>
           <div>
             <span>Diskon Belanja</span>
             <strong className="text-[#C6011B]">
-              -{formatMoney(local.discount, "Rp.")}
+              – {formatMoney(local.discount, "Rp.")}
             </strong>
           </div>
         </div>
         <hr />
       </div>
 
-      <div className={`flex w-full justify-between items-center h-14 py-1 px-4 fixed bottom-0 left-0 bg-white lg:relative lg:bottom-none lg:left-none lg:py-6 lg:px-6 lg:h-fit ${local.breakdown ? "" : "shadow-[0_-4px_30px_1px_rgba(0,0,0,0.15)]"} lg:shadow-none`}>
+      <div
+        className={`flex w-full justify-between items-center h-14 py-1 px-4 fixed bottom-0 left-0 bg-white lg:relative lg:bottom-none lg:left-none lg:py-6 lg:px-6 lg:h-fit ${
+          local.breakdown ? "" : "shadow-[0_-4px_30px_1px_rgba(0,0,0,0.15)]"
+        } lg:shadow-none`}
+      >
         <div
           className="flex flex-col items-start py-1 cursor-pointer lg:cursor-default lg:py-0"
           onClick={handleBreakdown}
         >
-          <span className="text-[#B0B0B0] font-medium text-sm lg:text-md">Total</span>
+          <span className="text-[#B0B0B0] font-medium text-sm lg:text-md">
+            Total
+          </span>
           <div className="flex gap-2 items-center text-[#3B2C93] lg:[&>svg]:hidden">
             <strong className="font-bold text-lg lg:text-2xl">
               {formatMoney(local.total, "Rp.")}
@@ -454,8 +473,15 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
           </div>
         </div>
 
-        <div className={`h-full items-center py-1 ${local.checked.length > 0 ? "flex" : "hidden"}`}>
-          <Button className="flex items-center justify-center gap-2 bg-[#C6011B] text-white px-10 h-full rounded-lg">
+        <div
+          className={`h-full items-center py-1 ${
+            local.list.length > 0 ? "flex" : "hidden"
+          }`}
+        >
+          <Button
+            className="flex items-center justify-center gap-2 bg-[#C6011B] text-white px-10 h-full rounded-lg"
+            onClick={handleCheckout}
+          >
             Checkout
           </Button>
         </div>
@@ -471,12 +497,14 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
 
   return (
     <MainEsensiLayout header_config={header_config} mobile_menu={false}>
-      <div className="flex flex-col w-full h-auto gap-4 bg-[#E1E5EF] items-center lg:py-10 lg:gap-15">
+      <div className="flex flex-col w-full h-auto gap-4 bg-[#E1E5EF] items-center lg:py-10 lg:gap-15 lg:-mt-10">
         <div className="flex flex-col w-full h-auto lg:auto lg:flex-row lg:gap-6 max-w-[1200px]">
           <div className="flex flex-col lg:grow-1 w-full h-auto gap-4 [&_input[type=checkbox]]:w-5 [&_input[type=checkbox]]:h-5 [&_input[type=checkbox]]:border-0.5 [&_input[type=checkbox]]:border-[#3B2C93] [&_input[type=checkbox]]:rounded-xs">
             {local.loading ? renderLoading : renderCart}
           </div>
-          <div className="flex w-full lg:w-1/3 shrink-0">{!local.loading && renderBreakdown}</div>
+          <div className="flex w-full lg:w-1/3 shrink-0">
+            {!local.loading && renderBreakdown}
+          </div>
         </div>
         <div className="flex flex-col w-full h-auto bg-white p-6 bg-white lg:-mb-10 lg:pb-10">
           <div className="max-w-[1200px]">{/* Recommendation */}</div>

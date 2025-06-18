@@ -9,11 +9,11 @@ export default defineAPI({
     const req = this.req!;
 
     //const uid = this?.session?.user.id;
-    const uid = ``;
+    const uid = `df942d45-c358-4981-8d17-5974fe9c15a8`; // For testing purposes, replace with actual user ID retrieval logic
 
     let data = {
       title: `Login Untuk Lihat Detail Pembelian`,
-      userid: null,
+      userid: null as any | null,
       trx: null as any,
     }
 
@@ -22,6 +22,7 @@ export default defineAPI({
         where: {
           id_customer: uid,
           id: req.params.id,
+          deleted_at: null,
         },
         include: {
           t_sales_line: true,

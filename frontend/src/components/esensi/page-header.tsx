@@ -125,7 +125,7 @@ export const PageHeader = ({
         local.enable ? "flex" : "hidden lg:flex"
       } flex-row justify-between items-center w-full bg-background h-12 lg:h-36`}
     >
-      <div className="flex w-full justify-center items-center aspect-1/1 w-auto h-full lg:hidden">
+      <div className="flex w-full justify-center items-center aspect-1/1 w-auto h-full">
         {/* Back Button */}
         {local.back && (
           <div className="flex h-full justify-start items-center flex-1 grow-1 lg:hidden">
