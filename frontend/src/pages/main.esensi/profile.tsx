@@ -5,7 +5,6 @@ import type { api } from "@/lib/gen/main.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import {
   BadgeInfo,
-  BookText,
   CircleUser,
   DoorOpen,
   FileText,
@@ -158,7 +157,7 @@ export default (data: Awaited<ReturnType<typeof api.profile>>["data"]) => {
     <MainEsensiLayout header_config={header_config} mobile_menu={true}>
       <div className="flex justify-center p-6 lg:bg-[#E1E5EF] lg:py-10 lg:px-0">
         <div className="flex flex-col w-full h-full max-w-[1200px] h-auto">
-          <div className="flex flex-col gap-4 w-full h-auto lg:w-[350px] lg:bg-white py-6 px-8">
+          <div className="flex flex-col gap-4 w-full h-auto lg:w-[350px] lg:bg-white lg:py-6 lg:px-8">
           {local.loading ? renderLoading : renderPage}
           {!local.loading && sectionSiteLinks}
           {!local.loading && local.logged_in && sectionLogout}

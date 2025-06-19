@@ -1,5 +1,6 @@
 import { formatMoney } from "@/components/esensi/format-money";
 import { MainEsensiLayout } from "@/components/esensi/layout";
+import { LinkItem } from "@/components/esensi/link-item";
 import { Button } from "@/components/ui/button";
 import type { api } from "@/lib/gen/main.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
@@ -316,9 +317,7 @@ export default (data: Awaited<ReturnType<typeof api.trx>>["data"]) => {
 
   const renderHelpLinks = local.help_links.map((link) => {
     return (
-      <Link href={link.url}>
-        {link.icon} <span>{link.label}</span> <ChevronRight />
-      </Link>
+      <LinkItem label={link.label} url={link.url} icon={link.icon}></LinkItem>
     );
   });
 
@@ -332,7 +331,7 @@ export default (data: Awaited<ReturnType<typeof api.trx>>["data"]) => {
             {!local.loading && renderBreakdown}
             <div className="gap-4 lg:w-full">
               <h3>Butuh bantuan?</h3>
-              <div className="flex w-full flex-col gap-2 text-sm text-[#3B2C93] [&>a]:flex [&>a]:justify-start [&>a]:w-full [&>a]:items-center [&>a]:gap-3 [&>a]:py-3 [&>a]:border-b [&>a]border-b-[#E1E5EF] [&>a:last-child]:border-b-0 [&>a>span]:grow-1 [&>a>span]:text-left">
+              <div className="flex w-full flex-col gap-2 text-sm text-[#3B2C93] ">
                 {renderHelpLinks}
               </div>
             </div>

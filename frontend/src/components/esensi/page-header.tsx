@@ -123,12 +123,12 @@ export const PageHeader = ({
     <header
       className={`sticky top-0 z-50 lg:static ${
         local.enable ? "flex" : "hidden lg:flex"
-      } flex-row justify-between items-center w-full bg-background h-12 lg:h-36`}
+      } flex-row justify-center items-center w-full bg-background h-12 ${local.back ? "" : "pl-4 lg:p-none"} lg:h-36`}
     >
-      <div className="flex w-full justify-center items-center aspect-1/1 w-auto h-full">
+      <div className="flex w-full justify-center items-center w-full max-w-[1200px] h-full">
         {/* Back Button */}
         {local.back && (
-          <div className="flex h-full justify-start items-center flex-1 grow-1 lg:hidden">
+          <div className="flex h-full justify-start items-center w-full grow-1 lg:hidden">
             <button
               className="flex h-full aspect-1/1 justify-center items-center [&>svg]:stroke-[#3B2C93] cursor-pointer"
               onClick={() => history.back()}
@@ -141,7 +141,7 @@ export const PageHeader = ({
         {/* Logo */}
         <Link
           href="/"
-          className={`w-auto h-auto ${local.logo ? "flex" : "hidden lg:flex"}`}
+          className={`w-auto h-auto ${local.logo ? "flex" : "hidden lg:flex"} shrink-0`}
         >
           <img
             src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhOUKb6M5yGcRNhuM1NHSBaAvbNYSFAibMX-1xCI8gI8jl-h566LB-SNs4PW7s2hyphenhyphenj9WNdyhCtn8LFqX9V2j-ABFZoN-nw34q0l4Hf3a13EMffqv6edTQAzK7O-8RXpOIA69rTg6g60hv0eME6yDgJpUZEFIastMfEW-6Pjpq6LFXoGdKExm7L-Hu9PYy8/s1600/esensi-online-logo.png"
@@ -152,7 +152,7 @@ export const PageHeader = ({
 
         {/* Title Bar */}
         {local.title !== null && local.title !== "" && (
-          <div className="flex flex-1 lg:hidden justify-content items-center color-[#3B2C93] whitespace-nowrap">
+          <div className="flex lg:hidden justify-content items-center color-[#3B2C93] whitespace-nowrap">
             <span className="flex w-full justify-center items-center text-[#3B2C93] font-bold">
               {local.title}
             </span>
@@ -164,7 +164,7 @@ export const PageHeader = ({
         <div
           className={`${
             local.search ? "flex" : "hidden lg:flex"
-          } flex-1 mx-4 lg:ml-12 lg:mr-4`}
+          } w-full grow-1 mx-4 lg:ml-12 lg:mr-4 `}
         >
           <div className="flex w-full relative">
             <Search className="absolute left-2 lg:left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -183,7 +183,7 @@ export const PageHeader = ({
         </div>
 
         {/* Navigation Menu */}
-        <NavigationMenu className="hidden lg:flex ml-4 lg:mx-8">
+        <NavigationMenu className="hidden w-auto shrink-0 grow-1 whitespace-nowrap lg:flex ml-4 lg:mx-8">
           <NavigationMenuList>
             {menuItems.map((item, index) => (
               <NavigationMenuItem key={index}>
@@ -222,7 +222,7 @@ export const PageHeader = ({
         </NavigationMenu>
 
         {/* Right side icons */}
-        <div className="flex justify-end items-center grow-1 lg:grow-0">
+        <div className={`flex justify-end items-center ${local.search ? "w-auto" : "w-full"} grow-1 lg:grow-0`}>
           <Button
             variant="ghost"
             onClick={() => navigate("/cart")}
