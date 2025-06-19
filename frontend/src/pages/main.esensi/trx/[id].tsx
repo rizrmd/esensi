@@ -262,35 +262,35 @@ export default (data: Awaited<ReturnType<typeof api.trx>>["data"]) => {
   );
   const renderTotal = (
     <div className="flex w-full flex-col items-end justify-start -mt-6 lg:mt-0">
-        <div
-          className={`flex flex-col w-full transition-all duration-600 overflow-hidden ${
-            local.breakdown.show ? "h-[80px]" : "h-0"
-          }  [&>div]:flex [&>div]:justify-between [&>div]:justify-items-center [&>div]:gap-1.5 [&>div>span:last-child]:text-right`}
-        >
-          <div>
-            <span>Subtotal produk</span>
-            <span>
-              {formatMoney(local.breakdown.subtotal, local.trx.currency)}
-            </span>
-          </div>
-          <div>
-            <span>Diskon</span>
-            <span className="text-[#C6011B]">
-              – {formatMoney(local.breakdown.discount, local.trx.currency)}
-            </span>
-          </div>
-        </div>
-        <Button
-          variant={"link"}
-          className="flex items-center gap-3 text-[#383D64] font-bold text-lg decoration-none"
-          onClick={handleBreakdown}
-        >
+      <div
+        className={`flex flex-col w-full transition-all duration-600 overflow-hidden ${
+          local.breakdown.show ? "h-[80px]" : "h-0"
+        }  [&>div]:flex [&>div]:justify-between [&>div]:justify-items-center [&>div]:gap-1.5 [&>div>span:last-child]:text-right`}
+      >
+        <div>
+          <span>Subtotal produk</span>
           <span>
-            Total pesanan {formatMoney(local.trx.total, local.trx.currency)}
+            {formatMoney(local.breakdown.subtotal, local.trx.currency)}
           </span>
-          {local.breakdown.show ? <ChevronUp /> : <ChevronDown />}
-        </Button>
+        </div>
+        <div>
+          <span>Diskon</span>
+          <span className="text-[#C6011B]">
+            – {formatMoney(local.breakdown.discount, local.trx.currency)}
+          </span>
+        </div>
       </div>
+      <Button
+        variant={"link"}
+        className="flex items-center gap-3 text-[#383D64] font-bold text-lg decoration-none"
+        onClick={handleBreakdown}
+      >
+        <span>
+          Total pesanan {formatMoney(local.trx.total, local.trx.currency)}
+        </span>
+        {local.breakdown.show ? <ChevronUp /> : <ChevronDown />}
+      </Button>
+    </div>
   );
   const renderBreakdown = (
     <div>
@@ -325,7 +325,9 @@ export default (data: Awaited<ReturnType<typeof api.trx>>["data"]) => {
     <MainEsensiLayout header_config={header_config}>
       <div className="flex flex-col justify-center items-start bg-[#E1E5EF] lg:items-center lg:py-10">
         <div className="flex flex-col w-full gap-4 max-w-[1200px] lg:flex-1 lg:flex-row lg:gap-10 lg:flex-wrap lg:justify-center [&>div>div]:flex [&>div>div]:flex-col [&>div>div]:bg-white [&>div>div]:p-6 [&_h3]:font-bold [&_h3]:text-[#3B2C93]">
-          <div className="flex flex-col gap-4 w-full lg:w-auto lg:flex-1">{!local.loading && renderItemsWrapper}</div>
+          <div className="flex flex-col gap-4 w-full lg:w-auto lg:flex-1">
+            {!local.loading && renderItemsWrapper}
+          </div>
           <div className="flex flex-col gap-4 w-full lg:w-1/3">
             {!local.loading && renderTotal}
             {!local.loading && renderBreakdown}

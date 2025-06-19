@@ -2,25 +2,22 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { Link } from "@/lib/router";
 
 export const PaginationNumber = ({
-  items_per_page,
-  current,
-  total_pages,
+  items_per_page = 1 as number,
+  current = 1 as number,
+  total_pages = 1 as number,
   url,
 }) => {
   const local = useLocal(
     {
-      current: 0 as number,
-      total_pages: 0 as number,
-      maxlist: 7 as number,
-      items: 0 as number,
+      current: current,
+      total_pages: total_pages,
+      maxlist: 5,
+      items: items_per_page,
       url_prefix: "" as string,
       url_suffix: "" as string,
       visible_pages: [] as any[],
     },
     async () => {
-      local.items = items_per_page;
-      local.current = current;
-      local.total_pages = total_pages;
       if (typeof url === "string") {
         local.url_prefix = url;
       } else {
@@ -34,16 +31,16 @@ export const PaginationNumber = ({
       local.visible_pages = getPaginationRange(
         current,
         total_pages,
-        local.maxlist,
+        local.maxlist
       );
       local.render();
-    },
+    }
   );
 
   const getPaginationRange = (
     currentPage: number,
     totalPages: number,
-    visibleLinks: number,
+    visibleLinks: number
   ) => {
     if (totalPages <= visibleLinks) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -73,19 +70,28 @@ export const PaginationNumber = ({
     }
     return range;
   };
-  const prev = <></>;
-  const next = <></>;
+  const prev = local.current !== 1 && local.total_pages !== 1 && (
+    <Link href={`${local.url_prefix}`} className="flex px-3">« Prev page</Link>
+  );
+  const next = local.current !== local.total_pages && (
+    <Link href={`${local.url_prefix}`} className="flex px-3">Next page »</Link>
+  );
 
   const list = local.visible_pages.map((p, idx) => {
     let the_page = <></>;
-    const page_classes = `flex` as string;
-    if (p == local.current) {
-      the_page = <span className={`${page_classes}`}>{p}</span>;
+    const classes = "hidden lg:flex";
+    if (p == local.current || p == "...") {
+      the_page = (
+        <span key={`esensi_pagenumber_${idx}`} className={classes}>
+          {p}
+        </span>
+      );
     } else {
       the_page = (
         <Link
           href={`${local.url_prefix}${p}${local.url_suffix}`}
-          className={`${page_classes}`}
+          className={classes}
+          key={`esensi_pagenumber_${idx}`}
         >
           {p}
         </Link>
@@ -95,7 +101,7 @@ export const PaginationNumber = ({
   });
 
   const renderPagination = local.total_pages > 1 && (
-    <ul className="flex justify-center items-center gap-2 [&>*]:h-5 [&>*]:min-w-5 [&>*]:p-1">
+    <ul className="flex w-full justify-between lg:justify-center items-center gap-2 [&>*]:transition-all [&>*]:h-10 [&>*]:min-w-10 [&>*]:border-2 [&>*]:border-[#E1E5EF] [&>*]:justify-center [&>*]:items-center [&>a]:bg-[#E1E5EF] [&>a]:hover:bg-[#3b2c93] [&>a]:hover:border-[#3b2c93] [&>a]:hover:text-white [&>*]:rounded-md">
       {prev}
       {list}
       {next}

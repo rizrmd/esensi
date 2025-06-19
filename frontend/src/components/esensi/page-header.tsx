@@ -128,7 +128,7 @@ export const PageHeader = ({
       <div className="flex w-full justify-center items-center w-full max-w-[1200px] h-full">
         {/* Back Button */}
         {local.back && (
-          <div className="flex h-full justify-start items-center w-full grow-1 lg:hidden">
+          <div className={`flex h-full justify-start items-center ${local.logo || local.search ? "w-auto" :"w-full grow-1"} lg:hidden`}>
             <button
               className="flex h-full aspect-1/1 justify-center items-center [&>svg]:stroke-[#3B2C93] cursor-pointer"
               onClick={() => history.back()}
