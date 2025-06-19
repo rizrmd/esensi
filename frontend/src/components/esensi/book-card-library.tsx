@@ -20,15 +20,20 @@ export const BookCardLibrary = ({ data }) => {
         <h3 className="flex text-[#3B2C93] text-sm font-semibold leading-[1.3]">
           {data.name}
         </h3>
-        <div className="flex w-full lg:w-[200px] flex-col items-center gap-1">
-          <div className="flex w-full">
+        <div className="flex w-full flex-col items-center gap-1">
+          <div className="flex w-full gap-3">
             <Button asChild className="rounded-full bg-[#3B2C93]">
-              <Link href="#" className="flex w-full justify-center items-center text-md text-white bg-[#3B2C93] rounded-full">
+              <Link href="#" className="flex w-full justify-center items-center text-md rounded-full">
                 {data.percent == 0
                   ? "Mulai baca"
                   : data.percent == 100
                   ? "Baca lagi"
                   : "Lanjut baca"}
+              </Link>
+            </Button>
+            <Button asChild className="rounded-full bg-[#E1E5EF] text-[#3B2C93] hover:text-white">
+              <Link href="#" className="flex w-full justify-center items-center text-md rounded-full">
+                Download
               </Link>
             </Button>
           </div>
