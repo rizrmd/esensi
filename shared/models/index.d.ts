@@ -99,6 +99,11 @@ export type bundle_product = $Result.DefaultSelection<Prisma.$bundle_productPayl
  */
 export type category = $Result.DefaultSelection<Prisma.$categoryPayload>
 /**
+ * Model cfg
+ * 
+ */
+export type cfg = $Result.DefaultSelection<Prisma.$cfgPayload>
+/**
  * Model chapter
  * 
  */
@@ -528,6 +533,16 @@ export class PrismaClient<
     * ```
     */
   get category(): Prisma.categoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.cfg`: Exposes CRUD operations for the **cfg** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Cfgs
+    * const cfgs = await prisma.cfg.findMany()
+    * ```
+    */
+  get cfg(): Prisma.cfgDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.chapter`: Exposes CRUD operations for the **chapter** model.
@@ -1255,6 +1270,7 @@ export namespace Prisma {
     bundle_category: 'bundle_category',
     bundle_product: 'bundle_product',
     category: 'category',
+    cfg: 'cfg',
     chapter: 'chapter',
     customer: 'customer',
     customer_reader: 'customer_reader',
@@ -1300,7 +1316,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "affiliate" | "auth_account" | "auth_session" | "auth_two_factor" | "auth_user" | "auth_verification" | "author" | "banner" | "book" | "book_approval" | "book_changes_log" | "book_genre" | "book_tags" | "bundle" | "bundle_category" | "bundle_product" | "category" | "chapter" | "customer" | "customer_reader" | "customer_track" | "genre" | "internal" | "landing" | "landing_items" | "midtrx" | "notif" | "preorder" | "product" | "product_category" | "promo_code" | "publisher" | "publisher_author" | "ranking" | "reviews" | "reviews_likes" | "t_ai_credit" | "t_ai_credit_topup" | "t_sales" | "t_sales_download" | "t_sales_line" | "tags" | "transaction" | "withdrawal"
+      modelProps: "affiliate" | "auth_account" | "auth_session" | "auth_two_factor" | "auth_user" | "auth_verification" | "author" | "banner" | "book" | "book_approval" | "book_changes_log" | "book_genre" | "book_tags" | "bundle" | "bundle_category" | "bundle_product" | "category" | "cfg" | "chapter" | "customer" | "customer_reader" | "customer_track" | "genre" | "internal" | "landing" | "landing_items" | "midtrx" | "notif" | "preorder" | "product" | "product_category" | "promo_code" | "publisher" | "publisher_author" | "ranking" | "reviews" | "reviews_likes" | "t_ai_credit" | "t_ai_credit_topup" | "t_sales" | "t_sales_download" | "t_sales_line" | "tags" | "transaction" | "withdrawal"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2559,6 +2575,80 @@ export namespace Prisma {
           count: {
             args: Prisma.categoryCountArgs<ExtArgs>
             result: $Utils.Optional<CategoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      cfg: {
+        payload: Prisma.$cfgPayload<ExtArgs>
+        fields: Prisma.cfgFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.cfgFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfgPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.cfgFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfgPayload>
+          }
+          findFirst: {
+            args: Prisma.cfgFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfgPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.cfgFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfgPayload>
+          }
+          findMany: {
+            args: Prisma.cfgFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfgPayload>[]
+          }
+          create: {
+            args: Prisma.cfgCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfgPayload>
+          }
+          createMany: {
+            args: Prisma.cfgCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.cfgCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfgPayload>[]
+          }
+          delete: {
+            args: Prisma.cfgDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfgPayload>
+          }
+          update: {
+            args: Prisma.cfgUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfgPayload>
+          }
+          deleteMany: {
+            args: Prisma.cfgDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.cfgUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.cfgUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfgPayload>[]
+          }
+          upsert: {
+            args: Prisma.cfgUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$cfgPayload>
+          }
+          aggregate: {
+            args: Prisma.CfgAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCfg>
+          }
+          groupBy: {
+            args: Prisma.cfgGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CfgGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.cfgCountArgs<ExtArgs>
+            result: $Utils.Optional<CfgCountAggregateOutputType> | number
           }
         }
       }
@@ -4661,6 +4751,7 @@ export namespace Prisma {
     bundle_category?: bundle_categoryOmit
     bundle_product?: bundle_productOmit
     category?: categoryOmit
+    cfg?: cfgOmit
     chapter?: chapterOmit
     customer?: customerOmit
     customer_reader?: customer_readerOmit
@@ -12767,6 +12858,7 @@ export namespace Prisma {
     social_media: number
     avatar: number
     id_user: number
+    cfg: number
     _all: number
   }
 
@@ -12799,6 +12891,7 @@ export namespace Prisma {
     social_media?: true
     avatar?: true
     id_user?: true
+    cfg?: true
     _all?: true
   }
 
@@ -12882,6 +12975,7 @@ export namespace Prisma {
     social_media: string | null
     avatar: string | null
     id_user: string | null
+    cfg: JsonValue | null
     _count: AuthorCountAggregateOutputType | null
     _min: AuthorMinAggregateOutputType | null
     _max: AuthorMaxAggregateOutputType | null
@@ -12909,6 +13003,7 @@ export namespace Prisma {
     social_media?: boolean
     avatar?: boolean
     id_user?: boolean
+    cfg?: boolean
     auth_user?: boolean | author$auth_userArgs<ExtArgs>
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
     book?: boolean | author$bookArgs<ExtArgs>
@@ -12925,6 +13020,7 @@ export namespace Prisma {
     social_media?: boolean
     avatar?: boolean
     id_user?: boolean
+    cfg?: boolean
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["author"]>
 
@@ -12936,6 +13032,7 @@ export namespace Prisma {
     social_media?: boolean
     avatar?: boolean
     id_user?: boolean
+    cfg?: boolean
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
   }, ExtArgs["result"]["author"]>
 
@@ -12947,9 +13044,10 @@ export namespace Prisma {
     social_media?: boolean
     avatar?: boolean
     id_user?: boolean
+    cfg?: boolean
   }
 
-  export type authorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_account" | "biography" | "social_media" | "avatar" | "id_user", ExtArgs["result"]["author"]>
+  export type authorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_account" | "biography" | "social_media" | "avatar" | "id_user" | "cfg", ExtArgs["result"]["author"]>
   export type authorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_user?: boolean | author$auth_userArgs<ExtArgs>
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
@@ -12982,6 +13080,7 @@ export namespace Prisma {
       social_media: string | null
       avatar: string | null
       id_user: string | null
+      cfg: Prisma.JsonValue | null
     }, ExtArgs["result"]["author"]>
     composites: {}
   }
@@ -13417,6 +13516,7 @@ export namespace Prisma {
     readonly social_media: FieldRef<"author", 'String'>
     readonly avatar: FieldRef<"author", 'String'>
     readonly id_user: FieldRef<"author", 'String'>
+    readonly cfg: FieldRef<"author", 'Json'>
   }
     
 
@@ -15047,6 +15147,7 @@ export namespace Prisma {
     is_chapter: number
     id_product: number
     created_at: number
+    cfg: number
     _all: number
   }
 
@@ -15132,6 +15233,7 @@ export namespace Prisma {
     is_chapter?: true
     id_product?: true
     created_at?: true
+    cfg?: true
     _all?: true
   }
 
@@ -15244,6 +15346,7 @@ export namespace Prisma {
     is_chapter: boolean
     id_product: string | null
     created_at: Date
+    cfg: JsonValue | null
     _count: BookCountAggregateOutputType | null
     _avg: BookAvgAggregateOutputType | null
     _sum: BookSumAggregateOutputType | null
@@ -15288,6 +15391,7 @@ export namespace Prisma {
     is_chapter?: boolean
     id_product?: boolean
     created_at?: boolean
+    cfg?: boolean
     author?: boolean | book$authorArgs<ExtArgs>
     product?: boolean | book$productArgs<ExtArgs>
     book_approval?: boolean | book$book_approvalArgs<ExtArgs>
@@ -15323,6 +15427,7 @@ export namespace Prisma {
     is_chapter?: boolean
     id_product?: boolean
     created_at?: boolean
+    cfg?: boolean
     author?: boolean | book$authorArgs<ExtArgs>
     product?: boolean | book$productArgs<ExtArgs>
   }, ExtArgs["result"]["book"]>
@@ -15350,6 +15455,7 @@ export namespace Prisma {
     is_chapter?: boolean
     id_product?: boolean
     created_at?: boolean
+    cfg?: boolean
     author?: boolean | book$authorArgs<ExtArgs>
     product?: boolean | book$productArgs<ExtArgs>
   }, ExtArgs["result"]["book"]>
@@ -15377,9 +15483,10 @@ export namespace Prisma {
     is_chapter?: boolean
     id_product?: boolean
     created_at?: boolean
+    cfg?: boolean
   }
 
-  export type bookOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "alias" | "submitted_price" | "desc" | "info" | "status" | "currency" | "deleted_at" | "img_file" | "cover" | "product_file" | "sku" | "id_author" | "published_date" | "is_physical" | "preorder_min_qty" | "content_type" | "is_chapter" | "id_product" | "created_at", ExtArgs["result"]["book"]>
+  export type bookOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "alias" | "submitted_price" | "desc" | "info" | "status" | "currency" | "deleted_at" | "img_file" | "cover" | "product_file" | "sku" | "id_author" | "published_date" | "is_physical" | "preorder_min_qty" | "content_type" | "is_chapter" | "id_product" | "created_at" | "cfg", ExtArgs["result"]["book"]>
   export type bookInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | book$authorArgs<ExtArgs>
     product?: boolean | book$productArgs<ExtArgs>
@@ -15437,6 +15544,7 @@ export namespace Prisma {
       is_chapter: boolean
       id_product: string | null
       created_at: Date
+      cfg: Prisma.JsonValue | null
     }, ExtArgs["result"]["book"]>
     composites: {}
   }
@@ -15891,6 +15999,7 @@ export namespace Prisma {
     readonly is_chapter: FieldRef<"book", 'Boolean'>
     readonly id_product: FieldRef<"book", 'String'>
     readonly created_at: FieldRef<"book", 'DateTime'>
+    readonly cfg: FieldRef<"book", 'Json'>
   }
     
 
@@ -20783,6 +20892,7 @@ export namespace Prisma {
     img_file: number
     cover: number
     sku: number
+    cfg: number
     _all: number
   }
 
@@ -20841,6 +20951,7 @@ export namespace Prisma {
     img_file?: true
     cover?: true
     sku?: true
+    cfg?: true
     _all?: true
   }
 
@@ -20944,6 +21055,7 @@ export namespace Prisma {
     img_file: string
     cover: string
     sku: string
+    cfg: JsonValue | null
     _count: BundleCountAggregateOutputType | null
     _avg: BundleAvgAggregateOutputType | null
     _sum: BundleSumAggregateOutputType | null
@@ -20979,6 +21091,7 @@ export namespace Prisma {
     img_file?: boolean
     cover?: boolean
     sku?: boolean
+    cfg?: boolean
     bundle_category?: boolean | bundle$bundle_categoryArgs<ExtArgs>
     bundle_product?: boolean | bundle$bundle_productArgs<ExtArgs>
     t_sales_line?: boolean | bundle$t_sales_lineArgs<ExtArgs>
@@ -20999,6 +21112,7 @@ export namespace Prisma {
     img_file?: boolean
     cover?: boolean
     sku?: boolean
+    cfg?: boolean
   }, ExtArgs["result"]["bundle"]>
 
   export type bundleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -21015,6 +21129,7 @@ export namespace Prisma {
     img_file?: boolean
     cover?: boolean
     sku?: boolean
+    cfg?: boolean
   }, ExtArgs["result"]["bundle"]>
 
   export type bundleSelectScalar = {
@@ -21031,9 +21146,10 @@ export namespace Prisma {
     img_file?: boolean
     cover?: boolean
     sku?: boolean
+    cfg?: boolean
   }
 
-  export type bundleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "strike_price" | "real_price" | "currency" | "desc" | "info" | "deleted_at" | "status" | "img_file" | "cover" | "sku", ExtArgs["result"]["bundle"]>
+  export type bundleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "strike_price" | "real_price" | "currency" | "desc" | "info" | "deleted_at" | "status" | "img_file" | "cover" | "sku" | "cfg", ExtArgs["result"]["bundle"]>
   export type bundleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bundle_category?: boolean | bundle$bundle_categoryArgs<ExtArgs>
     bundle_product?: boolean | bundle$bundle_productArgs<ExtArgs>
@@ -21064,6 +21180,7 @@ export namespace Prisma {
       img_file: string
       cover: string
       sku: string
+      cfg: Prisma.JsonValue | null
     }, ExtArgs["result"]["bundle"]>
     composites: {}
   }
@@ -21503,6 +21620,7 @@ export namespace Prisma {
     readonly img_file: FieldRef<"bundle", 'String'>
     readonly cover: FieldRef<"bundle", 'String'>
     readonly sku: FieldRef<"bundle", 'String'>
+    readonly cfg: FieldRef<"bundle", 'Json'>
   }
     
 
@@ -25281,6 +25399,962 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: categoryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model cfg
+   */
+
+  export type AggregateCfg = {
+    _count: CfgCountAggregateOutputType | null
+    _min: CfgMinAggregateOutputType | null
+    _max: CfgMaxAggregateOutputType | null
+  }
+
+  export type CfgMinAggregateOutputType = {
+    key: string | null
+    value: string | null
+  }
+
+  export type CfgMaxAggregateOutputType = {
+    key: string | null
+    value: string | null
+  }
+
+  export type CfgCountAggregateOutputType = {
+    key: number
+    value: number
+    _all: number
+  }
+
+
+  export type CfgMinAggregateInputType = {
+    key?: true
+    value?: true
+  }
+
+  export type CfgMaxAggregateInputType = {
+    key?: true
+    value?: true
+  }
+
+  export type CfgCountAggregateInputType = {
+    key?: true
+    value?: true
+    _all?: true
+  }
+
+  export type CfgAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cfg to aggregate.
+     */
+    where?: cfgWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cfgs to fetch.
+     */
+    orderBy?: cfgOrderByWithRelationInput | cfgOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: cfgWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cfgs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cfgs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned cfgs
+    **/
+    _count?: true | CfgCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CfgMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CfgMaxAggregateInputType
+  }
+
+  export type GetCfgAggregateType<T extends CfgAggregateArgs> = {
+        [P in keyof T & keyof AggregateCfg]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCfg[P]>
+      : GetScalarType<T[P], AggregateCfg[P]>
+  }
+
+
+
+
+  export type cfgGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: cfgWhereInput
+    orderBy?: cfgOrderByWithAggregationInput | cfgOrderByWithAggregationInput[]
+    by: CfgScalarFieldEnum[] | CfgScalarFieldEnum
+    having?: cfgScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CfgCountAggregateInputType | true
+    _min?: CfgMinAggregateInputType
+    _max?: CfgMaxAggregateInputType
+  }
+
+  export type CfgGroupByOutputType = {
+    key: string
+    value: string
+    _count: CfgCountAggregateOutputType | null
+    _min: CfgMinAggregateOutputType | null
+    _max: CfgMaxAggregateOutputType | null
+  }
+
+  type GetCfgGroupByPayload<T extends cfgGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CfgGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CfgGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CfgGroupByOutputType[P]>
+            : GetScalarType<T[P], CfgGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type cfgSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    key?: boolean
+    value?: boolean
+  }, ExtArgs["result"]["cfg"]>
+
+  export type cfgSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    key?: boolean
+    value?: boolean
+  }, ExtArgs["result"]["cfg"]>
+
+  export type cfgSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    key?: boolean
+    value?: boolean
+  }, ExtArgs["result"]["cfg"]>
+
+  export type cfgSelectScalar = {
+    key?: boolean
+    value?: boolean
+  }
+
+  export type cfgOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"key" | "value", ExtArgs["result"]["cfg"]>
+
+  export type $cfgPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "cfg"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      key: string
+      value: string
+    }, ExtArgs["result"]["cfg"]>
+    composites: {}
+  }
+
+  type cfgGetPayload<S extends boolean | null | undefined | cfgDefaultArgs> = $Result.GetResult<Prisma.$cfgPayload, S>
+
+  type cfgCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<cfgFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CfgCountAggregateInputType | true
+    }
+
+  export interface cfgDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['cfg'], meta: { name: 'cfg' } }
+    /**
+     * Find zero or one Cfg that matches the filter.
+     * @param {cfgFindUniqueArgs} args - Arguments to find a Cfg
+     * @example
+     * // Get one Cfg
+     * const cfg = await prisma.cfg.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends cfgFindUniqueArgs>(args: SelectSubset<T, cfgFindUniqueArgs<ExtArgs>>): Prisma__cfgClient<$Result.GetResult<Prisma.$cfgPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Cfg that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {cfgFindUniqueOrThrowArgs} args - Arguments to find a Cfg
+     * @example
+     * // Get one Cfg
+     * const cfg = await prisma.cfg.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends cfgFindUniqueOrThrowArgs>(args: SelectSubset<T, cfgFindUniqueOrThrowArgs<ExtArgs>>): Prisma__cfgClient<$Result.GetResult<Prisma.$cfgPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cfg that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cfgFindFirstArgs} args - Arguments to find a Cfg
+     * @example
+     * // Get one Cfg
+     * const cfg = await prisma.cfg.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends cfgFindFirstArgs>(args?: SelectSubset<T, cfgFindFirstArgs<ExtArgs>>): Prisma__cfgClient<$Result.GetResult<Prisma.$cfgPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cfg that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cfgFindFirstOrThrowArgs} args - Arguments to find a Cfg
+     * @example
+     * // Get one Cfg
+     * const cfg = await prisma.cfg.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends cfgFindFirstOrThrowArgs>(args?: SelectSubset<T, cfgFindFirstOrThrowArgs<ExtArgs>>): Prisma__cfgClient<$Result.GetResult<Prisma.$cfgPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Cfgs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cfgFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Cfgs
+     * const cfgs = await prisma.cfg.findMany()
+     * 
+     * // Get first 10 Cfgs
+     * const cfgs = await prisma.cfg.findMany({ take: 10 })
+     * 
+     * // Only select the `key`
+     * const cfgWithKeyOnly = await prisma.cfg.findMany({ select: { key: true } })
+     * 
+     */
+    findMany<T extends cfgFindManyArgs>(args?: SelectSubset<T, cfgFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$cfgPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Cfg.
+     * @param {cfgCreateArgs} args - Arguments to create a Cfg.
+     * @example
+     * // Create one Cfg
+     * const Cfg = await prisma.cfg.create({
+     *   data: {
+     *     // ... data to create a Cfg
+     *   }
+     * })
+     * 
+     */
+    create<T extends cfgCreateArgs>(args: SelectSubset<T, cfgCreateArgs<ExtArgs>>): Prisma__cfgClient<$Result.GetResult<Prisma.$cfgPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Cfgs.
+     * @param {cfgCreateManyArgs} args - Arguments to create many Cfgs.
+     * @example
+     * // Create many Cfgs
+     * const cfg = await prisma.cfg.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends cfgCreateManyArgs>(args?: SelectSubset<T, cfgCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Cfgs and returns the data saved in the database.
+     * @param {cfgCreateManyAndReturnArgs} args - Arguments to create many Cfgs.
+     * @example
+     * // Create many Cfgs
+     * const cfg = await prisma.cfg.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Cfgs and only return the `key`
+     * const cfgWithKeyOnly = await prisma.cfg.createManyAndReturn({
+     *   select: { key: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends cfgCreateManyAndReturnArgs>(args?: SelectSubset<T, cfgCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$cfgPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Cfg.
+     * @param {cfgDeleteArgs} args - Arguments to delete one Cfg.
+     * @example
+     * // Delete one Cfg
+     * const Cfg = await prisma.cfg.delete({
+     *   where: {
+     *     // ... filter to delete one Cfg
+     *   }
+     * })
+     * 
+     */
+    delete<T extends cfgDeleteArgs>(args: SelectSubset<T, cfgDeleteArgs<ExtArgs>>): Prisma__cfgClient<$Result.GetResult<Prisma.$cfgPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Cfg.
+     * @param {cfgUpdateArgs} args - Arguments to update one Cfg.
+     * @example
+     * // Update one Cfg
+     * const cfg = await prisma.cfg.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends cfgUpdateArgs>(args: SelectSubset<T, cfgUpdateArgs<ExtArgs>>): Prisma__cfgClient<$Result.GetResult<Prisma.$cfgPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Cfgs.
+     * @param {cfgDeleteManyArgs} args - Arguments to filter Cfgs to delete.
+     * @example
+     * // Delete a few Cfgs
+     * const { count } = await prisma.cfg.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends cfgDeleteManyArgs>(args?: SelectSubset<T, cfgDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cfgs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cfgUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Cfgs
+     * const cfg = await prisma.cfg.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends cfgUpdateManyArgs>(args: SelectSubset<T, cfgUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cfgs and returns the data updated in the database.
+     * @param {cfgUpdateManyAndReturnArgs} args - Arguments to update many Cfgs.
+     * @example
+     * // Update many Cfgs
+     * const cfg = await prisma.cfg.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Cfgs and only return the `key`
+     * const cfgWithKeyOnly = await prisma.cfg.updateManyAndReturn({
+     *   select: { key: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends cfgUpdateManyAndReturnArgs>(args: SelectSubset<T, cfgUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$cfgPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Cfg.
+     * @param {cfgUpsertArgs} args - Arguments to update or create a Cfg.
+     * @example
+     * // Update or create a Cfg
+     * const cfg = await prisma.cfg.upsert({
+     *   create: {
+     *     // ... data to create a Cfg
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Cfg we want to update
+     *   }
+     * })
+     */
+    upsert<T extends cfgUpsertArgs>(args: SelectSubset<T, cfgUpsertArgs<ExtArgs>>): Prisma__cfgClient<$Result.GetResult<Prisma.$cfgPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Cfgs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cfgCountArgs} args - Arguments to filter Cfgs to count.
+     * @example
+     * // Count the number of Cfgs
+     * const count = await prisma.cfg.count({
+     *   where: {
+     *     // ... the filter for the Cfgs we want to count
+     *   }
+     * })
+    **/
+    count<T extends cfgCountArgs>(
+      args?: Subset<T, cfgCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CfgCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Cfg.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CfgAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CfgAggregateArgs>(args: Subset<T, CfgAggregateArgs>): Prisma.PrismaPromise<GetCfgAggregateType<T>>
+
+    /**
+     * Group by Cfg.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {cfgGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends cfgGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: cfgGroupByArgs['orderBy'] }
+        : { orderBy?: cfgGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, cfgGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCfgGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the cfg model
+   */
+  readonly fields: cfgFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for cfg.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__cfgClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the cfg model
+   */
+  interface cfgFieldRefs {
+    readonly key: FieldRef<"cfg", 'String'>
+    readonly value: FieldRef<"cfg", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * cfg findUnique
+   */
+  export type cfgFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfg
+     */
+    select?: cfgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfg
+     */
+    omit?: cfgOmit<ExtArgs> | null
+    /**
+     * Filter, which cfg to fetch.
+     */
+    where: cfgWhereUniqueInput
+  }
+
+  /**
+   * cfg findUniqueOrThrow
+   */
+  export type cfgFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfg
+     */
+    select?: cfgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfg
+     */
+    omit?: cfgOmit<ExtArgs> | null
+    /**
+     * Filter, which cfg to fetch.
+     */
+    where: cfgWhereUniqueInput
+  }
+
+  /**
+   * cfg findFirst
+   */
+  export type cfgFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfg
+     */
+    select?: cfgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfg
+     */
+    omit?: cfgOmit<ExtArgs> | null
+    /**
+     * Filter, which cfg to fetch.
+     */
+    where?: cfgWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cfgs to fetch.
+     */
+    orderBy?: cfgOrderByWithRelationInput | cfgOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cfgs.
+     */
+    cursor?: cfgWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cfgs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cfgs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cfgs.
+     */
+    distinct?: CfgScalarFieldEnum | CfgScalarFieldEnum[]
+  }
+
+  /**
+   * cfg findFirstOrThrow
+   */
+  export type cfgFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfg
+     */
+    select?: cfgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfg
+     */
+    omit?: cfgOmit<ExtArgs> | null
+    /**
+     * Filter, which cfg to fetch.
+     */
+    where?: cfgWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cfgs to fetch.
+     */
+    orderBy?: cfgOrderByWithRelationInput | cfgOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for cfgs.
+     */
+    cursor?: cfgWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cfgs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cfgs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of cfgs.
+     */
+    distinct?: CfgScalarFieldEnum | CfgScalarFieldEnum[]
+  }
+
+  /**
+   * cfg findMany
+   */
+  export type cfgFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfg
+     */
+    select?: cfgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfg
+     */
+    omit?: cfgOmit<ExtArgs> | null
+    /**
+     * Filter, which cfgs to fetch.
+     */
+    where?: cfgWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of cfgs to fetch.
+     */
+    orderBy?: cfgOrderByWithRelationInput | cfgOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing cfgs.
+     */
+    cursor?: cfgWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` cfgs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` cfgs.
+     */
+    skip?: number
+    distinct?: CfgScalarFieldEnum | CfgScalarFieldEnum[]
+  }
+
+  /**
+   * cfg create
+   */
+  export type cfgCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfg
+     */
+    select?: cfgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfg
+     */
+    omit?: cfgOmit<ExtArgs> | null
+    /**
+     * The data needed to create a cfg.
+     */
+    data: XOR<cfgCreateInput, cfgUncheckedCreateInput>
+  }
+
+  /**
+   * cfg createMany
+   */
+  export type cfgCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many cfgs.
+     */
+    data: cfgCreateManyInput | cfgCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * cfg createManyAndReturn
+   */
+  export type cfgCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfg
+     */
+    select?: cfgSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfg
+     */
+    omit?: cfgOmit<ExtArgs> | null
+    /**
+     * The data used to create many cfgs.
+     */
+    data: cfgCreateManyInput | cfgCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * cfg update
+   */
+  export type cfgUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfg
+     */
+    select?: cfgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfg
+     */
+    omit?: cfgOmit<ExtArgs> | null
+    /**
+     * The data needed to update a cfg.
+     */
+    data: XOR<cfgUpdateInput, cfgUncheckedUpdateInput>
+    /**
+     * Choose, which cfg to update.
+     */
+    where: cfgWhereUniqueInput
+  }
+
+  /**
+   * cfg updateMany
+   */
+  export type cfgUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update cfgs.
+     */
+    data: XOR<cfgUpdateManyMutationInput, cfgUncheckedUpdateManyInput>
+    /**
+     * Filter which cfgs to update
+     */
+    where?: cfgWhereInput
+    /**
+     * Limit how many cfgs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * cfg updateManyAndReturn
+   */
+  export type cfgUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfg
+     */
+    select?: cfgSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfg
+     */
+    omit?: cfgOmit<ExtArgs> | null
+    /**
+     * The data used to update cfgs.
+     */
+    data: XOR<cfgUpdateManyMutationInput, cfgUncheckedUpdateManyInput>
+    /**
+     * Filter which cfgs to update
+     */
+    where?: cfgWhereInput
+    /**
+     * Limit how many cfgs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * cfg upsert
+   */
+  export type cfgUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfg
+     */
+    select?: cfgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfg
+     */
+    omit?: cfgOmit<ExtArgs> | null
+    /**
+     * The filter to search for the cfg to update in case it exists.
+     */
+    where: cfgWhereUniqueInput
+    /**
+     * In case the cfg found by the `where` argument doesn't exist, create a new cfg with this data.
+     */
+    create: XOR<cfgCreateInput, cfgUncheckedCreateInput>
+    /**
+     * In case the cfg was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<cfgUpdateInput, cfgUncheckedUpdateInput>
+  }
+
+  /**
+   * cfg delete
+   */
+  export type cfgDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfg
+     */
+    select?: cfgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfg
+     */
+    omit?: cfgOmit<ExtArgs> | null
+    /**
+     * Filter which cfg to delete.
+     */
+    where: cfgWhereUniqueInput
+  }
+
+  /**
+   * cfg deleteMany
+   */
+  export type cfgDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cfgs to delete
+     */
+    where?: cfgWhereInput
+    /**
+     * Limit how many cfgs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * cfg without action
+   */
+  export type cfgDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cfg
+     */
+    select?: cfgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the cfg
+     */
+    omit?: cfgOmit<ExtArgs> | null
   }
 
 
@@ -56122,7 +57196,8 @@ export namespace Prisma {
     biography: 'biography',
     social_media: 'social_media',
     avatar: 'avatar',
-    id_user: 'id_user'
+    id_user: 'id_user',
+    cfg: 'cfg'
   };
 
   export type AuthorScalarFieldEnum = (typeof AuthorScalarFieldEnum)[keyof typeof AuthorScalarFieldEnum]
@@ -56162,7 +57237,8 @@ export namespace Prisma {
     content_type: 'content_type',
     is_chapter: 'is_chapter',
     id_product: 'id_product',
-    created_at: 'created_at'
+    created_at: 'created_at',
+    cfg: 'cfg'
   };
 
   export type BookScalarFieldEnum = (typeof BookScalarFieldEnum)[keyof typeof BookScalarFieldEnum]
@@ -56220,7 +57296,8 @@ export namespace Prisma {
     status: 'status',
     img_file: 'img_file',
     cover: 'cover',
-    sku: 'sku'
+    sku: 'sku',
+    cfg: 'cfg'
   };
 
   export type BundleScalarFieldEnum = (typeof BundleScalarFieldEnum)[keyof typeof BundleScalarFieldEnum]
@@ -56255,6 +57332,14 @@ export namespace Prisma {
   };
 
   export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+  export const CfgScalarFieldEnum: {
+    key: 'key',
+    value: 'value'
+  };
+
+  export type CfgScalarFieldEnum = (typeof CfgScalarFieldEnum)[keyof typeof CfgScalarFieldEnum]
 
 
   export const ChapterScalarFieldEnum: {
@@ -56693,20 +57778,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Decimal'
-   */
-  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-    
-
-
-  /**
-   * Reference to a field of type 'Decimal[]'
-   */
-  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Json'
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -56717,6 +57788,20 @@ export namespace Prisma {
    * Reference to a field of type 'QueryMode'
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -57237,6 +58322,7 @@ export namespace Prisma {
     social_media?: StringNullableFilter<"author"> | string | null
     avatar?: StringNullableFilter<"author"> | string | null
     id_user?: UuidNullableFilter<"author"> | string | null
+    cfg?: JsonNullableFilter<"author">
     auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
     book?: BookListRelationFilter
@@ -57252,6 +58338,7 @@ export namespace Prisma {
     social_media?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
     id_user?: SortOrderInput | SortOrder
+    cfg?: SortOrderInput | SortOrder
     auth_user?: auth_userOrderByRelationAggregateInput
     auth_account?: auth_accountOrderByWithRelationInput
     book?: bookOrderByRelationAggregateInput
@@ -57270,6 +58357,7 @@ export namespace Prisma {
     social_media?: StringNullableFilter<"author"> | string | null
     avatar?: StringNullableFilter<"author"> | string | null
     id_user?: UuidNullableFilter<"author"> | string | null
+    cfg?: JsonNullableFilter<"author">
     auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
     book?: BookListRelationFilter
@@ -57285,6 +58373,7 @@ export namespace Prisma {
     social_media?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
     id_user?: SortOrderInput | SortOrder
+    cfg?: SortOrderInput | SortOrder
     _count?: authorCountOrderByAggregateInput
     _max?: authorMaxOrderByAggregateInput
     _min?: authorMinOrderByAggregateInput
@@ -57301,6 +58390,7 @@ export namespace Prisma {
     social_media?: StringNullableWithAggregatesFilter<"author"> | string | null
     avatar?: StringNullableWithAggregatesFilter<"author"> | string | null
     id_user?: UuidNullableWithAggregatesFilter<"author"> | string | null
+    cfg?: JsonNullableWithAggregatesFilter<"author">
   }
 
   export type bannerWhereInput = {
@@ -57386,6 +58476,7 @@ export namespace Prisma {
     is_chapter?: BoolFilter<"book"> | boolean
     id_product?: UuidNullableFilter<"book"> | string | null
     created_at?: DateTimeFilter<"book"> | Date | string
+    cfg?: JsonNullableFilter<"book">
     author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
     product?: XOR<ProductNullableScalarRelationFilter, productWhereInput> | null
     book_approval?: Book_approvalListRelationFilter
@@ -57420,6 +58511,7 @@ export namespace Prisma {
     is_chapter?: SortOrder
     id_product?: SortOrderInput | SortOrder
     created_at?: SortOrder
+    cfg?: SortOrderInput | SortOrder
     author?: authorOrderByWithRelationInput
     product?: productOrderByWithRelationInput
     book_approval?: book_approvalOrderByRelationAggregateInput
@@ -57457,6 +58549,7 @@ export namespace Prisma {
     is_chapter?: BoolFilter<"book"> | boolean
     id_product?: UuidNullableFilter<"book"> | string | null
     created_at?: DateTimeFilter<"book"> | Date | string
+    cfg?: JsonNullableFilter<"book">
     author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
     product?: XOR<ProductNullableScalarRelationFilter, productWhereInput> | null
     book_approval?: Book_approvalListRelationFilter
@@ -57491,6 +58584,7 @@ export namespace Prisma {
     is_chapter?: SortOrder
     id_product?: SortOrderInput | SortOrder
     created_at?: SortOrder
+    cfg?: SortOrderInput | SortOrder
     _count?: bookCountOrderByAggregateInput
     _avg?: bookAvgOrderByAggregateInput
     _max?: bookMaxOrderByAggregateInput
@@ -57524,6 +58618,7 @@ export namespace Prisma {
     is_chapter?: BoolWithAggregatesFilter<"book"> | boolean
     id_product?: UuidNullableWithAggregatesFilter<"book"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"book"> | Date | string
+    cfg?: JsonNullableWithAggregatesFilter<"book">
   }
 
   export type book_approvalWhereInput = {
@@ -57748,6 +58843,7 @@ export namespace Prisma {
     img_file?: StringFilter<"bundle"> | string
     cover?: StringFilter<"bundle"> | string
     sku?: StringFilter<"bundle"> | string
+    cfg?: JsonNullableFilter<"bundle">
     bundle_category?: Bundle_categoryListRelationFilter
     bundle_product?: Bundle_productListRelationFilter
     t_sales_line?: T_sales_lineListRelationFilter
@@ -57767,6 +58863,7 @@ export namespace Prisma {
     img_file?: SortOrder
     cover?: SortOrder
     sku?: SortOrder
+    cfg?: SortOrderInput | SortOrder
     bundle_category?: bundle_categoryOrderByRelationAggregateInput
     bundle_product?: bundle_productOrderByRelationAggregateInput
     t_sales_line?: t_sales_lineOrderByRelationAggregateInput
@@ -57789,6 +58886,7 @@ export namespace Prisma {
     img_file?: StringFilter<"bundle"> | string
     cover?: StringFilter<"bundle"> | string
     sku?: StringFilter<"bundle"> | string
+    cfg?: JsonNullableFilter<"bundle">
     bundle_category?: Bundle_categoryListRelationFilter
     bundle_product?: Bundle_productListRelationFilter
     t_sales_line?: T_sales_lineListRelationFilter
@@ -57808,6 +58906,7 @@ export namespace Prisma {
     img_file?: SortOrder
     cover?: SortOrder
     sku?: SortOrder
+    cfg?: SortOrderInput | SortOrder
     _count?: bundleCountOrderByAggregateInput
     _avg?: bundleAvgOrderByAggregateInput
     _max?: bundleMaxOrderByAggregateInput
@@ -57832,6 +58931,7 @@ export namespace Prisma {
     img_file?: StringWithAggregatesFilter<"bundle"> | string
     cover?: StringWithAggregatesFilter<"bundle"> | string
     sku?: StringWithAggregatesFilter<"bundle"> | string
+    cfg?: JsonNullableWithAggregatesFilter<"bundle">
   }
 
   export type bundle_categoryWhereInput = {
@@ -58004,6 +59104,43 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableWithAggregatesFilter<"category"> | Date | string | null
     slug?: StringNullableWithAggregatesFilter<"category"> | string | null
     img?: StringNullableWithAggregatesFilter<"category"> | string | null
+  }
+
+  export type cfgWhereInput = {
+    AND?: cfgWhereInput | cfgWhereInput[]
+    OR?: cfgWhereInput[]
+    NOT?: cfgWhereInput | cfgWhereInput[]
+    key?: StringFilter<"cfg"> | string
+    value?: StringFilter<"cfg"> | string
+  }
+
+  export type cfgOrderByWithRelationInput = {
+    key?: SortOrder
+    value?: SortOrder
+  }
+
+  export type cfgWhereUniqueInput = Prisma.AtLeast<{
+    key?: string
+    AND?: cfgWhereInput | cfgWhereInput[]
+    OR?: cfgWhereInput[]
+    NOT?: cfgWhereInput | cfgWhereInput[]
+    value?: StringFilter<"cfg"> | string
+  }, "key">
+
+  export type cfgOrderByWithAggregationInput = {
+    key?: SortOrder
+    value?: SortOrder
+    _count?: cfgCountOrderByAggregateInput
+    _max?: cfgMaxOrderByAggregateInput
+    _min?: cfgMinOrderByAggregateInput
+  }
+
+  export type cfgScalarWhereWithAggregatesInput = {
+    AND?: cfgScalarWhereWithAggregatesInput | cfgScalarWhereWithAggregatesInput[]
+    OR?: cfgScalarWhereWithAggregatesInput[]
+    NOT?: cfgScalarWhereWithAggregatesInput | cfgScalarWhereWithAggregatesInput[]
+    key?: StringWithAggregatesFilter<"cfg"> | string
+    value?: StringWithAggregatesFilter<"cfg"> | string
   }
 
   export type chapterWhereInput = {
@@ -60403,6 +61540,7 @@ export namespace Prisma {
     social_media?: string | null
     avatar?: string | null
     id_user?: string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
     book?: bookCreateNestedManyWithoutAuthorInput
@@ -60418,6 +61556,7 @@ export namespace Prisma {
     social_media?: string | null
     avatar?: string | null
     id_user?: string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
     book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
@@ -60431,6 +61570,7 @@ export namespace Prisma {
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
     book?: bookUpdateManyWithoutAuthorNestedInput
@@ -60446,6 +61586,7 @@ export namespace Prisma {
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
     book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
@@ -60460,6 +61601,7 @@ export namespace Prisma {
     social_media?: string | null
     avatar?: string | null
     id_user?: string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type authorUpdateManyMutationInput = {
@@ -60469,6 +61611,7 @@ export namespace Prisma {
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type authorUncheckedUpdateManyInput = {
@@ -60479,6 +61622,7 @@ export namespace Prisma {
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type bannerCreateInput = {
@@ -60565,6 +61709,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
@@ -60599,6 +61744,7 @@ export namespace Prisma {
     is_chapter?: boolean
     id_product?: string | null
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
@@ -60629,6 +61775,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
@@ -60663,6 +61810,7 @@ export namespace Prisma {
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
@@ -60695,6 +61843,7 @@ export namespace Prisma {
     is_chapter?: boolean
     id_product?: string | null
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type bookUpdateManyMutationInput = {
@@ -60718,6 +61867,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type bookUncheckedUpdateManyInput = {
@@ -60743,6 +61893,7 @@ export namespace Prisma {
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type book_approvalCreateInput = {
@@ -60941,6 +62092,7 @@ export namespace Prisma {
     img_file?: string
     cover?: string
     sku?: string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_category?: bundle_categoryCreateNestedManyWithoutBundleInput
     bundle_product?: bundle_productCreateNestedManyWithoutBundleInput
     t_sales_line?: t_sales_lineCreateNestedManyWithoutBundleInput
@@ -60960,6 +62112,7 @@ export namespace Prisma {
     img_file?: string
     cover?: string
     sku?: string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_category?: bundle_categoryUncheckedCreateNestedManyWithoutBundleInput
     bundle_product?: bundle_productUncheckedCreateNestedManyWithoutBundleInput
     t_sales_line?: t_sales_lineUncheckedCreateNestedManyWithoutBundleInput
@@ -60979,6 +62132,7 @@ export namespace Prisma {
     img_file?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
     sku?: StringFieldUpdateOperationsInput | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_category?: bundle_categoryUpdateManyWithoutBundleNestedInput
     bundle_product?: bundle_productUpdateManyWithoutBundleNestedInput
     t_sales_line?: t_sales_lineUpdateManyWithoutBundleNestedInput
@@ -60998,6 +62152,7 @@ export namespace Prisma {
     img_file?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
     sku?: StringFieldUpdateOperationsInput | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_category?: bundle_categoryUncheckedUpdateManyWithoutBundleNestedInput
     bundle_product?: bundle_productUncheckedUpdateManyWithoutBundleNestedInput
     t_sales_line?: t_sales_lineUncheckedUpdateManyWithoutBundleNestedInput
@@ -61017,6 +62172,7 @@ export namespace Prisma {
     img_file?: string
     cover?: string
     sku?: string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type bundleUpdateManyMutationInput = {
@@ -61033,6 +62189,7 @@ export namespace Prisma {
     img_file?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
     sku?: StringFieldUpdateOperationsInput | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type bundleUncheckedUpdateManyInput = {
@@ -61049,6 +62206,7 @@ export namespace Prisma {
     img_file?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
     sku?: StringFieldUpdateOperationsInput | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type bundle_categoryCreateInput = {
@@ -61210,6 +62368,41 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
     img?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type cfgCreateInput = {
+    key: string
+    value: string
+  }
+
+  export type cfgUncheckedCreateInput = {
+    key: string
+    value: string
+  }
+
+  export type cfgUpdateInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cfgUncheckedUpdateInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cfgCreateManyInput = {
+    key: string
+    value: string
+  }
+
+  export type cfgUpdateManyMutationInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type cfgUncheckedUpdateManyInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
   }
 
   export type chapterCreateInput = {
@@ -63720,6 +64913,29 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type BookListRelationFilter = {
     every?: bookWhereInput
@@ -63759,6 +64975,7 @@ export namespace Prisma {
     social_media?: SortOrder
     avatar?: SortOrder
     id_user?: SortOrder
+    cfg?: SortOrder
   }
 
   export type authorMaxOrderByAggregateInput = {
@@ -63779,6 +64996,32 @@ export namespace Prisma {
     social_media?: SortOrder
     avatar?: SortOrder
     id_user?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type bannerCountOrderByAggregateInput = {
@@ -63817,29 +65060,6 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-  export type JsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -63941,6 +65161,7 @@ export namespace Prisma {
     is_chapter?: SortOrder
     id_product?: SortOrder
     created_at?: SortOrder
+    cfg?: SortOrder
   }
 
   export type bookAvgOrderByAggregateInput = {
@@ -64015,32 +65236,6 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
-  }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -64236,6 +65431,7 @@ export namespace Prisma {
     img_file?: SortOrder
     cover?: SortOrder
     sku?: SortOrder
+    cfg?: SortOrder
   }
 
   export type bundleAvgOrderByAggregateInput = {
@@ -64432,6 +65628,21 @@ export namespace Prisma {
     deleted_at?: SortOrder
     slug?: SortOrder
     img?: SortOrder
+  }
+
+  export type cfgCountOrderByAggregateInput = {
+    key?: SortOrder
+    value?: SortOrder
+  }
+
+  export type cfgMaxOrderByAggregateInput = {
+    key?: SortOrder
+    value?: SortOrder
+  }
+
+  export type cfgMinOrderByAggregateInput = {
+    key?: SortOrder
+    value?: SortOrder
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -69127,6 +70338,29 @@ export namespace Prisma {
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedDecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
@@ -69153,29 +70387,6 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
-  }
-  export type NestedJsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -69553,6 +70764,7 @@ export namespace Prisma {
     social_media?: string | null
     avatar?: string | null
     id_user?: string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     book?: bookCreateNestedManyWithoutAuthorInput
     product?: productCreateNestedManyWithoutAuthorInput
@@ -69566,6 +70778,7 @@ export namespace Prisma {
     social_media?: string | null
     avatar?: string | null
     id_user?: string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
     book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
@@ -69808,6 +71021,7 @@ export namespace Prisma {
     social_media?: StringNullableFilter<"author"> | string | null
     avatar?: StringNullableFilter<"author"> | string | null
     id_user?: UuidNullableFilter<"author"> | string | null
+    cfg?: JsonNullableFilter<"author">
   }
 
   export type customerUpsertWithWhereUniqueWithoutAuth_accountInput = {
@@ -70244,6 +71458,7 @@ export namespace Prisma {
     social_media?: string | null
     avatar?: string | null
     id_user?: string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
     book?: bookCreateNestedManyWithoutAuthorInput
     product?: productCreateNestedManyWithoutAuthorInput
@@ -70258,6 +71473,7 @@ export namespace Prisma {
     social_media?: string | null
     avatar?: string | null
     id_user?: string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
@@ -70585,6 +71801,7 @@ export namespace Prisma {
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
     book?: bookUpdateManyWithoutAuthorNestedInput
     product?: productUpdateManyWithoutAuthorNestedInput
@@ -70599,6 +71816,7 @@ export namespace Prisma {
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
@@ -70930,6 +72148,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logCreateNestedManyWithoutBookInput
@@ -70962,6 +72181,7 @@ export namespace Prisma {
     is_chapter?: boolean
     id_product?: string | null
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
@@ -71182,6 +72402,7 @@ export namespace Prisma {
     is_chapter?: BoolFilter<"book"> | boolean
     id_product?: UuidNullableFilter<"book"> | string | null
     created_at?: DateTimeFilter<"book"> | Date | string
+    cfg?: JsonNullableFilter<"book">
   }
 
   export type productUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -71259,6 +72480,7 @@ export namespace Prisma {
     social_media?: string | null
     avatar?: string | null
     id_user?: string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
     product?: productCreateNestedManyWithoutAuthorInput
@@ -71273,6 +72495,7 @@ export namespace Prisma {
     social_media?: string | null
     avatar?: string | null
     id_user?: string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
@@ -71534,6 +72757,7 @@ export namespace Prisma {
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
     product?: productUpdateManyWithoutAuthorNestedInput
@@ -71548,6 +72772,7 @@ export namespace Prisma {
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
@@ -71820,6 +73045,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_changes_log?: book_changes_logCreateNestedManyWithoutBookInput
@@ -71853,6 +73079,7 @@ export namespace Prisma {
     is_chapter?: boolean
     id_product?: string | null
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
     book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
@@ -71927,6 +73154,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_changes_log?: book_changes_logUpdateManyWithoutBookNestedInput
@@ -71960,6 +73188,7 @@ export namespace Prisma {
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
@@ -72024,6 +73253,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
@@ -72057,6 +73287,7 @@ export namespace Prisma {
     is_chapter?: boolean
     id_product?: string | null
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
     book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
@@ -72102,6 +73333,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
@@ -72135,6 +73367,7 @@ export namespace Prisma {
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
@@ -72164,6 +73397,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
@@ -72197,6 +73431,7 @@ export namespace Prisma {
     is_chapter?: boolean
     id_product?: string | null
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_tags?: book_tagsUncheckedCreateNestedManyWithoutBookInput
@@ -72267,6 +73502,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
@@ -72300,6 +73536,7 @@ export namespace Prisma {
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_tags?: book_tagsUncheckedUpdateManyWithoutBookNestedInput
@@ -72360,6 +73597,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
@@ -72393,6 +73631,7 @@ export namespace Prisma {
     is_chapter?: boolean
     id_product?: string | null
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
@@ -72463,6 +73702,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
@@ -72496,6 +73736,7 @@ export namespace Prisma {
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
@@ -72699,6 +73940,7 @@ export namespace Prisma {
     img_file?: string
     cover?: string
     sku?: string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_product?: bundle_productCreateNestedManyWithoutBundleInput
     t_sales_line?: t_sales_lineCreateNestedManyWithoutBundleInput
   }
@@ -72717,6 +73959,7 @@ export namespace Prisma {
     img_file?: string
     cover?: string
     sku?: string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_product?: bundle_productUncheckedCreateNestedManyWithoutBundleInput
     t_sales_line?: t_sales_lineUncheckedCreateNestedManyWithoutBundleInput
   }
@@ -72778,6 +74021,7 @@ export namespace Prisma {
     img_file?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
     sku?: StringFieldUpdateOperationsInput | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_product?: bundle_productUpdateManyWithoutBundleNestedInput
     t_sales_line?: t_sales_lineUpdateManyWithoutBundleNestedInput
   }
@@ -72796,6 +74040,7 @@ export namespace Prisma {
     img_file?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
     sku?: StringFieldUpdateOperationsInput | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_product?: bundle_productUncheckedUpdateManyWithoutBundleNestedInput
     t_sales_line?: t_sales_lineUncheckedUpdateManyWithoutBundleNestedInput
   }
@@ -72847,6 +74092,7 @@ export namespace Prisma {
     img_file?: string
     cover?: string
     sku?: string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_category?: bundle_categoryCreateNestedManyWithoutBundleInput
     t_sales_line?: t_sales_lineCreateNestedManyWithoutBundleInput
   }
@@ -72865,6 +74111,7 @@ export namespace Prisma {
     img_file?: string
     cover?: string
     sku?: string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_category?: bundle_categoryUncheckedCreateNestedManyWithoutBundleInput
     t_sales_line?: t_sales_lineUncheckedCreateNestedManyWithoutBundleInput
   }
@@ -72966,6 +74213,7 @@ export namespace Prisma {
     img_file?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
     sku?: StringFieldUpdateOperationsInput | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_category?: bundle_categoryUpdateManyWithoutBundleNestedInput
     t_sales_line?: t_sales_lineUpdateManyWithoutBundleNestedInput
   }
@@ -72984,6 +74232,7 @@ export namespace Prisma {
     img_file?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
     sku?: StringFieldUpdateOperationsInput | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_category?: bundle_categoryUncheckedUpdateManyWithoutBundleNestedInput
     t_sales_line?: t_sales_lineUncheckedUpdateManyWithoutBundleNestedInput
   }
@@ -73283,6 +74532,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
@@ -73316,6 +74566,7 @@ export namespace Prisma {
     is_chapter?: boolean
     id_product?: string | null
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
@@ -73428,6 +74679,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
@@ -73461,6 +74713,7 @@ export namespace Prisma {
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
@@ -74982,6 +76235,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logCreateNestedManyWithoutBookInput
@@ -75014,6 +76268,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
@@ -75142,6 +76397,7 @@ export namespace Prisma {
     social_media?: string | null
     avatar?: string | null
     id_user?: string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
     book?: bookCreateNestedManyWithoutAuthorInput
@@ -75156,6 +76412,7 @@ export namespace Prisma {
     social_media?: string | null
     avatar?: string | null
     id_user?: string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
     book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
@@ -75350,6 +76607,7 @@ export namespace Prisma {
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
     book?: bookUpdateManyWithoutAuthorNestedInput
@@ -75364,6 +76622,7 @@ export namespace Prisma {
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
     book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
@@ -76132,6 +77391,7 @@ export namespace Prisma {
     social_media?: string | null
     avatar?: string | null
     id_user?: string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
     book?: bookCreateNestedManyWithoutAuthorInput
@@ -76146,6 +77406,7 @@ export namespace Prisma {
     social_media?: string | null
     avatar?: string | null
     id_user?: string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
     book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
@@ -76211,6 +77472,7 @@ export namespace Prisma {
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
     book?: bookUpdateManyWithoutAuthorNestedInput
@@ -76225,6 +77487,7 @@ export namespace Prisma {
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
     book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
@@ -76294,6 +77557,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
@@ -76327,6 +77591,7 @@ export namespace Prisma {
     is_chapter?: boolean
     id_product?: string | null
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
@@ -76372,6 +77637,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
@@ -76405,6 +77671,7 @@ export namespace Prisma {
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
@@ -76434,6 +77701,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorCreateNestedOneWithoutBookInput
     product?: productCreateNestedOneWithoutBookInput
     book_approval?: book_approvalCreateNestedManyWithoutBookInput
@@ -76467,6 +77735,7 @@ export namespace Prisma {
     is_chapter?: boolean
     id_product?: string | null
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutBookInput
     book_changes_log?: book_changes_logUncheckedCreateNestedManyWithoutBookInput
     book_genre?: book_genreUncheckedCreateNestedManyWithoutBookInput
@@ -76583,6 +77852,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorUpdateOneWithoutBookNestedInput
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
@@ -76616,6 +77886,7 @@ export namespace Prisma {
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
@@ -77390,6 +78661,7 @@ export namespace Prisma {
     img_file?: string
     cover?: string
     sku?: string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_category?: bundle_categoryCreateNestedManyWithoutBundleInput
     bundle_product?: bundle_productCreateNestedManyWithoutBundleInput
   }
@@ -77408,6 +78680,7 @@ export namespace Prisma {
     img_file?: string
     cover?: string
     sku?: string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_category?: bundle_categoryUncheckedCreateNestedManyWithoutBundleInput
     bundle_product?: bundle_productUncheckedCreateNestedManyWithoutBundleInput
   }
@@ -77546,6 +78819,7 @@ export namespace Prisma {
     img_file?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
     sku?: StringFieldUpdateOperationsInput | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_category?: bundle_categoryUpdateManyWithoutBundleNestedInput
     bundle_product?: bundle_productUpdateManyWithoutBundleNestedInput
   }
@@ -77564,6 +78838,7 @@ export namespace Prisma {
     img_file?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
     sku?: StringFieldUpdateOperationsInput | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     bundle_category?: bundle_categoryUncheckedUpdateManyWithoutBundleNestedInput
     bundle_product?: bundle_productUncheckedUpdateManyWithoutBundleNestedInput
   }
@@ -78087,6 +79362,7 @@ export namespace Prisma {
     social_media?: string | null
     avatar?: string | null
     id_user?: string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type customerCreateManyAuth_accountInput = {
@@ -78146,6 +79422,7 @@ export namespace Prisma {
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     book?: bookUpdateManyWithoutAuthorNestedInput
     product?: productUpdateManyWithoutAuthorNestedInput
@@ -78159,6 +79436,7 @@ export namespace Prisma {
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
     book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
@@ -78172,6 +79450,7 @@ export namespace Prisma {
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type customerUpdateWithoutAuth_accountInput = {
@@ -78565,6 +79844,7 @@ export namespace Prisma {
     is_chapter?: boolean
     id_product?: string | null
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type productCreateManyAuthorInput = {
@@ -78679,6 +79959,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     product?: productUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUpdateManyWithoutBookNestedInput
@@ -78711,6 +79992,7 @@ export namespace Prisma {
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
@@ -78742,6 +80024,7 @@ export namespace Prisma {
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     id_product?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type productUpdateWithoutAuthorInput = {
@@ -79660,6 +80943,7 @@ export namespace Prisma {
     content_type?: string | null
     is_chapter?: boolean
     created_at?: Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type bundle_productCreateManyProductInput = {
@@ -79736,6 +81020,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     author?: authorUpdateOneWithoutBookNestedInput
     book_approval?: book_approvalUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUpdateManyWithoutBookNestedInput
@@ -79768,6 +81053,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
     book_approval?: book_approvalUncheckedUpdateManyWithoutBookNestedInput
     book_changes_log?: book_changes_logUncheckedUpdateManyWithoutBookNestedInput
     book_genre?: book_genreUncheckedUpdateManyWithoutBookNestedInput
@@ -79799,6 +81085,7 @@ export namespace Prisma {
     content_type?: NullableStringFieldUpdateOperationsInput | string | null
     is_chapter?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type bundle_productUpdateWithoutProductInput = {

@@ -3,7 +3,6 @@ import { Protected } from "@/components/app/protected";
 import { EForm } from "@/components/ext/eform/EForm";
 import { Error } from "@/components/ext/error";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
-import { Breadcrumb } from "@/components/ext/profil/breadcrumb";
 import { Success } from "@/components/ext/success";
 import { Button } from "@/components/ui/button";
 import {
@@ -99,7 +98,6 @@ export default () => {
             <Error msg={local.error} />
             <Success msg={local.success} />
             <Card className="shadow-md border border-gray-200">
-              <Breadcrumb />
               <CardHeader>
                 <CardTitle className="text-2xl font-bold">
                   Perbarui Profil

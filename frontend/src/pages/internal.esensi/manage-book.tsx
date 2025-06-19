@@ -1,6 +1,5 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
-import { Breadcrumb } from "@/components/ext/book/breadcrumb/list";
 import { book, Item } from "@/components/ext/book/item-manage";
 import { Error } from "@/components/ext/error";
 import { Img } from "@/components/ext/img/list";
@@ -68,7 +67,6 @@ export default () => {
             <Error msg={local.error} />
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
               <div className="mx-8 py-8">
-                <Breadcrumb />
                 <div className="flex justify-between items-start mb-8 gap-4">
                   <h1 className="text-2xl font-bold">Daftar Buku</h1>
                   <div className="flex flex-col gap-3 items-end">

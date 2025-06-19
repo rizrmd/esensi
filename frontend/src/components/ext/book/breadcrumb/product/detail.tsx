@@ -6,13 +6,6 @@ export const Breadcrumb: FC = () => (
   <>
     <nav className="flex items-center text-sm text-gray-600 mb-4">
       <button
-        onClick={() => navigate("/dashboard")}
-        className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
-      >
-        Beranda
-      </button>
-      <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-      <button
         onClick={() => navigate("/manage-product")}
         className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
       >

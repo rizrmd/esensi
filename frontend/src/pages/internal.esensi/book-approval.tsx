@@ -141,8 +141,9 @@ export default () => {
       const res = await api2.book_approval_create({
         id_book: local.bookId,
         comment: local.comment,
-        id_internal: local.user?.idInternal!,
         status,
+        id_internal: local.user?.idInternal!,
+        book: local.book,
       });
 
       if (res.success) {
@@ -150,10 +151,6 @@ export default () => {
         local.comment = "";
 
         await loadApprovalList();
-
-        if (status === BookStatus.PUBLISHED) {
-          await api2.product_create({ user: local.user!, data: local.book! });
-        }
       } else {
         local.error = res.message || "Gagal menambahkan tanggapan";
         Alert.info(res.message || "Gagal menambahkan tanggapan");

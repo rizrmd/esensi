@@ -7,7 +7,7 @@ import {
 } from "backend/lib/notif";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
-import { BookStatus, type BookApproval } from "../../lib/types";
+import { BookStatus, type Book, type BookApproval } from "../../lib/types";
 
 export default defineAPI({
   name: "book_approval_create",
@@ -15,8 +15,9 @@ export default defineAPI({
   async handler(arg: {
     id_book: string;
     comment: string;
-    id_internal?: string;
     status?: BookStatus;
+    id_internal?: string;
+    book?: Book;
   }): Promise<ApiResponse<BookApproval>> {
     try {
       const book = await db.book.findUnique({ where: { id: arg.id_book } });
@@ -49,9 +50,49 @@ export default defineAPI({
           message: "Gagal menambahkan riwayat buku",
         };
       } else {
+        let id_product = undefined as string | undefined;
+        if (arg.status === BookStatus.PUBLISHED && arg.book) {
+          const createdProduct = await db.product.create({
+            data: {
+              name: arg.book.name,
+              slug: arg.book.slug,
+              alias: arg.book.alias,
+              strike_price: arg.book.submitted_price,
+              real_price: arg.book.submitted_price,
+              desc: arg.book.desc,
+              info: arg.book.info ?? {},
+              status: arg.book.status,
+              currency: arg.book.currency,
+              img_file: arg.book.img_file,
+              cover: arg.book.cover,
+              product_file: arg.book.product_file,
+              sku: arg.book.sku,
+              id_author: arg.book.id_author,
+              is_physical: arg.book.is_physical,
+              content_type: arg.book.content_type,
+            },
+            include: {
+              author: true,
+              bundle_product: {
+                select: {
+                  bundle: true,
+                },
+                take: 10,
+              },
+              product_category: {
+                select: {
+                  category: true,
+                },
+                take: 10,
+              },
+            },
+          });
+          id_product = createdProduct.id;
+        }
+
         await db.book.update({
           where: { id: arg.id_book },
-          data: { status: arg.status },
+          data: { status: arg.status, id_product },
         });
       }
 
