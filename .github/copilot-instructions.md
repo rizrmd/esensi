@@ -83,3 +83,5 @@ This is correct
 ```
 import type { User } from "better-auth/types";
 ```
+
+Use the latest version of bun. Use firefox (if any) or any browser as your browser for development, but not built-in browser in vscode. Do not use the built-in browser in vscode.
