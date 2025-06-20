@@ -36,9 +36,16 @@ export default defineAPI({
 
     const qty = product?.bundle_product.length;
 
+    const categories = [] as any[];
+
     const data = {
       title: `Detil Bundle`,
       product: product,
+      categories: categories,
+      owned: false,
+      bookmarked: false,
+      in_cart: false,
+      related: [],
     };
 
     const seo_data = {
