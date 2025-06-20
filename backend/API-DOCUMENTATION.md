@@ -6,6 +6,15 @@ Dokumentasi lengkap untuk semua API endpoints dalam sistem Esensi.
 
 1. [Authentication APIs](#authentication-apis)
 2. [Internal APIs](#internal-apis) 
+   - [Author Management](#author-management)
+   - [Configuration Management](#configuration-management)
+   - [Notification Management](#notification-management)
+   - [Affiliate Management](#affiliate-management)
+   - [Customer Management](#customer-management)
+   - [Publisher Management](#publisher-management)
+   - [Internal User Management](#internal-user-management)
+   - [Dashboard & Analytics](#dashboard--analytics)
+   - [Other Internal APIs](#other-internal-apis)
 3. [Publishing APIs](#publishing-apis)
 4. [Chapter APIs](#chapter-apis)
 5. [Main Application APIs](#main-application-apis)
@@ -204,6 +213,258 @@ Dokumentasi lengkap untuk semua API endpoints dalam sistem Esensi.
 - **Purpose**: Menghapus notifikasi
 - **Parameters**:
   - `id`: string - ID notifikasi (wajib)
+
+### Affiliate Management
+
+#### 1. Affiliate Create (`affiliate-create.ts`)
+- **URL**: `/api/internal/affiliate/create`
+- **Purpose**: Membuat affiliate baru
+- **Parameters**:
+  - `name`: string - Nama affiliate (wajib)
+  - `id_account?`: string - ID akun terkait
+  - `id_user?`: string - ID user terkait
+
+#### 2. Affiliate List (`affiliate-list.ts`)
+- **URL**: `/api/internal/affiliate/list`
+- **Purpose**: Mendapatkan daftar affiliate
+- **Parameters**:
+  - `page?`: number - Halaman untuk pagination
+  - `limit?`: number - Jumlah data per halaman
+  - `search?`: string - Pencarian berdasarkan nama
+
+#### 3. Affiliate Get (`affiliate-get.ts`)
+- **URL**: `/api/internal/affiliate/get`
+- **Purpose**: Mendapatkan detail affiliate
+- **Parameters**:
+  - `id`: string - ID affiliate (wajib)
+
+#### 4. Affiliate Update (`affiliate-update.ts`)
+- **URL**: `/api/internal/affiliate/update`
+- **Purpose**: Memperbarui data affiliate
+- **Parameters**:
+  - `id`: string - ID affiliate (wajib)
+  - `name?`: string - Nama affiliate
+  - `id_account?`: string - ID akun terkait
+  - `id_user?`: string - ID user terkait
+
+#### 5. Affiliate Delete (`affiliate-delete.ts`)
+- **URL**: `/api/internal/affiliate/delete`
+- **Purpose**: Menghapus affiliate
+- **Parameters**:
+  - `id`: string - ID affiliate (wajib)
+  - `hard_delete?`: boolean - Hapus permanen (default: false)
+
+#### 6. Affiliate Search (`affiliate-search.ts`)
+- **URL**: `/api/internal/affiliate/search`
+- **Purpose**: Pencarian affiliate dengan filter lanjutan
+- **Parameters**:
+  - `query?`: string - Teks pencarian
+  - `has_sales?`: boolean - Filter berdasarkan penjualan
+  - `sort_by?`: string - Kolom sorting
+  - `sort_order?`: "asc" | "desc" - Urutan sorting
+
+#### 7. Affiliate Stats (`affiliate-stats.ts`)
+- **URL**: `/api/internal/affiliate/stats`
+- **Purpose**: Mendapatkan statistik affiliate
+- **Parameters**:
+  - `id?`: string - ID affiliate spesifik
+  - `date_from?`: string - Tanggal mulai
+  - `date_to?`: string - Tanggal akhir
+
+### Customer Management
+
+#### 1. Customer Create (`customer-create.ts`)
+- **URL**: `/api/internal/customer/create`
+- **Purpose**: Membuat customer baru
+- **Parameters**:
+  - `name`: string - Nama customer (wajib)
+  - `email`: string - Email customer (wajib)
+  - `whatsapp`: string - WhatsApp customer (wajib)
+  - `id_account?`: string - ID akun terkait
+  - `id_user?`: string - ID user terkait
+  - `otp?`: number - Kode OTP
+
+#### 2. Customer List (`customer-list.ts`)
+- **URL**: `/api/internal/customer/list`
+- **Purpose**: Mendapatkan daftar customer
+- **Parameters**:
+  - `page?`: number - Halaman untuk pagination
+  - `limit?`: number - Jumlah data per halaman
+  - `search?`: string - Pencarian berdasarkan nama atau email
+
+#### 3. Customer Get (`customer-get.ts`)
+- **URL**: `/api/internal/customer/get`
+- **Purpose**: Mendapatkan detail customer
+- **Parameters**:
+  - `id`: string - ID customer (wajib)
+
+#### 4. Customer Update (`customer-update.ts`)
+- **URL**: `/api/internal/customer/update`
+- **Purpose**: Memperbarui data customer
+- **Parameters**:
+  - `id`: string - ID customer (wajib)
+  - `name?`: string - Nama customer
+  - `email?`: string - Email customer
+  - `whatsapp?`: string - WhatsApp customer
+  - `otp?`: number - Kode OTP
+
+#### 5. Customer Delete (`customer-delete.ts`)
+- **URL**: `/api/internal/customer/delete`
+- **Purpose**: Menghapus customer
+- **Parameters**:
+  - `id`: string - ID customer (wajib)
+  - `hard_delete?`: boolean - Hapus permanen (default: false)
+
+#### 6. Customer Search (`customer-search.ts`)
+- **URL**: `/api/internal/customer/search`
+- **Purpose**: Pencarian customer dengan filter lanjutan
+- **Parameters**:
+  - `query?`: string - Teks pencarian
+  - `has_purchases?`: boolean - Filter berdasarkan pembelian
+  - `verified_only?`: boolean - Hanya customer terverifikasi
+  - `sort_by?`: string - Kolom sorting
+  - `sort_order?`: "asc" | "desc" - Urutan sorting
+
+#### 7. Customer Stats (`customer-stats.ts`)
+- **URL**: `/api/internal/customer/stats`
+- **Purpose**: Mendapatkan statistik customer
+- **Parameters**:
+  - `id?`: string - ID customer spesifik
+  - `date_from?`: string - Tanggal mulai
+  - `date_to?`: string - Tanggal akhir
+
+### Publisher Management
+
+#### 1. Publisher Create (`publisher-create.ts`)
+- **URL**: `/api/internal/publisher/create`
+- **Purpose**: Membuat publisher baru
+- **Parameters**:
+  - `name`: string - Nama publisher (wajib)
+  - `description?`: string - Deskripsi publisher
+  - `website?`: string - Website publisher
+  - `address?`: string - Alamat publisher
+  - `logo?`: string - Logo publisher
+  - `id_account?`: string - ID akun terkait
+  - `id_user?`: string - ID user terkait
+
+#### 2. Publisher List (`publisher-list.ts`)
+- **URL**: `/api/internal/publisher/list`
+- **Purpose**: Mendapatkan daftar publisher
+- **Parameters**:
+  - `page?`: number - Halaman untuk pagination
+  - `limit?`: number - Jumlah data per halaman
+  - `search?`: string - Pencarian berdasarkan nama
+
+#### 3. Publisher Get (`publisher-get.ts`)
+- **URL**: `/api/internal/publisher/get`
+- **Purpose**: Mendapatkan detail publisher
+- **Parameters**:
+  - `id`: string - ID publisher (wajib)
+
+#### 4. Publisher Update (`publisher-update.ts`)
+- **URL**: `/api/internal/publisher/update`
+- **Purpose**: Memperbarui data publisher
+- **Parameters**:
+  - `id`: string - ID publisher (wajib)
+  - `name?`: string - Nama publisher
+  - `description?`: string - Deskripsi publisher
+  - `website?`: string - Website publisher
+  - `address?`: string - Alamat publisher
+  - `logo?`: string - Logo publisher
+
+#### 5. Publisher Delete (`publisher-delete.ts`)
+- **URL**: `/api/internal/publisher/delete`
+- **Purpose**: Menghapus publisher
+- **Parameters**:
+  - `id`: string - ID publisher (wajib)
+  - `hard_delete?`: boolean - Hapus permanen (default: false)
+
+#### 6. Publisher Search (`publisher-search.ts`)
+- **URL**: `/api/internal/publisher/search`
+- **Purpose**: Pencarian publisher dengan filter lanjutan
+- **Parameters**:
+  - `query?`: string - Teks pencarian
+  - `has_books?`: boolean - Filter berdasarkan kepemilikan buku
+  - `sort_by?`: string - Kolom sorting
+  - `sort_order?`: "asc" | "desc" - Urutan sorting
+
+#### 7. Publisher Stats (`publisher-stats.ts`)
+- **URL**: `/api/internal/publisher/stats`
+- **Purpose**: Mendapatkan statistik publisher
+- **Parameters**:
+  - `id?`: string - ID publisher spesifik
+  - `date_from?`: string - Tanggal mulai
+  - `date_to?`: string - Tanggal akhir
+
+### Internal User Management
+
+#### 1. Internal Create (`internal-create.ts`)
+- **URL**: `/api/internal/internal/create`
+- **Purpose**: Membuat user internal baru
+- **Parameters**:
+  - `name`: string - Nama user (wajib)
+  - `email`: string - Email user (wajib)
+  - `role`: string - Role user (wajib)
+  - `id_account?`: string - ID akun terkait
+  - `id_user?`: string - ID user terkait
+
+#### 2. Internal List (`internal-list.ts`)
+- **URL**: `/api/internal/internal/list`
+- **Purpose**: Mendapatkan daftar user internal
+- **Parameters**:
+  - `page?`: number - Halaman untuk pagination
+  - `limit?`: number - Jumlah data per halaman
+  - `search?`: string - Pencarian berdasarkan nama atau email
+  - `role?`: string - Filter berdasarkan role
+
+#### 3. Internal Get (`internal-get.ts`)
+- **URL**: `/api/internal/internal/get`
+- **Purpose**: Mendapatkan detail user internal
+- **Parameters**:
+  - `id`: string - ID user internal (wajib)
+
+#### 4. Internal Update (`internal-update.ts`)
+- **URL**: `/api/internal/internal/update`
+- **Purpose**: Memperbarui data user internal
+- **Parameters**:
+  - `id`: string - ID user internal (wajib)
+  - `name?`: string - Nama user
+  - `email?`: string - Email user
+  - `role?`: string - Role user
+
+#### 5. Internal Delete (`internal-delete.ts`)
+- **URL**: `/api/internal/internal/delete`
+- **Purpose**: Menghapus user internal
+- **Parameters**:
+  - `id`: string - ID user internal (wajib)
+  - `hard_delete?`: boolean - Hapus permanen (default: false)
+
+#### 6. Internal Search (`internal-search.ts`)
+- **URL**: `/api/internal/internal/search`
+- **Purpose**: Pencarian user internal dengan filter lanjutan
+- **Parameters**:
+  - `query?`: string - Teks pencarian
+  - `role?`: string[] - Filter berdasarkan role
+  - `active_only?`: boolean - Hanya user aktif
+  - `sort_by?`: string - Kolom sorting
+  - `sort_order?`: "asc" | "desc" - Urutan sorting
+
+#### 7. Internal Stats (`internal-stats.ts`)
+- **URL**: `/api/internal/internal/stats`
+- **Purpose**: Mendapatkan statistik user internal
+- **Parameters**:
+  - `id?`: string - ID user internal spesifik
+  - `role?`: string - Filter berdasarkan role
+  - `date_from?`: string - Tanggal mulai
+  - `date_to?`: string - Tanggal akhir
+
+### Dashboard & Analytics
+
+#### 1. Dashboard Stats (`dashboard-stats.ts`)
+- **URL**: `/api/internal/dashboard/stats`
+- **Purpose**: Mendapatkan statistik dashboard untuk panel admin
+- **Parameters**:
+  - `period?`: string - Periode statistik dalam hari (default: "30")
 
 ### Other Internal APIs
 
@@ -760,68 +1021,73 @@ Dokumentasi lengkap untuk semua API endpoints dalam sistem Esensi.
 - **Purpose**: Halaman utama aplikasi
 - **Parameters**: Tidak ada
 
-### 12. Library (`library.tsx`)
+### 12. Index Old (`index-old.tsx`)
+- **URL**: `/api/main/old`
+- **Purpose**: Halaman utama aplikasi versi lama (deprecated)
+- **Parameters**: Tidak ada
+
+### 13. Library (`library.tsx`)
 - **URL**: `/api/main/library`
 - **Purpose**: Halaman library user
 - **Parameters**:
   - `user_id`: string - ID user (wajib)
 
-### 13. Login (`login.tsx`)
+### 14. Login (`login.tsx`)
 - **URL**: `/api/main/login`
 - **Purpose**: Halaman login
 - **Parameters**: Tidak ada
 
-### 14. OTP (`otp.tsx`)
+### 15. OTP (`otp.tsx`)
 - **URL**: `/api/main/otp`
 - **Purpose**: Halaman verifikasi OTP
 - **Parameters**:
   - `phone`: string - Nomor telepon (wajib)
 
-### 15. Product (`product.tsx`)
+### 16. Product (`product.tsx`)
 - **URL**: `/api/main/product`
 - **Purpose**: Halaman detail produk
 - **Parameters**:
   - `id?`: string - ID produk
   - `slug?`: string - Slug produk
 
-### 16. Profile (`profile.tsx`)
+### 17. Profile (`profile.tsx`)
 - **URL**: `/api/main/profile`
 - **Purpose**: Halaman profil user
 - **Parameters**:
   - `user_id`: string - ID user (wajib)
 
-### 17. Profile Edit (`profile-edit.tsx`)
+### 18. Profile Edit (`profile-edit.tsx`)
 - **URL**: `/api/main/profile/edit`
 - **Purpose**: Halaman edit profil
 - **Parameters**:
   - `user_id`: string - ID user (wajib)
 
-### 18. Read (`read.tsx`)
+### 19. Read (`read.tsx`)
 - **URL**: `/api/main/read`
 - **Purpose**: Halaman membaca buku/chapter
 - **Parameters**:
   - `id`: string - ID buku atau chapter (wajib)
   - `chapter_id?`: string - ID chapter spesifik
 
-### 19. Reset Password (`resetpass.tsx`)
+### 20. Reset Password (`resetpass.tsx`)
 - **URL**: `/api/main/resetpass`
 - **Purpose**: Halaman reset password
 - **Parameters**:
   - `token`: string - Token reset (wajib)
 
-### 20. Search (`search.tsx`)
+### 21. Search (`search.tsx`)
 - **URL**: `/api/main/search`
 - **Purpose**: Halaman pencarian produk dan bundle
 - **Parameters**:
   - `q`: string - Query pencarian (wajib)
   - `type?`: string - Tipe pencarian
 
-### 21. Terbitan (`terbitan.tsx`)
+### 22. Terbitan (`terbitan.tsx`)
 - **URL**: `/api/main/terbitan`
 - **Purpose**: Halaman terbitan/publikasi
 - **Parameters**: Tidak ada
 
-### 22. Transaction (`trx.tsx`)
+### 23. Transaction (`trx.tsx`)
 - **URL**: `/api/main/trx`
 - **Purpose**: Halaman detail transaksi
 - **Parameters**:
@@ -891,6 +1157,36 @@ const authors = await internalApi.author_list({
   page: 1,
   limit: 20,
   search: "john"
+});
+
+// Affiliate management
+const affiliates = await internalApi.affiliate_list({
+  page: 1,
+  limit: 10
+});
+
+// Create new affiliate
+const newAffiliate = await internalApi.affiliate_create({
+  name: "Affiliate ABC",
+  id_user: "user-123"
+});
+
+// Customer management
+const customers = await internalApi.customer_list({
+  page: 1,
+  limit: 10,
+  search: "john"
+});
+
+// Publisher management
+const publishers = await internalApi.publisher_list({
+  page: 1,
+  limit: 10
+});
+
+// Dashboard statistics
+const dashboardStats = await internalApi.dashboard_stats({
+  period: "30"
 });
 ```
 
@@ -1005,6 +1301,15 @@ interface ApiResponse<T = any> {
 ---
 
 ## Changelog
+
+### Version 1.2.0 (Current)
+- Added Affiliate Management APIs (create, list, get, update, delete, search, stats)
+- Added Customer Management APIs (create, list, get, update, delete, search, stats)
+- Added Publisher Management APIs (create, list, get, update, delete, search, stats) 
+- Added Internal User Management APIs (create, list, get, update, delete, search, stats)
+- Added Dashboard Stats API for admin analytics
+- Enhanced API documentation with comprehensive parameter details
+- Added usage examples for new API endpoints
 
 ### Version 1.0.0
 - Initial API documentation
