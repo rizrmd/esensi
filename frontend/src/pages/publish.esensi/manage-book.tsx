@@ -3,7 +3,6 @@ import { Protected } from "@/components/app/protected";
 import { Item, book } from "@/components/ext/book/item-manage";
 import { Error } from "@/components/ext/error";
 import { Img } from "@/components/ext/img/list";
-import { LayoutToggle } from "@/components/ext/layout-toggle";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { PublishFallback } from "@/components/ext/publish-fallback";
 import { Button } from "@/components/ui/button";
@@ -83,42 +82,38 @@ export default () => {
                   <h1 className="mb-6 text-2xl font-bold">Daftar Buku</h1>
                   <div className="flex flex-col gap-3 items-end">
                     <div className="flex items-center gap-4">
-                      <div className="flex gap-2">
-                        <Button
-                          onClick={() => navigate("/book-step")}
-                          className="flex items-center gap-2"
-                          variant="default"
-                        >
-                          <PlusCircle className="h-5 w-5" />
-                          <span>Tambah Buku</span>
-                        </Button>
-                        <LayoutToggle
-                          layout={local.layout}
-                          onLayoutChange={(value) => {
-                            local.layout = value;
-                            local.render();
-                          }}
-                        />
-                      </div>
+                      <Button
+                        onClick={() => navigate("/book-step")}
+                        className="flex items-center gap-2"
+                        variant="default"
+                      >
+                        <PlusCircle className="h-5 w-5" />
+                        <span>Tambah Buku</span>
+                      </Button>
+                      <DataPagination
+                        total={local.total}
+                        page={local.page}
+                        limit={local.limit}
+                        totalPages={local.totalPages}
+                        onReload={loadData}
+                        onPageChange={async (newPage) => {
+                          local.page = newPage;
+                          local.render();
+                          await loadData();
+                        }}
+                        onLimitChange={async (newLimit) => {
+                          local.limit = newLimit;
+                          local.page = 1;
+                          local.render();
+                          await loadData();
+                        }}
+                        layout={local.layout}
+                        onLayoutChange={(value) => {
+                          local.layout = value;
+                          local.render();
+                        }}
+                      />
                     </div>
-                    <DataPagination
-                      total={local.total}
-                      page={local.page}
-                      limit={local.limit}
-                      totalPages={local.totalPages}
-                      onReload={loadData}
-                      onPageChange={async (newPage) => {
-                        local.page = newPage;
-                        local.render();
-                        await loadData();
-                      }}
-                      onLimitChange={async (newLimit) => {
-                        local.limit = newLimit;
-                        local.page = 1;
-                        local.render();
-                        await loadData();
-                      }}
-                    />
                   </div>
                 </div>
                 {local.loading ? (

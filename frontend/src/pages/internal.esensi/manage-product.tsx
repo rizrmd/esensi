@@ -3,7 +3,6 @@ import { Protected } from "@/components/app/protected";
 import { Item, product } from "@/components/ext/book/item-manage";
 import { Error } from "@/components/ext/error";
 import { Img } from "@/components/ext/img/list";
-import { LayoutToggle } from "@/components/ext/layout-toggle";
 import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataPagination } from "@/components/ui/data-pagination";
@@ -68,35 +67,29 @@ export default () => {
               <div className="mx-8 py-8">
                 <div className="flex justify-between items-start mb-8 gap-4">
                   <h1 className="text-2xl font-bold">Daftar Produk</h1>
-                  <div className="flex flex-col gap-3 items-end">
-                    <div className="flex items-center gap-4">
-                      <LayoutToggle
-                        layout={local.layout}
-                        onLayoutChange={(value) => {
-                          local.layout = value;
-                          local.render();
-                        }}
-                      />
-                    </div>
-                    <DataPagination
-                      total={local.total}
-                      page={local.page}
-                      limit={local.limit}
-                      totalPages={local.totalPages}
-                      onReload={loadData}
-                      onPageChange={async (newPage) => {
-                        local.page = newPage;
-                        local.render();
-                        await loadData();
-                      }}
-                      onLimitChange={async (newLimit) => {
-                        local.limit = newLimit;
-                        local.page = 1;
-                        local.render();
-                        await loadData();
-                      }}
-                    />
-                  </div>
+                  <DataPagination
+                    total={local.total}
+                    page={local.page}
+                    limit={local.limit}
+                    totalPages={local.totalPages}
+                    onReload={loadData}
+                    onPageChange={async (newPage) => {
+                      local.page = newPage;
+                      local.render();
+                      await loadData();
+                    }}
+                    onLimitChange={async (newLimit) => {
+                      local.limit = newLimit;
+                      local.page = 1;
+                      local.render();
+                      await loadData();
+                    }}
+                    layout={local.layout}
+                    onLayoutChange={(value) => {
+                      local.layout = value;
+                      local.render();
+                    }}
+                  />
                 </div>
                 {local.loading ? (
                   <div>Mengambil data produk...</div>

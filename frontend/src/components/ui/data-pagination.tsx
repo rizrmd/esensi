@@ -1,4 +1,6 @@
+import type { ItemLayoutEnum } from "@/lib/utils";
 import { useEffect } from "react";
+import { LayoutToggle } from "../ext/layout-toggle";
 
 interface DataPaginationProps {
   total: number;
@@ -9,6 +11,8 @@ interface DataPaginationProps {
   onLimitChange: (limit: number) => Promise<void> | void;
   onReload: () => Promise<void> | void;
   updateUrl?: boolean;
+  layout?: ItemLayoutEnum;
+  onLayoutChange?: (value: ItemLayoutEnum) => void;
 }
 
 export function DataPagination({
@@ -20,6 +24,8 @@ export function DataPagination({
   onLimitChange,
   onReload,
   updateUrl = true,
+  layout,
+  onLayoutChange,
 }: DataPaginationProps) {
   useEffect(() => {
     if (updateUrl) {
@@ -158,6 +164,9 @@ export function DataPagination({
             <span className="text-sm text-gray-500">dari {totalPages}</span>
           </div>
         </>
+      )}
+      {layout && onLayoutChange && (
+        <LayoutToggle layout={layout} onLayoutChange={onLayoutChange} />
       )}
     </div>
   );
