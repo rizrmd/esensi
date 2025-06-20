@@ -14,7 +14,7 @@ type MainEsensiLayoutProps = {
   showSearch?: boolean;
   header_config?: any;
   mobile_menu?: boolean;
-  footer?: boolean;
+  footer_config?: any;
 };
 
 export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
@@ -28,13 +28,17 @@ export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
     title: null,
     cart: true,
     profile: true,
+    mobileHide: false,
+    desktopHide: false,
   },
   mobile_menu = true,
-  footer = true,
+  footer_config={
+    desktopHide: false,
+  },
 }) => {
   const local = useLocal({ searchQuery: "" }, async () => {});
   return (
-    <div className="flex flex-1 flex-col gap-0 pb-25 lg:p-0 m-0 text-[color:#020817]">
+    <div className="flex h-auto flex-col gap-0 pb-25 lg:pb-0 m-0 text-[color:#020817]">
       <PageHeader
         enable={header_config.enable}
         title={header_config.title}
@@ -44,9 +48,12 @@ export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
         searchQuery={header_config.searchQuery}
         cart={header_config.cart}
         profile={header_config.profile}
+        mobileHide={header_config.mobileHide}
+        desktopHide={header_config.desktopHide}
+        
       />
-      <div className="flex-1 lg:py-10">{children}</div>
-      <PageFooter />
+      <div className="grow-1 h-auto">{children}</div>
+      <PageFooter desktopHide={footer_config.desktopHide} />
       <MobileNavbar enable={mobile_menu} />
     </div>
   );

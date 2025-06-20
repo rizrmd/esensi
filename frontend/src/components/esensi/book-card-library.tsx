@@ -21,7 +21,7 @@ export const BookCardLibrary = ({ data }) => {
           {data.name}
         </h3>
         <div className="flex w-full flex-col items-center gap-1">
-          <div className="flex w-full gap-3">
+          <div className="flex w-full gap-3kk">
             <Button asChild className="rounded-full bg-[#3B2C93]">
               <Link href="#" className="flex w-full justify-center items-center text-md rounded-full">
                 {data.percent == 0

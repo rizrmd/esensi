@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Eye, EyeClosed } from "lucide-react";
 import { Link } from "@/lib/router";
+import { LoginBanner } from "@/components/esensi/login-banner";
 
 export default () => {
   const header_config = {
@@ -26,6 +27,11 @@ export default () => {
     search: false,
     title: "Daftar Akun",
     profile: false,
+    desktopHide: true,
+  };
+
+  const footer_config = {
+    desktopHide: true,
   };
 
   const local = useLocal(
@@ -93,14 +99,14 @@ export default () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col w-full gap-7"
+        className="flex flex-col w-full lg:max-w-88 gap-7"
       >
         <FormField
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Buat akun baru</FormLabel>
-              <FormDescription>Buat akun untuk mulai membaca</FormDescription>
+              <FormLabel className="lg:text-3xl">Buat akun baru</FormLabel>
+              <FormDescription className="lg:hidden">Buat akun untuk mulai membaca</FormDescription>
             </FormItem>
           )}
         />
@@ -216,10 +222,14 @@ export default () => {
     </Form>
   );
 
+  const renderLoginBanner = <LoginBanner></LoginBanner>;
   return (
-    <MainEsensiLayout header_config={header_config} mobile_menu={true}>
-      <div className="flex justify-center w-full">
-        <div className="flex flex-col justify-start items-center gap-6 w-full py-6 px-6 max-w-[1200px] [&_label]:text-[#3B2C93] [&_label]:font-bold [&_input]:rounded-xl [&_input]:h-10">
+    <MainEsensiLayout header_config={header_config} footer_config={footer_config} mobile_menu={true}>
+      <div className="flex justify-center w-full lg:min-h-screen">
+        <div className="hidden lg:flex flex-col flex-1">
+          {local.loading ? renderLoading : renderLoginBanner}
+        </div>
+        <div className="flex flex-1 flex-col justify-start items-center lg:justify-center gap-6 w-full p-6 lg:p-8 max-w-[1200px] [&_label]:text-[#3B2C93] [&_label]:font-bold [&_input]:rounded-xl [&_input]:h-10">
           {local.loading ? renderLoading : renderRegisterForm}
         </div>
       </div>

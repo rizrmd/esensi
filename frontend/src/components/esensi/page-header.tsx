@@ -87,6 +87,8 @@ export const PageHeader = ({
   searchQuery = "" as string,
   cart = true as boolean,
   profile = true as boolean,
+  mobileHide = false as boolean,
+  desktopHide = false as boolean,
 }) => {
   const local = useLocal(
     {
@@ -98,6 +100,8 @@ export const PageHeader = ({
       searchQuery: searchQuery,
       cart: cart,
       profile: profile,
+      mobileHide: mobileHide,
+      desktopHide: desktopHide,
     },
     async () => {
       local.enable = enable;
@@ -108,6 +112,11 @@ export const PageHeader = ({
       local.searchQuery = searchQuery;
       local.cart = cart;
       local.profile = profile;
+      local.mobileHide = mobileHide;
+      local.desktopHide = desktopHide;
+      if(mobileHide && desktopHide){
+        local.enable = false;
+      }
       local.render();
     }
   );
@@ -119,11 +128,11 @@ export const PageHeader = ({
     }
   };
 
+  const visibility = local.enable && mobileHide ? "hidden lg:flex" : local.enable && desktopHide ? "flex lg:hidden" : local.enable ? "flex" : "hidden lg:flex";
+
   return (
     <header
-      className={`sticky top-0 z-50 lg:static ${
-        local.enable ? "flex" : "hidden lg:flex"
-      } flex-row justify-center items-center w-full bg-background h-12 ${local.back ? "" : "pl-4 lg:p-none"} lg:h-36`}
+      className={`sticky top-0 z-50 lg:static ${visibility} flex-row justify-center items-center w-full bg-background h-12 ${local.back ? "" : "pl-4 lg:p-none"} lg:h-36`}
     >
       <div className="flex w-full justify-center items-center w-full max-w-[1200px] h-full">
         {/* Back Button */}

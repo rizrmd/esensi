@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { Link } from "@/lib/router";
 import { Instagram, Linkedin, Youtube, MessageCircleCode } from "lucide-react";
 
-export const PageFooter = () => {
+export const PageFooter = ({ desktopHide = false as boolean }) => {
   const local = useLocal({ userEmail: "" }, async () => {
     // async init function
   });
@@ -94,7 +94,7 @@ export const PageFooter = () => {
     );
   });
 
-  return (
+  const renderFooter = (
     <footer className="hidden lg:flex justify-center">
       <div className="flex flex-col w-full gap-5 py-5 px-6 mt-10 max-w-[1200px]">
         <div className="flex w-full gap-10">
@@ -160,4 +160,6 @@ export const PageFooter = () => {
       </div>
     </footer>
   );
+
+  return <>{!desktopHide && renderFooter}</>;
 };
