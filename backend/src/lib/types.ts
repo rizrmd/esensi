@@ -160,6 +160,13 @@ export enum Role {
   PUBLISHER = "publisher",
 }
 
+export enum InternalRole {
+  IT = "it",
+  MANAGEMENT = "management",
+  SALES_AND_MARKETING = "sales_and_marketing",
+  SUPPORT = "support",
+}
+
 export enum BadgeStatus {
   CART = "cart",
   PENDING = "pending",

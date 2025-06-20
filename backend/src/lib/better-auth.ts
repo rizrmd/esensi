@@ -5,6 +5,13 @@ import { randomUUIDv7 } from "bun";
 import nodemailer from "nodemailer";
 import { Pool } from "pg";
 import { dir, type SiteConfig } from "rlib/server";
+import type {
+  affiliate,
+  author,
+  customer,
+  internal,
+  publisher,
+} from "shared/models";
 import { translateErrorMessage } from "shared/utils/translate";
 import raw_config from "../../../config.json";
 
@@ -523,14 +530,18 @@ export const utils = {
   },
 };
 
-export type User = AuthUser &
-  Partial<{
-    username?: string | null;
-    displayUsername?: string | null;
-    idCustomer?: string | null;
-    idAuthor?: string | null;
-    idAffiliate?: string | null;
-    idInternal?: string | null;
-    idPublisher?: string | null;
-    twoFactorEnabled?: boolean | null;
-  }>;
+export type User = AuthUser & {
+  username?: string | null;
+  displayUsername?: string | null;
+  idCustomer?: string | null;
+  idAuthor?: string | null;
+  idAffiliate?: string | null;
+  idInternal?: string | null;
+  idPublisher?: string | null;
+  twoFactorEnabled: boolean | null | undefined;
+  customer?: customer | null;
+  author?: author | null;
+  affiliate?: affiliate | null;
+  internal?: internal | null;
+  publisher?: publisher | null;
+};

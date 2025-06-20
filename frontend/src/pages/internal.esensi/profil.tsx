@@ -2,7 +2,7 @@ import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { EForm } from "@/components/ext/eform/EForm";
 import { Error } from "@/components/ext/error";
-import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
+import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
 import { Success } from "@/components/ext/success";
 import { Button } from "@/components/ui/button";
 import {
@@ -92,7 +92,7 @@ export default () => {
   return (
     <Protected role={[Role.INTERNAL]}>
       <div className="flex min-h-svh flex-col bg-gray-50">
-        <MenuBarPublish title="Profil" />
+        <MenuBarInternal title="Profil" />
         <main className="flex-1">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
             <Error msg={local.error} />
