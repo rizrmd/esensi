@@ -15,6 +15,7 @@ import type { FC } from "react";
 const menu = [
   { label: "Beranda", href: "/dashboard" },
   { label: "Buku", href: "/manage-book" },
+  { label: "Penulis", href: "/manage-author" },
   { label: "Konfigurasi", href: "/manage-cfg" },
   { label: "Profil", href: "/profil" },
   { label: "Keluar", action: "signout" },
