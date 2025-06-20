@@ -20,9 +20,15 @@ export default defineAPI({
       });
     }
 
+    const royality = {
+      id: "EO808VX",
+      points: 360,
+    };
+
     const data = {
       title: `Informasi Profil`,
       user: user,
+      royality: royality,
     };
 
     const seo_data = {

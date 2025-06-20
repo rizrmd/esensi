@@ -1,3 +1,4 @@
+import { DiscountPercent } from "@/components/esensi/discount-percent";
 import { formatMoney } from "@/components/esensi/format-money";
 import { MainEsensiLayout } from "@/components/esensi/layout";
 import {
@@ -285,7 +286,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
   );
 
   const cartCheckAll = (
-    <div className="flex justify-between items-stretch w-full gap-3 h-12 px-2 w-8 bg-white lg:rounded-md">
+    <div className="flex justify-between items-stretch w-full gap-3 h-12 px-2 w-8 lg:border bg-white lg:rounded-md">
       <div className="flex w-auto py-1 justify-center items-center shrink-0">
         <label className="flex items-center gap-4 px-1.5 cursor-pointer">
           <input
@@ -306,9 +307,9 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
   );
 
   const cartEmpty = (
-    <div className="flex flex-col justify-center items-center aspect-4/3 w-full bg-white p-4">
-      <div className="flex flex-col text-[#3B2C93] justify-center items-center text-center leading-[1.3] gap-2 grow-1">
-        <h2 className="flex font-bold">Keranjang Kamu Kosong</h2>
+    <div className="flex flex-col justify-center items-center aspect-4/3 lg:aspect-[unset] w-full bg-white p-4">
+      <div className="flex flex-col text-[#3B2C93] justify-center items-center text-center leading-[1.3] gap-2 grow-1 lg:py-10 lg:gap-3">
+        <h2 className="flex font-bold lg:text-xl">Keranjang Kamu Kosong</h2>
         <p>
           Kami punya banyak buku yang siap memberi kamu ilmu baru. Yuk belanja
           sekarang!
@@ -368,9 +369,11 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
             {ci.name}
           </h5>
           <div className="flex flex-col grow-1 justify-end lg:flex-row lg:items-center lg:justify-end lg:gap-2 lg:w-auto lg:whitespace-nowrap">
-            <span className="line-through text-[#a9a9a9] text-xs h-4">
-              {striked}
-            </span>
+            <DiscountPercent
+              real_price={ci?.real_price}
+              strike_price={ci?.strike_price}
+              currency={ci?.currency}
+            />
             <strong
               className={`${
                 ci.strike_price !== null &&
@@ -402,7 +405,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
   const cartItems = (
     <>
       {cartCheckAll}
-      <div className="flex flex-col w-full h-auto gap-1 lg:gap-px bg-white lg:bg-transparent lg:rounded-md lg:overflow-hidden">
+      <div className="flex flex-col w-full h-auto gap-1 lg:gap-px bg-white lg:border lg:bg-transparent lg:rounded-md lg:overflow-hidden">
         {cartItemsList}
       </div>
     </>
@@ -431,13 +434,15 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
       } flex-col lg:rounded-sm lg:overflow-hidden`}
     >
       <div
-        className={`flex flex-col w-full h-fit fixed bottom-0 left-0 bg-white pt-2 pb-16 px-4 gap-3 lg:relative lg:bottom-none lg:left-none lg:py-6 lg:px-6 lg:pb-0 lg:gap-4 shadow-[0_-4px_30px_1px_rgba(0,0,0,0.15)] transition-transform duration-300 ${
+        className={`flex flex-col w-full h-fit fixed bottom-0 left-0 bg-white pt-2 pb-16 px-4 gap-3 lg:bg-[#3B2C93] lg:text-white lg:relative lg:bottom-none lg:left-none lg:py-6 lg:px-6 lg:pb-0 lg:gap-4 shadow-[0_-4px_30px_1px_rgba(0,0,0,0.15)] transition-transform duration-300 ${
           local.breakdown
             ? "translate-y-0"
             : "translate-y-full lg:translate-y-0"
         } lg:relative lg:bottom-none lg:left-none lg:shadow-none lg:h-auto`}
       >
-        <span className="font-bold text-[#3B2C93]">Ringkasan keranjang</span>
+        <span className="font-bold text-[#3B2C93] lg:text-white">
+          Ringkasan keranjang
+        </span>
         <div className="flex flex-col w-full lg:gap-2 [&>div]:flex [&>div]:justify-between">
           <div>
             <span>Subtotal harga ({local.list.length} Barang)</span>
@@ -445,7 +450,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
           </div>
           <div>
             <span>Diskon Belanja</span>
-            <strong className="text-[#C6011B]">
+            <strong className="text-[#C6011B] lg:text-[#D4D8F7]">
               – {formatMoney(local.discount, "Rp.")}
             </strong>
           </div>
@@ -454,7 +459,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
       </div>
 
       <div
-        className={`flex w-full justify-between items-center h-14 py-1 px-4 fixed bottom-0 left-0 bg-white lg:relative lg:bottom-none lg:left-none lg:py-6 lg:px-6 lg:h-fit ${
+        className={`flex w-full justify-between items-center h-14 py-1 px-4 fixed bottom-0 left-0 bg-white lg:bg-[#3B2C93] lg:relative lg:bottom-none lg:left-none lg:py-6 lg:px-6 lg:h-fit ${
           local.breakdown ? "" : "shadow-[0_-4px_30px_1px_rgba(0,0,0,0.15)]"
         } lg:shadow-none`}
       >
@@ -465,7 +470,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
           <span className="text-[#B0B0B0] font-medium text-sm lg:text-md">
             Total
           </span>
-          <div className="flex gap-2 items-center text-[#3B2C93] lg:[&>svg]:hidden">
+          <div className="flex gap-2 items-center text-[#3B2C93] lg:text-white lg:text-yellow lg:[&>svg]:hidden">
             <strong className="font-bold text-lg lg:text-2xl">
               {formatMoney(local.total, "Rp.")}
             </strong>
@@ -479,7 +484,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
           }`}
         >
           <Button
-            className="flex items-center justify-center gap-2 bg-[#C6011B] text-white px-10 h-full rounded-lg"
+            className="flex items-center justify-center gap-2 bg-[#C6011B] text-white lg:bg-[#D4D8F7] hover:lg:bg-[#D4D8F7] lg:text-[#3B2C93] px-10 h-full rounded-lg"
             onClick={handleCheckout}
           >
             Checkout
@@ -497,12 +502,22 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
 
   return (
     <MainEsensiLayout header_config={header_config} mobile_menu={false}>
-      <div className="flex flex-col w-full h-auto gap-4 bg-[#E1E5EF] items-center lg:py-10 lg:gap-15 lg:-mt-10">
+      <div className="flex flex-col w-full h-auto gap-4 bg-[#E1E5EF] lg:bg-white items-center lg:py-10 lg:gap-15 lg:py-10">
+        {local.list.length > 0 && (
+          <h2 className="hidden w-full lg:flex flex-start text-[#3B2C93] max-w-[1200px] text-3xl font-semibold">
+            Keranjang
+          </h2>
+        )}
+
         <div className="flex flex-col w-full h-auto lg:auto lg:flex-row lg:gap-6 max-w-[1200px]">
           <div className="flex flex-col lg:grow-1 w-full h-auto gap-4 [&_input[type=checkbox]]:w-5 [&_input[type=checkbox]]:h-5 [&_input[type=checkbox]]:border-0.5 [&_input[type=checkbox]]:border-[#3B2C93] [&_input[type=checkbox]]:rounded-xs">
             {local.loading ? renderLoading : renderCart}
           </div>
-          <div className="flex w-full lg:w-1/3 shrink-0">
+          <div
+            className={`flex w-full lg:w-1/3 shrink-0 ${
+              local.list.length == 0 ? "lg:hidden" : ""
+            }`}
+          >
             {!local.loading && renderBreakdown}
           </div>
         </div>
