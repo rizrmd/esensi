@@ -4873,11 +4873,11 @@ export namespace Prisma {
    */
 
   export type AffiliateCountOutputType = {
-    auth_user_auth_user_id_affiliateToaffiliate: number
+    auth_user: number
   }
 
   export type AffiliateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    auth_user_auth_user_id_affiliateToaffiliate?: boolean | AffiliateCountOutputTypeCountAuth_user_auth_user_id_affiliateToaffiliateArgs
+    auth_user?: boolean | AffiliateCountOutputTypeCountAuth_userArgs
   }
 
   // Custom InputTypes
@@ -4894,7 +4894,7 @@ export namespace Prisma {
   /**
    * AffiliateCountOutputType without action
    */
-  export type AffiliateCountOutputTypeCountAuth_user_auth_user_id_affiliateToaffiliateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AffiliateCountOutputTypeCountAuth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: auth_userWhereInput
   }
 
@@ -4971,29 +4971,19 @@ export namespace Prisma {
    */
 
   export type Auth_userCountOutputType = {
-    affiliate_affiliate_id_userToauth_user: number
     auth_account: number
     auth_session: number
     auth_two_factor: number
-    author_author_id_userToauth_user: number
-    customer_customer_id_userToauth_user: number
-    internal_internal_id_userToauth_user: number
     notif: number
-    publisher_publisher_id_userToauth_user: number
     reviews: number
     reviews_likes: number
   }
 
   export type Auth_userCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    affiliate_affiliate_id_userToauth_user?: boolean | Auth_userCountOutputTypeCountAffiliate_affiliate_id_userToauth_userArgs
     auth_account?: boolean | Auth_userCountOutputTypeCountAuth_accountArgs
     auth_session?: boolean | Auth_userCountOutputTypeCountAuth_sessionArgs
     auth_two_factor?: boolean | Auth_userCountOutputTypeCountAuth_two_factorArgs
-    author_author_id_userToauth_user?: boolean | Auth_userCountOutputTypeCountAuthor_author_id_userToauth_userArgs
-    customer_customer_id_userToauth_user?: boolean | Auth_userCountOutputTypeCountCustomer_customer_id_userToauth_userArgs
-    internal_internal_id_userToauth_user?: boolean | Auth_userCountOutputTypeCountInternal_internal_id_userToauth_userArgs
     notif?: boolean | Auth_userCountOutputTypeCountNotifArgs
-    publisher_publisher_id_userToauth_user?: boolean | Auth_userCountOutputTypeCountPublisher_publisher_id_userToauth_userArgs
     reviews?: boolean | Auth_userCountOutputTypeCountReviewsArgs
     reviews_likes?: boolean | Auth_userCountOutputTypeCountReviews_likesArgs
   }
@@ -5007,13 +4997,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the Auth_userCountOutputType
      */
     select?: Auth_userCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * Auth_userCountOutputType without action
-   */
-  export type Auth_userCountOutputTypeCountAffiliate_affiliate_id_userToauth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: affiliateWhereInput
   }
 
   /**
@@ -5040,36 +5023,8 @@ export namespace Prisma {
   /**
    * Auth_userCountOutputType without action
    */
-  export type Auth_userCountOutputTypeCountAuthor_author_id_userToauth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: authorWhereInput
-  }
-
-  /**
-   * Auth_userCountOutputType without action
-   */
-  export type Auth_userCountOutputTypeCountCustomer_customer_id_userToauth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: customerWhereInput
-  }
-
-  /**
-   * Auth_userCountOutputType without action
-   */
-  export type Auth_userCountOutputTypeCountInternal_internal_id_userToauth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: internalWhereInput
-  }
-
-  /**
-   * Auth_userCountOutputType without action
-   */
   export type Auth_userCountOutputTypeCountNotifArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: notifWhereInput
-  }
-
-  /**
-   * Auth_userCountOutputType without action
-   */
-  export type Auth_userCountOutputTypeCountPublisher_publisher_id_userToauth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: publisherWhereInput
   }
 
   /**
@@ -5092,14 +5047,14 @@ export namespace Prisma {
    */
 
   export type AuthorCountOutputType = {
-    auth_user_auth_user_id_authorToauthor: number
+    auth_user: number
     book: number
     product: number
     publisher_author: number
   }
 
   export type AuthorCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    auth_user_auth_user_id_authorToauthor?: boolean | AuthorCountOutputTypeCountAuth_user_auth_user_id_authorToauthorArgs
+    auth_user?: boolean | AuthorCountOutputTypeCountAuth_userArgs
     book?: boolean | AuthorCountOutputTypeCountBookArgs
     product?: boolean | AuthorCountOutputTypeCountProductArgs
     publisher_author?: boolean | AuthorCountOutputTypeCountPublisher_authorArgs
@@ -5119,7 +5074,7 @@ export namespace Prisma {
   /**
    * AuthorCountOutputType without action
    */
-  export type AuthorCountOutputTypeCountAuth_user_auth_user_id_authorToauthorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AuthorCountOutputTypeCountAuth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: auth_userWhereInput
   }
 
@@ -5333,7 +5288,7 @@ export namespace Prisma {
    */
 
   export type CustomerCountOutputType = {
-    auth_user_auth_user_id_customerTocustomer: number
+    auth_user: number
     customer_reader: number
     customer_track: number
     t_sales: number
@@ -5341,7 +5296,7 @@ export namespace Prisma {
   }
 
   export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    auth_user_auth_user_id_customerTocustomer?: boolean | CustomerCountOutputTypeCountAuth_user_auth_user_id_customerTocustomerArgs
+    auth_user?: boolean | CustomerCountOutputTypeCountAuth_userArgs
     customer_reader?: boolean | CustomerCountOutputTypeCountCustomer_readerArgs
     customer_track?: boolean | CustomerCountOutputTypeCountCustomer_trackArgs
     t_sales?: boolean | CustomerCountOutputTypeCountT_salesArgs
@@ -5362,7 +5317,7 @@ export namespace Prisma {
   /**
    * CustomerCountOutputType without action
    */
-  export type CustomerCountOutputTypeCountAuth_user_auth_user_id_customerTocustomerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerCountOutputTypeCountAuth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: auth_userWhereInput
   }
 
@@ -5440,12 +5395,12 @@ export namespace Prisma {
    */
 
   export type InternalCountOutputType = {
-    auth_user_auth_user_id_internalTointernal: number
+    auth_user: number
     book_approval: number
   }
 
   export type InternalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    auth_user_auth_user_id_internalTointernal?: boolean | InternalCountOutputTypeCountAuth_user_auth_user_id_internalTointernalArgs
+    auth_user?: boolean | InternalCountOutputTypeCountAuth_userArgs
     book_approval?: boolean | InternalCountOutputTypeCountBook_approvalArgs
   }
 
@@ -5463,7 +5418,7 @@ export namespace Prisma {
   /**
    * InternalCountOutputType without action
    */
-  export type InternalCountOutputTypeCountAuth_user_auth_user_id_internalTointernalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InternalCountOutputTypeCountAuth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: auth_userWhereInput
   }
 
@@ -5605,7 +5560,7 @@ export namespace Prisma {
    */
 
   export type PublisherCountOutputType = {
-    auth_user_auth_user_id_publisherTopublisher: number
+    auth_user: number
     promo_code: number
     publisher_author: number
     t_ai_credit: number
@@ -5614,7 +5569,7 @@ export namespace Prisma {
   }
 
   export type PublisherCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    auth_user_auth_user_id_publisherTopublisher?: boolean | PublisherCountOutputTypeCountAuth_user_auth_user_id_publisherTopublisherArgs
+    auth_user?: boolean | PublisherCountOutputTypeCountAuth_userArgs
     promo_code?: boolean | PublisherCountOutputTypeCountPromo_codeArgs
     publisher_author?: boolean | PublisherCountOutputTypeCountPublisher_authorArgs
     t_ai_credit?: boolean | PublisherCountOutputTypeCountT_ai_creditArgs
@@ -5636,7 +5591,7 @@ export namespace Prisma {
   /**
    * PublisherCountOutputType without action
    */
-  export type PublisherCountOutputTypeCountAuth_user_auth_user_id_publisherTopublisherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PublisherCountOutputTypeCountAuth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: auth_userWhereInput
   }
 
@@ -5970,8 +5925,7 @@ export namespace Prisma {
     id_account?: boolean
     id_user?: boolean
     auth_account?: boolean | affiliate$auth_accountArgs<ExtArgs>
-    auth_user_affiliate_id_userToauth_user?: boolean | affiliate$auth_user_affiliate_id_userToauth_userArgs<ExtArgs>
-    auth_user_auth_user_id_affiliateToaffiliate?: boolean | affiliate$auth_user_auth_user_id_affiliateToaffiliateArgs<ExtArgs>
+    auth_user?: boolean | affiliate$auth_userArgs<ExtArgs>
     _count?: boolean | AffiliateCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["affiliate"]>
 
@@ -5981,7 +5935,6 @@ export namespace Prisma {
     id_account?: boolean
     id_user?: boolean
     auth_account?: boolean | affiliate$auth_accountArgs<ExtArgs>
-    auth_user_affiliate_id_userToauth_user?: boolean | affiliate$auth_user_affiliate_id_userToauth_userArgs<ExtArgs>
   }, ExtArgs["result"]["affiliate"]>
 
   export type affiliateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5990,7 +5943,6 @@ export namespace Prisma {
     id_account?: boolean
     id_user?: boolean
     auth_account?: boolean | affiliate$auth_accountArgs<ExtArgs>
-    auth_user_affiliate_id_userToauth_user?: boolean | affiliate$auth_user_affiliate_id_userToauth_userArgs<ExtArgs>
   }, ExtArgs["result"]["affiliate"]>
 
   export type affiliateSelectScalar = {
@@ -6003,25 +5955,21 @@ export namespace Prisma {
   export type affiliateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_account" | "id_user", ExtArgs["result"]["affiliate"]>
   export type affiliateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_account?: boolean | affiliate$auth_accountArgs<ExtArgs>
-    auth_user_affiliate_id_userToauth_user?: boolean | affiliate$auth_user_affiliate_id_userToauth_userArgs<ExtArgs>
-    auth_user_auth_user_id_affiliateToaffiliate?: boolean | affiliate$auth_user_auth_user_id_affiliateToaffiliateArgs<ExtArgs>
+    auth_user?: boolean | affiliate$auth_userArgs<ExtArgs>
     _count?: boolean | AffiliateCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type affiliateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_account?: boolean | affiliate$auth_accountArgs<ExtArgs>
-    auth_user_affiliate_id_userToauth_user?: boolean | affiliate$auth_user_affiliate_id_userToauth_userArgs<ExtArgs>
   }
   export type affiliateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_account?: boolean | affiliate$auth_accountArgs<ExtArgs>
-    auth_user_affiliate_id_userToauth_user?: boolean | affiliate$auth_user_affiliate_id_userToauth_userArgs<ExtArgs>
   }
 
   export type $affiliatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "affiliate"
     objects: {
       auth_account: Prisma.$auth_accountPayload<ExtArgs> | null
-      auth_user_affiliate_id_userToauth_user: Prisma.$auth_userPayload<ExtArgs> | null
-      auth_user_auth_user_id_affiliateToaffiliate: Prisma.$auth_userPayload<ExtArgs>[]
+      auth_user: Prisma.$auth_userPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6423,8 +6371,7 @@ export namespace Prisma {
   export interface Prisma__affiliateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     auth_account<T extends affiliate$auth_accountArgs<ExtArgs> = {}>(args?: Subset<T, affiliate$auth_accountArgs<ExtArgs>>): Prisma__auth_accountClient<$Result.GetResult<Prisma.$auth_accountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    auth_user_affiliate_id_userToauth_user<T extends affiliate$auth_user_affiliate_id_userToauth_userArgs<ExtArgs> = {}>(args?: Subset<T, affiliate$auth_user_affiliate_id_userToauth_userArgs<ExtArgs>>): Prisma__auth_userClient<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    auth_user_auth_user_id_affiliateToaffiliate<T extends affiliate$auth_user_auth_user_id_affiliateToaffiliateArgs<ExtArgs> = {}>(args?: Subset<T, affiliate$auth_user_auth_user_id_affiliateToaffiliateArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    auth_user<T extends affiliate$auth_userArgs<ExtArgs> = {}>(args?: Subset<T, affiliate$auth_userArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6873,28 +6820,9 @@ export namespace Prisma {
   }
 
   /**
-   * affiliate.auth_user_affiliate_id_userToauth_user
+   * affiliate.auth_user
    */
-  export type affiliate$auth_user_affiliate_id_userToauth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the auth_user
-     */
-    select?: auth_userSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the auth_user
-     */
-    omit?: auth_userOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: auth_userInclude<ExtArgs> | null
-    where?: auth_userWhereInput
-  }
-
-  /**
-   * affiliate.auth_user_auth_user_id_affiliateToaffiliate
-   */
-  export type affiliate$auth_user_auth_user_id_affiliateToaffiliateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type affiliate$auth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the auth_user
      */
@@ -10643,20 +10571,15 @@ export namespace Prisma {
     id_affiliate?: boolean
     id_publisher?: boolean
     id_internal?: boolean
-    affiliate_affiliate_id_userToauth_user?: boolean | auth_user$affiliate_affiliate_id_userToauth_userArgs<ExtArgs>
     auth_account?: boolean | auth_user$auth_accountArgs<ExtArgs>
     auth_session?: boolean | auth_user$auth_sessionArgs<ExtArgs>
     auth_two_factor?: boolean | auth_user$auth_two_factorArgs<ExtArgs>
-    affiliate_auth_user_id_affiliateToaffiliate?: boolean | auth_user$affiliate_auth_user_id_affiliateToaffiliateArgs<ExtArgs>
-    author_auth_user_id_authorToauthor?: boolean | auth_user$author_auth_user_id_authorToauthorArgs<ExtArgs>
-    customer_auth_user_id_customerTocustomer?: boolean | auth_user$customer_auth_user_id_customerTocustomerArgs<ExtArgs>
-    internal_auth_user_id_internalTointernal?: boolean | auth_user$internal_auth_user_id_internalTointernalArgs<ExtArgs>
-    publisher_auth_user_id_publisherTopublisher?: boolean | auth_user$publisher_auth_user_id_publisherTopublisherArgs<ExtArgs>
-    author_author_id_userToauth_user?: boolean | auth_user$author_author_id_userToauth_userArgs<ExtArgs>
-    customer_customer_id_userToauth_user?: boolean | auth_user$customer_customer_id_userToauth_userArgs<ExtArgs>
-    internal_internal_id_userToauth_user?: boolean | auth_user$internal_internal_id_userToauth_userArgs<ExtArgs>
+    affiliate?: boolean | auth_user$affiliateArgs<ExtArgs>
+    author?: boolean | auth_user$authorArgs<ExtArgs>
+    customer?: boolean | auth_user$customerArgs<ExtArgs>
+    internal?: boolean | auth_user$internalArgs<ExtArgs>
+    publisher?: boolean | auth_user$publisherArgs<ExtArgs>
     notif?: boolean | auth_user$notifArgs<ExtArgs>
-    publisher_publisher_id_userToauth_user?: boolean | auth_user$publisher_publisher_id_userToauth_userArgs<ExtArgs>
     reviews?: boolean | auth_user$reviewsArgs<ExtArgs>
     reviews_likes?: boolean | auth_user$reviews_likesArgs<ExtArgs>
     _count?: boolean | Auth_userCountOutputTypeDefaultArgs<ExtArgs>
@@ -10678,11 +10601,11 @@ export namespace Prisma {
     id_affiliate?: boolean
     id_publisher?: boolean
     id_internal?: boolean
-    affiliate_auth_user_id_affiliateToaffiliate?: boolean | auth_user$affiliate_auth_user_id_affiliateToaffiliateArgs<ExtArgs>
-    author_auth_user_id_authorToauthor?: boolean | auth_user$author_auth_user_id_authorToauthorArgs<ExtArgs>
-    customer_auth_user_id_customerTocustomer?: boolean | auth_user$customer_auth_user_id_customerTocustomerArgs<ExtArgs>
-    internal_auth_user_id_internalTointernal?: boolean | auth_user$internal_auth_user_id_internalTointernalArgs<ExtArgs>
-    publisher_auth_user_id_publisherTopublisher?: boolean | auth_user$publisher_auth_user_id_publisherTopublisherArgs<ExtArgs>
+    affiliate?: boolean | auth_user$affiliateArgs<ExtArgs>
+    author?: boolean | auth_user$authorArgs<ExtArgs>
+    customer?: boolean | auth_user$customerArgs<ExtArgs>
+    internal?: boolean | auth_user$internalArgs<ExtArgs>
+    publisher?: boolean | auth_user$publisherArgs<ExtArgs>
   }, ExtArgs["result"]["auth_user"]>
 
   export type auth_userSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10701,11 +10624,11 @@ export namespace Prisma {
     id_affiliate?: boolean
     id_publisher?: boolean
     id_internal?: boolean
-    affiliate_auth_user_id_affiliateToaffiliate?: boolean | auth_user$affiliate_auth_user_id_affiliateToaffiliateArgs<ExtArgs>
-    author_auth_user_id_authorToauthor?: boolean | auth_user$author_auth_user_id_authorToauthorArgs<ExtArgs>
-    customer_auth_user_id_customerTocustomer?: boolean | auth_user$customer_auth_user_id_customerTocustomerArgs<ExtArgs>
-    internal_auth_user_id_internalTointernal?: boolean | auth_user$internal_auth_user_id_internalTointernalArgs<ExtArgs>
-    publisher_auth_user_id_publisherTopublisher?: boolean | auth_user$publisher_auth_user_id_publisherTopublisherArgs<ExtArgs>
+    affiliate?: boolean | auth_user$affiliateArgs<ExtArgs>
+    author?: boolean | auth_user$authorArgs<ExtArgs>
+    customer?: boolean | auth_user$customerArgs<ExtArgs>
+    internal?: boolean | auth_user$internalArgs<ExtArgs>
+    publisher?: boolean | auth_user$publisherArgs<ExtArgs>
   }, ExtArgs["result"]["auth_user"]>
 
   export type auth_userSelectScalar = {
@@ -10728,56 +10651,46 @@ export namespace Prisma {
 
   export type auth_userOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "email_verified" | "image" | "created_at" | "updated_at" | "username" | "display_username" | "two_factor_enabled" | "id_customer" | "id_author" | "id_affiliate" | "id_publisher" | "id_internal", ExtArgs["result"]["auth_user"]>
   export type auth_userInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    affiliate_affiliate_id_userToauth_user?: boolean | auth_user$affiliate_affiliate_id_userToauth_userArgs<ExtArgs>
     auth_account?: boolean | auth_user$auth_accountArgs<ExtArgs>
     auth_session?: boolean | auth_user$auth_sessionArgs<ExtArgs>
     auth_two_factor?: boolean | auth_user$auth_two_factorArgs<ExtArgs>
-    affiliate_auth_user_id_affiliateToaffiliate?: boolean | auth_user$affiliate_auth_user_id_affiliateToaffiliateArgs<ExtArgs>
-    author_auth_user_id_authorToauthor?: boolean | auth_user$author_auth_user_id_authorToauthorArgs<ExtArgs>
-    customer_auth_user_id_customerTocustomer?: boolean | auth_user$customer_auth_user_id_customerTocustomerArgs<ExtArgs>
-    internal_auth_user_id_internalTointernal?: boolean | auth_user$internal_auth_user_id_internalTointernalArgs<ExtArgs>
-    publisher_auth_user_id_publisherTopublisher?: boolean | auth_user$publisher_auth_user_id_publisherTopublisherArgs<ExtArgs>
-    author_author_id_userToauth_user?: boolean | auth_user$author_author_id_userToauth_userArgs<ExtArgs>
-    customer_customer_id_userToauth_user?: boolean | auth_user$customer_customer_id_userToauth_userArgs<ExtArgs>
-    internal_internal_id_userToauth_user?: boolean | auth_user$internal_internal_id_userToauth_userArgs<ExtArgs>
+    affiliate?: boolean | auth_user$affiliateArgs<ExtArgs>
+    author?: boolean | auth_user$authorArgs<ExtArgs>
+    customer?: boolean | auth_user$customerArgs<ExtArgs>
+    internal?: boolean | auth_user$internalArgs<ExtArgs>
+    publisher?: boolean | auth_user$publisherArgs<ExtArgs>
     notif?: boolean | auth_user$notifArgs<ExtArgs>
-    publisher_publisher_id_userToauth_user?: boolean | auth_user$publisher_publisher_id_userToauth_userArgs<ExtArgs>
     reviews?: boolean | auth_user$reviewsArgs<ExtArgs>
     reviews_likes?: boolean | auth_user$reviews_likesArgs<ExtArgs>
     _count?: boolean | Auth_userCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type auth_userIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    affiliate_auth_user_id_affiliateToaffiliate?: boolean | auth_user$affiliate_auth_user_id_affiliateToaffiliateArgs<ExtArgs>
-    author_auth_user_id_authorToauthor?: boolean | auth_user$author_auth_user_id_authorToauthorArgs<ExtArgs>
-    customer_auth_user_id_customerTocustomer?: boolean | auth_user$customer_auth_user_id_customerTocustomerArgs<ExtArgs>
-    internal_auth_user_id_internalTointernal?: boolean | auth_user$internal_auth_user_id_internalTointernalArgs<ExtArgs>
-    publisher_auth_user_id_publisherTopublisher?: boolean | auth_user$publisher_auth_user_id_publisherTopublisherArgs<ExtArgs>
+    affiliate?: boolean | auth_user$affiliateArgs<ExtArgs>
+    author?: boolean | auth_user$authorArgs<ExtArgs>
+    customer?: boolean | auth_user$customerArgs<ExtArgs>
+    internal?: boolean | auth_user$internalArgs<ExtArgs>
+    publisher?: boolean | auth_user$publisherArgs<ExtArgs>
   }
   export type auth_userIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    affiliate_auth_user_id_affiliateToaffiliate?: boolean | auth_user$affiliate_auth_user_id_affiliateToaffiliateArgs<ExtArgs>
-    author_auth_user_id_authorToauthor?: boolean | auth_user$author_auth_user_id_authorToauthorArgs<ExtArgs>
-    customer_auth_user_id_customerTocustomer?: boolean | auth_user$customer_auth_user_id_customerTocustomerArgs<ExtArgs>
-    internal_auth_user_id_internalTointernal?: boolean | auth_user$internal_auth_user_id_internalTointernalArgs<ExtArgs>
-    publisher_auth_user_id_publisherTopublisher?: boolean | auth_user$publisher_auth_user_id_publisherTopublisherArgs<ExtArgs>
+    affiliate?: boolean | auth_user$affiliateArgs<ExtArgs>
+    author?: boolean | auth_user$authorArgs<ExtArgs>
+    customer?: boolean | auth_user$customerArgs<ExtArgs>
+    internal?: boolean | auth_user$internalArgs<ExtArgs>
+    publisher?: boolean | auth_user$publisherArgs<ExtArgs>
   }
 
   export type $auth_userPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "auth_user"
     objects: {
-      affiliate_affiliate_id_userToauth_user: Prisma.$affiliatePayload<ExtArgs>[]
       auth_account: Prisma.$auth_accountPayload<ExtArgs>[]
       auth_session: Prisma.$auth_sessionPayload<ExtArgs>[]
       auth_two_factor: Prisma.$auth_two_factorPayload<ExtArgs>[]
-      affiliate_auth_user_id_affiliateToaffiliate: Prisma.$affiliatePayload<ExtArgs> | null
-      author_auth_user_id_authorToauthor: Prisma.$authorPayload<ExtArgs> | null
-      customer_auth_user_id_customerTocustomer: Prisma.$customerPayload<ExtArgs> | null
-      internal_auth_user_id_internalTointernal: Prisma.$internalPayload<ExtArgs> | null
-      publisher_auth_user_id_publisherTopublisher: Prisma.$publisherPayload<ExtArgs> | null
-      author_author_id_userToauth_user: Prisma.$authorPayload<ExtArgs>[]
-      customer_customer_id_userToauth_user: Prisma.$customerPayload<ExtArgs>[]
-      internal_internal_id_userToauth_user: Prisma.$internalPayload<ExtArgs>[]
+      affiliate: Prisma.$affiliatePayload<ExtArgs> | null
+      author: Prisma.$authorPayload<ExtArgs> | null
+      customer: Prisma.$customerPayload<ExtArgs> | null
+      internal: Prisma.$internalPayload<ExtArgs> | null
+      publisher: Prisma.$publisherPayload<ExtArgs> | null
       notif: Prisma.$notifPayload<ExtArgs>[]
-      publisher_publisher_id_userToauth_user: Prisma.$publisherPayload<ExtArgs>[]
       reviews: Prisma.$reviewsPayload<ExtArgs>[]
       reviews_likes: Prisma.$reviews_likesPayload<ExtArgs>[]
     }
@@ -11191,20 +11104,15 @@ export namespace Prisma {
    */
   export interface Prisma__auth_userClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    affiliate_affiliate_id_userToauth_user<T extends auth_user$affiliate_affiliate_id_userToauth_userArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$affiliate_affiliate_id_userToauth_userArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$affiliatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     auth_account<T extends auth_user$auth_accountArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$auth_accountArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$auth_accountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     auth_session<T extends auth_user$auth_sessionArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$auth_sessionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$auth_sessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     auth_two_factor<T extends auth_user$auth_two_factorArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$auth_two_factorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$auth_two_factorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    affiliate_auth_user_id_affiliateToaffiliate<T extends auth_user$affiliate_auth_user_id_affiliateToaffiliateArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$affiliate_auth_user_id_affiliateToaffiliateArgs<ExtArgs>>): Prisma__affiliateClient<$Result.GetResult<Prisma.$affiliatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    author_auth_user_id_authorToauthor<T extends auth_user$author_auth_user_id_authorToauthorArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$author_auth_user_id_authorToauthorArgs<ExtArgs>>): Prisma__authorClient<$Result.GetResult<Prisma.$authorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    customer_auth_user_id_customerTocustomer<T extends auth_user$customer_auth_user_id_customerTocustomerArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$customer_auth_user_id_customerTocustomerArgs<ExtArgs>>): Prisma__customerClient<$Result.GetResult<Prisma.$customerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    internal_auth_user_id_internalTointernal<T extends auth_user$internal_auth_user_id_internalTointernalArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$internal_auth_user_id_internalTointernalArgs<ExtArgs>>): Prisma__internalClient<$Result.GetResult<Prisma.$internalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    publisher_auth_user_id_publisherTopublisher<T extends auth_user$publisher_auth_user_id_publisherTopublisherArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$publisher_auth_user_id_publisherTopublisherArgs<ExtArgs>>): Prisma__publisherClient<$Result.GetResult<Prisma.$publisherPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    author_author_id_userToauth_user<T extends auth_user$author_author_id_userToauth_userArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$author_author_id_userToauth_userArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$authorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    customer_customer_id_userToauth_user<T extends auth_user$customer_customer_id_userToauth_userArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$customer_customer_id_userToauth_userArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$customerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    internal_internal_id_userToauth_user<T extends auth_user$internal_internal_id_userToauth_userArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$internal_internal_id_userToauth_userArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$internalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    affiliate<T extends auth_user$affiliateArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$affiliateArgs<ExtArgs>>): Prisma__affiliateClient<$Result.GetResult<Prisma.$affiliatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    author<T extends auth_user$authorArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$authorArgs<ExtArgs>>): Prisma__authorClient<$Result.GetResult<Prisma.$authorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    customer<T extends auth_user$customerArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$customerArgs<ExtArgs>>): Prisma__customerClient<$Result.GetResult<Prisma.$customerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    internal<T extends auth_user$internalArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$internalArgs<ExtArgs>>): Prisma__internalClient<$Result.GetResult<Prisma.$internalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    publisher<T extends auth_user$publisherArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$publisherArgs<ExtArgs>>): Prisma__publisherClient<$Result.GetResult<Prisma.$publisherPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     notif<T extends auth_user$notifArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$notifArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$notifPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    publisher_publisher_id_userToauth_user<T extends auth_user$publisher_publisher_id_userToauth_userArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$publisher_publisher_id_userToauth_userArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$publisherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviews<T extends auth_user$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviews_likes<T extends auth_user$reviews_likesArgs<ExtArgs> = {}>(args?: Subset<T, auth_user$reviews_likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviews_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -11647,30 +11555,6 @@ export namespace Prisma {
   }
 
   /**
-   * auth_user.affiliate_affiliate_id_userToauth_user
-   */
-  export type auth_user$affiliate_affiliate_id_userToauth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the affiliate
-     */
-    select?: affiliateSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the affiliate
-     */
-    omit?: affiliateOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: affiliateInclude<ExtArgs> | null
-    where?: affiliateWhereInput
-    orderBy?: affiliateOrderByWithRelationInput | affiliateOrderByWithRelationInput[]
-    cursor?: affiliateWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AffiliateScalarFieldEnum | AffiliateScalarFieldEnum[]
-  }
-
-  /**
    * auth_user.auth_account
    */
   export type auth_user$auth_accountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11743,9 +11627,9 @@ export namespace Prisma {
   }
 
   /**
-   * auth_user.affiliate_auth_user_id_affiliateToaffiliate
+   * auth_user.affiliate
    */
-  export type auth_user$affiliate_auth_user_id_affiliateToaffiliateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type auth_user$affiliateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the affiliate
      */
@@ -11762,9 +11646,9 @@ export namespace Prisma {
   }
 
   /**
-   * auth_user.author_auth_user_id_authorToauthor
+   * auth_user.author
    */
-  export type auth_user$author_auth_user_id_authorToauthorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type auth_user$authorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the author
      */
@@ -11781,9 +11665,9 @@ export namespace Prisma {
   }
 
   /**
-   * auth_user.customer_auth_user_id_customerTocustomer
+   * auth_user.customer
    */
-  export type auth_user$customer_auth_user_id_customerTocustomerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type auth_user$customerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the customer
      */
@@ -11800,9 +11684,9 @@ export namespace Prisma {
   }
 
   /**
-   * auth_user.internal_auth_user_id_internalTointernal
+   * auth_user.internal
    */
-  export type auth_user$internal_auth_user_id_internalTointernalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type auth_user$internalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the internal
      */
@@ -11819,9 +11703,9 @@ export namespace Prisma {
   }
 
   /**
-   * auth_user.publisher_auth_user_id_publisherTopublisher
+   * auth_user.publisher
    */
-  export type auth_user$publisher_auth_user_id_publisherTopublisherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type auth_user$publisherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the publisher
      */
@@ -11835,78 +11719,6 @@ export namespace Prisma {
      */
     include?: publisherInclude<ExtArgs> | null
     where?: publisherWhereInput
-  }
-
-  /**
-   * auth_user.author_author_id_userToauth_user
-   */
-  export type auth_user$author_author_id_userToauth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the author
-     */
-    select?: authorSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the author
-     */
-    omit?: authorOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: authorInclude<ExtArgs> | null
-    where?: authorWhereInput
-    orderBy?: authorOrderByWithRelationInput | authorOrderByWithRelationInput[]
-    cursor?: authorWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AuthorScalarFieldEnum | AuthorScalarFieldEnum[]
-  }
-
-  /**
-   * auth_user.customer_customer_id_userToauth_user
-   */
-  export type auth_user$customer_customer_id_userToauth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the customer
-     */
-    select?: customerSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the customer
-     */
-    omit?: customerOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: customerInclude<ExtArgs> | null
-    where?: customerWhereInput
-    orderBy?: customerOrderByWithRelationInput | customerOrderByWithRelationInput[]
-    cursor?: customerWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CustomerScalarFieldEnum | CustomerScalarFieldEnum[]
-  }
-
-  /**
-   * auth_user.internal_internal_id_userToauth_user
-   */
-  export type auth_user$internal_internal_id_userToauth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the internal
-     */
-    select?: internalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the internal
-     */
-    omit?: internalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: internalInclude<ExtArgs> | null
-    where?: internalWhereInput
-    orderBy?: internalOrderByWithRelationInput | internalOrderByWithRelationInput[]
-    cursor?: internalWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: InternalScalarFieldEnum | InternalScalarFieldEnum[]
   }
 
   /**
@@ -11931,30 +11743,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NotifScalarFieldEnum | NotifScalarFieldEnum[]
-  }
-
-  /**
-   * auth_user.publisher_publisher_id_userToauth_user
-   */
-  export type auth_user$publisher_publisher_id_userToauth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the publisher
-     */
-    select?: publisherSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the publisher
-     */
-    omit?: publisherOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: publisherInclude<ExtArgs> | null
-    where?: publisherWhereInput
-    orderBy?: publisherOrderByWithRelationInput | publisherOrderByWithRelationInput[]
-    cursor?: publisherWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PublisherScalarFieldEnum | PublisherScalarFieldEnum[]
   }
 
   /**
@@ -13216,9 +13004,8 @@ export namespace Prisma {
     avatar?: boolean
     id_user?: boolean
     cfg?: boolean
-    auth_user_auth_user_id_authorToauthor?: boolean | author$auth_user_auth_user_id_authorToauthorArgs<ExtArgs>
+    auth_user?: boolean | author$auth_userArgs<ExtArgs>
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
-    auth_user_author_id_userToauth_user?: boolean | author$auth_user_author_id_userToauth_userArgs<ExtArgs>
     book?: boolean | author$bookArgs<ExtArgs>
     product?: boolean | author$productArgs<ExtArgs>
     publisher_author?: boolean | author$publisher_authorArgs<ExtArgs>
@@ -13235,7 +13022,6 @@ export namespace Prisma {
     id_user?: boolean
     cfg?: boolean
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
-    auth_user_author_id_userToauth_user?: boolean | author$auth_user_author_id_userToauth_userArgs<ExtArgs>
   }, ExtArgs["result"]["author"]>
 
   export type authorSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13248,7 +13034,6 @@ export namespace Prisma {
     id_user?: boolean
     cfg?: boolean
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
-    auth_user_author_id_userToauth_user?: boolean | author$auth_user_author_id_userToauth_userArgs<ExtArgs>
   }, ExtArgs["result"]["author"]>
 
   export type authorSelectScalar = {
@@ -13264,9 +13049,8 @@ export namespace Prisma {
 
   export type authorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "id_account" | "biography" | "social_media" | "avatar" | "id_user" | "cfg", ExtArgs["result"]["author"]>
   export type authorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    auth_user_auth_user_id_authorToauthor?: boolean | author$auth_user_auth_user_id_authorToauthorArgs<ExtArgs>
+    auth_user?: boolean | author$auth_userArgs<ExtArgs>
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
-    auth_user_author_id_userToauth_user?: boolean | author$auth_user_author_id_userToauth_userArgs<ExtArgs>
     book?: boolean | author$bookArgs<ExtArgs>
     product?: boolean | author$productArgs<ExtArgs>
     publisher_author?: boolean | author$publisher_authorArgs<ExtArgs>
@@ -13274,19 +13058,16 @@ export namespace Prisma {
   }
   export type authorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
-    auth_user_author_id_userToauth_user?: boolean | author$auth_user_author_id_userToauth_userArgs<ExtArgs>
   }
   export type authorIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_account?: boolean | author$auth_accountArgs<ExtArgs>
-    auth_user_author_id_userToauth_user?: boolean | author$auth_user_author_id_userToauth_userArgs<ExtArgs>
   }
 
   export type $authorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "author"
     objects: {
-      auth_user_auth_user_id_authorToauthor: Prisma.$auth_userPayload<ExtArgs>[]
+      auth_user: Prisma.$auth_userPayload<ExtArgs>[]
       auth_account: Prisma.$auth_accountPayload<ExtArgs> | null
-      auth_user_author_id_userToauth_user: Prisma.$auth_userPayload<ExtArgs> | null
       book: Prisma.$bookPayload<ExtArgs>[]
       product: Prisma.$productPayload<ExtArgs>[]
       publisher_author: Prisma.$publisher_authorPayload<ExtArgs>[]
@@ -13694,9 +13475,8 @@ export namespace Prisma {
    */
   export interface Prisma__authorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    auth_user_auth_user_id_authorToauthor<T extends author$auth_user_auth_user_id_authorToauthorArgs<ExtArgs> = {}>(args?: Subset<T, author$auth_user_auth_user_id_authorToauthorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    auth_user<T extends author$auth_userArgs<ExtArgs> = {}>(args?: Subset<T, author$auth_userArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     auth_account<T extends author$auth_accountArgs<ExtArgs> = {}>(args?: Subset<T, author$auth_accountArgs<ExtArgs>>): Prisma__auth_accountClient<$Result.GetResult<Prisma.$auth_accountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    auth_user_author_id_userToauth_user<T extends author$auth_user_author_id_userToauth_userArgs<ExtArgs> = {}>(args?: Subset<T, author$auth_user_author_id_userToauth_userArgs<ExtArgs>>): Prisma__auth_userClient<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     book<T extends author$bookArgs<ExtArgs> = {}>(args?: Subset<T, author$bookArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$bookPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     product<T extends author$productArgs<ExtArgs> = {}>(args?: Subset<T, author$productArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$productPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     publisher_author<T extends author$publisher_authorArgs<ExtArgs> = {}>(args?: Subset<T, author$publisher_authorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$publisher_authorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -14133,9 +13913,9 @@ export namespace Prisma {
   }
 
   /**
-   * author.auth_user_auth_user_id_authorToauthor
+   * author.auth_user
    */
-  export type author$auth_user_auth_user_id_authorToauthorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type author$auth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the auth_user
      */
@@ -14173,25 +13953,6 @@ export namespace Prisma {
      */
     include?: auth_accountInclude<ExtArgs> | null
     where?: auth_accountWhereInput
-  }
-
-  /**
-   * author.auth_user_author_id_userToauth_user
-   */
-  export type author$auth_user_author_id_userToauth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the auth_user
-     */
-    select?: auth_userSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the auth_user
-     */
-    omit?: auth_userOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: auth_userInclude<ExtArgs> | null
-    where?: auth_userWhereInput
   }
 
   /**
@@ -27992,9 +27753,8 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     id_user?: boolean
-    auth_user_auth_user_id_customerTocustomer?: boolean | customer$auth_user_auth_user_id_customerTocustomerArgs<ExtArgs>
+    auth_user?: boolean | customer$auth_userArgs<ExtArgs>
     auth_account?: boolean | customer$auth_accountArgs<ExtArgs>
-    auth_user_customer_id_userToauth_user?: boolean | customer$auth_user_customer_id_userToauth_userArgs<ExtArgs>
     customer_reader?: boolean | customer$customer_readerArgs<ExtArgs>
     customer_track?: boolean | customer$customer_trackArgs<ExtArgs>
     t_sales?: boolean | customer$t_salesArgs<ExtArgs>
@@ -28012,7 +27772,6 @@ export namespace Prisma {
     email?: boolean
     id_user?: boolean
     auth_account?: boolean | customer$auth_accountArgs<ExtArgs>
-    auth_user_customer_id_userToauth_user?: boolean | customer$auth_user_customer_id_userToauth_userArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
 
   export type customerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -28025,7 +27784,6 @@ export namespace Prisma {
     email?: boolean
     id_user?: boolean
     auth_account?: boolean | customer$auth_accountArgs<ExtArgs>
-    auth_user_customer_id_userToauth_user?: boolean | customer$auth_user_customer_id_userToauth_userArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
 
   export type customerSelectScalar = {
@@ -28041,9 +27799,8 @@ export namespace Prisma {
 
   export type customerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "whatsapp" | "deleted_at" | "otp" | "id_account" | "name" | "email" | "id_user", ExtArgs["result"]["customer"]>
   export type customerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    auth_user_auth_user_id_customerTocustomer?: boolean | customer$auth_user_auth_user_id_customerTocustomerArgs<ExtArgs>
+    auth_user?: boolean | customer$auth_userArgs<ExtArgs>
     auth_account?: boolean | customer$auth_accountArgs<ExtArgs>
-    auth_user_customer_id_userToauth_user?: boolean | customer$auth_user_customer_id_userToauth_userArgs<ExtArgs>
     customer_reader?: boolean | customer$customer_readerArgs<ExtArgs>
     customer_track?: boolean | customer$customer_trackArgs<ExtArgs>
     t_sales?: boolean | customer$t_salesArgs<ExtArgs>
@@ -28052,19 +27809,16 @@ export namespace Prisma {
   }
   export type customerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_account?: boolean | customer$auth_accountArgs<ExtArgs>
-    auth_user_customer_id_userToauth_user?: boolean | customer$auth_user_customer_id_userToauth_userArgs<ExtArgs>
   }
   export type customerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_account?: boolean | customer$auth_accountArgs<ExtArgs>
-    auth_user_customer_id_userToauth_user?: boolean | customer$auth_user_customer_id_userToauth_userArgs<ExtArgs>
   }
 
   export type $customerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "customer"
     objects: {
-      auth_user_auth_user_id_customerTocustomer: Prisma.$auth_userPayload<ExtArgs>[]
+      auth_user: Prisma.$auth_userPayload<ExtArgs>[]
       auth_account: Prisma.$auth_accountPayload<ExtArgs> | null
-      auth_user_customer_id_userToauth_user: Prisma.$auth_userPayload<ExtArgs> | null
       customer_reader: Prisma.$customer_readerPayload<ExtArgs>[]
       customer_track: Prisma.$customer_trackPayload<ExtArgs>[]
       t_sales: Prisma.$t_salesPayload<ExtArgs>[]
@@ -28473,9 +28227,8 @@ export namespace Prisma {
    */
   export interface Prisma__customerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    auth_user_auth_user_id_customerTocustomer<T extends customer$auth_user_auth_user_id_customerTocustomerArgs<ExtArgs> = {}>(args?: Subset<T, customer$auth_user_auth_user_id_customerTocustomerArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    auth_user<T extends customer$auth_userArgs<ExtArgs> = {}>(args?: Subset<T, customer$auth_userArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     auth_account<T extends customer$auth_accountArgs<ExtArgs> = {}>(args?: Subset<T, customer$auth_accountArgs<ExtArgs>>): Prisma__auth_accountClient<$Result.GetResult<Prisma.$auth_accountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    auth_user_customer_id_userToauth_user<T extends customer$auth_user_customer_id_userToauth_userArgs<ExtArgs> = {}>(args?: Subset<T, customer$auth_user_customer_id_userToauth_userArgs<ExtArgs>>): Prisma__auth_userClient<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     customer_reader<T extends customer$customer_readerArgs<ExtArgs> = {}>(args?: Subset<T, customer$customer_readerArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$customer_readerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     customer_track<T extends customer$customer_trackArgs<ExtArgs> = {}>(args?: Subset<T, customer$customer_trackArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$customer_trackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     t_sales<T extends customer$t_salesArgs<ExtArgs> = {}>(args?: Subset<T, customer$t_salesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$t_salesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -28913,9 +28666,9 @@ export namespace Prisma {
   }
 
   /**
-   * customer.auth_user_auth_user_id_customerTocustomer
+   * customer.auth_user
    */
-  export type customer$auth_user_auth_user_id_customerTocustomerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type customer$auth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the auth_user
      */
@@ -28953,25 +28706,6 @@ export namespace Prisma {
      */
     include?: auth_accountInclude<ExtArgs> | null
     where?: auth_accountWhereInput
-  }
-
-  /**
-   * customer.auth_user_customer_id_userToauth_user
-   */
-  export type customer$auth_user_customer_id_userToauth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the auth_user
-     */
-    select?: auth_userSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the auth_user
-     */
-    omit?: auth_userOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: auth_userInclude<ExtArgs> | null
-    where?: auth_userWhereInput
   }
 
   /**
@@ -32609,10 +32343,9 @@ export namespace Prisma {
     is_management?: boolean
     is_it?: boolean
     id_user?: boolean
-    auth_user_auth_user_id_internalTointernal?: boolean | internal$auth_user_auth_user_id_internalTointernalArgs<ExtArgs>
+    auth_user?: boolean | internal$auth_userArgs<ExtArgs>
     book_approval?: boolean | internal$book_approvalArgs<ExtArgs>
     auth_account?: boolean | internal$auth_accountArgs<ExtArgs>
-    auth_user_internal_id_userToauth_user?: boolean | internal$auth_user_internal_id_userToauth_userArgs<ExtArgs>
     _count?: boolean | InternalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["internal"]>
 
@@ -32626,7 +32359,6 @@ export namespace Prisma {
     is_it?: boolean
     id_user?: boolean
     auth_account?: boolean | internal$auth_accountArgs<ExtArgs>
-    auth_user_internal_id_userToauth_user?: boolean | internal$auth_user_internal_id_userToauth_userArgs<ExtArgs>
   }, ExtArgs["result"]["internal"]>
 
   export type internalSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -32639,7 +32371,6 @@ export namespace Prisma {
     is_it?: boolean
     id_user?: boolean
     auth_account?: boolean | internal$auth_accountArgs<ExtArgs>
-    auth_user_internal_id_userToauth_user?: boolean | internal$auth_user_internal_id_userToauth_userArgs<ExtArgs>
   }, ExtArgs["result"]["internal"]>
 
   export type internalSelectScalar = {
@@ -32655,28 +32386,24 @@ export namespace Prisma {
 
   export type internalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_account" | "name" | "is_sales_and_marketing" | "is_support" | "is_management" | "is_it" | "id_user", ExtArgs["result"]["internal"]>
   export type internalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    auth_user_auth_user_id_internalTointernal?: boolean | internal$auth_user_auth_user_id_internalTointernalArgs<ExtArgs>
+    auth_user?: boolean | internal$auth_userArgs<ExtArgs>
     book_approval?: boolean | internal$book_approvalArgs<ExtArgs>
     auth_account?: boolean | internal$auth_accountArgs<ExtArgs>
-    auth_user_internal_id_userToauth_user?: boolean | internal$auth_user_internal_id_userToauth_userArgs<ExtArgs>
     _count?: boolean | InternalCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type internalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_account?: boolean | internal$auth_accountArgs<ExtArgs>
-    auth_user_internal_id_userToauth_user?: boolean | internal$auth_user_internal_id_userToauth_userArgs<ExtArgs>
   }
   export type internalIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_account?: boolean | internal$auth_accountArgs<ExtArgs>
-    auth_user_internal_id_userToauth_user?: boolean | internal$auth_user_internal_id_userToauth_userArgs<ExtArgs>
   }
 
   export type $internalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "internal"
     objects: {
-      auth_user_auth_user_id_internalTointernal: Prisma.$auth_userPayload<ExtArgs>[]
+      auth_user: Prisma.$auth_userPayload<ExtArgs>[]
       book_approval: Prisma.$book_approvalPayload<ExtArgs>[]
       auth_account: Prisma.$auth_accountPayload<ExtArgs> | null
-      auth_user_internal_id_userToauth_user: Prisma.$auth_userPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -33081,10 +32808,9 @@ export namespace Prisma {
    */
   export interface Prisma__internalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    auth_user_auth_user_id_internalTointernal<T extends internal$auth_user_auth_user_id_internalTointernalArgs<ExtArgs> = {}>(args?: Subset<T, internal$auth_user_auth_user_id_internalTointernalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    auth_user<T extends internal$auth_userArgs<ExtArgs> = {}>(args?: Subset<T, internal$auth_userArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     book_approval<T extends internal$book_approvalArgs<ExtArgs> = {}>(args?: Subset<T, internal$book_approvalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$book_approvalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     auth_account<T extends internal$auth_accountArgs<ExtArgs> = {}>(args?: Subset<T, internal$auth_accountArgs<ExtArgs>>): Prisma__auth_accountClient<$Result.GetResult<Prisma.$auth_accountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    auth_user_internal_id_userToauth_user<T extends internal$auth_user_internal_id_userToauth_userArgs<ExtArgs> = {}>(args?: Subset<T, internal$auth_user_internal_id_userToauth_userArgs<ExtArgs>>): Prisma__auth_userClient<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -33518,9 +33244,9 @@ export namespace Prisma {
   }
 
   /**
-   * internal.auth_user_auth_user_id_internalTointernal
+   * internal.auth_user
    */
-  export type internal$auth_user_auth_user_id_internalTointernalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type internal$auth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the auth_user
      */
@@ -33582,25 +33308,6 @@ export namespace Prisma {
      */
     include?: auth_accountInclude<ExtArgs> | null
     where?: auth_accountWhereInput
-  }
-
-  /**
-   * internal.auth_user_internal_id_userToauth_user
-   */
-  export type internal$auth_user_internal_id_userToauth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the auth_user
-     */
-    select?: auth_userSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the auth_user
-     */
-    omit?: auth_userOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: auth_userInclude<ExtArgs> | null
-    where?: auth_userWhereInput
   }
 
   /**
@@ -42992,10 +42699,9 @@ export namespace Prisma {
     address?: boolean
     logo?: boolean
     id_user?: boolean
-    auth_user_auth_user_id_publisherTopublisher?: boolean | publisher$auth_user_auth_user_id_publisherTopublisherArgs<ExtArgs>
+    auth_user?: boolean | publisher$auth_userArgs<ExtArgs>
     promo_code?: boolean | publisher$promo_codeArgs<ExtArgs>
     auth_account?: boolean | publisher$auth_accountArgs<ExtArgs>
-    auth_user_publisher_id_userToauth_user?: boolean | publisher$auth_user_publisher_id_userToauth_userArgs<ExtArgs>
     publisher_author?: boolean | publisher$publisher_authorArgs<ExtArgs>
     t_ai_credit?: boolean | publisher$t_ai_creditArgs<ExtArgs>
     transaction?: boolean | publisher$transactionArgs<ExtArgs>
@@ -43013,7 +42719,6 @@ export namespace Prisma {
     logo?: boolean
     id_user?: boolean
     auth_account?: boolean | publisher$auth_accountArgs<ExtArgs>
-    auth_user_publisher_id_userToauth_user?: boolean | publisher$auth_user_publisher_id_userToauth_userArgs<ExtArgs>
   }, ExtArgs["result"]["publisher"]>
 
   export type publisherSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -43026,7 +42731,6 @@ export namespace Prisma {
     logo?: boolean
     id_user?: boolean
     auth_account?: boolean | publisher$auth_accountArgs<ExtArgs>
-    auth_user_publisher_id_userToauth_user?: boolean | publisher$auth_user_publisher_id_userToauth_userArgs<ExtArgs>
   }, ExtArgs["result"]["publisher"]>
 
   export type publisherSelectScalar = {
@@ -43042,10 +42746,9 @@ export namespace Prisma {
 
   export type publisherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_account" | "name" | "description" | "website" | "address" | "logo" | "id_user", ExtArgs["result"]["publisher"]>
   export type publisherInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    auth_user_auth_user_id_publisherTopublisher?: boolean | publisher$auth_user_auth_user_id_publisherTopublisherArgs<ExtArgs>
+    auth_user?: boolean | publisher$auth_userArgs<ExtArgs>
     promo_code?: boolean | publisher$promo_codeArgs<ExtArgs>
     auth_account?: boolean | publisher$auth_accountArgs<ExtArgs>
-    auth_user_publisher_id_userToauth_user?: boolean | publisher$auth_user_publisher_id_userToauth_userArgs<ExtArgs>
     publisher_author?: boolean | publisher$publisher_authorArgs<ExtArgs>
     t_ai_credit?: boolean | publisher$t_ai_creditArgs<ExtArgs>
     transaction?: boolean | publisher$transactionArgs<ExtArgs>
@@ -43054,20 +42757,17 @@ export namespace Prisma {
   }
   export type publisherIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_account?: boolean | publisher$auth_accountArgs<ExtArgs>
-    auth_user_publisher_id_userToauth_user?: boolean | publisher$auth_user_publisher_id_userToauth_userArgs<ExtArgs>
   }
   export type publisherIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auth_account?: boolean | publisher$auth_accountArgs<ExtArgs>
-    auth_user_publisher_id_userToauth_user?: boolean | publisher$auth_user_publisher_id_userToauth_userArgs<ExtArgs>
   }
 
   export type $publisherPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "publisher"
     objects: {
-      auth_user_auth_user_id_publisherTopublisher: Prisma.$auth_userPayload<ExtArgs>[]
+      auth_user: Prisma.$auth_userPayload<ExtArgs>[]
       promo_code: Prisma.$promo_codePayload<ExtArgs>[]
       auth_account: Prisma.$auth_accountPayload<ExtArgs> | null
-      auth_user_publisher_id_userToauth_user: Prisma.$auth_userPayload<ExtArgs> | null
       publisher_author: Prisma.$publisher_authorPayload<ExtArgs>[]
       t_ai_credit: Prisma.$t_ai_creditPayload<ExtArgs>[]
       transaction: Prisma.$transactionPayload<ExtArgs>[]
@@ -43476,10 +43176,9 @@ export namespace Prisma {
    */
   export interface Prisma__publisherClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    auth_user_auth_user_id_publisherTopublisher<T extends publisher$auth_user_auth_user_id_publisherTopublisherArgs<ExtArgs> = {}>(args?: Subset<T, publisher$auth_user_auth_user_id_publisherTopublisherArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    auth_user<T extends publisher$auth_userArgs<ExtArgs> = {}>(args?: Subset<T, publisher$auth_userArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     promo_code<T extends publisher$promo_codeArgs<ExtArgs> = {}>(args?: Subset<T, publisher$promo_codeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$promo_codePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     auth_account<T extends publisher$auth_accountArgs<ExtArgs> = {}>(args?: Subset<T, publisher$auth_accountArgs<ExtArgs>>): Prisma__auth_accountClient<$Result.GetResult<Prisma.$auth_accountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    auth_user_publisher_id_userToauth_user<T extends publisher$auth_user_publisher_id_userToauth_userArgs<ExtArgs> = {}>(args?: Subset<T, publisher$auth_user_publisher_id_userToauth_userArgs<ExtArgs>>): Prisma__auth_userClient<$Result.GetResult<Prisma.$auth_userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     publisher_author<T extends publisher$publisher_authorArgs<ExtArgs> = {}>(args?: Subset<T, publisher$publisher_authorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$publisher_authorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     t_ai_credit<T extends publisher$t_ai_creditArgs<ExtArgs> = {}>(args?: Subset<T, publisher$t_ai_creditArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$t_ai_creditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     transaction<T extends publisher$transactionArgs<ExtArgs> = {}>(args?: Subset<T, publisher$transactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$transactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -43917,9 +43616,9 @@ export namespace Prisma {
   }
 
   /**
-   * publisher.auth_user_auth_user_id_publisherTopublisher
+   * publisher.auth_user
    */
-  export type publisher$auth_user_auth_user_id_publisherTopublisherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type publisher$auth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the auth_user
      */
@@ -43981,25 +43680,6 @@ export namespace Prisma {
      */
     include?: auth_accountInclude<ExtArgs> | null
     where?: auth_accountWhereInput
-  }
-
-  /**
-   * publisher.auth_user_publisher_id_userToauth_user
-   */
-  export type publisher$auth_user_publisher_id_userToauth_userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the auth_user
-     */
-    select?: auth_userSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the auth_user
-     */
-    omit?: auth_userOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: auth_userInclude<ExtArgs> | null
-    where?: auth_userWhereInput
   }
 
   /**
@@ -58165,8 +57845,7 @@ export namespace Prisma {
     id_account?: UuidNullableFilter<"affiliate"> | string | null
     id_user?: UuidNullableFilter<"affiliate"> | string | null
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
-    auth_user_affiliate_id_userToauth_user?: XOR<Auth_userNullableScalarRelationFilter, auth_userWhereInput> | null
-    auth_user_auth_user_id_affiliateToaffiliate?: Auth_userListRelationFilter
+    auth_user?: Auth_userListRelationFilter
   }
 
   export type affiliateOrderByWithRelationInput = {
@@ -58175,8 +57854,7 @@ export namespace Prisma {
     id_account?: SortOrderInput | SortOrder
     id_user?: SortOrderInput | SortOrder
     auth_account?: auth_accountOrderByWithRelationInput
-    auth_user_affiliate_id_userToauth_user?: auth_userOrderByWithRelationInput
-    auth_user_auth_user_id_affiliateToaffiliate?: auth_userOrderByRelationAggregateInput
+    auth_user?: auth_userOrderByRelationAggregateInput
   }
 
   export type affiliateWhereUniqueInput = Prisma.AtLeast<{
@@ -58188,8 +57866,7 @@ export namespace Prisma {
     id_account?: UuidNullableFilter<"affiliate"> | string | null
     id_user?: UuidNullableFilter<"affiliate"> | string | null
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
-    auth_user_affiliate_id_userToauth_user?: XOR<Auth_userNullableScalarRelationFilter, auth_userWhereInput> | null
-    auth_user_auth_user_id_affiliateToaffiliate?: Auth_userListRelationFilter
+    auth_user?: Auth_userListRelationFilter
   }, "id">
 
   export type affiliateOrderByWithAggregationInput = {
@@ -58461,20 +58138,15 @@ export namespace Prisma {
     id_affiliate?: UuidNullableFilter<"auth_user"> | string | null
     id_publisher?: UuidNullableFilter<"auth_user"> | string | null
     id_internal?: UuidNullableFilter<"auth_user"> | string | null
-    affiliate_affiliate_id_userToauth_user?: AffiliateListRelationFilter
     auth_account?: Auth_accountListRelationFilter
     auth_session?: Auth_sessionListRelationFilter
     auth_two_factor?: Auth_two_factorListRelationFilter
-    affiliate_auth_user_id_affiliateToaffiliate?: XOR<AffiliateNullableScalarRelationFilter, affiliateWhereInput> | null
-    author_auth_user_id_authorToauthor?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
-    customer_auth_user_id_customerTocustomer?: XOR<CustomerNullableScalarRelationFilter, customerWhereInput> | null
-    internal_auth_user_id_internalTointernal?: XOR<InternalNullableScalarRelationFilter, internalWhereInput> | null
-    publisher_auth_user_id_publisherTopublisher?: XOR<PublisherNullableScalarRelationFilter, publisherWhereInput> | null
-    author_author_id_userToauth_user?: AuthorListRelationFilter
-    customer_customer_id_userToauth_user?: CustomerListRelationFilter
-    internal_internal_id_userToauth_user?: InternalListRelationFilter
+    affiliate?: XOR<AffiliateNullableScalarRelationFilter, affiliateWhereInput> | null
+    author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
+    customer?: XOR<CustomerNullableScalarRelationFilter, customerWhereInput> | null
+    internal?: XOR<InternalNullableScalarRelationFilter, internalWhereInput> | null
+    publisher?: XOR<PublisherNullableScalarRelationFilter, publisherWhereInput> | null
     notif?: NotifListRelationFilter
-    publisher_publisher_id_userToauth_user?: PublisherListRelationFilter
     reviews?: ReviewsListRelationFilter
     reviews_likes?: Reviews_likesListRelationFilter
   }
@@ -58495,20 +58167,15 @@ export namespace Prisma {
     id_affiliate?: SortOrderInput | SortOrder
     id_publisher?: SortOrderInput | SortOrder
     id_internal?: SortOrderInput | SortOrder
-    affiliate_affiliate_id_userToauth_user?: affiliateOrderByRelationAggregateInput
     auth_account?: auth_accountOrderByRelationAggregateInput
     auth_session?: auth_sessionOrderByRelationAggregateInput
     auth_two_factor?: auth_two_factorOrderByRelationAggregateInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateOrderByWithRelationInput
-    author_auth_user_id_authorToauthor?: authorOrderByWithRelationInput
-    customer_auth_user_id_customerTocustomer?: customerOrderByWithRelationInput
-    internal_auth_user_id_internalTointernal?: internalOrderByWithRelationInput
-    publisher_auth_user_id_publisherTopublisher?: publisherOrderByWithRelationInput
-    author_author_id_userToauth_user?: authorOrderByRelationAggregateInput
-    customer_customer_id_userToauth_user?: customerOrderByRelationAggregateInput
-    internal_internal_id_userToauth_user?: internalOrderByRelationAggregateInput
+    affiliate?: affiliateOrderByWithRelationInput
+    author?: authorOrderByWithRelationInput
+    customer?: customerOrderByWithRelationInput
+    internal?: internalOrderByWithRelationInput
+    publisher?: publisherOrderByWithRelationInput
     notif?: notifOrderByRelationAggregateInput
-    publisher_publisher_id_userToauth_user?: publisherOrderByRelationAggregateInput
     reviews?: reviewsOrderByRelationAggregateInput
     reviews_likes?: reviews_likesOrderByRelationAggregateInput
   }
@@ -58532,20 +58199,15 @@ export namespace Prisma {
     id_affiliate?: UuidNullableFilter<"auth_user"> | string | null
     id_publisher?: UuidNullableFilter<"auth_user"> | string | null
     id_internal?: UuidNullableFilter<"auth_user"> | string | null
-    affiliate_affiliate_id_userToauth_user?: AffiliateListRelationFilter
     auth_account?: Auth_accountListRelationFilter
     auth_session?: Auth_sessionListRelationFilter
     auth_two_factor?: Auth_two_factorListRelationFilter
-    affiliate_auth_user_id_affiliateToaffiliate?: XOR<AffiliateNullableScalarRelationFilter, affiliateWhereInput> | null
-    author_auth_user_id_authorToauthor?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
-    customer_auth_user_id_customerTocustomer?: XOR<CustomerNullableScalarRelationFilter, customerWhereInput> | null
-    internal_auth_user_id_internalTointernal?: XOR<InternalNullableScalarRelationFilter, internalWhereInput> | null
-    publisher_auth_user_id_publisherTopublisher?: XOR<PublisherNullableScalarRelationFilter, publisherWhereInput> | null
-    author_author_id_userToauth_user?: AuthorListRelationFilter
-    customer_customer_id_userToauth_user?: CustomerListRelationFilter
-    internal_internal_id_userToauth_user?: InternalListRelationFilter
+    affiliate?: XOR<AffiliateNullableScalarRelationFilter, affiliateWhereInput> | null
+    author?: XOR<AuthorNullableScalarRelationFilter, authorWhereInput> | null
+    customer?: XOR<CustomerNullableScalarRelationFilter, customerWhereInput> | null
+    internal?: XOR<InternalNullableScalarRelationFilter, internalWhereInput> | null
+    publisher?: XOR<PublisherNullableScalarRelationFilter, publisherWhereInput> | null
     notif?: NotifListRelationFilter
-    publisher_publisher_id_userToauth_user?: PublisherListRelationFilter
     reviews?: ReviewsListRelationFilter
     reviews_likes?: Reviews_likesListRelationFilter
   }, "id" | "email">
@@ -58661,9 +58323,8 @@ export namespace Prisma {
     avatar?: StringNullableFilter<"author"> | string | null
     id_user?: UuidNullableFilter<"author"> | string | null
     cfg?: JsonNullableFilter<"author">
-    auth_user_auth_user_id_authorToauthor?: Auth_userListRelationFilter
+    auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
-    auth_user_author_id_userToauth_user?: XOR<Auth_userNullableScalarRelationFilter, auth_userWhereInput> | null
     book?: BookListRelationFilter
     product?: ProductListRelationFilter
     publisher_author?: Publisher_authorListRelationFilter
@@ -58678,9 +58339,8 @@ export namespace Prisma {
     avatar?: SortOrderInput | SortOrder
     id_user?: SortOrderInput | SortOrder
     cfg?: SortOrderInput | SortOrder
-    auth_user_auth_user_id_authorToauthor?: auth_userOrderByRelationAggregateInput
+    auth_user?: auth_userOrderByRelationAggregateInput
     auth_account?: auth_accountOrderByWithRelationInput
-    auth_user_author_id_userToauth_user?: auth_userOrderByWithRelationInput
     book?: bookOrderByRelationAggregateInput
     product?: productOrderByRelationAggregateInput
     publisher_author?: publisher_authorOrderByRelationAggregateInput
@@ -58698,9 +58358,8 @@ export namespace Prisma {
     avatar?: StringNullableFilter<"author"> | string | null
     id_user?: UuidNullableFilter<"author"> | string | null
     cfg?: JsonNullableFilter<"author">
-    auth_user_auth_user_id_authorToauthor?: Auth_userListRelationFilter
+    auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
-    auth_user_author_id_userToauth_user?: XOR<Auth_userNullableScalarRelationFilter, auth_userWhereInput> | null
     book?: BookListRelationFilter
     product?: ProductListRelationFilter
     publisher_author?: Publisher_authorListRelationFilter
@@ -59571,9 +59230,8 @@ export namespace Prisma {
     name?: StringFilter<"customer"> | string
     email?: StringFilter<"customer"> | string
     id_user?: UuidNullableFilter<"customer"> | string | null
-    auth_user_auth_user_id_customerTocustomer?: Auth_userListRelationFilter
+    auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
-    auth_user_customer_id_userToauth_user?: XOR<Auth_userNullableScalarRelationFilter, auth_userWhereInput> | null
     customer_reader?: Customer_readerListRelationFilter
     customer_track?: Customer_trackListRelationFilter
     t_sales?: T_salesListRelationFilter
@@ -59589,9 +59247,8 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     id_user?: SortOrderInput | SortOrder
-    auth_user_auth_user_id_customerTocustomer?: auth_userOrderByRelationAggregateInput
+    auth_user?: auth_userOrderByRelationAggregateInput
     auth_account?: auth_accountOrderByWithRelationInput
-    auth_user_customer_id_userToauth_user?: auth_userOrderByWithRelationInput
     customer_reader?: customer_readerOrderByRelationAggregateInput
     customer_track?: customer_trackOrderByRelationAggregateInput
     t_sales?: t_salesOrderByRelationAggregateInput
@@ -59610,9 +59267,8 @@ export namespace Prisma {
     name?: StringFilter<"customer"> | string
     email?: StringFilter<"customer"> | string
     id_user?: UuidNullableFilter<"customer"> | string | null
-    auth_user_auth_user_id_customerTocustomer?: Auth_userListRelationFilter
+    auth_user?: Auth_userListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
-    auth_user_customer_id_userToauth_user?: XOR<Auth_userNullableScalarRelationFilter, auth_userWhereInput> | null
     customer_reader?: Customer_readerListRelationFilter
     customer_track?: Customer_trackListRelationFilter
     t_sales?: T_salesListRelationFilter
@@ -59852,10 +59508,9 @@ export namespace Prisma {
     is_management?: BoolFilter<"internal"> | boolean
     is_it?: BoolFilter<"internal"> | boolean
     id_user?: UuidNullableFilter<"internal"> | string | null
-    auth_user_auth_user_id_internalTointernal?: Auth_userListRelationFilter
+    auth_user?: Auth_userListRelationFilter
     book_approval?: Book_approvalListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
-    auth_user_internal_id_userToauth_user?: XOR<Auth_userNullableScalarRelationFilter, auth_userWhereInput> | null
   }
 
   export type internalOrderByWithRelationInput = {
@@ -59867,10 +59522,9 @@ export namespace Prisma {
     is_management?: SortOrder
     is_it?: SortOrder
     id_user?: SortOrderInput | SortOrder
-    auth_user_auth_user_id_internalTointernal?: auth_userOrderByRelationAggregateInput
+    auth_user?: auth_userOrderByRelationAggregateInput
     book_approval?: book_approvalOrderByRelationAggregateInput
     auth_account?: auth_accountOrderByWithRelationInput
-    auth_user_internal_id_userToauth_user?: auth_userOrderByWithRelationInput
   }
 
   export type internalWhereUniqueInput = Prisma.AtLeast<{
@@ -59885,10 +59539,9 @@ export namespace Prisma {
     is_management?: BoolFilter<"internal"> | boolean
     is_it?: BoolFilter<"internal"> | boolean
     id_user?: UuidNullableFilter<"internal"> | string | null
-    auth_user_auth_user_id_internalTointernal?: Auth_userListRelationFilter
+    auth_user?: Auth_userListRelationFilter
     book_approval?: Book_approvalListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
-    auth_user_internal_id_userToauth_user?: XOR<Auth_userNullableScalarRelationFilter, auth_userWhereInput> | null
   }, "id">
 
   export type internalOrderByWithAggregationInput = {
@@ -60536,10 +60189,9 @@ export namespace Prisma {
     address?: StringNullableFilter<"publisher"> | string | null
     logo?: StringNullableFilter<"publisher"> | string | null
     id_user?: UuidNullableFilter<"publisher"> | string | null
-    auth_user_auth_user_id_publisherTopublisher?: Auth_userListRelationFilter
+    auth_user?: Auth_userListRelationFilter
     promo_code?: Promo_codeListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
-    auth_user_publisher_id_userToauth_user?: XOR<Auth_userNullableScalarRelationFilter, auth_userWhereInput> | null
     publisher_author?: Publisher_authorListRelationFilter
     t_ai_credit?: T_ai_creditListRelationFilter
     transaction?: TransactionListRelationFilter
@@ -60555,10 +60207,9 @@ export namespace Prisma {
     address?: SortOrderInput | SortOrder
     logo?: SortOrderInput | SortOrder
     id_user?: SortOrderInput | SortOrder
-    auth_user_auth_user_id_publisherTopublisher?: auth_userOrderByRelationAggregateInput
+    auth_user?: auth_userOrderByRelationAggregateInput
     promo_code?: promo_codeOrderByRelationAggregateInput
     auth_account?: auth_accountOrderByWithRelationInput
-    auth_user_publisher_id_userToauth_user?: auth_userOrderByWithRelationInput
     publisher_author?: publisher_authorOrderByRelationAggregateInput
     t_ai_credit?: t_ai_creditOrderByRelationAggregateInput
     transaction?: transactionOrderByRelationAggregateInput
@@ -60577,10 +60228,9 @@ export namespace Prisma {
     address?: StringNullableFilter<"publisher"> | string | null
     logo?: StringNullableFilter<"publisher"> | string | null
     id_user?: UuidNullableFilter<"publisher"> | string | null
-    auth_user_auth_user_id_publisherTopublisher?: Auth_userListRelationFilter
+    auth_user?: Auth_userListRelationFilter
     promo_code?: Promo_codeListRelationFilter
     auth_account?: XOR<Auth_accountNullableScalarRelationFilter, auth_accountWhereInput> | null
-    auth_user_publisher_id_userToauth_user?: XOR<Auth_userNullableScalarRelationFilter, auth_userWhereInput> | null
     publisher_author?: Publisher_authorListRelationFilter
     t_ai_credit?: T_ai_creditListRelationFilter
     transaction?: TransactionListRelationFilter
@@ -61371,9 +61021,9 @@ export namespace Prisma {
   export type affiliateCreateInput = {
     id?: string
     name: string
+    id_user?: string | null
     auth_account?: auth_accountCreateNestedOneWithoutAffiliateInput
-    auth_user_affiliate_id_userToauth_user?: auth_userCreateNestedOneWithoutAffiliate_affiliate_id_userToauth_userInput
-    auth_user_auth_user_id_affiliateToaffiliate?: auth_userCreateNestedManyWithoutAffiliate_auth_user_id_affiliateToaffiliateInput
+    auth_user?: auth_userCreateNestedManyWithoutAffiliateInput
   }
 
   export type affiliateUncheckedCreateInput = {
@@ -61381,15 +61031,15 @@ export namespace Prisma {
     name: string
     id_account?: string | null
     id_user?: string | null
-    auth_user_auth_user_id_affiliateToaffiliate?: auth_userUncheckedCreateNestedManyWithoutAffiliate_auth_user_id_affiliateToaffiliateInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutAffiliateInput
   }
 
   export type affiliateUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
     auth_account?: auth_accountUpdateOneWithoutAffiliateNestedInput
-    auth_user_affiliate_id_userToauth_user?: auth_userUpdateOneWithoutAffiliate_affiliate_id_userToauth_userNestedInput
-    auth_user_auth_user_id_affiliateToaffiliate?: auth_userUpdateManyWithoutAffiliate_auth_user_id_affiliateToaffiliateNestedInput
+    auth_user?: auth_userUpdateManyWithoutAffiliateNestedInput
   }
 
   export type affiliateUncheckedUpdateInput = {
@@ -61397,7 +61047,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_affiliateToaffiliate?: auth_userUncheckedUpdateManyWithoutAffiliate_auth_user_id_affiliateToaffiliateNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutAffiliateNestedInput
   }
 
   export type affiliateCreateManyInput = {
@@ -61410,6 +61060,7 @@ export namespace Prisma {
   export type affiliateUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type affiliateUncheckedUpdateManyInput = {
@@ -61685,20 +61336,15 @@ export namespace Prisma {
     username?: string | null
     display_username?: string | null
     two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
+    affiliate?: affiliateCreateNestedOneWithoutAuth_userInput
+    author?: authorCreateNestedOneWithoutAuth_userInput
+    customer?: customerCreateNestedOneWithoutAuth_userInput
+    internal?: internalCreateNestedOneWithoutAuth_userInput
+    publisher?: publisherCreateNestedOneWithoutAuth_userInput
     notif?: notifCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
@@ -61719,15 +61365,10 @@ export namespace Prisma {
     id_affiliate?: string | null
     id_publisher?: string | null
     id_internal?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
     notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
@@ -61743,20 +61384,15 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     display_username?: NullableStringFieldUpdateOperationsInput | string | null
     two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
+    affiliate?: affiliateUpdateOneWithoutAuth_userNestedInput
+    author?: authorUpdateOneWithoutAuth_userNestedInput
+    customer?: customerUpdateOneWithoutAuth_userNestedInput
+    internal?: internalUpdateOneWithoutAuth_userNestedInput
+    publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     notif?: notifUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
@@ -61777,15 +61413,10 @@ export namespace Prisma {
     id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
     id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
     id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
     notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
@@ -61908,10 +61539,10 @@ export namespace Prisma {
     biography?: string | null
     social_media?: string | null
     avatar?: string | null
+    id_user?: string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userCreateNestedManyWithoutAuthor_auth_user_id_authorToauthorInput
+    auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
-    auth_user_author_id_userToauth_user?: auth_userCreateNestedOneWithoutAuthor_author_id_userToauth_userInput
     book?: bookCreateNestedManyWithoutAuthorInput
     product?: productCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorCreateNestedManyWithoutAuthorInput
@@ -61926,7 +61557,7 @@ export namespace Prisma {
     avatar?: string | null
     id_user?: string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUncheckedCreateNestedManyWithoutAuthor_auth_user_id_authorToauthorInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
     book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
@@ -61938,10 +61569,10 @@ export namespace Prisma {
     biography?: NullableStringFieldUpdateOperationsInput | string | null
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUpdateManyWithoutAuthor_auth_user_id_authorToauthorNestedInput
+    auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
-    auth_user_author_id_userToauth_user?: auth_userUpdateOneWithoutAuthor_author_id_userToauth_userNestedInput
     book?: bookUpdateManyWithoutAuthorNestedInput
     product?: productUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutAuthorNestedInput
@@ -61956,7 +61587,7 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUncheckedUpdateManyWithoutAuthor_auth_user_id_authorToauthorNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
     book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
@@ -61979,6 +61610,7 @@ export namespace Prisma {
     biography?: NullableStringFieldUpdateOperationsInput | string | null
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -62855,9 +62487,9 @@ export namespace Prisma {
     otp?: number | null
     name: string
     email: string
-    auth_user_auth_user_id_customerTocustomer?: auth_userCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutCustomerInput
     auth_account?: auth_accountCreateNestedOneWithoutCustomerInput
-    auth_user_customer_id_userToauth_user?: auth_userCreateNestedOneWithoutCustomer_customer_id_userToauth_userInput
     customer_reader?: customer_readerCreateNestedManyWithoutCustomerInput
     customer_track?: customer_trackCreateNestedManyWithoutCustomerInput
     t_sales?: t_salesCreateNestedManyWithoutCustomerInput
@@ -62873,7 +62505,7 @@ export namespace Prisma {
     name: string
     email: string
     id_user?: string | null
-    auth_user_auth_user_id_customerTocustomer?: auth_userUncheckedCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutCustomerInput
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutCustomerInput
     customer_track?: customer_trackUncheckedCreateNestedManyWithoutCustomerInput
     t_sales?: t_salesUncheckedCreateNestedManyWithoutCustomerInput
@@ -62887,9 +62519,9 @@ export namespace Prisma {
     otp?: NullableIntFieldUpdateOperationsInput | number | null
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    auth_user_auth_user_id_customerTocustomer?: auth_userUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutCustomerNestedInput
     auth_account?: auth_accountUpdateOneWithoutCustomerNestedInput
-    auth_user_customer_id_userToauth_user?: auth_userUpdateOneWithoutCustomer_customer_id_userToauth_userNestedInput
     customer_reader?: customer_readerUpdateManyWithoutCustomerNestedInput
     customer_track?: customer_trackUpdateManyWithoutCustomerNestedInput
     t_sales?: t_salesUpdateManyWithoutCustomerNestedInput
@@ -62905,7 +62537,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_customerTocustomer?: auth_userUncheckedUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutCustomerNestedInput
     customer_reader?: customer_readerUncheckedUpdateManyWithoutCustomerNestedInput
     customer_track?: customer_trackUncheckedUpdateManyWithoutCustomerNestedInput
     t_sales?: t_salesUncheckedUpdateManyWithoutCustomerNestedInput
@@ -62930,6 +62562,7 @@ export namespace Prisma {
     otp?: NullableIntFieldUpdateOperationsInput | number | null
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type customerUncheckedUpdateManyInput = {
@@ -63143,10 +62776,10 @@ export namespace Prisma {
     is_support?: boolean
     is_management?: boolean
     is_it?: boolean
-    auth_user_auth_user_id_internalTointernal?: auth_userCreateNestedManyWithoutInternal_auth_user_id_internalTointernalInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutInternalInput
     book_approval?: book_approvalCreateNestedManyWithoutInternalInput
     auth_account?: auth_accountCreateNestedOneWithoutInternalInput
-    auth_user_internal_id_userToauth_user?: auth_userCreateNestedOneWithoutInternal_internal_id_userToauth_userInput
   }
 
   export type internalUncheckedCreateInput = {
@@ -63158,7 +62791,7 @@ export namespace Prisma {
     is_management?: boolean
     is_it?: boolean
     id_user?: string | null
-    auth_user_auth_user_id_internalTointernal?: auth_userUncheckedCreateNestedManyWithoutInternal_auth_user_id_internalTointernalInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutInternalInput
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutInternalInput
   }
 
@@ -63169,10 +62802,10 @@ export namespace Prisma {
     is_support?: BoolFieldUpdateOperationsInput | boolean
     is_management?: BoolFieldUpdateOperationsInput | boolean
     is_it?: BoolFieldUpdateOperationsInput | boolean
-    auth_user_auth_user_id_internalTointernal?: auth_userUpdateManyWithoutInternal_auth_user_id_internalTointernalNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutInternalNestedInput
     book_approval?: book_approvalUpdateManyWithoutInternalNestedInput
     auth_account?: auth_accountUpdateOneWithoutInternalNestedInput
-    auth_user_internal_id_userToauth_user?: auth_userUpdateOneWithoutInternal_internal_id_userToauth_userNestedInput
   }
 
   export type internalUncheckedUpdateInput = {
@@ -63184,7 +62817,7 @@ export namespace Prisma {
     is_management?: BoolFieldUpdateOperationsInput | boolean
     is_it?: BoolFieldUpdateOperationsInput | boolean
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_internalTointernal?: auth_userUncheckedUpdateManyWithoutInternal_auth_user_id_internalTointernalNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutInternalNestedInput
     book_approval?: book_approvalUncheckedUpdateManyWithoutInternalNestedInput
   }
 
@@ -63206,6 +62839,7 @@ export namespace Prisma {
     is_support?: BoolFieldUpdateOperationsInput | boolean
     is_management?: BoolFieldUpdateOperationsInput | boolean
     is_it?: BoolFieldUpdateOperationsInput | boolean
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type internalUncheckedUpdateManyInput = {
@@ -63885,10 +63519,10 @@ export namespace Prisma {
     website?: string | null
     address?: string | null
     logo?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeCreateNestedManyWithoutPublisherInput
     auth_account?: auth_accountCreateNestedOneWithoutPublisherInput
-    auth_user_publisher_id_userToauth_user?: auth_userCreateNestedOneWithoutPublisher_publisher_id_userToauth_userInput
     publisher_author?: publisher_authorCreateNestedManyWithoutPublisherInput
     t_ai_credit?: t_ai_creditCreateNestedManyWithoutPublisherInput
     transaction?: transactionCreateNestedManyWithoutPublisherInput
@@ -63904,7 +63538,7 @@ export namespace Prisma {
     address?: string | null
     logo?: string | null
     id_user?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
     t_ai_credit?: t_ai_creditUncheckedCreateNestedManyWithoutPublisherInput
@@ -63919,10 +63553,10 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUpdateManyWithoutPublisherNestedInput
     auth_account?: auth_accountUpdateOneWithoutPublisherNestedInput
-    auth_user_publisher_id_userToauth_user?: auth_userUpdateOneWithoutPublisher_publisher_id_userToauth_userNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUpdateManyWithoutPublisherNestedInput
     transaction?: transactionUpdateManyWithoutPublisherNestedInput
@@ -63938,7 +63572,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUncheckedUpdateManyWithoutPublisherNestedInput
@@ -63964,6 +63598,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type publisherUncheckedUpdateManyInput = {
@@ -64758,11 +64393,6 @@ export namespace Prisma {
     isNot?: auth_accountWhereInput | null
   }
 
-  export type Auth_userNullableScalarRelationFilter = {
-    is?: auth_userWhereInput | null
-    isNot?: auth_userWhereInput | null
-  }
-
   export type Auth_userListRelationFilter = {
     every?: auth_userWhereInput
     some?: auth_userWhereInput
@@ -64888,6 +64518,11 @@ export namespace Prisma {
     every?: affiliateWhereInput
     some?: affiliateWhereInput
     none?: affiliateWhereInput
+  }
+
+  export type Auth_userNullableScalarRelationFilter = {
+    is?: auth_userWhereInput | null
+    isNot?: auth_userWhereInput | null
   }
 
   export type AuthorListRelationFilter = {
@@ -67152,28 +66787,26 @@ export namespace Prisma {
     connect?: auth_accountWhereUniqueInput
   }
 
-  export type auth_userCreateNestedOneWithoutAffiliate_affiliate_id_userToauth_userInput = {
-    create?: XOR<auth_userCreateWithoutAffiliate_affiliate_id_userToauth_userInput, auth_userUncheckedCreateWithoutAffiliate_affiliate_id_userToauth_userInput>
-    connectOrCreate?: auth_userCreateOrConnectWithoutAffiliate_affiliate_id_userToauth_userInput
-    connect?: auth_userWhereUniqueInput
-  }
-
-  export type auth_userCreateNestedManyWithoutAffiliate_auth_user_id_affiliateToaffiliateInput = {
-    create?: XOR<auth_userCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput, auth_userUncheckedCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput> | auth_userCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[] | auth_userUncheckedCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutAffiliate_auth_user_id_affiliateToaffiliateInput | auth_userCreateOrConnectWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[]
-    createMany?: auth_userCreateManyAffiliate_auth_user_id_affiliateToaffiliateInputEnvelope
+  export type auth_userCreateNestedManyWithoutAffiliateInput = {
+    create?: XOR<auth_userCreateWithoutAffiliateInput, auth_userUncheckedCreateWithoutAffiliateInput> | auth_userCreateWithoutAffiliateInput[] | auth_userUncheckedCreateWithoutAffiliateInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutAffiliateInput | auth_userCreateOrConnectWithoutAffiliateInput[]
+    createMany?: auth_userCreateManyAffiliateInputEnvelope
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
   }
 
-  export type auth_userUncheckedCreateNestedManyWithoutAffiliate_auth_user_id_affiliateToaffiliateInput = {
-    create?: XOR<auth_userCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput, auth_userUncheckedCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput> | auth_userCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[] | auth_userUncheckedCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutAffiliate_auth_user_id_affiliateToaffiliateInput | auth_userCreateOrConnectWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[]
-    createMany?: auth_userCreateManyAffiliate_auth_user_id_affiliateToaffiliateInputEnvelope
+  export type auth_userUncheckedCreateNestedManyWithoutAffiliateInput = {
+    create?: XOR<auth_userCreateWithoutAffiliateInput, auth_userUncheckedCreateWithoutAffiliateInput> | auth_userCreateWithoutAffiliateInput[] | auth_userUncheckedCreateWithoutAffiliateInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutAffiliateInput | auth_userCreateOrConnectWithoutAffiliateInput[]
+    createMany?: auth_userCreateManyAffiliateInputEnvelope
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type auth_accountUpdateOneWithoutAffiliateNestedInput = {
@@ -67186,45 +66819,31 @@ export namespace Prisma {
     update?: XOR<XOR<auth_accountUpdateToOneWithWhereWithoutAffiliateInput, auth_accountUpdateWithoutAffiliateInput>, auth_accountUncheckedUpdateWithoutAffiliateInput>
   }
 
-  export type auth_userUpdateOneWithoutAffiliate_affiliate_id_userToauth_userNestedInput = {
-    create?: XOR<auth_userCreateWithoutAffiliate_affiliate_id_userToauth_userInput, auth_userUncheckedCreateWithoutAffiliate_affiliate_id_userToauth_userInput>
-    connectOrCreate?: auth_userCreateOrConnectWithoutAffiliate_affiliate_id_userToauth_userInput
-    upsert?: auth_userUpsertWithoutAffiliate_affiliate_id_userToauth_userInput
-    disconnect?: auth_userWhereInput | boolean
-    delete?: auth_userWhereInput | boolean
-    connect?: auth_userWhereUniqueInput
-    update?: XOR<XOR<auth_userUpdateToOneWithWhereWithoutAffiliate_affiliate_id_userToauth_userInput, auth_userUpdateWithoutAffiliate_affiliate_id_userToauth_userInput>, auth_userUncheckedUpdateWithoutAffiliate_affiliate_id_userToauth_userInput>
-  }
-
-  export type auth_userUpdateManyWithoutAffiliate_auth_user_id_affiliateToaffiliateNestedInput = {
-    create?: XOR<auth_userCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput, auth_userUncheckedCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput> | auth_userCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[] | auth_userUncheckedCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutAffiliate_auth_user_id_affiliateToaffiliateInput | auth_userCreateOrConnectWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[]
-    upsert?: auth_userUpsertWithWhereUniqueWithoutAffiliate_auth_user_id_affiliateToaffiliateInput | auth_userUpsertWithWhereUniqueWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[]
-    createMany?: auth_userCreateManyAffiliate_auth_user_id_affiliateToaffiliateInputEnvelope
+  export type auth_userUpdateManyWithoutAffiliateNestedInput = {
+    create?: XOR<auth_userCreateWithoutAffiliateInput, auth_userUncheckedCreateWithoutAffiliateInput> | auth_userCreateWithoutAffiliateInput[] | auth_userUncheckedCreateWithoutAffiliateInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutAffiliateInput | auth_userCreateOrConnectWithoutAffiliateInput[]
+    upsert?: auth_userUpsertWithWhereUniqueWithoutAffiliateInput | auth_userUpsertWithWhereUniqueWithoutAffiliateInput[]
+    createMany?: auth_userCreateManyAffiliateInputEnvelope
     set?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     disconnect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     delete?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
-    update?: auth_userUpdateWithWhereUniqueWithoutAffiliate_auth_user_id_affiliateToaffiliateInput | auth_userUpdateWithWhereUniqueWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[]
-    updateMany?: auth_userUpdateManyWithWhereWithoutAffiliate_auth_user_id_affiliateToaffiliateInput | auth_userUpdateManyWithWhereWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[]
+    update?: auth_userUpdateWithWhereUniqueWithoutAffiliateInput | auth_userUpdateWithWhereUniqueWithoutAffiliateInput[]
+    updateMany?: auth_userUpdateManyWithWhereWithoutAffiliateInput | auth_userUpdateManyWithWhereWithoutAffiliateInput[]
     deleteMany?: auth_userScalarWhereInput | auth_userScalarWhereInput[]
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
-  export type auth_userUncheckedUpdateManyWithoutAffiliate_auth_user_id_affiliateToaffiliateNestedInput = {
-    create?: XOR<auth_userCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput, auth_userUncheckedCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput> | auth_userCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[] | auth_userUncheckedCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutAffiliate_auth_user_id_affiliateToaffiliateInput | auth_userCreateOrConnectWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[]
-    upsert?: auth_userUpsertWithWhereUniqueWithoutAffiliate_auth_user_id_affiliateToaffiliateInput | auth_userUpsertWithWhereUniqueWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[]
-    createMany?: auth_userCreateManyAffiliate_auth_user_id_affiliateToaffiliateInputEnvelope
+  export type auth_userUncheckedUpdateManyWithoutAffiliateNestedInput = {
+    create?: XOR<auth_userCreateWithoutAffiliateInput, auth_userUncheckedCreateWithoutAffiliateInput> | auth_userCreateWithoutAffiliateInput[] | auth_userUncheckedCreateWithoutAffiliateInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutAffiliateInput | auth_userCreateOrConnectWithoutAffiliateInput[]
+    upsert?: auth_userUpsertWithWhereUniqueWithoutAffiliateInput | auth_userUpsertWithWhereUniqueWithoutAffiliateInput[]
+    createMany?: auth_userCreateManyAffiliateInputEnvelope
     set?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     disconnect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     delete?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
-    update?: auth_userUpdateWithWhereUniqueWithoutAffiliate_auth_user_id_affiliateToaffiliateInput | auth_userUpdateWithWhereUniqueWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[]
-    updateMany?: auth_userUpdateManyWithWhereWithoutAffiliate_auth_user_id_affiliateToaffiliateInput | auth_userUpdateManyWithWhereWithoutAffiliate_auth_user_id_affiliateToaffiliateInput[]
+    update?: auth_userUpdateWithWhereUniqueWithoutAffiliateInput | auth_userUpdateWithWhereUniqueWithoutAffiliateInput[]
+    updateMany?: auth_userUpdateManyWithWhereWithoutAffiliateInput | auth_userUpdateManyWithWhereWithoutAffiliateInput[]
     deleteMany?: auth_userScalarWhereInput | auth_userScalarWhereInput[]
   }
 
@@ -67490,13 +67109,6 @@ export namespace Prisma {
     update?: XOR<XOR<auth_userUpdateToOneWithWhereWithoutAuth_two_factorInput, auth_userUpdateWithoutAuth_two_factorInput>, auth_userUncheckedUpdateWithoutAuth_two_factorInput>
   }
 
-  export type affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput = {
-    create?: XOR<affiliateCreateWithoutAuth_user_affiliate_id_userToauth_userInput, affiliateUncheckedCreateWithoutAuth_user_affiliate_id_userToauth_userInput> | affiliateCreateWithoutAuth_user_affiliate_id_userToauth_userInput[] | affiliateUncheckedCreateWithoutAuth_user_affiliate_id_userToauth_userInput[]
-    connectOrCreate?: affiliateCreateOrConnectWithoutAuth_user_affiliate_id_userToauth_userInput | affiliateCreateOrConnectWithoutAuth_user_affiliate_id_userToauth_userInput[]
-    createMany?: affiliateCreateManyAuth_user_affiliate_id_userToauth_userInputEnvelope
-    connect?: affiliateWhereUniqueInput | affiliateWhereUniqueInput[]
-  }
-
   export type auth_accountCreateNestedManyWithoutAuth_userInput = {
     create?: XOR<auth_accountCreateWithoutAuth_userInput, auth_accountUncheckedCreateWithoutAuth_userInput> | auth_accountCreateWithoutAuth_userInput[] | auth_accountUncheckedCreateWithoutAuth_userInput[]
     connectOrCreate?: auth_accountCreateOrConnectWithoutAuth_userInput | auth_accountCreateOrConnectWithoutAuth_userInput[]
@@ -67518,55 +67130,34 @@ export namespace Prisma {
     connect?: auth_two_factorWhereUniqueInput | auth_two_factorWhereUniqueInput[]
   }
 
-  export type affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput = {
-    create?: XOR<affiliateCreateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput, affiliateUncheckedCreateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput>
-    connectOrCreate?: affiliateCreateOrConnectWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
+  export type affiliateCreateNestedOneWithoutAuth_userInput = {
+    create?: XOR<affiliateCreateWithoutAuth_userInput, affiliateUncheckedCreateWithoutAuth_userInput>
+    connectOrCreate?: affiliateCreateOrConnectWithoutAuth_userInput
     connect?: affiliateWhereUniqueInput
   }
 
-  export type authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput = {
-    create?: XOR<authorCreateWithoutAuth_user_auth_user_id_authorToauthorInput, authorUncheckedCreateWithoutAuth_user_auth_user_id_authorToauthorInput>
-    connectOrCreate?: authorCreateOrConnectWithoutAuth_user_auth_user_id_authorToauthorInput
+  export type authorCreateNestedOneWithoutAuth_userInput = {
+    create?: XOR<authorCreateWithoutAuth_userInput, authorUncheckedCreateWithoutAuth_userInput>
+    connectOrCreate?: authorCreateOrConnectWithoutAuth_userInput
     connect?: authorWhereUniqueInput
   }
 
-  export type customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput = {
-    create?: XOR<customerCreateWithoutAuth_user_auth_user_id_customerTocustomerInput, customerUncheckedCreateWithoutAuth_user_auth_user_id_customerTocustomerInput>
-    connectOrCreate?: customerCreateOrConnectWithoutAuth_user_auth_user_id_customerTocustomerInput
+  export type customerCreateNestedOneWithoutAuth_userInput = {
+    create?: XOR<customerCreateWithoutAuth_userInput, customerUncheckedCreateWithoutAuth_userInput>
+    connectOrCreate?: customerCreateOrConnectWithoutAuth_userInput
     connect?: customerWhereUniqueInput
   }
 
-  export type internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput = {
-    create?: XOR<internalCreateWithoutAuth_user_auth_user_id_internalTointernalInput, internalUncheckedCreateWithoutAuth_user_auth_user_id_internalTointernalInput>
-    connectOrCreate?: internalCreateOrConnectWithoutAuth_user_auth_user_id_internalTointernalInput
+  export type internalCreateNestedOneWithoutAuth_userInput = {
+    create?: XOR<internalCreateWithoutAuth_userInput, internalUncheckedCreateWithoutAuth_userInput>
+    connectOrCreate?: internalCreateOrConnectWithoutAuth_userInput
     connect?: internalWhereUniqueInput
   }
 
-  export type publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput = {
-    create?: XOR<publisherCreateWithoutAuth_user_auth_user_id_publisherTopublisherInput, publisherUncheckedCreateWithoutAuth_user_auth_user_id_publisherTopublisherInput>
-    connectOrCreate?: publisherCreateOrConnectWithoutAuth_user_auth_user_id_publisherTopublisherInput
+  export type publisherCreateNestedOneWithoutAuth_userInput = {
+    create?: XOR<publisherCreateWithoutAuth_userInput, publisherUncheckedCreateWithoutAuth_userInput>
+    connectOrCreate?: publisherCreateOrConnectWithoutAuth_userInput
     connect?: publisherWhereUniqueInput
-  }
-
-  export type authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput = {
-    create?: XOR<authorCreateWithoutAuth_user_author_id_userToauth_userInput, authorUncheckedCreateWithoutAuth_user_author_id_userToauth_userInput> | authorCreateWithoutAuth_user_author_id_userToauth_userInput[] | authorUncheckedCreateWithoutAuth_user_author_id_userToauth_userInput[]
-    connectOrCreate?: authorCreateOrConnectWithoutAuth_user_author_id_userToauth_userInput | authorCreateOrConnectWithoutAuth_user_author_id_userToauth_userInput[]
-    createMany?: authorCreateManyAuth_user_author_id_userToauth_userInputEnvelope
-    connect?: authorWhereUniqueInput | authorWhereUniqueInput[]
-  }
-
-  export type customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput = {
-    create?: XOR<customerCreateWithoutAuth_user_customer_id_userToauth_userInput, customerUncheckedCreateWithoutAuth_user_customer_id_userToauth_userInput> | customerCreateWithoutAuth_user_customer_id_userToauth_userInput[] | customerUncheckedCreateWithoutAuth_user_customer_id_userToauth_userInput[]
-    connectOrCreate?: customerCreateOrConnectWithoutAuth_user_customer_id_userToauth_userInput | customerCreateOrConnectWithoutAuth_user_customer_id_userToauth_userInput[]
-    createMany?: customerCreateManyAuth_user_customer_id_userToauth_userInputEnvelope
-    connect?: customerWhereUniqueInput | customerWhereUniqueInput[]
-  }
-
-  export type internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput = {
-    create?: XOR<internalCreateWithoutAuth_user_internal_id_userToauth_userInput, internalUncheckedCreateWithoutAuth_user_internal_id_userToauth_userInput> | internalCreateWithoutAuth_user_internal_id_userToauth_userInput[] | internalUncheckedCreateWithoutAuth_user_internal_id_userToauth_userInput[]
-    connectOrCreate?: internalCreateOrConnectWithoutAuth_user_internal_id_userToauth_userInput | internalCreateOrConnectWithoutAuth_user_internal_id_userToauth_userInput[]
-    createMany?: internalCreateManyAuth_user_internal_id_userToauth_userInputEnvelope
-    connect?: internalWhereUniqueInput | internalWhereUniqueInput[]
   }
 
   export type notifCreateNestedManyWithoutAuth_userInput = {
@@ -67574,13 +67165,6 @@ export namespace Prisma {
     connectOrCreate?: notifCreateOrConnectWithoutAuth_userInput | notifCreateOrConnectWithoutAuth_userInput[]
     createMany?: notifCreateManyAuth_userInputEnvelope
     connect?: notifWhereUniqueInput | notifWhereUniqueInput[]
-  }
-
-  export type publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput = {
-    create?: XOR<publisherCreateWithoutAuth_user_publisher_id_userToauth_userInput, publisherUncheckedCreateWithoutAuth_user_publisher_id_userToauth_userInput> | publisherCreateWithoutAuth_user_publisher_id_userToauth_userInput[] | publisherUncheckedCreateWithoutAuth_user_publisher_id_userToauth_userInput[]
-    connectOrCreate?: publisherCreateOrConnectWithoutAuth_user_publisher_id_userToauth_userInput | publisherCreateOrConnectWithoutAuth_user_publisher_id_userToauth_userInput[]
-    createMany?: publisherCreateManyAuth_user_publisher_id_userToauth_userInputEnvelope
-    connect?: publisherWhereUniqueInput | publisherWhereUniqueInput[]
   }
 
   export type reviewsCreateNestedManyWithoutAuth_userInput = {
@@ -67595,13 +67179,6 @@ export namespace Prisma {
     connectOrCreate?: reviews_likesCreateOrConnectWithoutAuth_userInput | reviews_likesCreateOrConnectWithoutAuth_userInput[]
     createMany?: reviews_likesCreateManyAuth_userInputEnvelope
     connect?: reviews_likesWhereUniqueInput | reviews_likesWhereUniqueInput[]
-  }
-
-  export type affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput = {
-    create?: XOR<affiliateCreateWithoutAuth_user_affiliate_id_userToauth_userInput, affiliateUncheckedCreateWithoutAuth_user_affiliate_id_userToauth_userInput> | affiliateCreateWithoutAuth_user_affiliate_id_userToauth_userInput[] | affiliateUncheckedCreateWithoutAuth_user_affiliate_id_userToauth_userInput[]
-    connectOrCreate?: affiliateCreateOrConnectWithoutAuth_user_affiliate_id_userToauth_userInput | affiliateCreateOrConnectWithoutAuth_user_affiliate_id_userToauth_userInput[]
-    createMany?: affiliateCreateManyAuth_user_affiliate_id_userToauth_userInputEnvelope
-    connect?: affiliateWhereUniqueInput | affiliateWhereUniqueInput[]
   }
 
   export type auth_accountUncheckedCreateNestedManyWithoutAuth_userInput = {
@@ -67625,39 +67202,11 @@ export namespace Prisma {
     connect?: auth_two_factorWhereUniqueInput | auth_two_factorWhereUniqueInput[]
   }
 
-  export type authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput = {
-    create?: XOR<authorCreateWithoutAuth_user_author_id_userToauth_userInput, authorUncheckedCreateWithoutAuth_user_author_id_userToauth_userInput> | authorCreateWithoutAuth_user_author_id_userToauth_userInput[] | authorUncheckedCreateWithoutAuth_user_author_id_userToauth_userInput[]
-    connectOrCreate?: authorCreateOrConnectWithoutAuth_user_author_id_userToauth_userInput | authorCreateOrConnectWithoutAuth_user_author_id_userToauth_userInput[]
-    createMany?: authorCreateManyAuth_user_author_id_userToauth_userInputEnvelope
-    connect?: authorWhereUniqueInput | authorWhereUniqueInput[]
-  }
-
-  export type customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput = {
-    create?: XOR<customerCreateWithoutAuth_user_customer_id_userToauth_userInput, customerUncheckedCreateWithoutAuth_user_customer_id_userToauth_userInput> | customerCreateWithoutAuth_user_customer_id_userToauth_userInput[] | customerUncheckedCreateWithoutAuth_user_customer_id_userToauth_userInput[]
-    connectOrCreate?: customerCreateOrConnectWithoutAuth_user_customer_id_userToauth_userInput | customerCreateOrConnectWithoutAuth_user_customer_id_userToauth_userInput[]
-    createMany?: customerCreateManyAuth_user_customer_id_userToauth_userInputEnvelope
-    connect?: customerWhereUniqueInput | customerWhereUniqueInput[]
-  }
-
-  export type internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput = {
-    create?: XOR<internalCreateWithoutAuth_user_internal_id_userToauth_userInput, internalUncheckedCreateWithoutAuth_user_internal_id_userToauth_userInput> | internalCreateWithoutAuth_user_internal_id_userToauth_userInput[] | internalUncheckedCreateWithoutAuth_user_internal_id_userToauth_userInput[]
-    connectOrCreate?: internalCreateOrConnectWithoutAuth_user_internal_id_userToauth_userInput | internalCreateOrConnectWithoutAuth_user_internal_id_userToauth_userInput[]
-    createMany?: internalCreateManyAuth_user_internal_id_userToauth_userInputEnvelope
-    connect?: internalWhereUniqueInput | internalWhereUniqueInput[]
-  }
-
   export type notifUncheckedCreateNestedManyWithoutAuth_userInput = {
     create?: XOR<notifCreateWithoutAuth_userInput, notifUncheckedCreateWithoutAuth_userInput> | notifCreateWithoutAuth_userInput[] | notifUncheckedCreateWithoutAuth_userInput[]
     connectOrCreate?: notifCreateOrConnectWithoutAuth_userInput | notifCreateOrConnectWithoutAuth_userInput[]
     createMany?: notifCreateManyAuth_userInputEnvelope
     connect?: notifWhereUniqueInput | notifWhereUniqueInput[]
-  }
-
-  export type publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput = {
-    create?: XOR<publisherCreateWithoutAuth_user_publisher_id_userToauth_userInput, publisherUncheckedCreateWithoutAuth_user_publisher_id_userToauth_userInput> | publisherCreateWithoutAuth_user_publisher_id_userToauth_userInput[] | publisherUncheckedCreateWithoutAuth_user_publisher_id_userToauth_userInput[]
-    connectOrCreate?: publisherCreateOrConnectWithoutAuth_user_publisher_id_userToauth_userInput | publisherCreateOrConnectWithoutAuth_user_publisher_id_userToauth_userInput[]
-    createMany?: publisherCreateManyAuth_user_publisher_id_userToauth_userInputEnvelope
-    connect?: publisherWhereUniqueInput | publisherWhereUniqueInput[]
   }
 
   export type reviewsUncheckedCreateNestedManyWithoutAuth_userInput = {
@@ -67680,20 +67229,6 @@ export namespace Prisma {
 
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
-  }
-
-  export type affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput = {
-    create?: XOR<affiliateCreateWithoutAuth_user_affiliate_id_userToauth_userInput, affiliateUncheckedCreateWithoutAuth_user_affiliate_id_userToauth_userInput> | affiliateCreateWithoutAuth_user_affiliate_id_userToauth_userInput[] | affiliateUncheckedCreateWithoutAuth_user_affiliate_id_userToauth_userInput[]
-    connectOrCreate?: affiliateCreateOrConnectWithoutAuth_user_affiliate_id_userToauth_userInput | affiliateCreateOrConnectWithoutAuth_user_affiliate_id_userToauth_userInput[]
-    upsert?: affiliateUpsertWithWhereUniqueWithoutAuth_user_affiliate_id_userToauth_userInput | affiliateUpsertWithWhereUniqueWithoutAuth_user_affiliate_id_userToauth_userInput[]
-    createMany?: affiliateCreateManyAuth_user_affiliate_id_userToauth_userInputEnvelope
-    set?: affiliateWhereUniqueInput | affiliateWhereUniqueInput[]
-    disconnect?: affiliateWhereUniqueInput | affiliateWhereUniqueInput[]
-    delete?: affiliateWhereUniqueInput | affiliateWhereUniqueInput[]
-    connect?: affiliateWhereUniqueInput | affiliateWhereUniqueInput[]
-    update?: affiliateUpdateWithWhereUniqueWithoutAuth_user_affiliate_id_userToauth_userInput | affiliateUpdateWithWhereUniqueWithoutAuth_user_affiliate_id_userToauth_userInput[]
-    updateMany?: affiliateUpdateManyWithWhereWithoutAuth_user_affiliate_id_userToauth_userInput | affiliateUpdateManyWithWhereWithoutAuth_user_affiliate_id_userToauth_userInput[]
-    deleteMany?: affiliateScalarWhereInput | affiliateScalarWhereInput[]
   }
 
   export type auth_accountUpdateManyWithoutAuth_userNestedInput = {
@@ -67738,96 +67273,54 @@ export namespace Prisma {
     deleteMany?: auth_two_factorScalarWhereInput | auth_two_factorScalarWhereInput[]
   }
 
-  export type affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput = {
-    create?: XOR<affiliateCreateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput, affiliateUncheckedCreateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput>
-    connectOrCreate?: affiliateCreateOrConnectWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    upsert?: affiliateUpsertWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
+  export type affiliateUpdateOneWithoutAuth_userNestedInput = {
+    create?: XOR<affiliateCreateWithoutAuth_userInput, affiliateUncheckedCreateWithoutAuth_userInput>
+    connectOrCreate?: affiliateCreateOrConnectWithoutAuth_userInput
+    upsert?: affiliateUpsertWithoutAuth_userInput
     disconnect?: affiliateWhereInput | boolean
     delete?: affiliateWhereInput | boolean
     connect?: affiliateWhereUniqueInput
-    update?: XOR<XOR<affiliateUpdateToOneWithWhereWithoutAuth_user_auth_user_id_affiliateToaffiliateInput, affiliateUpdateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput>, affiliateUncheckedUpdateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput>
+    update?: XOR<XOR<affiliateUpdateToOneWithWhereWithoutAuth_userInput, affiliateUpdateWithoutAuth_userInput>, affiliateUncheckedUpdateWithoutAuth_userInput>
   }
 
-  export type authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput = {
-    create?: XOR<authorCreateWithoutAuth_user_auth_user_id_authorToauthorInput, authorUncheckedCreateWithoutAuth_user_auth_user_id_authorToauthorInput>
-    connectOrCreate?: authorCreateOrConnectWithoutAuth_user_auth_user_id_authorToauthorInput
-    upsert?: authorUpsertWithoutAuth_user_auth_user_id_authorToauthorInput
+  export type authorUpdateOneWithoutAuth_userNestedInput = {
+    create?: XOR<authorCreateWithoutAuth_userInput, authorUncheckedCreateWithoutAuth_userInput>
+    connectOrCreate?: authorCreateOrConnectWithoutAuth_userInput
+    upsert?: authorUpsertWithoutAuth_userInput
     disconnect?: authorWhereInput | boolean
     delete?: authorWhereInput | boolean
     connect?: authorWhereUniqueInput
-    update?: XOR<XOR<authorUpdateToOneWithWhereWithoutAuth_user_auth_user_id_authorToauthorInput, authorUpdateWithoutAuth_user_auth_user_id_authorToauthorInput>, authorUncheckedUpdateWithoutAuth_user_auth_user_id_authorToauthorInput>
+    update?: XOR<XOR<authorUpdateToOneWithWhereWithoutAuth_userInput, authorUpdateWithoutAuth_userInput>, authorUncheckedUpdateWithoutAuth_userInput>
   }
 
-  export type customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput = {
-    create?: XOR<customerCreateWithoutAuth_user_auth_user_id_customerTocustomerInput, customerUncheckedCreateWithoutAuth_user_auth_user_id_customerTocustomerInput>
-    connectOrCreate?: customerCreateOrConnectWithoutAuth_user_auth_user_id_customerTocustomerInput
-    upsert?: customerUpsertWithoutAuth_user_auth_user_id_customerTocustomerInput
+  export type customerUpdateOneWithoutAuth_userNestedInput = {
+    create?: XOR<customerCreateWithoutAuth_userInput, customerUncheckedCreateWithoutAuth_userInput>
+    connectOrCreate?: customerCreateOrConnectWithoutAuth_userInput
+    upsert?: customerUpsertWithoutAuth_userInput
     disconnect?: customerWhereInput | boolean
     delete?: customerWhereInput | boolean
     connect?: customerWhereUniqueInput
-    update?: XOR<XOR<customerUpdateToOneWithWhereWithoutAuth_user_auth_user_id_customerTocustomerInput, customerUpdateWithoutAuth_user_auth_user_id_customerTocustomerInput>, customerUncheckedUpdateWithoutAuth_user_auth_user_id_customerTocustomerInput>
+    update?: XOR<XOR<customerUpdateToOneWithWhereWithoutAuth_userInput, customerUpdateWithoutAuth_userInput>, customerUncheckedUpdateWithoutAuth_userInput>
   }
 
-  export type internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput = {
-    create?: XOR<internalCreateWithoutAuth_user_auth_user_id_internalTointernalInput, internalUncheckedCreateWithoutAuth_user_auth_user_id_internalTointernalInput>
-    connectOrCreate?: internalCreateOrConnectWithoutAuth_user_auth_user_id_internalTointernalInput
-    upsert?: internalUpsertWithoutAuth_user_auth_user_id_internalTointernalInput
+  export type internalUpdateOneWithoutAuth_userNestedInput = {
+    create?: XOR<internalCreateWithoutAuth_userInput, internalUncheckedCreateWithoutAuth_userInput>
+    connectOrCreate?: internalCreateOrConnectWithoutAuth_userInput
+    upsert?: internalUpsertWithoutAuth_userInput
     disconnect?: internalWhereInput | boolean
     delete?: internalWhereInput | boolean
     connect?: internalWhereUniqueInput
-    update?: XOR<XOR<internalUpdateToOneWithWhereWithoutAuth_user_auth_user_id_internalTointernalInput, internalUpdateWithoutAuth_user_auth_user_id_internalTointernalInput>, internalUncheckedUpdateWithoutAuth_user_auth_user_id_internalTointernalInput>
+    update?: XOR<XOR<internalUpdateToOneWithWhereWithoutAuth_userInput, internalUpdateWithoutAuth_userInput>, internalUncheckedUpdateWithoutAuth_userInput>
   }
 
-  export type publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput = {
-    create?: XOR<publisherCreateWithoutAuth_user_auth_user_id_publisherTopublisherInput, publisherUncheckedCreateWithoutAuth_user_auth_user_id_publisherTopublisherInput>
-    connectOrCreate?: publisherCreateOrConnectWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    upsert?: publisherUpsertWithoutAuth_user_auth_user_id_publisherTopublisherInput
+  export type publisherUpdateOneWithoutAuth_userNestedInput = {
+    create?: XOR<publisherCreateWithoutAuth_userInput, publisherUncheckedCreateWithoutAuth_userInput>
+    connectOrCreate?: publisherCreateOrConnectWithoutAuth_userInput
+    upsert?: publisherUpsertWithoutAuth_userInput
     disconnect?: publisherWhereInput | boolean
     delete?: publisherWhereInput | boolean
     connect?: publisherWhereUniqueInput
-    update?: XOR<XOR<publisherUpdateToOneWithWhereWithoutAuth_user_auth_user_id_publisherTopublisherInput, publisherUpdateWithoutAuth_user_auth_user_id_publisherTopublisherInput>, publisherUncheckedUpdateWithoutAuth_user_auth_user_id_publisherTopublisherInput>
-  }
-
-  export type authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput = {
-    create?: XOR<authorCreateWithoutAuth_user_author_id_userToauth_userInput, authorUncheckedCreateWithoutAuth_user_author_id_userToauth_userInput> | authorCreateWithoutAuth_user_author_id_userToauth_userInput[] | authorUncheckedCreateWithoutAuth_user_author_id_userToauth_userInput[]
-    connectOrCreate?: authorCreateOrConnectWithoutAuth_user_author_id_userToauth_userInput | authorCreateOrConnectWithoutAuth_user_author_id_userToauth_userInput[]
-    upsert?: authorUpsertWithWhereUniqueWithoutAuth_user_author_id_userToauth_userInput | authorUpsertWithWhereUniqueWithoutAuth_user_author_id_userToauth_userInput[]
-    createMany?: authorCreateManyAuth_user_author_id_userToauth_userInputEnvelope
-    set?: authorWhereUniqueInput | authorWhereUniqueInput[]
-    disconnect?: authorWhereUniqueInput | authorWhereUniqueInput[]
-    delete?: authorWhereUniqueInput | authorWhereUniqueInput[]
-    connect?: authorWhereUniqueInput | authorWhereUniqueInput[]
-    update?: authorUpdateWithWhereUniqueWithoutAuth_user_author_id_userToauth_userInput | authorUpdateWithWhereUniqueWithoutAuth_user_author_id_userToauth_userInput[]
-    updateMany?: authorUpdateManyWithWhereWithoutAuth_user_author_id_userToauth_userInput | authorUpdateManyWithWhereWithoutAuth_user_author_id_userToauth_userInput[]
-    deleteMany?: authorScalarWhereInput | authorScalarWhereInput[]
-  }
-
-  export type customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput = {
-    create?: XOR<customerCreateWithoutAuth_user_customer_id_userToauth_userInput, customerUncheckedCreateWithoutAuth_user_customer_id_userToauth_userInput> | customerCreateWithoutAuth_user_customer_id_userToauth_userInput[] | customerUncheckedCreateWithoutAuth_user_customer_id_userToauth_userInput[]
-    connectOrCreate?: customerCreateOrConnectWithoutAuth_user_customer_id_userToauth_userInput | customerCreateOrConnectWithoutAuth_user_customer_id_userToauth_userInput[]
-    upsert?: customerUpsertWithWhereUniqueWithoutAuth_user_customer_id_userToauth_userInput | customerUpsertWithWhereUniqueWithoutAuth_user_customer_id_userToauth_userInput[]
-    createMany?: customerCreateManyAuth_user_customer_id_userToauth_userInputEnvelope
-    set?: customerWhereUniqueInput | customerWhereUniqueInput[]
-    disconnect?: customerWhereUniqueInput | customerWhereUniqueInput[]
-    delete?: customerWhereUniqueInput | customerWhereUniqueInput[]
-    connect?: customerWhereUniqueInput | customerWhereUniqueInput[]
-    update?: customerUpdateWithWhereUniqueWithoutAuth_user_customer_id_userToauth_userInput | customerUpdateWithWhereUniqueWithoutAuth_user_customer_id_userToauth_userInput[]
-    updateMany?: customerUpdateManyWithWhereWithoutAuth_user_customer_id_userToauth_userInput | customerUpdateManyWithWhereWithoutAuth_user_customer_id_userToauth_userInput[]
-    deleteMany?: customerScalarWhereInput | customerScalarWhereInput[]
-  }
-
-  export type internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput = {
-    create?: XOR<internalCreateWithoutAuth_user_internal_id_userToauth_userInput, internalUncheckedCreateWithoutAuth_user_internal_id_userToauth_userInput> | internalCreateWithoutAuth_user_internal_id_userToauth_userInput[] | internalUncheckedCreateWithoutAuth_user_internal_id_userToauth_userInput[]
-    connectOrCreate?: internalCreateOrConnectWithoutAuth_user_internal_id_userToauth_userInput | internalCreateOrConnectWithoutAuth_user_internal_id_userToauth_userInput[]
-    upsert?: internalUpsertWithWhereUniqueWithoutAuth_user_internal_id_userToauth_userInput | internalUpsertWithWhereUniqueWithoutAuth_user_internal_id_userToauth_userInput[]
-    createMany?: internalCreateManyAuth_user_internal_id_userToauth_userInputEnvelope
-    set?: internalWhereUniqueInput | internalWhereUniqueInput[]
-    disconnect?: internalWhereUniqueInput | internalWhereUniqueInput[]
-    delete?: internalWhereUniqueInput | internalWhereUniqueInput[]
-    connect?: internalWhereUniqueInput | internalWhereUniqueInput[]
-    update?: internalUpdateWithWhereUniqueWithoutAuth_user_internal_id_userToauth_userInput | internalUpdateWithWhereUniqueWithoutAuth_user_internal_id_userToauth_userInput[]
-    updateMany?: internalUpdateManyWithWhereWithoutAuth_user_internal_id_userToauth_userInput | internalUpdateManyWithWhereWithoutAuth_user_internal_id_userToauth_userInput[]
-    deleteMany?: internalScalarWhereInput | internalScalarWhereInput[]
+    update?: XOR<XOR<publisherUpdateToOneWithWhereWithoutAuth_userInput, publisherUpdateWithoutAuth_userInput>, publisherUncheckedUpdateWithoutAuth_userInput>
   }
 
   export type notifUpdateManyWithoutAuth_userNestedInput = {
@@ -67842,20 +67335,6 @@ export namespace Prisma {
     update?: notifUpdateWithWhereUniqueWithoutAuth_userInput | notifUpdateWithWhereUniqueWithoutAuth_userInput[]
     updateMany?: notifUpdateManyWithWhereWithoutAuth_userInput | notifUpdateManyWithWhereWithoutAuth_userInput[]
     deleteMany?: notifScalarWhereInput | notifScalarWhereInput[]
-  }
-
-  export type publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput = {
-    create?: XOR<publisherCreateWithoutAuth_user_publisher_id_userToauth_userInput, publisherUncheckedCreateWithoutAuth_user_publisher_id_userToauth_userInput> | publisherCreateWithoutAuth_user_publisher_id_userToauth_userInput[] | publisherUncheckedCreateWithoutAuth_user_publisher_id_userToauth_userInput[]
-    connectOrCreate?: publisherCreateOrConnectWithoutAuth_user_publisher_id_userToauth_userInput | publisherCreateOrConnectWithoutAuth_user_publisher_id_userToauth_userInput[]
-    upsert?: publisherUpsertWithWhereUniqueWithoutAuth_user_publisher_id_userToauth_userInput | publisherUpsertWithWhereUniqueWithoutAuth_user_publisher_id_userToauth_userInput[]
-    createMany?: publisherCreateManyAuth_user_publisher_id_userToauth_userInputEnvelope
-    set?: publisherWhereUniqueInput | publisherWhereUniqueInput[]
-    disconnect?: publisherWhereUniqueInput | publisherWhereUniqueInput[]
-    delete?: publisherWhereUniqueInput | publisherWhereUniqueInput[]
-    connect?: publisherWhereUniqueInput | publisherWhereUniqueInput[]
-    update?: publisherUpdateWithWhereUniqueWithoutAuth_user_publisher_id_userToauth_userInput | publisherUpdateWithWhereUniqueWithoutAuth_user_publisher_id_userToauth_userInput[]
-    updateMany?: publisherUpdateManyWithWhereWithoutAuth_user_publisher_id_userToauth_userInput | publisherUpdateManyWithWhereWithoutAuth_user_publisher_id_userToauth_userInput[]
-    deleteMany?: publisherScalarWhereInput | publisherScalarWhereInput[]
   }
 
   export type reviewsUpdateManyWithoutAuth_userNestedInput = {
@@ -67884,20 +67363,6 @@ export namespace Prisma {
     update?: reviews_likesUpdateWithWhereUniqueWithoutAuth_userInput | reviews_likesUpdateWithWhereUniqueWithoutAuth_userInput[]
     updateMany?: reviews_likesUpdateManyWithWhereWithoutAuth_userInput | reviews_likesUpdateManyWithWhereWithoutAuth_userInput[]
     deleteMany?: reviews_likesScalarWhereInput | reviews_likesScalarWhereInput[]
-  }
-
-  export type affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput = {
-    create?: XOR<affiliateCreateWithoutAuth_user_affiliate_id_userToauth_userInput, affiliateUncheckedCreateWithoutAuth_user_affiliate_id_userToauth_userInput> | affiliateCreateWithoutAuth_user_affiliate_id_userToauth_userInput[] | affiliateUncheckedCreateWithoutAuth_user_affiliate_id_userToauth_userInput[]
-    connectOrCreate?: affiliateCreateOrConnectWithoutAuth_user_affiliate_id_userToauth_userInput | affiliateCreateOrConnectWithoutAuth_user_affiliate_id_userToauth_userInput[]
-    upsert?: affiliateUpsertWithWhereUniqueWithoutAuth_user_affiliate_id_userToauth_userInput | affiliateUpsertWithWhereUniqueWithoutAuth_user_affiliate_id_userToauth_userInput[]
-    createMany?: affiliateCreateManyAuth_user_affiliate_id_userToauth_userInputEnvelope
-    set?: affiliateWhereUniqueInput | affiliateWhereUniqueInput[]
-    disconnect?: affiliateWhereUniqueInput | affiliateWhereUniqueInput[]
-    delete?: affiliateWhereUniqueInput | affiliateWhereUniqueInput[]
-    connect?: affiliateWhereUniqueInput | affiliateWhereUniqueInput[]
-    update?: affiliateUpdateWithWhereUniqueWithoutAuth_user_affiliate_id_userToauth_userInput | affiliateUpdateWithWhereUniqueWithoutAuth_user_affiliate_id_userToauth_userInput[]
-    updateMany?: affiliateUpdateManyWithWhereWithoutAuth_user_affiliate_id_userToauth_userInput | affiliateUpdateManyWithWhereWithoutAuth_user_affiliate_id_userToauth_userInput[]
-    deleteMany?: affiliateScalarWhereInput | affiliateScalarWhereInput[]
   }
 
   export type auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput = {
@@ -67942,48 +67407,6 @@ export namespace Prisma {
     deleteMany?: auth_two_factorScalarWhereInput | auth_two_factorScalarWhereInput[]
   }
 
-  export type authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput = {
-    create?: XOR<authorCreateWithoutAuth_user_author_id_userToauth_userInput, authorUncheckedCreateWithoutAuth_user_author_id_userToauth_userInput> | authorCreateWithoutAuth_user_author_id_userToauth_userInput[] | authorUncheckedCreateWithoutAuth_user_author_id_userToauth_userInput[]
-    connectOrCreate?: authorCreateOrConnectWithoutAuth_user_author_id_userToauth_userInput | authorCreateOrConnectWithoutAuth_user_author_id_userToauth_userInput[]
-    upsert?: authorUpsertWithWhereUniqueWithoutAuth_user_author_id_userToauth_userInput | authorUpsertWithWhereUniqueWithoutAuth_user_author_id_userToauth_userInput[]
-    createMany?: authorCreateManyAuth_user_author_id_userToauth_userInputEnvelope
-    set?: authorWhereUniqueInput | authorWhereUniqueInput[]
-    disconnect?: authorWhereUniqueInput | authorWhereUniqueInput[]
-    delete?: authorWhereUniqueInput | authorWhereUniqueInput[]
-    connect?: authorWhereUniqueInput | authorWhereUniqueInput[]
-    update?: authorUpdateWithWhereUniqueWithoutAuth_user_author_id_userToauth_userInput | authorUpdateWithWhereUniqueWithoutAuth_user_author_id_userToauth_userInput[]
-    updateMany?: authorUpdateManyWithWhereWithoutAuth_user_author_id_userToauth_userInput | authorUpdateManyWithWhereWithoutAuth_user_author_id_userToauth_userInput[]
-    deleteMany?: authorScalarWhereInput | authorScalarWhereInput[]
-  }
-
-  export type customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput = {
-    create?: XOR<customerCreateWithoutAuth_user_customer_id_userToauth_userInput, customerUncheckedCreateWithoutAuth_user_customer_id_userToauth_userInput> | customerCreateWithoutAuth_user_customer_id_userToauth_userInput[] | customerUncheckedCreateWithoutAuth_user_customer_id_userToauth_userInput[]
-    connectOrCreate?: customerCreateOrConnectWithoutAuth_user_customer_id_userToauth_userInput | customerCreateOrConnectWithoutAuth_user_customer_id_userToauth_userInput[]
-    upsert?: customerUpsertWithWhereUniqueWithoutAuth_user_customer_id_userToauth_userInput | customerUpsertWithWhereUniqueWithoutAuth_user_customer_id_userToauth_userInput[]
-    createMany?: customerCreateManyAuth_user_customer_id_userToauth_userInputEnvelope
-    set?: customerWhereUniqueInput | customerWhereUniqueInput[]
-    disconnect?: customerWhereUniqueInput | customerWhereUniqueInput[]
-    delete?: customerWhereUniqueInput | customerWhereUniqueInput[]
-    connect?: customerWhereUniqueInput | customerWhereUniqueInput[]
-    update?: customerUpdateWithWhereUniqueWithoutAuth_user_customer_id_userToauth_userInput | customerUpdateWithWhereUniqueWithoutAuth_user_customer_id_userToauth_userInput[]
-    updateMany?: customerUpdateManyWithWhereWithoutAuth_user_customer_id_userToauth_userInput | customerUpdateManyWithWhereWithoutAuth_user_customer_id_userToauth_userInput[]
-    deleteMany?: customerScalarWhereInput | customerScalarWhereInput[]
-  }
-
-  export type internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput = {
-    create?: XOR<internalCreateWithoutAuth_user_internal_id_userToauth_userInput, internalUncheckedCreateWithoutAuth_user_internal_id_userToauth_userInput> | internalCreateWithoutAuth_user_internal_id_userToauth_userInput[] | internalUncheckedCreateWithoutAuth_user_internal_id_userToauth_userInput[]
-    connectOrCreate?: internalCreateOrConnectWithoutAuth_user_internal_id_userToauth_userInput | internalCreateOrConnectWithoutAuth_user_internal_id_userToauth_userInput[]
-    upsert?: internalUpsertWithWhereUniqueWithoutAuth_user_internal_id_userToauth_userInput | internalUpsertWithWhereUniqueWithoutAuth_user_internal_id_userToauth_userInput[]
-    createMany?: internalCreateManyAuth_user_internal_id_userToauth_userInputEnvelope
-    set?: internalWhereUniqueInput | internalWhereUniqueInput[]
-    disconnect?: internalWhereUniqueInput | internalWhereUniqueInput[]
-    delete?: internalWhereUniqueInput | internalWhereUniqueInput[]
-    connect?: internalWhereUniqueInput | internalWhereUniqueInput[]
-    update?: internalUpdateWithWhereUniqueWithoutAuth_user_internal_id_userToauth_userInput | internalUpdateWithWhereUniqueWithoutAuth_user_internal_id_userToauth_userInput[]
-    updateMany?: internalUpdateManyWithWhereWithoutAuth_user_internal_id_userToauth_userInput | internalUpdateManyWithWhereWithoutAuth_user_internal_id_userToauth_userInput[]
-    deleteMany?: internalScalarWhereInput | internalScalarWhereInput[]
-  }
-
   export type notifUncheckedUpdateManyWithoutAuth_userNestedInput = {
     create?: XOR<notifCreateWithoutAuth_userInput, notifUncheckedCreateWithoutAuth_userInput> | notifCreateWithoutAuth_userInput[] | notifUncheckedCreateWithoutAuth_userInput[]
     connectOrCreate?: notifCreateOrConnectWithoutAuth_userInput | notifCreateOrConnectWithoutAuth_userInput[]
@@ -67996,20 +67419,6 @@ export namespace Prisma {
     update?: notifUpdateWithWhereUniqueWithoutAuth_userInput | notifUpdateWithWhereUniqueWithoutAuth_userInput[]
     updateMany?: notifUpdateManyWithWhereWithoutAuth_userInput | notifUpdateManyWithWhereWithoutAuth_userInput[]
     deleteMany?: notifScalarWhereInput | notifScalarWhereInput[]
-  }
-
-  export type publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput = {
-    create?: XOR<publisherCreateWithoutAuth_user_publisher_id_userToauth_userInput, publisherUncheckedCreateWithoutAuth_user_publisher_id_userToauth_userInput> | publisherCreateWithoutAuth_user_publisher_id_userToauth_userInput[] | publisherUncheckedCreateWithoutAuth_user_publisher_id_userToauth_userInput[]
-    connectOrCreate?: publisherCreateOrConnectWithoutAuth_user_publisher_id_userToauth_userInput | publisherCreateOrConnectWithoutAuth_user_publisher_id_userToauth_userInput[]
-    upsert?: publisherUpsertWithWhereUniqueWithoutAuth_user_publisher_id_userToauth_userInput | publisherUpsertWithWhereUniqueWithoutAuth_user_publisher_id_userToauth_userInput[]
-    createMany?: publisherCreateManyAuth_user_publisher_id_userToauth_userInputEnvelope
-    set?: publisherWhereUniqueInput | publisherWhereUniqueInput[]
-    disconnect?: publisherWhereUniqueInput | publisherWhereUniqueInput[]
-    delete?: publisherWhereUniqueInput | publisherWhereUniqueInput[]
-    connect?: publisherWhereUniqueInput | publisherWhereUniqueInput[]
-    update?: publisherUpdateWithWhereUniqueWithoutAuth_user_publisher_id_userToauth_userInput | publisherUpdateWithWhereUniqueWithoutAuth_user_publisher_id_userToauth_userInput[]
-    updateMany?: publisherUpdateManyWithWhereWithoutAuth_user_publisher_id_userToauth_userInput | publisherUpdateManyWithWhereWithoutAuth_user_publisher_id_userToauth_userInput[]
-    deleteMany?: publisherScalarWhereInput | publisherScalarWhereInput[]
   }
 
   export type reviewsUncheckedUpdateManyWithoutAuth_userNestedInput = {
@@ -68040,10 +67449,10 @@ export namespace Prisma {
     deleteMany?: reviews_likesScalarWhereInput | reviews_likesScalarWhereInput[]
   }
 
-  export type auth_userCreateNestedManyWithoutAuthor_auth_user_id_authorToauthorInput = {
-    create?: XOR<auth_userCreateWithoutAuthor_auth_user_id_authorToauthorInput, auth_userUncheckedCreateWithoutAuthor_auth_user_id_authorToauthorInput> | auth_userCreateWithoutAuthor_auth_user_id_authorToauthorInput[] | auth_userUncheckedCreateWithoutAuthor_auth_user_id_authorToauthorInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutAuthor_auth_user_id_authorToauthorInput | auth_userCreateOrConnectWithoutAuthor_auth_user_id_authorToauthorInput[]
-    createMany?: auth_userCreateManyAuthor_auth_user_id_authorToauthorInputEnvelope
+  export type auth_userCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<auth_userCreateWithoutAuthorInput, auth_userUncheckedCreateWithoutAuthorInput> | auth_userCreateWithoutAuthorInput[] | auth_userUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutAuthorInput | auth_userCreateOrConnectWithoutAuthorInput[]
+    createMany?: auth_userCreateManyAuthorInputEnvelope
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
   }
 
@@ -68051,12 +67460,6 @@ export namespace Prisma {
     create?: XOR<auth_accountCreateWithoutAuthorInput, auth_accountUncheckedCreateWithoutAuthorInput>
     connectOrCreate?: auth_accountCreateOrConnectWithoutAuthorInput
     connect?: auth_accountWhereUniqueInput
-  }
-
-  export type auth_userCreateNestedOneWithoutAuthor_author_id_userToauth_userInput = {
-    create?: XOR<auth_userCreateWithoutAuthor_author_id_userToauth_userInput, auth_userUncheckedCreateWithoutAuthor_author_id_userToauth_userInput>
-    connectOrCreate?: auth_userCreateOrConnectWithoutAuthor_author_id_userToauth_userInput
-    connect?: auth_userWhereUniqueInput
   }
 
   export type bookCreateNestedManyWithoutAuthorInput = {
@@ -68080,10 +67483,10 @@ export namespace Prisma {
     connect?: publisher_authorWhereUniqueInput | publisher_authorWhereUniqueInput[]
   }
 
-  export type auth_userUncheckedCreateNestedManyWithoutAuthor_auth_user_id_authorToauthorInput = {
-    create?: XOR<auth_userCreateWithoutAuthor_auth_user_id_authorToauthorInput, auth_userUncheckedCreateWithoutAuthor_auth_user_id_authorToauthorInput> | auth_userCreateWithoutAuthor_auth_user_id_authorToauthorInput[] | auth_userUncheckedCreateWithoutAuthor_auth_user_id_authorToauthorInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutAuthor_auth_user_id_authorToauthorInput | auth_userCreateOrConnectWithoutAuthor_auth_user_id_authorToauthorInput[]
-    createMany?: auth_userCreateManyAuthor_auth_user_id_authorToauthorInputEnvelope
+  export type auth_userUncheckedCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<auth_userCreateWithoutAuthorInput, auth_userUncheckedCreateWithoutAuthorInput> | auth_userCreateWithoutAuthorInput[] | auth_userUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutAuthorInput | auth_userCreateOrConnectWithoutAuthorInput[]
+    createMany?: auth_userCreateManyAuthorInputEnvelope
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
   }
 
@@ -68108,17 +67511,17 @@ export namespace Prisma {
     connect?: publisher_authorWhereUniqueInput | publisher_authorWhereUniqueInput[]
   }
 
-  export type auth_userUpdateManyWithoutAuthor_auth_user_id_authorToauthorNestedInput = {
-    create?: XOR<auth_userCreateWithoutAuthor_auth_user_id_authorToauthorInput, auth_userUncheckedCreateWithoutAuthor_auth_user_id_authorToauthorInput> | auth_userCreateWithoutAuthor_auth_user_id_authorToauthorInput[] | auth_userUncheckedCreateWithoutAuthor_auth_user_id_authorToauthorInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutAuthor_auth_user_id_authorToauthorInput | auth_userCreateOrConnectWithoutAuthor_auth_user_id_authorToauthorInput[]
-    upsert?: auth_userUpsertWithWhereUniqueWithoutAuthor_auth_user_id_authorToauthorInput | auth_userUpsertWithWhereUniqueWithoutAuthor_auth_user_id_authorToauthorInput[]
-    createMany?: auth_userCreateManyAuthor_auth_user_id_authorToauthorInputEnvelope
+  export type auth_userUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<auth_userCreateWithoutAuthorInput, auth_userUncheckedCreateWithoutAuthorInput> | auth_userCreateWithoutAuthorInput[] | auth_userUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutAuthorInput | auth_userCreateOrConnectWithoutAuthorInput[]
+    upsert?: auth_userUpsertWithWhereUniqueWithoutAuthorInput | auth_userUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: auth_userCreateManyAuthorInputEnvelope
     set?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     disconnect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     delete?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
-    update?: auth_userUpdateWithWhereUniqueWithoutAuthor_auth_user_id_authorToauthorInput | auth_userUpdateWithWhereUniqueWithoutAuthor_auth_user_id_authorToauthorInput[]
-    updateMany?: auth_userUpdateManyWithWhereWithoutAuthor_auth_user_id_authorToauthorInput | auth_userUpdateManyWithWhereWithoutAuthor_auth_user_id_authorToauthorInput[]
+    update?: auth_userUpdateWithWhereUniqueWithoutAuthorInput | auth_userUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: auth_userUpdateManyWithWhereWithoutAuthorInput | auth_userUpdateManyWithWhereWithoutAuthorInput[]
     deleteMany?: auth_userScalarWhereInput | auth_userScalarWhereInput[]
   }
 
@@ -68130,16 +67533,6 @@ export namespace Prisma {
     delete?: auth_accountWhereInput | boolean
     connect?: auth_accountWhereUniqueInput
     update?: XOR<XOR<auth_accountUpdateToOneWithWhereWithoutAuthorInput, auth_accountUpdateWithoutAuthorInput>, auth_accountUncheckedUpdateWithoutAuthorInput>
-  }
-
-  export type auth_userUpdateOneWithoutAuthor_author_id_userToauth_userNestedInput = {
-    create?: XOR<auth_userCreateWithoutAuthor_author_id_userToauth_userInput, auth_userUncheckedCreateWithoutAuthor_author_id_userToauth_userInput>
-    connectOrCreate?: auth_userCreateOrConnectWithoutAuthor_author_id_userToauth_userInput
-    upsert?: auth_userUpsertWithoutAuthor_author_id_userToauth_userInput
-    disconnect?: auth_userWhereInput | boolean
-    delete?: auth_userWhereInput | boolean
-    connect?: auth_userWhereUniqueInput
-    update?: XOR<XOR<auth_userUpdateToOneWithWhereWithoutAuthor_author_id_userToauth_userInput, auth_userUpdateWithoutAuthor_author_id_userToauth_userInput>, auth_userUncheckedUpdateWithoutAuthor_author_id_userToauth_userInput>
   }
 
   export type bookUpdateManyWithoutAuthorNestedInput = {
@@ -68184,17 +67577,17 @@ export namespace Prisma {
     deleteMany?: publisher_authorScalarWhereInput | publisher_authorScalarWhereInput[]
   }
 
-  export type auth_userUncheckedUpdateManyWithoutAuthor_auth_user_id_authorToauthorNestedInput = {
-    create?: XOR<auth_userCreateWithoutAuthor_auth_user_id_authorToauthorInput, auth_userUncheckedCreateWithoutAuthor_auth_user_id_authorToauthorInput> | auth_userCreateWithoutAuthor_auth_user_id_authorToauthorInput[] | auth_userUncheckedCreateWithoutAuthor_auth_user_id_authorToauthorInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutAuthor_auth_user_id_authorToauthorInput | auth_userCreateOrConnectWithoutAuthor_auth_user_id_authorToauthorInput[]
-    upsert?: auth_userUpsertWithWhereUniqueWithoutAuthor_auth_user_id_authorToauthorInput | auth_userUpsertWithWhereUniqueWithoutAuthor_auth_user_id_authorToauthorInput[]
-    createMany?: auth_userCreateManyAuthor_auth_user_id_authorToauthorInputEnvelope
+  export type auth_userUncheckedUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<auth_userCreateWithoutAuthorInput, auth_userUncheckedCreateWithoutAuthorInput> | auth_userCreateWithoutAuthorInput[] | auth_userUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutAuthorInput | auth_userCreateOrConnectWithoutAuthorInput[]
+    upsert?: auth_userUpsertWithWhereUniqueWithoutAuthorInput | auth_userUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: auth_userCreateManyAuthorInputEnvelope
     set?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     disconnect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     delete?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
-    update?: auth_userUpdateWithWhereUniqueWithoutAuthor_auth_user_id_authorToauthorInput | auth_userUpdateWithWhereUniqueWithoutAuthor_auth_user_id_authorToauthorInput[]
-    updateMany?: auth_userUpdateManyWithWhereWithoutAuthor_auth_user_id_authorToauthorInput | auth_userUpdateManyWithWhereWithoutAuthor_auth_user_id_authorToauthorInput[]
+    update?: auth_userUpdateWithWhereUniqueWithoutAuthorInput | auth_userUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: auth_userUpdateManyWithWhereWithoutAuthorInput | auth_userUpdateManyWithWhereWithoutAuthorInput[]
     deleteMany?: auth_userScalarWhereInput | auth_userScalarWhereInput[]
   }
 
@@ -69054,10 +68447,10 @@ export namespace Prisma {
     update?: XOR<XOR<productUpdateToOneWithWhereWithoutChapterInput, productUpdateWithoutChapterInput>, productUncheckedUpdateWithoutChapterInput>
   }
 
-  export type auth_userCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput = {
-    create?: XOR<auth_userCreateWithoutCustomer_auth_user_id_customerTocustomerInput, auth_userUncheckedCreateWithoutCustomer_auth_user_id_customerTocustomerInput> | auth_userCreateWithoutCustomer_auth_user_id_customerTocustomerInput[] | auth_userUncheckedCreateWithoutCustomer_auth_user_id_customerTocustomerInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutCustomer_auth_user_id_customerTocustomerInput | auth_userCreateOrConnectWithoutCustomer_auth_user_id_customerTocustomerInput[]
-    createMany?: auth_userCreateManyCustomer_auth_user_id_customerTocustomerInputEnvelope
+  export type auth_userCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<auth_userCreateWithoutCustomerInput, auth_userUncheckedCreateWithoutCustomerInput> | auth_userCreateWithoutCustomerInput[] | auth_userUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutCustomerInput | auth_userCreateOrConnectWithoutCustomerInput[]
+    createMany?: auth_userCreateManyCustomerInputEnvelope
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
   }
 
@@ -69065,12 +68458,6 @@ export namespace Prisma {
     create?: XOR<auth_accountCreateWithoutCustomerInput, auth_accountUncheckedCreateWithoutCustomerInput>
     connectOrCreate?: auth_accountCreateOrConnectWithoutCustomerInput
     connect?: auth_accountWhereUniqueInput
-  }
-
-  export type auth_userCreateNestedOneWithoutCustomer_customer_id_userToauth_userInput = {
-    create?: XOR<auth_userCreateWithoutCustomer_customer_id_userToauth_userInput, auth_userUncheckedCreateWithoutCustomer_customer_id_userToauth_userInput>
-    connectOrCreate?: auth_userCreateOrConnectWithoutCustomer_customer_id_userToauth_userInput
-    connect?: auth_userWhereUniqueInput
   }
 
   export type customer_readerCreateNestedManyWithoutCustomerInput = {
@@ -69101,10 +68488,10 @@ export namespace Prisma {
     connect?: t_sales_downloadWhereUniqueInput | t_sales_downloadWhereUniqueInput[]
   }
 
-  export type auth_userUncheckedCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput = {
-    create?: XOR<auth_userCreateWithoutCustomer_auth_user_id_customerTocustomerInput, auth_userUncheckedCreateWithoutCustomer_auth_user_id_customerTocustomerInput> | auth_userCreateWithoutCustomer_auth_user_id_customerTocustomerInput[] | auth_userUncheckedCreateWithoutCustomer_auth_user_id_customerTocustomerInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutCustomer_auth_user_id_customerTocustomerInput | auth_userCreateOrConnectWithoutCustomer_auth_user_id_customerTocustomerInput[]
-    createMany?: auth_userCreateManyCustomer_auth_user_id_customerTocustomerInputEnvelope
+  export type auth_userUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<auth_userCreateWithoutCustomerInput, auth_userUncheckedCreateWithoutCustomerInput> | auth_userCreateWithoutCustomerInput[] | auth_userUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutCustomerInput | auth_userCreateOrConnectWithoutCustomerInput[]
+    createMany?: auth_userCreateManyCustomerInputEnvelope
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
   }
 
@@ -69136,17 +68523,17 @@ export namespace Prisma {
     connect?: t_sales_downloadWhereUniqueInput | t_sales_downloadWhereUniqueInput[]
   }
 
-  export type auth_userUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput = {
-    create?: XOR<auth_userCreateWithoutCustomer_auth_user_id_customerTocustomerInput, auth_userUncheckedCreateWithoutCustomer_auth_user_id_customerTocustomerInput> | auth_userCreateWithoutCustomer_auth_user_id_customerTocustomerInput[] | auth_userUncheckedCreateWithoutCustomer_auth_user_id_customerTocustomerInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutCustomer_auth_user_id_customerTocustomerInput | auth_userCreateOrConnectWithoutCustomer_auth_user_id_customerTocustomerInput[]
-    upsert?: auth_userUpsertWithWhereUniqueWithoutCustomer_auth_user_id_customerTocustomerInput | auth_userUpsertWithWhereUniqueWithoutCustomer_auth_user_id_customerTocustomerInput[]
-    createMany?: auth_userCreateManyCustomer_auth_user_id_customerTocustomerInputEnvelope
+  export type auth_userUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<auth_userCreateWithoutCustomerInput, auth_userUncheckedCreateWithoutCustomerInput> | auth_userCreateWithoutCustomerInput[] | auth_userUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutCustomerInput | auth_userCreateOrConnectWithoutCustomerInput[]
+    upsert?: auth_userUpsertWithWhereUniqueWithoutCustomerInput | auth_userUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: auth_userCreateManyCustomerInputEnvelope
     set?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     disconnect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     delete?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
-    update?: auth_userUpdateWithWhereUniqueWithoutCustomer_auth_user_id_customerTocustomerInput | auth_userUpdateWithWhereUniqueWithoutCustomer_auth_user_id_customerTocustomerInput[]
-    updateMany?: auth_userUpdateManyWithWhereWithoutCustomer_auth_user_id_customerTocustomerInput | auth_userUpdateManyWithWhereWithoutCustomer_auth_user_id_customerTocustomerInput[]
+    update?: auth_userUpdateWithWhereUniqueWithoutCustomerInput | auth_userUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: auth_userUpdateManyWithWhereWithoutCustomerInput | auth_userUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: auth_userScalarWhereInput | auth_userScalarWhereInput[]
   }
 
@@ -69158,16 +68545,6 @@ export namespace Prisma {
     delete?: auth_accountWhereInput | boolean
     connect?: auth_accountWhereUniqueInput
     update?: XOR<XOR<auth_accountUpdateToOneWithWhereWithoutCustomerInput, auth_accountUpdateWithoutCustomerInput>, auth_accountUncheckedUpdateWithoutCustomerInput>
-  }
-
-  export type auth_userUpdateOneWithoutCustomer_customer_id_userToauth_userNestedInput = {
-    create?: XOR<auth_userCreateWithoutCustomer_customer_id_userToauth_userInput, auth_userUncheckedCreateWithoutCustomer_customer_id_userToauth_userInput>
-    connectOrCreate?: auth_userCreateOrConnectWithoutCustomer_customer_id_userToauth_userInput
-    upsert?: auth_userUpsertWithoutCustomer_customer_id_userToauth_userInput
-    disconnect?: auth_userWhereInput | boolean
-    delete?: auth_userWhereInput | boolean
-    connect?: auth_userWhereUniqueInput
-    update?: XOR<XOR<auth_userUpdateToOneWithWhereWithoutCustomer_customer_id_userToauth_userInput, auth_userUpdateWithoutCustomer_customer_id_userToauth_userInput>, auth_userUncheckedUpdateWithoutCustomer_customer_id_userToauth_userInput>
   }
 
   export type customer_readerUpdateManyWithoutCustomerNestedInput = {
@@ -69226,17 +68603,17 @@ export namespace Prisma {
     deleteMany?: t_sales_downloadScalarWhereInput | t_sales_downloadScalarWhereInput[]
   }
 
-  export type auth_userUncheckedUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput = {
-    create?: XOR<auth_userCreateWithoutCustomer_auth_user_id_customerTocustomerInput, auth_userUncheckedCreateWithoutCustomer_auth_user_id_customerTocustomerInput> | auth_userCreateWithoutCustomer_auth_user_id_customerTocustomerInput[] | auth_userUncheckedCreateWithoutCustomer_auth_user_id_customerTocustomerInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutCustomer_auth_user_id_customerTocustomerInput | auth_userCreateOrConnectWithoutCustomer_auth_user_id_customerTocustomerInput[]
-    upsert?: auth_userUpsertWithWhereUniqueWithoutCustomer_auth_user_id_customerTocustomerInput | auth_userUpsertWithWhereUniqueWithoutCustomer_auth_user_id_customerTocustomerInput[]
-    createMany?: auth_userCreateManyCustomer_auth_user_id_customerTocustomerInputEnvelope
+  export type auth_userUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<auth_userCreateWithoutCustomerInput, auth_userUncheckedCreateWithoutCustomerInput> | auth_userCreateWithoutCustomerInput[] | auth_userUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutCustomerInput | auth_userCreateOrConnectWithoutCustomerInput[]
+    upsert?: auth_userUpsertWithWhereUniqueWithoutCustomerInput | auth_userUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: auth_userCreateManyCustomerInputEnvelope
     set?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     disconnect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     delete?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
-    update?: auth_userUpdateWithWhereUniqueWithoutCustomer_auth_user_id_customerTocustomerInput | auth_userUpdateWithWhereUniqueWithoutCustomer_auth_user_id_customerTocustomerInput[]
-    updateMany?: auth_userUpdateManyWithWhereWithoutCustomer_auth_user_id_customerTocustomerInput | auth_userUpdateManyWithWhereWithoutCustomer_auth_user_id_customerTocustomerInput[]
+    update?: auth_userUpdateWithWhereUniqueWithoutCustomerInput | auth_userUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: auth_userUpdateManyWithWhereWithoutCustomerInput | auth_userUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: auth_userScalarWhereInput | auth_userScalarWhereInput[]
   }
 
@@ -69438,10 +68815,10 @@ export namespace Prisma {
     deleteMany?: genreScalarWhereInput | genreScalarWhereInput[]
   }
 
-  export type auth_userCreateNestedManyWithoutInternal_auth_user_id_internalTointernalInput = {
-    create?: XOR<auth_userCreateWithoutInternal_auth_user_id_internalTointernalInput, auth_userUncheckedCreateWithoutInternal_auth_user_id_internalTointernalInput> | auth_userCreateWithoutInternal_auth_user_id_internalTointernalInput[] | auth_userUncheckedCreateWithoutInternal_auth_user_id_internalTointernalInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutInternal_auth_user_id_internalTointernalInput | auth_userCreateOrConnectWithoutInternal_auth_user_id_internalTointernalInput[]
-    createMany?: auth_userCreateManyInternal_auth_user_id_internalTointernalInputEnvelope
+  export type auth_userCreateNestedManyWithoutInternalInput = {
+    create?: XOR<auth_userCreateWithoutInternalInput, auth_userUncheckedCreateWithoutInternalInput> | auth_userCreateWithoutInternalInput[] | auth_userUncheckedCreateWithoutInternalInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutInternalInput | auth_userCreateOrConnectWithoutInternalInput[]
+    createMany?: auth_userCreateManyInternalInputEnvelope
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
   }
 
@@ -69458,16 +68835,10 @@ export namespace Prisma {
     connect?: auth_accountWhereUniqueInput
   }
 
-  export type auth_userCreateNestedOneWithoutInternal_internal_id_userToauth_userInput = {
-    create?: XOR<auth_userCreateWithoutInternal_internal_id_userToauth_userInput, auth_userUncheckedCreateWithoutInternal_internal_id_userToauth_userInput>
-    connectOrCreate?: auth_userCreateOrConnectWithoutInternal_internal_id_userToauth_userInput
-    connect?: auth_userWhereUniqueInput
-  }
-
-  export type auth_userUncheckedCreateNestedManyWithoutInternal_auth_user_id_internalTointernalInput = {
-    create?: XOR<auth_userCreateWithoutInternal_auth_user_id_internalTointernalInput, auth_userUncheckedCreateWithoutInternal_auth_user_id_internalTointernalInput> | auth_userCreateWithoutInternal_auth_user_id_internalTointernalInput[] | auth_userUncheckedCreateWithoutInternal_auth_user_id_internalTointernalInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutInternal_auth_user_id_internalTointernalInput | auth_userCreateOrConnectWithoutInternal_auth_user_id_internalTointernalInput[]
-    createMany?: auth_userCreateManyInternal_auth_user_id_internalTointernalInputEnvelope
+  export type auth_userUncheckedCreateNestedManyWithoutInternalInput = {
+    create?: XOR<auth_userCreateWithoutInternalInput, auth_userUncheckedCreateWithoutInternalInput> | auth_userCreateWithoutInternalInput[] | auth_userUncheckedCreateWithoutInternalInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutInternalInput | auth_userCreateOrConnectWithoutInternalInput[]
+    createMany?: auth_userCreateManyInternalInputEnvelope
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
   }
 
@@ -69478,17 +68849,17 @@ export namespace Prisma {
     connect?: book_approvalWhereUniqueInput | book_approvalWhereUniqueInput[]
   }
 
-  export type auth_userUpdateManyWithoutInternal_auth_user_id_internalTointernalNestedInput = {
-    create?: XOR<auth_userCreateWithoutInternal_auth_user_id_internalTointernalInput, auth_userUncheckedCreateWithoutInternal_auth_user_id_internalTointernalInput> | auth_userCreateWithoutInternal_auth_user_id_internalTointernalInput[] | auth_userUncheckedCreateWithoutInternal_auth_user_id_internalTointernalInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutInternal_auth_user_id_internalTointernalInput | auth_userCreateOrConnectWithoutInternal_auth_user_id_internalTointernalInput[]
-    upsert?: auth_userUpsertWithWhereUniqueWithoutInternal_auth_user_id_internalTointernalInput | auth_userUpsertWithWhereUniqueWithoutInternal_auth_user_id_internalTointernalInput[]
-    createMany?: auth_userCreateManyInternal_auth_user_id_internalTointernalInputEnvelope
+  export type auth_userUpdateManyWithoutInternalNestedInput = {
+    create?: XOR<auth_userCreateWithoutInternalInput, auth_userUncheckedCreateWithoutInternalInput> | auth_userCreateWithoutInternalInput[] | auth_userUncheckedCreateWithoutInternalInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutInternalInput | auth_userCreateOrConnectWithoutInternalInput[]
+    upsert?: auth_userUpsertWithWhereUniqueWithoutInternalInput | auth_userUpsertWithWhereUniqueWithoutInternalInput[]
+    createMany?: auth_userCreateManyInternalInputEnvelope
     set?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     disconnect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     delete?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
-    update?: auth_userUpdateWithWhereUniqueWithoutInternal_auth_user_id_internalTointernalInput | auth_userUpdateWithWhereUniqueWithoutInternal_auth_user_id_internalTointernalInput[]
-    updateMany?: auth_userUpdateManyWithWhereWithoutInternal_auth_user_id_internalTointernalInput | auth_userUpdateManyWithWhereWithoutInternal_auth_user_id_internalTointernalInput[]
+    update?: auth_userUpdateWithWhereUniqueWithoutInternalInput | auth_userUpdateWithWhereUniqueWithoutInternalInput[]
+    updateMany?: auth_userUpdateManyWithWhereWithoutInternalInput | auth_userUpdateManyWithWhereWithoutInternalInput[]
     deleteMany?: auth_userScalarWhereInput | auth_userScalarWhereInput[]
   }
 
@@ -69516,27 +68887,17 @@ export namespace Prisma {
     update?: XOR<XOR<auth_accountUpdateToOneWithWhereWithoutInternalInput, auth_accountUpdateWithoutInternalInput>, auth_accountUncheckedUpdateWithoutInternalInput>
   }
 
-  export type auth_userUpdateOneWithoutInternal_internal_id_userToauth_userNestedInput = {
-    create?: XOR<auth_userCreateWithoutInternal_internal_id_userToauth_userInput, auth_userUncheckedCreateWithoutInternal_internal_id_userToauth_userInput>
-    connectOrCreate?: auth_userCreateOrConnectWithoutInternal_internal_id_userToauth_userInput
-    upsert?: auth_userUpsertWithoutInternal_internal_id_userToauth_userInput
-    disconnect?: auth_userWhereInput | boolean
-    delete?: auth_userWhereInput | boolean
-    connect?: auth_userWhereUniqueInput
-    update?: XOR<XOR<auth_userUpdateToOneWithWhereWithoutInternal_internal_id_userToauth_userInput, auth_userUpdateWithoutInternal_internal_id_userToauth_userInput>, auth_userUncheckedUpdateWithoutInternal_internal_id_userToauth_userInput>
-  }
-
-  export type auth_userUncheckedUpdateManyWithoutInternal_auth_user_id_internalTointernalNestedInput = {
-    create?: XOR<auth_userCreateWithoutInternal_auth_user_id_internalTointernalInput, auth_userUncheckedCreateWithoutInternal_auth_user_id_internalTointernalInput> | auth_userCreateWithoutInternal_auth_user_id_internalTointernalInput[] | auth_userUncheckedCreateWithoutInternal_auth_user_id_internalTointernalInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutInternal_auth_user_id_internalTointernalInput | auth_userCreateOrConnectWithoutInternal_auth_user_id_internalTointernalInput[]
-    upsert?: auth_userUpsertWithWhereUniqueWithoutInternal_auth_user_id_internalTointernalInput | auth_userUpsertWithWhereUniqueWithoutInternal_auth_user_id_internalTointernalInput[]
-    createMany?: auth_userCreateManyInternal_auth_user_id_internalTointernalInputEnvelope
+  export type auth_userUncheckedUpdateManyWithoutInternalNestedInput = {
+    create?: XOR<auth_userCreateWithoutInternalInput, auth_userUncheckedCreateWithoutInternalInput> | auth_userCreateWithoutInternalInput[] | auth_userUncheckedCreateWithoutInternalInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutInternalInput | auth_userCreateOrConnectWithoutInternalInput[]
+    upsert?: auth_userUpsertWithWhereUniqueWithoutInternalInput | auth_userUpsertWithWhereUniqueWithoutInternalInput[]
+    createMany?: auth_userCreateManyInternalInputEnvelope
     set?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     disconnect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     delete?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
-    update?: auth_userUpdateWithWhereUniqueWithoutInternal_auth_user_id_internalTointernalInput | auth_userUpdateWithWhereUniqueWithoutInternal_auth_user_id_internalTointernalInput[]
-    updateMany?: auth_userUpdateManyWithWhereWithoutInternal_auth_user_id_internalTointernalInput | auth_userUpdateManyWithWhereWithoutInternal_auth_user_id_internalTointernalInput[]
+    update?: auth_userUpdateWithWhereUniqueWithoutInternalInput | auth_userUpdateWithWhereUniqueWithoutInternalInput[]
+    updateMany?: auth_userUpdateManyWithWhereWithoutInternalInput | auth_userUpdateManyWithWhereWithoutInternalInput[]
     deleteMany?: auth_userScalarWhereInput | auth_userScalarWhereInput[]
   }
 
@@ -70032,10 +69393,10 @@ export namespace Prisma {
     update?: XOR<XOR<publisherUpdateToOneWithWhereWithoutPromo_codeInput, publisherUpdateWithoutPromo_codeInput>, publisherUncheckedUpdateWithoutPromo_codeInput>
   }
 
-  export type auth_userCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput = {
-    create?: XOR<auth_userCreateWithoutPublisher_auth_user_id_publisherTopublisherInput, auth_userUncheckedCreateWithoutPublisher_auth_user_id_publisherTopublisherInput> | auth_userCreateWithoutPublisher_auth_user_id_publisherTopublisherInput[] | auth_userUncheckedCreateWithoutPublisher_auth_user_id_publisherTopublisherInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutPublisher_auth_user_id_publisherTopublisherInput | auth_userCreateOrConnectWithoutPublisher_auth_user_id_publisherTopublisherInput[]
-    createMany?: auth_userCreateManyPublisher_auth_user_id_publisherTopublisherInputEnvelope
+  export type auth_userCreateNestedManyWithoutPublisherInput = {
+    create?: XOR<auth_userCreateWithoutPublisherInput, auth_userUncheckedCreateWithoutPublisherInput> | auth_userCreateWithoutPublisherInput[] | auth_userUncheckedCreateWithoutPublisherInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutPublisherInput | auth_userCreateOrConnectWithoutPublisherInput[]
+    createMany?: auth_userCreateManyPublisherInputEnvelope
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
   }
 
@@ -70050,12 +69411,6 @@ export namespace Prisma {
     create?: XOR<auth_accountCreateWithoutPublisherInput, auth_accountUncheckedCreateWithoutPublisherInput>
     connectOrCreate?: auth_accountCreateOrConnectWithoutPublisherInput
     connect?: auth_accountWhereUniqueInput
-  }
-
-  export type auth_userCreateNestedOneWithoutPublisher_publisher_id_userToauth_userInput = {
-    create?: XOR<auth_userCreateWithoutPublisher_publisher_id_userToauth_userInput, auth_userUncheckedCreateWithoutPublisher_publisher_id_userToauth_userInput>
-    connectOrCreate?: auth_userCreateOrConnectWithoutPublisher_publisher_id_userToauth_userInput
-    connect?: auth_userWhereUniqueInput
   }
 
   export type publisher_authorCreateNestedManyWithoutPublisherInput = {
@@ -70086,10 +69441,10 @@ export namespace Prisma {
     connect?: withdrawalWhereUniqueInput | withdrawalWhereUniqueInput[]
   }
 
-  export type auth_userUncheckedCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput = {
-    create?: XOR<auth_userCreateWithoutPublisher_auth_user_id_publisherTopublisherInput, auth_userUncheckedCreateWithoutPublisher_auth_user_id_publisherTopublisherInput> | auth_userCreateWithoutPublisher_auth_user_id_publisherTopublisherInput[] | auth_userUncheckedCreateWithoutPublisher_auth_user_id_publisherTopublisherInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutPublisher_auth_user_id_publisherTopublisherInput | auth_userCreateOrConnectWithoutPublisher_auth_user_id_publisherTopublisherInput[]
-    createMany?: auth_userCreateManyPublisher_auth_user_id_publisherTopublisherInputEnvelope
+  export type auth_userUncheckedCreateNestedManyWithoutPublisherInput = {
+    create?: XOR<auth_userCreateWithoutPublisherInput, auth_userUncheckedCreateWithoutPublisherInput> | auth_userCreateWithoutPublisherInput[] | auth_userUncheckedCreateWithoutPublisherInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutPublisherInput | auth_userCreateOrConnectWithoutPublisherInput[]
+    createMany?: auth_userCreateManyPublisherInputEnvelope
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
   }
 
@@ -70128,17 +69483,17 @@ export namespace Prisma {
     connect?: withdrawalWhereUniqueInput | withdrawalWhereUniqueInput[]
   }
 
-  export type auth_userUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput = {
-    create?: XOR<auth_userCreateWithoutPublisher_auth_user_id_publisherTopublisherInput, auth_userUncheckedCreateWithoutPublisher_auth_user_id_publisherTopublisherInput> | auth_userCreateWithoutPublisher_auth_user_id_publisherTopublisherInput[] | auth_userUncheckedCreateWithoutPublisher_auth_user_id_publisherTopublisherInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutPublisher_auth_user_id_publisherTopublisherInput | auth_userCreateOrConnectWithoutPublisher_auth_user_id_publisherTopublisherInput[]
-    upsert?: auth_userUpsertWithWhereUniqueWithoutPublisher_auth_user_id_publisherTopublisherInput | auth_userUpsertWithWhereUniqueWithoutPublisher_auth_user_id_publisherTopublisherInput[]
-    createMany?: auth_userCreateManyPublisher_auth_user_id_publisherTopublisherInputEnvelope
+  export type auth_userUpdateManyWithoutPublisherNestedInput = {
+    create?: XOR<auth_userCreateWithoutPublisherInput, auth_userUncheckedCreateWithoutPublisherInput> | auth_userCreateWithoutPublisherInput[] | auth_userUncheckedCreateWithoutPublisherInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutPublisherInput | auth_userCreateOrConnectWithoutPublisherInput[]
+    upsert?: auth_userUpsertWithWhereUniqueWithoutPublisherInput | auth_userUpsertWithWhereUniqueWithoutPublisherInput[]
+    createMany?: auth_userCreateManyPublisherInputEnvelope
     set?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     disconnect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     delete?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
-    update?: auth_userUpdateWithWhereUniqueWithoutPublisher_auth_user_id_publisherTopublisherInput | auth_userUpdateWithWhereUniqueWithoutPublisher_auth_user_id_publisherTopublisherInput[]
-    updateMany?: auth_userUpdateManyWithWhereWithoutPublisher_auth_user_id_publisherTopublisherInput | auth_userUpdateManyWithWhereWithoutPublisher_auth_user_id_publisherTopublisherInput[]
+    update?: auth_userUpdateWithWhereUniqueWithoutPublisherInput | auth_userUpdateWithWhereUniqueWithoutPublisherInput[]
+    updateMany?: auth_userUpdateManyWithWhereWithoutPublisherInput | auth_userUpdateManyWithWhereWithoutPublisherInput[]
     deleteMany?: auth_userScalarWhereInput | auth_userScalarWhereInput[]
   }
 
@@ -70164,16 +69519,6 @@ export namespace Prisma {
     delete?: auth_accountWhereInput | boolean
     connect?: auth_accountWhereUniqueInput
     update?: XOR<XOR<auth_accountUpdateToOneWithWhereWithoutPublisherInput, auth_accountUpdateWithoutPublisherInput>, auth_accountUncheckedUpdateWithoutPublisherInput>
-  }
-
-  export type auth_userUpdateOneWithoutPublisher_publisher_id_userToauth_userNestedInput = {
-    create?: XOR<auth_userCreateWithoutPublisher_publisher_id_userToauth_userInput, auth_userUncheckedCreateWithoutPublisher_publisher_id_userToauth_userInput>
-    connectOrCreate?: auth_userCreateOrConnectWithoutPublisher_publisher_id_userToauth_userInput
-    upsert?: auth_userUpsertWithoutPublisher_publisher_id_userToauth_userInput
-    disconnect?: auth_userWhereInput | boolean
-    delete?: auth_userWhereInput | boolean
-    connect?: auth_userWhereUniqueInput
-    update?: XOR<XOR<auth_userUpdateToOneWithWhereWithoutPublisher_publisher_id_userToauth_userInput, auth_userUpdateWithoutPublisher_publisher_id_userToauth_userInput>, auth_userUncheckedUpdateWithoutPublisher_publisher_id_userToauth_userInput>
   }
 
   export type publisher_authorUpdateManyWithoutPublisherNestedInput = {
@@ -70232,17 +69577,17 @@ export namespace Prisma {
     deleteMany?: withdrawalScalarWhereInput | withdrawalScalarWhereInput[]
   }
 
-  export type auth_userUncheckedUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput = {
-    create?: XOR<auth_userCreateWithoutPublisher_auth_user_id_publisherTopublisherInput, auth_userUncheckedCreateWithoutPublisher_auth_user_id_publisherTopublisherInput> | auth_userCreateWithoutPublisher_auth_user_id_publisherTopublisherInput[] | auth_userUncheckedCreateWithoutPublisher_auth_user_id_publisherTopublisherInput[]
-    connectOrCreate?: auth_userCreateOrConnectWithoutPublisher_auth_user_id_publisherTopublisherInput | auth_userCreateOrConnectWithoutPublisher_auth_user_id_publisherTopublisherInput[]
-    upsert?: auth_userUpsertWithWhereUniqueWithoutPublisher_auth_user_id_publisherTopublisherInput | auth_userUpsertWithWhereUniqueWithoutPublisher_auth_user_id_publisherTopublisherInput[]
-    createMany?: auth_userCreateManyPublisher_auth_user_id_publisherTopublisherInputEnvelope
+  export type auth_userUncheckedUpdateManyWithoutPublisherNestedInput = {
+    create?: XOR<auth_userCreateWithoutPublisherInput, auth_userUncheckedCreateWithoutPublisherInput> | auth_userCreateWithoutPublisherInput[] | auth_userUncheckedCreateWithoutPublisherInput[]
+    connectOrCreate?: auth_userCreateOrConnectWithoutPublisherInput | auth_userCreateOrConnectWithoutPublisherInput[]
+    upsert?: auth_userUpsertWithWhereUniqueWithoutPublisherInput | auth_userUpsertWithWhereUniqueWithoutPublisherInput[]
+    createMany?: auth_userCreateManyPublisherInputEnvelope
     set?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     disconnect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     delete?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
     connect?: auth_userWhereUniqueInput | auth_userWhereUniqueInput[]
-    update?: auth_userUpdateWithWhereUniqueWithoutPublisher_auth_user_id_publisherTopublisherInput | auth_userUpdateWithWhereUniqueWithoutPublisher_auth_user_id_publisherTopublisherInput[]
-    updateMany?: auth_userUpdateManyWithWhereWithoutPublisher_auth_user_id_publisherTopublisherInput | auth_userUpdateManyWithWhereWithoutPublisher_auth_user_id_publisherTopublisherInput[]
+    update?: auth_userUpdateWithWhereUniqueWithoutPublisherInput | auth_userUpdateWithWhereUniqueWithoutPublisherInput[]
+    updateMany?: auth_userUpdateManyWithWhereWithoutPublisherInput | auth_userUpdateManyWithWhereWithoutPublisherInput[]
     deleteMany?: auth_userScalarWhereInput | auth_userScalarWhereInput[]
   }
 
@@ -71193,7 +70538,7 @@ export namespace Prisma {
     create: XOR<auth_accountCreateWithoutAffiliateInput, auth_accountUncheckedCreateWithoutAffiliateInput>
   }
 
-  export type auth_userCreateWithoutAffiliate_affiliate_id_userToauth_userInput = {
+  export type auth_userCreateWithoutAffiliateInput = {
     id?: string
     name: string
     email: string
@@ -71207,82 +70552,16 @@ export namespace Prisma {
     auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
+    author?: authorCreateNestedOneWithoutAuth_userInput
+    customer?: customerCreateNestedOneWithoutAuth_userInput
+    internal?: internalCreateNestedOneWithoutAuth_userInput
+    publisher?: publisherCreateNestedOneWithoutAuth_userInput
     notif?: notifCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
-  export type auth_userUncheckedCreateWithoutAffiliate_affiliate_id_userToauth_userInput = {
-    id?: string
-    name: string
-    email: string
-    email_verified?: boolean
-    image?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string | null
-    username?: string | null
-    display_username?: string | null
-    two_factor_enabled?: boolean | null
-    id_customer?: string | null
-    id_author?: string | null
-    id_affiliate?: string | null
-    id_publisher?: string | null
-    id_internal?: string | null
-    auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
-    auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
-    auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
-    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
-    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
-    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
-  }
-
-  export type auth_userCreateOrConnectWithoutAffiliate_affiliate_id_userToauth_userInput = {
-    where: auth_userWhereUniqueInput
-    create: XOR<auth_userCreateWithoutAffiliate_affiliate_id_userToauth_userInput, auth_userUncheckedCreateWithoutAffiliate_affiliate_id_userToauth_userInput>
-  }
-
-  export type auth_userCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput = {
-    id?: string
-    name: string
-    email: string
-    email_verified?: boolean
-    image?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string | null
-    username?: string | null
-    display_username?: string | null
-    two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
-    auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
-    auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
-    auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
-    notif?: notifCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
-    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
-    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
-  }
-
-  export type auth_userUncheckedCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput = {
+  export type auth_userUncheckedCreateWithoutAffiliateInput = {
     id?: string
     name: string
     email: string
@@ -71297,26 +70576,21 @@ export namespace Prisma {
     id_author?: string | null
     id_publisher?: string | null
     id_internal?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
     notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
-  export type auth_userCreateOrConnectWithoutAffiliate_auth_user_id_affiliateToaffiliateInput = {
+  export type auth_userCreateOrConnectWithoutAffiliateInput = {
     where: auth_userWhereUniqueInput
-    create: XOR<auth_userCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput, auth_userUncheckedCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput>
+    create: XOR<auth_userCreateWithoutAffiliateInput, auth_userUncheckedCreateWithoutAffiliateInput>
   }
 
-  export type auth_userCreateManyAffiliate_auth_user_id_affiliateToaffiliateInputEnvelope = {
-    data: auth_userCreateManyAffiliate_auth_user_id_affiliateToaffiliateInput | auth_userCreateManyAffiliate_auth_user_id_affiliateToaffiliateInput[]
+  export type auth_userCreateManyAffiliateInputEnvelope = {
+    data: auth_userCreateManyAffiliateInput | auth_userCreateManyAffiliateInput[]
     skipDuplicates?: boolean
   }
 
@@ -71371,87 +70645,20 @@ export namespace Prisma {
     publisher?: publisherUncheckedUpdateManyWithoutAuth_accountNestedInput
   }
 
-  export type auth_userUpsertWithoutAffiliate_affiliate_id_userToauth_userInput = {
-    update: XOR<auth_userUpdateWithoutAffiliate_affiliate_id_userToauth_userInput, auth_userUncheckedUpdateWithoutAffiliate_affiliate_id_userToauth_userInput>
-    create: XOR<auth_userCreateWithoutAffiliate_affiliate_id_userToauth_userInput, auth_userUncheckedCreateWithoutAffiliate_affiliate_id_userToauth_userInput>
-    where?: auth_userWhereInput
-  }
-
-  export type auth_userUpdateToOneWithWhereWithoutAffiliate_affiliate_id_userToauth_userInput = {
-    where?: auth_userWhereInput
-    data: XOR<auth_userUpdateWithoutAffiliate_affiliate_id_userToauth_userInput, auth_userUncheckedUpdateWithoutAffiliate_affiliate_id_userToauth_userInput>
-  }
-
-  export type auth_userUpdateWithoutAffiliate_affiliate_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    email_verified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    display_username?: NullableStringFieldUpdateOperationsInput | string | null
-    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
-    auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
-    auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
-    notif?: notifUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
-    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
-    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
-  }
-
-  export type auth_userUncheckedUpdateWithoutAffiliate_affiliate_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    email_verified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    display_username?: NullableStringFieldUpdateOperationsInput | string | null
-    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    id_customer?: NullableStringFieldUpdateOperationsInput | string | null
-    id_author?: NullableStringFieldUpdateOperationsInput | string | null
-    id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
-    id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
-    id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
-    auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
-    auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
-    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
-    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
-    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
-  }
-
-  export type auth_userUpsertWithWhereUniqueWithoutAffiliate_auth_user_id_affiliateToaffiliateInput = {
+  export type auth_userUpsertWithWhereUniqueWithoutAffiliateInput = {
     where: auth_userWhereUniqueInput
-    update: XOR<auth_userUpdateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput, auth_userUncheckedUpdateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput>
-    create: XOR<auth_userCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput, auth_userUncheckedCreateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput>
+    update: XOR<auth_userUpdateWithoutAffiliateInput, auth_userUncheckedUpdateWithoutAffiliateInput>
+    create: XOR<auth_userCreateWithoutAffiliateInput, auth_userUncheckedCreateWithoutAffiliateInput>
   }
 
-  export type auth_userUpdateWithWhereUniqueWithoutAffiliate_auth_user_id_affiliateToaffiliateInput = {
+  export type auth_userUpdateWithWhereUniqueWithoutAffiliateInput = {
     where: auth_userWhereUniqueInput
-    data: XOR<auth_userUpdateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput, auth_userUncheckedUpdateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput>
+    data: XOR<auth_userUpdateWithoutAffiliateInput, auth_userUncheckedUpdateWithoutAffiliateInput>
   }
 
-  export type auth_userUpdateManyWithWhereWithoutAffiliate_auth_user_id_affiliateToaffiliateInput = {
+  export type auth_userUpdateManyWithWhereWithoutAffiliateInput = {
     where: auth_userScalarWhereInput
-    data: XOR<auth_userUpdateManyMutationInput, auth_userUncheckedUpdateManyWithoutAffiliate_auth_user_id_affiliateToaffiliateInput>
+    data: XOR<auth_userUpdateManyMutationInput, auth_userUncheckedUpdateManyWithoutAffiliateInput>
   }
 
   export type auth_userScalarWhereInput = {
@@ -71478,15 +70685,15 @@ export namespace Prisma {
   export type affiliateCreateWithoutAuth_accountInput = {
     id?: string
     name: string
-    auth_user_affiliate_id_userToauth_user?: auth_userCreateNestedOneWithoutAffiliate_affiliate_id_userToauth_userInput
-    auth_user_auth_user_id_affiliateToaffiliate?: auth_userCreateNestedManyWithoutAffiliate_auth_user_id_affiliateToaffiliateInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutAffiliateInput
   }
 
   export type affiliateUncheckedCreateWithoutAuth_accountInput = {
     id?: string
     name: string
     id_user?: string | null
-    auth_user_auth_user_id_affiliateToaffiliate?: auth_userUncheckedCreateNestedManyWithoutAffiliate_auth_user_id_affiliateToaffiliateInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutAffiliateInput
   }
 
   export type affiliateCreateOrConnectWithoutAuth_accountInput = {
@@ -71510,19 +70717,14 @@ export namespace Prisma {
     username?: string | null
     display_username?: string | null
     two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
+    affiliate?: affiliateCreateNestedOneWithoutAuth_userInput
+    author?: authorCreateNestedOneWithoutAuth_userInput
+    customer?: customerCreateNestedOneWithoutAuth_userInput
+    internal?: internalCreateNestedOneWithoutAuth_userInput
+    publisher?: publisherCreateNestedOneWithoutAuth_userInput
     notif?: notifCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
@@ -71543,14 +70745,9 @@ export namespace Prisma {
     id_affiliate?: string | null
     id_publisher?: string | null
     id_internal?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
     notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
@@ -71566,9 +70763,9 @@ export namespace Prisma {
     biography?: string | null
     social_media?: string | null
     avatar?: string | null
+    id_user?: string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userCreateNestedManyWithoutAuthor_auth_user_id_authorToauthorInput
-    auth_user_author_id_userToauth_user?: auth_userCreateNestedOneWithoutAuthor_author_id_userToauth_userInput
+    auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     book?: bookCreateNestedManyWithoutAuthorInput
     product?: productCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorCreateNestedManyWithoutAuthorInput
@@ -71582,7 +70779,7 @@ export namespace Prisma {
     avatar?: string | null
     id_user?: string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUncheckedCreateNestedManyWithoutAuthor_auth_user_id_authorToauthorInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
     book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
@@ -71605,8 +70802,8 @@ export namespace Prisma {
     otp?: number | null
     name: string
     email: string
-    auth_user_auth_user_id_customerTocustomer?: auth_userCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput
-    auth_user_customer_id_userToauth_user?: auth_userCreateNestedOneWithoutCustomer_customer_id_userToauth_userInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutCustomerInput
     customer_reader?: customer_readerCreateNestedManyWithoutCustomerInput
     customer_track?: customer_trackCreateNestedManyWithoutCustomerInput
     t_sales?: t_salesCreateNestedManyWithoutCustomerInput
@@ -71621,7 +70818,7 @@ export namespace Prisma {
     name: string
     email: string
     id_user?: string | null
-    auth_user_auth_user_id_customerTocustomer?: auth_userUncheckedCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutCustomerInput
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutCustomerInput
     customer_track?: customer_trackUncheckedCreateNestedManyWithoutCustomerInput
     t_sales?: t_salesUncheckedCreateNestedManyWithoutCustomerInput
@@ -71645,9 +70842,9 @@ export namespace Prisma {
     is_support?: boolean
     is_management?: boolean
     is_it?: boolean
-    auth_user_auth_user_id_internalTointernal?: auth_userCreateNestedManyWithoutInternal_auth_user_id_internalTointernalInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutInternalInput
     book_approval?: book_approvalCreateNestedManyWithoutInternalInput
-    auth_user_internal_id_userToauth_user?: auth_userCreateNestedOneWithoutInternal_internal_id_userToauth_userInput
   }
 
   export type internalUncheckedCreateWithoutAuth_accountInput = {
@@ -71658,7 +70855,7 @@ export namespace Prisma {
     is_management?: boolean
     is_it?: boolean
     id_user?: string | null
-    auth_user_auth_user_id_internalTointernal?: auth_userUncheckedCreateNestedManyWithoutInternal_auth_user_id_internalTointernalInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutInternalInput
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutInternalInput
   }
 
@@ -71679,9 +70876,9 @@ export namespace Prisma {
     website?: string | null
     address?: string | null
     logo?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeCreateNestedManyWithoutPublisherInput
-    auth_user_publisher_id_userToauth_user?: auth_userCreateNestedOneWithoutPublisher_publisher_id_userToauth_userInput
     publisher_author?: publisher_authorCreateNestedManyWithoutPublisherInput
     t_ai_credit?: t_ai_creditCreateNestedManyWithoutPublisherInput
     transaction?: transactionCreateNestedManyWithoutPublisherInput
@@ -71696,7 +70893,7 @@ export namespace Prisma {
     address?: string | null
     logo?: string | null
     id_user?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
     t_ai_credit?: t_ai_creditUncheckedCreateNestedManyWithoutPublisherInput
@@ -71762,19 +70959,14 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     display_username?: NullableStringFieldUpdateOperationsInput | string | null
     two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
+    affiliate?: affiliateUpdateOneWithoutAuth_userNestedInput
+    author?: authorUpdateOneWithoutAuth_userNestedInput
+    customer?: customerUpdateOneWithoutAuth_userNestedInput
+    internal?: internalUpdateOneWithoutAuth_userNestedInput
+    publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     notif?: notifUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
@@ -71795,14 +70987,9 @@ export namespace Prisma {
     id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
     id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
     id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
     notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
@@ -71938,19 +71125,14 @@ export namespace Prisma {
     username?: string | null
     display_username?: string | null
     two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
+    affiliate?: affiliateCreateNestedOneWithoutAuth_userInput
+    author?: authorCreateNestedOneWithoutAuth_userInput
+    customer?: customerCreateNestedOneWithoutAuth_userInput
+    internal?: internalCreateNestedOneWithoutAuth_userInput
+    publisher?: publisherCreateNestedOneWithoutAuth_userInput
     notif?: notifCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
@@ -71971,14 +71153,9 @@ export namespace Prisma {
     id_affiliate?: string | null
     id_publisher?: string | null
     id_internal?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
     notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
@@ -72010,19 +71187,14 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     display_username?: NullableStringFieldUpdateOperationsInput | string | null
     two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
+    affiliate?: affiliateUpdateOneWithoutAuth_userNestedInput
+    author?: authorUpdateOneWithoutAuth_userNestedInput
+    customer?: customerUpdateOneWithoutAuth_userNestedInput
+    internal?: internalUpdateOneWithoutAuth_userNestedInput
+    publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     notif?: notifUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
@@ -72043,14 +71215,9 @@ export namespace Prisma {
     id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
     id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
     id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
     notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
@@ -72066,19 +71233,14 @@ export namespace Prisma {
     username?: string | null
     display_username?: string | null
     two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
+    affiliate?: affiliateCreateNestedOneWithoutAuth_userInput
+    author?: authorCreateNestedOneWithoutAuth_userInput
+    customer?: customerCreateNestedOneWithoutAuth_userInput
+    internal?: internalCreateNestedOneWithoutAuth_userInput
+    publisher?: publisherCreateNestedOneWithoutAuth_userInput
     notif?: notifCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
@@ -72099,14 +71261,9 @@ export namespace Prisma {
     id_affiliate?: string | null
     id_publisher?: string | null
     id_internal?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
     notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
@@ -72138,19 +71295,14 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     display_username?: NullableStringFieldUpdateOperationsInput | string | null
     two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
+    affiliate?: affiliateUpdateOneWithoutAuth_userNestedInput
+    author?: authorUpdateOneWithoutAuth_userNestedInput
+    customer?: customerUpdateOneWithoutAuth_userNestedInput
+    internal?: internalUpdateOneWithoutAuth_userNestedInput
+    publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     notif?: notifUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
@@ -72171,40 +71323,11 @@ export namespace Prisma {
     id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
     id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
     id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
     notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
-  }
-
-  export type affiliateCreateWithoutAuth_user_affiliate_id_userToauth_userInput = {
-    id?: string
-    name: string
-    auth_account?: auth_accountCreateNestedOneWithoutAffiliateInput
-    auth_user_auth_user_id_affiliateToaffiliate?: auth_userCreateNestedManyWithoutAffiliate_auth_user_id_affiliateToaffiliateInput
-  }
-
-  export type affiliateUncheckedCreateWithoutAuth_user_affiliate_id_userToauth_userInput = {
-    id?: string
-    name: string
-    id_account?: string | null
-    auth_user_auth_user_id_affiliateToaffiliate?: auth_userUncheckedCreateNestedManyWithoutAffiliate_auth_user_id_affiliateToaffiliateInput
-  }
-
-  export type affiliateCreateOrConnectWithoutAuth_user_affiliate_id_userToauth_userInput = {
-    where: affiliateWhereUniqueInput
-    create: XOR<affiliateCreateWithoutAuth_user_affiliate_id_userToauth_userInput, affiliateUncheckedCreateWithoutAuth_user_affiliate_id_userToauth_userInput>
-  }
-
-  export type affiliateCreateManyAuth_user_affiliate_id_userToauth_userInputEnvelope = {
-    data: affiliateCreateManyAuth_user_affiliate_id_userToauth_userInput | affiliateCreateManyAuth_user_affiliate_id_userToauth_userInput[]
-    skipDuplicates?: boolean
   }
 
   export type auth_accountCreateWithoutAuth_userInput = {
@@ -72309,40 +71432,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type affiliateCreateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput = {
+  export type affiliateCreateWithoutAuth_userInput = {
     id?: string
     name: string
+    id_user?: string | null
     auth_account?: auth_accountCreateNestedOneWithoutAffiliateInput
-    auth_user_affiliate_id_userToauth_user?: auth_userCreateNestedOneWithoutAffiliate_affiliate_id_userToauth_userInput
   }
 
-  export type affiliateUncheckedCreateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput = {
+  export type affiliateUncheckedCreateWithoutAuth_userInput = {
     id?: string
     name: string
     id_account?: string | null
     id_user?: string | null
   }
 
-  export type affiliateCreateOrConnectWithoutAuth_user_auth_user_id_affiliateToaffiliateInput = {
+  export type affiliateCreateOrConnectWithoutAuth_userInput = {
     where: affiliateWhereUniqueInput
-    create: XOR<affiliateCreateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput, affiliateUncheckedCreateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput>
+    create: XOR<affiliateCreateWithoutAuth_userInput, affiliateUncheckedCreateWithoutAuth_userInput>
   }
 
-  export type authorCreateWithoutAuth_user_auth_user_id_authorToauthorInput = {
+  export type authorCreateWithoutAuth_userInput = {
     id?: string
     name: string
     biography?: string | null
     social_media?: string | null
     avatar?: string | null
+    id_user?: string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
-    auth_user_author_id_userToauth_user?: auth_userCreateNestedOneWithoutAuthor_author_id_userToauth_userInput
     book?: bookCreateNestedManyWithoutAuthorInput
     product?: productCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorCreateNestedManyWithoutAuthorInput
   }
 
-  export type authorUncheckedCreateWithoutAuth_user_auth_user_id_authorToauthorInput = {
+  export type authorUncheckedCreateWithoutAuth_userInput = {
     id?: string
     name: string
     id_account?: string | null
@@ -72356,27 +71479,27 @@ export namespace Prisma {
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
   }
 
-  export type authorCreateOrConnectWithoutAuth_user_auth_user_id_authorToauthorInput = {
+  export type authorCreateOrConnectWithoutAuth_userInput = {
     where: authorWhereUniqueInput
-    create: XOR<authorCreateWithoutAuth_user_auth_user_id_authorToauthorInput, authorUncheckedCreateWithoutAuth_user_auth_user_id_authorToauthorInput>
+    create: XOR<authorCreateWithoutAuth_userInput, authorUncheckedCreateWithoutAuth_userInput>
   }
 
-  export type customerCreateWithoutAuth_user_auth_user_id_customerTocustomerInput = {
+  export type customerCreateWithoutAuth_userInput = {
     id?: string
     whatsapp: string
     deleted_at?: Date | string | null
     otp?: number | null
     name: string
     email: string
+    id_user?: string | null
     auth_account?: auth_accountCreateNestedOneWithoutCustomerInput
-    auth_user_customer_id_userToauth_user?: auth_userCreateNestedOneWithoutCustomer_customer_id_userToauth_userInput
     customer_reader?: customer_readerCreateNestedManyWithoutCustomerInput
     customer_track?: customer_trackCreateNestedManyWithoutCustomerInput
     t_sales?: t_salesCreateNestedManyWithoutCustomerInput
     t_sales_download?: t_sales_downloadCreateNestedManyWithoutCustomerInput
   }
 
-  export type customerUncheckedCreateWithoutAuth_user_auth_user_id_customerTocustomerInput = {
+  export type customerUncheckedCreateWithoutAuth_userInput = {
     id?: string
     whatsapp: string
     deleted_at?: Date | string | null
@@ -72391,24 +71514,24 @@ export namespace Prisma {
     t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutCustomerInput
   }
 
-  export type customerCreateOrConnectWithoutAuth_user_auth_user_id_customerTocustomerInput = {
+  export type customerCreateOrConnectWithoutAuth_userInput = {
     where: customerWhereUniqueInput
-    create: XOR<customerCreateWithoutAuth_user_auth_user_id_customerTocustomerInput, customerUncheckedCreateWithoutAuth_user_auth_user_id_customerTocustomerInput>
+    create: XOR<customerCreateWithoutAuth_userInput, customerUncheckedCreateWithoutAuth_userInput>
   }
 
-  export type internalCreateWithoutAuth_user_auth_user_id_internalTointernalInput = {
+  export type internalCreateWithoutAuth_userInput = {
     id?: string
     name: string
     is_sales_and_marketing?: boolean
     is_support?: boolean
     is_management?: boolean
     is_it?: boolean
+    id_user?: string | null
     book_approval?: book_approvalCreateNestedManyWithoutInternalInput
     auth_account?: auth_accountCreateNestedOneWithoutInternalInput
-    auth_user_internal_id_userToauth_user?: auth_userCreateNestedOneWithoutInternal_internal_id_userToauth_userInput
   }
 
-  export type internalUncheckedCreateWithoutAuth_user_auth_user_id_internalTointernalInput = {
+  export type internalUncheckedCreateWithoutAuth_userInput = {
     id?: string
     id_account?: string | null
     name: string
@@ -72420,28 +71543,28 @@ export namespace Prisma {
     book_approval?: book_approvalUncheckedCreateNestedManyWithoutInternalInput
   }
 
-  export type internalCreateOrConnectWithoutAuth_user_auth_user_id_internalTointernalInput = {
+  export type internalCreateOrConnectWithoutAuth_userInput = {
     where: internalWhereUniqueInput
-    create: XOR<internalCreateWithoutAuth_user_auth_user_id_internalTointernalInput, internalUncheckedCreateWithoutAuth_user_auth_user_id_internalTointernalInput>
+    create: XOR<internalCreateWithoutAuth_userInput, internalUncheckedCreateWithoutAuth_userInput>
   }
 
-  export type publisherCreateWithoutAuth_user_auth_user_id_publisherTopublisherInput = {
+  export type publisherCreateWithoutAuth_userInput = {
     id?: string
     name: string
     description?: string | null
     website?: string | null
     address?: string | null
     logo?: string | null
+    id_user?: string | null
     promo_code?: promo_codeCreateNestedManyWithoutPublisherInput
     auth_account?: auth_accountCreateNestedOneWithoutPublisherInput
-    auth_user_publisher_id_userToauth_user?: auth_userCreateNestedOneWithoutPublisher_publisher_id_userToauth_userInput
     publisher_author?: publisher_authorCreateNestedManyWithoutPublisherInput
     t_ai_credit?: t_ai_creditCreateNestedManyWithoutPublisherInput
     transaction?: transactionCreateNestedManyWithoutPublisherInput
     withdrawal?: withdrawalCreateNestedManyWithoutPublisherInput
   }
 
-  export type publisherUncheckedCreateWithoutAuth_user_auth_user_id_publisherTopublisherInput = {
+  export type publisherUncheckedCreateWithoutAuth_userInput = {
     id?: string
     id_account?: string | null
     name: string
@@ -72457,121 +71580,9 @@ export namespace Prisma {
     withdrawal?: withdrawalUncheckedCreateNestedManyWithoutPublisherInput
   }
 
-  export type publisherCreateOrConnectWithoutAuth_user_auth_user_id_publisherTopublisherInput = {
+  export type publisherCreateOrConnectWithoutAuth_userInput = {
     where: publisherWhereUniqueInput
-    create: XOR<publisherCreateWithoutAuth_user_auth_user_id_publisherTopublisherInput, publisherUncheckedCreateWithoutAuth_user_auth_user_id_publisherTopublisherInput>
-  }
-
-  export type authorCreateWithoutAuth_user_author_id_userToauth_userInput = {
-    id?: string
-    name: string
-    biography?: string | null
-    social_media?: string | null
-    avatar?: string | null
-    cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userCreateNestedManyWithoutAuthor_auth_user_id_authorToauthorInput
-    auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
-    book?: bookCreateNestedManyWithoutAuthorInput
-    product?: productCreateNestedManyWithoutAuthorInput
-    publisher_author?: publisher_authorCreateNestedManyWithoutAuthorInput
-  }
-
-  export type authorUncheckedCreateWithoutAuth_user_author_id_userToauth_userInput = {
-    id?: string
-    name: string
-    id_account?: string | null
-    biography?: string | null
-    social_media?: string | null
-    avatar?: string | null
-    cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUncheckedCreateNestedManyWithoutAuthor_auth_user_id_authorToauthorInput
-    book?: bookUncheckedCreateNestedManyWithoutAuthorInput
-    product?: productUncheckedCreateNestedManyWithoutAuthorInput
-    publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
-  }
-
-  export type authorCreateOrConnectWithoutAuth_user_author_id_userToauth_userInput = {
-    where: authorWhereUniqueInput
-    create: XOR<authorCreateWithoutAuth_user_author_id_userToauth_userInput, authorUncheckedCreateWithoutAuth_user_author_id_userToauth_userInput>
-  }
-
-  export type authorCreateManyAuth_user_author_id_userToauth_userInputEnvelope = {
-    data: authorCreateManyAuth_user_author_id_userToauth_userInput | authorCreateManyAuth_user_author_id_userToauth_userInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type customerCreateWithoutAuth_user_customer_id_userToauth_userInput = {
-    id?: string
-    whatsapp: string
-    deleted_at?: Date | string | null
-    otp?: number | null
-    name: string
-    email: string
-    auth_user_auth_user_id_customerTocustomer?: auth_userCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput
-    auth_account?: auth_accountCreateNestedOneWithoutCustomerInput
-    customer_reader?: customer_readerCreateNestedManyWithoutCustomerInput
-    customer_track?: customer_trackCreateNestedManyWithoutCustomerInput
-    t_sales?: t_salesCreateNestedManyWithoutCustomerInput
-    t_sales_download?: t_sales_downloadCreateNestedManyWithoutCustomerInput
-  }
-
-  export type customerUncheckedCreateWithoutAuth_user_customer_id_userToauth_userInput = {
-    id?: string
-    whatsapp: string
-    deleted_at?: Date | string | null
-    otp?: number | null
-    id_account?: string | null
-    name: string
-    email: string
-    auth_user_auth_user_id_customerTocustomer?: auth_userUncheckedCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput
-    customer_reader?: customer_readerUncheckedCreateNestedManyWithoutCustomerInput
-    customer_track?: customer_trackUncheckedCreateNestedManyWithoutCustomerInput
-    t_sales?: t_salesUncheckedCreateNestedManyWithoutCustomerInput
-    t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutCustomerInput
-  }
-
-  export type customerCreateOrConnectWithoutAuth_user_customer_id_userToauth_userInput = {
-    where: customerWhereUniqueInput
-    create: XOR<customerCreateWithoutAuth_user_customer_id_userToauth_userInput, customerUncheckedCreateWithoutAuth_user_customer_id_userToauth_userInput>
-  }
-
-  export type customerCreateManyAuth_user_customer_id_userToauth_userInputEnvelope = {
-    data: customerCreateManyAuth_user_customer_id_userToauth_userInput | customerCreateManyAuth_user_customer_id_userToauth_userInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type internalCreateWithoutAuth_user_internal_id_userToauth_userInput = {
-    id?: string
-    name: string
-    is_sales_and_marketing?: boolean
-    is_support?: boolean
-    is_management?: boolean
-    is_it?: boolean
-    auth_user_auth_user_id_internalTointernal?: auth_userCreateNestedManyWithoutInternal_auth_user_id_internalTointernalInput
-    book_approval?: book_approvalCreateNestedManyWithoutInternalInput
-    auth_account?: auth_accountCreateNestedOneWithoutInternalInput
-  }
-
-  export type internalUncheckedCreateWithoutAuth_user_internal_id_userToauth_userInput = {
-    id?: string
-    id_account?: string | null
-    name: string
-    is_sales_and_marketing?: boolean
-    is_support?: boolean
-    is_management?: boolean
-    is_it?: boolean
-    auth_user_auth_user_id_internalTointernal?: auth_userUncheckedCreateNestedManyWithoutInternal_auth_user_id_internalTointernalInput
-    book_approval?: book_approvalUncheckedCreateNestedManyWithoutInternalInput
-  }
-
-  export type internalCreateOrConnectWithoutAuth_user_internal_id_userToauth_userInput = {
-    where: internalWhereUniqueInput
-    create: XOR<internalCreateWithoutAuth_user_internal_id_userToauth_userInput, internalUncheckedCreateWithoutAuth_user_internal_id_userToauth_userInput>
-  }
-
-  export type internalCreateManyAuth_user_internal_id_userToauth_userInputEnvelope = {
-    data: internalCreateManyAuth_user_internal_id_userToauth_userInput | internalCreateManyAuth_user_internal_id_userToauth_userInput[]
-    skipDuplicates?: boolean
+    create: XOR<publisherCreateWithoutAuth_userInput, publisherUncheckedCreateWithoutAuth_userInput>
   }
 
   export type notifCreateWithoutAuth_userInput = {
@@ -72601,48 +71612,6 @@ export namespace Prisma {
 
   export type notifCreateManyAuth_userInputEnvelope = {
     data: notifCreateManyAuth_userInput | notifCreateManyAuth_userInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type publisherCreateWithoutAuth_user_publisher_id_userToauth_userInput = {
-    id?: string
-    name: string
-    description?: string | null
-    website?: string | null
-    address?: string | null
-    logo?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
-    promo_code?: promo_codeCreateNestedManyWithoutPublisherInput
-    auth_account?: auth_accountCreateNestedOneWithoutPublisherInput
-    publisher_author?: publisher_authorCreateNestedManyWithoutPublisherInput
-    t_ai_credit?: t_ai_creditCreateNestedManyWithoutPublisherInput
-    transaction?: transactionCreateNestedManyWithoutPublisherInput
-    withdrawal?: withdrawalCreateNestedManyWithoutPublisherInput
-  }
-
-  export type publisherUncheckedCreateWithoutAuth_user_publisher_id_userToauth_userInput = {
-    id?: string
-    id_account?: string | null
-    name: string
-    description?: string | null
-    website?: string | null
-    address?: string | null
-    logo?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
-    promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
-    publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
-    t_ai_credit?: t_ai_creditUncheckedCreateNestedManyWithoutPublisherInput
-    transaction?: transactionUncheckedCreateNestedManyWithoutPublisherInput
-    withdrawal?: withdrawalUncheckedCreateNestedManyWithoutPublisherInput
-  }
-
-  export type publisherCreateOrConnectWithoutAuth_user_publisher_id_userToauth_userInput = {
-    where: publisherWhereUniqueInput
-    create: XOR<publisherCreateWithoutAuth_user_publisher_id_userToauth_userInput, publisherUncheckedCreateWithoutAuth_user_publisher_id_userToauth_userInput>
-  }
-
-  export type publisherCreateManyAuth_user_publisher_id_userToauth_userInputEnvelope = {
-    data: publisherCreateManyAuth_user_publisher_id_userToauth_userInput | publisherCreateManyAuth_user_publisher_id_userToauth_userInput[]
     skipDuplicates?: boolean
   }
 
@@ -72696,22 +71665,6 @@ export namespace Prisma {
   export type reviews_likesCreateManyAuth_userInputEnvelope = {
     data: reviews_likesCreateManyAuth_userInput | reviews_likesCreateManyAuth_userInput[]
     skipDuplicates?: boolean
-  }
-
-  export type affiliateUpsertWithWhereUniqueWithoutAuth_user_affiliate_id_userToauth_userInput = {
-    where: affiliateWhereUniqueInput
-    update: XOR<affiliateUpdateWithoutAuth_user_affiliate_id_userToauth_userInput, affiliateUncheckedUpdateWithoutAuth_user_affiliate_id_userToauth_userInput>
-    create: XOR<affiliateCreateWithoutAuth_user_affiliate_id_userToauth_userInput, affiliateUncheckedCreateWithoutAuth_user_affiliate_id_userToauth_userInput>
-  }
-
-  export type affiliateUpdateWithWhereUniqueWithoutAuth_user_affiliate_id_userToauth_userInput = {
-    where: affiliateWhereUniqueInput
-    data: XOR<affiliateUpdateWithoutAuth_user_affiliate_id_userToauth_userInput, affiliateUncheckedUpdateWithoutAuth_user_affiliate_id_userToauth_userInput>
-  }
-
-  export type affiliateUpdateManyWithWhereWithoutAuth_user_affiliate_id_userToauth_userInput = {
-    where: affiliateScalarWhereInput
-    data: XOR<affiliateUpdateManyMutationInput, affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userInput>
   }
 
   export type auth_accountUpsertWithWhereUniqueWithoutAuth_userInput = {
@@ -72805,57 +71758,57 @@ export namespace Prisma {
     id_user?: UuidFilter<"auth_two_factor"> | string
   }
 
-  export type affiliateUpsertWithoutAuth_user_auth_user_id_affiliateToaffiliateInput = {
-    update: XOR<affiliateUpdateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput, affiliateUncheckedUpdateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput>
-    create: XOR<affiliateCreateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput, affiliateUncheckedCreateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput>
+  export type affiliateUpsertWithoutAuth_userInput = {
+    update: XOR<affiliateUpdateWithoutAuth_userInput, affiliateUncheckedUpdateWithoutAuth_userInput>
+    create: XOR<affiliateCreateWithoutAuth_userInput, affiliateUncheckedCreateWithoutAuth_userInput>
     where?: affiliateWhereInput
   }
 
-  export type affiliateUpdateToOneWithWhereWithoutAuth_user_auth_user_id_affiliateToaffiliateInput = {
+  export type affiliateUpdateToOneWithWhereWithoutAuth_userInput = {
     where?: affiliateWhereInput
-    data: XOR<affiliateUpdateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput, affiliateUncheckedUpdateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput>
+    data: XOR<affiliateUpdateWithoutAuth_userInput, affiliateUncheckedUpdateWithoutAuth_userInput>
   }
 
-  export type affiliateUpdateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput = {
+  export type affiliateUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
     auth_account?: auth_accountUpdateOneWithoutAffiliateNestedInput
-    auth_user_affiliate_id_userToauth_user?: auth_userUpdateOneWithoutAffiliate_affiliate_id_userToauth_userNestedInput
   }
 
-  export type affiliateUncheckedUpdateWithoutAuth_user_auth_user_id_affiliateToaffiliateInput = {
+  export type affiliateUncheckedUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type authorUpsertWithoutAuth_user_auth_user_id_authorToauthorInput = {
-    update: XOR<authorUpdateWithoutAuth_user_auth_user_id_authorToauthorInput, authorUncheckedUpdateWithoutAuth_user_auth_user_id_authorToauthorInput>
-    create: XOR<authorCreateWithoutAuth_user_auth_user_id_authorToauthorInput, authorUncheckedCreateWithoutAuth_user_auth_user_id_authorToauthorInput>
+  export type authorUpsertWithoutAuth_userInput = {
+    update: XOR<authorUpdateWithoutAuth_userInput, authorUncheckedUpdateWithoutAuth_userInput>
+    create: XOR<authorCreateWithoutAuth_userInput, authorUncheckedCreateWithoutAuth_userInput>
     where?: authorWhereInput
   }
 
-  export type authorUpdateToOneWithWhereWithoutAuth_user_auth_user_id_authorToauthorInput = {
+  export type authorUpdateToOneWithWhereWithoutAuth_userInput = {
     where?: authorWhereInput
-    data: XOR<authorUpdateWithoutAuth_user_auth_user_id_authorToauthorInput, authorUncheckedUpdateWithoutAuth_user_auth_user_id_authorToauthorInput>
+    data: XOR<authorUpdateWithoutAuth_userInput, authorUncheckedUpdateWithoutAuth_userInput>
   }
 
-  export type authorUpdateWithoutAuth_user_auth_user_id_authorToauthorInput = {
+  export type authorUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     biography?: NullableStringFieldUpdateOperationsInput | string | null
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
-    auth_user_author_id_userToauth_user?: auth_userUpdateOneWithoutAuthor_author_id_userToauth_userNestedInput
     book?: bookUpdateManyWithoutAuthorNestedInput
     product?: productUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutAuthorNestedInput
   }
 
-  export type authorUncheckedUpdateWithoutAuth_user_auth_user_id_authorToauthorInput = {
+  export type authorUncheckedUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72869,33 +71822,33 @@ export namespace Prisma {
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
-  export type customerUpsertWithoutAuth_user_auth_user_id_customerTocustomerInput = {
-    update: XOR<customerUpdateWithoutAuth_user_auth_user_id_customerTocustomerInput, customerUncheckedUpdateWithoutAuth_user_auth_user_id_customerTocustomerInput>
-    create: XOR<customerCreateWithoutAuth_user_auth_user_id_customerTocustomerInput, customerUncheckedCreateWithoutAuth_user_auth_user_id_customerTocustomerInput>
+  export type customerUpsertWithoutAuth_userInput = {
+    update: XOR<customerUpdateWithoutAuth_userInput, customerUncheckedUpdateWithoutAuth_userInput>
+    create: XOR<customerCreateWithoutAuth_userInput, customerUncheckedCreateWithoutAuth_userInput>
     where?: customerWhereInput
   }
 
-  export type customerUpdateToOneWithWhereWithoutAuth_user_auth_user_id_customerTocustomerInput = {
+  export type customerUpdateToOneWithWhereWithoutAuth_userInput = {
     where?: customerWhereInput
-    data: XOR<customerUpdateWithoutAuth_user_auth_user_id_customerTocustomerInput, customerUncheckedUpdateWithoutAuth_user_auth_user_id_customerTocustomerInput>
+    data: XOR<customerUpdateWithoutAuth_userInput, customerUncheckedUpdateWithoutAuth_userInput>
   }
 
-  export type customerUpdateWithoutAuth_user_auth_user_id_customerTocustomerInput = {
+  export type customerUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     whatsapp?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     otp?: NullableIntFieldUpdateOperationsInput | number | null
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
     auth_account?: auth_accountUpdateOneWithoutCustomerNestedInput
-    auth_user_customer_id_userToauth_user?: auth_userUpdateOneWithoutCustomer_customer_id_userToauth_userNestedInput
     customer_reader?: customer_readerUpdateManyWithoutCustomerNestedInput
     customer_track?: customer_trackUpdateManyWithoutCustomerNestedInput
     t_sales?: t_salesUpdateManyWithoutCustomerNestedInput
     t_sales_download?: t_sales_downloadUpdateManyWithoutCustomerNestedInput
   }
 
-  export type customerUncheckedUpdateWithoutAuth_user_auth_user_id_customerTocustomerInput = {
+  export type customerUncheckedUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     whatsapp?: StringFieldUpdateOperationsInput | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -72910,30 +71863,30 @@ export namespace Prisma {
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
-  export type internalUpsertWithoutAuth_user_auth_user_id_internalTointernalInput = {
-    update: XOR<internalUpdateWithoutAuth_user_auth_user_id_internalTointernalInput, internalUncheckedUpdateWithoutAuth_user_auth_user_id_internalTointernalInput>
-    create: XOR<internalCreateWithoutAuth_user_auth_user_id_internalTointernalInput, internalUncheckedCreateWithoutAuth_user_auth_user_id_internalTointernalInput>
+  export type internalUpsertWithoutAuth_userInput = {
+    update: XOR<internalUpdateWithoutAuth_userInput, internalUncheckedUpdateWithoutAuth_userInput>
+    create: XOR<internalCreateWithoutAuth_userInput, internalUncheckedCreateWithoutAuth_userInput>
     where?: internalWhereInput
   }
 
-  export type internalUpdateToOneWithWhereWithoutAuth_user_auth_user_id_internalTointernalInput = {
+  export type internalUpdateToOneWithWhereWithoutAuth_userInput = {
     where?: internalWhereInput
-    data: XOR<internalUpdateWithoutAuth_user_auth_user_id_internalTointernalInput, internalUncheckedUpdateWithoutAuth_user_auth_user_id_internalTointernalInput>
+    data: XOR<internalUpdateWithoutAuth_userInput, internalUncheckedUpdateWithoutAuth_userInput>
   }
 
-  export type internalUpdateWithoutAuth_user_auth_user_id_internalTointernalInput = {
+  export type internalUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     is_sales_and_marketing?: BoolFieldUpdateOperationsInput | boolean
     is_support?: BoolFieldUpdateOperationsInput | boolean
     is_management?: BoolFieldUpdateOperationsInput | boolean
     is_it?: BoolFieldUpdateOperationsInput | boolean
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
     book_approval?: book_approvalUpdateManyWithoutInternalNestedInput
     auth_account?: auth_accountUpdateOneWithoutInternalNestedInput
-    auth_user_internal_id_userToauth_user?: auth_userUpdateOneWithoutInternal_internal_id_userToauth_userNestedInput
   }
 
-  export type internalUncheckedUpdateWithoutAuth_user_auth_user_id_internalTointernalInput = {
+  export type internalUncheckedUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
@@ -72945,34 +71898,34 @@ export namespace Prisma {
     book_approval?: book_approvalUncheckedUpdateManyWithoutInternalNestedInput
   }
 
-  export type publisherUpsertWithoutAuth_user_auth_user_id_publisherTopublisherInput = {
-    update: XOR<publisherUpdateWithoutAuth_user_auth_user_id_publisherTopublisherInput, publisherUncheckedUpdateWithoutAuth_user_auth_user_id_publisherTopublisherInput>
-    create: XOR<publisherCreateWithoutAuth_user_auth_user_id_publisherTopublisherInput, publisherUncheckedCreateWithoutAuth_user_auth_user_id_publisherTopublisherInput>
+  export type publisherUpsertWithoutAuth_userInput = {
+    update: XOR<publisherUpdateWithoutAuth_userInput, publisherUncheckedUpdateWithoutAuth_userInput>
+    create: XOR<publisherCreateWithoutAuth_userInput, publisherUncheckedCreateWithoutAuth_userInput>
     where?: publisherWhereInput
   }
 
-  export type publisherUpdateToOneWithWhereWithoutAuth_user_auth_user_id_publisherTopublisherInput = {
+  export type publisherUpdateToOneWithWhereWithoutAuth_userInput = {
     where?: publisherWhereInput
-    data: XOR<publisherUpdateWithoutAuth_user_auth_user_id_publisherTopublisherInput, publisherUncheckedUpdateWithoutAuth_user_auth_user_id_publisherTopublisherInput>
+    data: XOR<publisherUpdateWithoutAuth_userInput, publisherUncheckedUpdateWithoutAuth_userInput>
   }
 
-  export type publisherUpdateWithoutAuth_user_auth_user_id_publisherTopublisherInput = {
+  export type publisherUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
     promo_code?: promo_codeUpdateManyWithoutPublisherNestedInput
     auth_account?: auth_accountUpdateOneWithoutPublisherNestedInput
-    auth_user_publisher_id_userToauth_user?: auth_userUpdateOneWithoutPublisher_publisher_id_userToauth_userNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUpdateManyWithoutPublisherNestedInput
     transaction?: transactionUpdateManyWithoutPublisherNestedInput
     withdrawal?: withdrawalUpdateManyWithoutPublisherNestedInput
   }
 
-  export type publisherUncheckedUpdateWithoutAuth_user_auth_user_id_publisherTopublisherInput = {
+  export type publisherUncheckedUpdateWithoutAuth_userInput = {
     id?: StringFieldUpdateOperationsInput | string
     id_account?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
@@ -72986,54 +71939,6 @@ export namespace Prisma {
     t_ai_credit?: t_ai_creditUncheckedUpdateManyWithoutPublisherNestedInput
     transaction?: transactionUncheckedUpdateManyWithoutPublisherNestedInput
     withdrawal?: withdrawalUncheckedUpdateManyWithoutPublisherNestedInput
-  }
-
-  export type authorUpsertWithWhereUniqueWithoutAuth_user_author_id_userToauth_userInput = {
-    where: authorWhereUniqueInput
-    update: XOR<authorUpdateWithoutAuth_user_author_id_userToauth_userInput, authorUncheckedUpdateWithoutAuth_user_author_id_userToauth_userInput>
-    create: XOR<authorCreateWithoutAuth_user_author_id_userToauth_userInput, authorUncheckedCreateWithoutAuth_user_author_id_userToauth_userInput>
-  }
-
-  export type authorUpdateWithWhereUniqueWithoutAuth_user_author_id_userToauth_userInput = {
-    where: authorWhereUniqueInput
-    data: XOR<authorUpdateWithoutAuth_user_author_id_userToauth_userInput, authorUncheckedUpdateWithoutAuth_user_author_id_userToauth_userInput>
-  }
-
-  export type authorUpdateManyWithWhereWithoutAuth_user_author_id_userToauth_userInput = {
-    where: authorScalarWhereInput
-    data: XOR<authorUpdateManyMutationInput, authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userInput>
-  }
-
-  export type customerUpsertWithWhereUniqueWithoutAuth_user_customer_id_userToauth_userInput = {
-    where: customerWhereUniqueInput
-    update: XOR<customerUpdateWithoutAuth_user_customer_id_userToauth_userInput, customerUncheckedUpdateWithoutAuth_user_customer_id_userToauth_userInput>
-    create: XOR<customerCreateWithoutAuth_user_customer_id_userToauth_userInput, customerUncheckedCreateWithoutAuth_user_customer_id_userToauth_userInput>
-  }
-
-  export type customerUpdateWithWhereUniqueWithoutAuth_user_customer_id_userToauth_userInput = {
-    where: customerWhereUniqueInput
-    data: XOR<customerUpdateWithoutAuth_user_customer_id_userToauth_userInput, customerUncheckedUpdateWithoutAuth_user_customer_id_userToauth_userInput>
-  }
-
-  export type customerUpdateManyWithWhereWithoutAuth_user_customer_id_userToauth_userInput = {
-    where: customerScalarWhereInput
-    data: XOR<customerUpdateManyMutationInput, customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userInput>
-  }
-
-  export type internalUpsertWithWhereUniqueWithoutAuth_user_internal_id_userToauth_userInput = {
-    where: internalWhereUniqueInput
-    update: XOR<internalUpdateWithoutAuth_user_internal_id_userToauth_userInput, internalUncheckedUpdateWithoutAuth_user_internal_id_userToauth_userInput>
-    create: XOR<internalCreateWithoutAuth_user_internal_id_userToauth_userInput, internalUncheckedCreateWithoutAuth_user_internal_id_userToauth_userInput>
-  }
-
-  export type internalUpdateWithWhereUniqueWithoutAuth_user_internal_id_userToauth_userInput = {
-    where: internalWhereUniqueInput
-    data: XOR<internalUpdateWithoutAuth_user_internal_id_userToauth_userInput, internalUncheckedUpdateWithoutAuth_user_internal_id_userToauth_userInput>
-  }
-
-  export type internalUpdateManyWithWhereWithoutAuth_user_internal_id_userToauth_userInput = {
-    where: internalScalarWhereInput
-    data: XOR<internalUpdateManyMutationInput, internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userInput>
   }
 
   export type notifUpsertWithWhereUniqueWithoutAuth_userInput = {
@@ -73064,22 +71969,6 @@ export namespace Prisma {
     url?: StringNullableFilter<"notif"> | string | null
     data?: JsonNullableFilter<"notif">
     thumbnail?: StringNullableFilter<"notif"> | string | null
-  }
-
-  export type publisherUpsertWithWhereUniqueWithoutAuth_user_publisher_id_userToauth_userInput = {
-    where: publisherWhereUniqueInput
-    update: XOR<publisherUpdateWithoutAuth_user_publisher_id_userToauth_userInput, publisherUncheckedUpdateWithoutAuth_user_publisher_id_userToauth_userInput>
-    create: XOR<publisherCreateWithoutAuth_user_publisher_id_userToauth_userInput, publisherUncheckedCreateWithoutAuth_user_publisher_id_userToauth_userInput>
-  }
-
-  export type publisherUpdateWithWhereUniqueWithoutAuth_user_publisher_id_userToauth_userInput = {
-    where: publisherWhereUniqueInput
-    data: XOR<publisherUpdateWithoutAuth_user_publisher_id_userToauth_userInput, publisherUncheckedUpdateWithoutAuth_user_publisher_id_userToauth_userInput>
-  }
-
-  export type publisherUpdateManyWithWhereWithoutAuth_user_publisher_id_userToauth_userInput = {
-    where: publisherScalarWhereInput
-    data: XOR<publisherUpdateManyMutationInput, publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userInput>
   }
 
   export type reviewsUpsertWithWhereUniqueWithoutAuth_userInput = {
@@ -73137,7 +72026,7 @@ export namespace Prisma {
     id_user?: UuidFilter<"reviews_likes"> | string
   }
 
-  export type auth_userCreateWithoutAuthor_auth_user_id_authorToauthorInput = {
+  export type auth_userCreateWithoutAuthorInput = {
     id?: string
     name: string
     email: string
@@ -73148,24 +72037,19 @@ export namespace Prisma {
     username?: string | null
     display_username?: string | null
     two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
+    affiliate?: affiliateCreateNestedOneWithoutAuth_userInput
+    customer?: customerCreateNestedOneWithoutAuth_userInput
+    internal?: internalCreateNestedOneWithoutAuth_userInput
+    publisher?: publisherCreateNestedOneWithoutAuth_userInput
     notif?: notifCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
-  export type auth_userUncheckedCreateWithoutAuthor_auth_user_id_authorToauthorInput = {
+  export type auth_userUncheckedCreateWithoutAuthorInput = {
     id?: string
     name: string
     email: string
@@ -73180,26 +72064,21 @@ export namespace Prisma {
     id_affiliate?: string | null
     id_publisher?: string | null
     id_internal?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
     notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
-  export type auth_userCreateOrConnectWithoutAuthor_auth_user_id_authorToauthorInput = {
+  export type auth_userCreateOrConnectWithoutAuthorInput = {
     where: auth_userWhereUniqueInput
-    create: XOR<auth_userCreateWithoutAuthor_auth_user_id_authorToauthorInput, auth_userUncheckedCreateWithoutAuthor_auth_user_id_authorToauthorInput>
+    create: XOR<auth_userCreateWithoutAuthorInput, auth_userUncheckedCreateWithoutAuthorInput>
   }
 
-  export type auth_userCreateManyAuthor_auth_user_id_authorToauthorInputEnvelope = {
-    data: auth_userCreateManyAuthor_auth_user_id_authorToauthorInput | auth_userCreateManyAuthor_auth_user_id_authorToauthorInput[]
+  export type auth_userCreateManyAuthorInputEnvelope = {
+    data: auth_userCreateManyAuthorInput | auth_userCreateManyAuthorInput[]
     skipDuplicates?: boolean
   }
 
@@ -73246,67 +72125,6 @@ export namespace Prisma {
   export type auth_accountCreateOrConnectWithoutAuthorInput = {
     where: auth_accountWhereUniqueInput
     create: XOR<auth_accountCreateWithoutAuthorInput, auth_accountUncheckedCreateWithoutAuthorInput>
-  }
-
-  export type auth_userCreateWithoutAuthor_author_id_userToauth_userInput = {
-    id?: string
-    name: string
-    email: string
-    email_verified?: boolean
-    image?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string | null
-    username?: string | null
-    display_username?: string | null
-    two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
-    auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
-    auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
-    auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
-    notif?: notifCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
-    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
-    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
-  }
-
-  export type auth_userUncheckedCreateWithoutAuthor_author_id_userToauth_userInput = {
-    id?: string
-    name: string
-    email: string
-    email_verified?: boolean
-    image?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string | null
-    username?: string | null
-    display_username?: string | null
-    two_factor_enabled?: boolean | null
-    id_customer?: string | null
-    id_author?: string | null
-    id_affiliate?: string | null
-    id_publisher?: string | null
-    id_internal?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
-    auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
-    auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
-    auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
-    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
-    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
-    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
-  }
-
-  export type auth_userCreateOrConnectWithoutAuthor_author_id_userToauth_userInput = {
-    where: auth_userWhereUniqueInput
-    create: XOR<auth_userCreateWithoutAuthor_author_id_userToauth_userInput, auth_userUncheckedCreateWithoutAuthor_author_id_userToauth_userInput>
   }
 
   export type bookCreateWithoutAuthorInput = {
@@ -73475,20 +72293,20 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type auth_userUpsertWithWhereUniqueWithoutAuthor_auth_user_id_authorToauthorInput = {
+  export type auth_userUpsertWithWhereUniqueWithoutAuthorInput = {
     where: auth_userWhereUniqueInput
-    update: XOR<auth_userUpdateWithoutAuthor_auth_user_id_authorToauthorInput, auth_userUncheckedUpdateWithoutAuthor_auth_user_id_authorToauthorInput>
-    create: XOR<auth_userCreateWithoutAuthor_auth_user_id_authorToauthorInput, auth_userUncheckedCreateWithoutAuthor_auth_user_id_authorToauthorInput>
+    update: XOR<auth_userUpdateWithoutAuthorInput, auth_userUncheckedUpdateWithoutAuthorInput>
+    create: XOR<auth_userCreateWithoutAuthorInput, auth_userUncheckedCreateWithoutAuthorInput>
   }
 
-  export type auth_userUpdateWithWhereUniqueWithoutAuthor_auth_user_id_authorToauthorInput = {
+  export type auth_userUpdateWithWhereUniqueWithoutAuthorInput = {
     where: auth_userWhereUniqueInput
-    data: XOR<auth_userUpdateWithoutAuthor_auth_user_id_authorToauthorInput, auth_userUncheckedUpdateWithoutAuthor_auth_user_id_authorToauthorInput>
+    data: XOR<auth_userUpdateWithoutAuthorInput, auth_userUncheckedUpdateWithoutAuthorInput>
   }
 
-  export type auth_userUpdateManyWithWhereWithoutAuthor_auth_user_id_authorToauthorInput = {
+  export type auth_userUpdateManyWithWhereWithoutAuthorInput = {
     where: auth_userScalarWhereInput
-    data: XOR<auth_userUpdateManyMutationInput, auth_userUncheckedUpdateManyWithoutAuthor_auth_user_id_authorToauthorInput>
+    data: XOR<auth_userUpdateManyMutationInput, auth_userUncheckedUpdateManyWithoutAuthorInput>
   }
 
   export type auth_accountUpsertWithoutAuthorInput = {
@@ -73540,73 +72358,6 @@ export namespace Prisma {
     customer?: customerUncheckedUpdateManyWithoutAuth_accountNestedInput
     internal?: internalUncheckedUpdateManyWithoutAuth_accountNestedInput
     publisher?: publisherUncheckedUpdateManyWithoutAuth_accountNestedInput
-  }
-
-  export type auth_userUpsertWithoutAuthor_author_id_userToauth_userInput = {
-    update: XOR<auth_userUpdateWithoutAuthor_author_id_userToauth_userInput, auth_userUncheckedUpdateWithoutAuthor_author_id_userToauth_userInput>
-    create: XOR<auth_userCreateWithoutAuthor_author_id_userToauth_userInput, auth_userUncheckedCreateWithoutAuthor_author_id_userToauth_userInput>
-    where?: auth_userWhereInput
-  }
-
-  export type auth_userUpdateToOneWithWhereWithoutAuthor_author_id_userToauth_userInput = {
-    where?: auth_userWhereInput
-    data: XOR<auth_userUpdateWithoutAuthor_author_id_userToauth_userInput, auth_userUncheckedUpdateWithoutAuthor_author_id_userToauth_userInput>
-  }
-
-  export type auth_userUpdateWithoutAuthor_author_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    email_verified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    display_username?: NullableStringFieldUpdateOperationsInput | string | null
-    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
-    auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
-    auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
-    auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
-    notif?: notifUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
-    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
-    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
-  }
-
-  export type auth_userUncheckedUpdateWithoutAuthor_author_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    email_verified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    display_username?: NullableStringFieldUpdateOperationsInput | string | null
-    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    id_customer?: NullableStringFieldUpdateOperationsInput | string | null
-    id_author?: NullableStringFieldUpdateOperationsInput | string | null
-    id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
-    id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
-    id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
-    auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
-    auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
-    auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
-    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
-    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
-    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
   export type bookUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -73728,10 +72479,10 @@ export namespace Prisma {
     biography?: string | null
     social_media?: string | null
     avatar?: string | null
+    id_user?: string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userCreateNestedManyWithoutAuthor_auth_user_id_authorToauthorInput
+    auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
-    auth_user_author_id_userToauth_user?: auth_userCreateNestedOneWithoutAuthor_author_id_userToauth_userInput
     product?: productCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorCreateNestedManyWithoutAuthorInput
   }
@@ -73745,7 +72496,7 @@ export namespace Prisma {
     avatar?: string | null
     id_user?: string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUncheckedCreateNestedManyWithoutAuthor_auth_user_id_authorToauthorInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
   }
@@ -74005,10 +72756,10 @@ export namespace Prisma {
     biography?: NullableStringFieldUpdateOperationsInput | string | null
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUpdateManyWithoutAuthor_auth_user_id_authorToauthorNestedInput
+    auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
-    auth_user_author_id_userToauth_user?: auth_userUpdateOneWithoutAuthor_author_id_userToauth_userNestedInput
     product?: productUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutAuthorNestedInput
   }
@@ -74022,7 +72773,7 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUncheckedUpdateManyWithoutAuthor_auth_user_id_authorToauthorNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
   }
@@ -74349,9 +73100,9 @@ export namespace Prisma {
     is_support?: boolean
     is_management?: boolean
     is_it?: boolean
-    auth_user_auth_user_id_internalTointernal?: auth_userCreateNestedManyWithoutInternal_auth_user_id_internalTointernalInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutInternalInput
     auth_account?: auth_accountCreateNestedOneWithoutInternalInput
-    auth_user_internal_id_userToauth_user?: auth_userCreateNestedOneWithoutInternal_internal_id_userToauth_userInput
   }
 
   export type internalUncheckedCreateWithoutBook_approvalInput = {
@@ -74363,7 +73114,7 @@ export namespace Prisma {
     is_management?: boolean
     is_it?: boolean
     id_user?: string | null
-    auth_user_auth_user_id_internalTointernal?: auth_userUncheckedCreateNestedManyWithoutInternal_auth_user_id_internalTointernalInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutInternalInput
   }
 
   export type internalCreateOrConnectWithoutBook_approvalInput = {
@@ -74464,9 +73215,9 @@ export namespace Prisma {
     is_support?: BoolFieldUpdateOperationsInput | boolean
     is_management?: BoolFieldUpdateOperationsInput | boolean
     is_it?: BoolFieldUpdateOperationsInput | boolean
-    auth_user_auth_user_id_internalTointernal?: auth_userUpdateManyWithoutInternal_auth_user_id_internalTointernalNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutInternalNestedInput
     auth_account?: auth_accountUpdateOneWithoutInternalNestedInput
-    auth_user_internal_id_userToauth_user?: auth_userUpdateOneWithoutInternal_internal_id_userToauth_userNestedInput
   }
 
   export type internalUncheckedUpdateWithoutBook_approvalInput = {
@@ -74478,7 +73229,7 @@ export namespace Prisma {
     is_management?: BoolFieldUpdateOperationsInput | boolean
     is_it?: BoolFieldUpdateOperationsInput | boolean
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_internalTointernal?: auth_userUncheckedUpdateManyWithoutInternal_auth_user_id_internalTointernalNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutInternalNestedInput
   }
 
   export type bookCreateWithoutBook_changes_logInput = {
@@ -76044,7 +74795,7 @@ export namespace Prisma {
     t_sales_line?: t_sales_lineUncheckedUpdateManyWithoutProductNestedInput
   }
 
-  export type auth_userCreateWithoutCustomer_auth_user_id_customerTocustomerInput = {
+  export type auth_userCreateWithoutCustomerInput = {
     id?: string
     name: string
     email: string
@@ -76055,24 +74806,19 @@ export namespace Prisma {
     username?: string | null
     display_username?: string | null
     two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
+    affiliate?: affiliateCreateNestedOneWithoutAuth_userInput
+    author?: authorCreateNestedOneWithoutAuth_userInput
+    internal?: internalCreateNestedOneWithoutAuth_userInput
+    publisher?: publisherCreateNestedOneWithoutAuth_userInput
     notif?: notifCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
-  export type auth_userUncheckedCreateWithoutCustomer_auth_user_id_customerTocustomerInput = {
+  export type auth_userUncheckedCreateWithoutCustomerInput = {
     id?: string
     name: string
     email: string
@@ -76087,26 +74833,21 @@ export namespace Prisma {
     id_affiliate?: string | null
     id_publisher?: string | null
     id_internal?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
     notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
-  export type auth_userCreateOrConnectWithoutCustomer_auth_user_id_customerTocustomerInput = {
+  export type auth_userCreateOrConnectWithoutCustomerInput = {
     where: auth_userWhereUniqueInput
-    create: XOR<auth_userCreateWithoutCustomer_auth_user_id_customerTocustomerInput, auth_userUncheckedCreateWithoutCustomer_auth_user_id_customerTocustomerInput>
+    create: XOR<auth_userCreateWithoutCustomerInput, auth_userUncheckedCreateWithoutCustomerInput>
   }
 
-  export type auth_userCreateManyCustomer_auth_user_id_customerTocustomerInputEnvelope = {
-    data: auth_userCreateManyCustomer_auth_user_id_customerTocustomerInput | auth_userCreateManyCustomer_auth_user_id_customerTocustomerInput[]
+  export type auth_userCreateManyCustomerInputEnvelope = {
+    data: auth_userCreateManyCustomerInput | auth_userCreateManyCustomerInput[]
     skipDuplicates?: boolean
   }
 
@@ -76153,67 +74894,6 @@ export namespace Prisma {
   export type auth_accountCreateOrConnectWithoutCustomerInput = {
     where: auth_accountWhereUniqueInput
     create: XOR<auth_accountCreateWithoutCustomerInput, auth_accountUncheckedCreateWithoutCustomerInput>
-  }
-
-  export type auth_userCreateWithoutCustomer_customer_id_userToauth_userInput = {
-    id?: string
-    name: string
-    email: string
-    email_verified?: boolean
-    image?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string | null
-    username?: string | null
-    display_username?: string | null
-    two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
-    auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
-    auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
-    auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
-    notif?: notifCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
-    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
-    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
-  }
-
-  export type auth_userUncheckedCreateWithoutCustomer_customer_id_userToauth_userInput = {
-    id?: string
-    name: string
-    email: string
-    email_verified?: boolean
-    image?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string | null
-    username?: string | null
-    display_username?: string | null
-    two_factor_enabled?: boolean | null
-    id_customer?: string | null
-    id_author?: string | null
-    id_affiliate?: string | null
-    id_publisher?: string | null
-    id_internal?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
-    auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
-    auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
-    auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
-    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
-    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
-    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
-  }
-
-  export type auth_userCreateOrConnectWithoutCustomer_customer_id_userToauth_userInput = {
-    where: auth_userWhereUniqueInput
-    create: XOR<auth_userCreateWithoutCustomer_customer_id_userToauth_userInput, auth_userUncheckedCreateWithoutCustomer_customer_id_userToauth_userInput>
   }
 
   export type customer_readerCreateWithoutCustomerInput = {
@@ -76336,20 +75016,20 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type auth_userUpsertWithWhereUniqueWithoutCustomer_auth_user_id_customerTocustomerInput = {
+  export type auth_userUpsertWithWhereUniqueWithoutCustomerInput = {
     where: auth_userWhereUniqueInput
-    update: XOR<auth_userUpdateWithoutCustomer_auth_user_id_customerTocustomerInput, auth_userUncheckedUpdateWithoutCustomer_auth_user_id_customerTocustomerInput>
-    create: XOR<auth_userCreateWithoutCustomer_auth_user_id_customerTocustomerInput, auth_userUncheckedCreateWithoutCustomer_auth_user_id_customerTocustomerInput>
+    update: XOR<auth_userUpdateWithoutCustomerInput, auth_userUncheckedUpdateWithoutCustomerInput>
+    create: XOR<auth_userCreateWithoutCustomerInput, auth_userUncheckedCreateWithoutCustomerInput>
   }
 
-  export type auth_userUpdateWithWhereUniqueWithoutCustomer_auth_user_id_customerTocustomerInput = {
+  export type auth_userUpdateWithWhereUniqueWithoutCustomerInput = {
     where: auth_userWhereUniqueInput
-    data: XOR<auth_userUpdateWithoutCustomer_auth_user_id_customerTocustomerInput, auth_userUncheckedUpdateWithoutCustomer_auth_user_id_customerTocustomerInput>
+    data: XOR<auth_userUpdateWithoutCustomerInput, auth_userUncheckedUpdateWithoutCustomerInput>
   }
 
-  export type auth_userUpdateManyWithWhereWithoutCustomer_auth_user_id_customerTocustomerInput = {
+  export type auth_userUpdateManyWithWhereWithoutCustomerInput = {
     where: auth_userScalarWhereInput
-    data: XOR<auth_userUpdateManyMutationInput, auth_userUncheckedUpdateManyWithoutCustomer_auth_user_id_customerTocustomerInput>
+    data: XOR<auth_userUpdateManyMutationInput, auth_userUncheckedUpdateManyWithoutCustomerInput>
   }
 
   export type auth_accountUpsertWithoutCustomerInput = {
@@ -76401,73 +75081,6 @@ export namespace Prisma {
     author?: authorUncheckedUpdateManyWithoutAuth_accountNestedInput
     internal?: internalUncheckedUpdateManyWithoutAuth_accountNestedInput
     publisher?: publisherUncheckedUpdateManyWithoutAuth_accountNestedInput
-  }
-
-  export type auth_userUpsertWithoutCustomer_customer_id_userToauth_userInput = {
-    update: XOR<auth_userUpdateWithoutCustomer_customer_id_userToauth_userInput, auth_userUncheckedUpdateWithoutCustomer_customer_id_userToauth_userInput>
-    create: XOR<auth_userCreateWithoutCustomer_customer_id_userToauth_userInput, auth_userUncheckedCreateWithoutCustomer_customer_id_userToauth_userInput>
-    where?: auth_userWhereInput
-  }
-
-  export type auth_userUpdateToOneWithWhereWithoutCustomer_customer_id_userToauth_userInput = {
-    where?: auth_userWhereInput
-    data: XOR<auth_userUpdateWithoutCustomer_customer_id_userToauth_userInput, auth_userUncheckedUpdateWithoutCustomer_customer_id_userToauth_userInput>
-  }
-
-  export type auth_userUpdateWithoutCustomer_customer_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    email_verified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    display_username?: NullableStringFieldUpdateOperationsInput | string | null
-    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
-    auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
-    auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
-    auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
-    notif?: notifUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
-    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
-    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
-  }
-
-  export type auth_userUncheckedUpdateWithoutCustomer_customer_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    email_verified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    display_username?: NullableStringFieldUpdateOperationsInput | string | null
-    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    id_customer?: NullableStringFieldUpdateOperationsInput | string | null
-    id_author?: NullableStringFieldUpdateOperationsInput | string | null
-    id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
-    id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
-    id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
-    auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
-    auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
-    auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
-    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
-    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
-    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
   export type customer_readerUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -76596,9 +75209,9 @@ export namespace Prisma {
     otp?: number | null
     name: string
     email: string
-    auth_user_auth_user_id_customerTocustomer?: auth_userCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutCustomerInput
     auth_account?: auth_accountCreateNestedOneWithoutCustomerInput
-    auth_user_customer_id_userToauth_user?: auth_userCreateNestedOneWithoutCustomer_customer_id_userToauth_userInput
     customer_track?: customer_trackCreateNestedManyWithoutCustomerInput
     t_sales?: t_salesCreateNestedManyWithoutCustomerInput
     t_sales_download?: t_sales_downloadCreateNestedManyWithoutCustomerInput
@@ -76613,7 +75226,7 @@ export namespace Prisma {
     name: string
     email: string
     id_user?: string | null
-    auth_user_auth_user_id_customerTocustomer?: auth_userUncheckedCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutCustomerInput
     customer_track?: customer_trackUncheckedCreateNestedManyWithoutCustomerInput
     t_sales?: t_salesUncheckedCreateNestedManyWithoutCustomerInput
     t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutCustomerInput
@@ -76709,9 +75322,9 @@ export namespace Prisma {
     otp?: NullableIntFieldUpdateOperationsInput | number | null
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    auth_user_auth_user_id_customerTocustomer?: auth_userUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutCustomerNestedInput
     auth_account?: auth_accountUpdateOneWithoutCustomerNestedInput
-    auth_user_customer_id_userToauth_user?: auth_userUpdateOneWithoutCustomer_customer_id_userToauth_userNestedInput
     customer_track?: customer_trackUpdateManyWithoutCustomerNestedInput
     t_sales?: t_salesUpdateManyWithoutCustomerNestedInput
     t_sales_download?: t_sales_downloadUpdateManyWithoutCustomerNestedInput
@@ -76726,7 +75339,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_customerTocustomer?: auth_userUncheckedUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutCustomerNestedInput
     customer_track?: customer_trackUncheckedUpdateManyWithoutCustomerNestedInput
     t_sales?: t_salesUncheckedUpdateManyWithoutCustomerNestedInput
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutCustomerNestedInput
@@ -76812,9 +75425,9 @@ export namespace Prisma {
     otp?: number | null
     name: string
     email: string
-    auth_user_auth_user_id_customerTocustomer?: auth_userCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutCustomerInput
     auth_account?: auth_accountCreateNestedOneWithoutCustomerInput
-    auth_user_customer_id_userToauth_user?: auth_userCreateNestedOneWithoutCustomer_customer_id_userToauth_userInput
     customer_reader?: customer_readerCreateNestedManyWithoutCustomerInput
     t_sales?: t_salesCreateNestedManyWithoutCustomerInput
     t_sales_download?: t_sales_downloadCreateNestedManyWithoutCustomerInput
@@ -76829,7 +75442,7 @@ export namespace Prisma {
     name: string
     email: string
     id_user?: string | null
-    auth_user_auth_user_id_customerTocustomer?: auth_userUncheckedCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutCustomerInput
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutCustomerInput
     t_sales?: t_salesUncheckedCreateNestedManyWithoutCustomerInput
     t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutCustomerInput
@@ -76858,9 +75471,9 @@ export namespace Prisma {
     otp?: NullableIntFieldUpdateOperationsInput | number | null
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    auth_user_auth_user_id_customerTocustomer?: auth_userUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutCustomerNestedInput
     auth_account?: auth_accountUpdateOneWithoutCustomerNestedInput
-    auth_user_customer_id_userToauth_user?: auth_userUpdateOneWithoutCustomer_customer_id_userToauth_userNestedInput
     customer_reader?: customer_readerUpdateManyWithoutCustomerNestedInput
     t_sales?: t_salesUpdateManyWithoutCustomerNestedInput
     t_sales_download?: t_sales_downloadUpdateManyWithoutCustomerNestedInput
@@ -76875,7 +75488,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_customerTocustomer?: auth_userUncheckedUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutCustomerNestedInput
     customer_reader?: customer_readerUncheckedUpdateManyWithoutCustomerNestedInput
     t_sales?: t_salesUncheckedUpdateManyWithoutCustomerNestedInput
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutCustomerNestedInput
@@ -77031,7 +75644,7 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableFilter<"genre"> | Date | string | null
   }
 
-  export type auth_userCreateWithoutInternal_auth_user_id_internalTointernalInput = {
+  export type auth_userCreateWithoutInternalInput = {
     id?: string
     name: string
     email: string
@@ -77042,24 +75655,19 @@ export namespace Prisma {
     username?: string | null
     display_username?: string | null
     two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
+    affiliate?: affiliateCreateNestedOneWithoutAuth_userInput
+    author?: authorCreateNestedOneWithoutAuth_userInput
+    customer?: customerCreateNestedOneWithoutAuth_userInput
+    publisher?: publisherCreateNestedOneWithoutAuth_userInput
     notif?: notifCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
-  export type auth_userUncheckedCreateWithoutInternal_auth_user_id_internalTointernalInput = {
+  export type auth_userUncheckedCreateWithoutInternalInput = {
     id?: string
     name: string
     email: string
@@ -77074,26 +75682,21 @@ export namespace Prisma {
     id_author?: string | null
     id_affiliate?: string | null
     id_publisher?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
     notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
-  export type auth_userCreateOrConnectWithoutInternal_auth_user_id_internalTointernalInput = {
+  export type auth_userCreateOrConnectWithoutInternalInput = {
     where: auth_userWhereUniqueInput
-    create: XOR<auth_userCreateWithoutInternal_auth_user_id_internalTointernalInput, auth_userUncheckedCreateWithoutInternal_auth_user_id_internalTointernalInput>
+    create: XOR<auth_userCreateWithoutInternalInput, auth_userUncheckedCreateWithoutInternalInput>
   }
 
-  export type auth_userCreateManyInternal_auth_user_id_internalTointernalInputEnvelope = {
-    data: auth_userCreateManyInternal_auth_user_id_internalTointernalInput | auth_userCreateManyInternal_auth_user_id_internalTointernalInput[]
+  export type auth_userCreateManyInternalInputEnvelope = {
+    data: auth_userCreateManyInternalInput | auth_userCreateManyInternalInput[]
     skipDuplicates?: boolean
   }
 
@@ -77168,81 +75771,20 @@ export namespace Prisma {
     create: XOR<auth_accountCreateWithoutInternalInput, auth_accountUncheckedCreateWithoutInternalInput>
   }
 
-  export type auth_userCreateWithoutInternal_internal_id_userToauth_userInput = {
-    id?: string
-    name: string
-    email: string
-    email_verified?: boolean
-    image?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string | null
-    username?: string | null
-    display_username?: string | null
-    two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
-    auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
-    auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
-    auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    notif?: notifCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
-    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
-    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
-  }
-
-  export type auth_userUncheckedCreateWithoutInternal_internal_id_userToauth_userInput = {
-    id?: string
-    name: string
-    email: string
-    email_verified?: boolean
-    image?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string | null
-    username?: string | null
-    display_username?: string | null
-    two_factor_enabled?: boolean | null
-    id_customer?: string | null
-    id_author?: string | null
-    id_affiliate?: string | null
-    id_publisher?: string | null
-    id_internal?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
-    auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
-    auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
-    auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
-    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
-    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
-  }
-
-  export type auth_userCreateOrConnectWithoutInternal_internal_id_userToauth_userInput = {
+  export type auth_userUpsertWithWhereUniqueWithoutInternalInput = {
     where: auth_userWhereUniqueInput
-    create: XOR<auth_userCreateWithoutInternal_internal_id_userToauth_userInput, auth_userUncheckedCreateWithoutInternal_internal_id_userToauth_userInput>
+    update: XOR<auth_userUpdateWithoutInternalInput, auth_userUncheckedUpdateWithoutInternalInput>
+    create: XOR<auth_userCreateWithoutInternalInput, auth_userUncheckedCreateWithoutInternalInput>
   }
 
-  export type auth_userUpsertWithWhereUniqueWithoutInternal_auth_user_id_internalTointernalInput = {
+  export type auth_userUpdateWithWhereUniqueWithoutInternalInput = {
     where: auth_userWhereUniqueInput
-    update: XOR<auth_userUpdateWithoutInternal_auth_user_id_internalTointernalInput, auth_userUncheckedUpdateWithoutInternal_auth_user_id_internalTointernalInput>
-    create: XOR<auth_userCreateWithoutInternal_auth_user_id_internalTointernalInput, auth_userUncheckedCreateWithoutInternal_auth_user_id_internalTointernalInput>
+    data: XOR<auth_userUpdateWithoutInternalInput, auth_userUncheckedUpdateWithoutInternalInput>
   }
 
-  export type auth_userUpdateWithWhereUniqueWithoutInternal_auth_user_id_internalTointernalInput = {
-    where: auth_userWhereUniqueInput
-    data: XOR<auth_userUpdateWithoutInternal_auth_user_id_internalTointernalInput, auth_userUncheckedUpdateWithoutInternal_auth_user_id_internalTointernalInput>
-  }
-
-  export type auth_userUpdateManyWithWhereWithoutInternal_auth_user_id_internalTointernalInput = {
+  export type auth_userUpdateManyWithWhereWithoutInternalInput = {
     where: auth_userScalarWhereInput
-    data: XOR<auth_userUpdateManyMutationInput, auth_userUncheckedUpdateManyWithoutInternal_auth_user_id_internalTointernalInput>
+    data: XOR<auth_userUpdateManyMutationInput, auth_userUncheckedUpdateManyWithoutInternalInput>
   }
 
   export type book_approvalUpsertWithWhereUniqueWithoutInternalInput = {
@@ -77310,73 +75852,6 @@ export namespace Prisma {
     author?: authorUncheckedUpdateManyWithoutAuth_accountNestedInput
     customer?: customerUncheckedUpdateManyWithoutAuth_accountNestedInput
     publisher?: publisherUncheckedUpdateManyWithoutAuth_accountNestedInput
-  }
-
-  export type auth_userUpsertWithoutInternal_internal_id_userToauth_userInput = {
-    update: XOR<auth_userUpdateWithoutInternal_internal_id_userToauth_userInput, auth_userUncheckedUpdateWithoutInternal_internal_id_userToauth_userInput>
-    create: XOR<auth_userCreateWithoutInternal_internal_id_userToauth_userInput, auth_userUncheckedCreateWithoutInternal_internal_id_userToauth_userInput>
-    where?: auth_userWhereInput
-  }
-
-  export type auth_userUpdateToOneWithWhereWithoutInternal_internal_id_userToauth_userInput = {
-    where?: auth_userWhereInput
-    data: XOR<auth_userUpdateWithoutInternal_internal_id_userToauth_userInput, auth_userUncheckedUpdateWithoutInternal_internal_id_userToauth_userInput>
-  }
-
-  export type auth_userUpdateWithoutInternal_internal_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    email_verified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    display_username?: NullableStringFieldUpdateOperationsInput | string | null
-    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
-    auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
-    auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
-    auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    notif?: notifUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
-    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
-    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
-  }
-
-  export type auth_userUncheckedUpdateWithoutInternal_internal_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    email_verified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    display_username?: NullableStringFieldUpdateOperationsInput | string | null
-    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    id_customer?: NullableStringFieldUpdateOperationsInput | string | null
-    id_author?: NullableStringFieldUpdateOperationsInput | string | null
-    id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
-    id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
-    id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
-    auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
-    auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
-    auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
-    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
-    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
   export type landing_itemsCreateWithoutLandingInput = {
@@ -77502,19 +75977,14 @@ export namespace Prisma {
     username?: string | null
     display_username?: string | null
     two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
+    affiliate?: affiliateCreateNestedOneWithoutAuth_userInput
+    author?: authorCreateNestedOneWithoutAuth_userInput
+    customer?: customerCreateNestedOneWithoutAuth_userInput
+    internal?: internalCreateNestedOneWithoutAuth_userInput
+    publisher?: publisherCreateNestedOneWithoutAuth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
@@ -77535,14 +76005,9 @@ export namespace Prisma {
     id_affiliate?: string | null
     id_publisher?: string | null
     id_internal?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
@@ -77574,19 +76039,14 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     display_username?: NullableStringFieldUpdateOperationsInput | string | null
     two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
+    affiliate?: affiliateUpdateOneWithoutAuth_userNestedInput
+    author?: authorUpdateOneWithoutAuth_userNestedInput
+    customer?: customerUpdateOneWithoutAuth_userNestedInput
+    internal?: internalUpdateOneWithoutAuth_userNestedInput
+    publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
@@ -77607,14 +76067,9 @@ export namespace Prisma {
     id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
     id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
     id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
@@ -77941,10 +76396,10 @@ export namespace Prisma {
     biography?: string | null
     social_media?: string | null
     avatar?: string | null
+    id_user?: string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userCreateNestedManyWithoutAuthor_auth_user_id_authorToauthorInput
+    auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
-    auth_user_author_id_userToauth_user?: auth_userCreateNestedOneWithoutAuthor_author_id_userToauth_userInput
     book?: bookCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorCreateNestedManyWithoutAuthorInput
   }
@@ -77958,7 +76413,7 @@ export namespace Prisma {
     avatar?: string | null
     id_user?: string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUncheckedCreateNestedManyWithoutAuthor_auth_user_id_authorToauthorInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
     book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutAuthorInput
   }
@@ -78151,10 +76606,10 @@ export namespace Prisma {
     biography?: NullableStringFieldUpdateOperationsInput | string | null
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUpdateManyWithoutAuthor_auth_user_id_authorToauthorNestedInput
+    auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
-    auth_user_author_id_userToauth_user?: auth_userUpdateOneWithoutAuthor_author_id_userToauth_userNestedInput
     book?: bookUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutAuthorNestedInput
   }
@@ -78168,7 +76623,7 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUncheckedUpdateManyWithoutAuthor_auth_user_id_authorToauthorNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
     book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
   }
@@ -78428,9 +76883,9 @@ export namespace Prisma {
     website?: string | null
     address?: string | null
     logo?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutPublisherInput
     auth_account?: auth_accountCreateNestedOneWithoutPublisherInput
-    auth_user_publisher_id_userToauth_user?: auth_userCreateNestedOneWithoutPublisher_publisher_id_userToauth_userInput
     publisher_author?: publisher_authorCreateNestedManyWithoutPublisherInput
     t_ai_credit?: t_ai_creditCreateNestedManyWithoutPublisherInput
     transaction?: transactionCreateNestedManyWithoutPublisherInput
@@ -78446,7 +76901,7 @@ export namespace Prisma {
     address?: string | null
     logo?: string | null
     id_user?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
     t_ai_credit?: t_ai_creditUncheckedCreateNestedManyWithoutPublisherInput
     transaction?: transactionUncheckedCreateNestedManyWithoutPublisherInput
@@ -78476,9 +76931,9 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutPublisherNestedInput
     auth_account?: auth_accountUpdateOneWithoutPublisherNestedInput
-    auth_user_publisher_id_userToauth_user?: auth_userUpdateOneWithoutPublisher_publisher_id_userToauth_userNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUpdateManyWithoutPublisherNestedInput
     transaction?: transactionUpdateManyWithoutPublisherNestedInput
@@ -78494,14 +76949,14 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUncheckedUpdateManyWithoutPublisherNestedInput
     transaction?: transactionUncheckedUpdateManyWithoutPublisherNestedInput
     withdrawal?: withdrawalUncheckedUpdateManyWithoutPublisherNestedInput
   }
 
-  export type auth_userCreateWithoutPublisher_auth_user_id_publisherTopublisherInput = {
+  export type auth_userCreateWithoutPublisherInput = {
     id?: string
     name: string
     email: string
@@ -78512,24 +76967,19 @@ export namespace Prisma {
     username?: string | null
     display_username?: string | null
     two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
+    affiliate?: affiliateCreateNestedOneWithoutAuth_userInput
+    author?: authorCreateNestedOneWithoutAuth_userInput
+    customer?: customerCreateNestedOneWithoutAuth_userInput
+    internal?: internalCreateNestedOneWithoutAuth_userInput
     notif?: notifCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
-  export type auth_userUncheckedCreateWithoutPublisher_auth_user_id_publisherTopublisherInput = {
+  export type auth_userUncheckedCreateWithoutPublisherInput = {
     id?: string
     name: string
     email: string
@@ -78544,26 +76994,21 @@ export namespace Prisma {
     id_author?: string | null
     id_affiliate?: string | null
     id_internal?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
     notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
-  export type auth_userCreateOrConnectWithoutPublisher_auth_user_id_publisherTopublisherInput = {
+  export type auth_userCreateOrConnectWithoutPublisherInput = {
     where: auth_userWhereUniqueInput
-    create: XOR<auth_userCreateWithoutPublisher_auth_user_id_publisherTopublisherInput, auth_userUncheckedCreateWithoutPublisher_auth_user_id_publisherTopublisherInput>
+    create: XOR<auth_userCreateWithoutPublisherInput, auth_userUncheckedCreateWithoutPublisherInput>
   }
 
-  export type auth_userCreateManyPublisher_auth_user_id_publisherTopublisherInputEnvelope = {
-    data: auth_userCreateManyPublisher_auth_user_id_publisherTopublisherInput | auth_userCreateManyPublisher_auth_user_id_publisherTopublisherInput[]
+  export type auth_userCreateManyPublisherInputEnvelope = {
+    data: auth_userCreateManyPublisherInput | auth_userCreateManyPublisherInput[]
     skipDuplicates?: boolean
   }
 
@@ -78644,67 +77089,6 @@ export namespace Prisma {
   export type auth_accountCreateOrConnectWithoutPublisherInput = {
     where: auth_accountWhereUniqueInput
     create: XOR<auth_accountCreateWithoutPublisherInput, auth_accountUncheckedCreateWithoutPublisherInput>
-  }
-
-  export type auth_userCreateWithoutPublisher_publisher_id_userToauth_userInput = {
-    id?: string
-    name: string
-    email: string
-    email_verified?: boolean
-    image?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string | null
-    username?: string | null
-    display_username?: string | null
-    two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
-    auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
-    auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
-    auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
-    notif?: notifCreateNestedManyWithoutAuth_userInput
-    reviews?: reviewsCreateNestedManyWithoutAuth_userInput
-    reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
-  }
-
-  export type auth_userUncheckedCreateWithoutPublisher_publisher_id_userToauth_userInput = {
-    id?: string
-    name: string
-    email: string
-    email_verified?: boolean
-    image?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string | null
-    username?: string | null
-    display_username?: string | null
-    two_factor_enabled?: boolean | null
-    id_customer?: string | null
-    id_author?: string | null
-    id_affiliate?: string | null
-    id_publisher?: string | null
-    id_internal?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
-    auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
-    auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
-    auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
-    notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
-    reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
-  }
-
-  export type auth_userCreateOrConnectWithoutPublisher_publisher_id_userToauth_userInput = {
-    where: auth_userWhereUniqueInput
-    create: XOR<auth_userCreateWithoutPublisher_publisher_id_userToauth_userInput, auth_userUncheckedCreateWithoutPublisher_publisher_id_userToauth_userInput>
   }
 
   export type publisher_authorCreateWithoutPublisherInput = {
@@ -78803,20 +77187,20 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type auth_userUpsertWithWhereUniqueWithoutPublisher_auth_user_id_publisherTopublisherInput = {
+  export type auth_userUpsertWithWhereUniqueWithoutPublisherInput = {
     where: auth_userWhereUniqueInput
-    update: XOR<auth_userUpdateWithoutPublisher_auth_user_id_publisherTopublisherInput, auth_userUncheckedUpdateWithoutPublisher_auth_user_id_publisherTopublisherInput>
-    create: XOR<auth_userCreateWithoutPublisher_auth_user_id_publisherTopublisherInput, auth_userUncheckedCreateWithoutPublisher_auth_user_id_publisherTopublisherInput>
+    update: XOR<auth_userUpdateWithoutPublisherInput, auth_userUncheckedUpdateWithoutPublisherInput>
+    create: XOR<auth_userCreateWithoutPublisherInput, auth_userUncheckedCreateWithoutPublisherInput>
   }
 
-  export type auth_userUpdateWithWhereUniqueWithoutPublisher_auth_user_id_publisherTopublisherInput = {
+  export type auth_userUpdateWithWhereUniqueWithoutPublisherInput = {
     where: auth_userWhereUniqueInput
-    data: XOR<auth_userUpdateWithoutPublisher_auth_user_id_publisherTopublisherInput, auth_userUncheckedUpdateWithoutPublisher_auth_user_id_publisherTopublisherInput>
+    data: XOR<auth_userUpdateWithoutPublisherInput, auth_userUncheckedUpdateWithoutPublisherInput>
   }
 
-  export type auth_userUpdateManyWithWhereWithoutPublisher_auth_user_id_publisherTopublisherInput = {
+  export type auth_userUpdateManyWithWhereWithoutPublisherInput = {
     where: auth_userScalarWhereInput
-    data: XOR<auth_userUpdateManyMutationInput, auth_userUncheckedUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherInput>
+    data: XOR<auth_userUpdateManyMutationInput, auth_userUncheckedUpdateManyWithoutPublisherInput>
   }
 
   export type promo_codeUpsertWithWhereUniqueWithoutPublisherInput = {
@@ -78900,73 +77284,6 @@ export namespace Prisma {
     author?: authorUncheckedUpdateManyWithoutAuth_accountNestedInput
     customer?: customerUncheckedUpdateManyWithoutAuth_accountNestedInput
     internal?: internalUncheckedUpdateManyWithoutAuth_accountNestedInput
-  }
-
-  export type auth_userUpsertWithoutPublisher_publisher_id_userToauth_userInput = {
-    update: XOR<auth_userUpdateWithoutPublisher_publisher_id_userToauth_userInput, auth_userUncheckedUpdateWithoutPublisher_publisher_id_userToauth_userInput>
-    create: XOR<auth_userCreateWithoutPublisher_publisher_id_userToauth_userInput, auth_userUncheckedCreateWithoutPublisher_publisher_id_userToauth_userInput>
-    where?: auth_userWhereInput
-  }
-
-  export type auth_userUpdateToOneWithWhereWithoutPublisher_publisher_id_userToauth_userInput = {
-    where?: auth_userWhereInput
-    data: XOR<auth_userUpdateWithoutPublisher_publisher_id_userToauth_userInput, auth_userUncheckedUpdateWithoutPublisher_publisher_id_userToauth_userInput>
-  }
-
-  export type auth_userUpdateWithoutPublisher_publisher_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    email_verified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    display_username?: NullableStringFieldUpdateOperationsInput | string | null
-    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
-    auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
-    auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
-    auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
-    notif?: notifUpdateManyWithoutAuth_userNestedInput
-    reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
-    reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
-  }
-
-  export type auth_userUncheckedUpdateWithoutPublisher_publisher_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    email_verified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    display_username?: NullableStringFieldUpdateOperationsInput | string | null
-    two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    id_customer?: NullableStringFieldUpdateOperationsInput | string | null
-    id_author?: NullableStringFieldUpdateOperationsInput | string | null
-    id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
-    id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
-    id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
-    auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
-    auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
-    auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
-    notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
-    reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
   export type publisher_authorUpsertWithWhereUniqueWithoutPublisherInput = {
@@ -79073,10 +77390,10 @@ export namespace Prisma {
     biography?: string | null
     social_media?: string | null
     avatar?: string | null
+    id_user?: string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userCreateNestedManyWithoutAuthor_auth_user_id_authorToauthorInput
+    auth_user?: auth_userCreateNestedManyWithoutAuthorInput
     auth_account?: auth_accountCreateNestedOneWithoutAuthorInput
-    auth_user_author_id_userToauth_user?: auth_userCreateNestedOneWithoutAuthor_author_id_userToauth_userInput
     book?: bookCreateNestedManyWithoutAuthorInput
     product?: productCreateNestedManyWithoutAuthorInput
   }
@@ -79090,7 +77407,7 @@ export namespace Prisma {
     avatar?: string | null
     id_user?: string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUncheckedCreateNestedManyWithoutAuthor_auth_user_id_authorToauthorInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutAuthorInput
     book?: bookUncheckedCreateNestedManyWithoutAuthorInput
     product?: productUncheckedCreateNestedManyWithoutAuthorInput
   }
@@ -79107,10 +77424,10 @@ export namespace Prisma {
     website?: string | null
     address?: string | null
     logo?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeCreateNestedManyWithoutPublisherInput
     auth_account?: auth_accountCreateNestedOneWithoutPublisherInput
-    auth_user_publisher_id_userToauth_user?: auth_userCreateNestedOneWithoutPublisher_publisher_id_userToauth_userInput
     t_ai_credit?: t_ai_creditCreateNestedManyWithoutPublisherInput
     transaction?: transactionCreateNestedManyWithoutPublisherInput
     withdrawal?: withdrawalCreateNestedManyWithoutPublisherInput
@@ -79125,7 +77442,7 @@ export namespace Prisma {
     address?: string | null
     logo?: string | null
     id_user?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
     t_ai_credit?: t_ai_creditUncheckedCreateNestedManyWithoutPublisherInput
     transaction?: transactionUncheckedCreateNestedManyWithoutPublisherInput
@@ -79154,10 +77471,10 @@ export namespace Prisma {
     biography?: NullableStringFieldUpdateOperationsInput | string | null
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUpdateManyWithoutAuthor_auth_user_id_authorToauthorNestedInput
+    auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
-    auth_user_author_id_userToauth_user?: auth_userUpdateOneWithoutAuthor_author_id_userToauth_userNestedInput
     book?: bookUpdateManyWithoutAuthorNestedInput
     product?: productUpdateManyWithoutAuthorNestedInput
   }
@@ -79171,7 +77488,7 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUncheckedUpdateManyWithoutAuthor_auth_user_id_authorToauthorNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
     book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
   }
@@ -79194,10 +77511,10 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUpdateManyWithoutPublisherNestedInput
     auth_account?: auth_accountUpdateOneWithoutPublisherNestedInput
-    auth_user_publisher_id_userToauth_user?: auth_userUpdateOneWithoutPublisher_publisher_id_userToauth_userNestedInput
     t_ai_credit?: t_ai_creditUpdateManyWithoutPublisherNestedInput
     transaction?: transactionUpdateManyWithoutPublisherNestedInput
     withdrawal?: withdrawalUpdateManyWithoutPublisherNestedInput
@@ -79212,7 +77529,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUncheckedUpdateManyWithoutPublisherNestedInput
     transaction?: transactionUncheckedUpdateManyWithoutPublisherNestedInput
@@ -79443,20 +77760,15 @@ export namespace Prisma {
     username?: string | null
     display_username?: string | null
     two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
+    affiliate?: affiliateCreateNestedOneWithoutAuth_userInput
+    author?: authorCreateNestedOneWithoutAuth_userInput
+    customer?: customerCreateNestedOneWithoutAuth_userInput
+    internal?: internalCreateNestedOneWithoutAuth_userInput
+    publisher?: publisherCreateNestedOneWithoutAuth_userInput
     notif?: notifCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews_likes?: reviews_likesCreateNestedManyWithoutAuth_userInput
   }
 
@@ -79476,15 +77788,10 @@ export namespace Prisma {
     id_affiliate?: string | null
     id_publisher?: string | null
     id_internal?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
     notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews_likes?: reviews_likesUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
@@ -79610,20 +77917,15 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     display_username?: NullableStringFieldUpdateOperationsInput | string | null
     two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
+    affiliate?: affiliateUpdateOneWithoutAuth_userNestedInput
+    author?: authorUpdateOneWithoutAuth_userNestedInput
+    customer?: customerUpdateOneWithoutAuth_userNestedInput
+    internal?: internalUpdateOneWithoutAuth_userNestedInput
+    publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     notif?: notifUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
@@ -79643,15 +77945,10 @@ export namespace Prisma {
     id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
     id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
     id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
     notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
@@ -79709,20 +78006,15 @@ export namespace Prisma {
     username?: string | null
     display_username?: string | null
     two_factor_enabled?: boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorCreateNestedManyWithoutAuth_userInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateCreateNestedOneWithoutAuth_user_auth_user_id_affiliateToaffiliateInput
-    author_auth_user_id_authorToauthor?: authorCreateNestedOneWithoutAuth_user_auth_user_id_authorToauthorInput
-    customer_auth_user_id_customerTocustomer?: customerCreateNestedOneWithoutAuth_user_auth_user_id_customerTocustomerInput
-    internal_auth_user_id_internalTointernal?: internalCreateNestedOneWithoutAuth_user_auth_user_id_internalTointernalInput
-    publisher_auth_user_id_publisherTopublisher?: publisherCreateNestedOneWithoutAuth_user_auth_user_id_publisherTopublisherInput
-    author_author_id_userToauth_user?: authorCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
+    affiliate?: affiliateCreateNestedOneWithoutAuth_userInput
+    author?: authorCreateNestedOneWithoutAuth_userInput
+    customer?: customerCreateNestedOneWithoutAuth_userInput
+    internal?: internalCreateNestedOneWithoutAuth_userInput
+    publisher?: publisherCreateNestedOneWithoutAuth_userInput
     notif?: notifCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsCreateNestedManyWithoutAuth_userInput
   }
 
@@ -79742,15 +78034,10 @@ export namespace Prisma {
     id_affiliate?: string | null
     id_publisher?: string | null
     id_internal?: string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedCreateNestedManyWithoutAuth_user_affiliate_id_userToauth_userInput
     auth_account?: auth_accountUncheckedCreateNestedManyWithoutAuth_userInput
     auth_session?: auth_sessionUncheckedCreateNestedManyWithoutAuth_userInput
     auth_two_factor?: auth_two_factorUncheckedCreateNestedManyWithoutAuth_userInput
-    author_author_id_userToauth_user?: authorUncheckedCreateNestedManyWithoutAuth_user_author_id_userToauth_userInput
-    customer_customer_id_userToauth_user?: customerUncheckedCreateNestedManyWithoutAuth_user_customer_id_userToauth_userInput
-    internal_internal_id_userToauth_user?: internalUncheckedCreateNestedManyWithoutAuth_user_internal_id_userToauth_userInput
     notif?: notifUncheckedCreateNestedManyWithoutAuth_userInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedCreateNestedManyWithoutAuth_user_publisher_id_userToauth_userInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutAuth_userInput
   }
 
@@ -79814,20 +78101,15 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     display_username?: NullableStringFieldUpdateOperationsInput | string | null
     two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
+    affiliate?: affiliateUpdateOneWithoutAuth_userNestedInput
+    author?: authorUpdateOneWithoutAuth_userNestedInput
+    customer?: customerUpdateOneWithoutAuth_userNestedInput
+    internal?: internalUpdateOneWithoutAuth_userNestedInput
+    publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     notif?: notifUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
   }
 
@@ -79847,15 +78129,10 @@ export namespace Prisma {
     id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
     id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
     id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
     notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
@@ -79866,10 +78143,10 @@ export namespace Prisma {
     website?: string | null
     address?: string | null
     logo?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeCreateNestedManyWithoutPublisherInput
     auth_account?: auth_accountCreateNestedOneWithoutPublisherInput
-    auth_user_publisher_id_userToauth_user?: auth_userCreateNestedOneWithoutPublisher_publisher_id_userToauth_userInput
     publisher_author?: publisher_authorCreateNestedManyWithoutPublisherInput
     transaction?: transactionCreateNestedManyWithoutPublisherInput
     withdrawal?: withdrawalCreateNestedManyWithoutPublisherInput
@@ -79884,7 +78161,7 @@ export namespace Prisma {
     address?: string | null
     logo?: string | null
     id_user?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
     transaction?: transactionUncheckedCreateNestedManyWithoutPublisherInput
@@ -79938,10 +78215,10 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUpdateManyWithoutPublisherNestedInput
     auth_account?: auth_accountUpdateOneWithoutPublisherNestedInput
-    auth_user_publisher_id_userToauth_user?: auth_userUpdateOneWithoutPublisher_publisher_id_userToauth_userNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutPublisherNestedInput
     transaction?: transactionUpdateManyWithoutPublisherNestedInput
     withdrawal?: withdrawalUpdateManyWithoutPublisherNestedInput
@@ -79956,7 +78233,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
     transaction?: transactionUncheckedUpdateManyWithoutPublisherNestedInput
@@ -80041,9 +78318,9 @@ export namespace Prisma {
     otp?: number | null
     name: string
     email: string
-    auth_user_auth_user_id_customerTocustomer?: auth_userCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutCustomerInput
     auth_account?: auth_accountCreateNestedOneWithoutCustomerInput
-    auth_user_customer_id_userToauth_user?: auth_userCreateNestedOneWithoutCustomer_customer_id_userToauth_userInput
     customer_reader?: customer_readerCreateNestedManyWithoutCustomerInput
     customer_track?: customer_trackCreateNestedManyWithoutCustomerInput
     t_sales_download?: t_sales_downloadCreateNestedManyWithoutCustomerInput
@@ -80058,7 +78335,7 @@ export namespace Prisma {
     name: string
     email: string
     id_user?: string | null
-    auth_user_auth_user_id_customerTocustomer?: auth_userUncheckedCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutCustomerInput
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutCustomerInput
     customer_track?: customer_trackUncheckedCreateNestedManyWithoutCustomerInput
     t_sales_download?: t_sales_downloadUncheckedCreateNestedManyWithoutCustomerInput
@@ -80115,9 +78392,9 @@ export namespace Prisma {
     otp?: NullableIntFieldUpdateOperationsInput | number | null
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    auth_user_auth_user_id_customerTocustomer?: auth_userUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutCustomerNestedInput
     auth_account?: auth_accountUpdateOneWithoutCustomerNestedInput
-    auth_user_customer_id_userToauth_user?: auth_userUpdateOneWithoutCustomer_customer_id_userToauth_userNestedInput
     customer_reader?: customer_readerUpdateManyWithoutCustomerNestedInput
     customer_track?: customer_trackUpdateManyWithoutCustomerNestedInput
     t_sales_download?: t_sales_downloadUpdateManyWithoutCustomerNestedInput
@@ -80132,7 +78409,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_customerTocustomer?: auth_userUncheckedUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutCustomerNestedInput
     customer_reader?: customer_readerUncheckedUpdateManyWithoutCustomerNestedInput
     customer_track?: customer_trackUncheckedUpdateManyWithoutCustomerNestedInput
     t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutCustomerNestedInput
@@ -80161,9 +78438,9 @@ export namespace Prisma {
     otp?: number | null
     name: string
     email: string
-    auth_user_auth_user_id_customerTocustomer?: auth_userCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutCustomerInput
     auth_account?: auth_accountCreateNestedOneWithoutCustomerInput
-    auth_user_customer_id_userToauth_user?: auth_userCreateNestedOneWithoutCustomer_customer_id_userToauth_userInput
     customer_reader?: customer_readerCreateNestedManyWithoutCustomerInput
     customer_track?: customer_trackCreateNestedManyWithoutCustomerInput
     t_sales?: t_salesCreateNestedManyWithoutCustomerInput
@@ -80178,7 +78455,7 @@ export namespace Prisma {
     name: string
     email: string
     id_user?: string | null
-    auth_user_auth_user_id_customerTocustomer?: auth_userUncheckedCreateNestedManyWithoutCustomer_auth_user_id_customerTocustomerInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutCustomerInput
     customer_reader?: customer_readerUncheckedCreateNestedManyWithoutCustomerInput
     customer_track?: customer_trackUncheckedCreateNestedManyWithoutCustomerInput
     t_sales?: t_salesUncheckedCreateNestedManyWithoutCustomerInput
@@ -80274,9 +78551,9 @@ export namespace Prisma {
     otp?: NullableIntFieldUpdateOperationsInput | number | null
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    auth_user_auth_user_id_customerTocustomer?: auth_userUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutCustomerNestedInput
     auth_account?: auth_accountUpdateOneWithoutCustomerNestedInput
-    auth_user_customer_id_userToauth_user?: auth_userUpdateOneWithoutCustomer_customer_id_userToauth_userNestedInput
     customer_reader?: customer_readerUpdateManyWithoutCustomerNestedInput
     customer_track?: customer_trackUpdateManyWithoutCustomerNestedInput
     t_sales?: t_salesUpdateManyWithoutCustomerNestedInput
@@ -80291,7 +78568,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_customerTocustomer?: auth_userUncheckedUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutCustomerNestedInput
     customer_reader?: customer_readerUncheckedUpdateManyWithoutCustomerNestedInput
     customer_track?: customer_trackUncheckedUpdateManyWithoutCustomerNestedInput
     t_sales?: t_salesUncheckedUpdateManyWithoutCustomerNestedInput
@@ -80839,10 +79116,10 @@ export namespace Prisma {
     website?: string | null
     address?: string | null
     logo?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeCreateNestedManyWithoutPublisherInput
     auth_account?: auth_accountCreateNestedOneWithoutPublisherInput
-    auth_user_publisher_id_userToauth_user?: auth_userCreateNestedOneWithoutPublisher_publisher_id_userToauth_userInput
     publisher_author?: publisher_authorCreateNestedManyWithoutPublisherInput
     t_ai_credit?: t_ai_creditCreateNestedManyWithoutPublisherInput
     withdrawal?: withdrawalCreateNestedManyWithoutPublisherInput
@@ -80857,7 +79134,7 @@ export namespace Prisma {
     address?: string | null
     logo?: string | null
     id_user?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
     t_ai_credit?: t_ai_creditUncheckedCreateNestedManyWithoutPublisherInput
@@ -80887,10 +79164,10 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUpdateManyWithoutPublisherNestedInput
     auth_account?: auth_accountUpdateOneWithoutPublisherNestedInput
-    auth_user_publisher_id_userToauth_user?: auth_userUpdateOneWithoutPublisher_publisher_id_userToauth_userNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUpdateManyWithoutPublisherNestedInput
     withdrawal?: withdrawalUpdateManyWithoutPublisherNestedInput
@@ -80905,7 +79182,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUncheckedUpdateManyWithoutPublisherNestedInput
@@ -80919,10 +79196,10 @@ export namespace Prisma {
     website?: string | null
     address?: string | null
     logo?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
+    id_user?: string | null
+    auth_user?: auth_userCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeCreateNestedManyWithoutPublisherInput
     auth_account?: auth_accountCreateNestedOneWithoutPublisherInput
-    auth_user_publisher_id_userToauth_user?: auth_userCreateNestedOneWithoutPublisher_publisher_id_userToauth_userInput
     publisher_author?: publisher_authorCreateNestedManyWithoutPublisherInput
     t_ai_credit?: t_ai_creditCreateNestedManyWithoutPublisherInput
     transaction?: transactionCreateNestedManyWithoutPublisherInput
@@ -80937,7 +79214,7 @@ export namespace Prisma {
     address?: string | null
     logo?: string | null
     id_user?: string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedCreateNestedManyWithoutPublisher_auth_user_id_publisherTopublisherInput
+    auth_user?: auth_userUncheckedCreateNestedManyWithoutPublisherInput
     promo_code?: promo_codeUncheckedCreateNestedManyWithoutPublisherInput
     publisher_author?: publisher_authorUncheckedCreateNestedManyWithoutPublisherInput
     t_ai_credit?: t_ai_creditUncheckedCreateNestedManyWithoutPublisherInput
@@ -80967,10 +79244,10 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUpdateManyWithoutPublisherNestedInput
     auth_account?: auth_accountUpdateOneWithoutPublisherNestedInput
-    auth_user_publisher_id_userToauth_user?: auth_userUpdateOneWithoutPublisher_publisher_id_userToauth_userNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUpdateManyWithoutPublisherNestedInput
     transaction?: transactionUpdateManyWithoutPublisherNestedInput
@@ -80985,14 +79262,14 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUncheckedUpdateManyWithoutPublisherNestedInput
     transaction?: transactionUncheckedUpdateManyWithoutPublisherNestedInput
   }
 
-  export type auth_userCreateManyAffiliate_auth_user_id_affiliateToaffiliateInput = {
+  export type auth_userCreateManyAffiliateInput = {
     id?: string
     name: string
     email: string
@@ -81009,7 +79286,7 @@ export namespace Prisma {
     id_internal?: string | null
   }
 
-  export type auth_userUpdateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput = {
+  export type auth_userUpdateWithoutAffiliateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -81020,24 +79297,19 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     display_username?: NullableStringFieldUpdateOperationsInput | string | null
     two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
+    author?: authorUpdateOneWithoutAuth_userNestedInput
+    customer?: customerUpdateOneWithoutAuth_userNestedInput
+    internal?: internalUpdateOneWithoutAuth_userNestedInput
+    publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     notif?: notifUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
-  export type auth_userUncheckedUpdateWithoutAffiliate_auth_user_id_affiliateToaffiliateInput = {
+  export type auth_userUncheckedUpdateWithoutAffiliateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -81052,20 +79324,15 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
     id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
     notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
-  export type auth_userUncheckedUpdateManyWithoutAffiliate_auth_user_id_affiliateToaffiliateInput = {
+  export type auth_userUncheckedUpdateManyWithoutAffiliateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -81131,15 +79398,15 @@ export namespace Prisma {
   export type affiliateUpdateWithoutAuth_accountInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    auth_user_affiliate_id_userToauth_user?: auth_userUpdateOneWithoutAffiliate_affiliate_id_userToauth_userNestedInput
-    auth_user_auth_user_id_affiliateToaffiliate?: auth_userUpdateManyWithoutAffiliate_auth_user_id_affiliateToaffiliateNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutAffiliateNestedInput
   }
 
   export type affiliateUncheckedUpdateWithoutAuth_accountInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_affiliateToaffiliate?: auth_userUncheckedUpdateManyWithoutAffiliate_auth_user_id_affiliateToaffiliateNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutAffiliateNestedInput
   }
 
   export type affiliateUncheckedUpdateManyWithoutAuth_accountInput = {
@@ -81154,9 +79421,9 @@ export namespace Prisma {
     biography?: NullableStringFieldUpdateOperationsInput | string | null
     social_media?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUpdateManyWithoutAuthor_auth_user_id_authorToauthorNestedInput
-    auth_user_author_id_userToauth_user?: auth_userUpdateOneWithoutAuthor_author_id_userToauth_userNestedInput
+    auth_user?: auth_userUpdateManyWithoutAuthorNestedInput
     book?: bookUpdateManyWithoutAuthorNestedInput
     product?: productUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutAuthorNestedInput
@@ -81170,7 +79437,7 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
     cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUncheckedUpdateManyWithoutAuthor_auth_user_id_authorToauthorNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutAuthorNestedInput
     book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
     product?: productUncheckedUpdateManyWithoutAuthorNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
@@ -81193,8 +79460,8 @@ export namespace Prisma {
     otp?: NullableIntFieldUpdateOperationsInput | number | null
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    auth_user_auth_user_id_customerTocustomer?: auth_userUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput
-    auth_user_customer_id_userToauth_user?: auth_userUpdateOneWithoutCustomer_customer_id_userToauth_userNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutCustomerNestedInput
     customer_reader?: customer_readerUpdateManyWithoutCustomerNestedInput
     customer_track?: customer_trackUpdateManyWithoutCustomerNestedInput
     t_sales?: t_salesUpdateManyWithoutCustomerNestedInput
@@ -81209,7 +79476,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_customerTocustomer?: auth_userUncheckedUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutCustomerNestedInput
     customer_reader?: customer_readerUncheckedUpdateManyWithoutCustomerNestedInput
     customer_track?: customer_trackUncheckedUpdateManyWithoutCustomerNestedInput
     t_sales?: t_salesUncheckedUpdateManyWithoutCustomerNestedInput
@@ -81233,9 +79500,9 @@ export namespace Prisma {
     is_support?: BoolFieldUpdateOperationsInput | boolean
     is_management?: BoolFieldUpdateOperationsInput | boolean
     is_it?: BoolFieldUpdateOperationsInput | boolean
-    auth_user_auth_user_id_internalTointernal?: auth_userUpdateManyWithoutInternal_auth_user_id_internalTointernalNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutInternalNestedInput
     book_approval?: book_approvalUpdateManyWithoutInternalNestedInput
-    auth_user_internal_id_userToauth_user?: auth_userUpdateOneWithoutInternal_internal_id_userToauth_userNestedInput
   }
 
   export type internalUncheckedUpdateWithoutAuth_accountInput = {
@@ -81246,7 +79513,7 @@ export namespace Prisma {
     is_management?: BoolFieldUpdateOperationsInput | boolean
     is_it?: BoolFieldUpdateOperationsInput | boolean
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_internalTointernal?: auth_userUncheckedUpdateManyWithoutInternal_auth_user_id_internalTointernalNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutInternalNestedInput
     book_approval?: book_approvalUncheckedUpdateManyWithoutInternalNestedInput
   }
 
@@ -81267,9 +79534,9 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
+    id_user?: NullableStringFieldUpdateOperationsInput | string | null
+    auth_user?: auth_userUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUpdateManyWithoutPublisherNestedInput
-    auth_user_publisher_id_userToauth_user?: auth_userUpdateOneWithoutPublisher_publisher_id_userToauth_userNestedInput
     publisher_author?: publisher_authorUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUpdateManyWithoutPublisherNestedInput
     transaction?: transactionUpdateManyWithoutPublisherNestedInput
@@ -81284,7 +79551,7 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
+    auth_user?: auth_userUncheckedUpdateManyWithoutPublisherNestedInput
     promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
     publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
     t_ai_credit?: t_ai_creditUncheckedUpdateManyWithoutPublisherNestedInput
@@ -81300,12 +79567,6 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     id_user?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type affiliateCreateManyAuth_user_affiliate_id_userToauth_userInput = {
-    id?: string
-    name: string
-    id_account?: string | null
   }
 
   export type auth_accountCreateManyAuth_userInput = {
@@ -81339,36 +79600,6 @@ export namespace Prisma {
     backup_codes?: string | null
   }
 
-  export type authorCreateManyAuth_user_author_id_userToauth_userInput = {
-    id?: string
-    name: string
-    id_account?: string | null
-    biography?: string | null
-    social_media?: string | null
-    avatar?: string | null
-    cfg?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type customerCreateManyAuth_user_customer_id_userToauth_userInput = {
-    id?: string
-    whatsapp: string
-    deleted_at?: Date | string | null
-    otp?: number | null
-    id_account?: string | null
-    name: string
-    email: string
-  }
-
-  export type internalCreateManyAuth_user_internal_id_userToauth_userInput = {
-    id?: string
-    id_account?: string | null
-    name: string
-    is_sales_and_marketing?: boolean
-    is_support?: boolean
-    is_management?: boolean
-    is_it?: boolean
-  }
-
   export type notifCreateManyAuth_userInput = {
     created_at?: Date | string
     message: string
@@ -81377,16 +79608,6 @@ export namespace Prisma {
     url?: string | null
     data?: NullableJsonNullValueInput | InputJsonValue
     thumbnail?: string | null
-  }
-
-  export type publisherCreateManyAuth_user_publisher_id_userToauth_userInput = {
-    id?: string
-    id_account?: string | null
-    name: string
-    description?: string | null
-    website?: string | null
-    address?: string | null
-    logo?: string | null
   }
 
   export type reviewsCreateManyAuth_userInput = {
@@ -81402,26 +79623,6 @@ export namespace Prisma {
   export type reviews_likesCreateManyAuth_userInput = {
     id?: string
     id_reviews: string
-  }
-
-  export type affiliateUpdateWithoutAuth_user_affiliate_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    auth_account?: auth_accountUpdateOneWithoutAffiliateNestedInput
-    auth_user_auth_user_id_affiliateToaffiliate?: auth_userUpdateManyWithoutAffiliate_auth_user_id_affiliateToaffiliateNestedInput
-  }
-
-  export type affiliateUncheckedUpdateWithoutAuth_user_affiliate_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    id_account?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_affiliateToaffiliate?: auth_userUncheckedUpdateManyWithoutAffiliate_auth_user_id_affiliateToaffiliateNestedInput
-  }
-
-  export type affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    id_account?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type auth_accountUpdateWithoutAuth_userInput = {
@@ -81527,118 +79728,6 @@ export namespace Prisma {
     backup_codes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type authorUpdateWithoutAuth_user_author_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    biography?: NullableStringFieldUpdateOperationsInput | string | null
-    social_media?: NullableStringFieldUpdateOperationsInput | string | null
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUpdateManyWithoutAuthor_auth_user_id_authorToauthorNestedInput
-    auth_account?: auth_accountUpdateOneWithoutAuthorNestedInput
-    book?: bookUpdateManyWithoutAuthorNestedInput
-    product?: productUpdateManyWithoutAuthorNestedInput
-    publisher_author?: publisher_authorUpdateManyWithoutAuthorNestedInput
-  }
-
-  export type authorUncheckedUpdateWithoutAuth_user_author_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    id_account?: NullableStringFieldUpdateOperationsInput | string | null
-    biography?: NullableStringFieldUpdateOperationsInput | string | null
-    social_media?: NullableStringFieldUpdateOperationsInput | string | null
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    cfg?: NullableJsonNullValueInput | InputJsonValue
-    auth_user_auth_user_id_authorToauthor?: auth_userUncheckedUpdateManyWithoutAuthor_auth_user_id_authorToauthorNestedInput
-    book?: bookUncheckedUpdateManyWithoutAuthorNestedInput
-    product?: productUncheckedUpdateManyWithoutAuthorNestedInput
-    publisher_author?: publisher_authorUncheckedUpdateManyWithoutAuthorNestedInput
-  }
-
-  export type authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    id_account?: NullableStringFieldUpdateOperationsInput | string | null
-    biography?: NullableStringFieldUpdateOperationsInput | string | null
-    social_media?: NullableStringFieldUpdateOperationsInput | string | null
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    cfg?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type customerUpdateWithoutAuth_user_customer_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    whatsapp?: StringFieldUpdateOperationsInput | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    otp?: NullableIntFieldUpdateOperationsInput | number | null
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    auth_user_auth_user_id_customerTocustomer?: auth_userUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput
-    auth_account?: auth_accountUpdateOneWithoutCustomerNestedInput
-    customer_reader?: customer_readerUpdateManyWithoutCustomerNestedInput
-    customer_track?: customer_trackUpdateManyWithoutCustomerNestedInput
-    t_sales?: t_salesUpdateManyWithoutCustomerNestedInput
-    t_sales_download?: t_sales_downloadUpdateManyWithoutCustomerNestedInput
-  }
-
-  export type customerUncheckedUpdateWithoutAuth_user_customer_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    whatsapp?: StringFieldUpdateOperationsInput | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    otp?: NullableIntFieldUpdateOperationsInput | number | null
-    id_account?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    auth_user_auth_user_id_customerTocustomer?: auth_userUncheckedUpdateManyWithoutCustomer_auth_user_id_customerTocustomerNestedInput
-    customer_reader?: customer_readerUncheckedUpdateManyWithoutCustomerNestedInput
-    customer_track?: customer_trackUncheckedUpdateManyWithoutCustomerNestedInput
-    t_sales?: t_salesUncheckedUpdateManyWithoutCustomerNestedInput
-    t_sales_download?: t_sales_downloadUncheckedUpdateManyWithoutCustomerNestedInput
-  }
-
-  export type customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    whatsapp?: StringFieldUpdateOperationsInput | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    otp?: NullableIntFieldUpdateOperationsInput | number | null
-    id_account?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type internalUpdateWithoutAuth_user_internal_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    is_sales_and_marketing?: BoolFieldUpdateOperationsInput | boolean
-    is_support?: BoolFieldUpdateOperationsInput | boolean
-    is_management?: BoolFieldUpdateOperationsInput | boolean
-    is_it?: BoolFieldUpdateOperationsInput | boolean
-    auth_user_auth_user_id_internalTointernal?: auth_userUpdateManyWithoutInternal_auth_user_id_internalTointernalNestedInput
-    book_approval?: book_approvalUpdateManyWithoutInternalNestedInput
-    auth_account?: auth_accountUpdateOneWithoutInternalNestedInput
-  }
-
-  export type internalUncheckedUpdateWithoutAuth_user_internal_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    id_account?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: StringFieldUpdateOperationsInput | string
-    is_sales_and_marketing?: BoolFieldUpdateOperationsInput | boolean
-    is_support?: BoolFieldUpdateOperationsInput | boolean
-    is_management?: BoolFieldUpdateOperationsInput | boolean
-    is_it?: BoolFieldUpdateOperationsInput | boolean
-    auth_user_auth_user_id_internalTointernal?: auth_userUncheckedUpdateManyWithoutInternal_auth_user_id_internalTointernalNestedInput
-    book_approval?: book_approvalUncheckedUpdateManyWithoutInternalNestedInput
-  }
-
-  export type internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    id_account?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: StringFieldUpdateOperationsInput | string
-    is_sales_and_marketing?: BoolFieldUpdateOperationsInput | boolean
-    is_support?: BoolFieldUpdateOperationsInput | boolean
-    is_management?: BoolFieldUpdateOperationsInput | boolean
-    is_it?: BoolFieldUpdateOperationsInput | boolean
-  }
-
   export type notifUpdateWithoutAuth_userInput = {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: StringFieldUpdateOperationsInput | string
@@ -81667,48 +79756,6 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     data?: NullableJsonNullValueInput | InputJsonValue
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type publisherUpdateWithoutAuth_user_publisher_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    website?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    logo?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
-    promo_code?: promo_codeUpdateManyWithoutPublisherNestedInput
-    auth_account?: auth_accountUpdateOneWithoutPublisherNestedInput
-    publisher_author?: publisher_authorUpdateManyWithoutPublisherNestedInput
-    t_ai_credit?: t_ai_creditUpdateManyWithoutPublisherNestedInput
-    transaction?: transactionUpdateManyWithoutPublisherNestedInput
-    withdrawal?: withdrawalUpdateManyWithoutPublisherNestedInput
-  }
-
-  export type publisherUncheckedUpdateWithoutAuth_user_publisher_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    id_account?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    website?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    logo?: NullableStringFieldUpdateOperationsInput | string | null
-    auth_user_auth_user_id_publisherTopublisher?: auth_userUncheckedUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherNestedInput
-    promo_code?: promo_codeUncheckedUpdateManyWithoutPublisherNestedInput
-    publisher_author?: publisher_authorUncheckedUpdateManyWithoutPublisherNestedInput
-    t_ai_credit?: t_ai_creditUncheckedUpdateManyWithoutPublisherNestedInput
-    transaction?: transactionUncheckedUpdateManyWithoutPublisherNestedInput
-    withdrawal?: withdrawalUncheckedUpdateManyWithoutPublisherNestedInput
-  }
-
-  export type publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    id_account?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    website?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    logo?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type reviewsUpdateWithoutAuth_userInput = {
@@ -81758,7 +79805,7 @@ export namespace Prisma {
     id_reviews?: StringFieldUpdateOperationsInput | string
   }
 
-  export type auth_userCreateManyAuthor_auth_user_id_authorToauthorInput = {
+  export type auth_userCreateManyAuthorInput = {
     id?: string
     name: string
     email: string
@@ -81828,7 +79875,7 @@ export namespace Prisma {
     publisher_id: string
   }
 
-  export type auth_userUpdateWithoutAuthor_auth_user_id_authorToauthorInput = {
+  export type auth_userUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -81839,24 +79886,19 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     display_username?: NullableStringFieldUpdateOperationsInput | string | null
     two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
+    affiliate?: affiliateUpdateOneWithoutAuth_userNestedInput
+    customer?: customerUpdateOneWithoutAuth_userNestedInput
+    internal?: internalUpdateOneWithoutAuth_userNestedInput
+    publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     notif?: notifUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
-  export type auth_userUncheckedUpdateWithoutAuthor_auth_user_id_authorToauthorInput = {
+  export type auth_userUncheckedUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -81871,20 +79913,15 @@ export namespace Prisma {
     id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
     id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
     id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
     notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
-  export type auth_userUncheckedUpdateManyWithoutAuthor_auth_user_id_authorToauthorInput = {
+  export type auth_userUncheckedUpdateManyWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -82438,7 +80475,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type auth_userCreateManyCustomer_auth_user_id_customerTocustomerInput = {
+  export type auth_userCreateManyCustomerInput = {
     id?: string
     name: string
     email: string
@@ -82494,7 +80531,7 @@ export namespace Prisma {
     download_key?: string
   }
 
-  export type auth_userUpdateWithoutCustomer_auth_user_id_customerTocustomerInput = {
+  export type auth_userUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -82505,24 +80542,19 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     display_username?: NullableStringFieldUpdateOperationsInput | string | null
     two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
+    affiliate?: affiliateUpdateOneWithoutAuth_userNestedInput
+    author?: authorUpdateOneWithoutAuth_userNestedInput
+    internal?: internalUpdateOneWithoutAuth_userNestedInput
+    publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     notif?: notifUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
-  export type auth_userUncheckedUpdateWithoutCustomer_auth_user_id_customerTocustomerInput = {
+  export type auth_userUncheckedUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -82537,20 +80569,15 @@ export namespace Prisma {
     id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
     id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
     id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
     notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
-  export type auth_userUncheckedUpdateManyWithoutCustomer_auth_user_id_customerTocustomerInput = {
+  export type auth_userUncheckedUpdateManyWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -82742,7 +80769,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type auth_userCreateManyInternal_auth_user_id_internalTointernalInput = {
+  export type auth_userCreateManyInternalInput = {
     id?: string
     name: string
     email: string
@@ -82767,7 +80794,7 @@ export namespace Prisma {
     created_at?: Date | string
   }
 
-  export type auth_userUpdateWithoutInternal_auth_user_id_internalTointernalInput = {
+  export type auth_userUpdateWithoutInternalInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -82778,24 +80805,19 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     display_username?: NullableStringFieldUpdateOperationsInput | string | null
     two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    publisher_auth_user_id_publisherTopublisher?: publisherUpdateOneWithoutAuth_user_auth_user_id_publisherTopublisherNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
+    affiliate?: affiliateUpdateOneWithoutAuth_userNestedInput
+    author?: authorUpdateOneWithoutAuth_userNestedInput
+    customer?: customerUpdateOneWithoutAuth_userNestedInput
+    publisher?: publisherUpdateOneWithoutAuth_userNestedInput
     notif?: notifUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
-  export type auth_userUncheckedUpdateWithoutInternal_auth_user_id_internalTointernalInput = {
+  export type auth_userUncheckedUpdateWithoutInternalInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -82810,20 +80832,15 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
     id_publisher?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
     notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
-  export type auth_userUncheckedUpdateManyWithoutInternal_auth_user_id_internalTointernalInput = {
+  export type auth_userUncheckedUpdateManyWithoutInternalInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -83230,7 +81247,7 @@ export namespace Prisma {
     id_bundle?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type auth_userCreateManyPublisher_auth_user_id_publisherTopublisherInput = {
+  export type auth_userCreateManyPublisherInput = {
     id?: string
     name: string
     email: string
@@ -83286,7 +81303,7 @@ export namespace Prisma {
     processed_at?: Date | string | null
   }
 
-  export type auth_userUpdateWithoutPublisher_auth_user_id_publisherTopublisherInput = {
+  export type auth_userUpdateWithoutPublisherInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -83297,24 +81314,19 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     display_username?: NullableStringFieldUpdateOperationsInput | string | null
     two_factor_enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUpdateManyWithoutAuth_userNestedInput
-    affiliate_auth_user_id_affiliateToaffiliate?: affiliateUpdateOneWithoutAuth_user_auth_user_id_affiliateToaffiliateNestedInput
-    author_auth_user_id_authorToauthor?: authorUpdateOneWithoutAuth_user_auth_user_id_authorToauthorNestedInput
-    customer_auth_user_id_customerTocustomer?: customerUpdateOneWithoutAuth_user_auth_user_id_customerTocustomerNestedInput
-    internal_auth_user_id_internalTointernal?: internalUpdateOneWithoutAuth_user_auth_user_id_internalTointernalNestedInput
-    author_author_id_userToauth_user?: authorUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
+    affiliate?: affiliateUpdateOneWithoutAuth_userNestedInput
+    author?: authorUpdateOneWithoutAuth_userNestedInput
+    customer?: customerUpdateOneWithoutAuth_userNestedInput
+    internal?: internalUpdateOneWithoutAuth_userNestedInput
     notif?: notifUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUpdateManyWithoutAuth_userNestedInput
   }
 
-  export type auth_userUncheckedUpdateWithoutPublisher_auth_user_id_publisherTopublisherInput = {
+  export type auth_userUncheckedUpdateWithoutPublisherInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -83329,20 +81341,15 @@ export namespace Prisma {
     id_author?: NullableStringFieldUpdateOperationsInput | string | null
     id_affiliate?: NullableStringFieldUpdateOperationsInput | string | null
     id_internal?: NullableStringFieldUpdateOperationsInput | string | null
-    affiliate_affiliate_id_userToauth_user?: affiliateUncheckedUpdateManyWithoutAuth_user_affiliate_id_userToauth_userNestedInput
     auth_account?: auth_accountUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_session?: auth_sessionUncheckedUpdateManyWithoutAuth_userNestedInput
     auth_two_factor?: auth_two_factorUncheckedUpdateManyWithoutAuth_userNestedInput
-    author_author_id_userToauth_user?: authorUncheckedUpdateManyWithoutAuth_user_author_id_userToauth_userNestedInput
-    customer_customer_id_userToauth_user?: customerUncheckedUpdateManyWithoutAuth_user_customer_id_userToauth_userNestedInput
-    internal_internal_id_userToauth_user?: internalUncheckedUpdateManyWithoutAuth_user_internal_id_userToauth_userNestedInput
     notif?: notifUncheckedUpdateManyWithoutAuth_userNestedInput
-    publisher_publisher_id_userToauth_user?: publisherUncheckedUpdateManyWithoutAuth_user_publisher_id_userToauth_userNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutAuth_userNestedInput
     reviews_likes?: reviews_likesUncheckedUpdateManyWithoutAuth_userNestedInput
   }
 
-  export type auth_userUncheckedUpdateManyWithoutPublisher_auth_user_id_publisherTopublisherInput = {
+  export type auth_userUncheckedUpdateManyWithoutPublisherInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string

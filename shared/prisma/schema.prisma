@@ -9,13 +9,12 @@ datasource db {
 }
 
 model affiliate {
-  id                                          String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name                                        String
-  id_account                                  String?       @db.Uuid
-  id_user                                     String?       @db.Uuid
-  auth_account                                auth_account? @relation(fields: [id_account], references: [id], map: "affiliate_fk_id_account")
-  auth_user_affiliate_id_userToauth_user      auth_user?    @relation("affiliate_id_userToauth_user", fields: [id_user], references: [id], map: "affiliate_fk_id_user")
-  auth_user_auth_user_id_affiliateToaffiliate auth_user[]   @relation("auth_user_id_affiliateToaffiliate")
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String
+  id_account   String?       @db.Uuid
+  id_user      String?       @db.Uuid
+  auth_account auth_account? @relation(fields: [id_account], references: [id], map: "affiliate_fk_id_account")
+  auth_user    auth_user[]
 }
 
 model auth_account {
@@ -61,37 +60,32 @@ model auth_two_factor {
 }
 
 model auth_user {
-  id                                          String            @id(map: "user_info_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name                                        String            @db.VarChar
-  email                                       String            @unique(map: "user_info_email_key") @db.VarChar
-  email_verified                              Boolean           @default(false)
-  image                                       String?
-  created_at                                  DateTime          @default(now())
-  updated_at                                  DateTime?
-  username                                    String?
-  display_username                            String?
-  two_factor_enabled                          Boolean?
-  id_customer                                 String?           @db.Uuid
-  id_author                                   String?           @db.Uuid
-  id_affiliate                                String?           @db.Uuid
-  id_publisher                                String?           @db.Uuid
-  id_internal                                 String?           @db.Uuid
-  affiliate_affiliate_id_userToauth_user      affiliate[]       @relation("affiliate_id_userToauth_user")
-  auth_account                                auth_account[]
-  auth_session                                auth_session[]
-  auth_two_factor                             auth_two_factor[]
-  affiliate_auth_user_id_affiliateToaffiliate affiliate?        @relation("auth_user_id_affiliateToaffiliate", fields: [id_affiliate], references: [id], onDelete: Cascade, map: "user_id_affiliate_fkey")
-  author_auth_user_id_authorToauthor          author?           @relation("auth_user_id_authorToauthor", fields: [id_author], references: [id], onDelete: Cascade, map: "user_id_author_fkey")
-  customer_auth_user_id_customerTocustomer    customer?         @relation("auth_user_id_customerTocustomer", fields: [id_customer], references: [id], onDelete: Cascade, map: "user_id_customer_fkey")
-  internal_auth_user_id_internalTointernal    internal?         @relation("auth_user_id_internalTointernal", fields: [id_internal], references: [id], onDelete: Cascade, map: "user_id_internal_fkey")
-  publisher_auth_user_id_publisherTopublisher publisher?        @relation("auth_user_id_publisherTopublisher", fields: [id_publisher], references: [id], onDelete: Cascade, map: "user_id_publisher_fkey")
-  author_author_id_userToauth_user            author[]          @relation("author_id_userToauth_user")
-  customer_customer_id_userToauth_user        customer[]        @relation("customer_id_userToauth_user")
-  internal_internal_id_userToauth_user        internal[]        @relation("internal_id_userToauth_user")
-  notif                                       notif[]
-  publisher_publisher_id_userToauth_user      publisher[]       @relation("publisher_id_userToauth_user")
-  reviews                                     reviews[]
-  reviews_likes                               reviews_likes[]
+  id                 String            @id(map: "user_info_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name               String            @db.VarChar
+  email              String            @unique(map: "user_info_email_key") @db.VarChar
+  email_verified     Boolean           @default(false)
+  image              String?
+  created_at         DateTime          @default(now())
+  updated_at         DateTime?
+  username           String?
+  display_username   String?
+  two_factor_enabled Boolean?
+  id_customer        String?           @db.Uuid
+  id_author          String?           @db.Uuid
+  id_affiliate       String?           @db.Uuid
+  id_publisher       String?           @db.Uuid
+  id_internal        String?           @db.Uuid
+  auth_account       auth_account[]
+  auth_session       auth_session[]
+  auth_two_factor    auth_two_factor[]
+  affiliate          affiliate?        @relation(fields: [id_affiliate], references: [id], onDelete: Cascade, map: "user_id_affiliate_fkey")
+  author             author?           @relation(fields: [id_author], references: [id], onDelete: Cascade, map: "user_id_author_fkey")
+  customer           customer?         @relation(fields: [id_customer], references: [id], onDelete: Cascade, map: "user_id_customer_fkey")
+  internal           internal?         @relation(fields: [id_internal], references: [id], onDelete: Cascade, map: "user_id_internal_fkey")
+  publisher          publisher?        @relation(fields: [id_publisher], references: [id], onDelete: Cascade, map: "user_id_publisher_fkey")
+  notif              notif[]
+  reviews            reviews[]
+  reviews_likes      reviews_likes[]
 }
 
 model auth_verification {
@@ -104,20 +98,19 @@ model auth_verification {
 }
 
 model author {
-  id                                    String             @id(map: "author_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name                                  String
-  id_account                            String?            @db.Uuid
-  biography                             String?
-  social_media                          String?            @db.VarChar
-  avatar                                String?            @db.VarChar
-  id_user                               String?            @db.Uuid
-  cfg                                   Json?
-  auth_user_auth_user_id_authorToauthor auth_user[]        @relation("auth_user_id_authorToauthor")
-  auth_account                          auth_account?      @relation(fields: [id_account], references: [id], map: "author_fk_id_account")
-  auth_user_author_id_userToauth_user   auth_user?         @relation("author_id_userToauth_user", fields: [id_user], references: [id], map: "author_fk_id_user")
-  book                                  book[]
-  product                               product[]
-  publisher_author                      publisher_author[]
+  id               String             @id(map: "author_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name             String
+  id_account       String?            @db.Uuid
+  biography        String?
+  social_media     String?            @db.VarChar
+  avatar           String?            @db.VarChar
+  id_user          String?            @db.Uuid
+  cfg              Json?
+  auth_user        auth_user[]
+  auth_account     auth_account?      @relation(fields: [id_account], references: [id], map: "author_fk_id_account")
+  book             book[]
+  product          product[]
+  publisher_author publisher_author[]
 }
 
 model banner {
@@ -269,21 +262,20 @@ model chapter {
 }
 
 model customer {
-  id                                        String             @id(map: "customer_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  whatsapp                                  String
-  deleted_at                                DateTime?
-  otp                                       Int?               @db.SmallInt
-  id_account                                String?            @db.Uuid
-  name                                      String
-  email                                     String
-  id_user                                   String?            @db.Uuid
-  auth_user_auth_user_id_customerTocustomer auth_user[]        @relation("auth_user_id_customerTocustomer")
-  auth_account                              auth_account?      @relation(fields: [id_account], references: [id], map: "customer_fk_id_account")
-  auth_user_customer_id_userToauth_user     auth_user?         @relation("customer_id_userToauth_user", fields: [id_user], references: [id], map: "customer_fk_id_user")
-  customer_reader                           customer_reader[]
-  customer_track                            customer_track[]
-  t_sales                                   t_sales[]
-  t_sales_download                          t_sales_download[]
+  id               String             @id(map: "customer_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  whatsapp         String
+  deleted_at       DateTime?
+  otp              Int?               @db.SmallInt
+  id_account       String?            @db.Uuid
+  name             String
+  email            String
+  id_user          String?            @db.Uuid
+  auth_user        auth_user[]
+  auth_account     auth_account?      @relation(fields: [id_account], references: [id], map: "customer_fk_id_account")
+  customer_reader  customer_reader[]
+  customer_track   customer_track[]
+  t_sales          t_sales[]
+  t_sales_download t_sales_download[]
 }
 
 model customer_reader {
@@ -322,18 +314,17 @@ model genre {
 }
 
 model internal {
-  id                                        String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_account                                String?         @db.Uuid
-  name                                      String
-  is_sales_and_marketing                    Boolean         @default(false)
-  is_support                                Boolean         @default(false)
-  is_management                             Boolean         @default(false)
-  is_it                                     Boolean         @default(false)
-  id_user                                   String?         @db.Uuid
-  auth_user_auth_user_id_internalTointernal auth_user[]     @relation("auth_user_id_internalTointernal")
-  book_approval                             book_approval[]
-  auth_account                              auth_account?   @relation(fields: [id_account], references: [id], map: "internal_fk_id_account")
-  auth_user_internal_id_userToauth_user     auth_user?      @relation("internal_id_userToauth_user", fields: [id_user], references: [id], map: "internal_fk_id_user")
+  id                     String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_account             String?         @db.Uuid
+  name                   String
+  is_sales_and_marketing Boolean         @default(false)
+  is_support             Boolean         @default(false)
+  is_management          Boolean         @default(false)
+  is_it                  Boolean         @default(false)
+  id_user                String?         @db.Uuid
+  auth_user              auth_user[]
+  book_approval          book_approval[]
+  auth_account           auth_account?   @relation(fields: [id_account], references: [id], map: "internal_fk_id_account")
 }
 
 model landing {
@@ -446,22 +437,21 @@ model promo_code {
 }
 
 model publisher {
-  id                                          String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_account                                  String?            @db.Uuid
-  name                                        String
-  description                                 String?
-  website                                     String?            @db.VarChar
-  address                                     String?
-  logo                                        String?
-  id_user                                     String?            @db.Uuid
-  auth_user_auth_user_id_publisherTopublisher auth_user[]        @relation("auth_user_id_publisherTopublisher")
-  promo_code                                  promo_code[]
-  auth_account                                auth_account?      @relation(fields: [id_account], references: [id], map: "publisher_fk_id_account")
-  auth_user_publisher_id_userToauth_user      auth_user?         @relation("publisher_id_userToauth_user", fields: [id_user], references: [id], map: "publisher_fk_id_user")
-  publisher_author                            publisher_author[]
-  t_ai_credit                                 t_ai_credit[]
-  transaction                                 transaction[]
-  withdrawal                                  withdrawal[]
+  id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_account       String?            @db.Uuid
+  name             String
+  description      String?
+  website          String?            @db.VarChar
+  address          String?
+  logo             String?
+  id_user          String?            @db.Uuid
+  auth_user        auth_user[]
+  promo_code       promo_code[]
+  auth_account     auth_account?      @relation(fields: [id_account], references: [id], map: "publisher_fk_id_account")
+  publisher_author publisher_author[]
+  t_ai_credit      t_ai_credit[]
+  transaction      transaction[]
+  withdrawal       withdrawal[]
 }
 
 model publisher_author {
