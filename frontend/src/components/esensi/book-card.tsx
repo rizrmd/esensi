@@ -12,7 +12,7 @@ export const BookCard = ({ data }) => {
     strikePrice = formatMoney(data.strike_price, data.currency);
   }
 
-  const discount = <DiscountPercent real_price={data?.real_price} strike_price={data?.strike_price} />
+  const discount = <DiscountPercent real_price={data?.real_price} strike_price={data?.strike_price} onlyPercent={true} />
 
   return (
     <Link

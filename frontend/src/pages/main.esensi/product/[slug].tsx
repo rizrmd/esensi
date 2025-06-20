@@ -167,21 +167,12 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
             <div className="w-full flex flex-wrap justify-start items-center gap-2 lg:order-4 [&>a]:bg-[#E1E5EF] [&>a]:text-[#383D64] [&>a]:rounded-full [&>a]:px-2 [&>a]:text-[11px]">
               {bookCats}
             </div>
-            <div className="flex justify-start w-full items-start flex-col lg:order-2">
-              {local.product?.strike_price !== null && (
-                <div className="flex justify-start gap-5 items-center">
-                  <span className="flex justify-start w-auto text-[#B0B0B0] text-left text-sm line-through">
-                    {formatMoney(
-                      local.product?.strike_price,
-                      local.product?.currency
-                    )}
-                  </span>
-                  <DiscountPercent
+            <div className="flex justify-start w-full items-start flex-col gap-1 lg:order-2">
+                <DiscountPercent
                     real_price={local.product?.real_price}
                     strike_price={local.product?.strike_price}
+                    currency={local.product?.currency}
                   />
-                </div>
-              )}
               <span className="flex justify-start w-auto text-[#C6011B] text-left font-bold text-3xl">
                 {formatMoney(
                   local.product?.real_price,
