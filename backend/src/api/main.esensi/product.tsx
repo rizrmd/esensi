@@ -55,6 +55,9 @@ export default defineAPI({
       product: product,
       categories: categories,
       author: author,
+      owned: false,
+      bookmarked: false,
+      in_cart: false,
       related: [],
     };
 

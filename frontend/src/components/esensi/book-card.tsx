@@ -1,26 +1,18 @@
 import { Link } from "@/lib/router";
 import { formatMoney } from "./format-money";
+import { DiscountPercent } from "./discount-percent";
 
 export const BookCard = ({ data }) => {
-  let discount: any, strikePrice: any;
+  let strikePrice: any;
   if (
     data.strike_price !== null &&
     data.strike_price !== "" &&
     data.strike_price > data.real_price
   ) {
-    const discval =
-      "-" +
-      Math.round(
-        ((data.strike_price - data.real_price) / data.strike_price) * 100,
-      ) +
-      "%";
-    discount = (
-      <div className="flex justify-center items-center bg-[#d0011b] text-[color:#fff] text-[size:13px] leading-0 p-3 font-bold rounded-full w-auto absolute top-0 left-0 z-10 lg:hidden">
-        {discval}
-      </div>
-    );
     strikePrice = formatMoney(data.strike_price, data.currency);
   }
+
+  const discount = <DiscountPercent real_price={data?.real_price} strike_price={data?.strike_price} />
 
   return (
     <Link
@@ -28,7 +20,7 @@ export const BookCard = ({ data }) => {
       className="flex flex-col justify-center items-center gap-3 py-4 px-2 lg:px-4 relative cursor-pointer box-border w-full"
     >
       <div className="relative w-full h-auto overflow-visible">
-        {discount}
+        <div className="absolute top-0 left-0 z-10">{discount}</div>
         <img
           src={`https://esensi.online/${data.cover.replace("_file/", "_img/")}?w=320`}
           alt={data!.name.replace("'", "").replace('"', "")}

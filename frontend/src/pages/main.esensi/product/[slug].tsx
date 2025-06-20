@@ -3,8 +3,10 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { api } from "@/lib/gen/main.esensi";
 import { Link } from "@/lib/router";
 import { formatMoney } from "@/components/esensi/format-money";
-import { Bookmark, Plus, ShoppingBag, Star } from "lucide-react";
+import { Bookmark, BookmarkPlus, Plus, ShoppingBag, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ProductBuyButtons } from "@/components/esensi/product-buy-buttons";
+import { DiscountPercent } from "@/components/esensi/discount-percent";
 
 export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
   const header_config = {
@@ -19,16 +21,7 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
   const local = useLocal(
     {
       loading: true as boolean,
-      product: {
-        name: "" as string,
-        slug: "" as string,
-        strike_price: null as number | null,
-        real_price: null as number | null,
-        desc: "" as string,
-        info: [[]] as any[],
-        currency: "" as string,
-        cover: "" as string,
-      },
+      product: null as any | null,
       author: null as string | null,
       rating: 5 as number,
       lang: "Indonesia" as string,
@@ -36,13 +29,15 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
       format: "PDF" as string,
       categories: [] as any[],
       desc_open: false as boolean,
-      owned: false,
+      owned: false as boolean,
+      bookmarked: false as boolean,
+      inCart: false as boolean,
     },
     async () => {
       local.product = data.product;
       local.categories = data.categories;
       if (Array.isArray(data.product.info)) {
-        local.product.info.map((inf, idx) => {
+        local.product?.info.map((inf, idx) => {
           let txt = inf[0];
           txt = txt.toLowerCase();
           switch (txt) {
@@ -60,173 +55,165 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
               break;
           }
         });
-        
       }
+      local.owned = data.owned;
+      local.bookmarked = data.bookmarked;
+      local.inCart = data.in_cart;
       local.loading = false;
 
       local.render();
     }
   );
 
-  let productWrapper = <></>;
-  if (local.product !== null) {
-    const bookCover = local.loading ? (
-      <></>
-    ) : (
-      <img
-        src={`https://esensi.online/${local.product.cover.replace(
-          "_file/",
-          "_img/"
-        )}?w=320`}
-        alt={`${local.product?.name.replace(`'`, ``).replace(`"`, ``)}`}
-        className="flex max-w-1/2 lg:max-w-[280px] aspect-3/4 object-center object-cover rounded-sm"
-      />
-    );
+  const renderLoading = <></>;
+  const renderNoProduct = <div>TIDAK ADA PRODUK</div>;
 
-    const bookTitle = local.loading ? (
-      <></>
-    ) : (
-      <h2 className="flex text-[#3B2C93] text-lg lg:text-3xl font-semibold leading-[1.2]">
-        {local.product.name}
-      </h2>
-    );
-    const bookAuthor = local.loading ? (
-      <></>
-    ) : local.author !== "" && local.author !== null ? (
-      <div className="flex text-[#B0B0B0]">{local.author}</div>
-    ) : (
-      <></>
-    );
+  const bookCover = local.loading ? (
+    <></>
+  ) : (
+    <img
+      src={`https://esensi.online/${local.product?.cover.replace(
+        "_file/",
+        "_img/"
+      )}?w=320`}
+      alt={`${local.product?.name.replace(`'`, ``).replace(`"`, ``)}`}
+      className="flex max-w-1/2 lg:max-w-[280px] aspect-3/4 object-center object-cover rounded-sm"
+    />
+  );
 
-    const bookBookmark = local.loading ? (
-      <></>
-    ) : (
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-        }}
+  const bookTitle = local.loading ? (
+    <></>
+  ) : (
+    <h2 className="flex text-[#3B2C93] text-lg lg:text-3xl font-semibold leading-[1.2]">
+      {local.product?.name}
+    </h2>
+  );
+  const bookAuthor = local.loading ? (
+    <></>
+  ) : local.author !== "" && local.author !== null ? (
+    <div className="flex text-[#B0B0B0]">{local.author}</div>
+  ) : (
+    <></>
+  );
+
+  const bookCats = local.categories.map((c, idx) => {
+    return (
+      <Link
+        href={`/category/${c.slug}`}
+        key={`esensi_product_cats_${c.slug}`}
+        className="flex px-2 py-1"
       >
-        <Bookmark size={40} fill="#F24822" strokeWidth={0} />
-      </button>
+        {c.name}
+      </Link>
     );
+  });
 
-    const bookCats = local.categories.map((c, idx) => {
-      return (
-        <Link
-          href={`/category/${c.slug}`}
-          key={`esensi_product_cats_${c.slug}`}
-          className="flex px-2 py-1"
-        >
-          {c.name}
-        </Link>
-      );
-    });
+  const bookInfoData = [
+    {
+      label: "Rating",
+      value: local.rating,
+    },
+    {
+      label: "Jumlah Halaman",
+      value: `${local.pages} Halaman `,
+    },
+    {
+      label: "Bahasa",
+      value: local.lang,
+    },
+  ];
 
-    const bookInfoData = [
-      {
-        label: "Rating",
-        value: local.rating,
-      },
-      {
-        label: "Jumlah Halaman",
-        value: `${local.pages} Halaman `,
-      },
-      {
-        label: "Bahasa",
-        value: local.lang,
-      },
-    ];
-
-    const bookInfo = bookInfoData.map((inf, idx) => {
-      return (
-        <div
-          className={`flex flex-col flex-1 flex-grow text-center gap-1 w-auto py-2 px-4 lg:px-8 justify-center items-center relative${
-            idx > 0 ? " esensi-with-separator" : ""
-          }`}
-        >
-          <label className="flex justify-center items-center font-light leading-[1.2] text-[10px] text-[#383D64]">
-            {inf.label}
-          </label>
-          <div className="flex justify-center items-center text-[12px] font-bold gap-1 text-[#3B2C93] [&>svg]:h-[1em]">
-            {inf.label == "Rating" ? <Star /> : <></>} <span>{inf.value}</span>
-          </div>
+  const bookInfo = bookInfoData.map((inf, idx) => {
+    return (
+      <div
+        className={`flex flex-col flex-1 flex-grow text-center gap-1 w-auto py-2 px-4 lg:px-8 justify-center items-center relative${
+          idx > 0 ? " esensi-with-separator" : ""
+        }`}
+      >
+        <label className="flex justify-center items-center font-light leading-[1.2] text-[10px] text-[#383D64]">
+          {inf.label}
+        </label>
+        <div className="flex justify-center items-center text-[12px] font-bold gap-1 text-[#3B2C93] [&>svg]:h-[1em]">
+          {inf.label == "Rating" ? <Star /> : <></>} <span>{inf.value}</span>
         </div>
-      );
-    });
-
-    const buttonBuy = (
-      <>
-        <Button className="flex flex-1 grow-1 items-center h-full bg-[#E1E5EF] text-[#3B2C93]">
-          <Plus size={20} strokeWidth={1.5} />
-          <span>Masukkan Keranjang</span>
-        </Button>
-        <Button className="flex flex-1 grow-1 items-center h-full bg-[#C6011B] text-white">
-          <ShoppingBag size={20} strokeWidth={1.5} />
-          <span>Beli</span>
-        </Button>
-      </>
-    );
-    const buttonDownload = <>Download</>;
-
-    const bookBuyButton = (
-      <div className="flex justify-between items-center gap-3 fixed lg:relative p-3 lg:p-0 bg-white left-0 bottom-0 lg:left-none lg:bottom-none w-full h-17 lg:h-10 lg:mt-5 z-51">
-        {local.owned ? buttonDownload : buttonBuy}
       </div>
     );
+  });
 
-    const bookRelated = <></>;
+  const bookBuyButton = (
+    <ProductBuyButtons
+      isOwned={local.owned}
+      isBookmarked={local.bookmarked}
+      isInCart={local.inCart}
+      productId={local.product?.id}
+    />
+  );
 
-    productWrapper = (
-      <div className="flex flex-col items-center justify-start">
-        <div className="flex flex-col container max-w-[1200px] items-center justify-start gap-5 lg:gap-15 px-6 pt-5">
-          <div className="flex flex-col w-full items-center justify-start lg:flex-row lg:justify-start lg:items-start gap-5 lg:gap-15">
-            <div className="flex flex-col gap-5 items-center justify-start">
-              <div className="flex justify-center">{bookCover}</div>
-            </div>
-            <div className="flex flex-col gap-5 items-center justify-start lg:items-start lg:grow-1">
-              <div className="flex w-full justify-between items-center gap-5">
-                <div className="flex flex-col flex-1 gap-1.5 justify-between">
-                  {bookTitle} {bookAuthor}
-                </div>
-                <div className="flex items-center justify-end w-auto h-full">
-                  {bookBookmark}
-                </div>
-              </div>
-              <div className="w-full flex flex-wrap justify-start items-center gap-2 [&>a]:bg-[#E1E5EF] [&>a]:text-[#383D64] [&>a]:rounded-full [&>a]:px-2 [&>a]:text-[11px]">
-                {bookCats}
-              </div>
-              <div className="flex justify-start w-full items-start flex-col lg:mt-5">
-                <span className="flex justify-start w-auto text-[#C6011B] text-left font-bold text-3xl">
-                  {formatMoney(
-                    local.product.real_price,
-                    local.product.currency
-                  )}
-                </span>
-              </div>
-              <div className="flex justify-between w-full lg:w-auto whitespace-pre py-2 bg-[#E1E5EF] rounded-2xl [&>.esensi-with-separator]:border-l [&>.esensi-with-separator]:border-l-[#3B2C93]">
-                {bookInfo}
-              </div>
-              {bookBuyButton}
-            </div>
+  const bookRelated = <></>;
+
+  const renderTheProduct = (
+    <div className="flex flex-col items-center justify-start">
+      <div className="flex flex-col container max-w-[1200px] items-center justify-start gap-5 lg:gap-15 px-6 pt-5">
+        <div className="flex flex-col w-full items-center justify-start lg:flex-row lg:justify-start lg:items-start gap-5 lg:gap-15">
+          <div className="flex flex-col gap-5 items-center justify-start lg:w-2/5">
+            <div className="flex justify-center">{bookCover}</div>
           </div>
-          <div className="flex flex-col w-full gap-2 py-2">
-            <h3 className="text-[#3B2C93] font-bold text-lg">Sinopsis Buku</h3>
-            <div
-              className="flex flex-col items-start justify-start w-full gap-4 overflow-x-hidden overflow-y-hidden text-wrap"
-              dangerouslySetInnerHTML={{ __html: local.product.desc }}
-            ></div>
+          <div className="flex flex-col gap-5 items-center justify-start lg:grow-1 lg:items-start">
+            <div className="flex w-full justify-between items-center gap-5 lg:order-0">
+              <div className="flex flex-col flex-1 gap-1.5 justify-between">
+                {bookTitle} {bookAuthor}
+              </div>
+            </div>
+            <div className="w-full flex flex-wrap justify-start items-center gap-2 lg:order-4 [&>a]:bg-[#E1E5EF] [&>a]:text-[#383D64] [&>a]:rounded-full [&>a]:px-2 [&>a]:text-[11px]">
+              {bookCats}
+            </div>
+            <div className="flex justify-start w-full items-start flex-col lg:order-2">
+              {local.product?.strike_price !== null && (
+                <div className="flex justify-start gap-5 items-center">
+                  <span className="flex justify-start w-auto text-[#B0B0B0] text-left text-sm line-through">
+                    {formatMoney(
+                      local.product?.strike_price,
+                      local.product?.currency
+                    )}
+                  </span>
+                  <DiscountPercent
+                    real_price={local.product?.real_price}
+                    strike_price={local.product?.strike_price}
+                  />
+                </div>
+              )}
+              <span className="flex justify-start w-auto text-[#C6011B] text-left font-bold text-3xl">
+                {formatMoney(
+                  local.product?.real_price,
+                  local.product?.currency
+                )}
+              </span>
+            </div>
+            <div className="flex justify-between w-full lg:w-auto lg:order-3 whitespace-pre py-2 bg-[#E1E5EF] rounded-2xl [&>.esensi-with-separator]:border-l [&>.esensi-with-separator]:border-l-[#3B2C93]">
+              {bookInfo}
+            </div>
+            {bookBuyButton}
           </div>
         </div>
-        {bookRelated}
+        <div className="flex flex-col w-full gap-2 py-2">
+          <h3 className="text-[#3B2C93] font-bold text-lg">Sinopsis Buku</h3>
+          <div
+            className="flex flex-col items-start justify-start w-full gap-4 overflow-x-hidden overflow-y-hidden text-wrap"
+            dangerouslySetInnerHTML={{ __html: local.product?.desc }}
+          ></div>
+        </div>
       </div>
-    );
-  } else {
-    productWrapper = <div>TIDAK ADA PRODUK</div>;
-  }
+      {bookRelated}
+    </div>
+  );
 
   return (
     <MainEsensiLayout header_config={header_config} mobile_menu={false}>
-      {productWrapper}
+      {local.loading
+        ? renderLoading
+        : local.product == null
+        ? renderNoProduct
+        : renderTheProduct}
     </MainEsensiLayout>
   );
 };

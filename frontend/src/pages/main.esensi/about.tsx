@@ -70,7 +70,7 @@ A young telepath named Kallista wakes up in a beautiful, secluded valley called 
   );
   const renderContent = (
     <div className="flex flex-col w-full gap-4">
-      <h3>Tentang Kami</h3>
+      <h3 className="lg:text-3xl">Tentang Kami</h3>
       <div
         className="whitespace-pre-line"
         dangerouslySetInnerHTML={{ __html: local.content }}
@@ -106,11 +106,14 @@ A young telepath named Kallista wakes up in a beautiful, secluded valley called 
   return (
     <MainEsensiLayout header_config={header_config} mobile_menu={true}>
       <div className="flex justify-center w-full">
-        <div className="flex flex-col justify-start items-center gap-6 w-full py-6 px-6 max-w-[1200px] [&_h3]:font-bold [&_h3]:text-[#3B2C93] [&>div:not(:last-child)]:border-b [&>div:not(:last-child)]:border-b-[#E1E5EF] [&>div:not(:last-child)]:pb-4">
-          {!local.loading && renderLogo}
+        <div className="flex flex-col lg:flex-row w-full py-6 px-6 max-w-[1200px] ">
+          
+          <div className="flex w-full lg:w-2/5 shrink-0 flex-col justify-start items-center">{!local.loading && renderLogo}</div>
+          <div className="flex lg:grow-1 w-full flex-col justify-start items-center gap-6 [&_h3]:font-bold [&_h3]:text-[#3B2C93] [&>div:not(:last-child)]:border-b [&>div:not(:last-child)]:border-b-[#E1E5EF] [&>div:not(:last-child)]:pb-4">
           {!local.loading && renderContent}
           {!local.loading && renderTerbitan}
           {!local.loading && renderLinks}
+          </div>
         </div>
       </div>
     </MainEsensiLayout>
