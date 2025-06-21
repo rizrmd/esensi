@@ -129,6 +129,7 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
         className={`flex flex-col flex-1 flex-grow text-center gap-1 w-auto py-2 px-4 lg:px-8 justify-center items-center relative${
           idx > 0 ? " esensi-with-separator" : ""
         }`}
+        key={`esensi_product_info_${idx}`}
       >
         <label className="flex justify-center items-center font-light leading-[1.2] text-[10px] text-[#383D64]">
           {inf.label}
@@ -168,11 +169,11 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
               {bookCats}
             </div>
             <div className="flex justify-start w-full items-start flex-col gap-1 lg:order-2">
-                <DiscountPercent
-                    real_price={local.product?.real_price}
-                    strike_price={local.product?.strike_price}
-                    currency={local.product?.currency}
-                  />
+              <DiscountPercent
+                real_price={local.product?.real_price}
+                strike_price={local.product?.strike_price}
+                currency={local.product?.currency}
+              />
               <span className="flex justify-start w-auto text-[#C6011B] text-left font-bold text-3xl">
                 {formatMoney(
                   local.product?.real_price,

@@ -8,12 +8,13 @@ export default defineAPI({
   async handler() {
     const req = this.req!;
     const product = await db.bundle.findFirst({
-      where: { slug: req.params.slug },
+      where: { slug: req.params.slug, deleted_at: null, status: "published" },
       include: {
         bundle_product: {
           select: {
             product: {
               select: {
+                id: true,
                 name: true,
                 slug: true,
                 cover: true,
@@ -24,9 +25,22 @@ export default defineAPI({
               },
             },
           },
+
           where: {
             product: {
               status: ProductStatus.PUBLISHED,
+              deleted_at: null,
+            },
+          },
+        },
+        bundle_category: {
+          select: {
+            category: {
+              select: { name: true, slug: true },
+            },
+          },
+          where: {
+            category: {
               deleted_at: null,
             },
           },
@@ -35,8 +49,17 @@ export default defineAPI({
     });
 
     const qty = product?.bundle_product.length;
+    let cats = "";
+    product?.bundle_category.map((cat) => {
+      cats = cats + ", " + cat.category.name;
+    });
 
-    const categories = [] as any[];
+    const categories = product?.bundle_category.map((cat) => {
+      return {
+        name: cat.category.name,
+        slug: cat.category.slug,
+      };
+    });
 
     const data = {
       title: `Detil Bundle`,
