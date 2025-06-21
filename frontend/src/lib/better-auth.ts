@@ -4,6 +4,7 @@ import type { User } from "backend/lib/better-auth";
 import { createAuthClient } from "better-auth/client";
 import { twoFactorClient } from "better-auth/client/plugins";
 import type { Session } from "better-auth/types";
+import { api } from "./gen/internal.esensi";
 
 type FetchOptions = {
   onRequest?: (ctx: any) => void;
@@ -156,12 +157,33 @@ export const betterAuth = {
   getSession: async (): Promise<AuthClientGetSessionAPIResponse> => {
     const { data, error } = await authClient.getSession();
     if (data?.user) {
-      if (data.user["idCustomer"] === "null") data.user["idCustomer"] = null;
-      if (data.user["idAffiliate"] === "null") data.user["idAffiliate"] = null;
-      if (data.user["idAuthor"] === "null") data.user["idAuthor"] = null;
-      if (data.user["idCustomer"] === "null") data.user["idCustomer"] = null;
-      if (data.user["idInternal"] === "null") data.user["idInternal"] = null;
-      if (data.user["idPublisher"] === "null") data.user["idPublisher"] = null;
+      const user = data.user as User;
+      if (user.idAffiliate === "null") user.idAffiliate = null;
+      if (user.idAuthor === "null") user.idAuthor = null;
+      if (user.idCustomer === "null") user.idCustomer = null;
+      if (user.idInternal === "null") user.idInternal = null;
+      if (user.idPublisher === "null") user.idPublisher = null;
+      if (user.idAffiliate) {
+        const res = await api.affiliate_get({ id: user.idAffiliate });
+        if (res) user.affiliate = res;
+      } else user.affiliate = null;
+      if (user.idAuthor) {
+        const res = await api.author_get({ id: user.idAuthor });
+        if (res) user.author = res;
+      } else user.author = null;
+      if (user.idCustomer) {
+        const res = await api.customer_get({ id: user.idCustomer });
+        if (res) user.customer = res;
+      } else user.customer = null;
+      if (user.idInternal) {
+        const res = await api.internal_get({ id: user.idInternal });
+        if (res) user.internal = res;
+      } else user.internal = null;
+      if (user.idPublisher) {
+        const res = await api.publisher_get({ id: user.idPublisher });
+        if (res) user.publisher = res;
+      } else user.publisher = null;
+      data.user = user;
     }
     return { data, error };
   },

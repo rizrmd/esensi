@@ -2,6 +2,7 @@ import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { Error } from "@/components/ext/error";
 import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
+import NoAccess from "@/components/ext/no-access";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -38,7 +39,7 @@ export default () => {
   const local = useLocal(
     {
       configs: [] as CfgItem[],
-      loading: false,
+      loading: true,
       total: 0,
       page: 1,
       limit: 50,
@@ -128,9 +129,11 @@ export default () => {
   }
 
   if (local.loading && local.configs.length === 0) return <AppLoading />;
+  if (!current.user?.internal?.is_it && !current.user?.internal?.is_management)
+    return <NoAccess />;
 
   return (
-    <Protected role={[Role.INTERNAL]} fallback={() => <div>Akses ditolak</div>}>
+    <Protected role={[Role.INTERNAL]}>
       <div className="flex min-h-svh flex-col bg-gray-50">
         <MenuBarInternal />
         <main className="flex-1">
