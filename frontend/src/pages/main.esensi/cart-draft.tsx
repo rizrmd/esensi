@@ -4,7 +4,7 @@ import { MainEsensiLayout } from "@/components/esensi/layout";
 import {
   LayoutBookList,
   type BooksCardType,
-} from "@/components/esensi/layout-book-list";
+} from "@/components/esensi/layout-book-list.old";
 import { Button } from "@/components/ui/button";
 import { api } from "@/lib/gen/main.esensi";
 import { useLocal } from "@/lib/hooks/use-local";

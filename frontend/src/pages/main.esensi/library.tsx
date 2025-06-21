@@ -1,7 +1,7 @@
 import { BookCardLibrary } from "@/components/esensi/book-card-library";
 import { MainEsensiLayout } from "@/components/esensi/layout";
-import type { BooksCardType } from "@/components/esensi/layout-book-list";
-import { PaginationNumber } from "@/components/esensi/pagination";
+import type { BooksCardType } from "@/components/esensi/layout-book-list.old";
+import { PaginationNumber } from "@/components/esensi/pagination-number";
 import { useLocal } from "@/lib/hooks/use-local";
 
 export default () => {
