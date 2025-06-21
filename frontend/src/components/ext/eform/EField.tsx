@@ -3,6 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { useSnapshot } from "valtio";
+import { useRef, useEffect } from "react";
 
 type EFieldType =
   | "text"
@@ -46,8 +47,31 @@ export const EField = function <
   }
 ) {
   const read = useSnapshot(this.data);
-
   const write = this.data as any;
+  
+  // Refs for cursor position preservation
+  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const cursorPosition = useRef<number | null>(null);
+  
+  // Preserve cursor position for text inputs
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, fieldName: K) => {
+    const target = e.currentTarget;
+    cursorPosition.current = target.selectionStart;
+    write[fieldName] = target.value;
+  };
+  
+  // Restore cursor position after render
+  useEffect(() => {
+    if (cursorPosition.current !== null) {
+      const input = inputRef.current || textareaRef.current;
+      if (input) {
+        input.setSelectionRange(cursorPosition.current, cursorPosition.current);
+        cursorPosition.current = null;
+      }
+    }
+  });
+
   return (
     <div className={className}>
       {type !== "checkbox" && (
@@ -64,37 +88,44 @@ export const EField = function <
       )}
       {type === "text" && (
         <Input
+          ref={inputRef}
           id={name}
           spellCheck={false}
           value={(read as any)[name]}
           disabled={disabled}
           readOnly={readOnly}
           className={cn(disabled && "bg-muted")}
-          onChange={(e) => (write[name] = e.currentTarget.value)}
+          onChange={(e) => handleInputChange(e, name)}
           {...(input as React.ComponentProps<"input">)}
         />
       )}
       {type === "number" && (
         <Input
+          ref={inputRef}
           id={name}
           type="number"
           value={(read as any)[name]}
           disabled={disabled}
           readOnly={readOnly}
           className={cn(disabled && readOnly && "bg-muted")}
-          onChange={(e) => (write[name] = Number(e.currentTarget.value))}
+          onChange={(e) => {
+            const target = e.currentTarget;
+            cursorPosition.current = target.selectionStart;
+            write[name] = Number(target.value);
+          }}
           {...(input as React.ComponentProps<"input">)}
         />
       )}
       {type === "textarea" && (
         <Textarea
+          ref={textareaRef}
           id={name}
           spellCheck={false}
           value={(read as any)[name]}
           disabled={disabled}
           readOnly={readOnly}
           className={cn(disabled && "bg-muted")}
-          onChange={(e) => (write[name] = e.currentTarget.value)}
+          onChange={(e) => handleInputChange(e, name)}
           {...(input as React.ComponentProps<"textarea">)}
         />
       )}
@@ -158,13 +189,14 @@ export const EField = function <
       )}
       {(type === "date" || type === "time" || type === "datetime-local") && (
         <Input
+          ref={inputRef}
           id={name}
           type={type}
           value={(read as any)[name]}
           disabled={disabled}
           readOnly={readOnly}
           className={cn(disabled && "bg-muted")}
-          onChange={(e) => (write[name] = e.currentTarget.value)}
+          onChange={(e) => handleInputChange(e, name)}
           {...(input as React.ComponentProps<"input">)}
         />
       )}

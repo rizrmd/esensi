@@ -19,7 +19,7 @@ export default defineAPI({
     img_file?: string;
     cover?: string;
     sku?: string;
-    cfg?: Record<string, any>;
+    // Note: cfg is intentionally excluded for authors
     categories?: string[];
     products?: Array<{ id_product: string; qty?: number }>;
   }): Promise<ApiResponse<any>> {
@@ -78,7 +78,8 @@ export default defineAPI({
         if (value !== undefined) {
           if (key === "name" || key === "slug") {
             cleanUpdateData[key] = value.trim();
-          } else if (key === "cfg" || key === "info") {
+          } else if (key === "info") {
+            // Note: cfg is intentionally excluded for authors
             cleanUpdateData[key] = value || undefined;
           } else {
             cleanUpdateData[key] = value;
@@ -134,22 +135,52 @@ export default defineAPI({
         // Return updated bundle with relations
         return await tx.bundle.findUnique({
           where: { id },
-          include: {
+          select: {
+            id: true,
+            name: true,
+            slug: true,
+            desc: true,
+            real_price: true,
+            strike_price: true,
+            currency: true,
+            status: true,
+            cover: true,
+            img_file: true,
+            info: true,
+            sku: true,
+            // Note: cfg is intentionally excluded for authors
             bundle_category: {
-              include: {
-                category: true,
-              },
+              select: {
+                category: {
+                  select: {
+                    id: true,
+                    name: true
+                  }
+                }
+              }
             },
             bundle_product: {
-              include: {
+              select: {
+                id: true,
+                qty: true,
                 product: {
-                  include: {
-                    author: true,
-                  },
-                },
-              },
-            },
-          },
+                  select: {
+                    id: true,
+                    name: true,
+                    real_price: true,
+                    currency: true,
+                    cover: true,
+                    author: {
+                      select: {
+                        id: true,
+                        name: true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         });
       });
 

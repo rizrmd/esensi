@@ -18,7 +18,32 @@ export default defineAPI({
       const page = arg.page || 1;
       const limit = arg.limit || 10;
       const skip = (page - 1) * limit;
-      const where: any = { deleted_at: null };
+
+      // Get user's author ID
+      const user = await db.auth_user.findUnique({
+        where: { id: arg.user.id },
+        select: { id_author: true },
+      });
+
+      if (!user?.id_author) {
+        return {
+          success: false,
+          message: "Anda tidak memiliki akses sebagai penulis",
+          data: [],
+        };
+      }
+
+      const where: any = { 
+        deleted_at: null,
+        // Filter bundles that contain products by this author
+        bundle_product: {
+          some: {
+            product: {
+              id_author: user.id_author
+            }
+          }
+        }
+      };
 
       if (arg.status) {
         where.status = arg.status;
@@ -36,28 +61,60 @@ export default defineAPI({
 
       if (arg.include_categories) {
         include.bundle_category = {
-          include: {
-            category: true,
-          },
+          select: {
+            category: {
+              select: {
+                id: true,
+                name: true
+              }
+            }
+          }
         };
       }
 
       if (arg.include_products) {
         include.bundle_product = {
-          include: {
+          select: {
+            id: true,
+            qty: true,
             product: {
-              include: {
-                author: true,
-              },
-            },
-          },
+              select: {
+                id: true,
+                name: true,
+                real_price: true,
+                currency: true,
+                cover: true,
+                author: {
+                  select: {
+                    id: true,
+                    name: true
+                  }
+                }
+              }
+            }
+          }
         };
       }
 
       const total = await db.bundle.count({ where });
       const bundles = await db.bundle.findMany({
         where,
-        include,
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          desc: true,
+          real_price: true,
+          strike_price: true,
+          currency: true,
+          status: true,
+          cover: true,
+          img_file: true,
+          info: true,
+          sku: true,
+          // Note: cfg is intentionally excluded for authors
+          ...include
+        },
         orderBy: { name: "asc" },
         take: limit,
         skip,
