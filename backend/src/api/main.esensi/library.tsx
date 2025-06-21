@@ -17,7 +17,7 @@ export default defineAPI({
 
     let data = {
       title: `Koleksi Ebook Milikmu`,
-      content: {} as Record<
+      list: {} as Record<
         string,
         {
           id: string;
@@ -25,6 +25,11 @@ export default defineAPI({
           last_page: number;
         }
       >,
+      pagination:{
+        items: books_per_page,
+        page: page,
+        total_pages: 1,
+      },
     };
 
     if (uid) {

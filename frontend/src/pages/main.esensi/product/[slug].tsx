@@ -7,6 +7,7 @@ import { Bookmark, BookmarkPlus, Plus, ShoppingBag, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProductBuyButtons } from "@/components/esensi/product-buy-buttons";
 import { DiscountPercent } from "@/components/esensi/discount-percent";
+import { CategoryList } from "@/components/esensi/category-list";
 
 export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
   const header_config = {
@@ -96,17 +97,7 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
     <></>
   );
 
-  const bookCats = local.categories.map((c, idx) => {
-    return (
-      <Link
-        href={`/category/${c.slug}`}
-        key={`esensi_product_cats_${c.slug}`}
-        className="flex px-2 py-1"
-      >
-        {c.name}
-      </Link>
-    );
-  });
+  const bookCats = (<CategoryList data={local.categories} id={local.product?.slug} className="lg:order-4"/>);
 
   const bookInfoData = [
     {
@@ -159,15 +150,13 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
           <div className="flex flex-col gap-5 items-center justify-start lg:w-2/5">
             <div className="flex justify-center">{bookCover}</div>
           </div>
-          <div className="flex flex-col gap-5 items-center justify-start lg:grow-1 lg:items-start">
+          <div className="flex w-full flex-col gap-5 items-center justify-start lg:grow-1 lg:items-start">
             <div className="flex w-full justify-between items-center gap-5 lg:order-0">
               <div className="flex flex-col flex-1 gap-1.5 justify-between">
                 {bookTitle} {bookAuthor}
               </div>
             </div>
-            <div className="w-full flex flex-wrap justify-start items-center gap-2 lg:order-4 [&>a]:bg-[#E1E5EF] [&>a]:text-[#383D64] [&>a]:rounded-full [&>a]:px-2 [&>a]:text-[11px]">
-              {bookCats}
-            </div>
+            {bookCats}
             <div className="flex justify-start w-full items-start flex-col gap-1 lg:order-2">
               <DiscountPercent
                 real_price={local.product?.real_price}

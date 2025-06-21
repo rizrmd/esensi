@@ -24,6 +24,20 @@ export default () => {
           cover:
             "_file/upload/2024-9/21/1729517886894-a403e518-08cc-413a-ad7f-6b02ba140840.webp",
           slug: "porsi-asuh-anak-bagaimana-peran-pengasuh-membentuk-anak",
+          categories: [
+            {
+              name: "Ngetes Kateogory",
+              slug: "ngetes",
+            },
+            {
+              name: "Ngetes Kateogory",
+              slug: "ngetes",
+            },
+            {
+              name: "Ngetes Kateogory",
+              slug: "ngetes",
+            },
+          ],
         },
         {
           last_page: 5,
@@ -51,7 +65,7 @@ export default () => {
         },
         {
           last_page: 5,
-          percent: 69,
+          percent: 0,
           name: "NLP Parenting Hacks: Trik Jitu Bikin Anak Lebih Paham dan Patuh",
           cover:
             "_file/upload/2024-11/17/1734423706479-nlp parenting hacks trik jitu bikin anak lebih paham dan patuh (1).jpg",
@@ -170,10 +184,17 @@ export default () => {
           slug: "bundling-kiat-marah",
         },
       ] as any[],
-      page: 1 as number,
-      total_pages: 1 as number,
+      pagination: {
+        items: 20 as number,
+        page: 1 as number,
+        total_pages: 1 as number,
+      },
     },
     async () => {
+      /*
+      local.list = data?.list;
+      local.pagination = data?.pagination;
+      */
       local.loading = false;
       local.render();
     }
@@ -189,10 +210,17 @@ export default () => {
       ></BookCardLibrary>
     );
   });
-  const renderContent = <div className="flex w-full flex-col gap-6">{renderList}</div>;
+  const renderContent = (
+    <div className="flex w-full flex-col gap-6">{renderList}</div>
+  );
   const renderPagination = (
     <div className="flex w-full justify-center items-center mt-6 lg:mt-12">
-      <PaginationNumber items_per_page={5} current={3} total_pages={13} url={"/library"} />
+      <PaginationNumber
+        items_per_page={local.pagination.items}
+        current={local.pagination.page}
+        total_pages={local.pagination.total_pages}
+        url={"/library"}
+      />
     </div>
   );
   const renderRecommendation = <></>;
