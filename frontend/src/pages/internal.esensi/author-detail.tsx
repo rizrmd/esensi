@@ -1,14 +1,17 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
+import { CfgEditor } from "@/components/ext/author/cfg-editor";
 import { Error } from "@/components/ext/error";
 import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { betterAuth } from "@/lib/better-auth";
 import { api } from "@/lib/gen/internal.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
+import type { User } from "backend/lib/better-auth";
 import { Role } from "backend/lib/types";
 import {
   ArrowLeft,
@@ -36,6 +39,10 @@ interface Author {
   product?: any[];
 }
 
+export const current = {
+  user: undefined as User | undefined,
+};
+
 export default () => {
   const local = useLocal(
     {
@@ -45,6 +52,10 @@ export default () => {
       authorId: "",
     },
     async () => {
+      // Get user session
+      const res = await betterAuth.getSession();
+      current.user = res.data?.user;
+
       // Get author ID from URL query parameter
       const urlParams = new URLSearchParams(window.location.search);
       const id = urlParams.get("id");
@@ -280,34 +291,19 @@ export default () => {
 
               {/* Content */}
               <div className="lg:col-span-2 space-y-6">
-                {/* Configuration */}
-                {author.cfg && Object.keys(author.cfg).length > 0 && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <Settings className="h-5 w-5" />
-                        Konfigurasi
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-3">
-                        {Object.entries(author.cfg).map(([key, value]) => (
-                          <div
-                            key={key}
-                            className="flex items-center justify-between p-3 bg-muted/50 rounded-lg"
-                          >
-                            <span className="font-medium">{key}</span>
-                            <span className="text-muted-foreground font-mono text-sm">
-                              {typeof value === "object"
-                                ? JSON.stringify(value)
-                                : value?.toString()}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
+                {/* Configuration Editor */}
+                <CfgEditor
+                  author={author}
+                  canEdit={
+                    current.user?.internal?.is_it ||
+                    current.user?.internal?.is_management ||
+                    false
+                  }
+                  onSave={(updatedAuthor) => {
+                    local.author = updatedAuthor;
+                    local.render();
+                  }}
+                />
 
                 {/* Books */}
                 <Card>

@@ -170,7 +170,7 @@ export const CfgEditor = ({
   };
 
   return (
-    <Card className="shadow-md border border-gray-200 mt-6">
+    <Card className="shadow-md border border-gray-200">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg">Konfigurasi Penulis</CardTitle>
