@@ -14,12 +14,10 @@ import {
   ArrowLeft,
   Book,
   Calendar,
-  Edit,
   ExternalLink,
   Mail,
   Package,
   Settings,
-  Trash2,
   User as UserIcon,
 } from "lucide-react";
 
@@ -84,27 +82,6 @@ export default () => {
         error.message || "Terjadi kesalahan saat memuat data penulis";
     } finally {
       local.loading = false;
-      local.render();
-    }
-  };
-
-  const handleDelete = async () => {
-    if (!local.author) return;
-
-    if (
-      !confirm(
-        "Apakah Anda yakin ingin menghapus penulis ini? Tindakan ini tidak dapat dibatalkan."
-      )
-    ) {
-      return;
-    }
-
-    try {
-      await api.author_delete({ id: local.author.id });
-      navigate("/manage-author");
-    } catch (error: any) {
-      console.error("Error deleting author:", error);
-      local.error = error.message || "Gagal menghapus penulis";
       local.render();
     }
   };
@@ -179,24 +156,6 @@ export default () => {
                   <p className="text-muted-foreground mt-2">
                     Informasi lengkap tentang penulis dan aktivitasnya
                   </p>
-                </div>
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    onClick={() => navigate(`/author-edit?id=${author.id}`)}
-                    className="flex items-center gap-2"
-                  >
-                    <Edit className="h-4 w-4" />
-                    Edit
-                  </Button>
-                  <Button
-                    variant="destructive"
-                    onClick={handleDelete}
-                    className="flex items-center gap-2"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                    Hapus
-                  </Button>
                 </div>
               </div>
             </div>
