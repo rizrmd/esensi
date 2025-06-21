@@ -22,9 +22,7 @@ export default defineAPI({
         where: { id: arg.id },
         include: { author: { include: { auth_user: true } } },
       });
-      if (!book) {
-        return { success: false, message: "Buku tidak ditemukan" };
-      }
+      if (!book) return { success: false, message: "Buku tidak ditemukan" };
 
       const _updated = await db.book.update({
         where: { id: arg.id },
@@ -45,6 +43,7 @@ export default defineAPI({
           is_physical: arg.data.is_physical,
           is_chapter: arg.data.is_chapter,
           content_type: arg.data.content_type,
+          cfg: arg.data.cfg ?? undefined,
         },
       });
 
@@ -114,6 +113,10 @@ export default defineAPI({
       if (book.content_type !== _updated.content_type) {
         oldFields.content_type = book.content_type;
         newFields.content_type = _updated.content_type;
+      }
+      if (book.cfg?.toString() !== _updated.cfg?.toString()) {
+        oldFields.cfg = book.cfg;
+        newFields.cfg = _updated.cfg;
       }
 
       if (
