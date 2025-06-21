@@ -2,8 +2,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { useEffect, useRef } from "react";
 import { useSnapshot } from "valtio";
-import { useRef, useEffect } from "react";
 
 type EFieldType =
   | "text"
@@ -48,19 +48,22 @@ export const EField = function <
 ) {
   const read = useSnapshot(this.data);
   const write = this.data as any;
-  
+
   // Refs for cursor position preservation
   const inputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const cursorPosition = useRef<number | null>(null);
-  
+
   // Preserve cursor position for text inputs
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, fieldName: K) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    fieldName: K
+  ) => {
     const target = e.currentTarget;
     cursorPosition.current = target.selectionStart;
     write[fieldName] = target.value;
   };
-  
+
   // Restore cursor position after render
   useEffect(() => {
     if (cursorPosition.current !== null) {
@@ -144,7 +147,12 @@ export const EField = function <
             {...(input as React.ComponentProps<"select">)}
           >
             {(options || []).map((option: { key: any; label: string }) => (
-              <option key={option.key} value={option.key} className="text-sm" disabled={disabled}>
+              <option
+                key={option.key}
+                value={option.key}
+                className="text-sm"
+                disabled={disabled}
+              >
                 {option.label || option.key}
               </option>
             ))}

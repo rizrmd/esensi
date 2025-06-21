@@ -53,10 +53,11 @@ export default () => {
 
   const loadProducts = async () => {
     try {
+      // Only load published products for bundle selection
       const response = await api.product_list({
         id_author: local.authorId!,
         limit: 100,
-        status: "published",
+        status: "published", // Ensure only published books can be added to bundles
       });
 
       if (response.success && response.data) {
@@ -69,6 +70,9 @@ export default () => {
   };
 
   const addProduct = (productId: string) => {
+    // Ignore the placeholder value
+    if (productId === "no-products") return;
+
     const product = local.products.find((p) => p.id === productId);
     if (product && !local.selectedProducts.find((sp) => sp.id === productId)) {
       local.selectedProducts.push({
@@ -153,6 +157,13 @@ export default () => {
                       {
                         failCondition: local.selectedProducts.length === 0,
                         message: "Minimal pilih satu produk untuk bundle.",
+                      },
+                      {
+                        failCondition: local.selectedProducts.some(
+                          (sp) => sp.product.status !== "published"
+                        ),
+                        message:
+                          "Semua produk yang dipilih harus berstatus 'Dipublikasikan'.",
                       },
                     ])
                   )
@@ -285,9 +296,15 @@ export default () => {
 
                         {/* Product Selection */}
                         <div className="space-y-4">
-                          <label className="text-sm font-medium text-gray-700">
-                            Pilih Produk untuk Bundle
-                          </label>
+                          <div>
+                            <label className="text-sm font-medium text-gray-700">
+                              Pilih Produk untuk Bundle
+                            </label>
+                            <p className="text-xs text-gray-500 mt-1">
+                              Hanya produk dengan status "Dipublikasikan" yang
+                              dapat ditambahkan ke bundle
+                            </p>
+                          </div>
 
                           <Select
                             onValueChange={(value) => addProduct(value)}
@@ -297,22 +314,28 @@ export default () => {
                               <SelectValue placeholder="Pilih produk..." />
                             </SelectTrigger>
                             <SelectContent>
-                              {local.products
-                                .filter(
-                                  (product) =>
-                                    !local.selectedProducts.find(
-                                      (sp) => sp.id === product.id
-                                    )
-                                )
-                                .map((product) => (
-                                  <SelectItem
-                                    key={product.id}
-                                    value={product.id}
-                                  >
-                                    {product.name} - {product.currency}{" "}
-                                    {product.real_price}
-                                  </SelectItem>
-                                ))}
+                              {local.products.length === 0 ? (
+                                <SelectItem value="no-products" disabled>
+                                  Tidak ada produk yang dipublikasikan
+                                </SelectItem>
+                              ) : (
+                                local.products
+                                  .filter(
+                                    (product) =>
+                                      !local.selectedProducts.find(
+                                        (sp) => sp.id === product.id
+                                      )
+                                  )
+                                  .map((product) => (
+                                    <SelectItem
+                                      key={product.id}
+                                      value={product.id}
+                                    >
+                                      {product.name} - {product.currency}{" "}
+                                      {product.real_price}
+                                    </SelectItem>
+                                  ))
+                              )}
                             </SelectContent>
                           </Select>
 

@@ -63,9 +63,125 @@ export default defineAPI({
         let resize: Record<string, string | number> = {};
         if (!!params.get("w")) if (!!width) resize.width = parseInt(width!);
         if (!!height) resize.height = parseInt(height!);
-        const image = await sharp(path).resize(resize).toBuffer();
-        return new Response(image);
-      } else return new Response(bunFile);
+
+        try {
+          // Check if we actually need to resize
+          const hasResizeParams = width || height;
+
+          if (!hasResizeParams) {
+            // No resize needed, serve original file
+            return new Response(bunFile, {
+              headers: {
+                "Content-Type": `image/${
+                  fileExtension === "jpg" ? "jpeg" : fileExtension
+                }`,
+                "Cache-Control": "public, max-age=31536000",
+              },
+            });
+          }
+
+          // Try to get metadata first
+          let metadata;
+          try {
+            metadata = await sharp(path).metadata();
+          } catch (metadataError) {
+            console.warn(
+              "Could not read image metadata, serving original:",
+              path
+            );
+            return new Response(bunFile, {
+              headers: {
+                "Content-Type": `image/${
+                  fileExtension === "jpg" ? "jpeg" : fileExtension
+                }`,
+                "Cache-Control": "public, max-age=31536000",
+              },
+            });
+          }
+
+          // Try different approaches based on file type
+          let processedImage;
+          if (fileExtension === "png") {
+            // For PNG files, try a more lenient approach
+            try {
+              processedImage = await sharp(path, {
+                failOnError: false,
+                limitInputPixels: false,
+              })
+                .resize(resize)
+                .png({ compressionLevel: 6, progressive: false })
+                .toBuffer();
+            } catch (pngError) {
+              console.warn(
+                "PNG processing failed, trying JPEG conversion:",
+                path
+              );
+              // Try converting to JPEG as fallback
+              processedImage = await sharp(path, {
+                failOnError: false,
+                limitInputPixels: false,
+              })
+                .resize(resize)
+                .jpeg({ quality: 85 })
+                .toBuffer();
+
+              return new Response(processedImage, {
+                headers: {
+                  "Content-Type": "image/jpeg",
+                  "Cache-Control": "public, max-age=31536000",
+                },
+              });
+            }
+          } else {
+            // For other formats, use standard processing
+            processedImage = await sharp(path).resize(resize).toBuffer();
+          }
+
+          // Set appropriate content-type header
+          const contentType =
+            metadata.format === "jpeg"
+              ? "image/jpeg"
+              : metadata.format === "png"
+              ? "image/png"
+              : metadata.format === "gif"
+              ? "image/gif"
+              : metadata.format === "webp"
+              ? "image/webp"
+              : "image/jpeg"; // fallback
+
+          return new Response(processedImage, {
+            headers: {
+              "Content-Type": contentType,
+              "Cache-Control": "public, max-age=31536000",
+            },
+          });
+        } catch (error) {
+          console.error("Sharp image processing error:", error);
+          console.error("Failed to process image:", path);
+
+          // Try to serve the original file without processing
+          try {
+            return new Response(bunFile, {
+              headers: {
+                "Content-Type": `image/${
+                  fileExtension === "jpg" ? "jpeg" : fileExtension
+                }`,
+                "Cache-Control": "public, max-age=31536000",
+              },
+            });
+          } catch (fallbackError) {
+            console.error("Failed to serve original file:", fallbackError);
+            return new Response("Image processing failed", { status: 500 });
+          }
+        }
+      } else {
+        // Non-image files
+        return new Response(bunFile, {
+          headers: {
+            "Cache-Control": "public, max-age=31536000",
+          },
+        });
+      }
     }
   },
 });

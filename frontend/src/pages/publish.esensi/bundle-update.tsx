@@ -59,7 +59,7 @@ export default () => {
 
       const session = await betterAuth.getSession();
       local.authorId = session.data!.user.idAuthor;
-      
+
       await Promise.all([loadBundleData(), loadProducts()]);
       local.loading = false;
       local.render();
@@ -77,14 +77,16 @@ export default () => {
 
       if (response.success && response.data) {
         local.bundleData = response.data;
-        
+
         // Set selected products from bundle data
         if (response.data.bundle_product) {
-          local.selectedProducts = response.data.bundle_product.map((bp: any) => ({
-            id: bp.product.id,
-            qty: bp.qty,
-            product: bp.product,
-          }));
+          local.selectedProducts = response.data.bundle_product.map(
+            (bp: any) => ({
+              id: bp.product.id,
+              qty: bp.qty,
+              product: bp.product,
+            })
+          );
         }
         local.render();
       } else {
@@ -98,10 +100,11 @@ export default () => {
 
   const loadProducts = async () => {
     try {
+      // Only load published products for bundle selection
       const response = await api.product_list({
         id_author: local.authorId!,
         limit: 100,
-        status: "published",
+        status: "published", // Ensure only published books can be added to bundles
       });
 
       if (response.success && response.data) {
@@ -114,6 +117,9 @@ export default () => {
   };
 
   const addProduct = (productId: string) => {
+    // Ignore the placeholder value
+    if (productId === "no-products") return;
+
     const product = local.products.find((p) => p.id === productId);
     if (product && !local.selectedProducts.find((sp) => sp.id === productId)) {
       local.selectedProducts.push({
@@ -144,7 +150,10 @@ export default () => {
 
   if (local.loading) {
     return (
-      <Protected role={[Role.AUTHOR, Role.PUBLISHER]} fallback={PublishFallback}>
+      <Protected
+        role={[Role.AUTHOR, Role.PUBLISHER]}
+        fallback={PublishFallback}
+      >
         <div className="flex min-h-svh flex-col bg-gray-50">
           <MenuBarPublish />
           <main className="flex-1">
@@ -159,7 +168,10 @@ export default () => {
 
   if (!local.bundleData) {
     return (
-      <Protected role={[Role.AUTHOR, Role.PUBLISHER]} fallback={PublishFallback}>
+      <Protected
+        role={[Role.AUTHOR, Role.PUBLISHER]}
+        fallback={PublishFallback}
+      >
         <div className="flex min-h-svh flex-col bg-gray-50">
           <MenuBarPublish />
           <main className="flex-1">
@@ -231,6 +243,13 @@ export default () => {
                       {
                         failCondition: local.selectedProducts.length === 0,
                         message: "Minimal pilih satu produk untuk bundle.",
+                      },
+                      {
+                        failCondition: local.selectedProducts.some(
+                          (sp) => sp.product.status !== "published"
+                        ),
+                        message:
+                          "Semua produk yang dipilih harus berstatus 'Dipublikasikan'.",
                       },
                     ])
                   )
@@ -329,7 +348,11 @@ export default () => {
                             local.files = files;
                             local.render();
                           }}
-                          initialImage={local.bundleData.cover ? `${baseUrl.auth_esensi}/upload/${local.bundleData.cover}` : undefined}
+                          initialImage={
+                            local.bundleData.cover
+                              ? `${baseUrl.auth_esensi}/upload/${local.bundleData.cover}`
+                              : undefined
+                          }
                         />
                         <Field
                           name="real_price"
@@ -365,9 +388,15 @@ export default () => {
 
                         {/* Product Selection */}
                         <div className="space-y-4">
-                          <label className="text-sm font-medium text-gray-700">
-                            Pilih Produk untuk Bundle
-                          </label>
+                          <div>
+                            <label className="text-sm font-medium text-gray-700">
+                              Pilih Produk untuk Bundle
+                            </label>
+                            <p className="text-xs text-gray-500 mt-1">
+                              Hanya produk dengan status "Dipublikasikan" yang
+                              dapat ditambahkan ke bundle
+                            </p>
+                          </div>
 
                           <Select
                             onValueChange={(value) => addProduct(value)}
@@ -377,22 +406,28 @@ export default () => {
                               <SelectValue placeholder="Pilih produk..." />
                             </SelectTrigger>
                             <SelectContent>
-                              {local.products
-                                .filter(
-                                  (product) =>
-                                    !local.selectedProducts.find(
-                                      (sp) => sp.id === product.id
-                                    )
-                                )
-                                .map((product) => (
-                                  <SelectItem
-                                    key={product.id}
-                                    value={product.id}
-                                  >
-                                    {product.name} - {product.currency}{" "}
-                                    {product.real_price}
-                                  </SelectItem>
-                                ))}
+                              {local.products.length === 0 ? (
+                                <SelectItem value="no-products" disabled>
+                                  Tidak ada produk yang dipublikasikan
+                                </SelectItem>
+                              ) : (
+                                local.products
+                                  .filter(
+                                    (product) =>
+                                      !local.selectedProducts.find(
+                                        (sp) => sp.id === product.id
+                                      )
+                                  )
+                                  .map((product) => (
+                                    <SelectItem
+                                      key={product.id}
+                                      value={product.id}
+                                    >
+                                      {product.name} - {product.currency}{" "}
+                                      {product.real_price}
+                                    </SelectItem>
+                                  ))
+                              )}
                             </SelectContent>
                           </Select>
 

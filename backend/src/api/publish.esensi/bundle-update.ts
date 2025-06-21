@@ -24,7 +24,7 @@ export default defineAPI({
     products?: Array<{ id_product: string; qty?: number }>;
   }): Promise<ApiResponse<any>> {
     try {
-      const { id, categories, products, ...updateData } = arg;
+      const { id, categories, products, user, ...updateData } = arg;
 
       if (!id?.trim()) {
         return {
@@ -154,10 +154,10 @@ export default defineAPI({
                 category: {
                   select: {
                     id: true,
-                    name: true
-                  }
-                }
-              }
+                    name: true,
+                  },
+                },
+              },
             },
             bundle_product: {
               select: {
@@ -173,14 +173,14 @@ export default defineAPI({
                     author: {
                       select: {
                         id: true,
-                        name: true
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
+                        name: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
         });
       });
 
