@@ -89,6 +89,7 @@ export const PageHeader = ({
   profile = true as boolean,
   mobileHide = false as boolean,
   desktopHide = false as boolean,
+  toggleProfile,
 }) => {
   const local = useLocal(
     {
@@ -114,7 +115,7 @@ export const PageHeader = ({
       local.profile = profile;
       local.mobileHide = mobileHide;
       local.desktopHide = desktopHide;
-      if(mobileHide && desktopHide){
+      if (mobileHide && desktopHide) {
         local.enable = false;
       }
       local.render();
@@ -128,16 +129,29 @@ export const PageHeader = ({
     }
   };
 
-  const visibility = local.enable && mobileHide ? "hidden lg:flex" : local.enable && desktopHide ? "flex lg:hidden" : local.enable ? "flex" : "hidden lg:flex";
+  const visibility =
+    local.enable && mobileHide
+      ? "hidden lg:flex"
+      : local.enable && desktopHide
+      ? "flex lg:hidden"
+      : local.enable
+      ? "flex"
+      : "hidden lg:flex";
 
   return (
     <header
-      className={`sticky top-0 z-50 lg:static ${visibility} flex-row justify-center items-center w-full bg-background h-12 ${local.back ? "" : "pl-4 lg:p-none"} lg:h-36`}
+      className={`sticky top-0 z-50 lg:static ${visibility} flex-row justify-center items-center w-full bg-background h-12 ${
+        local.back ? "" : "pl-4 lg:p-none"
+      } lg:h-36`}
     >
       <div className="flex w-full justify-center items-center w-full max-w-[1200px] h-full">
         {/* Back Button */}
         {local.back && (
-          <div className={`flex h-full justify-start items-center ${local.logo || local.search ? "w-auto" :"w-full grow-1"} lg:hidden`}>
+          <div
+            className={`flex h-full justify-start items-center ${
+              local.logo || local.search ? "w-auto" : "w-full grow-1"
+            } lg:hidden`}
+          >
             <button
               className="flex h-full aspect-1/1 justify-center items-center [&>svg]:stroke-[#3B2C93] cursor-pointer"
               onClick={() => history.back()}
@@ -150,7 +164,9 @@ export const PageHeader = ({
         {/* Logo */}
         <Link
           href="/"
-          className={`w-auto h-auto ${local.logo ? "flex" : "hidden lg:flex"} shrink-0`}
+          className={`w-auto h-auto ${
+            local.logo ? "flex" : "hidden lg:flex"
+          } shrink-0`}
         >
           <img
             src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhOUKb6M5yGcRNhuM1NHSBaAvbNYSFAibMX-1xCI8gI8jl-h566LB-SNs4PW7s2hyphenhyphenj9WNdyhCtn8LFqX9V2j-ABFZoN-nw34q0l4Hf3a13EMffqv6edTQAzK7O-8RXpOIA69rTg6g60hv0eME6yDgJpUZEFIastMfEW-6Pjpq6LFXoGdKExm7L-Hu9PYy8/s1600/esensi-online-logo.png"
@@ -231,7 +247,11 @@ export const PageHeader = ({
         </NavigationMenu>
 
         {/* Right side icons */}
-        <div className={`flex justify-end items-center ${local.search ? "w-auto" : "w-full"} grow-1 lg:grow-0`}>
+        <div
+          className={`flex justify-end items-center ${
+            local.search ? "w-auto" : "w-full"
+          } grow-1 lg:grow-0`}
+        >
           <Button
             variant="ghost"
             onClick={() => navigate("/cart")}
@@ -248,7 +268,14 @@ export const PageHeader = ({
 
           <Button
             variant="ghost"
-            onClick={() => navigate("/profile")}
+            onClick={(e) => {
+              e.preventDefault();
+              if (window.innerWidth >= 1024) {
+                toggleProfile();
+              } else {
+                navigate("/profile");
+              }
+            }}
             className={`${
               local.profile ? "flex" : "hidden lg:flex"
             } rounded-full p-2 aspect-square`}

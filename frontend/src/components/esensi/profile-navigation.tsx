@@ -13,7 +13,7 @@ import { ProfileLinks } from "./profile-links";
 
 export const ProfileNavigation = ({
   user = null as any | null,
-  royality = null as any | null,
+  loyality = null as any | null,
   loading = true as boolean,
 }) => {
   const the_user = {
@@ -21,10 +21,10 @@ export const ProfileNavigation = ({
     fullname: user !== null && user?.fullname ? user.fullname : ("" as string),
     email: user !== null && user?.email ? user.email : ("" as string),
   };
-  const the_royality = {
-    id: royality !== null && royality?.id ? royality.id : ("" as string),
+  const the_loyality = {
+    id: loyality !== null && loyality?.id ? loyality.id : ("" as string),
     points:
-      royality !== null && royality?.points ? royality.points : (0 as number),
+      loyality !== null && loyality?.points ? loyality.points : (0 as number),
   };
 
   const sectionProfilePicture = (
@@ -42,8 +42,8 @@ export const ProfileNavigation = ({
   const sectionButtonUser = (
     <>
       <ProfileButton
-        label={`${the_royality.points} point`}
-        sublabel={the_royality.id}
+        label={`${the_loyality.points} point`}
+        sublabel={the_loyality.id}
         url="#"
       ></ProfileButton>
     </>
