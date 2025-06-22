@@ -3,20 +3,8 @@ import { defineAPI } from "rlib/server";
 export default defineAPI({
   name: "author_list",
   url: "/api/internal/author/list",
-  async handler(arg: {
-    search?: string;
-    limit?: number;
-    offset?: number;
-    include_user?: boolean;
-    include_account?: boolean;
-  }) {
-    const {
-      search,
-      limit = 50,
-      offset = 0,
-      include_user = false,
-      include_account = false,
-    } = arg;
+  async handler(arg: { search?: string; limit?: number; offset?: number }) {
+    const { search, limit = 50, offset = 0 } = arg;
 
     const where = search
       ? {
@@ -30,15 +18,26 @@ export default defineAPI({
         }
       : {};
 
-    const include = {
-      ...(include_user && { auth_user: true }),
-      ...(include_account && { auth_account: true }),
-    };
-
     const [data, total] = await Promise.all([
       db.author.findMany({
         where,
-        include,
+        include: {
+          auth_account: true,
+          auth_user: { orderBy: { created_at: "desc" }, take: 10 },
+          publisher_author: {
+            include: {
+              publisher: {
+                include: {
+                  transaction: { orderBy: { created_at: "desc" }, take: 10 },
+                  promo_code: { orderBy: { valid_to: "desc" }, take: 10 },
+                },
+              },
+            },
+          },
+          book: { orderBy: { published_date: "desc" }, take: 10 },
+          product: { orderBy: { published_date: "desc" }, take: 10 },
+          bundle: { orderBy: { created_at: "desc" }, take: 10 },
+        },
         take: limit,
         skip: offset,
         orderBy: { name: "asc" },

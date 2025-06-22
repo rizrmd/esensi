@@ -44,9 +44,7 @@ export default defineAPI({
 
     // Include relations for aggregations
     const include = {
-      _count: {
-        select: { auth_user: true },
-      },
+      _count: { select: { auth_user: true } },
     };
 
     const [data, total] = await Promise.all([

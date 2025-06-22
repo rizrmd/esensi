@@ -12,9 +12,8 @@ export default defineAPI({
   }): Promise<ApiResponse<Author>> {
     try {
       const author = await db.author.findUnique({ where: { id: arg.id } });
-      if (!author) {
+      if (!author)
         return { success: false, message: "Penulis tidak ditemukan" };
-      }
 
       const updated = await db.author.update({
         where: { id: arg.id },
@@ -26,48 +25,25 @@ export default defineAPI({
         },
         include: {
           auth_account: true,
-          auth_user: {
-            orderBy: {
-              created_at: "desc",
-            },
-            take: 10,
-          },
+          auth_user: { orderBy: { created_at: "desc" }, take: 10 },
           publisher_author: {
             include: {
               publisher: {
                 include: {
-                  transaction: {
-                    orderBy: {
-                      created_at: "desc",
-                    },
-                    take: 10,
-                  },
-                  promo_code: {
-                    orderBy: {
-                      valid_to: "desc",
-                    },
-                    take: 10,
-                  },
+                  transaction: { orderBy: { created_at: "desc" }, take: 10 },
+                  promo_code: { orderBy: { valid_to: "desc" }, take: 10 },
                 },
               },
             },
           },
-          book: {
-            orderBy: {
-              published_date: "desc",
-            },
-            take: 10,
-          },
-          product: {
-            orderBy: {
-              published_date: "desc",
-            },
-            take: 10,
-          },
+          book: { orderBy: { published_date: "desc" }, take: 10 },
+          product: { orderBy: { published_date: "desc" }, take: 10 },
+          bundle: { orderBy: { created_at: "desc" }, take: 10 },
         },
       });
 
-      if (!updated) return { success: false, message: "Penulis tidak ditemukan" };
+      if (!updated)
+        return { success: false, message: "Penulis tidak ditemukan" };
 
       return {
         success: true,

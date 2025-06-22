@@ -1,4 +1,5 @@
 import type { User } from "backend/lib/better-auth";
+import type { Bundle } from "backend/lib/types";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
@@ -11,9 +12,7 @@ export default defineAPI({
     limit?: number;
     status?: string;
     search?: string;
-    include_categories?: boolean;
-    include_products?: boolean;
-  }): Promise<ApiResponse<any[]>> {
+  }): Promise<ApiResponse<Bundle[]>> {
     try {
       const page = arg.page || 1;
       const limit = arg.limit || 10;
@@ -33,21 +32,15 @@ export default defineAPI({
         };
       }
 
-      const where: any = { 
+      const where: any = {
         deleted_at: null,
         // Filter bundles that contain products by this author
         bundle_product: {
-          some: {
-            product: {
-              id_author: user.id_author
-            }
-          }
-        }
+          some: { product: { id_author: user.id_author } },
+        },
       };
 
-      if (arg.status) {
-        where.status = arg.status;
-      }
+      if (arg.status) where.status = arg.status;
 
       if (arg.search) {
         where.OR = [
@@ -59,61 +52,24 @@ export default defineAPI({
 
       const include: any = {};
 
-      if (arg.include_categories) {
-        include.bundle_category = {
-          select: {
-            category: {
-              select: {
-                id: true,
-                name: true
-              }
-            }
-          }
-        };
-      }
-
-      if (arg.include_products) {
-        include.bundle_product = {
-          select: {
-            id: true,
-            qty: true,
-            product: {
-              select: {
-                id: true,
-                name: true,
-                real_price: true,
-                currency: true,
-                cover: true,
-                author: {
-                  select: {
-                    id: true,
-                    name: true
-                  }
-                }
-              }
-            }
-          }
-        };
-      }
-
       const total = await db.bundle.count({ where });
       const bundles = await db.bundle.findMany({
         where,
-        select: {
-          id: true,
-          name: true,
-          slug: true,
-          desc: true,
-          real_price: true,
-          strike_price: true,
-          currency: true,
-          status: true,
-          cover: true,
-          img_file: true,
-          info: true,
-          sku: true,
-          // Note: cfg is intentionally excluded for authors
-          ...include
+        include: {
+          author: true,
+          bundle_product: {
+            select: {
+              id: true,
+              qty: true,
+              product: true,
+            },
+          },
+          bundle_category: {
+            select: {
+              id: true,
+              category: true,
+            },
+          },
         },
         orderBy: { name: "asc" },
         take: limit,
@@ -123,7 +79,6 @@ export default defineAPI({
       return {
         success: true,
         data: bundles,
-        message: "Daftar bundle berhasil diambil",
         pagination: {
           page,
           limit,

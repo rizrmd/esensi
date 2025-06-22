@@ -7,20 +7,11 @@ export default defineAPI({
     const { key, value } = arg;
 
     // Check if key already exists
-    const existing = await db.cfg.findUnique({
-      where: { key },
-    });
+    const existing = await db.cfg.findUnique({ where: { key } });
 
-    if (existing) {
-      throw new Error("Configuration key already exists");
-    }
+    if (existing) throw new Error("Configuration key already exists");
 
-    const result = await db.cfg.create({
-      data: {
-        key,
-        value,
-      },
-    });
+    const result = await db.cfg.create({ data: { key, value } });
 
     return result;
   },

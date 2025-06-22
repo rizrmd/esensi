@@ -15,35 +15,24 @@ export default defineAPI({
         where: { id: arg.id_book },
       });
 
-      if (!book) {
+      if (!book)
         return { success: false, message: "Buku tidak ditemukan" };
-      }
 
       const page = arg.page || 1;
       const limit = arg.limit || 10;
       const skip = (page - 1) * limit;
 
       const total = await db.book_approval.count({
-        where: {
-          id_book: arg.id_book,
-        },
+        where: { id_book: arg.id_book },
       });
 
       const approval = await db.book_approval.findMany({
-        where: {
-          id_book: arg.id_book,
-        },
-        orderBy: {
-          created_at: "asc",
-        },
+        where: { id_book: arg.id_book },
+        orderBy: { created_at: "asc" },
         skip,
         take: limit,
         include: {
-          book: {
-            include: {
-              author: true,
-            },
-          },
+          book: { include: { author: true } },
           internal: true,
         },
       });

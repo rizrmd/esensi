@@ -1,9 +1,10 @@
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
   name: "affiliate_delete",
   url: "/api/internal/affiliate/delete",
-  async handler(arg: { id: string }) {
+  async handler(arg: { id: string }): Promise<ApiResponse<void>> {
     const { id } = arg;
 
     if (!id?.trim()) throw new Error("ID affiliate wajib diisi");
@@ -24,12 +25,11 @@ export default defineAPI({
         "Tidak dapat menghapus affiliate yang terhubung dengan user"
       );
 
-    const result = await db.affiliate.delete({ where: { id } });
+    await db.affiliate.delete({ where: { id } });
 
     return {
       success: true,
       message: "Affiliate berhasil dihapus",
-      deleted: result,
     };
   },
 });

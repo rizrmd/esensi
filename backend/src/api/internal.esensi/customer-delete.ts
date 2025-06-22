@@ -1,14 +1,16 @@
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
   name: "customer_delete",
   url: "/api/internal/customer/delete",
-  async handler(arg: { id: string; hard_delete?: boolean }) {
+  async handler(arg: {
+    id: string;
+    hard_delete?: boolean;
+  }): Promise<ApiResponse<void>> {
     const { id, hard_delete = false } = arg;
 
-    if (!id?.trim()) {
-      throw new Error("ID customer wajib diisi");
-    }
+    if (!id?.trim()) throw new Error("ID customer wajib diisi");
 
     // Check if customer exists
     const existing = await db.customer.findUnique({
@@ -52,7 +54,6 @@ export default defineAPI({
       return {
         success: true,
         message: "Customer berhasil dihapus permanen",
-        deleted: result,
       };
     } else {
       // Soft delete - set deleted_at timestamp
@@ -64,7 +65,6 @@ export default defineAPI({
       return {
         success: true,
         message: "Customer berhasil dihapus",
-        deleted: result,
       };
     }
   },

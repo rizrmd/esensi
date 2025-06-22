@@ -28,18 +28,13 @@ export default defineAPI({
       try {
         const { id, ...updateData } = authorData;
 
-        if (!id?.trim()) {
-          throw new Error("ID author wajib diisi");
-        }
+        if (!id?.trim()) throw new Error("ID author wajib diisi");
 
         // Check if author exists
-        const existing = await db.author.findUnique({
-          where: { id },
-        });
+        const existing = await db.author.findUnique({ where: { id } });
 
-        if (!existing) {
+        if (!existing)
           throw new Error(`Author dengan ID ${id} tidak ditemukan`);
-        }
 
         // If name is being updated, check for duplicates
         if (updateData.name && updateData.name.trim() !== existing.name) {
@@ -50,11 +45,10 @@ export default defineAPI({
             },
           });
 
-          if (nameExists) {
+          if (nameExists)
             throw new Error(
               `Author dengan nama "${updateData.name}" sudah ada`
             );
-          }
         }
 
         // Build update data object

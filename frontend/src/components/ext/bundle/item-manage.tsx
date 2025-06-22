@@ -1,4 +1,5 @@
 import { formatCurrency, ItemLayoutEnum } from "@/lib/utils";
+import type { Bundle } from "backend/lib/types";
 import type { FC } from "react";
 
 const Grid: FC<{ label: string; value: string }> = ({ label, value }) => (
@@ -31,9 +32,10 @@ export const Item: FC<{
     )
   );
 
-export function bundle(bundle: any): Record<string, string> {
+export function bundle(bundle: Bundle): Record<string, string> {
   const productCount = bundle.bundle_product?.length || 0;
   return {
+    Penulis: bundle.author?.id || "-",
     "Jumlah Produk": productCount + " produk",
     "Harga Coret": bundle.strike_price
       ? formatCurrency(bundle.strike_price, bundle.currency)

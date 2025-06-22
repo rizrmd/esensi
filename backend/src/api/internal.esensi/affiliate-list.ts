@@ -1,50 +1,43 @@
+import type { Affiliate } from "backend/lib/types";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
   name: "affiliate_list",
   url: "/api/internal/affiliate/list",
   async handler(arg: {
-    search?: string;
+    page?: number;
     limit?: number;
-    offset?: number;
-    include_user?: boolean;
-    include_account?: boolean;
-  }) {
-    const {
-      search,
-      limit = 50,
-      offset = 0,
-      include_user = false,
-      include_account = false,
-    } = arg;
+    search?: string;
+  }): Promise<ApiResponse<Affiliate[]>> {
+    const page = arg.page || 1;
+    const limit = arg.limit || 10;
+    const skip = (page - 1) * limit;
 
-    const where = search
-      ? {
-          name: { contains: search, mode: "insensitive" as const },
-        }
+    const where = arg.search
+      ? { name: { contains: arg.search, mode: "insensitive" as const } }
       : {};
-
-    const include = {
-      ...(include_user && { auth_user: true }),
-      ...(include_account && { auth_account: true }),
-    };
 
     const [data, total] = await Promise.all([
       db.affiliate.findMany({
         where,
-        include,
+        include: { auth_user: true, auth_account: true },
         take: limit,
-        skip: offset,
+        skip,
         orderBy: { name: "asc" },
       }),
       db.affiliate.count({ where }),
     ]);
 
     return {
+      success: true,
       data,
-      total,
-      limit,
-      offset,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
     };
   },
 });

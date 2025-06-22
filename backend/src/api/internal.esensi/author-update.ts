@@ -24,9 +24,7 @@ export default defineAPI({
       cfg,
     } = arg;
 
-    if (!id?.trim()) {
-      throw new Error("ID author wajib diisi");
-    }
+    if (!id?.trim()) throw new Error("ID author wajib diisi");
 
     // Check if author exists
     const existing = await db.author.findUnique({
@@ -46,9 +44,7 @@ export default defineAPI({
         },
       });
 
-      if (nameExists) {
-        throw new Error("Author dengan nama tersebut sudah ada");
-      }
+      if (nameExists) throw new Error("Author dengan nama tersebut sudah ada");
     }
 
     // Build update data object

@@ -1,57 +1,45 @@
+import type { Bundle } from "backend/lib/types";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
   name: "bundle_detail",
   url: "/api/publish/bundle/:id",
-  async handler(arg: { id: string; author_id: string }) {
+  async handler(arg: {
+    id: string;
+    author_id: string;
+  }): Promise<ApiResponse<Bundle>> {
     const bundle = await db.bundle.findFirst({
-      where: { 
+      where: {
         id: arg.id,
         bundle_product: {
           some: {
             product: {
-              id_author: arg.author_id
-            }
-          }
+              id_author: arg.author_id,
+            },
+          },
         },
-        deleted_at: null
+        deleted_at: null,
       },
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        desc: true,
-        real_price: true,
-        strike_price: true,
-        currency: true,
-        status: true,
-        cover: true,
-        img_file: true,
-        info: true,
-        sku: true,
-        // Note: cfg is intentionally excluded for authors
+      include: {
+        author: true,
         bundle_product: {
           select: {
             id: true,
             qty: true,
-            product: {
-              select: {
-                id: true,
-                name: true,
-                real_price: true,
-                currency: true,
-                cover: true
-              }
-            }
-          }
-        }
-      }
+            product: true,
+          },
+        },
+        bundle_category: {
+          select: {
+            id: true,
+            category: true,
+          },
+        },
+      },
     });
 
-    if (!bundle) {
-      throw new Error("Bundle tidak ditemukan atau Anda tidak memiliki akses");
-    }
-
-    return bundle;
+    if (!bundle) return { success: false, message: "Bundle tidak ditemukan" };
+    return { success: true, data: bundle };
   },
 });

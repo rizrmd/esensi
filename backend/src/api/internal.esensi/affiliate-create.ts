@@ -1,9 +1,15 @@
+import type { Affiliate } from "backend/lib/types";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
   name: "affiliate_create",
   url: "/api/internal/affiliate/create",
-  async handler(arg: { name: string; id_account?: string; id_user?: string }) {
+  async handler(arg: {
+    name: string;
+    id_account?: string;
+    id_user?: string;
+  }): Promise<ApiResponse<Affiliate>> {
     const { name, id_account, id_user } = arg;
 
     // Validate required fields
@@ -25,6 +31,10 @@ export default defineAPI({
       include: { auth_user: true, auth_account: true },
     });
 
-    return result;
+    return {
+      success: true,
+      data: result,
+      message: "Buku berhasil ditambahkan",
+    };
   },
 });

@@ -36,7 +36,7 @@ export default () => {
         id_user: "",
         cfg: {} as Record<string, any>,
       },
-      author: null as Author | null,
+      author: undefined as Author | undefined,
       loading: true,
       saving: false,
       uploading: false,
@@ -65,27 +65,18 @@ export default () => {
       local.error = "";
       local.render();
 
-      const result = await api.author_get({
-        id: local.authorId,
-        include_user: false,
-        include_account: false,
-        include_books: false,
-        include_products: false,
-      });
-
+      const result = await api.author_get({ id: local.authorId });
       if (result) {
-        local.author = result;
+        local.author = result.data;
         // Populate form with existing data
-        local.form.name = result.name || "";
-        local.form.biography = result.biography || "";
-        local.form.social_media = result.social_media || "";
-        local.form.avatar = result.avatar || "";
-        local.form.id_account = result.id_account || "";
-        local.form.id_user = result.id_user || "";
-        local.form.cfg = result.cfg || {};
-      } else {
-        local.error = "Penulis tidak ditemukan";
-      }
+        local.form.name = result.data?.name || "";
+        local.form.biography = result.data?.biography || "";
+        local.form.social_media = result.data?.social_media || "";
+        local.form.avatar = result.data?.avatar || "";
+        local.form.id_account = result.data?.id_account || "";
+        local.form.id_user = result.data?.id_user || "";
+        local.form.cfg = result.data?.cfg?.toLocaleString || {};
+      } else local.error = "Penulis tidak ditemukan";
     } catch (error: any) {
       console.error("Error loading author:", error);
       local.error =
@@ -174,11 +165,9 @@ export default () => {
 
       const result = await response.json();
 
-      if (result.success && result.data?.url) {
+      if (result.success && result.data?.url)
         local.form.avatar = result.data.url;
-      } else {
-        local.error = "Gagal mengupload gambar";
-      }
+      else local.error = "Gagal mengupload gambar";
     } catch (error) {
       console.error("Upload error:", error);
       local.error = "Terjadi kesalahan saat mengupload gambar";

@@ -201,8 +201,8 @@ export default () => {
             <Success msg={local.success} />
             <Card className="shadow-md border border-gray-200">
               <CardHeader>
-                <Breadcrumb bundleName={local.bundleData.name} />
-                <CardTitle className="text-2xl">Edit Bundle</CardTitle>
+                <Breadcrumb />
+                <CardTitle className="text-2xl">Perbarui Bundle</CardTitle>
                 <CardDescription>
                   Edit informasi bundle di bawah ini dan pilih produk yang akan
                   dimasukkan dalam bundle.

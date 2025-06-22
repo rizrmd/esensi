@@ -55,8 +55,6 @@ export default () => {
       const res = await api.author_list({
         limit: local.limit,
         offset: (local.page - 1) * local.limit,
-        include_user: true,
-        include_account: true,
       });
       local.authors = res.data || [];
       local.total = res.total || 0;

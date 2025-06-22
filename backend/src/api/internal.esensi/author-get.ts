@@ -1,43 +1,36 @@
+import type { Author } from "backend/lib/types";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
   name: "author_get",
   url: "/api/internal/author/get",
-  async handler(arg: {
-    id: string;
-    include_user?: boolean;
-    include_account?: boolean;
-    include_books?: boolean;
-    include_products?: boolean;
-  }) {
-    const {
-      id,
-      include_user = false,
-      include_account = false,
-      include_books = false,
-      include_products = false,
-    } = arg;
-
-    if (!id?.trim()) {
-      throw new Error("ID author wajib diisi");
-    }
-
-    const include = {
-      ...(include_user && { auth_user: true }),
-      ...(include_account && { auth_account: true }),
-      ...(include_books && { book: true }),
-      ...(include_products && { product: true }),
-    };
+  async handler(arg: { id: string }): Promise<ApiResponse<Author>> {
+    const { id } = arg;
+    if (!id?.trim()) throw new Error("ID penulis wajib diisi");
 
     const author = await db.author.findUnique({
       where: { id },
-      include,
+      include: {
+        auth_account: true,
+        auth_user: { orderBy: { created_at: "desc" }, take: 10 },
+        publisher_author: {
+          include: {
+            publisher: {
+              include: {
+                transaction: { orderBy: { created_at: "desc" }, take: 10 },
+                promo_code: { orderBy: { valid_to: "desc" }, take: 10 },
+              },
+            },
+          },
+        },
+        book: { orderBy: { published_date: "desc" }, take: 10 },
+        product: { orderBy: { published_date: "desc" }, take: 10 },
+        bundle: { orderBy: { created_at: "desc" }, take: 10 },
+      },
     });
 
-    if (!author) {
-      throw new Error("Author tidak ditemukan");
-    }
-
-    return author;
+    if (!author) throw new Error("Penulis tidak ditemukan");
+    return { success: true, data: author };
   },
 });

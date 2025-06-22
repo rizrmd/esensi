@@ -23,9 +23,7 @@ export default defineAPI({
         },
       });
 
-      if (!author) {
-        throw new Error("Author tidak ditemukan");
-      }
+      if (!author) throw new Error("Author tidak ditemukan");
 
       return {
         author: {

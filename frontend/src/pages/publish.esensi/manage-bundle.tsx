@@ -53,8 +53,6 @@ export default () => {
         user: current.user!,
         page: local.page,
         limit: local.limit,
-        include_categories: true,
-        include_products: true,
       });
       local.bundles = res.data || [];
       local.total = res.pagination!.total || 0;

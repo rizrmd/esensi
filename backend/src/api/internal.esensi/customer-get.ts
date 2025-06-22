@@ -1,3 +1,5 @@
+import type { Customer } from "backend/lib/types";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
@@ -10,33 +12,27 @@ export default defineAPI({
     include_sales?: boolean;
     include_track?: boolean;
     include_reader?: boolean;
-  }) {
-    const {
-      id,
-      include_user = false,
-      include_account = false,
-      include_sales = false,
-      include_track = false,
-      include_reader = false,
-    } = arg;
+  }): Promise<ApiResponse<Customer>> {
+    const { id } = arg;
 
     if (!id?.trim()) throw new Error("ID customer wajib diisi");
 
-    const include = {
-      ...(include_user && { auth_user: true }),
-      ...(include_account && { auth_account: true }),
-      ...(include_sales && { t_sales: true }),
-      ...(include_track && { customer_track: true }),
-      ...(include_reader && { customer_reader: true }),
-    };
-
     const customer = await db.customer.findUnique({
       where: { id },
-      include,
+      include: {
+        auth_user: true,
+        auth_account: true,
+        t_sales: true,
+        customer_track: true,
+        customer_reader: true,
+      },
     });
 
     if (!customer) throw new Error("Customer tidak ditemukan");
-
-    return customer;
+    return {
+      success: true,
+      data: customer,
+      message: "Customer berhasil ditambahkan",
+    };
   },
 });

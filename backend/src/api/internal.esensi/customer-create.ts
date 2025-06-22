@@ -1,3 +1,5 @@
+import type { Customer } from "backend/lib/types";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
@@ -10,7 +12,7 @@ export default defineAPI({
     id_account?: string;
     id_user?: string;
     otp?: number;
-  }) {
+  }): Promise<ApiResponse<Customer>> {
     const { name, email, whatsapp, id_account, id_user, otp } = arg;
 
     // Validate required fields
@@ -22,10 +24,7 @@ export default defineAPI({
 
     // Check if customer with same email already exists
     const existingEmail = await db.customer.findFirst({
-      where: {
-        email: email.trim(),
-        deleted_at: null,
-      },
+      where: { email: email.trim(), deleted_at: null },
     });
 
     if (existingEmail)
@@ -33,15 +32,11 @@ export default defineAPI({
 
     // Check if customer with same whatsapp already exists
     const existingWhatsapp = await db.customer.findFirst({
-      where: {
-        whatsapp: whatsapp.trim(),
-        deleted_at: null,
-      },
+      where: { whatsapp: whatsapp.trim(), deleted_at: null },
     });
 
-    if (existingWhatsapp) {
+    if (existingWhatsapp)
       throw new Error("Customer dengan WhatsApp tersebut sudah ada");
-    }
 
     const result = await db.customer.create({
       data: {
@@ -55,9 +50,16 @@ export default defineAPI({
       include: {
         auth_user: true,
         auth_account: true,
+        t_sales: true,
+        customer_track: true,
+        customer_reader: true,
       },
     });
 
-    return result;
+    return {
+      success: true,
+      data: result,
+      message: "Customer berhasil ditambahkan",
+    };
   },
 });

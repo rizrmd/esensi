@@ -98,19 +98,22 @@ model auth_verification {
 }
 
 model author {
-  id               String             @id(map: "author_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name             String
-  id_account       String?            @db.Uuid
-  biography        String?
-  social_media     String?            @db.VarChar
-  avatar           String?            @db.VarChar
-  id_user          String?            @db.Uuid
-  cfg              Json?
-  auth_user        auth_user[]
-  auth_account     auth_account?      @relation(fields: [id_account], references: [id], map: "author_fk_id_account")
-  book             book[]
-  product          product[]
-  publisher_author publisher_author[]
+  id                    String             @id(map: "author_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                  String
+  id_account            String?            @db.Uuid
+  biography             String?
+  social_media          String?            @db.VarChar
+  avatar                String?            @db.VarChar
+  id_user               String?            @db.Uuid
+  cfg                   Json?
+  bank_account_number   String?            @db.VarChar
+  bank_account_provider String?            @db.VarChar
+  auth_user             auth_user[]
+  auth_account          auth_account?      @relation(fields: [id_account], references: [id], map: "author_fk_id_account")
+  book                  book[]
+  bundle                bundle[]
+  product               product[]
+  publisher_author      publisher_author[]
 }
 
 model banner {
@@ -208,6 +211,9 @@ model bundle {
   cover           String            @default("")
   sku             String            @default("")
   cfg             Json?
+  id_author       String?           @db.Uuid
+  created_at      DateTime?         @default(now())
+  author          author?           @relation(fields: [id_author], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "bundle_fk_id_author")
   bundle_category bundle_category[]
   bundle_product  bundle_product[]
   t_sales_line    t_sales_line[]

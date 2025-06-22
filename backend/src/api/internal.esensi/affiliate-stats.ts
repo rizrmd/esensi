@@ -13,9 +13,7 @@ export default defineAPI({
         select: {
           id: true,
           name: true,
-          _count: {
-            select: { auth_user: true },
-          },
+          _count: { select: { auth_user: true } },
         },
       });
 
@@ -33,12 +31,8 @@ export default defineAPI({
       const [totalAffiliates, affiliatesWithUsers, affiliatesWithAccount] =
         await Promise.all([
           db.affiliate.count(),
-          db.affiliate.count({
-            where: { auth_user: { some: {} } },
-          }),
-          db.affiliate.count({
-            where: { id_account: { not: null } },
-          }),
+          db.affiliate.count({ where: { auth_user: { some: {} } } }),
+          db.affiliate.count({ where: { id_account: { not: null } } }),
         ]);
 
       return {

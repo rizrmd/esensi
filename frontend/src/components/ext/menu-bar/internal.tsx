@@ -8,13 +8,14 @@ import {
 import { useLocal } from "@/lib/hooks/use-local";
 import { useRoot } from "@/lib/hooks/use-router";
 import { navigate } from "@/lib/router";
-import { isAuthor, isPublisher } from "@/lib/utils";
+import { isAuthor, isInternal, isPublisher } from "@/lib/utils";
 import type { User } from "backend/lib/better-auth";
 import type { FC } from "react";
 
 const menu = [
   { label: "Beranda", href: "/dashboard" },
   { label: "Buku", href: "/manage-book" },
+  { label: "Bundle", href: "/manage-bundle" },
   { label: "Penulis", href: "/manage-author" },
   { label: "Konfigurasi", href: "/manage-cfg" },
   { label: "Profil", href: "/profil" },
@@ -39,6 +40,10 @@ export const MenuBarInternal: FC<{ title?: string }> = ({ title } = {}) => {
           local.render();
         }
         if (!!user && isAuthor(user)) {
+          local.menu = menu.filter((x) => x.href !== "/manage-bundle");
+          local.render();
+        }
+        if (!!user && isInternal(user)) {
           local.menu = menu;
           local.render();
         }

@@ -196,7 +196,9 @@ exports.Prisma.AuthorScalarFieldEnum = {
   social_media: 'social_media',
   avatar: 'avatar',
   id_user: 'id_user',
-  cfg: 'cfg'
+  cfg: 'cfg',
+  bank_account_number: 'bank_account_number',
+  bank_account_provider: 'bank_account_provider'
 };
 
 exports.Prisma.BannerScalarFieldEnum = {
@@ -275,7 +277,9 @@ exports.Prisma.BundleScalarFieldEnum = {
   img_file: 'img_file',
   cover: 'cover',
   sku: 'sku',
-  cfg: 'cfg'
+  cfg: 'cfg',
+  id_author: 'id_author',
+  created_at: 'created_at'
 };
 
 exports.Prisma.Bundle_categoryScalarFieldEnum = {

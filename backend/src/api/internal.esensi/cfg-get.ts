@@ -6,13 +6,9 @@ export default defineAPI({
   async handler(arg: { key: string }) {
     const { key } = arg;
 
-    const result = await db.cfg.findUnique({
-      where: { key },
-    });
+    const result = await db.cfg.findUnique({ where: { key } });
 
-    if (!result) {
-      throw new Error("Configuration key not found");
-    }
+    if (!result) throw new Error("Configuration key not found");
 
     return result;
   },

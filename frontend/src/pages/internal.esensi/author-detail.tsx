@@ -46,7 +46,7 @@ export const current = {
 export default () => {
   const local = useLocal(
     {
-      author: null as Author | null,
+      author: undefined as Author | undefined,
       loading: true,
       error: "",
       authorId: "",
@@ -76,17 +76,8 @@ export default () => {
       local.error = "";
       local.render();
 
-      const result = await api.author_get({
-        id: local.authorId,
-        include_user: true,
-        include_account: true,
-        include_books: true,
-        include_products: true,
-      });
-
-      if (result) {
-        local.author = result;
-      }
+      const result = await api.author_get({ id: local.authorId });
+      if (result) local.author = result.data;
     } catch (error: any) {
       console.error("Error loading author:", error);
       local.error =

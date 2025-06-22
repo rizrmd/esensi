@@ -10,6 +10,8 @@ import type {
   category,
   chapter,
   customer,
+  customer_reader,
+  customer_track,
   internal,
   notif,
   product,
@@ -34,6 +36,7 @@ export type Author = author & {
   })[];
   book: book[];
   product: product[];
+  bundle: bundle[];
 };
 
 export type BookChangesLog = Omit<book_changes_log, "changes"> & {
@@ -194,4 +197,35 @@ export type Chapter = chapter & {
 
 export type Notif = notif & {
   auth_user: auth_user;
+};
+
+export type Bundle = bundle & {
+  author?: author | null;
+  bundle_product: {
+    id: string;
+    product: product | null;
+    qty: number | null;
+  }[];
+  bundle_category: {
+    id: string;
+    category: category | null;
+  }[];
+};
+
+export type Affiliate = affiliate & {
+  auth_user: auth_user[];
+  auth_account: auth_account | null;
+};
+
+export type Customer = customer & {
+  auth_user: auth_user[];
+  auth_account: auth_account | null;
+  t_sales: t_sales[];
+  customer_track: customer_track[];
+  customer_reader: customer_reader[];
+};
+
+export type Internal = internal & {
+  auth_user: auth_user | null;
+  auth_account: auth_account | null;
 };

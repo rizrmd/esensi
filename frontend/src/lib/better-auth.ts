@@ -163,26 +163,26 @@ export const betterAuth = {
       if (user.idCustomer === "null") user.idCustomer = null;
       if (user.idInternal === "null") user.idInternal = null;
       if (user.idPublisher === "null") user.idPublisher = null;
-      if (user.idAffiliate) {
-        const res = await api.affiliate_get({ id: user.idAffiliate });
-        if (res) user.affiliate = res;
-      } else user.affiliate = null;
-      if (user.idAuthor) {
-        const res = await api.author_get({ id: user.idAuthor });
-        if (res) user.author = res;
-      } else user.author = null;
-      if (user.idCustomer) {
-        const res = await api.customer_get({ id: user.idCustomer });
-        if (res) user.customer = res;
-      } else user.customer = null;
-      if (user.idInternal) {
-        const res = await api.internal_get({ id: user.idInternal });
-        if (res) user.internal = res;
-      } else user.internal = null;
-      if (user.idPublisher) {
-        const res = await api.publisher_get({ id: user.idPublisher });
-        if (res) user.publisher = res;
-      } else user.publisher = null;
+      // if (user.idAffiliate) {
+      //   const res = await api.affiliate_get({ id: user.idAffiliate });
+      //   if (res) user.affiliate = res;
+      // } else user.affiliate = null;
+      // if (user.idAuthor) {
+      //   const res = await api.author_get({ id: user.idAuthor });
+      //   if (res) user.author = res;
+      // } else user.author = null;
+      // if (user.idCustomer) {
+      //   const res = await api.customer_get({ id: user.idCustomer });
+      //   if (res) user.customer = res;
+      // } else user.customer = null;
+      // if (user.idInternal) {
+      //   const res = await api.internal_get({ id: user.idInternal });
+      //   if (res) user.internal = res;
+      // } else user.internal = null;
+      // if (user.idPublisher) {
+      //   const res = await api.publisher_get({ id: user.idPublisher });
+      //   if (res) user.publisher = res;
+      // } else user.publisher = null;
       data.user = user;
     }
     return { data, error };

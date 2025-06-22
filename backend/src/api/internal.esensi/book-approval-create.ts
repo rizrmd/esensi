@@ -21,9 +21,7 @@ export default defineAPI({
   }): Promise<ApiResponse<BookApproval>> {
     try {
       const book = await db.book.findUnique({ where: { id: arg.id_book } });
-      if (!book) {
-        return { success: false, message: "Buku tidak ditemukan" };
-      }
+      if (!book) return { success: false, message: "Buku tidak ditemukan" };
 
       const created = await db.book_approval.create({
         data: {
@@ -33,23 +31,14 @@ export default defineAPI({
           status: arg.status,
         },
         include: {
-          book: {
-            include: {
-              author: {
-                include: { auth_user: true },
-              },
-            },
-          },
+          book: { include: { author: { include: { auth_user: true } } } },
           internal: true,
         },
       });
 
-      if (!created) {
-        return {
-          success: false,
-          message: "Gagal menambahkan riwayat buku",
-        };
-      } else {
+      if (!created)
+        return { success: false, message: "Gagal menambahkan riwayat buku" };
+      else {
         let id_product = undefined as string | undefined;
         if (arg.status === BookStatus.PUBLISHED && arg.book) {
           const createdProduct = await db.product.create({
@@ -73,18 +62,8 @@ export default defineAPI({
             },
             include: {
               author: true,
-              bundle_product: {
-                select: {
-                  bundle: true,
-                },
-                take: 10,
-              },
-              product_category: {
-                select: {
-                  category: true,
-                },
-                take: 10,
-              },
+              bundle_product: { select: { bundle: true }, take: 10 },
+              product_category: { select: { category: true }, take: 10 },
             },
           });
           id_product = createdProduct.id;
@@ -101,10 +80,7 @@ export default defineAPI({
       if (uid) {
         const notif = {
           id_user: uid,
-          data: {
-            bookId: created.id_book,
-            approverId: arg.id_internal!,
-          },
+          data: { bookId: created.id_book, approverId: arg.id_internal! },
           status: NotifStatus.UNREAD,
           timestamp: created.created_at.getTime(),
           thumbnail: created.book.cover,
