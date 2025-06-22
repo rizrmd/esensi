@@ -13,9 +13,20 @@ export default defineAPI({
     id_account?: string;
     id_user?: string;
     cfg?: Record<string, any>;
+    bank_account_number?: string;
+    bank_account_provider?: string;
   }): Promise<ApiResponse<Author>> {
-    const { name, biography, social_media, avatar, id_account, id_user, cfg } =
-      arg;
+    const {
+      name,
+      biography,
+      social_media,
+      avatar,
+      id_account,
+      id_user,
+      cfg,
+      bank_account_number,
+      bank_account_provider,
+    } = arg;
 
     // Validate required fields
     if (!name?.trim()) {
@@ -38,6 +49,8 @@ export default defineAPI({
         id_account: id_account || null,
         id_user: id_user || null,
         cfg: cfg || undefined,
+        bank_account_number: bank_account_number?.trim() || null,
+        bank_account_provider: bank_account_provider?.trim() || null,
       },
       include: {
         auth_account: true,

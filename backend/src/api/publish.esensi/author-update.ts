@@ -22,6 +22,8 @@ export default defineAPI({
           biography: arg.data.biography,
           social_media: arg.data.social_media,
           avatar: arg.data.avatar,
+          bank_account_number: arg.data.bank_account_number,
+          bank_account_provider: arg.data.bank_account_provider,
         },
         include: {
           auth_account: true,

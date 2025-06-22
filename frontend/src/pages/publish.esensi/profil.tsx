@@ -31,7 +31,14 @@ import { Role, type Author } from "backend/lib/types";
 export const current = {
   user: undefined as User | undefined,
   author: undefined as Author | undefined,
-  formData: null as (author & { email: string; username: string }) | null,
+  formData: null as
+    | (author & {
+        email: string;
+        username: string;
+        bank_account_number: string;
+        bank_account_provider: string;
+      })
+    | null,
 };
 
 export default () => {
@@ -76,6 +83,8 @@ export default () => {
       biography: current.author.biography || "",
       social_media: current.author.social_media || "",
       avatar: current.author.avatar || "",
+      bank_account_number: current.author.bank_account_number || "",
+      bank_account_provider: current.author.bank_account_provider || "",
     };
 
     if (current.user?.image) {
@@ -130,6 +139,10 @@ export default () => {
                   username: current.formData?.username || "",
                   biography: current.formData?.biography || "",
                   social_media: current.formData?.social_media || "",
+                  bank_account_number:
+                    current.formData?.bank_account_number || "",
+                  bank_account_provider:
+                    current.formData?.bank_account_provider || "",
                 }}
                 onSubmit={async ({ read }) => {
                   if (
@@ -193,6 +206,8 @@ export default () => {
                           biography: read.biography,
                           social_media: read.social_media,
                           avatar: current.user.image,
+                          bank_account_number: read.bank_account_number,
+                          bank_account_provider: read.bank_account_provider,
                         },
                       });
 
@@ -265,6 +280,31 @@ export default () => {
                         <p className="text-xs text-gray-500 -mt-5">
                           Masukkan alamat media sosial utama Anda. Contoh:
                           https://instagram.com/username
+                        </p>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <Field
+                            name="bank_account_number"
+                            disabled={local.loading}
+                            input={{
+                              placeholder: "Nomor rekening bank",
+                            }}
+                            label="Nomor Rekening Bank"
+                            optional
+                          />
+                          <Field
+                            name="bank_account_provider"
+                            disabled={local.loading}
+                            input={{
+                              placeholder: "Nama bank (contoh: BCA, Mandiri)",
+                            }}
+                            label="Nama Bank"
+                            optional
+                          />
+                        </div>
+                        <p className="text-xs text-gray-500 -mt-5">
+                          Informasi rekening bank untuk keperluan pencairan
+                          royalti buku.
                         </p>
                         <div>
                           <Label className="text-sm">Foto Profil</Label>

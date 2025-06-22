@@ -12,6 +12,8 @@ export default defineAPI({
     id_account?: string;
     id_user?: string;
     cfg?: Record<string, any>;
+    bank_account_number?: string;
+    bank_account_provider?: string;
   }) {
     const {
       id,
@@ -22,6 +24,8 @@ export default defineAPI({
       id_account,
       id_user,
       cfg,
+      bank_account_number,
+      bank_account_provider,
     } = arg;
 
     if (!id?.trim()) throw new Error("ID author wajib diisi");
@@ -59,6 +63,10 @@ export default defineAPI({
     if (id_account !== undefined) updateData.id_account = id_account || null;
     if (id_user !== undefined) updateData.id_user = id_user || null;
     if (cfg !== undefined) updateData.cfg = cfg || undefined;
+    if (bank_account_number !== undefined)
+      updateData.bank_account_number = bank_account_number?.trim() || null;
+    if (bank_account_provider !== undefined)
+      updateData.bank_account_provider = bank_account_provider?.trim() || null;
 
     const result = await db.author.update({
       where: { id },
