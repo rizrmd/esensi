@@ -7,11 +7,14 @@ import { BookCard } from "./book-card";
 import { BundlingCard } from "./bundling-card";
 import { FilterItem } from "./filter-item";
 import { FilterSelected } from "./filter-selected";
+import { Breadcrumb } from "../ext/book/breadcrumb/approval";
+import { Breadcrumbs } from "./breadcrumbs";
 
 export const LayoutBookList = ({
   title = "" as string,
   loading = true as boolean,
   list = [] as any[],
+  breadcrumb = [] as any[],
   pagination = {
     items: 20 as number,
     page: 1 as number,
@@ -263,14 +266,15 @@ export const LayoutBookList = ({
     : "[&>.esensi-book]:w-1/2 lg:[&>.esensi-book]:w-1/3";
 
   const renderPage = (
-    <div className="flex flex-col w-full items-center">
+    <div className="flex flex-col w-full items-center lg:gap-8">
       <div
         className="flex justify-center w-full h-auto p-6 bg-cover bg-center bg-no-repeat text-white text-lg font-semibold lg:text-3xl lg:h-40 lg:items-center"
         style={bannerCSS}
       >
         <h2 className="w-full max-w-[1200px]">{title}</h2>
       </div>
-      <div className="flex flex-col w-full max-w-[1200px]">
+      <div className="flex flex-col w-full max-w-[1200px] gap-4">
+        <Breadcrumbs data={breadcrumb}/>
         <div className="flex flex-col lg:flex-row lg:items-start py-8 gap-5">
           <div className="flex flex-col w-full shrink-0 lg:w-1/4 lg:gap-6">
             <div className="flex flex-wrap gap-1 px-4 lg:hidden">

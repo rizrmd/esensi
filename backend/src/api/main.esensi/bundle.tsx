@@ -68,6 +68,10 @@ export default defineAPI({
       owned: false,
       bookmarked: false,
       in_cart: false,
+      breadcrumb: [{
+        url: null,
+        label: `${product?.name}`,
+      }],
       related: [],
     };
 

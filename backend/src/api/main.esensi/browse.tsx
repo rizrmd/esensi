@@ -43,6 +43,10 @@ export default defineAPI({
     const data = {
       title: `Lihat Semua Ebook`,
       list: products,
+      breadcrumb: [{
+        url: null,
+        label: `All Ebooks${page > 1 ? ` (page ${page})` : "" }`,
+      }],
       pagination: {
         items: books_per_page,
         page: page,

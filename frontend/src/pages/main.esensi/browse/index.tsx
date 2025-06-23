@@ -28,11 +28,13 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
           suffix: "" as string,
         },
       } as any,
+      breadcrumb: [] as any,
       isBundle: false as boolean,
     },
     async () => {
       local.list = data.list;
       local.pagination = data.pagination;
+      local.breadcrumb = data.breadcrumb;
       local.title = `Dunia Baru Dimulai dari Satu Halaman${
         data.pagination.page > 1 ? ` | Page #${data.pagination.page}` : ""
       }`;
@@ -49,6 +51,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
         list={local.list}
         pagination={local.pagination}
         isBundle={local.isBundle}
+        breadcrumb={local.breadcrumb}
       />
     </MainEsensiLayout>
   );
