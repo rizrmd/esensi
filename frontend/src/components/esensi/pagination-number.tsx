@@ -70,11 +70,15 @@ export const PaginationNumber = ({
     }
     return range;
   };
-  const prev = local.current !== 1 && local.total_pages !== 1 && (
+  const prev = local.current !== 1 && local.total_pages !== 1 ? (
     <Link href={`${local.url_prefix}`} className="flex px-3">« Prev page</Link>
+  ) : (
+    <span className="flex grow-1 border-none opacity-0 lg:hidden"></span>
   );
-  const next = local.current !== local.total_pages && (
+  const next = local.current !== local.total_pages ? (
     <Link href={`${local.url_prefix}`} className="flex px-3">Next page »</Link>
+  ) : (
+    <span className="flex grow-1 border-none opacity-0 lg:hidden"></span>
   );
 
   const list = local.visible_pages.map((p, idx) => {

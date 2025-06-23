@@ -162,18 +162,7 @@ export const LayoutBookList = ({
     let filterSection = <Fragment key={idx}></Fragment>;
     if (flt.options.length > 0) {
       let filterTitle = <strong className="flex font-bold">{flt.label}</strong>;
-      let filterOptions = flt.options.map((o, oidx) => {
-        return (
-          <FilterItem
-            name={idx}
-            label={o?.label}
-            value={o?.value}
-            action={handleFilterItem}
-            selected={local.filters.list[idx].selected}
-            key={`esensi_book_filter_${flt.name}__${oidx}`}
-          />
-        );
-      });
+      
 
       filterSection = (
         <div
