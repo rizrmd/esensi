@@ -6,6 +6,7 @@ import { Frown, ListFilter } from "lucide-react";
 import { BookCard } from "./book-card";
 import { BundlingCard } from "./bundling-card";
 import { FilterItem } from "./filter-item";
+import { FilterSelected } from "./filter-selected";
 
 export const LayoutBookList = ({
   title = "" as string,
@@ -24,8 +25,8 @@ export const LayoutBookList = ({
 }) => {
   const header_img = `https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgU1yo1WjoGn3ORo8MQjhX5pIzlnkk_8a55xGT0b9Ap3rX2osccVQQIyMRnqIE6bXw7PZEUkjFK4Rq9UmZr2547ratdgsWKljHWk0cxo36IXpU59FaL-HsWTIyrBrAhA82yIfN-GlRZPguxeuuQjtIWn5E59tQ1y6Y7aJ_hRSwj4WkudbMFyaJSDiQY_aw/s1600/header-banner.png`;
   const bannerCSS: CSS.Properties = {
-            backgroundImage: `url(${header_img})`,
-        };
+    backgroundImage: `url(${header_img})`,
+  };
   const local = useLocal(
     {
       loading: loading,
@@ -59,19 +60,19 @@ export const LayoutBookList = ({
               label: "Rating terendah",
             },
           ] as any,
-          selected: [] as any[],
+          selected: [] as any,
         },
         {
           name: "cat" as string,
           label: "Kategori" as string,
-          options: [] as any,
-          selected: [] as any[],
+          options: [] as any[],
+          selected: [] as any,
         },
         {
           name: "author" as string,
           label: "Penulis" as string,
-          options: [] as any,
-          selected: [] as any[],
+          options: [] as any[],
+          selected: [] as any,
         },
         {
           name: "discount" as string,
@@ -81,8 +82,8 @@ export const LayoutBookList = ({
               label: "Buku yang sedang diskon",
               value: "discounted",
             },
-          ] as any,
-          selected: [] as any[],
+          ] as any[],
+          selected: [] as any,
         },
         {
           name: "ratings" as string,
@@ -108,8 +109,8 @@ export const LayoutBookList = ({
               label: "5 bintang",
               value: "5",
             },
-          ] as any,
-          selected: [] as any[],
+          ] as any[],
+          selected: [] as any,
         },
       ],
       toggleFilter: false as boolean,
@@ -120,7 +121,11 @@ export const LayoutBookList = ({
     }
   );
 
-  const handleUpdateFilter = () => {};
+  const handleUpdateFilter = () => {
+    local.toggleFilter = false;
+    local.render();
+  };
+
 
   const handleFilterPopup = (e: any) => {
     e.preventDefault();
@@ -164,13 +169,16 @@ export const LayoutBookList = ({
     </div>
   );
 
-  const renderSelectedFilterList = <></>;
 
   const renderFiltersWrapper = local.filters.map((filter, idx) => {
     let filterOptions = <></>;
     if (filter.name == "sort") {
       const dropdwonlist = filter.options.map((o, oidx) => {
-        return <option value={o.value}>{o.label}</option>;
+        return (
+          <option value={o.value} key={`esensi_filter_sort_${oidx}`}>
+            {o.label}
+          </option>
+        );
       });
       filterOptions = (
         <select
@@ -214,15 +222,15 @@ export const LayoutBookList = ({
   const renderList = list.map((book, idx) => {
     if (isBundle) {
       return (
-        <>
-          <BundlingCard data={book} key={`esensi_booklist_${idx}`} />
-        </>
+        <div className="esensi-book flex w-full" key={`esensi_booklist_${idx}`}>
+          <BundlingCard data={book} />
+        </div>
       );
     } else {
       return (
-        <>
+        <div className="esensi-book flex w-full" key={`esensi_booklist_${idx}`}>
           <BookCard data={book} key={`esensi_booklist_${idx}`} />
-        </>
+        </div>
       );
     }
   });
@@ -250,16 +258,23 @@ export const LayoutBookList = ({
     </>
   );
 
-  const columnsClasses = isBundle ? "" : "[&>a]:w-1/2 lg:[&>a]:w-1/3";
+  const columnsClasses = isBundle
+    ? ""
+    : "[&>.esensi-book]:w-1/2 lg:[&>.esensi-book]:w-1/3";
 
   const renderPage = (
     <div className="flex flex-col w-full items-center">
-      <div className="flex justify-center w-full h-auto p-6 bg-cover bg-center bg-no-repeat text-white text-lg font-semibold lg:text-3xl lg:h-40 lg:items-center" style={bannerCSS}><h2 className="w-full max-w-[1200px]">{title}</h2></div>
+      <div
+        className="flex justify-center w-full h-auto p-6 bg-cover bg-center bg-no-repeat text-white text-lg font-semibold lg:text-3xl lg:h-40 lg:items-center"
+        style={bannerCSS}
+      >
+        <h2 className="w-full max-w-[1200px]">{title}</h2>
+      </div>
       <div className="flex flex-col w-full max-w-[1200px]">
         <div className="flex flex-col lg:flex-row py-8 gap-5">
           <div className="flex flex-col w-full shrink-0 lg:w-1/4 lg:gap-6">
             <div className="flex flex-wrap gap-1 px-4 lg:hidden">
-              {renderFilterNav} {renderSelectedFilterList}
+              {renderFilterNav}
             </div>
             <div
               className={`${
