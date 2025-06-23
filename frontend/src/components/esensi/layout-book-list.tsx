@@ -223,7 +223,7 @@ export const LayoutBookList = ({
     if (isBundle) {
       return (
         <div className="esensi-book flex w-full" key={`esensi_booklist_${idx}`}>
-          <BundlingCard data={book} />
+          <BundlingCard data={book}  key={`esensi_booklist_${idx}`} />
         </div>
       );
     } else {
@@ -259,7 +259,7 @@ export const LayoutBookList = ({
   );
 
   const columnsClasses = isBundle
-    ? ""
+    ? "[&>.esensi-book]:w-1/2 lg:[&>.esensi-book]:w-1/3"
     : "[&>.esensi-book]:w-1/2 lg:[&>.esensi-book]:w-1/3";
 
   const renderPage = (

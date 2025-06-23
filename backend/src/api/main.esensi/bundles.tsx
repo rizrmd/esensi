@@ -53,11 +53,19 @@ export default defineAPI({
       })) / books_per_page
     );
 
+
     const data = {
-      title: `Lihat Semua Bundle`,
+      title: `Lihat Semua Ebook`,
       list: products,
-      page: page,
-      total_pages: total_pages,
+      pagination: {
+        items: books_per_page,
+        page: page,
+        total_pages: total_pages,
+        url: {
+          prefix: "/bundles",
+          suffix: "",
+        },
+      },
     };
 
     const seo_data = {
