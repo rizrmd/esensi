@@ -99,6 +99,23 @@ export default defineAPI({
     const count_both = count_products + count_bundles;
     const total_pages = Math.ceil(count_both / books_per_page);
 
+
+    let categories = null;
+    let trending = null;
+
+    if(!req.params?.slug){
+      categories = await db.category.findMany({
+        select:{
+          name: true,
+          slug: true,
+        },
+        where: {
+          deleted_at: null,
+        },
+      });
+    }
+
+
     const data = {
       title: `Hasil pencarian buku dengan kata kunci ${keyword}`,
       list: products,
@@ -111,6 +128,8 @@ export default defineAPI({
           suffix: "",
         },
       },
+      categories: categories,
+      trending: trending,
     };
 
     const seo_data = {
