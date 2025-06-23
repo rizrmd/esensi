@@ -22,10 +22,10 @@ export const PaginationNumber = ({
         local.url_prefix = url;
       } else {
         if (url?.prefix) {
-          local.url_prefix = url.prefix;
+          local.url_prefix = `${url.prefix}/`;
         }
         if (url?.suffix) {
-          local.url_suffix = url.suffix;
+          local.url_suffix = `/${url.suffix}`;
         }
       }
       local.visible_pages = getPaginationRange(
@@ -71,12 +71,12 @@ export const PaginationNumber = ({
     return range;
   };
   const prev = local.current !== 1 && local.total_pages !== 1 ? (
-    <Link href={`${local.url_prefix}`} className="flex px-3">« Prev page</Link>
+    <Link href={`${local.url_prefix}${(local.current-1)}${local.url_suffix}`} className="flex px-3">« Prev page</Link>
   ) : (
     <span className="flex grow-1 border-none opacity-0 lg:hidden"></span>
   );
   const next = local.current !== local.total_pages ? (
-    <Link href={`${local.url_prefix}`} className="flex px-3">Next page »</Link>
+    <Link href={`${local.url_prefix}${(local.current+1)}${local.url_suffix}`} className="flex px-3">Next page »</Link>
   ) : (
     <span className="flex grow-1 border-none opacity-0 lg:hidden"></span>
   );
