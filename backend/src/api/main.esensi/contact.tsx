@@ -11,6 +11,10 @@ export default defineAPI({
     const data = {
       title: `Hubungi Kami`,
       content: {},
+      breadcrumb: [{
+        url: null,
+        label: `Contact`,
+      }],
     };
 
 

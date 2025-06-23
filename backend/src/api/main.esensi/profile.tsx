@@ -20,7 +20,7 @@ export default defineAPI({
       });
     }
 
-    const royality = {
+    const loyality = {
       id: "EO808VX",
       points: 360,
     };
@@ -28,7 +28,11 @@ export default defineAPI({
     const data = {
       title: `Informasi Profil`,
       user: user,
-      royality: royality,
+      loyality: loyality,
+      breadcrumb: [{
+        url: null,
+        label: `Profile`,
+      },],
     };
 
     const seo_data = {

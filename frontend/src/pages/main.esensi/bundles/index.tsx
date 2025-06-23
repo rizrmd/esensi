@@ -28,6 +28,7 @@ export default (data: Awaited<ReturnType<typeof api.bundles>>["data"]) => {
           suffix: "" as string,
         },
       } as any,
+      breadcrumb: [] as any,
       isBundle: true as boolean,
     },
     async () => {
@@ -36,6 +37,7 @@ export default (data: Awaited<ReturnType<typeof api.bundles>>["data"]) => {
       local.title = `Dunia Baru Dimulai dari Satu Halaman${
         data.pagination.page > 1 ? ` | Page #${data.pagination.page}` : ""
       }`;
+      local.breadcrumb = data.breadcrumb;
       local.loading = false;
       local.render();
     }
@@ -49,6 +51,7 @@ export default (data: Awaited<ReturnType<typeof api.bundles>>["data"]) => {
         list={local.list}
         pagination={local.pagination}
         isBundle={local.isBundle}
+        breadcrumb={local.breadcrumb}
       />
     </MainEsensiLayout>
   );

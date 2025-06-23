@@ -7,29 +7,52 @@ export default defineAPI({
 
   async handler() {
     const req = this.req!;
-    const page = req.params?.page ? parseInt( req.params.page ) : 1;
+    const page = req.params?.page ? parseInt(req.params.page) : 1;
     const books_per_page = 20;
-    const skip_books = req.params?.page ? ( (page - 1) * books_per_page ) : 0;
+    const skip_books = req.params?.page ? (page - 1) * books_per_page : 0;
 
     //const uid = this?.session?.user.id;
     const uid = ``;
 
+    const statuses = [
+      "pending",
+      "paid",
+      "canceled",
+      "fraud",
+      "expired",
+      "refunded",
+    ];
+    const trxs_where =
+      req.params?.status && statuses.includes(req.params.status)
+        ? {
+            id_customer: uid,
+            status: req.params.status,
+          }
+        : {
+            id_customer: uid,
+          };
 
-    const statuses = ["pending", "paid", "canceled", "fraud", "expired", "refunded"];
-    const trxs_where = req.params?.status && statuses.includes( req.params.status ) ? {
-      id_customer: uid,
-      status: req.params.status,
-    } : {
-      id_customer: uid,
-    };
-
+          const total_pages = 1;
     let data = {
-        title: `Riwayat Pembelian`,
-        userid: null,
-        products: {},
-        page: 1,
-        pages: 1,
-      }
+      title: `Riwayat Pembelian`,
+      userid: null,
+      list: {},
+      pagination: {
+        items: books_per_page,
+        page: page,
+        total_pages: total_pages,
+        url: {
+          prefix: "/history",
+          suffix: "",
+        },
+      },
+      breadcrumb: [
+        {
+          url: null,
+          label: `History`,
+        },
+      ],
+    };
 
     if (uid) {
       const trxs = await db.t_sales.findMany({
@@ -45,22 +68,21 @@ export default defineAPI({
       });
 
       const total_pages = Math.ceil(
-        await db.t_sales.count({
+        (await db.t_sales.count({
           where: trxs_where,
-        }) / books_per_page
+        })) / books_per_page
       );
 
       data.userid = uid;
-      data.products = trxs;
-      data.pages = total_pages;
-      data.page = page;
-
+      data.list = trxs;
     }
 
-
-
     const seo_data = {
-      slug: `/history/${req.params?.status && statuses.includes(req.params.status) ? req.params.status : `_`}${page > 1 ? `/${page}` : ``}`,
+      slug: `/history/${
+        req.params?.status && statuses.includes(req.params.status)
+          ? req.params.status
+          : `_`
+      }${page > 1 ? `/${page}` : ``}`,
       page: page,
       meta_title: `Riwayat Pembelian Ebook | Cek Semua Transaksi Anda`,
       meta_description: `Semua pembelian eBook kamu tercatat rapi di sini. Cek kembali transaksi lama, lihat detailnya, dan unduh ulang eBook favoritmu kapan saja.`,
@@ -71,7 +93,11 @@ export default defineAPI({
     };
 
     return {
-      jsx: (<><SeoTemplate data={seo_data} /></>),
+      jsx: (
+        <>
+          <SeoTemplate data={seo_data} />
+        </>
+      ),
       data: data,
     };
   },

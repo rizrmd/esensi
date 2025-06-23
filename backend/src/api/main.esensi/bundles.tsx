@@ -66,6 +66,10 @@ export default defineAPI({
           suffix: "",
         },
       },
+      breadcrumb: [{
+        url: null,
+        label: `Bundle Hemat`,
+      }],
     };
 
     const seo_data = {

@@ -5,7 +5,6 @@ export default defineAPI({
   name: "trx",
   url: "/trx/:id",
   async handler() {
-
     const req = this.req!;
 
     //const uid = this?.session?.user.id;
@@ -15,7 +14,8 @@ export default defineAPI({
       title: `Login Untuk Lihat Detail Pembelian`,
       userid: null as any | null,
       trx: null as any,
-    }
+      breadcrumb: [] as any,
+    };
 
     if (uid) {
       const trx = await db.t_sales.findFirst({
@@ -31,6 +31,16 @@ export default defineAPI({
 
       data.userid = uid;
       data.trx = trx;
+      data.breadcrumb = [
+        {
+          url: "/history",
+          label: `Semua Transaksi`,
+        },
+        {
+          url: null,
+          label: trx?.id,
+        },
+      ];
     }
 
     const seo_data = {
@@ -44,7 +54,11 @@ export default defineAPI({
     };
 
     return {
-      jsx: (<><SeoTemplate data={seo_data} /></>),
+      jsx: (
+        <>
+          <SeoTemplate data={seo_data} />
+        </>
+      ),
       data: data,
     };
   },

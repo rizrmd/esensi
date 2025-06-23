@@ -128,6 +128,14 @@ export default defineAPI({
           suffix: "",
         },
       },
+      breadcrumb: [{
+        url: "/search",
+        label: `Pencarian`,
+      },
+    {
+        url: null,
+        label: keyword,
+      }],
       categories: categories,
       trending: trending,
     };

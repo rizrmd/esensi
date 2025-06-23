@@ -11,6 +11,10 @@ export default defineAPI({
     const data = {
       title: `Tentang Kami`,
       content: {},
+      breadcrumb: [{
+        url: null,
+        label: "About",
+      }],
     };
 
     const seo_data = {

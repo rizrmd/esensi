@@ -25,11 +25,17 @@ export default defineAPI({
           last_page: number;
         }
       >,
-      pagination:{
+      pagination: {
         items: books_per_page,
         page: page,
         total_pages: 1,
       },
+      breadcrumb: [
+        {
+          url: null,
+          label: `Library`,
+        },
+      ],
     };
 
     if (uid) {

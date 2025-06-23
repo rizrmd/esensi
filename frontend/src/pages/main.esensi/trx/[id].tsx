@@ -1,3 +1,4 @@
+import { Breadcrumbs } from "@/components/esensi/breadcrumbs";
 import { formatMoney } from "@/components/esensi/format-money";
 import { MainEsensiLayout } from "@/components/esensi/layout";
 import { LinkItem } from "@/components/esensi/link-item";
@@ -108,6 +109,7 @@ export default (data: Awaited<ReturnType<typeof api.trx>>["data"]) => {
         subtotal: 0 as number,
         discount: 0 as number,
       } as any,
+      breadcrumb: [] as any,
     },
     async () => {
       local.trx = data.trx;
@@ -150,6 +152,7 @@ export default (data: Awaited<ReturnType<typeof api.trx>>["data"]) => {
         local.payment.time = trx_data.transaction_time;
         local.payment.status = trx_data.transaction_status;
       }
+      local.breadcrumb = data.breadcrumb;
       local.loading = false;
       local.help_links = [
         {
@@ -325,6 +328,7 @@ export default (data: Awaited<ReturnType<typeof api.trx>>["data"]) => {
     <MainEsensiLayout header_config={header_config}>
       <div className="flex flex-col justify-center items-start bg-[#E1E5EF] lg:items-center lg:py-10">
         <div className="flex flex-col w-full gap-4 max-w-[1200px] lg:flex-1 lg:flex-row lg:gap-10 lg:flex-wrap lg:justify-center [&>div>div]:flex [&>div>div]:flex-col [&>div>div]:bg-white [&>div>div]:p-6 [&_h3]:font-bold [&_h3]:text-[#3B2C93]">
+          <Breadcrumbs data={local.breadcrumb} />
           <div className="flex flex-col gap-4 w-full lg:w-auto lg:flex-1">
             {!local.loading && renderItemsWrapper}
           </div>

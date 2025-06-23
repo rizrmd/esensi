@@ -69,6 +69,10 @@ export default defineAPI({
       bookmarked: false,
       in_cart: false,
       breadcrumb: [{
+        url: "/bundles",
+        label: `Bundle Hemat`,
+      },
+      {
         url: null,
         label: `${product?.name}`,
       }],

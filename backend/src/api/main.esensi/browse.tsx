@@ -45,7 +45,7 @@ export default defineAPI({
       list: products,
       breadcrumb: [{
         url: null,
-        label: `All Ebooks${page > 1 ? ` (page ${page})` : "" }`,
+        label: `Semua Ebooks`,
       }],
       pagination: {
         items: books_per_page,

@@ -11,6 +11,10 @@ export default defineAPI({
     const data = {
       title: `Navigasi Esensi`,
       content: {},
+      breadcrumb: [{
+        url: null,
+        label: `About`,
+      }],
     };
 
     const seo_data = {

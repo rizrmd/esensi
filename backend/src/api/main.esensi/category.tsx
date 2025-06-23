@@ -72,6 +72,10 @@ export default defineAPI({
           suffix: "",
         },
       },
+      breadcrumb: [{
+        url: null,
+        label: `${cat?.name}${page > 1 ? ` (page ${page})` : "" }`,
+      }],
     };
 
     const seo_data = {
