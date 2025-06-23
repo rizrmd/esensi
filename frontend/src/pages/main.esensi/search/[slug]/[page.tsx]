@@ -3,7 +3,7 @@ import { LayoutBookList } from "@/components/esensi/layout-book-list";
 import { api } from "@/lib/gen/main.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 
-export default (data: Awaited<ReturnType<typeof api.category>>["data"]) => {
+export default (data: Awaited<ReturnType<typeof api.search>>["data"]) => {
   const header_config = {
     enable: true,
     logo: true,

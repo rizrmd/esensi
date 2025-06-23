@@ -271,7 +271,7 @@ export const LayoutBookList = ({
         <h2 className="w-full max-w-[1200px]">{title}</h2>
       </div>
       <div className="flex flex-col w-full max-w-[1200px]">
-        <div className="flex flex-col lg:flex-row py-8 gap-5">
+        <div className="flex flex-col lg:flex-row lg:items-start py-8 gap-5">
           <div className="flex flex-col w-full shrink-0 lg:w-1/4 lg:gap-6">
             <div className="flex flex-wrap gap-1 px-4 lg:hidden">
               {renderFilterNav}
@@ -312,7 +312,7 @@ export const LayoutBookList = ({
             </div>
           </div>
 
-          <div className="flex flex-col justify-center gap-6">
+          <div className="flex flex-col justify-center gap-6 lg:grow-1">
             <div
               className={`flex flex-wrap justify-start gap-y-4 px-2 w-full ${columnsClasses}`}
             >

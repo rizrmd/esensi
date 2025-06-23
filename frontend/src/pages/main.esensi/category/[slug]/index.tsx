@@ -1,8 +1,5 @@
 import { MainEsensiLayout } from "@/components/esensi/layout";
-import {
-  LayoutBookList,
-  type BooksCardType,
-} from "@/components/esensi/layout-book-list.old";
+import { LayoutBookList } from "@/components/esensi/layout-book-list";
 import { api } from "@/lib/gen/main.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 
@@ -21,31 +18,27 @@ export default (data: Awaited<ReturnType<typeof api.category>>["data"]) => {
     {
       title: "" as string,
       loading: true as boolean,
-      list: [] as BooksCardType[],
-      page: 1 as number,
-      total_pages: 1 as number,
-      filters: {
-        options: [
-          {
-            name: "",
-            type: "select",
-          },
-        ],
-      },
-      page_url: {
-        prefix: "/browse/",
-      },
+      list: [] as any[],
+      pagination: {
+        items: 20 as number,
+        page: 1 as number,
+        total_pages: 1 as number,
+        url: {
+          prefix: "" as string,
+          suffix: "" as string,
+        },
+      } as any,
+      isBundle: false as boolean,
     },
     async () => {
       local.list = data.list;
-      local.page = data.page;
-      local.total_pages = data.total_pages;
-      local.title = `Dunia Baru Dimulai dari Satu Halaman${
-        data.page > 1 ? ` | Page #${data.page}` : ""
+      local.pagination = data.pagination;
+      local.title = `${data.title}${
+        data.pagination.page > 1 ? ` | Page #${data.pagination.page}` : ""
       }`;
       local.loading = false;
       local.render();
-    },
+    }
   );
 
   return (
@@ -54,9 +47,8 @@ export default (data: Awaited<ReturnType<typeof api.category>>["data"]) => {
         title={local.title}
         loading={local.loading}
         list={local.list}
-        page={local.page}
-        total_pages={local.total_pages}
-        page_url={local.page_url}
+        pagination={local.pagination}
+        isBundle={local.isBundle}
       />
     </MainEsensiLayout>
   );

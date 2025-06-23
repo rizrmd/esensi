@@ -100,10 +100,17 @@ export default defineAPI({
     const total_pages = Math.ceil(count_both / books_per_page);
 
     const data = {
-      title: `Hasil Pencarian`,
-      products: products,
-      page: page,
-      pages: total_pages,
+      title: `Hasil pencarian buku dengan kata kunci ${keyword}`,
+      list: products,
+      pagination: {
+        items: books_per_page,
+        page: page,
+        total_pages: total_pages,
+        url: {
+          prefix: `/search/${req.params?.slug}`,
+          suffix: "",
+        },
+      },
     };
 
     const seo_data = {

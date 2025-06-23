@@ -61,10 +61,17 @@ export default defineAPI({
     );
 
     const data = {
-      title: `Ebook tentang ${cat?.name}`,
+      title: `Semua Ebook tentang ${cat?.name}`,
       list: products,
-      page: page,
-      total_pages: total_pages,
+      pagination: {
+        items: books_per_page,
+        page: page,
+        total_pages: total_pages,
+        url: {
+          prefix: `/category/${req.params?.slug}`,
+          suffix: "",
+        },
+      },
     };
 
     const seo_data = {
