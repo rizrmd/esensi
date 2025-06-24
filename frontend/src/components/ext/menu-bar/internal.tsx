@@ -17,6 +17,7 @@ const menu = [
   { label: "Buku", href: "/manage-book" },
   { label: "Bundle", href: "/manage-bundle" },
   { label: "Penulis", href: "/manage-author" },
+  { label: "Affiliate", href: "/manage-affiliate" },
   { label: "Konfigurasi", href: "/manage-cfg" },
   { label: "Profil", href: "/profil" },
   { label: "Keluar", action: "signout" },

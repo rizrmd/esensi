@@ -32,19 +32,8 @@ export default defineAPI({
           where,
           include: {
             author: true,
-            bundle_product: {
-              select: {
-                id: true,
-                qty: true,
-                product: true,
-              },
-            },
-            bundle_category: {
-              select: {
-                id: true,
-                category: true,
-              },
-            },
+            bundle_product: { select: { id: true, qty: true, product: true } },
+            bundle_category: { select: { id: true, category: true } },
           },
           skip,
           take: limit,

@@ -1,6 +1,7 @@
 import { AppLoading } from "@/components/app/loading";
 import { Protected } from "@/components/app/protected";
 import { formatMoney } from "@/components/esensi/format-money";
+import { Breadcrumb } from "@/components/ext/bundle/breadcrumb/detail";
 import { Error } from "@/components/ext/error";
 import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
 import { Button } from "@/components/ui/button";
@@ -105,19 +106,10 @@ export default () => {
         <MenuBarInternal title="Internal" />
         <main className="flex-1">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
-            <div className="mb-6">
-              <Button
-                onClick={() => navigate("/manage-bundle")}
-                variant="outline"
-              >
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Kembali ke Daftar Bundle
-              </Button>
-            </div>
-
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
               <div className="p-8">
-                <div className="flex items-center gap-4 mb-6">
+                <Breadcrumb />
+                <div className="flex items-center gap-4 mb-6 mt-6">
                   <Package className="h-8 w-8 text-blue-600" />
                   <h1 className="text-3xl font-bold">
                     {local.bundleData.name}
@@ -216,24 +208,23 @@ export default () => {
                         )}
                       </CardContent>
                     </Card>
-
-                    {local.bundleData.desc && (
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Deskripsi</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div
-                            className="text-gray-700 prose prose-sm max-w-none"
-                            dangerouslySetInnerHTML={{
-                              __html: local.bundleData.desc,
-                            }}
-                          />
-                        </CardContent>
-                      </Card>
-                    )}
                   </div>
                 </div>
+                {local.bundleData.desc && (
+                  <Card className="mt-8">
+                    <CardHeader>
+                      <CardTitle>Deskripsi</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div
+                        className="text-gray-700 prose prose-sm max-w-none"
+                        dangerouslySetInnerHTML={{
+                          __html: local.bundleData.desc,
+                        }}
+                      />
+                    </CardContent>
+                  </Card>
+                )}
 
                 {/* Products in Bundle */}
                 {local.bundleData.bundle_product &&

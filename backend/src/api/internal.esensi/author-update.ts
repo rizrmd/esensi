@@ -1,3 +1,5 @@
+import type { Author } from "backend/lib/types";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
@@ -14,7 +16,7 @@ export default defineAPI({
     cfg?: Record<string, any>;
     bank_account_number?: string;
     bank_account_provider?: string;
-  }) {
+  }): Promise<ApiResponse<Author>> {
     const {
       id,
       name,
@@ -35,9 +37,7 @@ export default defineAPI({
       where: { id },
     });
 
-    if (!existing) {
-      throw new Error("Author tidak ditemukan");
-    }
+    if (!existing) throw new Error("Author tidak ditemukan");
 
     // If name is being updated, check for duplicates
     if (name && name.trim() !== existing.name) {
@@ -72,11 +72,28 @@ export default defineAPI({
       where: { id },
       data: updateData,
       include: {
-        auth_user: true,
         auth_account: true,
+        auth_user: { orderBy: { created_at: "desc" }, take: 10 },
+        publisher_author: {
+          include: {
+            publisher: {
+              include: {
+                transaction: { orderBy: { created_at: "desc" }, take: 10 },
+                promo_code: { orderBy: { valid_to: "desc" }, take: 10 },
+              },
+            },
+          },
+        },
+        book: { orderBy: { published_date: "desc" }, take: 10 },
+        product: { orderBy: { published_date: "desc" }, take: 10 },
+        bundle: { orderBy: { created_at: "desc" }, take: 10 },
       },
     });
 
-    return result;
+    return {
+      success: true,
+      data: result,
+      message: "Buku berhasil ditambahkan",
+    };
   },
 });

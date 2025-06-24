@@ -1,0 +1,279 @@
+import { AppLoading } from "@/components/app/loading";
+import { Protected } from "@/components/app/protected";
+import { affiliate, Item } from "@/components/ext/affiliate/item-manage";
+import { Error } from "@/components/ext/error";
+import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DataPagination } from "@/components/ui/data-pagination";
+import { Input } from "@/components/ui/input";
+import { api } from "@/lib/gen/internal.esensi";
+import { useLocal } from "@/lib/hooks/use-local";
+import { navigate } from "@/lib/router";
+import { ItemLayoutEnum } from "@/lib/utils";
+import type { Affiliate } from "backend/src/lib/types";
+import { Role } from "backend/src/lib/types";
+import { BarChart3, Edit, Search } from "lucide-react";
+
+export default () => {
+  const local = useLocal(
+    {
+      affiliates: [] as Affiliate[],
+      loading: true,
+      total: 0,
+      page: 1,
+      limit: 50,
+      totalPages: 0,
+      error: "",
+      search: "",
+      layout: ItemLayoutEnum.GRID,
+    },
+    async () => {
+      const params = new URLSearchParams(location.search);
+      local.page = parseInt(params.get("page") || ("1" as string)) as number;
+      local.limit = parseInt(params.get("limit") || ("50" as string)) as number;
+      local.search = params.get("search") || "";
+      await loadData();
+    }
+  );
+
+  async function loadData() {
+    local.loading = true;
+    local.render();
+    try {
+      const res = await api.affiliate_list({
+        page: local.page,
+        limit: local.limit,
+        search: local.search || undefined,
+      });
+
+      if (res.success) {
+        local.affiliates = res.data || [];
+        local.total = res.pagination?.total || 0;
+        local.totalPages = res.pagination?.totalPages || 0;
+      } else {
+        local.error = "Gagal memuat data affiliate.";
+      }
+    } catch (error) {
+      local.error = "Terjadi kesalahan saat memuat data.";
+    } finally {
+      local.loading = false;
+      local.render();
+    }
+  }
+
+  const handleSearch = async () => {
+    local.page = 1;
+    const params = new URLSearchParams();
+    params.set("page", "1");
+    params.set("limit", local.limit.toString());
+    if (local.search) params.set("search", local.search);
+
+    history.pushState(null, "", `${location.pathname}?${params.toString()}`);
+    await loadData();
+  };
+
+  if (local.loading) return <AppLoading />;
+
+  return (
+    <Protected role={[Role.INTERNAL]}>
+      <div className="flex min-h-svh flex-col bg-gray-50">
+        <MenuBarInternal />
+
+        <main className="flex-1">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+            <Error msg={local.error} />
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+              <div className="mx-8 py-8">
+                <div className="flex justify-between items-start mb-8 gap-4">
+                  <h1 className="text-2xl font-bold">Daftar Affiliate</h1>
+                  <div className="flex items-center gap-4">
+                    <DataPagination
+                      total={local.total}
+                      page={local.page}
+                      limit={local.limit}
+                      totalPages={local.totalPages}
+                      onReload={loadData}
+                      onPageChange={async (newPage) => {
+                        local.page = newPage;
+                        local.render();
+                        const params = new URLSearchParams(location.search);
+                        params.set("page", newPage.toString());
+                        history.pushState(
+                          null,
+                          "",
+                          `${location.pathname}?${params.toString()}`
+                        );
+                        await loadData();
+                      }}
+                      onLimitChange={async (newLimit) => {
+                        local.limit = newLimit;
+                        local.page = 1;
+                        local.render();
+                        const params = new URLSearchParams(location.search);
+                        params.set("page", "1");
+                        params.set("limit", newLimit.toString());
+                        history.pushState(
+                          null,
+                          "",
+                          `${location.pathname}?${params.toString()}`
+                        );
+                        await loadData();
+                      }}
+                      layout={local.layout}
+                      onLayoutChange={(value) => {
+                        local.layout = value;
+                        local.render();
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* Search Bar */}
+                <div className="mb-6">
+                  <div className="flex gap-2 max-w-md">
+                    <Input
+                      placeholder="Cari affiliate..."
+                      value={local.search}
+                      onChange={(e) => {
+                        local.search = e.target.value;
+                        local.render();
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          handleSearch();
+                        }
+                      }}
+                    />
+                    <Button onClick={handleSearch} variant="outline">
+                      <Search className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+
+                {local.loading ? (
+                  <div>Mengambil data affiliate...</div>
+                ) : local.affiliates.length === 0 ? (
+                  <div className="text-center text-muted-foreground py-8">
+                    {local.search
+                      ? "Tidak ada affiliate yang ditemukan."
+                      : "Belum ada affiliate."}
+                  </div>
+                ) : (
+                  <>
+                    {local.layout === ItemLayoutEnum.GRID && (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        {local.affiliates.map((affiliateItem: Affiliate) => (
+                          <Card
+                            key={affiliateItem.id}
+                            className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-lg transition-shadow"
+                          >
+                            <CardHeader className="flex-1">
+                              <CardTitle className="text-lg font-semibold line-clamp-2 mb-2">
+                                {affiliateItem.name}
+                              </CardTitle>
+                            </CardHeader>
+                            <CardContent className="pb-4">
+                              <div className="space-y-3">
+                                <Item
+                                  type={local.layout}
+                                  item={affiliate(affiliateItem)}
+                                />
+
+                                <div className="flex gap-2 pt-2">
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() =>
+                                      navigate(
+                                        `/affiliate-detail?id=${affiliateItem.id}`
+                                      )
+                                    }
+                                    className="flex-1"
+                                  >
+                                    <Edit className="h-4 w-4 mr-1" />
+                                    Detil
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() =>
+                                      navigate(
+                                        `/affiliate-stats?id=${affiliateItem.id}`
+                                      )
+                                    }
+                                    className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                                  >
+                                    <BarChart3 className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    )}
+
+                    {local.layout === ItemLayoutEnum.LIST && (
+                      <div className="space-y-4">
+                        {local.affiliates.map((affiliateItem: Affiliate) => (
+                          <Card
+                            key={affiliateItem.id}
+                            className="shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
+                          >
+                            <CardContent className="p-6">
+                              <div className="flex items-center justify-between">
+                                <div className="flex-1">
+                                  <h3 className="text-lg font-semibold mb-2">
+                                    {affiliateItem.name}
+                                  </h3>
+                                  <div className="flex items-center gap-4 text-sm">
+                                    <Item
+                                      type={local.layout}
+                                      item={affiliate(affiliateItem)}
+                                    />
+                                  </div>
+                                </div>
+                                <div className="flex gap-2">
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() =>
+                                      navigate(
+                                        `/affiliate-detail?id=${affiliateItem.id}`
+                                      )
+                                    }
+                                  >
+                                    <Edit className="h-4 w-4 mr-1" />
+                                    Edit
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() =>
+                                      navigate(
+                                        `/affiliate-stats?id=${affiliateItem.id}`
+                                      )
+                                    }
+                                    className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                                  >
+                                    <BarChart3 className="h-4 w-4 mr-1" />
+                                    Stats
+                                  </Button>
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </Protected>
+  );
+};
