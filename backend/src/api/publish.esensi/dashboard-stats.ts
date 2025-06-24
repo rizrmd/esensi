@@ -1,11 +1,13 @@
 import type { User } from "backend/lib/better-auth";
 import { defineAPI } from "rlib/server";
+import type { ApiResponse } from "backend/lib/utils";
 import { BadgeStatus } from "../../lib/types";
+import type { DashboardStatsData } from "../../lib/types";
 
 export default defineAPI({
   name: "dashboard_stats",
   url: "/api/publish/dashboard/stats",
-  async handler(arg: { user: Partial<User>; period?: string }) {
+  async handler(arg: { user: Partial<User>; period?: string }): Promise<ApiResponse<DashboardStatsData>> {
     const { user, period = "30" } = arg;
 
     // Calculate date range
@@ -175,17 +177,20 @@ export default defineAPI({
       };
 
       return {
-        overview: {
-          total_books: totalBooks,
-          total_products: totalProducts,
-          total_sales_count: totalSales._count.id || 0,
-          total_sales_revenue: Number(totalSales._sum.total_price) || 0,
-          total_quantity_sold: Number(totalSales._sum.qty) || 0,
-          period_days: daysAgo,
+        success: true,
+        data: {
+          overview: {
+            total_books: totalBooks,
+            total_products: totalProducts,
+            total_sales_count: totalSales._count.id || 0,
+            total_sales_revenue: Number(totalSales._sum.total_price) || 0,
+            total_quantity_sold: Number(totalSales._sum.qty) || 0,
+            period_days: daysAgo,
+          },
+          recent_sales: convertBigIntToNumber(recentSales),
+          top_books: convertBigIntToNumber(topBooks),
+          sales_by_month: convertBigIntToNumber(salesByMonth),
         },
-        recent_sales: convertBigIntToNumber(recentSales),
-        top_books: convertBigIntToNumber(topBooks),
-        sales_by_month: convertBigIntToNumber(salesByMonth),
       };
     } catch (error) {
       console.error("Dashboard stats error:", error);

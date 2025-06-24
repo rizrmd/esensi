@@ -1,3 +1,5 @@
+import type { CustomerUpdateResponse } from "backend/lib/types";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
@@ -11,7 +13,7 @@ export default defineAPI({
     id_account?: string;
     id_user?: string;
     otp?: number;
-  }) {
+  }): Promise<ApiResponse<CustomerUpdateResponse>> {
     const { id, name, email, whatsapp, id_account, id_user, otp } = arg;
 
     if (!id?.trim()) throw new Error("ID customer wajib diisi");
@@ -65,6 +67,9 @@ export default defineAPI({
       include: { auth_user: true, auth_account: true },
     });
 
-    return result;
+    return {
+      success: true,
+      data: result,
+    };
   },
 });

@@ -1,9 +1,11 @@
 import { defineAPI } from "rlib/server";
+import type { ApiResponse } from "backend/lib/utils";
+import type { InternalStatsData } from "../../lib/types";
 
 export default defineAPI({
   name: "internal_stats",
   url: "/api/internal/internal/stats",
-  async handler(arg: { id?: string }) {
+  async handler(arg: { id?: string }): Promise<ApiResponse<InternalStatsData>> {
     const { id } = arg;
 
     if (id) {
@@ -26,17 +28,20 @@ export default defineAPI({
       if (!internal) throw new Error("Internal tidak ditemukan");
 
       return {
-        internal: {
-          id: internal.id,
-          name: internal.name,
-          roles: {
-            sales_and_marketing: internal.is_sales_and_marketing,
-            support: internal.is_support,
-            management: internal.is_management,
-            it: internal.is_it,
+        success: true,
+        data: {
+          internal: {
+            id: internal.id,
+            name: internal.name,
+            roles: {
+              sales_and_marketing: internal.is_sales_and_marketing,
+              support: internal.is_support,
+              management: internal.is_management,
+              it: internal.is_it,
+            },
+            user_count: internal._count.auth_user,
+            book_approval_count: internal._count.book_approval,
           },
-          user_count: internal._count.auth_user,
-          book_approval_count: internal._count.book_approval,
         },
       };
     } else {
@@ -63,17 +68,20 @@ export default defineAPI({
       const totalBookApprovals = await db.book_approval.count();
 
       return {
-        overview: {
-          total_internals: totalInternals,
-          roles: {
-            sales_and_marketing: salesAndMarketingCount,
-            support: supportCount,
-            management: managementCount,
-            it: itCount,
+        success: true,
+        data: {
+          overview: {
+            total_internals: totalInternals,
+            roles: {
+              sales_and_marketing: salesAndMarketingCount,
+              support: supportCount,
+              management: managementCount,
+              it: itCount,
+            },
+            internals_with_users: internalsWithUsers,
+            internals_with_book_approvals: internalsWithBookApprovals,
+            total_book_approvals: totalBookApprovals,
           },
-          internals_with_users: internalsWithUsers,
-          internals_with_book_approvals: internalsWithBookApprovals,
-          total_book_approvals: totalBookApprovals,
         },
       };
     }

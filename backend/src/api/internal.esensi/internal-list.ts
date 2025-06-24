@@ -1,3 +1,5 @@
+import type { ApiResponse } from "backend/lib/utils";
+import type { InternalListItem } from "../../lib/types";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
@@ -14,7 +16,7 @@ export default defineAPI({
     filter_support?: boolean;
     filter_management?: boolean;
     filter_it?: boolean;
-  }) {
+  }): Promise<ApiResponse<InternalListItem[]>> {
     const {
       search,
       limit = 50,
@@ -59,6 +61,15 @@ export default defineAPI({
       db.internal.count({ where }),
     ]);
 
-    return { data, total, limit, offset };
+    return {
+      success: true,
+      data,
+      pagination: {
+        page: Math.floor(offset / limit) + 1,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   },
 });

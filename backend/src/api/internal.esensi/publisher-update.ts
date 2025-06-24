@@ -1,3 +1,5 @@
+import type { PublisherUpdateResponse } from "backend/lib/types";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
@@ -12,7 +14,7 @@ export default defineAPI({
     logo?: string;
     id_account?: string;
     id_user?: string;
-  }) {
+  }): Promise<ApiResponse<PublisherUpdateResponse>> {
     const {
       id,
       name,
@@ -67,6 +69,9 @@ export default defineAPI({
       },
     });
 
-    return result;
+    return {
+      success: true,
+      data: result,
+    };
   },
 });

@@ -1,4 +1,5 @@
 import { defineAPI } from "rlib/server";
+import type { ApiResponse } from "backend/lib/utils";
 
 export default defineAPI({
   name: "bundle_list",
@@ -8,7 +9,7 @@ export default defineAPI({
     page?: number; 
     limit?: number; 
     search?: string;
-  }) {
+  }): Promise<ApiResponse<any[]>> {
     const page = arg.page || 1;
     const limit = arg.limit || 10;
     const offset = (page - 1) * limit;
@@ -65,11 +66,14 @@ export default defineAPI({
     ]);
 
     return {
+      success: true,
       data: bundles,
-      total,
-      page,
-      limit,
-      totalPages: Math.ceil(total / limit)
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit)
+      }
     };
   },
 });

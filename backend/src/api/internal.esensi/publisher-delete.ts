@@ -1,9 +1,10 @@
 import { defineAPI } from "rlib/server";
+import type { ApiResponse } from "backend/lib/utils";
 
 export default defineAPI({
   name: "publisher_delete",
   url: "/api/internal/publisher/delete",
-  async handler(arg: { id: string }) {
+  async handler(arg: { id: string }): Promise<ApiResponse<void>> {
     const { id } = arg;
 
     if (!id?.trim()) {
@@ -59,12 +60,11 @@ export default defineAPI({
         "Tidak dapat menghapus publisher yang terhubung dengan user"
       );
 
-    const result = await db.publisher.delete({ where: { id } });
+    await db.publisher.delete({ where: { id } });
 
     return {
       success: true,
       message: "Publisher berhasil dihapus",
-      deleted: result,
     };
   },
 });

@@ -1,3 +1,5 @@
+import type { InternalUpdateResponse } from "backend/lib/types";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
@@ -12,7 +14,7 @@ export default defineAPI({
     is_it?: boolean;
     id_account?: string;
     id_user?: string;
-  }) {
+  }): Promise<ApiResponse<InternalUpdateResponse>> {
     const {
       id,
       name,
@@ -59,6 +61,9 @@ export default defineAPI({
       include: { auth_user: true, auth_account: true, book_approval: true },
     });
 
-    return result;
+    return {
+      success: true,
+      data: result,
+    };
   },
 });

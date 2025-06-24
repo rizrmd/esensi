@@ -1,10 +1,12 @@
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 import { BadgeStatus } from "../../lib/types";
+import type { DashboardStatsData } from "../../lib/types";
 
 export default defineAPI({
   name: "dashboard_stats",
   url: "/api/internal/dashboard/stats",
-  async handler(arg: { period?: string }) {
+  async handler(arg: { period?: string }): Promise<ApiResponse<DashboardStatsData>> {
     const { period = "30" } = arg;
 
     // Calculate date range
@@ -158,18 +160,21 @@ export default defineAPI({
       ]);
 
       return {
-        overview: {
-          total_authors: totalAuthors,
-          total_books: totalBooks,
-          total_customers: totalCustomers,
-          total_sales_count: totalSales._count.id || 0,
-          total_sales_revenue: totalSales._sum.total || 0,
-          period_days: daysAgo,
+        success: true,
+        data: {
+          overview: {
+            total_authors: totalAuthors,
+            total_books: totalBooks,
+            total_customers: totalCustomers,
+            total_sales_count: totalSales._count.id || 0,
+            total_sales_revenue: Number(totalSales._sum.total) || 0,
+            period_days: daysAgo,
+          },
+          recent_sales: recentSales as unknown[],
+          top_authors: topAuthors as unknown[],
+          top_books: topBooks as unknown[],
+          sales_by_month: salesByMonth as unknown[],
         },
-        recent_sales: recentSales,
-        top_authors: topAuthors,
-        top_books: topBooks,
-        sales_by_month: salesByMonth,
       };
     } catch (error) {
       console.error("Dashboard stats error:", error);

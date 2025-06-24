@@ -4,6 +4,7 @@ import { Item, bundle } from "@/components/ext/bundle/item-manage";
 import { Error } from "@/components/ext/error";
 import { Img } from "@/components/ext/img/list";
 import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataPagination } from "@/components/ui/data-pagination";
 import { betterAuth } from "@/lib/better-auth";
@@ -14,6 +15,7 @@ import { navigate } from "@/lib/router";
 import { ItemLayoutEnum } from "@/lib/utils";
 import type { User } from "backend/lib/better-auth";
 import { Role } from "backend/lib/types";
+import { PlusCircle, Trash2, Edit } from "lucide-react";
 
 export const current = {
   user: undefined as User | undefined,
@@ -30,6 +32,7 @@ export default () => {
       totalPages: 0,
       error: "",
       layout: ItemLayoutEnum.GRID,
+      deleting: {} as Record<string, boolean>,
     },
     async () => {
       const params = new URLSearchParams(location.search);
@@ -64,6 +67,33 @@ export default () => {
     }
   }
 
+  const deleteBundle = async (bundleId: string) => {
+    if (!confirm("Apakah Anda yakin ingin menghapus bundle ini?")) {
+      return;
+    }
+
+    local.deleting[bundleId] = true;
+    local.render();
+
+    try {
+      const res = await api.bundle_delete({
+        user: current.user!,
+        id: bundleId,
+      });
+
+      if (res.success) {
+        await loadData(); // Reload data after successful deletion
+      } else {
+        local.error = res.message || "Gagal menghapus bundle";
+      }
+    } catch (error) {
+      local.error = "Terjadi kesalahan saat menghapus bundle";
+    } finally {
+      local.deleting[bundleId] = false;
+      local.render();
+    }
+  };
+
   if (local.loading) return <AppLoading />;
 
   return (
@@ -78,29 +108,41 @@ export default () => {
               <div className="mx-8 py-8">
                 <div className="flex justify-between items-start mb-8 gap-4">
                   <h1 className="text-2xl font-bold">Daftar Bundle</h1>
-                  <DataPagination
-                    total={local.total}
-                    page={local.page}
-                    limit={local.limit}
-                    totalPages={local.totalPages}
-                    onReload={loadData}
-                    onPageChange={async (newPage) => {
-                      local.page = newPage;
-                      local.render();
-                      await loadData();
-                    }}
-                    onLimitChange={async (newLimit) => {
-                      local.limit = newLimit;
-                      local.page = 1;
-                      local.render();
-                      await loadData();
-                    }}
-                    layout={local.layout}
-                    onLayoutChange={(value) => {
-                      local.layout = value;
-                      local.render();
-                    }}
-                  />
+                  <div className="flex flex-col gap-3 items-end">
+                    <div className="flex items-center gap-4">
+                      <Button
+                        onClick={() => navigate("/bundle-create")}
+                        className="flex items-center gap-2"
+                        variant="default"
+                      >
+                        <PlusCircle className="h-5 w-5" />
+                        <span>Tambah Bundle</span>
+                      </Button>
+                      <DataPagination
+                        total={local.total}
+                        page={local.page}
+                        limit={local.limit}
+                        totalPages={local.totalPages}
+                        onReload={loadData}
+                        onPageChange={async (newPage) => {
+                          local.page = newPage;
+                          local.render();
+                          await loadData();
+                        }}
+                        onLimitChange={async (newLimit) => {
+                          local.limit = newLimit;
+                          local.page = 1;
+                          local.render();
+                          await loadData();
+                        }}
+                        layout={local.layout}
+                        onLayoutChange={(value) => {
+                          local.layout = value;
+                          local.render();
+                        }}
+                      />
+                    </div>
+                  </div>
                 </div>
                 {local.loading ? (
                   <div>Mengambil data bundle...</div>
@@ -115,29 +157,58 @@ export default () => {
                         {local.bundles.map((item: any) => (
                           <div
                             key={item.id}
-                            className="cursor-pointer"
-                            onClick={() =>
-                              navigate(`/bundle-detail?id=${item.id}`)
-                            }
+                            className="group relative cursor-pointer"
                           >
-                            <Card className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
-                              <Img
-                                type={local.layout}
-                                check={!!item.cover}
-                                src={
-                                  baseUrl.internal_esensi +
-                                  "/" +
-                                  item.cover +
-                                  "?w=350"
-                                }
-                                alt={item.name}
-                              />
-                              <CardHeader className="flex-1">
-                                <CardTitle className="text-lg font-semibold line-clamp-2 mb-2">
-                                  {item.name}
-                                </CardTitle>
+                            <Card className="h-full hover:shadow-lg transition-shadow">
+                              <CardHeader className="pb-4">
+                                <div className="flex justify-between items-start">
+                                  <CardTitle className="text-lg font-semibold">
+                                    {item.name}
+                                  </CardTitle>
+                                  <div className="flex gap-2">
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        navigate(`/bundle-update?id=${item.id}`);
+                                      }}
+                                      title="Edit Bundle"
+                                    >
+                                      <Edit className="h-4 w-4" />
+                                    </Button>
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        deleteBundle(item.id);
+                                      }}
+                                      disabled={local.deleting[item.id]}
+                                      title="Hapus Bundle"
+                                      className="text-red-600 hover:text-red-700"
+                                    >
+                                      <Trash2 className="h-4 w-4" />
+                                    </Button>
+                                  </div>
+                                </div>
                               </CardHeader>
-                              <CardContent className="pb-4">
+                              <CardContent
+                                onClick={() =>
+                                  navigate(`/bundle-detail?id=${item.id}`)
+                                }
+                              >
+                                <Img
+                                  type={local.layout}
+                                  check={!!item.cover}
+                                  src={
+                                    baseUrl.internal_esensi +
+                                    "/" +
+                                    item.cover +
+                                    "?w=350"
+                                  }
+                                  alt={item.name}
+                                />
                                 <Item type={local.layout} item={bundle(item)} />
                               </CardContent>
                             </Card>
@@ -147,40 +218,72 @@ export default () => {
                     )}
 
                     {local.layout === ItemLayoutEnum.LIST && (
-                      <div className="flex flex-col gap-4">
+                      <div className="space-y-6">
                         {local.bundles.map((item: any) => (
-                          <Card
+                          <div
                             key={item.id}
-                            className="cursor-pointer hover:shadow-md transition-shadow"
-                            onClick={() =>
-                              navigate(`/bundle-detail?id=${item.id}`)
-                            }
+                            className="group relative cursor-pointer"
                           >
-                            <div className="flex">
-                              <Img
-                                type={local.layout}
-                                check={!!item.cover}
-                                src={
-                                  baseUrl.internal_esensi +
-                                  "/" +
-                                  item.cover +
-                                  "?w=350"
-                                }
-                                alt={item.name}
-                              />
-                              <div className="flex-1 p-4">
-                                <h3 className="text-lg font-semibold mb-2">
-                                  {item.name}
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                  <Item
-                                    type={local.layout}
-                                    item={bundle(item)}
-                                  />
+                            <Card className="hover:shadow-lg transition-shadow">
+                              <CardContent className="p-6">
+                                <div className="flex items-start space-x-6">
+                                  <div
+                                    onClick={() =>
+                                      navigate(`/bundle-detail?id=${item.id}`)
+                                    }
+                                    className="flex-1 flex items-start space-x-6"
+                                  >
+                                    <Img
+                                      type={local.layout}
+                                      check={!!item.cover}
+                                      src={
+                                        baseUrl.internal_esensi +
+                                        "/" +
+                                        item.cover +
+                                        "?w=350"
+                                      }
+                                      alt={item.name}
+                                    />
+                                    <div className="flex-1">
+                                      <h3 className="text-lg font-semibold mb-3">
+                                        {item.name}
+                                      </h3>
+                                      <Item
+                                        type={local.layout}
+                                        item={bundle(item)}
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col gap-2">
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        navigate(`/bundle-update?id=${item.id}`);
+                                      }}
+                                      title="Edit Bundle"
+                                    >
+                                      <Edit className="h-4 w-4" />
+                                    </Button>
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        deleteBundle(item.id);
+                                      }}
+                                      disabled={local.deleting[item.id]}
+                                      title="Hapus Bundle"
+                                      className="text-red-600 hover:text-red-700"
+                                    >
+                                      <Trash2 className="h-4 w-4" />
+                                    </Button>
+                                  </div>
                                 </div>
-                              </div>
-                            </div>
-                          </Card>
+                              </CardContent>
+                            </Card>
+                          </div>
                         ))}
                       </div>
                     )}
@@ -202,20 +305,25 @@ export default () => {
                               <th className="p-2 text-left text-xs font-medium text-gray-600">
                                 Status
                               </th>
+                              <th className="p-2 text-left text-xs font-medium text-gray-600">
+                                Aksi
+                              </th>
                             </tr>
                           </thead>
                           <tbody>
                             {local.bundles.map((item: any, index) => (
                               <tr
                                 key={item.id}
-                                className={`border-b hover:bg-muted/50 cursor-pointer ${
+                                className={`border-b hover:bg-muted/50 ${
                                   index % 2 === 0 ? "bg-white" : "bg-gray-50"
                                 }`}
-                                onClick={() =>
-                                  navigate(`/bundle-detail?id=${item.id}`)
-                                }
                               >
-                                <td className="p-2">
+                                <td
+                                  className="p-2 cursor-pointer"
+                                  onClick={() =>
+                                    navigate(`/bundle-detail?id=${item.id}`)
+                                  }
+                                >
                                   <Img
                                     type={local.layout}
                                     check={!!item.cover}
@@ -229,6 +337,34 @@ export default () => {
                                   />
                                 </td>
                                 <Item type={local.layout} item={bundle(item)} />
+                                <td className="p-2">
+                                  <div className="flex gap-2">
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        navigate(`/bundle-update?id=${item.id}`);
+                                      }}
+                                      title="Edit Bundle"
+                                    >
+                                      <Edit className="h-4 w-4" />
+                                    </Button>
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        deleteBundle(item.id);
+                                      }}
+                                      disabled={local.deleting[item.id]}
+                                      title="Hapus Bundle"
+                                      className="text-red-600 hover:text-red-700"
+                                    >
+                                      <Trash2 className="h-4 w-4" />
+                                    </Button>
+                                  </div>
+                                </td>
                               </tr>
                             ))}
                           </tbody>

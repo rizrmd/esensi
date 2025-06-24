@@ -1,3 +1,5 @@
+import type { InternalListItem } from "backend/lib/types";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
@@ -8,7 +10,7 @@ export default defineAPI({
     include_user?: boolean;
     include_account?: boolean;
     include_book_approvals?: boolean;
-  }) {
+  }): Promise<ApiResponse<InternalListItem>> {
     const {
       id,
       include_user = false,
@@ -28,6 +30,9 @@ export default defineAPI({
 
     if (!internal) throw new Error("Internal tidak ditemukan");
 
-    return internal;
+    return {
+      success: true,
+      data: internal,
+    };
   },
 });

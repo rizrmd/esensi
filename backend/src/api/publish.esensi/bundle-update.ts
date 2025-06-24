@@ -1,4 +1,5 @@
 import type { User } from "backend/lib/better-auth";
+import type { BundleUpdateResponse } from "backend/lib/types";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
@@ -22,7 +23,7 @@ export default defineAPI({
     // Note: cfg is intentionally excluded for authors
     categories?: string[];
     products?: Array<{ id_product: string; qty?: number }>;
-  }): Promise<ApiResponse<any>> {
+  }): Promise<ApiResponse<BundleUpdateResponse>> {
     try {
       const { id, categories, products, user, ...updateData } = arg;
 
@@ -186,7 +187,7 @@ export default defineAPI({
 
       return {
         success: true,
-        data: result,
+        data: result!,
         message: "Bundle berhasil diperbarui",
       };
     } catch (error) {

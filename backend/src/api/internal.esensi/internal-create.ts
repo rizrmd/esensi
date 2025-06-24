@@ -1,3 +1,5 @@
+import type { ApiResponse } from "backend/lib/utils";
+import type { InternalListItem } from "../../lib/types";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
@@ -11,7 +13,7 @@ export default defineAPI({
     is_it?: boolean;
     id_account?: string;
     id_user?: string;
-  }) {
+  }): Promise<ApiResponse<InternalListItem>> {
     const {
       name,
       is_sales_and_marketing = false,
@@ -49,6 +51,9 @@ export default defineAPI({
       },
     });
 
-    return result;
+    return {
+      success: true,
+      data: result,
+    };
   },
 });

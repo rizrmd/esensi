@@ -1,3 +1,4 @@
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
@@ -16,7 +17,7 @@ export default defineAPI({
     offset?: number;
     sort_by?: "name";
     sort_order?: "asc" | "desc";
-  }) {
+  }): Promise<ApiResponse<any[]>> {
     const {
       query,
       has_sales_and_marketing,
@@ -81,21 +82,14 @@ export default defineAPI({
     ]);
 
     return {
+      success: true,
       data,
-      total,
-      limit,
-      offset,
-      query,
-      filters: {
-        has_sales_and_marketing,
-        has_support,
-        has_management,
-        has_it,
-        has_user,
-        has_account,
-        has_book_approvals,
+      pagination: {
+        page: Math.floor(offset / limit) + 1,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
       },
-      sort: { sort_by, sort_order },
     };
   },
 });

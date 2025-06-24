@@ -1,16 +1,15 @@
 import type { User } from "backend/lib/better-auth";
-import type { BundleDeleteResponse } from "backend/lib/types";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
   name: "bundle_delete",
-  url: "/api/publish/bundle/delete",
+  url: "/api/internal/bundle/delete",
   async handler(arg: {
     user: Partial<User>;
     id: string;
     hard_delete?: boolean;
-  }): Promise<ApiResponse<BundleDeleteResponse>> {
+  }): Promise<ApiResponse<void>> {
     try {
       const { id, hard_delete = false } = arg;
 
@@ -63,32 +62,27 @@ export default defineAPI({
             where: { id },
           });
         });
-
-        return {
-          success: true,
-          message: "Bundle berhasil dihapus permanen",
-        };
       } else {
-        // Soft delete: mark as deleted
-        const deletedBundle = await db.bundle.update({
+        // Soft delete: set deleted_at timestamp
+        await db.bundle.update({
           where: { id },
           data: {
             deleted_at: new Date(),
-            status: "deleted",
           },
         });
-
-        return {
-          success: true,
-          data: deletedBundle,
-          message: "Bundle berhasil dihapus",
-        };
       }
+
+      return {
+        success: true,
+        message: hard_delete
+          ? "Bundle berhasil dihapus permanen"
+          : "Bundle berhasil dihapus",
+      };
     } catch (error) {
-      console.error("Error in bundle delete API:", error);
+      console.error("Error deleting bundle:", error);
       return {
         success: false,
-        message: "Terjadi kesalahan dalam menghapus bundle",
+        message: "Terjadi kesalahan saat menghapus bundle",
       };
     }
   },

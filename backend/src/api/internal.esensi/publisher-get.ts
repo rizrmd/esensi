@@ -1,3 +1,5 @@
+import type { PublisherListItem } from "backend/lib/types";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
@@ -12,7 +14,7 @@ export default defineAPI({
     include_transactions?: boolean;
     include_withdrawals?: boolean;
     include_ai_credit?: boolean;
-  }) {
+  }): Promise<ApiResponse<PublisherListItem>> {
     const {
       id,
       include_user = false,
@@ -43,6 +45,9 @@ export default defineAPI({
 
     if (!publisher) throw new Error("Publisher tidak ditemukan");
 
-    return publisher;
+    return {
+      success: true,
+      data: publisher,
+    };
   },
 });
