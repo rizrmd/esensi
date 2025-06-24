@@ -68,13 +68,14 @@ export default () => {
     try {
       // Load all published products from any author
       const response = await api.product_list({
+        user: {},
         limit: 100,
         status: "published", // Ensure only published books can be added to bundles
         id_author: authorId,
       });
 
       if (response.success && response.data) {
-        local.products = response.data || [];
+        local.products = response.data.products || [];
         local.render();
       }
     } catch (error) {
