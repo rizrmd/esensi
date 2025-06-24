@@ -20,7 +20,7 @@ export default defineAPI({
     if (uid) {
       const trx = await db.t_sales.findFirst({
         where: {
-          id_customer: uid,
+          // id_customer: uid,
           id: req.params.id,
           deleted_at: null,
         },
@@ -33,7 +33,7 @@ export default defineAPI({
       data.trx = trx;
       data.breadcrumb = [
         {
-          url: "/history",
+          url: "/history/all",
           label: `Semua Transaksi`,
         },
         {

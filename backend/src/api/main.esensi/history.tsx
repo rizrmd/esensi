@@ -12,7 +12,8 @@ export default defineAPI({
     const skip_books = req.params?.page ? (page - 1) * books_per_page : 0;
 
     //const uid = this?.session?.user.id;
-    const uid = ``;
+    const uid = `ffebfc51-bf4d-46d9-acad-994454d3f83c`; // For testing purposes, replace with actual user ID retrieval logic
+
 
     const statuses = [
       "pending",
@@ -23,7 +24,9 @@ export default defineAPI({
       "refunded",
     ];
     const trxs_where =
-      req.params?.status && statuses.includes(req.params.status)
+      req.params?.status &&
+      req.params.status !== "all" &&
+      statuses.includes(req.params.status)
         ? {
             id_customer: uid,
             status: req.params.status,
@@ -32,11 +35,12 @@ export default defineAPI({
             id_customer: uid,
           };
 
-          const total_pages = 1;
+    const total_pages = 1;
+
     let data = {
       title: `Riwayat Pembelian`,
-      userid: null,
-      list: {},
+      userid: null as any | null,
+      list: [] as any,
       pagination: {
         items: books_per_page,
         page: page,
@@ -49,7 +53,7 @@ export default defineAPI({
       breadcrumb: [
         {
           url: null,
-          label: `History`,
+          label: `Riwayat Transaksi`,
         },
       ],
     };

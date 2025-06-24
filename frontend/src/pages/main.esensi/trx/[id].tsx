@@ -2,10 +2,12 @@ import { Breadcrumbs } from "@/components/esensi/breadcrumbs";
 import { formatMoney } from "@/components/esensi/format-money";
 import { MainEsensiLayout } from "@/components/esensi/layout";
 import { LinkItem } from "@/components/esensi/link-item";
+import { TrxHelpLinks } from "@/components/esensi/trx-help-links";
 import { Button } from "@/components/ui/button";
 import type { api } from "@/lib/gen/main.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { Link } from "@/lib/router";
+import trx from "backend/api/main.esensi/trx";
 import {
   ChevronDown,
   ChevronRight,
@@ -103,7 +105,6 @@ export default (data: Awaited<ReturnType<typeof api.trx>>["data"]) => {
         time: null as string | null,
         status: null as string | null,
       } as any,
-      help_links: [] as any[],
       breakdown: {
         show: false as boolean,
         subtotal: 0 as number,
@@ -136,9 +137,10 @@ export default (data: Awaited<ReturnType<typeof api.trx>>["data"]) => {
           ? data.trx.midtrans_success
           : data.trx.midtrans_pending !== null
           ? data.trx.midtrans_pending
-          : data.trx.midtrans_failed !== null
-          ? data.trx.midtrans_failed
+          : data.trx.midtrans_error !== null
+          ? data.trx.midtrans_error
           : null;
+      console.log(data.trx.midtrans_failed);
       if (trx_data !== null) {
         local.payment.method = paymentMethodsString(trx_data.payment_type);
         if (trx_data.payment_type === "bank_transfer") {
@@ -154,38 +156,6 @@ export default (data: Awaited<ReturnType<typeof api.trx>>["data"]) => {
       }
       local.breadcrumb = data.breadcrumb;
       local.loading = false;
-      local.help_links = [
-        {
-          label: "Ajukan Pengembalian",
-          url: "#",
-          newtab: true,
-          icon: (
-            <>
-              <SquareArrowLeft />
-            </>
-          ),
-        },
-        {
-          label: "Hubungi Tim Esensi",
-          url: "#",
-          newtab: true,
-          icon: (
-            <>
-              <MessageCircleMore />
-            </>
-          ),
-        },
-        {
-          label: "Pusat Bantuan",
-          url: "#",
-          newtab: true,
-          icon: (
-            <>
-              <CircleHelp />
-            </>
-          ),
-        },
-      ];
 
       local.render();
     }
@@ -318,29 +288,21 @@ export default (data: Awaited<ReturnType<typeof api.trx>>["data"]) => {
     </div>
   );
 
-  const renderHelpLinks = local.help_links.map((link) => {
-    return (
-      <LinkItem label={link.label} url={link.url} icon={link.icon}></LinkItem>
-    );
-  });
-
   return (
     <MainEsensiLayout header_config={header_config}>
       <div className="flex flex-col justify-center items-start bg-[#E1E5EF] lg:items-center lg:py-10">
         <div className="flex flex-col w-full gap-4 max-w-[1200px] lg:flex-1 lg:flex-row lg:gap-10 lg:flex-wrap lg:justify-center [&>div>div]:flex [&>div>div]:flex-col [&>div>div]:bg-white [&>div>div]:p-6 [&_h3]:font-bold [&_h3]:text-[#3B2C93]">
-          <Breadcrumbs data={local.breadcrumb} />
+          <div className="hidden lg:flex w-full justify-start">
+            <Breadcrumbs data={local.breadcrumb} />
+          </div>
+          
           <div className="flex flex-col gap-4 w-full lg:w-auto lg:flex-1">
             {!local.loading && renderItemsWrapper}
           </div>
           <div className="flex flex-col gap-4 w-full lg:w-1/3">
             {!local.loading && renderTotal}
             {!local.loading && renderBreakdown}
-            <div className="gap-4 lg:w-full">
-              <h3>Butuh bantuan?</h3>
-              <div className="flex w-full flex-col gap-2 text-sm text-[#3B2C93] ">
-                {renderHelpLinks}
-              </div>
-            </div>
+            <TrxHelpLinks/>
           </div>
         </div>
       </div>

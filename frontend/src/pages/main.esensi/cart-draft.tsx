@@ -280,7 +280,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
         onClick={handleDeleteChecked}
       >
         <Trash2 strokeWidth={3} />
-        <span className="text-[#3B2C93]">Hapus yang dipilih</span>
+        <span className="text-[#3B2C93]">{local.list.length == local.checked.length ? "Hapus semua" :"Hapus yang dipilih"}</span>
       </Button>
     </div>
   );
