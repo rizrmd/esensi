@@ -1,5 +1,4 @@
 import { MainEsensiLayout } from "@/components/esensi/layout";
-import { LoginBanner } from "@/components/esensi/login-banner";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -7,14 +6,13 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormMessage
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { betterAuth } from "@/lib/better-auth";
 import { useLocal } from "@/lib/hooks/use-local";
-import { Link, navigate } from "@/lib/router";
+import { Link } from "@/lib/router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeClosed } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -25,7 +23,7 @@ export default () => {
     logo: false,
     back: true,
     search: false,
-    title: "Masuk Akun",
+    title: "Lupa Kata Sandi",
     profile: false,
     desktopHide: true,
   };
@@ -36,9 +34,7 @@ export default () => {
   const local = useLocal(
     {
       loading: false as boolean,
-      toggle: {
-        password: false as boolean,
-      } as any,
+      sent: false as boolean,
     },
     async () => {
       local.loading = false;
@@ -50,14 +46,12 @@ export default () => {
 
   const FormSchema = z.object({
     email: z.string().email("Alamat email tidak benar"),
-    password: z.string().min(8, "Password setidaknya 8 karakter"),
   });
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       email: "",
-      password: "",
     },
   });
 
@@ -66,20 +60,21 @@ export default () => {
     local.render();
 
     try {
-      const { data: authData, error } = await betterAuth.signIn({
-        username: data.email,
-        password: data.password,
-        rememberMe: true,
+      const { data: resetData, error } = await betterAuth.forgetPassword({
+        email: data.email,
+        redirectTo: `${window.location.origin}/reset-password`,
       });
 
       if (error) {
-        toast.error("Gagal masuk", {
-          description: error.message || "Email atau kata sandi salah",
+        toast.error("Gagal mengirim email reset", {
+          description:
+            error.message || "Email tidak ditemukan atau terjadi kesalahan",
         });
-      } else if (authData) {
-        toast.success("Berhasil masuk ke akun");
-        // Redirect to dashboard or home
-        navigate("/");
+      } else {
+        local.sent = true;
+        toast.success("Email reset password telah dikirim", {
+          description: "Silakan cek email Anda untuk link reset password",
+        });
       }
     } catch (error) {
       toast.error("Terjadi kesalahan", {
@@ -91,13 +86,7 @@ export default () => {
     }
   }
 
-  const handleTogglePass = (e: any) => {
-    local.toggle.password = !local.toggle.password;
-    local.render();
-  };
-
-  const renderLoading = <></>;
-  const renderLoginForm = (
+  const renderForm = (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
@@ -109,41 +98,8 @@ export default () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="Email" {...field} />
+                <Input placeholder="Masukkan email Anda" {...field} />
               </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem className="relative">
-              <FormControl>
-                <Input
-                  type={local.toggle.password ? "text" : "password"}
-                  className="pr-10"
-                  placeholder="Kata sandi"
-                  {...field}
-                />
-              </FormControl>
-              <Button
-                type="button"
-                variant="ghost"
-                className="absolute right-0 top-0.5 p-0 hover:bg-transparent"
-                onClick={handleTogglePass}
-              >
-                {local.toggle.password ? <Eye /> : <EyeClosed />}
-              </Button>
-              <FormDescription>
-                <Link
-                  href="/forgot"
-                  className="text-xs text-[#3B2C93] font-bold"
-                >
-                  Lupa kata sandi?
-                </Link>
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -153,31 +109,62 @@ export default () => {
           className="bg-[#3B2C93] text-white h-10 rounded-xl border-0"
           disabled={local.loading}
         >
-          {local.loading ? "Memproses..." : "Masuk ke akun"}
+          {local.loading ? "Mengirim..." : "Kirim Link Reset"}
         </Button>
         <FormDescription className="text-center -mt-3 font-semibold">
-          Belum punya akun?
-          <Link href="/register" className="text-[#3B2C93] ml-2">
-            Daftar sekarang
+          Ingat kata sandi?
+          <Link href="/login" className="text-[#3B2C93] ml-2">
+            Masuk sekarang
           </Link>
         </FormDescription>
       </form>
     </Form>
   );
 
-  const renderLoginHeader = (
+  const renderSuccess = (
+    <div className="flex flex-col w-full lg:max-w-88 gap-7 text-center">
+      <div className="p-6 bg-green-50 rounded-xl border border-green-200">
+        <h3 className="text-lg font-semibold text-green-800 mb-2">
+          Email Terkirim!
+        </h3>
+        <p className="text-green-700">
+          Kami telah mengirim link reset password ke email Anda. Silakan cek
+          inbox atau folder spam.
+        </p>
+      </div>
+      <Button
+        onClick={() => {
+          local.sent = false;
+          local.render();
+          form.reset();
+        }}
+        variant="outline"
+        className="border-[#3B2C93] text-[#3B2C93]"
+      >
+        Kirim Ulang
+      </Button>
+      <FormDescription className="text-center font-semibold">
+        <Link href="/login" className="text-[#3B2C93]">
+          Kembali ke halaman masuk
+        </Link>
+      </FormDescription>
+    </div>
+  );
+
+  const renderHeader = (
     <div className="flex w-full lg:max-w-88 flex-col items-center gap-6 text-[#3B2C93]">
       <div
         className="w-1/4 [&>svg]:h-auto [&>svg]:w-full"
         dangerouslySetInnerHTML={{ __html: logo }}
       ></div>
-      <h2 className="whitespace-pre-line text-3xl text-center font-semibold">
-        Selamat Datang di Esensi online
-      </h2>
+      <div className="text-center">
+        <h2 className="text-3xl font-semibold mb-2">Lupa Kata Sandi?</h2>
+        <p className="text-gray-600">
+          Masukkan email Anda dan kami akan mengirim link untuk reset kata sandi
+        </p>
+      </div>
     </div>
   );
-
-  const renderLoginBanner = <LoginBanner></LoginBanner>;
 
   return (
     <MainEsensiLayout
@@ -186,12 +173,9 @@ export default () => {
       mobile_menu={true}
     >
       <div className="flex justify-center w-full lg:min-h-screen">
-        <div className="hidden lg:flex flex-col flex-1">
-          {local.loading ? renderLoading : renderLoginBanner}
-        </div>
         <div className="flex flex-col flex-1 justify-start items-center lg:justify-center gap-6 w-full p-6 lg:p-8 max-w-[1200px] [&_label]:text-[#3B2C93] [&_label]:font-bold [&_input]:rounded-xl [&_input]:h-10">
-          {local.loading ? renderLoading : renderLoginHeader}
-          {local.loading ? renderLoading : renderLoginForm}
+          {renderHeader}
+          {local.sent ? renderSuccess : renderForm}
         </div>
       </div>
     </MainEsensiLayout>
