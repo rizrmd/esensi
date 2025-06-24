@@ -1,4 +1,5 @@
 import { defineAPI } from "rlib/server";
+import type { JsonValue } from "shared/models/runtime/library";
 
 export default defineAPI({
   name: "author_bulk_update",
@@ -14,12 +15,35 @@ export default defineAPI({
       id_user?: string;
       cfg?: Record<string, any>;
     }>;
-  }) {
+  }): Promise<{
+    success_count: number;
+    error_count: number;
+    results: {
+      id: string;
+      success: boolean;
+      data: {
+        id: string;
+        name: string;
+        biography: string | null;
+        social_media: string | null;
+        avatar: string | null;
+        id_account: string | null;
+        id_user: string | null;
+        cfg: JsonValue | null;
+        bank_account_number: string | null;
+        bank_account_provider: string | null;
+      };
+    }[];
+    errors: {
+      id: string;
+      success: boolean;
+      error: string;
+    }[];
+  }> {
     const { authors } = arg;
 
-    if (!authors || !Array.isArray(authors) || authors.length === 0) {
+    if (!authors || !Array.isArray(authors) || authors.length === 0)
       throw new Error("Data author tidak valid");
-    }
 
     const results = [];
     const errors = [];
@@ -75,11 +99,7 @@ export default defineAPI({
           data: cleanUpdateData,
         });
 
-        results.push({
-          id,
-          success: true,
-          data: result,
-        });
+        results.push({ id, success: true, data: result });
       } catch (error) {
         errors.push({
           id: authorData.id,

@@ -1,3 +1,5 @@
+import type { Affiliate } from "backend/lib/types";
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
@@ -8,7 +10,7 @@ export default defineAPI({
     name?: string;
     id_account?: string;
     id_user?: string;
-  }) {
+  }): Promise<ApiResponse<Affiliate>> {
     const { id, name, id_account, id_user } = arg;
 
     if (!id?.trim()) throw new Error("ID affiliate wajib diisi");
@@ -44,6 +46,10 @@ export default defineAPI({
       include: { auth_user: true, auth_account: true },
     });
 
-    return result;
+    return {
+      success: true,
+      data: result,
+      message: "Buku berhasil ditambahkan",
+    };
   },
 });
