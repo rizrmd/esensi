@@ -41,35 +41,20 @@ export default defineAPI({
     }
 
     // Filter by content existence
-    if (has_books === true) {
-      where.book = { some: {} };
-    } else if (has_books === false) {
-      where.book = { none: {} };
-    }
+    if (has_books === true) where.book = { some: {} };
+    else if (has_books === false) where.book = { none: {} };
 
-    if (has_products === true) {
-      where.product = { some: {} };
-    } else if (has_products === false) {
-      where.product = { none: {} };
-    }
+    if (has_products === true) where.product = { some: {} };
+    else if (has_products === false) where.product = { none: {} };
 
-    if (has_publishers === true) {
-      where.publisher_author = { some: {} };
-    } else if (has_publishers === false) {
-      where.publisher_author = { none: {} };
-    }
+    if (has_publishers === true) where.publisher_author = { some: {} };
+    else if (has_publishers === false) where.publisher_author = { none: {} };
 
-    if (has_user === true) {
-      where.id_user = { not: null };
-    } else if (has_user === false) {
-      where.id_user = null;
-    }
+    if (has_user === true) where.id_user = { not: null };
+    else if (has_user === false) where.id_user = null;
 
-    if (has_account === true) {
-      where.id_account = { not: null };
-    } else if (has_account === false) {
-      where.id_account = null;
-    }
+    if (has_account === true) where.id_account = { not: null };
+    else if (has_account === false) where.id_account = null;
 
     // Build orderBy
     let orderBy: any = {};
@@ -130,10 +115,6 @@ export default defineAPI({
         has_publishers,
         has_user,
         has_account,
-      },
-      sort: {
-        sort_by,
-        sort_order,
       },
     };
   },

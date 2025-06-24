@@ -1,9 +1,21 @@
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
   name: "affiliate_stats",
   url: "/api/internal/affiliate/stats",
-  async handler(arg: { id?: string }) {
+  async handler(arg: { id?: string }): Promise<
+    ApiResponse<{
+      total_affiliates?: number;
+      affiliates_with_users?: number;
+      affiliates_with_account?: number;
+      affiliate?: {
+        id: string;
+        name: string;
+        user_count: number;
+      };
+    }>
+  > {
     const { id } = arg;
 
     if (id) {
@@ -20,11 +32,15 @@ export default defineAPI({
       if (!affiliate) throw new Error("Affiliate tidak ditemukan");
 
       return {
-        affiliate: {
-          id: affiliate.id,
-          name: affiliate.name,
-          user_count: affiliate._count.auth_user,
+        success: true,
+        data: {
+          affiliate: {
+            id: affiliate.id,
+            name: affiliate.name,
+            user_count: affiliate._count.auth_user,
+          },
         },
+        message: "Statistik affiliate berhasil diambil",
       };
     } else {
       // Get overall stats
@@ -36,11 +52,13 @@ export default defineAPI({
         ]);
 
       return {
-        overview: {
+        success: true,
+        data: {
           total_affiliates: totalAffiliates,
           affiliates_with_users: affiliatesWithUsers,
           affiliates_with_account: affiliatesWithAccount,
         },
+        message: "Statistik affiliate berhasil diambil",
       };
     }
   },
