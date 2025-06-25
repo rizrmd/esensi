@@ -8,10 +8,26 @@ export default defineAPI({
     const req = this.req!;
 
     const book_title = "";
+    const uid = false; // cek user login
+    const owned = false;
+
+    // retreive produk jika user login dan punya produknya
+    const product = uid && owned ? await db.product.findFirst({
+      where: {
+        slug: req.params.slug,
+        deleted_at: null,
+      },
+      select:{
+        name: true,
+        cover: true,
+        product_file: true,
+      },
+    }) : null;
 
     const data = {
       title: `Baca Ebook online`,
-      product: ``,
+      product: product,
+      owned: owned,
     };
 
     const seo_data = {
