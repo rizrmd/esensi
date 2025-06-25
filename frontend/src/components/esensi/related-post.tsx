@@ -6,6 +6,7 @@ import { SectionTitle } from "./section-title";
 export const RelatedPost = ({
   data = [] as any,
   loading = false as boolean,
+  title = "Rekomendasi Untukmu" as string,
 }) => {
   const retreiveBooks = data.map((book, idx) => {
     return <BookCardAlt data={book} key={`related_books_${idx}`} />;
@@ -31,8 +32,8 @@ export const RelatedPost = ({
 
   const renderPost = (
     <div className="w-full flex flex-col justify-center gap-3 lg:px-16 lg:pb-8">
-      <h3 className="flex lg:hidden font-bold text-[#3B2C93] px-6 text-lg">Rekomendasi Untukmu</h3>
-      <SectionTitle title="Rekomendasi Untukmu" className="hidden lg:flex"/>
+      <h3 className="flex lg:hidden font-bold text-[#3B2C93] px-6 text-lg">{title}</h3>
+      <SectionTitle title={title} className="hidden lg:flex"/>
       <div className="flex w-full overflow-x-auto px-4">
         <div className="flex flex-row justify-start items-stretch gap-y-4 w-auto [&>a,&>.esensi-book-loading]:w-[165px] lg:[&>a,&>.esensi-book-loading]:w-[200px] [&>div:not(.esensi-book-loading)]:mx-4">
           {loading ? renderLoading : renderBooks}

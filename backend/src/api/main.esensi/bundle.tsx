@@ -54,11 +54,50 @@ export default defineAPI({
       cats = cats + ", " + cat.category.name;
     });
 
+    const relcatwhere = [] as any;
     const categories = product?.bundle_category.map((cat) => {
+      relcatwhere.push({
+        slug: cat.category.slug,
+        deleted_at: null,
+      });
       return {
         name: cat.category.name,
         slug: cat.category.slug,
       };
+    });
+
+    const relcat = await db.category.findFirst({
+      where: {
+        OR: relcatwhere,
+      },
+      include: {
+        product_category: true,
+      },
+    });
+
+    const relateds = await db.product.findMany({
+      where: {
+        id: {
+          in: relcat?.product_category?.map((x) => x.id_product),
+        },
+        status: ProductStatus.PUBLISHED,
+        deleted_at: null,
+      },
+      select: {
+        id: true,
+        cover: true,
+        desc: true,
+        currency: true,
+        name: true,
+        real_price: true,
+        strike_price: true,
+        slug: true,
+      },
+      skip: 0,
+      take: 10,
+      orderBy: {
+        published_date: "desc",
+      },
     });
 
     const data = {
@@ -68,15 +107,17 @@ export default defineAPI({
       owned: false,
       bookmarked: false,
       in_cart: false,
-      breadcrumb: [{
-        url: "/bundles",
-        label: `Bundle Hemat`,
-      },
-      {
-        url: null,
-        label: `${product?.name}`,
-      }],
-      related: [],
+      breadcrumb: [
+        {
+          url: "/bundles",
+          label: `Bundle Hemat`,
+        },
+        {
+          url: null,
+          label: `${product?.name}`,
+        },
+      ],
+      related: relateds,
     };
 
     const seo_data = {
