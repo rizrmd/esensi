@@ -9,6 +9,7 @@ import { ProductBuyButtons } from "@/components/esensi/product-buy-buttons";
 import { DiscountPercent } from "@/components/esensi/discount-percent";
 import { CategoryList } from "@/components/esensi/category-list";
 import { Breadcrumbs } from "@/components/esensi/breadcrumbs";
+import { RelatedPost } from "@/components/esensi/related-post";
 
 export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
   const header_config = {
@@ -35,6 +36,7 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
       bookmarked: false as boolean,
       inCart: false as boolean,
       breadcrumb: [] as any,
+      related: [] as any,
     },
     async () => {
       local.product = data.product;
@@ -63,6 +65,7 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
       local.bookmarked = data.bookmarked;
       local.inCart = data.in_cart;
       local.breadcrumb = data.breadcrumb;
+      local.related = data.related;
       local.loading = false;
 
       local.render();
@@ -100,7 +103,13 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
     <></>
   );
 
-  const bookCats = (<CategoryList data={local.categories} id={local.product?.slug} className="lg:order-4"/>);
+  const bookCats = (
+    <CategoryList
+      data={local.categories}
+      id={local.product?.slug}
+      className="lg:order-4"
+    />
+  );
 
   const bookInfoData = [
     {
@@ -144,12 +153,16 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
     />
   );
 
-  const bookRelated = <></>;
+  const bookRelated = (
+    <RelatedPost data={local.related} loading={local.loading} />
+  );
 
   const renderTheProduct = (
-    <div className="flex flex-col items-center justify-start">
+    <div className="flex flex-col items-center justify-start gap-10">
       <div className="flex flex-col container max-w-[1200px] items-center justify-start gap-5 lg:gap-15 px-6 pt-5">
-        <Breadcrumbs data={local.breadcrumb}/>
+        <div className="hidden lg:flex w-full justify-start">
+          <Breadcrumbs data={local.breadcrumb} />
+        </div>
         <div className="flex flex-col w-full items-center justify-start lg:flex-row lg:justify-start lg:items-start gap-5 lg:gap-15">
           <div className="flex flex-col gap-5 items-center justify-start lg:w-2/5">
             <div className="flex justify-center">{bookCover}</div>
