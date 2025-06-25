@@ -65,6 +65,8 @@ function parseHash(hash: string): Record<string, string> {
   return params;
 }
 
+const w = window as unknown as { __data: any };
+
 export function useRoot() {
   const local = useLocal({
     Page: null as React.ComponentType | null,
@@ -171,11 +173,11 @@ export function useRoot() {
                 if (text.includes("<script>window.__data =")) {
                   seoData = await extractWindowData(text);
                 }
-                (window as any).__data = seoData;
+                w.__data = seoData;
                 local.render();
               })();
             }
-            (window as any).__data = seoData || {};
+            w.__data = seoData || {};
           }
 
           const module = await pageLoader();
