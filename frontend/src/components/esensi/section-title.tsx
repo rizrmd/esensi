@@ -2,7 +2,7 @@ import { Link } from "@/lib/router";
 import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/button";
 
-export const SectionTitle = ({ title, url = null, className="flex" as string, btn_label = "View All" }) => {
+export const SectionTitle = ({ title, url = null as string | null, className="flex" as string, btn_label = "View All" }) => {
   return (
     <div className={`${className} flex-row justify-between items-center w-full gap-6 px-6 whitespace-nowrap`}>
       <div className="flex flex-col justify-center items-start w-auto">
