@@ -1,9 +1,10 @@
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
   name: "internal_delete",
   url: "/api/internal/internal/delete",
-  async handler(arg: { id: string }) {
+  async handler(arg: { id: string }): Promise<ApiResponse<void>> {
     const { id } = arg;
 
     if (!id?.trim()) {
@@ -35,12 +36,11 @@ export default defineAPI({
       );
     }
 
-    const result = await db.internal.delete({ where: { id } });
+    await db.internal.delete({ where: { id } });
 
     return {
       success: true,
       message: "Internal berhasil dihapus",
-      deleted: result,
     };
   },
 });

@@ -1,4 +1,5 @@
 import type { User } from "backend/lib/better-auth";
+import type { BundleSearchResponse } from "backend/lib/types";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
@@ -19,7 +20,7 @@ export default defineAPI({
     sort_order?: "asc" | "desc";
     page?: number;
     limit?: number;
-  }): Promise<ApiResponse<any>> {
+  }): Promise<ApiResponse<BundleSearchResponse>> {
     try {
       const {
         query,
@@ -195,7 +196,12 @@ export default defineAPI({
       return {
         success: false,
         message: "Terjadi kesalahan dalam pencarian bundle",
-        data: [],
+        data: {
+          bundles: [],
+          pagination: { page: 1, limit: 10, total: 0, totalPages: 0 },
+          filters: { price_range: {} },
+          sort: {}
+        },
       };
     }
   },

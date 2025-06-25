@@ -1,10 +1,7 @@
 import { MainEsensiLayout } from "@/components/esensi/layout";
-import { useLocal } from "@/lib/hooks/use-local";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { z } from "zod";
+import { LoginBanner } from "@/components/esensi/login-banner";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -15,9 +12,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { betterAuth } from "@/lib/better-auth";
+import { useLocal } from "@/lib/hooks/use-local";
+import { Link, navigate } from "@/lib/router";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeClosed } from "lucide-react";
-import { Link } from "@/lib/router";
-import { LoginBanner } from "@/components/esensi/login-banner";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 
 export default () => {
   const header_config = {
@@ -36,12 +38,10 @@ export default () => {
 
   const local = useLocal(
     {
-      loading: true as boolean,
+      loading: false as boolean,
       toggle: {
         password: false as boolean,
         password2: false as boolean,
-        terms: false as boolean,
-        
       } as any,
     },
     async () => {
@@ -50,15 +50,22 @@ export default () => {
     }
   );
 
-  const FormSchema = z.object({
-    fullname: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
-    }),
-    email: z.string().email("Alamat email tidak benar"),
-    password: z.string().min(8, "Password setidaknya 8 karakter"),
-    password2: z.string().min(8, "Password setidaknya 8 karakter"),
-    terms_agree: z.boolean(),
-  });
+  const FormSchema = z
+    .object({
+      fullname: z.string().min(2, {
+        message: "Nama lengkap minimal 2 karakter",
+      }),
+      email: z.string().email("Alamat email tidak benar"),
+      password: z.string().min(8, "Password setidaknya 8 karakter"),
+      password2: z.string().min(8, "Password setidaknya 8 karakter"),
+      terms_agree: z.boolean().refine((val) => val, {
+        message: "Anda harus menyetujui syarat dan ketentuan",
+      }),
+    })
+    .refine((data) => data.password === data.password2, {
+      message: "Konfirmasi password tidak sesuai",
+      path: ["password2"],
+    });
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -71,28 +78,42 @@ export default () => {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast("You submitted the following values", {
-      description: (
-        <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    local.loading = true;
+    local.render();
+
+    try {
+      const { data: authData, error } = await betterAuth.signUp({
+        username: data.email,
+        password: data.password,
+        name: data.fullname,
+      });
+
+      if (error) {
+        toast.error("Gagal mendaftar", {
+          description: error.message || "Terjadi kesalahan saat mendaftar",
+        });
+      } else if (authData) {
+        toast.success("Berhasil mendaftar akun", {
+          description: "Anda akan dialihkan ke halaman utama",
+        });
+        // Redirect to dashboard or home
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error("Terjadi kesalahan", {
+        description: "Silakan coba lagi",
+      });
+    } finally {
+      local.loading = false;
+      local.render();
+    }
   }
 
-  const handleTogglePass = (e: any) => {
-    local.toggle.password = !local.toggle.password;
+  const handleTogglePass = (field: "password" | "password2") => {
+    local.toggle[field] = !local.toggle[field];
     local.render();
   };
-  const handleTogglePass2 = (e: any) => {
-    local.toggle.password2 = !local.toggle.password2;
-    local.render();
-  };
-  const handleCheckTerms = (e: any)=>{
-    local.toggle.terms = !local.toggle.terms;
-    local.render();
-  }
 
   const renderLoading = <></>;
   const renderRegisterForm = (
@@ -102,22 +123,12 @@ export default () => {
         className="flex flex-col w-full lg:max-w-88 gap-7"
       >
         <FormField
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="lg:text-3xl">Buat akun baru</FormLabel>
-              <FormDescription className="lg:hidden">Buat akun untuk mulai membaca</FormDescription>
-            </FormItem>
-          )}
-        />
-        <FormField
           control={form.control}
           name="fullname"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nama lengkap</FormLabel>
               <FormControl>
-                <Input placeholder="John doe" {...field} />
+                <Input placeholder="Nama lengkap" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -128,9 +139,8 @@ export default () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Alamat email</FormLabel>
               <FormControl>
-                <Input placeholder="email_anda@domain.com" {...field} />
+                <Input placeholder="Email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -141,20 +151,19 @@ export default () => {
           name="password"
           render={({ field }) => (
             <FormItem className="relative">
-              <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
                   type={local.toggle.password ? "text" : "password"}
                   className="pr-10"
-                  placeholder="Buat kata sandi"
+                  placeholder="Kata sandi"
                   {...field}
                 />
               </FormControl>
               <Button
                 type="button"
                 variant="ghost"
-                className="absolute right-0 bottom-0 p-0 hover:bg-transparent"
-                onClick={handleTogglePass}
+                className="absolute right-0 top-0.5 p-0 hover:bg-transparent"
+                onClick={() => handleTogglePass("password")}
               >
                 {local.toggle.password ? <Eye /> : <EyeClosed />}
               </Button>
@@ -166,20 +175,20 @@ export default () => {
           control={form.control}
           name="password2"
           render={({ field }) => (
-            <FormItem className="relative -mt-3">
+            <FormItem className="relative">
               <FormControl>
                 <Input
                   type={local.toggle.password2 ? "text" : "password"}
                   className="pr-10"
-                  placeholder="Ketik ulang kata sandi"
+                  placeholder="Konfirmasi kata sandi"
                   {...field}
                 />
               </FormControl>
               <Button
                 type="button"
                 variant="ghost"
-                className="absolute right-0 bottom-0 p-0 hover:bg-transparent"
-                onClick={handleTogglePass2}
+                className="absolute right-0 top-0.5 p-0 hover:bg-transparent"
+                onClick={() => handleTogglePass("password2")}
               >
                 {local.toggle.password2 ? <Eye /> : <EyeClosed />}
               </Button>
@@ -191,45 +200,64 @@ export default () => {
           control={form.control}
           name="terms_agree"
           render={({ field }) => (
-            <FormItem>
-              <div className="flex items-center gap-3">
-                <FormControl className="w-auto">
-                  <Input type="checkbox" className="h-6 w-6 border-[#ccc]" onClick={handleCheckTerms} checked={local.toggle.terms} />
-                </FormControl>
-
-                <FormDescription className="text-[#3B2C93] text-xs whitespace-pre-line" onClick={handleCheckTerms}>
-                  Saya sudah membaca dan menyetujui<br/>
-                  <Link href="#">Syarat & Ketentuan</Link> yang berlaku.
-                </FormDescription>
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none">
+                <FormLabel className="text-sm font-normal">
+                  Saya menyetujui{" "}
+                  <Link href="/terms" className="text-[#3B2C93] font-bold">
+                    syarat dan ketentuan
+                  </Link>{" "}
+                  yang berlaku
+                </FormLabel>
+                <FormMessage />
               </div>
-              <FormMessage />
             </FormItem>
           )}
         />
         <Button
           type="submit"
           className="bg-[#3B2C93] text-white h-10 rounded-xl border-0"
+          disabled={local.loading}
         >
-          Daftar sekarang
+          {local.loading ? "Memproses..." : "Daftar akun"}
         </Button>
         <FormDescription className="text-center -mt-3 font-semibold">
           Sudah punya akun?
           <Link href="/login" className="text-[#3B2C93] ml-2">
-            Masuk di sini
+            Masuk sekarang
           </Link>
         </FormDescription>
       </form>
     </Form>
   );
 
+  const renderRegisterHeader = (
+    <div className="flex w-full lg:max-w-88 flex-col items-center gap-6 text-[#3B2C93]">
+      <h2 className="whitespace-pre-line text-3xl text-center font-semibold">
+        Daftar di Esensi online
+      </h2>
+    </div>
+  );
+
   const renderLoginBanner = <LoginBanner></LoginBanner>;
   return (
-    <MainEsensiLayout header_config={header_config} footer_config={footer_config} mobile_menu={true}>
+    <MainEsensiLayout
+      header_config={header_config}
+      footer_config={footer_config}
+      mobile_menu={true}
+    >
       <div className="flex justify-center w-full lg:min-h-screen">
         <div className="hidden lg:flex flex-col flex-1">
           {local.loading ? renderLoading : renderLoginBanner}
         </div>
         <div className="flex flex-1 flex-col justify-start items-center lg:justify-center gap-6 w-full p-6 lg:p-8 max-w-[1200px] [&_label]:text-[#3B2C93] [&_label]:font-bold [&_input]:rounded-xl [&_input]:h-10">
+          {local.loading ? renderLoading : renderRegisterHeader}
           {local.loading ? renderLoading : renderRegisterForm}
         </div>
       </div>

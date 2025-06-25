@@ -1,4 +1,5 @@
 import type { User } from "backend/lib/better-auth";
+import type { BundleManagementResponse } from "backend/lib/types";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
@@ -10,7 +11,7 @@ export default defineAPI({
     id_bundle: string;
     action: "add" | "remove" | "update" | "replace";
     products: Array<{ id_product: string; qty?: number }>;
-  }): Promise<ApiResponse<any>> {
+  }): Promise<ApiResponse<BundleManagementResponse>> {
     try {
       const { id_bundle, action, products } = arg;
 
@@ -109,7 +110,7 @@ export default defineAPI({
 
           return {
             success: true,
-            data: result,
+            data: result!,
             message: `${newProducts.length} produk berhasil ditambahkan ke bundle`,
           };
 
@@ -139,7 +140,7 @@ export default defineAPI({
 
           return {
             success: true,
-            data: result,
+            data: result!,
             message: `${deleteResult.count} produk berhasil dihapus dari bundle`,
           };
 
@@ -174,7 +175,7 @@ export default defineAPI({
 
           return {
             success: true,
-            data: result,
+            data: result!,
             message: "Kuantitas produk berhasil diperbarui",
           };
 
@@ -213,7 +214,7 @@ export default defineAPI({
 
           return {
             success: true,
-            data: result,
+            data: result!,
             message: "Produk bundle berhasil diganti",
           };
 

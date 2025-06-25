@@ -229,3 +229,329 @@ export type Internal = internal & {
   auth_user: auth_user | null;
   auth_account: auth_account | null;
 };
+
+// List types for API responses - flexible to handle optional includes
+export type PublisherListItem = publisher & {
+  auth_user?: auth_user[];
+  auth_account?: auth_account | null;
+  publisher_author?: {
+    id: string;
+    publisher_id: string;
+    author_id: string;
+    author?: author;
+  }[];
+  transaction?: transaction[];
+  promo_code?: promo_code[];
+  withdrawal?: withdrawal[];
+  t_ai_credit?: any[];
+};
+
+export type AuthorListItem = author & {
+  auth_user?: auth_user[];
+  auth_account?: auth_account | null;
+  publisher_author?: {
+    id: string;
+    publisher_id: string;
+    author_id: string;
+    publisher?: publisher;
+  }[];
+  book?: book[];
+  product?: product[];
+  bundle?: bundle[];
+};
+
+export type InternalListItem = internal & {
+  auth_user?: auth_user[];
+  auth_account?: auth_account | null;
+  book_approval?: book_approval[];
+  _count?: {
+    auth_user?: number;
+    book_approval?: number;
+  };
+};
+
+export type CustomerListItem = customer & {
+  auth_user?: auth_user[];
+  auth_account?: auth_account | null;
+  t_sales?: t_sales[];
+  customer_track?: customer_track[];
+  customer_reader?: customer_reader[];
+};
+
+export type AffiliateListItem = affiliate & {
+  auth_user?: auth_user[];
+  auth_account?: auth_account | null;
+};
+
+export type BundleListItem = bundle & {
+  author?: author | null;
+  bundle_product?: {
+    id: string;
+    product?: product | null;
+    qty?: number | null;
+  }[];
+  bundle_category?: {
+    id: string;
+    category?: category | null;
+  }[];
+};
+
+// Stats response types
+export type DashboardStatsData = {
+  overview: {
+    total_authors?: number;
+    total_books?: number;
+    total_customers?: number;
+    total_products?: number;
+    total_sales_count: number;
+    total_sales_revenue: number;
+    total_quantity_sold?: number;
+    period_days: number;
+  };
+  recent_sales: unknown[];
+  top_authors?: unknown[];
+  top_books?: unknown[];
+  sales_by_month: unknown[];
+};
+
+export type InternalStatsData = {
+  internal?: {
+    id: string;
+    name: string;
+    roles: {
+      sales_and_marketing: boolean;
+      support: boolean;
+      management: boolean;
+      it: boolean;
+    };
+    user_count: number;
+    book_approval_count: number;
+  };
+  overview?: {
+    total_internals: number;
+    roles: {
+      sales_and_marketing: number;
+      support: number;
+      management: number;
+      it: number;
+    };
+    internals_with_users: number;
+    internals_with_book_approvals: number;
+    total_book_approvals: number;
+  };
+};
+
+// Configuration type
+export type ConfigItem = {
+  key: string;
+  value: string;
+};
+
+// Bundle Stats Response Types
+export type BundleStatsResponse = {
+  bundle: {
+    id: string;
+    name: string;
+    slug: string;
+    status: string;
+    real_price: Decimal;
+    strike_price: Decimal | null;
+  };
+  product_count: number;
+  category_count: number;
+  sales_stats: {
+    total_sales: number;
+    total_revenue: number;
+    unique_customers: number;
+    average_order_value: number;
+  };
+};
+
+export type BundleOverallStatsResponse = {
+  bundle_counts: {
+    total: number;
+    active: number;
+    draft: number;
+    published: number;
+    deleted: number;
+    with_products: number;
+    with_categories: number;
+    empty: number;
+  };
+  sales_stats: {
+    total_sales: number;
+    total_revenue: number;
+    total_orders: number;
+    average_order_value: number;
+  };
+};
+
+// Product List Response Types
+export type ProductListItem = product & {
+  author?: {
+    id: string;
+    name: string;
+  } | null;
+};
+
+export type ProductListResponse = {
+  products: ProductListItem[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+};
+
+// Bundle Get with full includes
+export type BundleGetResponse = bundle & {
+  bundle_product?: {
+    id: string;
+    product?:
+      | (product & {
+          author?: author | null;
+          product_category?: {
+            id: string;
+            category: category | null;
+          }[];
+        })
+      | null;
+    qty?: number | null;
+  }[];
+  bundle_category?: {
+    id: string;
+    category?: category | null;
+  }[];
+  t_sales_line?: {
+    id: string;
+    t_sales: {
+      id: string;
+      created_at: Date;
+      customer?: customer | null;
+    };
+  }[];
+};
+
+// Update Response Types
+export type CustomerUpdateResponse = customer & {
+  auth_user: auth_user[];
+  auth_account: auth_account | null;
+};
+
+export type PublisherUpdateResponse = publisher & {
+  auth_user?: auth_user[];
+  auth_account?: auth_account | null;
+  publisher_author?: {
+    id: string;
+    publisher_id: string;
+    author_id: string;
+    author?: author;
+  }[];
+};
+
+export type InternalUpdateResponse = internal & {
+  auth_user?: auth_user[];
+  auth_account?: auth_account | null;
+  book_approval?: book_approval[];
+};
+
+export type BundleUpdateResponse = {
+  id: string;
+  name: string;
+  slug: string;
+  desc: string;
+  real_price: Decimal;
+  strike_price: Decimal | null;
+  currency: string;
+  status: string;
+  cover: string;
+  img_file: string;
+  info: JsonValue;
+  sku: string;
+  bundle_category?: {
+    category?: {
+      id: string;
+      name: string;
+    } | null;
+  }[];
+  bundle_product?: {
+    id: string;
+    qty?: number | null;
+    product?: {
+      id: string;
+      name: string;
+      real_price: Decimal;
+      currency: string;
+      cover: string;
+      author?: {
+        id: string;
+        name: string;
+      } | null;
+    } | null;
+  }[];
+};
+
+// Create Response Types
+export type BundleCreateResponse = BundleUpdateResponse;
+
+// Delete Response Types
+export type BundleDeleteResponse = bundle;
+
+// Category/Product Management Response Types
+export type BundleManagementResponse = {
+  id: string;
+  name: string;
+  bundle_category?: {
+    id: string;
+    category?: {
+      id: string;
+      name: string;
+      slug: string | null;
+      deleted_at: Date | null;
+      id_parent: string | null;
+      img: string | null;
+    } | null;
+  }[];
+  bundle_product?: {
+    id: string;
+    product?: {
+      id: string;
+      name: string;
+      real_price: Decimal;
+      currency: string;
+      cover: string;
+    } | null;
+    qty?: number | null;
+  }[];
+} & bundle;
+
+// Search Response Types
+export type BundleSearchResponse = {
+  bundles: (Bundle & {
+    total_products?: number;
+    total_quantity?: number;
+  })[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+  filters: {
+    query?: string;
+    status?: string[];
+    price_range: {
+      min?: number;
+      max?: number;
+    };
+    has_products?: boolean;
+    has_categories?: boolean;
+    category_ids?: string[];
+    product_ids?: string[];
+  };
+  sort: {
+    sort_by?: string;
+    sort_order?: string;
+  };
+};

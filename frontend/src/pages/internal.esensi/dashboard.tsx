@@ -115,8 +115,8 @@ export default () => {
       const result = await api.dashboard_stats({
         period: local.selectedPeriod,
       });
-      if (result) {
-        local.stats = result as DashboardStats;
+      if (result && result.data) {
+        local.stats = result.data as DashboardStats;
       }
     } catch (error: any) {
       console.error("Error loading dashboard stats:", error);

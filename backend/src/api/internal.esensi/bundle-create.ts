@@ -5,7 +5,7 @@ import { defineAPI } from "rlib/server";
 
 export default defineAPI({
   name: "bundle_create",
-  url: "/api/publish/bundle/create",
+  url: "/api/internal/bundle/create",
   async handler(arg: {
     user: Partial<User>;
     name: string;
@@ -19,9 +19,10 @@ export default defineAPI({
     img_file?: string;
     cover?: string;
     sku?: string;
-    // Note: cfg is intentionally excluded for authors
+    cfg?: string;
     categories?: string[];
     products?: Array<{ id_product: string; qty?: number }>;
+    id_author?: string; // For internal use - can specify which author the bundle belongs to
   }): Promise<ApiResponse<BundleCreateResponse>> {
     try {
       const {
@@ -36,9 +37,10 @@ export default defineAPI({
         img_file = "[]",
         cover = "",
         sku = "",
-        // Note: cfg is intentionally excluded for authors
+        cfg,
         categories = [],
         products = [],
+        id_author,
       } = arg;
 
       // Validate required fields
@@ -63,9 +65,36 @@ export default defineAPI({
         };
       }
 
+      if (!sku?.trim()) {
+        return {
+          success: false,
+          message: "SKU bundle wajib diisi",
+        };
+      }
+
+      // Validate author exists if specified
+      let authorId = id_author;
+      if (!authorId) {
+        return {
+          success: false,
+          message: "ID Author wajib diisi untuk bundle internal",
+        };
+      }
+
+      const author = await db.author.findFirst({
+        where: { id: authorId },
+      });
+
+      if (!author) {
+        return {
+          success: false,
+          message: "Author tidak ditemukan",
+        };
+      }
+
       // Check if slug already exists
       const existingBundle = await db.bundle.findFirst({
-        where: { slug: slug.trim() },
+        where: { slug, deleted_at: null },
       });
 
       if (existingBundle) {
@@ -75,14 +104,45 @@ export default defineAPI({
         };
       }
 
-      // Create bundle with transaction
+      // Check if SKU already exists
+      const existingSku = await db.bundle.findFirst({
+        where: { sku, deleted_at: null },
+      });
+
+      if (existingSku) {
+        return {
+          success: false,
+          message: "SKU bundle sudah digunakan",
+        };
+      }
+
+      // Validate products if provided
+      if (products.length > 0) {
+        const productIds = products.map((p) => p.id_product);
+        const validProducts = await db.product.findMany({
+          where: {
+            id: { in: productIds },
+            deleted_at: null,
+            status: "published", // Only published products can be added to bundles
+          },
+        });
+
+        if (validProducts.length !== productIds.length) {
+          return {
+            success: false,
+            message: "Beberapa produk tidak valid atau belum dipublikasikan",
+          };
+        }
+      }
+
+      // Create bundle and related data in a transaction
       const result = await db.$transaction(async (tx) => {
         // Create bundle
         const bundle = await tx.bundle.create({
           data: {
-            name: name.trim(),
-            slug: slug.trim(),
-            strike_price: strike_price || null,
+            name,
+            slug,
+            strike_price: strike_price || 0,
             real_price,
             currency,
             desc,
@@ -91,7 +151,9 @@ export default defineAPI({
             img_file,
             cover,
             sku,
-            // Note: cfg is intentionally excluded for authors
+            cfg,
+            id_author: authorId,
+            created_at: new Date(),
           },
         });
 
@@ -101,6 +163,7 @@ export default defineAPI({
             data: categories.map((categoryId) => ({
               id_bundle: bundle.id,
               id_category: categoryId,
+              created_at: new Date(),
             })),
           });
         }
@@ -112,72 +175,24 @@ export default defineAPI({
               id_bundle: bundle.id,
               id_product: product.id_product,
               qty: product.qty || 1,
+              created_at: new Date(),
             })),
           });
         }
 
-        // Return bundle with relations
-        return await tx.bundle.findUnique({
-          where: { id: bundle.id },
-          select: {
-            id: true,
-            name: true,
-            slug: true,
-            desc: true,
-            real_price: true,
-            strike_price: true,
-            currency: true,
-            status: true,
-            cover: true,
-            img_file: true,
-            info: true,
-            sku: true,
-            // Note: cfg is intentionally excluded for authors
-            bundle_category: {
-              select: {
-                category: {
-                  select: {
-                    id: true,
-                    name: true,
-                  },
-                },
-              },
-            },
-            bundle_product: {
-              select: {
-                id: true,
-                qty: true,
-                product: {
-                  select: {
-                    id: true,
-                    name: true,
-                    real_price: true,
-                    currency: true,
-                    cover: true,
-                    author: {
-                      select: {
-                        id: true,
-                        name: true,
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          },
-        });
+        return bundle;
       });
 
       return {
         success: true,
-        data: result!,
         message: "Bundle berhasil dibuat",
+        data: result,
       };
     } catch (error) {
-      console.error("Error in bundle create API:", error);
+      console.error("Error creating bundle:", error);
       return {
         success: false,
-        message: "Terjadi kesalahan dalam membuat bundle",
+        message: "Terjadi kesalahan saat membuat bundle",
       };
     }
   },

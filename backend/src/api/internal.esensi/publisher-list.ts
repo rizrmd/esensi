@@ -1,4 +1,6 @@
 import { defineAPI } from "rlib/server";
+import type { ApiResponse } from "backend/lib/utils";
+import type { PublisherListItem } from "../../lib/types";
 
 export default defineAPI({
   name: "publisher_list",
@@ -14,7 +16,7 @@ export default defineAPI({
     include_transactions?: boolean;
     include_withdrawals?: boolean;
     include_ai_credit?: boolean;
-  }) {
+  }): Promise<ApiResponse<PublisherListItem[]>> {
     const {
       search,
       limit = 50,
@@ -62,6 +64,15 @@ export default defineAPI({
       db.publisher.count({ where }),
     ]);
 
-    return { data, total, limit, offset };
+    return {
+      success: true,
+      data,
+      pagination: {
+        page: Math.floor(offset / limit) + 1,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   },
 });

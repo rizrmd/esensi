@@ -1,4 +1,8 @@
 import type { User } from "backend/lib/better-auth";
+import type {
+  BundleOverallStatsResponse,
+  BundleStatsResponse,
+} from "backend/lib/types";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
@@ -10,7 +14,7 @@ export default defineAPI({
     id?: string;
     date_from?: string;
     date_to?: string;
-  }): Promise<ApiResponse<any>> {
+  }): Promise<ApiResponse<BundleStatsResponse | BundleOverallStatsResponse>> {
     try {
       const { id, date_from, date_to } = arg;
 

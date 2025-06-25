@@ -1,4 +1,5 @@
 import type { User } from "backend/lib/better-auth";
+import type { BundleManagementResponse } from "backend/lib/types";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
@@ -10,7 +11,7 @@ export default defineAPI({
     id_bundle: string;
     action: "add" | "remove" | "replace";
     categories: string[];
-  }): Promise<ApiResponse<any>> {
+  }): Promise<ApiResponse<BundleManagementResponse>> {
     try {
       const { id_bundle, action, categories } = arg;
 
@@ -103,7 +104,7 @@ export default defineAPI({
 
           return {
             success: true,
-            data: result,
+            data: result!,
             message: `${newCategories.length} kategori berhasil ditambahkan ke bundle`,
           };
 
@@ -129,7 +130,7 @@ export default defineAPI({
 
           return {
             success: true,
-            data: result,
+            data: result!,
             message: `${deleteResult.count} kategori berhasil dihapus dari bundle`,
           };
 
@@ -163,7 +164,7 @@ export default defineAPI({
 
           return {
             success: true,
-            data: result,
+            data: result!,
             message: "Kategori bundle berhasil diganti",
           };
 

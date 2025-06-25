@@ -1,4 +1,6 @@
 import { defineAPI } from "rlib/server";
+import type { ApiResponse } from "backend/lib/utils";
+import type { PublisherListItem } from "../../lib/types";
 
 export default defineAPI({
   name: "publisher_create",
@@ -11,7 +13,7 @@ export default defineAPI({
     logo?: string;
     id_account?: string;
     id_user?: string;
-  }) {
+  }): Promise<ApiResponse<PublisherListItem>> {
     const { name, description, website, address, logo, id_account, id_user } =
       arg;
 
@@ -44,6 +46,9 @@ export default defineAPI({
       },
     });
 
-    return result;
+    return {
+      success: true,
+      data: result,
+    };
   },
 });

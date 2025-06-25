@@ -1,9 +1,10 @@
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
 export default defineAPI({
   name: "cfg_delete",
   url: "/api/internal/cfg/delete",
-  async handler(arg: { key: string }) {
+  async handler(arg: { key: string }): Promise<ApiResponse<void>> {
     const { key } = arg;
 
     // Check if key exists
@@ -11,8 +12,11 @@ export default defineAPI({
 
     if (!existing) throw new Error("Configuration key not found");
 
-    const result = await db.cfg.delete({ where: { key } });
+    await db.cfg.delete({ where: { key } });
 
-    return result;
+    return {
+      success: true,
+      message: "Configuration deleted successfully",
+    };
   },
 });

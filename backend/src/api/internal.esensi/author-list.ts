@@ -1,9 +1,15 @@
+import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
+import type { AuthorListItem } from "../../lib/types";
 
 export default defineAPI({
   name: "author_list",
   url: "/api/internal/author/list",
-  async handler(arg: { search?: string; limit?: number; offset?: number }) {
+  async handler(arg: {
+    search?: string;
+    limit?: number;
+    offset?: number;
+  }): Promise<ApiResponse<AuthorListItem[]>> {
     const { search, limit = 50, offset = 0 } = arg;
 
     const where = search
@@ -46,10 +52,14 @@ export default defineAPI({
     ]);
 
     return {
+      success: true,
       data,
-      total,
-      limit,
-      offset,
+      pagination: {
+        page: Math.floor(offset / limit) + 1,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
     };
   },
 });

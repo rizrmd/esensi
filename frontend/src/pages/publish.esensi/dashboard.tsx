@@ -132,8 +132,8 @@ export default () => {
         user: current.user,
         period: local.selectedPeriod,
       });
-      if (result) {
-        local.stats = result as DashboardStats;
+      if (result && result.data) {
+        local.stats = result.data as DashboardStats;
       }
     } catch (error: any) {
       console.error("Error loading dashboard stats:", error);

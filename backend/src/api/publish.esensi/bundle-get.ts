@@ -1,4 +1,5 @@
 import type { User } from "backend/lib/better-auth";
+import type { BundleGetResponse } from "backend/lib/types";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
@@ -12,7 +13,7 @@ export default defineAPI({
     include_categories?: boolean;
     include_products?: boolean;
     include_sales?: boolean;
-  }): Promise<ApiResponse<any>> {
+  }): Promise<ApiResponse<BundleGetResponse>> {
     try {
       const {
         id,
