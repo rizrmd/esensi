@@ -43,17 +43,6 @@ export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
     {
       searchQuery: "",
       profileOpen: false as boolean,
-      profile: {
-        user: {
-          avatar: null as string | null,
-          fullname: "John Doe" as string,
-          email: "johndoe@esensi.online" as string | null,
-        },
-        loyality: {
-          id: "JOHNDOE" as string | null,
-          points: 0 as number,
-        },
-      },
     },
     async () => {
       // Force a re-render when current user changes
@@ -111,7 +100,7 @@ export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
           points: 0,
         },
       }
-    : local.profile; // Fall back to default if no user is logged in
+    : null; // Pass null to show guest login state
   return (
     <Protected role={"any"} fallback={PublishFallback}>
       <div className="flex h-auto flex-col gap-0 pb-25 lg:pb-0 m-0 text-[color:#020817]">

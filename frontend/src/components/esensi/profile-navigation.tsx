@@ -38,15 +38,16 @@ export const ProfileNavigation = ({
     </div>
   );
 
-  const sectionButtonUser = (
-    <>
-      <ProfileButton
-        label={`${the_loyality.points} poin`}
-        sublabel={the_loyality.id || "GUEST"}
-        url="#"
-      ></ProfileButton>
-    </>
-  );
+  // Temporarily hidden until loyalty program is implemented
+  // const sectionButtonUser = (
+  //   <>
+  //     <ProfileButton
+  //       label={`${the_loyality.points} poin`}
+  //       sublabel={the_loyality.id || "GUEST"}
+  //       url="#"
+  //     ></ProfileButton>
+  //   </>
+  // );
   const sectionUserMenu = (
     <div className="flex flex-col">
       <ProfileLinks
@@ -125,7 +126,7 @@ export const ProfileNavigation = ({
   const renderUser = (
     <>
       {sectionProfilePicture}
-      {sectionButtonUser}
+      {/* sectionButtonUser commented out until loyalty program is implemented */}
       {sectionUserMenu}
     </>
   );
