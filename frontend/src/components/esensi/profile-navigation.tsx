@@ -17,14 +17,13 @@ export const ProfileNavigation = ({
   loading = true as boolean,
 }) => {
   const the_user = {
-    avatar: user !== null && user?.avatar ? user.avatar : ("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg_K_rW_RE87Adt3mgjiLqSPiwTI5LLc8LkhAQ3Qi5xqtudHTuoutzVcloCjiptWUROIM0EWM_eyrfzV6uAx6lhU0ZJRbmbt_JfnZVG9yfRjgnOj3jEUqnQ71piFlOwKbxAibSqthY1Hvv0HyYc1nZb2Yj1Yluqla-_nSZwqzj0zpJLf4PXw9t_3Dd7mj4i/s1600/nouser.png" as string),
-    fullname: user !== null && user?.fullname ? user.fullname : ("" as string),
-    email: user !== null && user?.email ? user.email : ("" as string),
+    avatar: user !== null && user?.avatar ? user.avatar : "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg_K_rW_RE87Adt3mgjiLqSPiwTI5LLc8LkhAQ3Qi5xqtudHTuoutzVcloCjiptWUROIM0EWM_eyrfzV6uAx6lhU0ZJRbmbt_JfnZVG9yfRjgnOj3jEUqnQ71piFlOwKbxAibSqthY1Hvv0HyYc1nZb2Yj1Yluqla-_nSZwqzj0zpJLf4PXw9t_3Dd7mj4i/s1600/nouser.png",
+    fullname: user !== null && user?.fullname ? user.fullname : "",
+    email: user !== null && user?.email ? user.email : "",
   };
   const the_loyality = {
-    id: loyality !== null && loyality?.id ? loyality.id : ("" as string),
-    points:
-      loyality !== null && loyality?.points ? loyality.points : (0 as number),
+    id: loyality !== null && loyality?.id ? loyality.id : "",
+    points: loyality !== null && loyality?.points ? loyality.points : 0,
   };
 
   const sectionProfilePicture = (
@@ -42,8 +41,8 @@ export const ProfileNavigation = ({
   const sectionButtonUser = (
     <>
       <ProfileButton
-        label={`${the_loyality.points} point`}
-        sublabel={the_loyality.id}
+        label={`${the_loyality.points} poin`}
+        sublabel={the_loyality.id || "GUEST"}
         url="#"
       ></ProfileButton>
     </>
@@ -101,7 +100,7 @@ export const ProfileNavigation = ({
     </div>
   );
 
-  const renderLoading = <>Masih loading</>;
+  const renderLoading = <>Memuat profil...</>;
   const renderGuest = (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col">
@@ -131,13 +130,13 @@ export const ProfileNavigation = ({
     </>
   );
 
-  const renderPage = user !== null ? renderUser : renderGuest;
+  const renderPage = user !== null && user?.fullname ? renderUser : renderGuest;
 
   return (
     <>
       {loading ? renderLoading : renderPage}
       {loading ? renderLoading : sectionSiteLinks}
-      {!loading && user !== null && sectionLogout}
+      {!loading && user !== null && user?.fullname && sectionLogout}
     </>
   );
 };

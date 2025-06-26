@@ -1,21 +1,19 @@
-import {
-  StoreCategories,
-  type StoreCategoryItem,
-} from "@/components/esensi/store-categories";
+import { BooksByCategory } from "@/components/esensi/books-by-category";
+import { MainEsensiLayout } from "@/components/esensi/layout";
+import { SectionTitle } from "@/components/esensi/section-title";
 import {
   StoreBooksCard,
   type StoreBooksCardItem,
 } from "@/components/esensi/store-books-card";
-import { FeaturedBooks } from "@/components/esensi/featured-books";
-import { BooksByCategory } from "@/components/esensi/books-by-category";
-import { useLocal } from "@/lib/hooks/use-local";
-import { api } from "@/lib/gen/main.esensi";
-import { MainEsensiLayout } from "@/components/esensi/layout";
-import { dbClient } from "rlib/client";
-import { StoreHeaderBanner } from "@/components/esensi/store-header-banner";
-import { SectionTitle } from "@/components/esensi/section-title";
 import { StoreBundling } from "@/components/esensi/store-bundling";
+import {
+  StoreCategories,
+  type StoreCategoryItem,
+} from "@/components/esensi/store-categories";
 import { StoreFeaturedProducts } from "@/components/esensi/store-featured-products";
+import { StoreHeaderBanner } from "@/components/esensi/store-header-banner";
+import { api } from "@/lib/gen/main.esensi";
+import { useLocal } from "@/lib/hooks/use-local";
 
 export default () => {
   const local = useLocal(
@@ -90,7 +88,7 @@ export default () => {
       local.render();
       changeByCategory(res.data.categories[0].slug);
       changeFeaturedBundle("bundling-montessori-di-rumah");
-    },
+    }
   );
 
   const changeStoreCategory = async (cat: string | null) => {

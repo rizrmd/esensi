@@ -6,7 +6,6 @@ export const ProfileSlide = ({
     profile = null as any,
     action,
 }) => {
-
     return(
         <>
         <div className={`${open? "flex":"hidden"} w-full h-full fixed top-0 left-0 right-0 bottom-0 bg-black opacity-40 z-59`} onClick={action}></div>
