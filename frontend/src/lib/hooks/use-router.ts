@@ -133,10 +133,11 @@ export function useRoot() {
       let pageLoader = pageModules[matchedPattern];
       let matchedParams = {};
 
-      if (!pageLoader) {
+      if (!pageLoader && domainKey) {
         for (const [pattern, loader] of Object.entries(pageModules)) {
           const routePattern = parsePattern(pattern);
-          const params = matchRoute(path, routePattern);
+          const params = matchRoute(path, routePattern, domainKey);
+
           if (params) {
             matchedPattern = pattern;
             pageLoader = loader;
