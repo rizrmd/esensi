@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { betterAuth } from "@/lib/better-auth";
 import { useLocal } from "@/lib/hooks/use-local";
 import { Link, navigate } from "@/lib/router";
+import { getMainEsensiURL } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeClosed } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -100,10 +101,10 @@ export default () => {
         });
       } else if (authData) {
         toast.success("Berhasil mendaftar akun", {
-          description: "Anda akan dialihkan ke halaman utama",
+          description: "Anda akan dialihkan ke halaman login",
         });
-        // Redirect to dashboard or home
-        navigate("/");
+        // Redirect to main.esensi login page
+        window.location.href = getMainEsensiURL() + '/login';
       }
     } catch (error) {
       toast.error("Terjadi kesalahan", {

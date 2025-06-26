@@ -15,6 +15,15 @@ export function getRedirectURL(callbackURL: string | null) {
   return !callbackURL ? baseUrl.main_esensi : callbackURL;
 }
 
+export function getMainEsensiURL() {
+  // Check if we're in development (localhost)
+  if (typeof window !== "undefined" && window.location.hostname === "localhost") {
+    return "http://localhost:7000";
+  }
+  // In production, use the main.esensi domain
+  return "https://esensi.online";
+}
+
 export function isPublisher(user: User) {
   return !!user?.idPublisher;
 }
