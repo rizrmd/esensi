@@ -14,7 +14,7 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
     profile: true,
   };
 
-  const local = useLocal({
+  const local = {
     title: "" as string,
     loading: true as boolean,
     list: [] as any[],
@@ -29,9 +29,10 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
     } as any,
     breadcrumb: [] as any,
     isBundle: false as boolean,
-  });
+  };
 
-  if (data.list) {
+
+  if(data?.list){
     local.list = data.list;
     local.pagination = data.pagination;
     local.breadcrumb = data.breadcrumb;
@@ -39,8 +40,6 @@ export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
       data.pagination.page > 1 ? ` | Page #${data.pagination.page}` : ""
     }`;
     local.loading = false;
-  } else {
-    local.loading = true;
   }
 
   return (

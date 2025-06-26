@@ -15,22 +15,20 @@ export default (data: Awaited<ReturnType<typeof api.search>>["data"]) => {
     profile: true,
   };
 
-  const local = useLocal(
-    {
-      title: "" as string,
-      loading: true as boolean,
-      list: [] as any[],
-      trending: [] as any | null,
-      categories: [] as any | null,
-    },
-    async () => {
-      local.categories = data.categories;
-      local.trending = data.trending;
-      local.title = `Cari Ebook terbaik di Esensi Online`;
-      local.loading = false;
-      local.render();
-    }
-  );
+  const local = {
+    title: "" as string,
+    loading: true as boolean,
+    list: [] as any[],
+    trending: [] as any | null,
+    categories: [] as any | null,
+  };
+
+  if (data?.categories) {
+    local.categories = data.categories;
+    local.trending = data.trending;
+    local.title = `Cari Ebook terbaik di Esensi Online`;
+    local.loading = false;
+  }
 
   const header_img = `https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgU1yo1WjoGn3ORo8MQjhX5pIzlnkk_8a55xGT0b9Ap3rX2osccVQQIyMRnqIE6bXw7PZEUkjFK4Rq9UmZr2547ratdgsWKljHWk0cxo36IXpU59FaL-HsWTIyrBrAhA82yIfN-GlRZPguxeuuQjtIWn5E59tQ1y6Y7aJ_hRSwj4WkudbMFyaJSDiQY_aw/s1600/header-banner.png`;
   const bannerCSS: CSS.Properties = {

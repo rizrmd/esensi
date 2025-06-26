@@ -14,34 +14,32 @@ export default (data: Awaited<ReturnType<typeof api.search>>["data"]) => {
     profile: true,
   };
 
-  const local = useLocal(
-    {
-      title: "" as string,
-      loading: true as boolean,
-      list: [] as any[],
-      pagination: {
-        items: 20 as number,
-        page: 1 as number,
-        total_pages: 1 as number,
-        url: {
-          prefix: "" as string,
-          suffix: "" as string,
-        },
-      } as any,
-      breadcrumb: [] as any,
-      isBundle: false as boolean,
-    },
-    async () => {
-      local.list = data.list;
-      local.pagination = data.pagination;
-      local.title = `${data.title}${
-        data.pagination.page > 1 ? ` | Page #${data.pagination.page}` : ""
-      }`;
-      local.breadcrumb = data.breadcrumb;
-      local.loading = false;
-      local.render();
-    }
-  );
+  const local = {
+    title: "" as string,
+    loading: true as boolean,
+    list: [] as any[],
+    pagination: {
+      items: 20 as number,
+      page: 1 as number,
+      total_pages: 1 as number,
+      url: {
+        prefix: "" as string,
+        suffix: "" as string,
+      },
+    } as any,
+    breadcrumb: [] as any,
+    isBundle: false as boolean,
+  };
+
+  if (data?.list) {
+    local.list = data.list;
+    local.pagination = data.pagination;
+    local.title = `${data.title}${
+      data.pagination.page > 1 ? ` | Page #${data.pagination.page}` : ""
+    }`;
+    local.breadcrumb = data.breadcrumb;
+    local.loading = false;
+  }
 
   return (
     <MainEsensiLayout header_config={header_config}>

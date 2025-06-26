@@ -21,34 +21,31 @@ export default (data: Awaited<ReturnType<typeof api.bundle>>["data"]) => {
     cart: true,
     profile: true,
   };
-  const local = useLocal(
-    {
+  const local = {
       loading: true as boolean,
       product: null as any | null,
       author: null as string | null,
       rating: 5 as number,
       qty: 0 as number,
       categories: [] as any[],
-      desc_open: false as boolean,
       owned: false as boolean,
       bookmarked: false as boolean,
       breadcrumb: [] as any,
       related: [] as any,
       inCart: false as boolean,
-    },
-    async () => {
-      local.product = data.product;
-      local.categories = data.categories;
-      local.qty = data.product?.bundle_product?.length;
-      local.owned = data.owned;
-      local.bookmarked = data.bookmarked;
-      local.inCart = data.in_cart;
-      local.breadcrumb = data.breadcrumb;
-      local.related = data.related;
-      local.loading = false;
-      local.render();
-    }
-  );
+    };
+
+  if (data?.product) {
+    local.product = data.product;
+    local.categories = data.categories;
+    local.qty = data.product?.bundle_product?.length;
+    local.owned = data.owned;
+    local.bookmarked = data.bookmarked;
+    local.inCart = data.in_cart;
+    local.breadcrumb = data.breadcrumb;
+    local.related = data.related;
+    local.loading = false;
+  }
 
   const renderLoading = <></>;
   const renderNoProduct = <div>TIDAK ADA PRODUK</div>;
@@ -123,7 +120,15 @@ export default (data: Awaited<ReturnType<typeof api.bundle>>["data"]) => {
     />
   );
 
-  const bookRelated = <><RelatedPost data={local.related} loading={local.loading} title="Produk Terkait" /></>;
+  const bookRelated = (
+    <>
+      <RelatedPost
+        data={local.related}
+        loading={local.loading}
+        title="Produk Terkait"
+      />
+    </>
+  );
 
   const renderTheProduct = (
     <div className="flex flex-col items-center justify-start gap-10">

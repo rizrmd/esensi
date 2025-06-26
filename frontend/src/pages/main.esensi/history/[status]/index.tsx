@@ -17,34 +17,32 @@ export default (data: Awaited<ReturnType<typeof api.history>>["data"]) => {
     profile: true,
   };
 
-  const local = useLocal(
-    {
-      title: "" as string,
-      loading: true as boolean,
-      list: [] as any,
-      pagination: {
-        items: 20 as number,
-        page: 1 as number,
-        total_pages: 1 as number,
-        url: {
-          prefix: "" as string,
-          suffix: "" as string,
-        },
-      } as any,
-      breadcrumb: [] as any,
-      isBundle: false as boolean,
-    },
-    async () => {
-      local.list = data.list;
-      local.pagination = data.pagination;
-      local.breadcrumb = data.breadcrumb;
-      local.title = `Dunia Baru Dimulai dari Satu Halaman${
-        data.pagination.page > 1 ? ` | Page #${data.pagination.page}` : ""
-      }`;
-      local.loading = false;
-      local.render();
-    }
-  );
+  const local = {
+    title: "" as string,
+    loading: true as boolean,
+    list: [] as any,
+    pagination: {
+      items: 20 as number,
+      page: 1 as number,
+      total_pages: 1 as number,
+      url: {
+        prefix: "" as string,
+        suffix: "" as string,
+      },
+    } as any,
+    breadcrumb: [] as any,
+    isBundle: false as boolean,
+  };
+
+  if (data?.list) {
+    local.list = data.list;
+    local.pagination = data.pagination;
+    local.breadcrumb = data.breadcrumb;
+    local.title = `Dunia Baru Dimulai dari Satu Halaman${
+      data.pagination.page > 1 ? ` | Page #${data.pagination.page}` : ""
+    }`;
+    local.loading = false;
+  }
 
   const renderList = local.list.map((trx, idx) => {
     return (

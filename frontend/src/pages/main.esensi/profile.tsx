@@ -27,36 +27,30 @@ export default (data: Awaited<ReturnType<typeof api.profile>>["data"]) => {
     profile: false,
   };
 
-  const local = useLocal(
-    {
-      loading: true as boolean,
-      user: null as any | null,
-      royality: null as any | null,
-    },
-    async () => {
-      local.user = data.user;
-      
-      local.royality = data.royality;
-
-      local.user = {
-        fullname:"Diky Ardiansyah",
-        email: "hi@diky.me",
-      };
-      local.royality = {
-        id: "EO808VX",
-        points: 76,
-      };
-      local.loading = false;
-      local.render();
-    }
-  );
+  const local = {
+    loading: true as boolean,
+    user: null as any | null,
+    royality: null as any | null,
+  };
+  
+  if (data?.user) {
+    local.user = data.user;
+  }
+  if (data?.loyality) {
+    local.royality = data.loyality;
+  }
+  local.loading = false;
 
   return (
     <MainEsensiLayout header_config={header_config} mobile_menu={true}>
       <div className="flex justify-center p-6 lg:bg-[#E1E5EF] lg:py-10 lg:px-0">
         <div className="flex flex-col w-full h-full max-w-[1200px] h-auto">
           <div className="flex flex-col gap-4 w-full h-auto lg:w-[350px] lg:bg-white lg:py-6 lg:px-8">
-          <ProfileNavigation user={local.user} loyality={local.royality} loading={local.loading} />
+            <ProfileNavigation
+              user={local.user}
+              loyality={local.royality}
+              loading={local.loading}
+            />
           </div>
         </div>
       </div>

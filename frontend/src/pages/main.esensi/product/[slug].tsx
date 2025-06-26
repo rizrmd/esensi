@@ -21,56 +21,52 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
     cart: true,
     profile: true,
   };
-  const local = useLocal(
-    {
-      loading: true as boolean,
-      product: null as any | null,
-      author: null as string | null,
-      rating: 5 as number,
-      lang: "Indonesia" as string,
-      pages: "-" as number | string,
-      format: "PDF" as string,
-      categories: [] as any[],
-      desc_open: false as boolean,
-      owned: false as boolean,
-      bookmarked: false as boolean,
-      inCart: false as boolean,
-      breadcrumb: [] as any,
-      related: [] as any,
-    },
-    async () => {
-      local.product = data.product;
-      local.categories = data.categories;
-      if (Array.isArray(data.product.info)) {
-        local.product?.info.map((inf, idx) => {
-          let txt = inf[0];
-          txt = txt.toLowerCase();
-          switch (txt) {
-            case "penulis":
-              local.author = inf[1];
-              break;
-            case "format":
-              local.format = inf[1];
-              break;
-            case "jumlah halaman":
-              local.pages = inf[1];
-              break;
-            case "bahasa":
-              local.lang = inf[1];
-              break;
-          }
-        });
-      }
-      local.owned = data.owned;
-      local.bookmarked = data.bookmarked;
-      local.inCart = data.in_cart;
-      local.breadcrumb = data.breadcrumb;
-      local.related = data.related;
-      local.loading = false;
+  const local = {
+    loading: true as boolean,
+    product: null as any | null,
+    author: null as string | null,
+    rating: 5 as number,
+    lang: "Indonesia" as string,
+    pages: "-" as number | string,
+    format: "PDF" as string,
+    categories: [] as any[],
+    owned: false as boolean,
+    bookmarked: false as boolean,
+    inCart: false as boolean,
+    breadcrumb: [] as any,
+    related: [] as any,
+  };
 
-      local.render();
+  if (data?.product) {
+    local.product = data.product;
+    local.categories = data.categories;
+    if (data.product?.info && Array.isArray(data.product.info)) {
+      local.product?.info.map((inf, idx) => {
+        let txt = inf[0];
+        txt = txt.toLowerCase();
+        switch (txt) {
+          case "penulis":
+            local.author = inf[1];
+            break;
+          case "format":
+            local.format = inf[1];
+            break;
+          case "jumlah halaman":
+            local.pages = inf[1];
+            break;
+          case "bahasa":
+            local.lang = inf[1];
+            break;
+        }
+      });
     }
-  );
+    local.owned = data.owned;
+    local.bookmarked = data.bookmarked;
+    local.inCart = data.in_cart;
+    local.breadcrumb = data.breadcrumb;
+    local.related = data.related;
+    local.loading = false;
+  }
 
   const renderLoading = <></>;
   const renderNoProduct = <div>TIDAK ADA PRODUK</div>;

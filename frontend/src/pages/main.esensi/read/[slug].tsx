@@ -12,24 +12,22 @@ export default (data: Awaited<ReturnType<typeof api.read>>["data"]) => {
     cart: true,
     profile: true,
   };
-  const local = useLocal(
-    {
-      loading: true as boolean,
-      product: null as any | null,
-      owned: false as boolean,
-    },
-    async () => {
-      local.product = data.product;
-      local.owned = data.owned;
-      local.loading = false;
+  const local = {
+    loading: true as boolean,
+    product: null as any | null,
+    owned: false as boolean,
+  };
 
-      local.render();
-    }
-  );
+  if (data?.product) {
+    local.product = data.product;
+    local.owned = data.owned;
+    local.loading = false;
+  }
 
   const renderLoading = <></>;
-  const renderNoAccess = <div>Maaf, anda tidak memiliki akses ke ebook ini</div>;
-
+  const renderNoAccess = (
+    <div>Maaf, anda tidak memiliki akses ke ebook ini</div>
+  );
 
   const renderTheProduct = (
     <div className="flex flex-col items-center justify-start gap-10">

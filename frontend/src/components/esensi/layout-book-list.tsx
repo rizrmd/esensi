@@ -119,8 +119,6 @@ export const LayoutBookList = ({
       toggleFilter: false as boolean,
     },
     async () => {
-      local.loading = false;
-      local.render();
     }
   );
 

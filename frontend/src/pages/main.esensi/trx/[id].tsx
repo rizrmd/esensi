@@ -113,53 +113,53 @@ export default (data: Awaited<ReturnType<typeof api.trx>>["data"]) => {
       breadcrumb: [] as any,
     },
     async () => {
-      local.trx = data.trx;
-      local.list = data.trx.info.cart;
-
-      let subtotal = 0;
-      let discount = 0;
-      local.list.map((item) => {
-        subtotal += parseFloat(item.real_price);
-        if (
-          item.strike_price !== null &&
-          item.strike_price !== "" &&
-          item.strike_price > item.real_price
-        ) {
-          discount +=
-            parseFloat(item.strike_price) - parseFloat(item.real_price);
-        }
-      });
-      local.breakdown.subtotal = subtotal;
-      local.breakdown.discount = discount;
-
-      const trx_data =
-        data.trx.midtrans_success !== null
-          ? data.trx.midtrans_success
-          : data.trx.midtrans_pending !== null
-          ? data.trx.midtrans_pending
-          : data.trx.midtrans_error !== null
-          ? data.trx.midtrans_error
-          : null;
-      console.log(data.trx.midtrans_failed);
-      if (trx_data !== null) {
-        local.payment.method = paymentMethodsString(trx_data.payment_type);
-        if (trx_data.payment_type === "bank_transfer") {
-          local.payment.bank = trx_data?.va_numbers?.bank
-            ? trx_data.va_numbers.bank
-            : null;
-          local.payment.va_number = trx_data?.va_numbers?.va_number
-            ? trx_data.va_numbers.va_number
-            : null;
-        }
-        local.payment.time = trx_data.transaction_time;
-        local.payment.status = trx_data.transaction_status;
-      }
-      local.breadcrumb = data.breadcrumb;
-      local.loading = false;
-
-      local.render();
     }
   );
+
+  if (data?.trx) {
+    local.trx = data.trx;
+    local.list = data.trx.info.cart;
+
+    let subtotal = 0;
+    let discount = 0;
+    local.list.map((item) => {
+      subtotal += parseFloat(item.real_price);
+      if (
+        item.strike_price !== null &&
+        item.strike_price !== "" &&
+        item.strike_price > item.real_price
+      ) {
+        discount += parseFloat(item.strike_price) - parseFloat(item.real_price);
+      }
+    });
+    local.breakdown.subtotal = subtotal;
+    local.breakdown.discount = discount;
+
+    const trx_data =
+      data.trx.midtrans_success !== null
+        ? data.trx.midtrans_success
+        : data.trx.midtrans_pending !== null
+        ? data.trx.midtrans_pending
+        : data.trx.midtrans_error !== null
+        ? data.trx.midtrans_error
+        : null;
+    console.log(data.trx.midtrans_failed);
+    if (trx_data !== null) {
+      local.payment.method = paymentMethodsString(trx_data.payment_type);
+      if (trx_data.payment_type === "bank_transfer") {
+        local.payment.bank = trx_data?.va_numbers?.bank
+          ? trx_data.va_numbers.bank
+          : null;
+        local.payment.va_number = trx_data?.va_numbers?.va_number
+          ? trx_data.va_numbers.va_number
+          : null;
+      }
+      local.payment.time = trx_data.transaction_time;
+      local.payment.status = trx_data.transaction_status;
+    }
+    local.breadcrumb = data.breadcrumb;
+    local.loading = false;
+  }
 
   const handleBreakdown = (e: any) => {
     e.preventDefault();
@@ -295,14 +295,14 @@ export default (data: Awaited<ReturnType<typeof api.trx>>["data"]) => {
           <div className="hidden lg:flex w-full justify-start">
             <Breadcrumbs data={local.breadcrumb} />
           </div>
-          
+
           <div className="flex flex-col gap-4 w-full lg:w-auto lg:flex-1">
             {!local.loading && renderItemsWrapper}
           </div>
           <div className="flex flex-col gap-4 w-full lg:w-1/3">
             {!local.loading && renderTotal}
             {!local.loading && renderBreakdown}
-            <TrxHelpLinks/>
+            <TrxHelpLinks />
           </div>
         </div>
       </div>

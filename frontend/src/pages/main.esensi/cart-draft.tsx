@@ -11,7 +11,7 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import { ChevronUp, Trash2 } from "lucide-react";
 
-export default (data: Awaited<ReturnType<typeof api.browse>>["data"]) => {
+export default (data: Awaited<ReturnType<typeof api.cart>>["data"]) => {
   const header_config = {
     enable: true,
     logo: false,

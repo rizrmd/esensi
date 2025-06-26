@@ -5,12 +5,12 @@ export const Breadcrumbs = ({ data = [] as any[] }) => {
   const list = data.map((li, idx) => {
     const arrow = idx < last ? <>/</> : <></>;
     return (
-      <>
         <li
           itemProp="itemListElement"
           itemScope
           itemType="https://schema.org/ListItem"
           key={`esensi_breadcrumb_${idx}`}
+          className="flex gap-1"
         >
           {li?.url == null ? (
             <span itemProp="name">{li?.label}</span>
@@ -19,9 +19,9 @@ export const Breadcrumbs = ({ data = [] as any[] }) => {
               <span itemProp="name">{li?.label}</span>
             </Link>
           )}
+          {arrow}
         </li>
-        {arrow}
-      </>
+        
     );
   });
 
