@@ -38,10 +38,10 @@ export const ParamsContext = createContext<Params>({});
 
 // Check if the first part of a path is a domain identifier from config
 export function isDomainSegment(segment: string): boolean {
-  if (!segment || !segment.includes('.')) return false;
+  if (!segment || !segment.includes(".")) return false;
 
   // Check if this segment matches any site key in config
-  return Object.keys(config.sites).some(site => site === segment);
+  return Object.keys(config.sites).some((site) => site === segment);
 }
 
 export function parsePattern(pattern: string): RoutePattern {
@@ -49,9 +49,9 @@ export function parsePattern(pattern: string): RoutePattern {
   const patternParts = pattern.split("/");
   const regexParts = patternParts.map((part, index) => {
     // If this is the first non-empty part and contains a dot, it might be a domain
-    if (index === 1 && part.includes('.') && isDomainSegment(part)) {
+    if (index === 1 && part.includes(".") && isDomainSegment(part)) {
       // Treat domain segment as optional when matching
-      return `(${part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})?`;
+      return `(${part.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})?`;
     }
 
     // Find all parameter patterns like [id] in the part
@@ -84,26 +84,6 @@ export function matchRoute(
 ): Params | null {
   // Clean up the path first
   const cleanPath = path.replace(/\/+/g, "/").replace(/\/$/, "");
-  
-  // If path doesn't start with domain but pattern has domain, try adding it
-  if (!cleanPath.includes(".esensi") && routePattern.pattern.includes(".esensi")) {
-    const domainSegment = routePattern.pattern.split("/")[1];
-    if (domainSegment && isDomainSegment(domainSegment)) {
-      // Try matching with domain added
-      const pathWithDomain = `/${domainSegment}${cleanPath}`;
-      const match = pathWithDomain.match(routePattern.regex);
-      if (match) {
-        const params: Params = {};
-        routePattern.paramNames.forEach((name, index) => {
-          const matched = match[index + (routePattern.pattern.includes(".esensi") ? 2 : 1)];
-          if (matched) {
-            params[name] = matched;
-          }
-        });
-        return params;
-      }
-    }
-  }
 
   // Regular matching
   const match = cleanPath.match(routePattern.regex);
@@ -111,7 +91,8 @@ export function matchRoute(
 
   const params: Params = {};
   routePattern.paramNames.forEach((name, index) => {
-    const matched = match[index + (routePattern.pattern.includes(".esensi") ? 2 : 1)];
+    const matched =
+      match[index + (routePattern.pattern.includes(".esensi") ? 2 : 1)];
     if (matched) {
       params[name] = matched;
     }
