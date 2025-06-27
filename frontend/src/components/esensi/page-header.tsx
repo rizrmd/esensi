@@ -2,22 +2,13 @@ import { Button } from "../ui/button";
 import { Link, navigate } from "@/lib/router";
 import {
   ArrowLeft,
-  ChevronLeft,
   Search,
   ShoppingCart,
   User,
 } from "lucide-react";
 import { Input } from "../ui/input";
 import { useLocal } from "@/lib/hooks/use-local";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/utils";
+import { DesktopMenu } from "./desktop-menu";
 
 type MenuItem = {
   label: string;
@@ -35,18 +26,18 @@ const menuItems: MenuItem[] = [
   },
   {
     label: "Kategori",
-    url: "",
+    url: "/categories",
     newtab: false,
     submenu: null,
   },
   {
     label: "Tentang Kami",
-    url: "",
+    url: "/about",
     newtab: false,
     submenu: [
       {
         label: "Tentang Kami",
-        url: "",
+        url: "/about",
         newtab: false,
         submenu: null,
       },
@@ -54,7 +45,32 @@ const menuItems: MenuItem[] = [
         label: "Tentang Kami",
         url: "",
         newtab: false,
-        submenu: null,
+        submenu: [
+          {
+            label: "Tentang Kami",
+            url: "/about",
+            newtab: false,
+            submenu: null,
+          },
+          {
+            label: "Tentang Kami",
+            url: "",
+            newtab: false,
+            submenu: null,
+          },
+          {
+            label: "Tentang Kami",
+            url: "",
+            newtab: false,
+            submenu: null,
+          },
+          {
+            label: "Tentang Kami",
+            url: "",
+            newtab: false,
+            submenu: null,
+          },
+        ],
       },
       {
         label: "Tentang Kami",
@@ -208,43 +224,7 @@ export const PageHeader = ({
         </div>
 
         {/* Navigation Menu */}
-        <NavigationMenu className="hidden w-auto shrink-0 grow-1 whitespace-nowrap lg:flex ml-4 lg:mx-8">
-          <NavigationMenuList>
-            {menuItems.map((item, index) => (
-              <NavigationMenuItem key={index}>
-                {item.submenu ? (
-                  <>
-                    <NavigationMenuTrigger className="text-black data-[state=open]:text-[#3B2C93] active:text-[#3B2C93] focus:text-[#3B2C93] data-[state=open]:bg-transparent hover:bg-transparent focus:bg-transparent cursor-pointer">
-                      {item.label}
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent className="py-1 min-w-[16rem]">
-                      <ul className="flex flex-col">
-                        {item.submenu.map((subItem, subIndex) => (
-                          <li
-                            key={subIndex}
-                            className="cursor-pointer hover:bg-accent text-sm px-3 py-1"
-                            onClick={() => navigate(subItem.url)}
-                          >
-                            {subItem.label}
-                          </li>
-                        ))}
-                      </ul>
-                    </NavigationMenuContent>
-                  </>
-                ) : (
-                  <NavigationMenuLink
-                    className={cn(
-                      "text-sm font-medium text-black cursor-pointer px-4 py-2 hover:text-[#3B2C93]"
-                    )}
-                    onClick={() => navigate(item.url)}
-                  >
-                    {item.label}
-                  </NavigationMenuLink>
-                )}
-              </NavigationMenuItem>
-            ))}
-          </NavigationMenuList>
-        </NavigationMenu>
+        <DesktopMenu data={menuItems} />
 
         {/* Right side icons */}
         <div
