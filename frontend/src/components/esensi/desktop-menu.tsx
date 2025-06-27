@@ -19,7 +19,7 @@ export const DesktopMenu = ({ data = [] as any, parent = null as any }) => {
       return (
         <li
           className={`flex relative ${
-            parent !== null ? "h-7 w-full hover:bg-[#ccc]" : "h-full px-3"
+            parent !== null ? "h-7 w-full hover:bg-[#ccc]" : "h-full"
           }`}
           key={`esensi_dmenu_${parent !== null ? `${parent}_` : ""}_${idx}`}
         >
@@ -43,7 +43,7 @@ export const DesktopMenu = ({ data = [] as any, parent = null as any }) => {
       <ul
         className={`${
           parent == null
-            ? "flex h-10 px-2 [&_li_ul]:hidden [&_li:hover>ul]:flex"
+            ? "flex h-10 gap-4 [&_li_ul]:hidden [&_li:hover>ul]:flex"
             : "flex-col absolute min-w-[160px] text-[14px] left-0 py-2 bg-white -ml-4 shadow-lg rounded-sm [&_ul]:left-full [&_ul]:ml-0 [&_ul]:-mt-2"
         } shrink-0 `}
       >
@@ -56,7 +56,7 @@ export const DesktopMenu = ({ data = [] as any, parent = null as any }) => {
 
   const renderMenu = data.length > 0 && <>{list}</>;
   return (
-    <div className="hidden lg:flex shrink-0 [&_ul_ul]:top-full [&_ul_ul_ul]:top-0">
+    <div className="hidden px-3 lg:flex shrink-0 [&_ul_ul]:top-full [&_ul_ul_ul]:top-0">
       {renderMenu}
     </div>
   );

@@ -230,7 +230,7 @@ export const PageHeader = ({
         <div
           className={`flex justify-end items-center ${
             local.search ? "w-auto" : "w-full"
-          } grow-1 lg:grow-0`}
+          } grow-1 lg:grow-0 lg:w-auto`}
         >
           <Button
             variant="ghost"
