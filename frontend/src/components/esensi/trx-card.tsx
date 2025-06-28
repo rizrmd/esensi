@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { formatMoney } from "./format-money";
 import { formatDate } from "@/lib/utils";
 import { Link } from "@/lib/router";
+import { ImgThumb } from "./img-thumb";
 
 export const TrxCard = ({ data = null as any | null }) => {
   const local = useLocal(
@@ -27,14 +28,7 @@ export const TrxCard = ({ data = null as any | null }) => {
       count++;
       <div className="flex gap-2 px-2">
         <div className="flex shrink-0 w-1/4 lg:max-w-[80px] p-2 items-center">
-          <img
-            src={`https://esensi.online/${book.cover.replace(
-              "_file/",
-              "_img/"
-            )}?w=320`}
-            alt={`book_${idx}`}
-            className="w-full h-auto aspect-3/4 object-center object-cover"
-          />
+        <ImgThumb src={book.cover} alt={`book_${idx}`} className="w-full h-auto aspect-3/4 object-center object-cover" width={320}/>
         </div>
         <div className="flex flex-col grow-1 p-1 gap-1">
           <div className="text-left text-[#3B2C93] font-semibold leading-[1.2] lg:max-w-[60%]">
@@ -50,14 +44,7 @@ export const TrxCard = ({ data = null as any | null }) => {
       mainproduct = (
         <div className="flex gap-2 px-2">
           <div className="flex shrink-0 w-1/4 lg:max-w-[80px] p-2 items-center">
-            <img
-              src={`https://esensi.online/${book.cover.replace(
-                "_file/",
-                "_img/"
-              )}?w=320`}
-              alt={`book_${idx}`}
-              className="w-full h-auto aspect-3/4 object-center object-cover"
-            />
+          <ImgThumb src={book.cover} alt={`book_${idx}`} className="w-full h-auto aspect-3/4 object-center object-cover" width={320}/>
           </div>
           <div className="flex flex-col grow-1 p-1 gap-1">
             <div className="text-left text-[#3B2C93] font-semibold leading-[1.2] lg:max-w-[60%]">

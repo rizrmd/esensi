@@ -2,6 +2,7 @@ import { BookMarked, BookOpenText, Languages } from "lucide-react";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { formatMoney } from "./format-money";
+import { ImgThumb } from "./img-thumb";
 
 export const BookDetail = ({ loading, data }) => {
     let book, info, pricing, description;
@@ -11,7 +12,7 @@ export const BookDetail = ({ loading, data }) => {
         book = (
             <div className="flex flex-col md:flex-row gap-8">
                 <div className="w-full md:w-[300px] flex-shrink-0">
-                    <img src={data.cover} alt={data.name} className="w-full h-auto rounded-lg shadow-lg" />
+                    <ImgThumb src={data.cover} alt={data?.name} className="w-full h-auto rounded-lg shadow-lg"/>
                 </div>
                 <div className="flex flex-col gap-4 flex-grow">
                     <div>

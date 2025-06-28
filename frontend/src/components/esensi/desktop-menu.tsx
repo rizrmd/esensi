@@ -19,7 +19,7 @@ export const DesktopMenu = ({ data = [] as any, parent = null as any }) => {
       return (
         <li
           className={`flex relative ${
-            parent !== null ? "h-7 w-full hover:bg-[#ccc]" : "h-full"
+            parent !== null ? "h-7 w-full hover:[&>a]:bg-[#e1e5ef] hover:[&>a]:text-[#3B2C93]" : "h-full hover:[&>a]:text-[#3B2C93]"
           }`}
           key={`esensi_dmenu_${parent !== null ? `${parent}_` : ""}_${idx}`}
         >
@@ -29,7 +29,7 @@ export const DesktopMenu = ({ data = [] as any, parent = null as any }) => {
             className={`flex h-full gap-1.5 items-center ${
               parent !== null
                 ? "px-4 w-full justify-between [&_svg]:rotate-[-90deg] [&_svg]:-mr-3"
-                : ""
+                : "font-medium"
             }`}
           >
             {item?.label} {the_chevron}

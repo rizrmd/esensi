@@ -2,6 +2,7 @@ import { Link } from "@/lib/router";
 import { Button } from "../ui/button";
 import { formatMoney } from "./format-money";
 import { Fragment } from "react/jsx-runtime";
+import { ImgThumb } from "./img-thumb";
 
 export const FeaturedBooks = ({data = [] as any}) => {
 
@@ -15,11 +16,7 @@ export const FeaturedBooks = ({data = [] as any}) => {
               ? book.bundle_product.map((b, i) => {
                   return (
                     <Fragment key={i + "_" + idx}>
-                      <img
-                        src={`https://esensi.online/${b.cover.replace("_file/", "_img/")}?w=65`}
-                        alt={`${b.name.replace("'", "").replace('"', "")}`}
-                        className="aspect-[3/4] rounded-sm h-full w-auto"
-                      />
+                      <ImgThumb src={b.cover} alt={b?.name} className="aspect-[3/4] rounded-sm h-full w-auto" width={65}/>
                     </Fragment>
                   );
                 })
@@ -76,11 +73,7 @@ export const FeaturedBooks = ({data = [] as any}) => {
               key={`esensi_featured_${idx}`}
             >
               <div className="flex w-36 items-start">
-                <img
-                  src={`https://esensi.online/${book.cover.replace("_file/", "_img/")}?w=200`}
-                  alt={`${book.name.replace("'", "").replace('"', "")}`}
-                  className="aspect-3/4 w-full h-auto object-cover object-center rounded-[4px]"
-                />
+                <ImgThumb src={book.cover} alt={book?.name} className="aspect-3/4 w-full h-auto object-cover object-center rounded-[4px]" width={200}/>
               </div>
               <div className="flex flex-col flex-1 wrap-break-word md:flex-1 sm:w-full md:max-w-fit h-fit items-start gap-2">
                 <h3 className="font-bold leading-[1.3]">{book.name}</h3>

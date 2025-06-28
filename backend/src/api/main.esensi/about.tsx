@@ -8,9 +8,46 @@ export default defineAPI({
 
     const req = this.req!;
 
+    const content = `<h3>Empowering Your Talent</h3><p>Di PT Meraih Ilmu Semesta, kami percaya bahwa setiap orang memiliki potensi luar biasa untuk berbagi ilmu dan inspirasi melalui tulisan.</p>
+<p>Kami hadir untuk membantu para penulis, pemikir, dan profesional dalam mewujudkan ide-ide mereka menjadi karya digital yang dapat dinikmati oleh pembaca di seluruh dunia.</p>
+<p>Sebagai perusahaan yang bergerak di bidang penerbitan digital, kami menawarkan solusi lengkap bagi penulis.</p>`;
+
+const links = [
+      {
+        label: "Email kami",
+        sublabel: "info@esensi.online",
+        url: "mailto:info@esensi.online",
+        newTab: true,
+        icon: "mail",
+      },
+      /*
+      {
+        label: "Telepon kami",
+        sublabel: `(031) 000 000
+          Jam Operasional 08:00 - 20:00 WIB`,
+        url: "#",
+        newTab: true,
+        icon: "phone",
+      },
+      {
+        label: "Customer support",
+        url: "#",
+        newTab: true,
+        icon: "chat",
+      },
+      {
+        label: "Pusat bantuan",
+        url: "#",
+        newTab: true,
+        icon: "file",
+      },
+      */
+    ];
+
     const data = {
       title: `Tentang Kami`,
-      content: {},
+      content: content,
+      links: links,
       breadcrumb: [{
         url: null,
         label: "About",

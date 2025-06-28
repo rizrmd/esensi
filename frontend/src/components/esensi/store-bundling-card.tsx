@@ -1,6 +1,7 @@
 import { Link } from "@/lib/router";
 import { formatMoney } from "./format-money";
 import { Star } from "lucide-react";
+import { ImgThumb } from "./img-thumb";
 
 export const StoreBundlingCard = ({ data }) => {
   const stars = Array.from({ length: 5 }, (_, idx) => {
@@ -12,14 +13,7 @@ export const StoreBundlingCard = ({ data }) => {
       className="flex h-full w-auto relative"
     >
       <div className="flex w-auto h-full aspect-3/4 relative">
-        <img
-          src={`https://esensi.online/${data.cover.replace(
-            "_file/",
-            "_img/"
-          )}?w=320`}
-          alt={data!.name.replace("'", "").replace('"', "")}
-          className="h-full aspect-3/4 w-auto object-cover object-center relative rounded-[4px]"
-        />
+        <ImgThumb src={data.cover} alt={data?.name} className="h-full aspect-3/4 w-auto object-cover object-center relative rounded-[4px]" width={320}/>
       </div>
       <div className="flex flex-col justify-center items-start min-w-[175px] py-10 px-6 text-left text-[#383D64] gap-2">
         <div className="flex flex-col justify-start items-start grow-1">

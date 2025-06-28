@@ -71,6 +71,12 @@ export default defineAPI({
         newtab: false,
         submenu: null,
       },
+      {
+        label: "Hubungi Kami",
+        url: "/contact",
+        newtab: false,
+        submenu: null,
+      },
     ];
 
     const data = {

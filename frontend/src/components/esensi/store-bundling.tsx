@@ -1,5 +1,6 @@
 import { Link } from "@/lib/router";
 import { StoreBundlingCard } from "./store-bundling-card";
+import { ImgThumb } from "./img-thumb";
 
 export const StoreBundling = ({ slug, img, list }) => {
   const renderBooks = list.map((book, idx) => {
@@ -13,11 +14,7 @@ export const StoreBundling = ({ slug, img, list }) => {
       <div className="flex w-auto lg:w-1/4 flex-row shrink-0">
         <Link href={`/bundle/${slug}`}>
           {img !== "" && img !== null && (
-            <img
-              src={img}
-              alt="Special bundle"
-              className="w-stretch h-auto aspect-1/1 object-fill position-center rounded-sm"
-            />
+            <ImgThumb src={img} alt="Special bundle" className="w-stretch h-auto aspect-1/1 object-fill position-center rounded-sm"/>
           )}
         </Link>
       </div>

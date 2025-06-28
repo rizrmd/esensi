@@ -2,6 +2,7 @@ import { Link } from "@/lib/router";
 import { Button } from "../ui/button";
 import CSS from "csstype";
 import { ArrowBigDownDash } from "lucide-react";
+import { ImgThumb } from "./img-thumb";
 
 export const BookCardLibrary = ({ data }) => {
   const progressCSS: CSS.Properties = {
@@ -10,14 +11,7 @@ export const BookCardLibrary = ({ data }) => {
   
   return (
     <div className="flex w-full h-auto items-stretch gap-4">
-      <img
-        src={`https://esensi.online/${data.cover.replace(
-          "_file/",
-          "_img/"
-        )}?w=320`}
-        alt={data!.name.replace("'", "").replace('"', "")}
-        className="w-1/4 lg:w-[100px] grow-0 bg-black h-auto object-cover object-center rounded-[4px]"
-      />
+      <ImgThumb src={data.cover} alt={data?.name} className="w-1/4 lg:w-[100px] grow-0 bg-black h-auto object-cover object-center rounded-[4px]" width={320}/>
       <div className="flex flex-col w-full h-full lg:py-6 justify-between gap-2">
         <div className="flex justify-between items-start">
           <h3 className="flex text-[#3B2C93] text-sm font-semibold leading-[1.3] grow-1">

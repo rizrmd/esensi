@@ -16,47 +16,25 @@ export default (data: Awaited<ReturnType<typeof api.about>>["data"]) => {
     profile: false,
   };
 
+  const icons = {
+    mail: <Mail/>,
+    phone: <Phone/>,
+    chat: <MessageCircleMore/>,
+    file: <FileSearch/>,
+};
+
   const local = {
     loading: true as boolean,
     breadcrumb: [] as any,
-    content:
-      `<h3></h3><p>In every mind there exists an Ocean Door, a hidden gateway to one’s subconscious, a realm of possibility and manipulation. And there are only two telepaths in the world who have power over it.
-
-A young telepath named Kallista wakes up in a beautiful, secluded valley called the Vale with no memories of her early life. For the next decade, she trains as a soldier for the Vow, an enigmatic military organisation led by a legendary telepathic warrior, Valeria Reed. Years after a childhood escape attempt that ended as a miserable failure, Kallista resolves to try one last time.</p>` as string,
+    content:"" as string,
     terbitan: null as any,
-    links: [
-      {
-        label: "Email kami",
-        sublabel: "info@esensi.online",
-        url: "mailto:info@esensi.online",
-        newTab: true,
-        icon: <Mail />,
-      },
-      {
-        label: "Telepon kami",
-        sublabel: `(031) 000 000
-          Jam Operasional 08:00 - 20:00 WIB`,
-        url: "#",
-        newTab: true,
-        icon: <Phone />,
-      },
-      {
-        label: "Customer support",
-        url: "#",
-        newTab: true,
-        icon: <MessageCircleMore />,
-      },
-      {
-        label: "Pusat bantuan",
-        url: "#",
-        newTab: true,
-        icon: <FileSearch />,
-      },
-    ] as any[],
+    links: [] as any[],
   };
 
   if (data) {
     local.breadcrumb = data.breadcrumb;
+    local.content = data.content;
+    local.links = data.links;
     local.loading = false;
   }
 
@@ -72,15 +50,14 @@ A young telepath named Kallista wakes up in a beautiful, secluded valley called 
   );
   const renderContent = (
     <div className="flex flex-col w-full gap-4">
-      <h3 className="lg:text-3xl">Tentang Kami</h3>
       <div
-        className="whitespace-pre-line"
+        className="whitespace-pre-line [&_h3]:text-2xl [&_h3]:mb-8 [&_h3]:text-center gap-4"
         dangerouslySetInnerHTML={{ __html: local.content }}
       ></div>
     </div>
   );
   const renderTerbitan = (
-    <div className="flex flex-col w-full gap-4">
+    <div className="hidden flex-col w-full gap-4">
       <h3>Buku Terbitan Esensi Online</h3>
       <div className="flex"></div>
     </div>
@@ -93,7 +70,7 @@ A young telepath named Kallista wakes up in a beautiful, secluded valley called 
         url={item.url}
         newTab={item.newTab}
         icon={
-          item?.icon !== "undefined" && item?.icon !== null ? item.icon : null
+          item?.icon !== "undefined" && item?.icon !== null ? icons[item.icon] : null
         }
       ></LinkItem>
     );

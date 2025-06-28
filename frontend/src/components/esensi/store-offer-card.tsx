@@ -1,6 +1,7 @@
 import { Link } from "@/lib/router";
 import { Button } from "../ui/button";
 import { ArrowRight } from "lucide-react";
+import { ImgThumb } from "./img-thumb";
 
 export const StoreOfferCard = ({ title, subtitle, description, url, img }) => {
   return (
@@ -25,11 +26,7 @@ export const StoreOfferCard = ({ title, subtitle, description, url, img }) => {
           </div>
         </div>
         <div className="flex items-stretch h-2/3">
-          <img
-            src={img}
-            alt={title}
-            className="w-full h-full object-fill position-center"
-          />
+        <ImgThumb src={img} alt={title} className="w-full h-full object-fill position-center"/>
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { ProfileButton } from "./profile-button";
 import { ProfileLinks } from "./profile-links";
+import { ImgThumb } from "./img-thumb";
 
 export const ProfileNavigation = ({
   user = null as any | null,
@@ -28,11 +29,7 @@ export const ProfileNavigation = ({
 
   const sectionProfilePicture = (
     <div className="flex w-full flex-col items-center justify-start text-[#3B2C93]">
-      <img
-        src={the_user.avatar}
-        alt="user"
-        className="w-1/4 h-auto aspect-1/1 rounded-full object-center object-cover"
-      />
+      <ImgThumb src={the_user.avatar} alt={the_user.fullname} className="w-1/4 h-auto aspect-1/1 rounded-full object-center object-cover"/>
       <strong className="font-bold mt-3">{the_user.fullname}</strong>
       <span className="text-xs">{the_user.email}</span>
     </div>
