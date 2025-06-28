@@ -5,12 +5,12 @@ export const ImgThumb = ({
   alt = "EO Img" as string,
   className = "" as string,
 }) => {
-  const img = src !== null ? src.replace("_file/", "_img/") : ``;
+  const img = src !== null ? src.startsWith(`data:image/`) ? src : `https://esensi.online/${src.replace("_file/", "_img/")}` : ``;
 
   const w = width !== null ? width : "auto";
   const h = height !== null ? height : "auto";
   const newAlt = alt.replace(`"`, ``).replace(`'`, ``);
-  const newUrl = `https://esensi.online/${img}${
+  const newUrl = `${img}${
     w !== "auto" ? `?w=${w}` : ""
   }`;
 
