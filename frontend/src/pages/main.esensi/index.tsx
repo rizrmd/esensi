@@ -15,6 +15,7 @@ import { StoreHeaderBanner } from "@/components/esensi/store-header-banner";
 import { api } from "@/lib/gen/main.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 
+
 export default () => {
   const local = useLocal(
     {
@@ -60,6 +61,7 @@ export default () => {
         img: "" as any | null,
         list: [] as StoreBooksCardItem[],
       },
+      menu_categories: [] as any,
     },
     async () => {
       const res = await api.index({
@@ -85,6 +87,7 @@ export default () => {
       local.headerBanner.btnlabel = "Find out";
       local.headerBanner.btnurl = "#";
 
+      local.menu_categories =  res.data.menu_categories;
       local.render();
       changeByCategory(res.data.categories[0].slug);
       changeFeaturedBundle("bundling-montessori-di-rumah");
@@ -151,7 +154,7 @@ export default () => {
   };
 
   return (
-    <MainEsensiLayout header_config={local.header_config}>
+    <MainEsensiLayout header_config={local.header_config} menu_categories={local.menu_categories}>
       <div className="w-full flex flex-col justify-center items-center gap-10 lg:[&>div:not(.esensi-banner)]:max-w-[1200px]">
         <div className="esensi-banner order-1 lg:order-0 -mt-10 lg:mt-0 w-full">
           <StoreHeaderBanner

@@ -35,9 +35,7 @@ export const StoreBooksCard: FC<{
   const retreiveBooks = list.map((book, idx) => {
     if (idx === 1) {
       return (
-        <>
-          <BookCard data={book} key={`store_books_${idx}`} /> {renderOffers}
-        </>
+          <BookCard data={book} key={`store_books_${idx}`} />
       );
     } else {
       return <BookCard data={book} key={`store_books_${idx}`} />;
@@ -77,7 +75,7 @@ export const StoreBooksCard: FC<{
 
   return (
     <div className="flex flex-col justify-center items-start gap-5 px-4 w-full">
-      <div className="flex flex-row justify-start items-stretch flex-wrap gap-y-4 w-full [&>a,&>.esensi-book-loading]:w-1/2 [&>a,&>.esensi-book-loading]:md:w-1/4 lg:[&>a:nth-child(8),&>a:nth-child(9)]:hidden">
+      <div className="flex flex-row justify-start items-stretch flex-wrap gap-y-4 w-full [&>a,&>.esensi-book-loading]:w-1/2 [&>a,&>.esensi-book-loading]:md:w-1/4">
         {loading ? renderBooksLoading : renderBooks}
       </div>
       <div className="flex justify-center items-center w-full lg:hidden">

@@ -4,7 +4,7 @@ import { Star } from "lucide-react";
 
 export const StoreBundlingCard = ({ data }) => {
   const stars = Array.from({ length: 5 }, (_, idx) => {
-    return <Star size={13} fill="currentColor" strokeWidth={0} />;
+    return <Star size={13} fill="currentColor" strokeWidth={0} key={`esensi_rating_${idx}`} />;
   });
   return (
     <Link

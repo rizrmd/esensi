@@ -118,15 +118,13 @@ export const LayoutBookList = ({
       ],
       toggleFilter: false as boolean,
     },
-    async () => {
-    }
+    async () => {}
   );
 
   const handleUpdateFilter = () => {
     local.toggleFilter = false;
     local.render();
   };
-
 
   const handleFilterPopup = (e: any) => {
     e.preventDefault();
@@ -169,7 +167,6 @@ export const LayoutBookList = ({
       <div className="flex w-px h-[80%] bg-[#383D64]"></div>
     </div>
   );
-
 
   const renderFiltersWrapper = local.filters.map((filter, idx) => {
     let filterOptions = <></>;
@@ -224,7 +221,7 @@ export const LayoutBookList = ({
     if (isBundle) {
       return (
         <div className="esensi-book flex w-full" key={`esensi_booklist_${idx}`}>
-          <BundlingCard data={book}  key={`esensi_booklist_${idx}`} />
+          <BundlingCard data={book} key={`esensi_booklist_${idx}`} />
         </div>
       );
     } else {
@@ -272,7 +269,9 @@ export const LayoutBookList = ({
         <h2 className="w-full max-w-[1200px]">{title}</h2>
       </div>
       <div className="flex flex-col w-full max-w-[1200px] gap-4">
-        <Breadcrumbs data={breadcrumb}/>
+        <div className="hidden lg:flex w-full justify-start">
+          <Breadcrumbs data={breadcrumb} />
+        </div>
         <div className="flex flex-col lg:flex-row lg:items-start py-8 gap-5">
           <div className="flex flex-col w-full shrink-0 lg:w-1/4 lg:gap-6">
             <div className="flex flex-wrap gap-1 px-4 lg:hidden">

@@ -71,6 +71,16 @@ export default defineAPI({
       },
     });
 
+    const menu_categories = categories.map((cat, idx) => {
+      const the_cat = {
+        label: cat.name,
+        url: `/category/${cat.slug}`,
+        newtab: false,
+        submenu: null,
+      };
+      return the_cat;
+    });
+
     /*
     if (arg?.bundling_slug !== "" && arg?.bundling_slug !== null) {
 
@@ -128,6 +138,7 @@ export default defineAPI({
     const data = {
       title: `Esensi Online`,
       categories: categories,
+      menu_categories: menu_categories,
       allbooks: allbooks,
       featured: featured,
       bundling: {

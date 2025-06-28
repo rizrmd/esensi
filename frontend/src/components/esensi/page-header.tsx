@@ -17,82 +17,6 @@ type MenuItem = {
   submenu: MenuItem[] | null;
 };
 
-const menuItems: MenuItem[] = [
-  {
-    label: "Beranda",
-    url: "/",
-    newtab: false,
-    submenu: null,
-  },
-  {
-    label: "Kategori",
-    url: "/categories",
-    newtab: false,
-    submenu: null,
-  },
-  {
-    label: "Tentang Kami",
-    url: "/about",
-    newtab: false,
-    submenu: [
-      {
-        label: "Tentang Kami",
-        url: "/about",
-        newtab: false,
-        submenu: null,
-      },
-      {
-        label: "Tentang Kami",
-        url: "",
-        newtab: false,
-        submenu: [
-          {
-            label: "Tentang Kami",
-            url: "/about",
-            newtab: false,
-            submenu: null,
-          },
-          {
-            label: "Tentang Kami",
-            url: "",
-            newtab: false,
-            submenu: null,
-          },
-          {
-            label: "Tentang Kami",
-            url: "",
-            newtab: false,
-            submenu: null,
-          },
-          {
-            label: "Tentang Kami",
-            url: "",
-            newtab: false,
-            submenu: null,
-          },
-        ],
-      },
-      {
-        label: "Tentang Kami",
-        url: "",
-        newtab: false,
-        submenu: null,
-      },
-      {
-        label: "Tentang Kami",
-        url: "",
-        newtab: false,
-        submenu: null,
-      },
-    ],
-  },
-  {
-    label: "Hubungi Kami",
-    url: "",
-    newtab: false,
-    submenu: null,
-  },
-];
 
 export const PageHeader = ({
   enable = true as boolean,
@@ -105,6 +29,7 @@ export const PageHeader = ({
   profile = true as boolean,
   mobileHide = false as boolean,
   desktopHide = false as boolean,
+  menu_categories = [] as any,
   toggleProfile,
 }) => {
   const local = useLocal(
@@ -119,24 +44,37 @@ export const PageHeader = ({
       profile: profile,
       mobileHide: mobileHide,
       desktopHide: desktopHide,
+      menu_categories: menu_categories,
     },
     async () => {
-      local.enable = enable;
-      local.logo = logo;
-      local.back = back;
-      local.title = title;
-      local.search = search;
-      local.searchQuery = searchQuery;
-      local.cart = cart;
-      local.profile = profile;
-      local.mobileHide = mobileHide;
-      local.desktopHide = desktopHide;
       if (mobileHide && desktopHide) {
         local.enable = false;
       }
+
       local.render();
     }
   );
+
+let menuItems: MenuItem[] = [
+  {
+    label: "Beranda",
+    url: "/",
+    newtab: false,
+    submenu: null,
+  },
+  {
+    label: "Semua E-Book",
+    url: "/browse",
+    newtab: false,
+    submenu: local.menu_categories,
+  },
+  {
+    label: "Tentang Esensi",
+    url: "/about",
+    newtab: false,
+    submenu: null,
+  },
+];
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {

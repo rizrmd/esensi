@@ -3,8 +3,7 @@ import { useLocal } from "@/lib/hooks/use-local";
 import { api } from "@/lib/gen/main.esensi";
 import { Link } from "@/lib/router";
 import { formatMoney } from "@/components/esensi/format-money";
-import { Bookmark, BookmarkPlus, Plus, ShoppingBag, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Star } from "lucide-react";
 import { ProductBuyButtons } from "@/components/esensi/product-buy-buttons";
 import { DiscountPercent } from "@/components/esensi/discount-percent";
 import { CategoryList } from "@/components/esensi/category-list";
@@ -69,7 +68,7 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
   }
 
   const renderLoading = <></>;
-  const renderNoProduct = <div>TIDAK ADA PRODUK</div>;
+  const renderNoProduct = <></>;
 
   const bookCover = local.loading ? (
     <></>
