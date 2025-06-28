@@ -34,7 +34,7 @@ export default defineAPI({
       meta_description: `Halaman Disclaimer Esensi Online menjelaskan batas tanggung jawab atas konten digital, penjualan ebook, serta hak dan kewajiban pengguna dalam menggunakan layanan kami sebagai marketplace dan penerbit.`,
       image: ``,
       headings: `Disclaimer`,
-      h1: ``,
+      h1: `Disclaimer`,
       h2: `Tentang Esensi Online`,
       h3: `Batas Tanggung Jawab atas Konten`,
       h4:`Peran Kami sebagai Marketplace dan Publisher`,
