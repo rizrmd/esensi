@@ -1,16 +1,11 @@
 import { Button } from "../ui/button";
 import { Link, navigate } from "@/lib/router";
-import {
-  ArrowLeft,
-  Search,
-  ShoppingCart,
-  User,
-} from "lucide-react";
+import { ArrowLeft, Search, ShoppingCart, User } from "lucide-react";
 import { Input } from "../ui/input";
 import { useLocal } from "@/lib/hooks/use-local";
 import { DesktopMenu } from "./desktop-menu";
 import { api } from "@/lib/gen/main.esensi";
-
+import { ImgThumb } from "./img-thumb";
 
 export const PageHeader = ({
   enable = true as boolean,
@@ -39,11 +34,25 @@ export const PageHeader = ({
       mobileHide: mobileHide,
       desktopHide: desktopHide,
       menu_categories: menu_categories,
-      menuItems:[] as any,
+      contents: {
+        logo: {
+          img: `` as string,
+          alt: `` as string,
+        },
+        searchbar: {
+          placeholder: `` as string,
+        },
+        menuItems: [] as any,
+      },
     },
     async () => {
-      const res = await api.desktopmenu();
-      local.menuItems = res.data.menu;
+      const res = await api.header();
+      if (res?.data) {
+        local.contents.logo = res.data?.logo;
+        local.contents.searchbar = res.data?.searchbar;
+        local.contents.menuItems = res.data?.menu;
+      }
+
       if (mobileHide && desktopHide) {
         local.enable = false;
       }
@@ -51,7 +60,6 @@ export const PageHeader = ({
       local.render();
     }
   );
-
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -99,9 +107,9 @@ export const PageHeader = ({
             local.logo ? "flex" : "hidden lg:flex"
           } shrink-0`}
         >
-          <img
-            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhOUKb6M5yGcRNhuM1NHSBaAvbNYSFAibMX-1xCI8gI8jl-h566LB-SNs4PW7s2hyphenhyphenj9WNdyhCtn8LFqX9V2j-ABFZoN-nw34q0l4Hf3a13EMffqv6edTQAzK7O-8RXpOIA69rTg6g60hv0eME6yDgJpUZEFIastMfEW-6Pjpq6LFXoGdKExm7L-Hu9PYy8/s1600/esensi-online-logo.png"
-            alt="Esensi Online"
+          <ImgThumb
+            src={local.contents?.logo?.img}
+            alt={local.contents?.logo?.alt}
             className="h-8 w-auto lg:h-16"
           />
         </Link>
@@ -126,7 +134,7 @@ export const PageHeader = ({
             <Search className="absolute left-2 lg:left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               type="text"
-              placeholder="Cari buku..."
+              placeholder={local.contents?.searchbar?.placeholder}
               className="w-full pl-8 lg:pl-10 bg-[#F6F6F6] text-[#000] rounded-full text-sm border-none focus:border-none focus:ring-0"
               value={local.searchQuery}
               onChange={(e) => {
@@ -139,7 +147,7 @@ export const PageHeader = ({
         </div>
 
         {/* Navigation Menu */}
-        <DesktopMenu data={local.menuItems} />
+        <DesktopMenu data={local.contents.menuItems} />
 
         {/* Right side icons */}
         <div
