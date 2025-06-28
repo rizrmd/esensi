@@ -5,13 +5,13 @@ export const DesktopMenu = ({ data = [] as any, parent = null as any }) => {
   const build = (menu = [] as any, parent = null as any) => {
     const the_list = menu.map((item, idx) => {
       const the_submenu =
-        item?.submenu && item?.submenu !== null ? (
+        item?.submenu && item?.submenu !== null && item?.submenu.length > 0 ? (
           build(item.submenu, idx)
         ) : (
           <></>
         );
       const the_chevron =
-        item?.submenu && item?.submenu !== null ? (
+        item?.submenu && item?.submenu !== null && item?.submenu.length > 0 ? (
           <ChevronDown size={14} />
         ) : (
           <></>
@@ -43,7 +43,7 @@ export const DesktopMenu = ({ data = [] as any, parent = null as any }) => {
       <ul
         className={`${
           parent == null
-            ? "flex h-10 gap-4 [&_li_ul]:hidden [&_li:hover>ul]:flex"
+            ? "flex h-10 gap-6 [&_li_ul]:hidden [&_li:hover>ul]:flex"
             : "flex-col absolute min-w-[160px] text-[14px] left-0 py-2 bg-white -ml-4 shadow-lg rounded-sm [&_ul]:left-full [&_ul]:ml-0 [&_ul]:-mt-2"
         } shrink-0 `}
       >

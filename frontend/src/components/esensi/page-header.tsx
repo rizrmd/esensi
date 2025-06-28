@@ -9,13 +9,7 @@ import {
 import { Input } from "../ui/input";
 import { useLocal } from "@/lib/hooks/use-local";
 import { DesktopMenu } from "./desktop-menu";
-
-type MenuItem = {
-  label: string;
-  url: string;
-  newtab: boolean;
-  submenu: MenuItem[] | null;
-};
+import { api } from "@/lib/gen/main.esensi";
 
 
 export const PageHeader = ({
@@ -45,8 +39,11 @@ export const PageHeader = ({
       mobileHide: mobileHide,
       desktopHide: desktopHide,
       menu_categories: menu_categories,
+      menuItems:[] as any,
     },
     async () => {
+      const res = await api.desktopmenu();
+      local.menuItems = res.data.menu;
       if (mobileHide && desktopHide) {
         local.enable = false;
       }
@@ -55,26 +52,6 @@ export const PageHeader = ({
     }
   );
 
-let menuItems: MenuItem[] = [
-  {
-    label: "Beranda",
-    url: "/",
-    newtab: false,
-    submenu: null,
-  },
-  {
-    label: "Semua E-Book",
-    url: "/browse",
-    newtab: false,
-    submenu: local.menu_categories,
-  },
-  {
-    label: "Tentang Esensi",
-    url: "/about",
-    newtab: false,
-    submenu: null,
-  },
-];
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -162,7 +139,7 @@ let menuItems: MenuItem[] = [
         </div>
 
         {/* Navigation Menu */}
-        <DesktopMenu data={menuItems} />
+        <DesktopMenu data={local.menuItems} />
 
         {/* Right side icons */}
         <div
