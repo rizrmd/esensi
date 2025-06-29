@@ -14,11 +14,10 @@ export const ImgThumb = ({
 
   let img =
     src !== null
-      ? src.startsWith(`_file/`) && !skipResize
-        ? `https://esensi.online/${src}`
-        : src
+      ? src.startsWith(`_file/`) 
+      ? skipResize ? `/${src}` : `https://esensi.online/${src}` : src
       : ``;
-  img = img.startsWith(`https://esensi.online/`)
+  img = img.startsWith(`https://esensi.online/`) && !skipResize
     ? `${img.replace("_file/", "_img/")}${w !== "auto" ? `?w=${w}` : ""}`
     : img;
 

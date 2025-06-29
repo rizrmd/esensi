@@ -7,6 +7,7 @@ import { BookCard } from "./book-card";
 import { BundlingCard } from "./bundling-card";
 import { FilterItem } from "./filter-item";
 import { Breadcrumbs } from "./breadcrumbs";
+import { api } from "@/lib/gen/main.esensi";
 
 export const LayoutBookList = ({
   title = "" as string,
@@ -24,13 +25,10 @@ export const LayoutBookList = ({
   } as any,
   isBundle = false as boolean,
 }) => {
-  const header_img = `https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgU1yo1WjoGn3ORo8MQjhX5pIzlnkk_8a55xGT0b9Ap3rX2osccVQQIyMRnqIE6bXw7PZEUkjFK4Rq9UmZr2547ratdgsWKljHWk0cxo36IXpU59FaL-HsWTIyrBrAhA82yIfN-GlRZPguxeuuQjtIWn5E59tQ1y6Y7aJ_hRSwj4WkudbMFyaJSDiQY_aw/s1600/header-banner.png`;
-  const bannerCSS: CSS.Properties = {
-    backgroundImage: `url(${header_img})`,
-  };
   const local = useLocal(
     {
       loading: loading,
+      banner: `` as string,
       filters: [
         {
           name: "sort" as string,
@@ -116,8 +114,17 @@ export const LayoutBookList = ({
       ],
       toggleFilter: false as boolean,
     },
-    async () => {}
+    async () => {
+      const banner = await api.banner({ for: "booklist" });
+      if (banner?.data) {
+        local.banner = banner.data?.img;
+      }
+    }
   );
+
+  const bannerCSS: CSS.Properties = {
+    backgroundImage: `url(/${local.banner})`,
+  };
 
   const handleUpdateFilter = () => {
     local.toggleFilter = false;
