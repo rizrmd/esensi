@@ -5,7 +5,7 @@ export default defineAPI({
   url: "/api/header",
   async handler() {
     const logo = {
-      img: `_file/upload/esensi-online-logo.png`,
+      img: `/_file/upload/esensi-online-logo.png`,
       alt: `Esensi Online`,
     };
 
