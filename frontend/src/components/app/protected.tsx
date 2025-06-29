@@ -24,7 +24,17 @@ export const Protected: FC<{
   onLoad?: (opt: { user: null | User }) => void | Promise<void>;
   fallback?: (opt: { missing_role: Role[] }) => ReactNode;
   fallbackUrl?: string | null;
-}> = ({ children, role, fallback, onLoad, fallbackUrl }) => {
+  disableRedirect?: boolean;
+  pages?: string[] | null;
+}> = ({
+  children,
+  role,
+  fallback,
+  onLoad,
+  fallbackUrl,
+  disableRedirect,
+  pages,
+}) => {
   const params = new URLSearchParams(location.search);
   let callbackURL = params.get("callbackURL") as string | undefined;
   callbackURL = !callbackURL ? window.location.origin : callbackURL;
@@ -57,25 +67,30 @@ export const Protected: FC<{
         }
         if (e.data?.action == "session") {
           current.user = e.data.user;
-          if (!current.user) navigate("/");
+          if (!disableRedirect && !current.user) navigate("/");
           else {
-            notif.init(current.user.id);
-
-            if (current.user.idAffiliate === "null")
-              current.user.idAffiliate = null;
-            if (current.user.idAuthor === "null") current.user.idAuthor = null;
-            if (current.user.idCustomer === "null")
-              current.user.idCustomer = null;
-            if (current.user.idInternal === "null")
-              current.user.idInternal = null;
-            if (current.user.idPublisher === "null")
-              current.user.idPublisher = null;
+            if (current.user) {
+              notif.init(current.user!.id);
+              if (current.user!.idAffiliate === "null")
+                current.user!.idAffiliate = null;
+              if (current.user!.idAuthor === "null")
+                current.user!.idAuthor = null;
+              if (current.user!.idCustomer === "null")
+                current.user!.idCustomer = null;
+              if (current.user!.idInternal === "null")
+                current.user!.idInternal = null;
+              if (current.user!.idPublisher === "null")
+                current.user!.idPublisher = null;
+            }
 
             if (role !== "any") {
               const roles = Array.isArray(role) ? role : [role];
               local.missing_role = [];
               for (const r of roles) {
-                if (!(current.user as any)[snakeToCamel(`id_${r}`)]) {
+                if (
+                  current.user &&
+                  !(current.user as any)[snakeToCamel(`id_${r}`)]
+                ) {
                   if (r) local.missing_role.push(r);
                 }
               }
@@ -83,7 +98,8 @@ export const Protected: FC<{
                 local.missing_role = [];
             }
 
-            if (!current.user) Alert.info("Error loading session");
+            if (!disableRedirect && !current.user)
+              Alert.info("Error loading session");
             if (onLoad) {
               if (!local.loaded) local.loaded = true;
               onLoad({ user: current.user });

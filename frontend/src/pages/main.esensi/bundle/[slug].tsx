@@ -161,7 +161,7 @@ export default (data: Awaited<ReturnType<typeof api.bundle>>["data"]) => {
                 )}
               </span>
             </div>
-            <div className="flex justify-between w-full lg:w-auto lg:order-3 whitespace-pre py-2 bg-[#E1E5EF] rounded-2xl [&>.esensi-with-separator]:border-l [&>.esensi-with-separator]:border-l-[#3B2C93]">
+            <div className="flex justify-between w-full lg:w-auto lg:order-3 whitespace-pre py-2 bg-[#E1E5EF] rounded-2xl [&>.esensi-with-separator]:border-l [&>.esensi-with-separator]:border-l-[#b4b0db]">
               {bookInfo}
             </div>
             {bookBuyButton}
