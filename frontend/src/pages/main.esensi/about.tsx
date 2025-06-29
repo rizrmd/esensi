@@ -1,4 +1,5 @@
 import { Breadcrumbs } from "@/components/esensi/breadcrumbs";
+import { ImgThumb } from "@/components/esensi/img-thumb";
 import { MainEsensiLayout } from "@/components/esensi/layout";
 import { LinkItem } from "@/components/esensi/link-item";
 import type { api } from "@/lib/gen/main.esensi";
@@ -17,34 +18,45 @@ export default (data: Awaited<ReturnType<typeof api.about>>["data"]) => {
   };
 
   const icons = {
-    mail: <Mail/>,
-    phone: <Phone/>,
-    chat: <MessageCircleMore/>,
-    file: <FileSearch/>,
-};
+    mail: <Mail />,
+    phone: <Phone />,
+    chat: <MessageCircleMore />,
+    file: <FileSearch />,
+  };
 
   const local = {
     loading: true as boolean,
+    logo: {} as any,
     breadcrumb: [] as any,
-    content:"" as string,
+    content: "" as string,
     terbitan: null as any,
-    links: [] as any[],
+    links: [
+      {
+        label: "Email kami",
+        sublabel: "info@esensi.online",
+        url: "mailto:info@esensi.online",
+        newTab: true,
+        icon: "mail",
+      },
+    ] as any,
   };
 
   if (data) {
-    local.breadcrumb = data.breadcrumb;
-    local.content = data.content;
-    local.links = data.links;
+    local.logo = data?.logo;
+    local.breadcrumb = data?.breadcrumb;
+    local.content = data?.content;
+    local.links = data?.links;
     local.loading = false;
   }
 
   const renderLoading = <></>;
   const renderLogo = (
     <p className="flex justify-center w-full pb-6">
-      <img
-        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhOUKb6M5yGcRNhuM1NHSBaAvbNYSFAibMX-1xCI8gI8jl-h566LB-SNs4PW7s2hyphenhyphenj9WNdyhCtn8LFqX9V2j-ABFZoN-nw34q0l4Hf3a13EMffqv6edTQAzK7O-8RXpOIA69rTg6g60hv0eME6yDgJpUZEFIastMfEW-6Pjpq6LFXoGdKExm7L-Hu9PYy8/s1600/esensi-online-logo.png"
-        alt="Esensi Online"
+      <ImgThumb
+        src={local.logo?.img}
+        alt={local.logo?.alt}
         className="w-1/2 h-auto"
+        skipResize={true}
       />
     </p>
   );
@@ -62,23 +74,33 @@ export default (data: Awaited<ReturnType<typeof api.about>>["data"]) => {
       <div className="flex"></div>
     </div>
   );
-  const renderLinksItem = local.links.map((item) => {
-    return (
-      <LinkItem
-        label={item.label}
-        sublabel={item?.sublabel !== "undefined" ? item.sublabel : null}
-        url={item.url}
-        newTab={item.newTab}
-        icon={
-          item?.icon !== "undefined" && item?.icon !== null ? icons[item.icon] : null
-        }
-      ></LinkItem>
-    );
-  });
+  console.log(local.links);
+  const renderLinksItem = local.links !== "undefined" && local.links !== undefined &&
+    local.links !== null &&
+    local.links.length > 0 &&
+    local.links.map((item: any, idx) => {
+      const renderItems = !item || item === "undefined" ? <></> : <LinkItem
+          key={`esensi_about_links_${idx}`}
+          label={item?.label}
+          sublabel={item?.sublabel !== "undefined" ? item.sublabel : null}
+          url={item?.url}
+          newTab={item?.newTab}
+          icon={
+            item?.icon !== "undefined" && item?.icon !== null
+              ? icons[item.icon]
+              : null
+          }
+        />;
+      return renderItems;
+    });
   const renderLinks = (
     <div className="flex flex-col w-full gap-4">
       <h3>Hubungi Kami</h3>
-      <div className="flex flex-col">{renderLinksItem}</div>
+      <div className="flex flex-col">
+        {local.links !== "undefined" && local.links !== undefined &&
+    local.links !== null &&
+    local.links.length > 0 && renderLinksItem}
+      </div>
     </div>
   );
 
