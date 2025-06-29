@@ -9,6 +9,7 @@ import { DiscountPercent } from "@/components/esensi/discount-percent";
 import { CategoryList } from "@/components/esensi/category-list";
 import { Breadcrumbs } from "@/components/esensi/breadcrumbs";
 import { RelatedPost } from "@/components/esensi/related-post";
+import { GlobalLoading } from "@/components/esensi/global-loading";
 
 export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
   const header_config = {
@@ -67,7 +68,7 @@ export default (data: Awaited<ReturnType<typeof api.product>>["data"]) => {
     local.loading = false;
   }
 
-  const renderLoading = <></>;
+  const renderLoading = <GlobalLoading/>;
   const renderNoProduct = <></>;
 
   const bookCover = local.loading ? (

@@ -8,6 +8,7 @@ import { BundlingCard } from "./bundling-card";
 import { FilterItem } from "./filter-item";
 import { Breadcrumbs } from "./breadcrumbs";
 import { api } from "@/lib/gen/main.esensi";
+import { GlobalLoading } from "./global-loading";
 
 export const LayoutBookList = ({
   title = "" as string,
@@ -115,10 +116,11 @@ export const LayoutBookList = ({
       toggleFilter: false as boolean,
     },
     async () => {
-      const banner = await api.banner({ for: "booklist" });
-      if (banner?.data) {
-        local.banner = banner.data?.img;
+      const res = await api.banner({ for: "booklist" });
+      if (res?.data) {
+        local.banner = res.data?.img;
       }
+      local.render();
     }
   );
 
@@ -331,7 +333,7 @@ export const LayoutBookList = ({
     </div>
   );
 
-  const renderLoading = <></>;
+  const renderLoading = <GlobalLoading/>;
 
   return <>{loading ? renderLoading : renderPage}</>;
 };

@@ -26,9 +26,9 @@ export default (data: Awaited<ReturnType<typeof api.search>>["data"]) => {
   const localBanner = useLocal({
     img: `` as string,
   }, async()=>{
-    const get = await api.banner({ for: "booklist" });
-    if (get?.data) {
-      localBanner.img = get.data?.img;
+    const res = await api.banner({ for: "booklist" });
+    if (res?.data) {
+      localBanner.img = res.data?.img;
     }
     localBanner.render();
   });

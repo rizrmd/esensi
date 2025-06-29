@@ -10,6 +10,7 @@ import { CategoryList } from "@/components/esensi/category-list";
 import { Breadcrumb } from "@/components/ext/book/breadcrumb/approval";
 import { Breadcrumbs } from "@/components/esensi/breadcrumbs";
 import { RelatedPost } from "@/components/esensi/related-post";
+import { GlobalLoading } from "@/components/esensi/global-loading";
 
 export default (data: Awaited<ReturnType<typeof api.bundle>>["data"]) => {
   const header_config = {
@@ -47,7 +48,7 @@ export default (data: Awaited<ReturnType<typeof api.bundle>>["data"]) => {
     local.loading = false;
   }
 
-  const renderLoading = <></>;
+  const renderLoading = <GlobalLoading/>;
   const renderNoProduct = <div>TIDAK ADA PRODUK</div>;
 
   const bookCover = local.loading ? (
