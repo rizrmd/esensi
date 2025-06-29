@@ -19,14 +19,14 @@ export const DesktopMenu = ({ data = [] as any, parent = null as any }) => {
       return (
         <li
           className={`flex relative ${
-            parent !== null ? "h-7 w-full hover:[&>a]:bg-[#e1e5ef] hover:[&>a]:text-[#3B2C93]" : "h-full hover:[&>a]:text-[#3B2C93]"
+            parent !== null ? "h-7 w-auto hover:[&>a]:bg-[#e1e5ef] hover:[&>a]:text-[#3B2C93]" : "h-full hover:[&>a]:text-[#3B2C93]"
           }`}
           key={`esensi_dmenu_${parent !== null ? `${parent}_` : ""}_${idx}`}
         >
           <Link
             href={item?.url}
             target={item?.newtab ? "_blank" : "_self"}
-            className={`flex h-full gap-1.5 items-center ${
+            className={`flex h-full gap-1.5 whitespace-pre items-center ${
               parent !== null
                 ? "px-4 w-full justify-between [&_svg]:rotate-[-90deg] [&_svg]:-mr-3"
                 : "font-medium"
@@ -44,7 +44,7 @@ export const DesktopMenu = ({ data = [] as any, parent = null as any }) => {
         className={`${
           parent == null
             ? "flex h-10 gap-6 [&_li_ul]:hidden [&_li:hover>ul]:flex"
-            : "flex-col absolute min-w-[160px] text-[14px] left-0 py-2 bg-white -ml-4 shadow-lg rounded-sm [&_ul]:left-full [&_ul]:ml-0 [&_ul]:-mt-2"
+            : "flex-col absolute min-w-[160px] w-auto text-[13px] left-0 py-2 bg-white -ml-4 shadow-md outline outline-[#e1e5ef] rounded-sm [&_ul]:left-full [&_ul]:ml-0 [&_ul]:-mt-2"
         } shrink-0 `}
       >
         {the_list}
