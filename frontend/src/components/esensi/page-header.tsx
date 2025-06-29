@@ -111,6 +111,7 @@ export const PageHeader = ({
             src={local.contents?.logo?.img}
             alt={local.contents?.logo?.alt}
             className="h-8 w-auto lg:h-16"
+            skipResize={true}
           />
         </Link>
 

@@ -1,9 +1,12 @@
+import { skip } from "shared/models/runtime/library";
+
 export const ImgThumb = ({
   src = null as string | null,
   width = null as number | null,
   height = null as number | null,
   alt = "EO Img" as string,
   className = "" as string,
+  skipResize = false as boolean,
 }) => {
   const w = width !== null ? width : "auto";
   const h = height !== null ? height : "auto";
@@ -11,7 +14,7 @@ export const ImgThumb = ({
 
   let img =
     src !== null
-      ? src.startsWith(`_file/`)
+      ? src.startsWith(`_file/`) && !skipResize
         ? `https://esensi.online/${src}`
         : src
       : ``;

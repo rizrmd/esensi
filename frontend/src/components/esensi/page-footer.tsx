@@ -69,6 +69,7 @@ export const PageFooter = ({ desktopHide = false as boolean }) => {
               src={local.logo?.img}
               alt={local.logo?.alt}
               className="w-[200px] h-auto"
+              skipResize={true}
             />
             <h5 className="text-lg font-bold text-[#3B2C93] whitespace-pre-line">
               {local.logo?.tagline}
