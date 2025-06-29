@@ -1,8 +1,19 @@
 import { Link } from "@/lib/router";
 import { StoreBundlingCard } from "./store-bundling-card";
 import { ImgThumb } from "./img-thumb";
+import { useLocal } from "@/lib/hooks/use-local";
+import { api } from "@/lib/gen/main.esensi";
 
 export const StoreBundling = ({ slug, img, list }) => {
+  const local = useLocal({
+    banner: ``,
+  }, async ()=>{
+    const res = await api.banner({for:"featured-bundle"});
+    if (res?.data) {
+      local.banner = res.data?.img;
+    }
+    local.render();
+  });
   const renderBooks = list.map((book, idx) => {
     return (
       <StoreBundlingCard data={book} key={`esensi_store_bundlinglist_${idx}`} />
@@ -13,9 +24,7 @@ export const StoreBundling = ({ slug, img, list }) => {
     <div className="flex flex-row w-full lg:px-6 gap-5 justify-center items-stretch">
       <div className="flex w-auto lg:w-1/4 flex-row shrink-0">
         <Link href={`/bundle/${slug}`}>
-          {img !== "" && img !== null && (
-            <ImgThumb src={img} alt="Special bundle" className="w-stretch h-auto aspect-1/1 object-fill position-center rounded-sm"/>
-          )}
+            <ImgThumb skipResize={true} src={local.banner} alt="Special bundle" className="w-stretch h-auto aspect-1/1 object-fill position-center rounded-sm"/>
         </Link>
       </div>
 

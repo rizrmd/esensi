@@ -71,16 +71,7 @@ export default defineAPI({
       },
     });
 
-    const menu_categories = categories.map((cat, idx) => {
-      const the_cat = {
-        label: cat.name,
-        url: `/category/${cat.slug}`,
-        newtab: false,
-        submenu: null,
-      };
-      return the_cat;
-    });
-
+  
     /*
     if (arg?.bundling_slug !== "" && arg?.bundling_slug !== null) {
 
@@ -135,15 +126,49 @@ export default defineAPI({
       },
     });
 
+    const getBanner = await db.banner.findFirst({
+      select:{
+        banner_file: true,
+      },
+      where: {
+        title: "banner-default",
+        deleted_at: null,
+      },
+    });
+    const banner_file = getBanner?.banner_file ? JSON.parse(getBanner.banner_file as string) : null;
+    const header_banner = {
+      img: banner_file ? banner_file[0] : null,
+      title: "Dunia Baru Dimulai Dari Satu Halaman",
+      subtitle: "Temukan ribuan judul ebook berkualitas di Esensi Online",
+      button:{
+        label: `Cari tahu`,
+        url:`#`,
+        newTab: false,
+      },
+    };
+
+
+    const getBundleImg = await db.banner.findFirst({
+      select:{
+        banner_file: true,
+      },
+      where: {
+        title: "bundle-square",
+        deleted_at: null,
+      },
+    });
+    const getBundleImgFile = getBundleImg?.banner_file ? JSON.parse(getBundleImg.banner_file as string) : null;
+    
+
     const data = {
       title: `Esensi Online`,
+      banner: header_banner,
       categories: categories,
-      menu_categories: menu_categories,
       allbooks: allbooks,
       featured: featured,
       bundling: {
         slug: arg?.bundling_slug,
-        img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8LDs1PB_FuxsL-EUHP99aM4unr41aIFRdoO_FolO4GpD3f4VkSADO39hoVe5QsiBZuk-gkTfceeu43MyLbzXwKOte07e1MkaQfoKn7h4rK4v0zAcjRLIzQzs7dByjOzu9ZsnYT-hz6_XoqE0-jgZHlJa7_MhgOkccmaEsS9dRueTueshO1zQu-xV7kSk/s1600/bundle-desktop.png",
+        img: getBundleImgFile ? getBundleImgFile[0] : null,
         list: bundling,
       },
     };

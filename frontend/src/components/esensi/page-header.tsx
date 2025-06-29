@@ -18,7 +18,6 @@ export const PageHeader = ({
   profile = true as boolean,
   mobileHide = false as boolean,
   desktopHide = false as boolean,
-  menu_categories = [] as any,
   toggleProfile,
 }) => {
   const local = useLocal(
@@ -33,7 +32,6 @@ export const PageHeader = ({
       profile: profile,
       mobileHide: mobileHide,
       desktopHide: desktopHide,
-      menu_categories: menu_categories,
       contents: {
         logo: {
           img: `` as string,

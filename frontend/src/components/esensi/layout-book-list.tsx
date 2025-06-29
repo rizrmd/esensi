@@ -6,8 +6,6 @@ import { Frown, ListFilter } from "lucide-react";
 import { BookCard } from "./book-card";
 import { BundlingCard } from "./bundling-card";
 import { FilterItem } from "./filter-item";
-import { FilterSelected } from "./filter-selected";
-import { Breadcrumb } from "../ext/book/breadcrumb/approval";
 import { Breadcrumbs } from "./breadcrumbs";
 
 export const LayoutBookList = ({

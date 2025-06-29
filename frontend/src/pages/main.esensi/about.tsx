@@ -74,7 +74,8 @@ export default (data: Awaited<ReturnType<typeof api.about>>["data"]) => {
       <div className="flex"></div>
     </div>
   );
-  console.log(local.links);
+
+  
   const renderLinksItem = local.links !== "undefined" && local.links !== undefined &&
     local.links !== null &&
     local.links.length > 0 &&

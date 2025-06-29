@@ -18,7 +18,6 @@ type MainEsensiLayoutProps = {
   mobile_menu?: boolean;
   footer_config?: any;
   profile?: any;
-  menu_categories?: any;
 };
 
 export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
@@ -35,7 +34,6 @@ export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
     mobileHide: false,
     desktopHide: false,
   },
-  menu_categories = [],
   mobile_menu = true,
   footer_config = {
     desktopHide: false,
@@ -120,7 +118,6 @@ export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
           mobileHide={header_config.mobileHide}
           desktopHide={header_config.desktopHide}
           toggleProfile={toggleProfile}
-          menu_categories={menu_categories}
         />
         <div className="grow-1 h-auto">{children}</div>
         <PageFooter desktopHide={footer_config.desktopHide} />

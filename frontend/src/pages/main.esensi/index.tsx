@@ -15,19 +15,30 @@ import { StoreHeaderBanner } from "@/components/esensi/store-header-banner";
 import { api } from "@/lib/gen/main.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 
-
 export default () => {
+
+  const header_config = {
+    enable: true,
+    logo: true,
+    back: false,
+    search: true,
+    title: null,
+    cart: true,
+    profile: true,
+  };
+
   const local = useLocal(
     {
-      header_config: {
-        enable: true,
-        logo: true,
-        back: false,
-        search: true,
-        title: null,
-        cart: true,
-        profile: true,
-      },
+      banner:{
+        img: "",
+        title: "",
+        subtitle: "",
+        button: {
+          label: "",
+          url: "",
+          newTab: false,
+        },
+      } as any,
       featured: {
         loading: true,
         list: [] as StoreCategoryItem[],
@@ -49,19 +60,11 @@ export default () => {
         selected: "",
         list: [] as StoreBooksCardItem[],
       },
-      headerBanner: {
-        img: "",
-        title: "",
-        subtitle: "",
-        btnlabel: "",
-        btnurl: "",
-      },
       bundling: {
         slug: "" as any | null,
         img: "" as any | null,
         list: [] as StoreBooksCardItem[],
       },
-      menu_categories: [] as any,
     },
     async () => {
       const res = await api.index({
@@ -81,13 +84,10 @@ export default () => {
       local.allbooks.list = res.data.allbooks;
       local.allbooks.loading = false;
 
-      local.headerBanner.img = "";
-      local.headerBanner.title = "Dunia Baru Dimulai Dari Satu Halaman";
-      local.headerBanner.subtitle = "Lorem ipsum dolor sit amet.";
-      local.headerBanner.btnlabel = "Find out";
-      local.headerBanner.btnurl = "#";
+      if(res?.data?.banner) {
+        local.banner = res.data.banner;
+      }
 
-      local.menu_categories =  res.data.menu_categories;
       local.render();
       changeByCategory(res.data.categories[0].slug);
       changeFeaturedBundle("bundling-montessori-di-rumah");
@@ -154,15 +154,16 @@ export default () => {
   };
 
   return (
-    <MainEsensiLayout header_config={local.header_config} menu_categories={local.menu_categories}>
+    <MainEsensiLayout header_config={header_config}>
       <div className="w-full flex flex-col justify-center items-center gap-10 lg:[&>div:not(.esensi-banner)]:max-w-[1200px]">
         <div className="esensi-banner order-1 lg:order-0 -mt-10 lg:mt-0 w-full">
           <StoreHeaderBanner
-            img={local.headerBanner.img}
-            title={local.headerBanner.title}
-            subtitle={local.headerBanner.subtitle}
-            btnlabel={local.headerBanner.btnlabel}
-            btnurl={local.headerBanner.btnurl}
+            img={local.banner?.img}
+            title={local.banner?.title}
+            subtitle={local.banner?.subtitle}
+            btnlabel={local.banner?.button?.label}
+            btnurl={local.banner?.button?.url}
+            btnnewtab={local.banner?.button?.newTab}
           />
         </div>
         <div className="hidden lg:flex flex-col gap-6 px-6 w-full">
