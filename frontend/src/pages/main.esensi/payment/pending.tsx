@@ -1,5 +1,6 @@
 import { MainEsensiLayout } from "@/components/esensi/layout";
 import { Button } from "@/components/ui/button";
+import { api } from "@/lib/gen/main.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { Link } from "@/lib/router";
 import { Clock, Copy, CreditCard, FileText, RefreshCw } from "lucide-react";
@@ -30,27 +31,15 @@ export default () => {
 
       if (local.order_id) {
         try {
-          // Note: Implement this API call when the backend API is ready
-          // const response = await api.check_order_status({
-          //   order_id: local.order_id,
-          // });
-
-          // Mock data for demo
-          local.order_data = {
+          const response = await api.check_payment_status({
             order_id: local.order_id,
-            status: "pending",
-            total_amount: 150000,
-            currency: "Rp.",
-            payment_info: {
-              payment_type: "bank_transfer",
-              va_numbers: [
-                {
-                  bank: "bca",
-                  va_number: "1234567890123456",
-                },
-              ],
-            },
-          };
+          });
+
+          if (response.success) {
+            local.order_data = response.data;
+          } else {
+            console.error("Error fetching order details:", response.message);
+          }
         } catch (error) {
           console.error("Error fetching order details:", error);
         }
@@ -72,22 +61,40 @@ export default () => {
     }, 2000);
   };
 
-  const refreshStatus = () => {
+  const refreshStatus = async () => {
+    if (!local.order_id) return;
+
     local.loading = true;
     local.render();
 
-    // Simulate API call
-    setTimeout(() => {
-      local.loading = false;
-      local.render();
-    }, 1000);
+    try {
+      const response = await api.check_payment_status({
+        order_id: local.order_id,
+      });
+
+      if (response.success) {
+        local.order_data = response.data;
+
+        // If payment is successful, redirect to success page
+        if (response.data?.status === "success") {
+          window.location.href = `/payment/success?order_id=${local.order_id}`;
+          return;
+        }
+      }
+    } catch (error) {
+      console.error("Error refreshing status:", error);
+    }
+
+    local.loading = false;
+    local.render();
   };
 
   const getPaymentInstructions = () => {
     if (!local.order_data?.payment_info) return null;
 
-    const paymentType = local.order_data.payment_info.payment_type;
-    const vaNumbers = local.order_data.payment_info.va_numbers;
+    const paymentInfo = local.order_data.payment_info;
+    const paymentType = paymentInfo.payment_type;
+    const vaNumbers = paymentInfo.va_numbers;
 
     if (paymentType === "bank_transfer" && vaNumbers && vaNumbers.length > 0) {
       const va = vaNumbers[0];

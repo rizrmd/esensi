@@ -1,10 +1,7 @@
+import { CheckoutForm } from "@/components/esensi/checkout-form";
 import { DiscountPercent } from "@/components/esensi/discount-percent";
 import { formatMoney } from "@/components/esensi/format-money";
 import { MainEsensiLayout } from "@/components/esensi/layout";
-import {
-  LayoutBookList,
-  type BooksCardType,
-} from "@/components/esensi/layout-book-list.old";
 import { Button } from "@/components/ui/button";
 import { api } from "@/lib/gen/main.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
@@ -267,11 +264,6 @@ export default (data: Awaited<ReturnType<typeof api.cart>>["data"]) => {
     local.render();
   };
 
-  const handleCheckout = (event: any) => {
-    event.preventDefault();
-    alert("Lanjutkan proses checkout, edit script-nya");
-  };
-
   const cartDeleteChecked = local.checked.length > 0 && (
     <div className="flex items-center text-[#3B2C93]">
       <Button
@@ -280,7 +272,11 @@ export default (data: Awaited<ReturnType<typeof api.cart>>["data"]) => {
         onClick={handleDeleteChecked}
       >
         <Trash2 strokeWidth={3} />
-        <span className="text-[#3B2C93]">{local.list.length == local.checked.length ? "Hapus semua" :"Hapus yang dipilih"}</span>
+        <span className="text-[#3B2C93]">
+          {local.list.length == local.checked.length
+            ? "Hapus semua"
+            : "Hapus yang dipilih"}
+        </span>
       </Button>
     </div>
   );
@@ -483,12 +479,16 @@ export default (data: Awaited<ReturnType<typeof api.cart>>["data"]) => {
             local.list.length > 0 ? "flex" : "hidden"
           }`}
         >
-          <Button
-            className="flex items-center justify-center gap-2 bg-[#C6011B] text-white lg:bg-[#D4D8F7] hover:lg:bg-[#D4D8F7] lg:text-[#3B2C93] px-10 h-full rounded-lg"
-            onClick={handleCheckout}
-          >
-            Checkout
-          </Button>
+          <CheckoutForm
+            cartItems={local.list}
+            total={local.total}
+            onSuccess={() => {
+              // Clear cart after successful payment
+              local.list = [];
+              local.checked = [];
+              recountCart();
+            }}
+          />
         </div>
       </div>
     </div>
