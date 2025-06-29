@@ -1,12 +1,12 @@
-import { Protected } from "@/components/app/protected";
 import { Breadcrumb } from "@/components/ext/book/breadcrumb/step";
 import { BookStepItem } from "@/components/ext/book/item-step";
 import { Error } from "@/components/ext/error";
+import { Layout } from "@/components/ext/layout/internal.esensi";
 import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import type { BookStep } from "@/lib/utils";
-import { BookStatus, Role, type Book } from "backend/lib/types";
+import { BookStatus, type Book } from "backend/lib/types";
 
 export default () => {
   const local = useLocal(
@@ -75,40 +75,38 @@ export default () => {
   );
 
   return (
-    <Protected role={[Role.INTERNAL]}>
-      <div className="flex min-h-svh flex-col bg-gray-50">
-        <MenuBarInternal />
-        <main className="flex-1">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="p-6">
-                <Breadcrumb />
-                <div className="flex justify-between items-center mb-6">
-                  <div className="flex flex-col gap-4">
-                    <h1 className="text-2xl font-bold">Proses Buku</h1>
-                    <span className="text-gray-500 text-sm md:text-base">
-                      Berikut adalah langkah-langkah yang harus dilakukan untuk
-                      menerbitkan buku. Silakan klik pada setiap langkah untuk
-                      melihat detailnya.
-                    </span>
-                  </div>
+    <Layout loading={local.loading}>
+      <MenuBarInternal />
+      <main className="flex-1">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="p-6">
+              <Breadcrumb />
+              <div className="flex justify-between items-center mb-6">
+                <div className="flex flex-col gap-4">
+                  <h1 className="text-2xl font-bold">Proses Buku</h1>
+                  <span className="text-gray-500 text-sm md:text-base">
+                    Berikut adalah langkah-langkah yang harus dilakukan untuk
+                    menerbitkan buku. Silakan klik pada setiap langkah untuk
+                    melihat detailnya.
+                  </span>
                 </div>
-                <Error msg={local.error}>
-                  {local.steps.map((step, index) => (
-                    <BookStepItem
-                      key={index}
-                      step={step}
-                      index={index}
-                      currentStep={local.step}
-                      book={local.book}
-                    />
-                  ))}
-                </Error>
               </div>
+              <Error msg={local.error}>
+                {local.steps.map((step, index) => (
+                  <BookStepItem
+                    key={index}
+                    step={step}
+                    index={index}
+                    currentStep={local.step}
+                    book={local.book}
+                  />
+                ))}
+              </Error>
             </div>
           </div>
-        </main>
-      </div>
-    </Protected>
+        </div>
+      </main>
+    </Layout>
   );
 };

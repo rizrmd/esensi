@@ -1,15 +1,14 @@
-import { AppLoading } from "@/components/app/loading";
-import { Protected } from "@/components/app/protected";
 import { Breadcrumb } from "@/components/ext/book/breadcrumb/product/detail";
 import { ItemDetails, product } from "@/components/ext/book/item-detail";
 import { Error } from "@/components/ext/error";
 import { Img } from "@/components/ext/img/detail";
+import { Layout } from "@/components/ext/layout/internal.esensi";
 import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { baseUrl } from "@/lib/gen/base-url";
 import { api } from "@/lib/gen/publish.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
-import { Role, type Product } from "backend/lib/types";
+import { type Product } from "backend/lib/types";
 
 export default () => {
   const local = useLocal(
@@ -40,44 +39,38 @@ export default () => {
     }
   );
 
-  if (local.loading) return <AppLoading />;
-
   return (
-    <Protected role={[Role.INTERNAL]}>
-      <div className="flex min-h-svh flex-col bg-gray-50">
-        <MenuBarInternal />
-        <main className="flex-1">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="p-6">
-                <Breadcrumb />
-                <h1 className="mb-6 text-2xl font-bold">Detil Produk</h1>
-                <Error msg={local.error}>
-                  {local.product && (
-                    <Card className="shadow-md border border-gray-200">
-                      <Img
-                        check={!!local.product.cover}
-                        src={
-                          baseUrl.internal_esensi + "/" + local.product.cover
-                        }
-                        alt={local.product.name}
-                      />
-                      <CardHeader>
-                        <CardTitle className="text-xl font-bold mb-2">
-                          {local.product.name}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ItemDetails list={product(local.product)} />
-                      </CardContent>
-                    </Card>
-                  )}
-                </Error>
-              </div>
+    <Layout loading={local.loading}>
+      <MenuBarInternal />
+      <main className="flex-1">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="p-6">
+              <Breadcrumb />
+              <h1 className="mb-6 text-2xl font-bold">Detil Produk</h1>
+              <Error msg={local.error}>
+                {local.product && (
+                  <Card className="shadow-md border border-gray-200">
+                    <Img
+                      check={!!local.product.cover}
+                      src={baseUrl.internal_esensi + "/" + local.product.cover}
+                      alt={local.product.name}
+                    />
+                    <CardHeader>
+                      <CardTitle className="text-xl font-bold mb-2">
+                        {local.product.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ItemDetails list={product(local.product)} />
+                    </CardContent>
+                  </Card>
+                )}
+              </Error>
             </div>
           </div>
-        </main>
-      </div>
-    </Protected>
+        </div>
+      </main>
+    </Layout>
   );
 };

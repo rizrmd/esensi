@@ -64,6 +64,7 @@ export default () => {
     async () => {
       const res = await betterAuth.getSession();
       current.user = res.data?.user;
+      if (!current.user) return;
       local.formData.publisher.name = current.user?.name!;
       local.formData.author.name = current.user?.name!;
       local.formData.publisher.logo = current.user?.image || null;

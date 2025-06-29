@@ -1,7 +1,7 @@
-import { Protected } from "@/components/app/protected";
 import { Breadcrumb } from "@/components/ext/book/breadcrumb/sales";
 import { Items, book as tf } from "@/components/ext/book/item-sales";
 import { Error } from "@/components/ext/error";
+import { Layout } from "@/components/ext/layout/internal.esensi";
 import { MenuBarPublish } from "@/components/ext/menu-bar/publish";
 import { MyBadge } from "@/components/ext/status-badge";
 import {
@@ -27,10 +27,9 @@ import { navigate } from "@/lib/router";
 import { formatCurrency, formatDate, validate } from "@/lib/utils";
 import {
   BadgeStatus,
-  Role,
   type Book,
   type Product,
-  type TSalesLine,
+  type TSalesLine
 } from "backend/lib/types";
 
 export default () => {
@@ -89,11 +88,8 @@ export default () => {
         if (local.productId) {
           // Fetch product stats
           const statsRes = await api.product_stats({ id: local.productId });
-          if (statsRes.success) {
-            local.productStats = statsRes.data;
-          } else {
-            local.productStats = undefined;
-          }
+          if (statsRes.success) local.productStats = statsRes.data;
+          else local.productStats = undefined;
 
           const res = await api.t_sales_line_list({
             id_product: local.productId,
@@ -146,206 +142,202 @@ export default () => {
   };
 
   return (
-    <Protected role={[Role.INTERNAL]}>
-      <div className="flex min-h-svh flex-col bg-gray-50">
-        <MenuBarPublish />
-        <main className="flex-1">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-            <Error msg={local.error} loading={local.loading}>
-              <div className="space-y-6">
-                {/* Book details */}
-                <Card>
-                  <CardHeader>
-                    <Breadcrumb id={local.bookId!} />
-                    <CardTitle className="text-2xl">Penjualan Buku</CardTitle>
-                    <CardDescription>{local.book?.name}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                      <Items item={tf(local.book!)} />
-                    </div>
-                  </CardContent>
-                </Card>
+    <Layout loading={local.loading}>
+      <MenuBarPublish />
+      <main className="flex-1">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+          <Error msg={local.error} loading={local.loading}>
+            <div className="space-y-6">
+              {/* Book details */}
+              <Card>
+                <CardHeader>
+                  <Breadcrumb id={local.bookId!} />
+                  <CardTitle className="text-2xl">Penjualan Buku</CardTitle>
+                  <CardDescription>{local.book?.name}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <Items item={tf(local.book!)} />
+                  </div>
+                </CardContent>
+              </Card>
 
-                {/* Sales Summary */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Ringkasan Penjualan</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-                        <p className="text-blue-600 text-sm mb-1">
-                          Total Pendapatan
-                        </p>
-                        <p className="text-3xl font-bold text-blue-700">
-                          {formatCurrency(local.totalSales)}
-                        </p>
-                      </div>
-                      <div className="bg-green-50 p-6 rounded-xl border border-green-100">
-                        <p className="text-green-600 text-sm mb-1">
-                          Total Terjual
-                        </p>
-                        <p className="text-3xl font-bold text-green-700">
-                          {local.totalItems} item
-                        </p>
-                      </div>
+              {/* Sales Summary */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Ringkasan Penjualan</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                      <p className="text-blue-600 text-sm mb-1">
+                        Total Pendapatan
+                      </p>
+                      <p className="text-3xl font-bold text-blue-700">
+                        {formatCurrency(local.totalSales)}
+                      </p>
                     </div>
-                    {local.productStats && (
-                      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6">
-                        <div className="bg-gray-50 p-4 rounded-lg border text-center">
-                          <div className="text-xs text-gray-500 mb-1">
-                            Dilihat
-                          </div>
-                          <div className="text-lg font-semibold">
-                            {local.productStats.views}
-                          </div>
+                    <div className="bg-green-50 p-6 rounded-xl border border-green-100">
+                      <p className="text-green-600 text-sm mb-1">
+                        Total Terjual
+                      </p>
+                      <p className="text-3xl font-bold text-green-700">
+                        {local.totalItems} item
+                      </p>
+                    </div>
+                  </div>
+                  {local.productStats && (
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6">
+                      <div className="bg-gray-50 p-4 rounded-lg border text-center">
+                        <div className="text-xs text-gray-500 mb-1">
+                          Dilihat
                         </div>
-                        <div className="bg-gray-50 p-4 rounded-lg border text-center">
-                          <div className="text-xs text-gray-500 mb-1">
-                            Di Keranjang
-                          </div>
-                          <div className="text-lg font-semibold">
-                            {local.productStats.in_cart}
-                          </div>
-                        </div>
-                        <div className="bg-gray-50 p-4 rounded-lg border text-center">
-                          <div className="text-xs text-gray-500 mb-1">
-                            Favorit
-                          </div>
-                          <div className="text-lg font-semibold">
-                            {local.productStats.favorite}
-                          </div>
-                        </div>
-                        <div className="bg-gray-50 p-4 rounded-lg border text-center">
-                          <div className="text-xs text-gray-500 mb-1">
-                            Terjual Bundle
-                          </div>
-                          <div className="text-lg font-semibold">
-                            {local.productStats.sold_bundle}
-                          </div>
-                        </div>
-                        <div className="bg-gray-50 p-4 rounded-lg border text-center">
-                          <div className="text-xs text-gray-500 mb-1">
-                            Terjual Satuan
-                          </div>
-                          <div className="text-lg font-semibold">
-                            {local.productStats.sold_standalone}
-                          </div>
+                        <div className="text-lg font-semibold">
+                          {local.productStats.views}
                         </div>
                       </div>
-                    )}
-                  </CardContent>
-                </Card>
-
-                {/* Sales Table */}
-                <Card>
-                  <CardHeader className="flex flex-row items-start justify-between">
-                    <div>
-                      <CardTitle>Daftar Transaksi</CardTitle>
-                      <CardDescription>
-                        Semua transaksi terkait buku "{local.book?.name}"
-                      </CardDescription>
+                      <div className="bg-gray-50 p-4 rounded-lg border text-center">
+                        <div className="text-xs text-gray-500 mb-1">
+                          Di Keranjang
+                        </div>
+                        <div className="text-lg font-semibold">
+                          {local.productStats.in_cart}
+                        </div>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg border text-center">
+                        <div className="text-xs text-gray-500 mb-1">
+                          Favorit
+                        </div>
+                        <div className="text-lg font-semibold">
+                          {local.productStats.favorite}
+                        </div>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg border text-center">
+                        <div className="text-xs text-gray-500 mb-1">
+                          Terjual Bundle
+                        </div>
+                        <div className="text-lg font-semibold">
+                          {local.productStats.sold_bundle}
+                        </div>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg border text-center">
+                        <div className="text-xs text-gray-500 mb-1">
+                          Terjual Satuan
+                        </div>
+                        <div className="text-lg font-semibold">
+                          {local.productStats.sold_standalone}
+                        </div>
+                      </div>
                     </div>
+                  )}
+                </CardContent>
+              </Card>
 
-                    {local.tSalesLine.length > 0 && (
-                      <DataPagination
-                        total={local.total}
-                        page={local.page}
-                        limit={local.limit}
-                        totalPages={local.totalPages}
-                        onReload={loadData}
-                        onPageChange={async (newPage) => {
-                          local.page = newPage;
-                          local.render();
-                          await loadData();
-                        }}
-                        onLimitChange={async (newLimit) => {
-                          local.limit = newLimit;
-                          local.page = 1;
-                          local.render();
-                          await loadData();
-                        }}
-                      />
-                    )}
-                  </CardHeader>
-                  <CardContent>
-                    {local.tSalesLine.length > 0 ? (
-                      <>
-                        <Table>
-                          <TableHeader>
-                            <TableRow>
-                              <TableHead>ID Transaksi</TableHead>
-                              <TableHead>Tanggal</TableHead>
-                              <TableHead>Jumlah</TableHead>
-                              <TableHead>Harga Satuan</TableHead>
-                              <TableHead>Total</TableHead>
-                              <TableHead>Status</TableHead>
+              {/* Sales Table */}
+              <Card>
+                <CardHeader className="flex flex-row items-start justify-between">
+                  <div>
+                    <CardTitle>Daftar Transaksi</CardTitle>
+                    <CardDescription>
+                      Semua transaksi terkait buku "{local.book?.name}"
+                    </CardDescription>
+                  </div>
+
+                  {local.tSalesLine.length > 0 && (
+                    <DataPagination
+                      total={local.total}
+                      page={local.page}
+                      limit={local.limit}
+                      totalPages={local.totalPages}
+                      onReload={loadData}
+                      onPageChange={async (newPage) => {
+                        local.page = newPage;
+                        local.render();
+                        await loadData();
+                      }}
+                      onLimitChange={async (newLimit) => {
+                        local.limit = newLimit;
+                        local.page = 1;
+                        local.render();
+                        await loadData();
+                      }}
+                    />
+                  )}
+                </CardHeader>
+                <CardContent>
+                  {local.tSalesLine.length > 0 ? (
+                    <>
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>ID Transaksi</TableHead>
+                            <TableHead>Tanggal</TableHead>
+                            <TableHead>Jumlah</TableHead>
+                            <TableHead>Harga Satuan</TableHead>
+                            <TableHead>Total</TableHead>
+                            <TableHead>Status</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {local.tSalesLine.map((line) => (
+                            <TableRow key={line.id}>
+                              <TableCell className="font-medium">
+                                {line.t_sales.id.substring(0, 8)}...
+                              </TableCell>
+                              <TableCell>
+                                {formatDate(line.t_sales.created_at.toString())}
+                              </TableCell>
+                              <TableCell>{line.qty}</TableCell>
+                              <TableCell>
+                                {formatCurrency(line.unit_price)}
+                              </TableCell>
+                              <TableCell>
+                                {formatCurrency(line.total_price)}
+                              </TableCell>
+                              <TableCell>
+                                <MyBadge
+                                  status={line.t_sales.status as BadgeStatus}
+                                />
+                              </TableCell>
                             </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {local.tSalesLine.map((line) => (
-                              <TableRow key={line.id}>
-                                <TableCell className="font-medium">
-                                  {line.t_sales.id.substring(0, 8)}...
-                                </TableCell>
-                                <TableCell>
-                                  {formatDate(
-                                    line.t_sales.created_at.toString()
-                                  )}
-                                </TableCell>
-                                <TableCell>{line.qty}</TableCell>
-                                <TableCell>
-                                  {formatCurrency(line.unit_price)}
-                                </TableCell>
-                                <TableCell>
-                                  {formatCurrency(line.total_price)}
-                                </TableCell>
-                                <TableCell>
-                                  <MyBadge
-                                    status={line.t_sales.status as BadgeStatus}
-                                  />
-                                </TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
+                          ))}
+                        </TableBody>
+                      </Table>
 
-                        <div className="mt-6 flex justify-end">
-                          <DataPagination
-                            total={local.total}
-                            page={local.page}
-                            limit={local.limit}
-                            totalPages={local.totalPages}
-                            onReload={loadData}
-                            onPageChange={async (newPage) => {
-                              local.page = newPage;
-                              local.render();
-                              await loadData();
-                            }}
-                            onLimitChange={async (newLimit) => {
-                              local.limit = newLimit;
-                              local.page = 1;
-                              local.render();
-                              await loadData();
-                            }}
-                          />
-                        </div>
-                      </>
-                    ) : (
-                      <div className="text-center py-6">
-                        <p className="text-gray-500">
-                          Belum ada transaksi untuk buku ini
-                        </p>
+                      <div className="mt-6 flex justify-end">
+                        <DataPagination
+                          total={local.total}
+                          page={local.page}
+                          limit={local.limit}
+                          totalPages={local.totalPages}
+                          onReload={loadData}
+                          onPageChange={async (newPage) => {
+                            local.page = newPage;
+                            local.render();
+                            await loadData();
+                          }}
+                          onLimitChange={async (newLimit) => {
+                            local.limit = newLimit;
+                            local.page = 1;
+                            local.render();
+                            await loadData();
+                          }}
+                        />
                       </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </div>
-            </Error>
-          </div>
-        </main>
-      </div>
-    </Protected>
+                    </>
+                  ) : (
+                    <div className="text-center py-6">
+                      <p className="text-gray-500">
+                        Belum ada transaksi untuk buku ini
+                      </p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </Error>
+        </div>
+      </main>
+    </Layout>
   );
 };

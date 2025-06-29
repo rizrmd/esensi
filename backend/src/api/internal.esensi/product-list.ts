@@ -1,5 +1,4 @@
-import type { User } from "backend/lib/better-auth";
-import type { ProductListResponse } from "backend/lib/types";
+import type { ProductListItem } from "backend/lib/types";
 import type { ApiResponse } from "backend/lib/utils";
 import { defineAPI } from "rlib/server";
 
@@ -7,13 +6,12 @@ export default defineAPI({
   name: "product_list",
   url: "/api/internal/product/list",
   async handler(arg: {
-    user: Partial<User>;
     page?: number;
     limit?: number;
     search?: string;
     status?: string;
     id_author?: string;
-  }): Promise<ApiResponse<ProductListResponse>> {
+  }): Promise<ApiResponse<ProductListItem[]>> {
     try {
       const {
         page = 1,
@@ -26,9 +24,7 @@ export default defineAPI({
       const skip = (page - 1) * limit;
 
       // Build where clause
-      const where: any = {
-        deleted_at: null,
-      };
+      const where: any = { deleted_at: null };
 
       // Add search filter
       if (search.trim()) {
@@ -40,14 +36,10 @@ export default defineAPI({
       }
 
       // Add status filter
-      if (status.trim()) {
-        where.status = status;
-      }
+      if (status.trim()) where.status = status;
 
       // Add author filter
-      if (id_author.trim()) {
-        where.id_author = id_author;
-      }
+      if (id_author.trim()) where.id_author = id_author;
 
       // Get total count
       const total = await db.product.count({ where });
@@ -56,12 +48,7 @@ export default defineAPI({
       const products = await db.product.findMany({
         where,
         include: {
-          author: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
+          author: { select: { id: true, name: true } },
         },
         orderBy: { id: "desc" },
         skip,
@@ -72,14 +59,12 @@ export default defineAPI({
 
       return {
         success: true,
-        data: {
-          products,
-          pagination: {
-            page,
-            limit,
-            total,
-            totalPages,
-          },
+        data: products,
+        pagination: {
+          page,
+          limit,
+          total,
+          totalPages,
         },
       };
     } catch (error) {

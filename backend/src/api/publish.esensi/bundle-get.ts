@@ -31,21 +31,13 @@ export default defineAPI({
       }
 
       const where: any = { deleted_at: null };
-      if (id) {
-        where.id = id;
-      } else if (slug) {
-        where.slug = slug;
-      }
+      if (id) where.id = id;
+      else if (slug) where.slug = slug;
 
       const include: any = {};
 
-      if (include_categories) {
-        include.bundle_category = {
-          include: {
-            category: true,
-          },
-        };
-      }
+      if (include_categories)
+        include.bundle_category = { include: { category: true } };
 
       if (include_products) {
         include.bundle_product = {
@@ -66,33 +58,18 @@ export default defineAPI({
 
       if (include_sales) {
         include.t_sales_line = {
-          include: {
-            t_sales: {
-              include: {
-                customer: true,
-              },
-            },
-          },
+          include: { t_sales: { include: { customer: true } } },
           take: 10,
-          orderBy: {
-            t_sales: {
-              created_at: "desc",
-            },
-          },
+          orderBy: { t_sales: { created_at: "desc" } },
         };
       }
 
-      const bundle = await db.bundle.findFirst({
-        where,
-        include,
-      });
-
-      if (!bundle) {
+      const bundle = await db.bundle.findFirst({ where, include });
+      if (!bundle)
         return {
           success: false,
           message: "Bundle tidak ditemukan",
         };
-      }
 
       return {
         success: true,

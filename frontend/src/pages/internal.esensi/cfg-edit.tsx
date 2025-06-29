@@ -1,7 +1,6 @@
-import { AppLoading } from "@/components/app/loading";
-import { Protected } from "@/components/app/protected";
 import { Breadcrumb } from "@/components/ext/cfg/breadcrumb/update";
 import { Error } from "@/components/ext/error";
+import { Layout } from "@/components/ext/layout/internal.esensi";
 import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
 import { Success } from "@/components/ext/success";
 import { Button } from "@/components/ui/button";
@@ -21,7 +20,6 @@ import { api } from "@/lib/gen/internal.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
 import type { User } from "backend/lib/better-auth";
-import { Role } from "backend/lib/types";
 import { ChevronRight, Save } from "lucide-react";
 
 export const current = {
@@ -42,39 +40,33 @@ export default function CfgEditPage() {
         key: "",
         value: "",
       },
-      loading: false,
+      loading: true,
       error: "",
       success: "",
       isSubmitting: false,
     },
     async () => {
+      const res = await betterAuth.getSession();
+      current.user = res.data?.user;
+      if (!current.user) return;
       const params = new URLSearchParams(location.search);
       local.key = params.get("key") || "";
-
       if (!local.key) {
         local.error = "Key konfigurasi tidak ditemukan.";
         local.render();
         return;
       }
-
-      const res = await betterAuth.getSession();
-      current.user = res.data?.user;
-
       await loadConfig();
     }
   );
 
   async function loadConfig() {
-    local.loading = true;
-    local.error = "";
-    local.render();
-
     try {
       const res = await api.cfg_get({ key: local.key });
       if (res) {
-        local.originalConfig = res;
-        local.form.key = res.key;
-        local.form.value = res.value;
+        local.originalConfig = res.data;
+        local.form.key = local.originalConfig?.key!;
+        local.form.value = local.originalConfig?.value!;
       }
     } catch (error: any) {
       local.error = error.message || "Konfigurasi tidak ditemukan.";
@@ -121,47 +113,13 @@ export default function CfgEditPage() {
     }
   }
 
-  if (local.loading) return <AppLoading />;
-
   if (local.error && !local.originalConfig) {
     return (
-      <Protected
-        role={[Role.INTERNAL]}
-        fallback={() => <div>Akses ditolak</div>}
-      >
-        <div className="flex min-h-svh flex-col bg-gray-50">
-          <MenuBarInternal />
-          <main className="flex-1">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
-              <Breadcrumb id={local.form.key} />
-              <nav className="flex items-center text-sm text-gray-600 mb-6">
-                <button
-                  onClick={() => navigate("/manage-cfg")}
-                  className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
-                >
-                  Kelola Konfigurasi
-                </button>
-                <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                <span className="text-gray-800 font-medium">
-                  Edit Konfigurasi
-                </span>
-              </nav>
-
-              <Error msg={local.error} />
-            </div>
-          </main>
-        </div>
-      </Protected>
-    );
-  }
-
-  return (
-    <Protected role={[Role.INTERNAL]} fallback={() => <div>Akses ditolak</div>}>
-      <div className="flex min-h-svh flex-col bg-gray-50">
+      <Layout loading={local.loading}>
         <MenuBarInternal />
         <main className="flex-1">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
-            {/* Breadcrumb */}
+            <Breadcrumb id={local.form.key} />
             <nav className="flex items-center text-sm text-gray-600 mb-6">
               <button
                 onClick={() => navigate("/manage-cfg")}
@@ -176,91 +134,114 @@ export default function CfgEditPage() {
             </nav>
 
             <Error msg={local.error} />
-            <Success msg={local.success} />
-
-            {/* Header */}
-            <div className="mb-8">
-              <h1 className="text-2xl font-bold">Edit Konfigurasi</h1>
-              <p className="text-gray-600 mt-2">
-                Ubah value untuk konfigurasi dengan key:{" "}
-                <code className="bg-gray-100 px-2 py-1 rounded text-sm">
-                  {local.form.key}
-                </code>
-              </p>
-            </div>
-
-            {/* Form */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Form Konfigurasi</CardTitle>
-                <CardDescription>
-                  Key konfigurasi tidak dapat diubah. Hanya value yang dapat
-                  diperbarui.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="key">Key Konfigurasi</Label>
-                  <Input
-                    id="key"
-                    value={local.form.key}
-                    disabled={true}
-                    className="bg-gray-50"
-                  />
-                  <p className="text-sm text-gray-500">
-                    Key konfigurasi tidak dapat diubah setelah dibuat.
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="value">Value Konfigurasi *</Label>
-                  <Textarea
-                    id="value"
-                    placeholder="Masukkan value untuk konfigurasi..."
-                    value={local.form.value}
-                    onChange={(e) => {
-                      local.form.value = e.target.value;
-                      local.render();
-                    }}
-                    rows={6}
-                    disabled={local.isSubmitting}
-                  />
-                  <p className="text-sm text-gray-500">
-                    Value dapat berupa teks, angka, JSON, atau format lainnya
-                    sesuai kebutuhan.
-                  </p>
-                </div>
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <Button
-                  variant="outline"
-                  onClick={() => navigate("/manage-cfg")}
-                  disabled={local.isSubmitting}
-                >
-                  Batal
-                </Button>
-                <Button
-                  onClick={handleSubmit}
-                  disabled={local.isSubmitting}
-                  className="flex items-center gap-2"
-                >
-                  {local.isSubmitting ? (
-                    <>
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                      Menyimpan...
-                    </>
-                  ) : (
-                    <>
-                      <Save className="h-4 w-4" />
-                      Simpan Perubahan
-                    </>
-                  )}
-                </Button>
-              </CardFooter>
-            </Card>
           </div>
         </main>
-      </div>
-    </Protected>
+      </Layout>
+    );
+  }
+
+  return (
+    <Layout loading={local.loading}>
+      <MenuBarInternal />
+      <main className="flex-1">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+          {/* Breadcrumb */}
+          <nav className="flex items-center text-sm text-gray-600 mb-6">
+            <button
+              onClick={() => navigate("/manage-cfg")}
+              className="hover:text-blue-600 transition-colors font-medium cursor-pointer"
+            >
+              Kelola Konfigurasi
+            </button>
+            <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+            <span className="text-gray-800 font-medium">Edit Konfigurasi</span>
+          </nav>
+
+          <Error msg={local.error} />
+          <Success msg={local.success} />
+
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-2xl font-bold">Edit Konfigurasi</h1>
+            <p className="text-gray-600 mt-2">
+              Ubah value untuk konfigurasi dengan key:{" "}
+              <code className="bg-gray-100 px-2 py-1 rounded text-sm">
+                {local.form.key}
+              </code>
+            </p>
+          </div>
+
+          {/* Form */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Form Konfigurasi</CardTitle>
+              <CardDescription>
+                Key konfigurasi tidak dapat diubah. Hanya value yang dapat
+                diperbarui.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="key">Key Konfigurasi</Label>
+                <Input
+                  id="key"
+                  value={local.form.key}
+                  disabled={true}
+                  className="bg-gray-50"
+                />
+                <p className="text-sm text-gray-500">
+                  Key konfigurasi tidak dapat diubah setelah dibuat.
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="value">Value Konfigurasi *</Label>
+                <Textarea
+                  id="value"
+                  placeholder="Masukkan value untuk konfigurasi..."
+                  value={local.form.value}
+                  onChange={(e) => {
+                    local.form.value = e.target.value;
+                    local.render();
+                  }}
+                  rows={6}
+                  disabled={local.isSubmitting}
+                />
+                <p className="text-sm text-gray-500">
+                  Value dapat berupa teks, angka, JSON, atau format lainnya
+                  sesuai kebutuhan.
+                </p>
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-between">
+              <Button
+                variant="outline"
+                onClick={() => navigate("/manage-cfg")}
+                disabled={local.isSubmitting}
+              >
+                Batal
+              </Button>
+              <Button
+                onClick={handleSubmit}
+                disabled={local.isSubmitting}
+                className="flex items-center gap-2"
+              >
+                {local.isSubmitting ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    Menyimpan...
+                  </>
+                ) : (
+                  <>
+                    <Save className="h-4 w-4" />
+                    Simpan Perubahan
+                  </>
+                )}
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+      </main>
+    </Layout>
   );
 }

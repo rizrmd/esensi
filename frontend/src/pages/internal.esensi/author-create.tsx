@@ -1,5 +1,5 @@
-import { Protected } from "@/components/app/protected";
 import { Error } from "@/components/ext/error";
+import { Layout } from "@/components/ext/layout/internal.esensi";
 import { MenuBarInternal } from "@/components/ext/menu-bar/internal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,30 +9,24 @@ import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/lib/gen/internal.esensi";
 import { useLocal } from "@/lib/hooks/use-local";
 import { navigate } from "@/lib/router";
-import { Role } from "backend/lib/types";
 import { ArrowLeft, Save, Upload, User as UserIcon } from "lucide-react";
 
 export default () => {
-  const local = useLocal(
-    {
-      form: {
-        name: "",
-        biography: "",
-        social_media: "",
-        avatar: "",
-        id_account: "",
-        id_user: "",
-        cfg: {} as Record<string, any>,
-      },
-      loading: false,
-      uploading: false,
-      error: "",
-      success: false,
+  const local = useLocal({
+    form: {
+      name: "",
+      biography: "",
+      social_media: "",
+      avatar: "",
+      id_account: "",
+      id_user: "",
+      cfg: {} as Record<string, any>,
     },
-    async () => {
-      // Initialize form
-    }
-  );
+    loading: false,
+    uploading: false,
+    error: "",
+    success: false,
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -110,11 +104,9 @@ export default () => {
 
       const result = await response.json();
 
-      if (result.success && result.data?.url) {
+      if (result.success && result.data?.url)
         local.form.avatar = result.data.url;
-      } else {
-        local.error = "Gagal mengupload gambar";
-      }
+      else local.error = "Gagal mengupload gambar";
     } catch (error) {
       console.error("Upload error:", error);
       local.error = "Terjadi kesalahan saat mengupload gambar";
@@ -144,7 +136,7 @@ export default () => {
 
   if (local.success) {
     return (
-      <Protected role={Role.INTERNAL}>
+      <Layout loading={local.loading}>
         <div className="flex flex-col min-h-screen bg-background">
           <MenuBarInternal />
           <div className="flex-1 flex items-center justify-center">
@@ -175,244 +167,237 @@ export default () => {
             </Card>
           </div>
         </div>
-      </Protected>
+      </Layout>
     );
   }
 
   return (
-    <Protected role={Role.INTERNAL}>
-      <div className="flex flex-col min-h-screen bg-background">
-        <MenuBarInternal />
+    <Layout loading={local.loading}>
+      <MenuBarInternal />
 
-        <div className="flex-1 container mx-auto px-4 py-8">
-          <div className="max-w-2xl mx-auto">
-            <div className="mb-8">
-              <Button
-                variant="ghost"
-                onClick={() => navigate("/manage-author")}
-                className="mb-4"
-              >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Kembali ke Kelola Penulis
-              </Button>
+      <div className="flex-1 container mx-auto px-4 py-8">
+        <div className="max-w-2xl mx-auto">
+          <div className="mb-8">
+            <Button
+              variant="ghost"
+              onClick={() => navigate("/manage-author")}
+              className="mb-4"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Kembali ke Kelola Penulis
+            </Button>
 
-              <h1 className="text-3xl font-bold">Tambah Penulis Baru</h1>
-              <p className="text-muted-foreground mt-2">
-                Isi formulir di bawah untuk menambahkan penulis baru ke sistem
-              </p>
-            </div>
+            <h1 className="text-3xl font-bold">Tambah Penulis Baru</h1>
+            <p className="text-muted-foreground mt-2">
+              Isi formulir di bawah untuk menambahkan penulis baru ke sistem
+            </p>
+          </div>
 
-            {local.error && <Error msg={local.error} loading={false} />}
+          {local.error && <Error msg={local.error} loading={false} />}
 
-            <form onSubmit={handleSubmit}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Informasi Penulis</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  {/* Avatar Upload */}
-                  <div className="space-y-2">
-                    <Label>Foto Profil</Label>
-                    <div className="flex items-center gap-4">
-                      <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center overflow-hidden">
-                        {local.form.avatar ? (
-                          <img
-                            src={local.form.avatar}
-                            alt="Avatar"
-                            className="w-full h-full object-cover"
-                          />
-                        ) : (
-                          <UserIcon className="h-8 w-8 text-muted-foreground" />
-                        )}
-                      </div>
-                      <div className="flex-1">
-                        <Input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleAvatarUpload}
-                          disabled={local.uploading}
-                          className="hidden"
-                          id="avatar-upload"
+          <form onSubmit={handleSubmit}>
+            <Card>
+              <CardHeader>
+                <CardTitle>Informasi Penulis</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Avatar Upload */}
+                <div className="space-y-2">
+                  <Label>Foto Profil</Label>
+                  <div className="flex items-center gap-4">
+                    <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center overflow-hidden">
+                      {local.form.avatar ? (
+                        <img
+                          src={local.form.avatar}
+                          alt="Avatar"
+                          className="w-full h-full object-cover"
                         />
-                        <Label
-                          htmlFor="avatar-upload"
-                          className="cursor-pointer"
+                      ) : (
+                        <UserIcon className="h-8 w-8 text-muted-foreground" />
+                      )}
+                    </div>
+                    <div className="flex-1">
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleAvatarUpload}
+                        disabled={local.uploading}
+                        className="hidden"
+                        id="avatar-upload"
+                      />
+                      <Label htmlFor="avatar-upload" className="cursor-pointer">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          disabled={local.uploading}
+                          className="w-full"
+                          asChild
                         >
-                          <Button
-                            type="button"
-                            variant="outline"
-                            disabled={local.uploading}
-                            className="w-full"
-                            asChild
-                          >
-                            <span>
-                              <Upload className="h-4 w-4 mr-2" />
-                              {local.uploading
-                                ? "Mengupload..."
-                                : "Upload Foto"}
-                            </span>
-                          </Button>
-                        </Label>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          Format: JPG, PNG. Maksimal 2MB.
-                        </p>
-                      </div>
+                          <span>
+                            <Upload className="h-4 w-4 mr-2" />
+                            {local.uploading ? "Mengupload..." : "Upload Foto"}
+                          </span>
+                        </Button>
+                      </Label>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Format: JPG, PNG. Maksimal 2MB.
+                      </p>
                     </div>
                   </div>
+                </div>
 
-                  {/* Name */}
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Nama Penulis *</Label>
-                    <Input
-                      id="name"
-                      value={local.form.name}
-                      onChange={(e) => {
-                        local.form.name = e.target.value;
-                        local.render();
-                      }}
-                      placeholder="Masukkan nama lengkap penulis"
-                      required
-                    />
-                  </div>
+                {/* Name */}
+                <div className="space-y-2">
+                  <Label htmlFor="name">Nama Penulis *</Label>
+                  <Input
+                    id="name"
+                    value={local.form.name}
+                    onChange={(e) => {
+                      local.form.name = e.target.value;
+                      local.render();
+                    }}
+                    placeholder="Masukkan nama lengkap penulis"
+                    required
+                  />
+                </div>
 
-                  {/* Biography */}
-                  <div className="space-y-2">
-                    <Label htmlFor="biography">Biografi</Label>
-                    <Textarea
-                      id="biography"
-                      value={local.form.biography}
-                      onChange={(e) => {
-                        local.form.biography = e.target.value;
-                        local.render();
-                      }}
-                      placeholder="Ceritakan tentang penulis, latar belakang, pengalaman, dll."
-                      rows={4}
-                    />
-                  </div>
+                {/* Biography */}
+                <div className="space-y-2">
+                  <Label htmlFor="biography">Biografi</Label>
+                  <Textarea
+                    id="biography"
+                    value={local.form.biography}
+                    onChange={(e) => {
+                      local.form.biography = e.target.value;
+                      local.render();
+                    }}
+                    placeholder="Ceritakan tentang penulis, latar belakang, pengalaman, dll."
+                    rows={4}
+                  />
+                </div>
 
-                  {/* Social Media */}
-                  <div className="space-y-2">
-                    <Label htmlFor="social_media">Media Sosial</Label>
-                    <Input
-                      id="social_media"
-                      value={local.form.social_media}
-                      onChange={(e) => {
-                        local.form.social_media = e.target.value;
-                        local.render();
-                      }}
-                      placeholder="Link Instagram, Twitter, website personal, dll."
-                    />
-                  </div>
+                {/* Social Media */}
+                <div className="space-y-2">
+                  <Label htmlFor="social_media">Media Sosial</Label>
+                  <Input
+                    id="social_media"
+                    value={local.form.social_media}
+                    onChange={(e) => {
+                      local.form.social_media = e.target.value;
+                      local.render();
+                    }}
+                    placeholder="Link Instagram, Twitter, website personal, dll."
+                  />
+                </div>
 
-                  {/* Account ID */}
-                  <div className="space-y-2">
-                    <Label htmlFor="id_account">ID Akun (Opsional)</Label>
-                    <Input
-                      id="id_account"
-                      value={local.form.id_account}
-                      onChange={(e) => {
-                        local.form.id_account = e.target.value;
-                        local.render();
-                      }}
-                      placeholder="ID akun yang terkait dengan penulis"
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      Jika penulis sudah memiliki akun di sistem
-                    </p>
-                  </div>
+                {/* Account ID */}
+                <div className="space-y-2">
+                  <Label htmlFor="id_account">ID Akun (Opsional)</Label>
+                  <Input
+                    id="id_account"
+                    value={local.form.id_account}
+                    onChange={(e) => {
+                      local.form.id_account = e.target.value;
+                      local.render();
+                    }}
+                    placeholder="ID akun yang terkait dengan penulis"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Jika penulis sudah memiliki akun di sistem
+                  </p>
+                </div>
 
-                  {/* User ID */}
-                  <div className="space-y-2">
-                    <Label htmlFor="id_user">ID User (Opsional)</Label>
-                    <Input
-                      id="id_user"
-                      value={local.form.id_user}
-                      onChange={(e) => {
-                        local.form.id_user = e.target.value;
-                        local.render();
-                      }}
-                      placeholder="ID user yang terkait dengan penulis"
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      Jika penulis sudah terdaftar sebagai user
-                    </p>
-                  </div>
+                {/* User ID */}
+                <div className="space-y-2">
+                  <Label htmlFor="id_user">ID User (Opsional)</Label>
+                  <Input
+                    id="id_user"
+                    value={local.form.id_user}
+                    onChange={(e) => {
+                      local.form.id_user = e.target.value;
+                      local.render();
+                    }}
+                    placeholder="ID user yang terkait dengan penulis"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Jika penulis sudah terdaftar sebagai user
+                  </p>
+                </div>
 
-                  {/* Configuration */}
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <Label>Konfigurasi Tambahan</Label>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={addConfigField}
-                      >
-                        Tambah Konfigurasi
-                      </Button>
-                    </div>
-                    {Object.keys(local.form.cfg).length > 0 && (
-                      <div className="space-y-3 p-4 border rounded-lg bg-muted/50">
-                        {Object.entries(local.form.cfg).map(([key, value]) => (
-                          <div key={key} className="flex items-center gap-2">
-                            <Input value={key} disabled className="w-32" />
-                            <Input
-                              value={value as string}
-                              onChange={(e) =>
-                                updateConfigValue(key, e.target.value)
-                              }
-                              placeholder="Nilai konfigurasi"
-                            />
-                            <Button
-                              type="button"
-                              variant="destructive"
-                              size="sm"
-                              onClick={() => removeConfigField(key)}
-                            >
-                              Hapus
-                            </Button>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    <p className="text-xs text-muted-foreground">
-                      Konfigurasi khusus untuk penulis ini
-                    </p>
-                  </div>
-
-                  <div className="flex gap-4 pt-4">
+                {/* Configuration */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Label>Konfigurasi Tambahan</Label>
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={() => navigate("/manage-author")}
-                      className="flex-1"
+                      size="sm"
+                      onClick={addConfigField}
                     >
-                      Batal
-                    </Button>
-                    <Button
-                      type="submit"
-                      disabled={local.loading || !local.form.name.trim()}
-                      className="flex-1"
-                    >
-                      {local.loading ? (
-                        <>
-                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                          Menyimpan...
-                        </>
-                      ) : (
-                        <>
-                          <Save className="h-4 w-4 mr-2" />
-                          Simpan Penulis
-                        </>
-                      )}
+                      Tambah Konfigurasi
                     </Button>
                   </div>
-                </CardContent>
-              </Card>
-            </form>
-          </div>
+                  {Object.keys(local.form.cfg).length > 0 && (
+                    <div className="space-y-3 p-4 border rounded-lg bg-muted/50">
+                      {Object.entries(local.form.cfg).map(([key, value]) => (
+                        <div key={key} className="flex items-center gap-2">
+                          <Input value={key} disabled className="w-32" />
+                          <Input
+                            value={value as string}
+                            onChange={(e) =>
+                              updateConfigValue(key, e.target.value)
+                            }
+                            placeholder="Nilai konfigurasi"
+                          />
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => removeConfigField(key)}
+                          >
+                            Hapus
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <p className="text-xs text-muted-foreground">
+                    Konfigurasi khusus untuk penulis ini
+                  </p>
+                </div>
+
+                <div className="flex gap-4 pt-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => navigate("/manage-author")}
+                    className="flex-1"
+                  >
+                    Batal
+                  </Button>
+                  <Button
+                    type="submit"
+                    disabled={local.loading || !local.form.name.trim()}
+                    className="flex-1"
+                  >
+                    {local.loading ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                        Menyimpan...
+                      </>
+                    ) : (
+                      <>
+                        <Save className="h-4 w-4 mr-2" />
+                        Simpan Penulis
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </form>
         </div>
       </div>
-    </Protected>
+    </Layout>
   );
 };
