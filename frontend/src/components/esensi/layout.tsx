@@ -106,7 +106,7 @@ export const MainEsensiLayout: FC<MainEsensiLayoutProps> = ({
       }
     : null; // Pass null to show guest login state
   return (
-    <Protected role={"any"} fallback={PublishFallback}>
+    <Protected role={"any"} fallback={PublishFallback} disableRedirect={true}>
       <div className="flex h-auto flex-col gap-0 pb-25 lg:pb-0 m-0 text-[color:#020817]">
         <PageHeader
           enable={header_config.enable}
