@@ -10,12 +10,16 @@ export const ImgThumb = ({
   const newAlt = alt.replace(`"`, ``).replace(`'`, ``);
 
   let img =
-    src !== null ? (src.startsWith(`_file/`) ? `https://esensi.online/${src}` : src) : ``;
+    src !== null
+      ? src.startsWith(`_file/`)
+        ? `https://esensi.online/${src}`
+        : src
+      : ``;
   img = img.startsWith(`https://esensi.online/`)
     ? `${img.replace("_file/", "_img/")}${w !== "auto" ? `?w=${w}` : ""}`
     : img;
 
-  const renderImg = src !== null && (
+  const renderImg = !!src && (
     <>
       <img
         src={img}
